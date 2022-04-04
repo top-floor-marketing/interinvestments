@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/rootinterinvest/public_html/wp-content/plugins
+    - /bin/cp test.js $DEPLOYPATH
