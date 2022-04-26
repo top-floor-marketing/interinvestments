@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 import { Button } from '@mantine/core';
 
 const ButtonTabs = (props) => {
-    const [activeButton, setActiveButton] = useState(false)
-    const { text = 'Settings' } = props
+    // const [activeButton, setActiveButton] = useState(false)
+    const { text = 'Settings', active: activeButton, onChageActive } = props
 
     const chageActive = () => {
         if (activeButton) {
@@ -20,7 +20,7 @@ const ButtonTabs = (props) => {
                 label: 'w-full text-base font-normal'
             }}
             variant="outline"
-            onClick={() => setActiveButton(!activeButton)}
+            onClick={() => onChageActive('newConstruction')}
             className={`transition duration-500 border-t-0 text-left  border-l-0 border-r-0 rounded-none ${chageActive()}`}>
             {text}
         </Button>
