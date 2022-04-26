@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import ButtonTabs from './ButtonTabs'
 
 const TapsQuickSearch = () => {
-    const [searchActive, setSearchActive] = useState('newConst')
+    const [searchActive, setSearchActive] = useState('newConstruction')
     return (
         <div className='grid grid-cols-3 gap-4'>
             <ButtonTabs
@@ -12,7 +12,7 @@ const TapsQuickSearch = () => {
                 text='New Construction'
             />
             {
-                //    <ButtonTabs text='New Homes' />
+                <ButtonTabs text='New Homes' />
                 // <ButtonTabs text='Rental Community' />
             }
         </div>
