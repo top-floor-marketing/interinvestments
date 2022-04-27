@@ -33,9 +33,6 @@ const TapsQuickSearch = () => {
     const [searchActive, setSearchActive] = useState(BUTTONS_TABS[0].id);
     const matches = useMediaQuery('(min-width: 1024px)');
 
-    console.log('searchActive', searchActive)
-    console.log('SELECT_TABS', SELECT_TABS)
-
     return (
         <div className={'grid grid-cols-1 lg:grid-cols-3 gap-4'}>
             {

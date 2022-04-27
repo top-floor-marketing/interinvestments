@@ -1,6 +1,6 @@
 <?php
 
-class Gameroom_options {
+class Quick_search_options {
 
   protected $plugin_options_page = '';
 
@@ -23,11 +23,11 @@ class Gameroom_options {
   * Create new plugin options page under the Settings menu.
   */
   public function create_admin_menu_page() {
-    $this->plugin_options_page = add_options_page('gameroom', 'gameroom', 'manage_options', __FILE__, array( $this, 'render_plugin_options_page' ) );
+    $this->plugin_options_page = add_options_page('Quick_search', 'Quick_search', 'manage_options', __FILE__, array( $this, 'render_plugin_options_page' ) );
   }
 
   public function render_plugin_options_page() {
-    echo '<div id="gameroom"></div>';
+    echo '<div id="Quick_search"></div>';
   }
 
   public function enqueue_admin_scripts($hook) {
@@ -54,5 +54,5 @@ class Gameroom_options {
   }
 }
 
-$gameroom_options = new Gameroom_options();
-$gameroom_options->init();
+$Quick_search_options = new Quick_search_options();
+$Quick_search_options->init();

@@ -3,7 +3,7 @@ import QuickSearch from './Components/QuickSearch'
 
 function App() {
   return (
-    <div className="h-screen App bg-secondary">
+    <div className="h-screen App">
       <QuickSearch />
     </div>
   )

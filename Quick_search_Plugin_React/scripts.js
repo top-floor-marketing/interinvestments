@@ -18,7 +18,6 @@ config.optimization.runtimeChunk = false
 
 // disable LICENSE file creation
 config.optimization.minimizer[0].options.extractComments = false
-console.log(config)
 
 // Renames main.00455bcf.js to main.js
 config.output.filename = 'static/js/[name].js'

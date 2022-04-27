@@ -1,13 +1,13 @@
 <?php
 /*
-Plugin Name: <RWP Plugin>
-Description: Use the [<wp-react-plugin>] shortcode to display the plugin
+Plugin Name: Quick_search
+Description: Use the [Quick_search] shortcode to display the plugin
 Version: 0.0.1
-Author: Gustavo Gomez
-Author URI: https://github.com/GustavoGomez092
+Author: Topfloormarketing
+Author URI: https://www.topfloormarketing.net/
 */
 
-class gameroom {
+class Quick_search {
 
     protected $plugin_options_page = '';
 
@@ -36,10 +36,10 @@ class gameroom {
     }
 }
 
-$gameroom = new gameroom();
-$gameroom->init();
+$Quick_search = new Quick_search();
+$Quick_search->init();
 
-function gameroom_shortcode( $atts ) {
+function Quick_search_shortcode( $atts ) {
   $handle = 'wp-react-plugin-';
 
   // enqueue development or production React code
@@ -51,7 +51,7 @@ function gameroom_shortcode( $atts ) {
     $handle .= 'dev';
     wp_enqueue_script( $handle, 'http://localhost:3000/static/js/bundle.js', ['wp-element'], '0.1', true );
   }
-  return "<div id='gameroom'></div>";
+  return "<div id='Quick_search'></div>";
 }
 
-add_shortcode( 'gameroom', 'gameroom_shortcode' );
+add_shortcode( 'Quick_search', 'Quick_search_shortcode' );
