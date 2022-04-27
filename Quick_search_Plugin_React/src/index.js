@@ -7,7 +7,7 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('gameroom')
+  document.getElementById('Quick_search')
 );
 
 // If you want to start measuring performance in your app, pass a function
