@@ -10,8 +10,8 @@ const QuickSearch = () => {
         <div className='w-full h-full'>
             <Card className='py-8'>
                 <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-                    <div className='flex items-center justify-center w-full h-full'>
-                        <h3 className='font-normal text-center md:text-left text-[30px] xl:text-[40px] leading-10 w-full lg:w-1/2'>
+                    <div className='flex items-center justify-center w-full h-full mx-5 md:mx-0'>
+                        <h3 className='font-normal text-left text-[30px] xl:text-[40px] leading-10 w-full lg:w-1/2'>
                             Search for new properties:
                         </h3>
                     </div>

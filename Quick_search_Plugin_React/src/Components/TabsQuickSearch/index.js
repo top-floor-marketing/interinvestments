@@ -37,7 +37,7 @@ const TapsQuickSearch = () => {
     console.log('SELECT_TABS', SELECT_TABS)
 
     return (
-        <div className={'grid grid-cols-2 lg:grid-cols-3 gap-4'}>
+        <div className={'grid grid-cols-1 lg:grid-cols-3 gap-4'}>
             {
                 (matches) ? (
                     BUTTONS_TABS.map((val, index) =>
@@ -59,12 +59,8 @@ const TapsQuickSearch = () => {
                 )
 
             }
-            <div className='col-span-3'>
-                <div className='flex flex-col gap-2 md:flex-row'>
-                    <SelectTabs className='w-full md:w-1/2' />
-                    <InputTabs className='w-full md:w-1/2' />
-                </div>
-            </div>
+            <SelectTabs className='col-span-3 md:col-span-1' />
+            <InputTabs className='col-span-3 md:col-span-2' />
         </div>
     )
 }
