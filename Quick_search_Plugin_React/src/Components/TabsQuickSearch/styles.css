@@ -1,0 +1,3 @@
+#Quick_search .categorySelect{
+    @apply border-t-0 border-l-0 border-r-0 rounded-none text-neutral border-neutral focus:border-neutral;
+}
