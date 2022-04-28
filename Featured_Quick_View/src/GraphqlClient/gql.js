@@ -53,6 +53,7 @@ export const GET_CATEGORIES_GQL = gql`
         databaseId
         description
         id
+        name
       }
     }
   }
