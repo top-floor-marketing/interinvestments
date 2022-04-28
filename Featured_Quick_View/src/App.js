@@ -1,13 +1,15 @@
-import './App.css'
+import { QueryClient, QueryClientProvider } from "react-query";
 
-function App () {
+import ContainerMain from "./Containers/main";
+
+const queryClient = new QueryClient();
+
+function App() {
   return (
-    <div className='App'>
-      <h1 className='text-[80px] font-bold underline decoration-red-700'>
-        Hello world!
-      </h1>
-    </div>
-  )
+    <QueryClientProvider client={queryClient}>
+      <ContainerMain />
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
