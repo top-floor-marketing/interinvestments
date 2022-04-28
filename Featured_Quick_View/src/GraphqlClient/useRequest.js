@@ -8,24 +8,44 @@ const API_URL =
     ? process.env.REACT_APP_NODE_ENV
     : process.env.REACT_APP_API_URL_PROD;
 
+const globalConfig = {
+  refetchOnWindowFocus: false,
+};
+
 const graphQLClient = new GraphQLClient(API_URL, {
   headers: {
     Authorization: `Bearer `,
   },
 });
 
+// https://react-query.tanstack.com/reference/useQuery
 const useQueryHelper = (props) => {
-  const { name, gql, variables, config } = props;
-  return useQuery(name, async () => {
-    return await graphQLClient.request(gql, variables);
-  });
+  const { name, gql, variables, config = {} } = props;
+  return useQuery(
+    name,
+    async () => {
+      const data = await graphQLClient.request(gql, variables);
+      return data;
+    },
+    {
+      ...globalConfig,
+      ...config,
+    }
+  );
 };
 
 const useMutationHelper = (props) => {
-  const { name, gql, variables, config } = props;
-  return useMutation(name, async () => {
-    return await graphQLClient.request(gql, variables);
-  });
+  const { name, gql, variables, config = {} } = props;
+  return useMutation(
+    name,
+    async () => {
+      return await graphQLClient.request(gql, variables);
+    },
+    {
+      ...globalConfig,
+      ...config,
+    }
+  );
 };
 
 export { useQueryHelper, useMutationHelper };
