@@ -138,11 +138,7 @@ const UseGetListing = () => {
 
   return {
     data: fullData,
-    renderSkeleton:
-      loadingCategories ||
-      isFirtsFetch ||
-      isFetchingCategories ||
-      isFetchingListListing,
+    renderSkeleton: loadingCategories || isFirtsFetch || isFetchingCategories,
     isLoading:
       loadingCategories ||
       loadingListListing ||
