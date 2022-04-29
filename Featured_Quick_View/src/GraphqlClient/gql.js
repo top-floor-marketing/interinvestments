@@ -35,6 +35,7 @@ export const GET_LISTING_FEATURED_GQL = gql`
               uri
               status
             }
+            nameOfDevelopment
           }
         }
       }

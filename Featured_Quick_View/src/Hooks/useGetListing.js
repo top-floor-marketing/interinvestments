@@ -6,20 +6,24 @@ import {
   GET_CATEGORIES_GQL,
 } from "../GraphqlClient/gql";
 
-import { FAKE_DATA } from "./constants";
-
 const UseGetListing = () => {
   const [fullData, setFullData] = useState([]);
   const [categoryId, setCategoryId] = useState(0);
-  const [perPage] = useState(8);
+  const [perPage] = useState(4);
   const [cursorPaginator, setCursorPaginator] = useState("");
   const [hasNextPage, setHasNextPage] = useState(true);
 
-  const createFakeData = (prevData, nextData) => {
-    const prevData_ = prevData.length ? prevData : FAKE_DATA;
-    const nextData_ = [];
-
-    return [...prevData_, ...nextData_];
+  const fullDataGenerator = (prevData, nextData) => {
+    let nextData_ = [];
+    nextData_ = nextData.map((val) => {
+      return {
+        title: val.title,
+        subTitle: val.listingData.newDevelopment.nameOfDevelopment,
+        id: val.databaseId,
+        photos: val.listingData.newDevelopment.photos || [],
+      };
+    });
+    return [...prevData, ...nextData_];
   };
 
   // first query
@@ -58,7 +62,7 @@ const UseGetListing = () => {
         const { nodes, pageInfo } = listings;
         setCursorPaginator(pageInfo.endCursor);
         setHasNextPage(pageInfo.hasNextPage);
-        const newData = createFakeData(fullData, nodes);
+        const newData = fullDataGenerator(fullData, nodes);
         setFullData(newData);
       },
     },
@@ -69,14 +73,19 @@ const UseGetListing = () => {
     },
   });
 
+  const fetchListing = () => {
+    alert("LOAD MORE");
+  };
+
   return {
     data: fullData,
-    loading:
+    isLoading:
       loadingCategories ||
       fetchingCategories ||
       loadingListing ||
       fetchingListing,
     isError: errorCategories || errorListing,
+    fetchListing: fetchListing,
   };
 };
 
