@@ -19,7 +19,11 @@ const MainContainer = () => {
   } = UseGetListing();
 
   return (
-    <div className="w-full min-h-[400px] bg-white mx-auto max-w-[1280px] py-12 flex flex-col gap-7">
+    <div
+      data-aos="fade-up"
+      data-aos-duration="700"
+      className="w-full min-h-[400px] bg-white mx-auto max-w-[1280px] py-12 flex flex-col gap-7"
+    >
       <p className="font-outfit font-[400] text-[36px] text-center lg:text-left mb-0">
         Featured Developments
       </p>
