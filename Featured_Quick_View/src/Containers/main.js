@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mantine/core";
+import { Button, Overlay } from "@mantine/core";
 
 import GridQuickView from "../Components/GridQuickView";
 import SkeletonGrid from "../Components/SkeletonGrid";
@@ -8,8 +8,15 @@ import EmptyGrid from "../Components/EmptyGrid";
 import UseGetListing from "../Hooks/useGetListing";
 
 const MainContainer = () => {
-  const { data, isLoading, isError, fetchListing, renderSkeleton } =
-    UseGetListing();
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchListing,
+    renderSkeleton,
+    openQuickView,
+    showOverlay,
+  } = UseGetListing();
 
   return (
     <div className="w-full min-h-[400px] bg-white mx-auto max-w-[1280px] py-12 flex flex-col gap-7">
@@ -21,7 +28,11 @@ const MainContainer = () => {
       ) : renderSkeleton ? (
         <SkeletonGrid />
       ) : (
-        <GridQuickView data={data} />
+        <GridQuickView
+          data={data}
+          openQuickView={openQuickView}
+          showOverlay={showOverlay}
+        />
       )}
       <Button
         onClick={() => fetchListing()}
