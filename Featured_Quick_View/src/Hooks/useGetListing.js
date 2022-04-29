@@ -12,7 +12,7 @@ const UseGetListing = () => {
   const [categoryId, setCategoryId] = useState(0);
   const [perPage] = useState(4);
   const [cursorPaginator, setCursorPaginator] = useState("");
-  //const [hasNextPage, setHasNextPage] = useState(true);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const fullDataGenerator = (prevData, nextData) => {
     let nextData_ = [];
@@ -68,7 +68,6 @@ const UseGetListing = () => {
         const { listings } = response;
         const { nodes, pageInfo } = listings;
         setCursorPaginator(pageInfo.endCursor);
-        //setHasNextPage(pageInfo.hasNextPage);
         const newData = fullDataGenerator(fullData, nodes);
         setFullData(newData);
         setIsFirtsFetch(false);
@@ -88,12 +87,18 @@ const UseGetListing = () => {
     refetchListing();
   };
 
+  const openQuickView = () => {
+    setShowOverlay(true);
+  };
+
   return {
     data: fullData,
     renderSkeleton: isFirtsFetch,
     isLoading: loadingListing || fetchingListing || isFirtsFetch,
     isError: errorCategories || errorListing,
     fetchListing: fetchListing,
+    openQuickView: openQuickView,
+    showOverlay,
   };
 };
 
