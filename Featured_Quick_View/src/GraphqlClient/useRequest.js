@@ -5,7 +5,7 @@ import { GraphQLClient } from "graphql-request";
 const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
 const API_URL =
   ENVIROMENT === "production"
-    ? process.env.REACT_APP_NODE_ENV
+    ? process.env.REACT_APP_API_URL_DEV
     : process.env.REACT_APP_API_URL_PROD;
 
 const globalConfig = {

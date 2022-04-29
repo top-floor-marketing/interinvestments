@@ -7,11 +7,12 @@ import {
 } from "../GraphqlClient/gql";
 
 const UseGetListing = () => {
+  const [isFirtsFetch, setIsFirtsFetch] = useState(true);
   const [fullData, setFullData] = useState([]);
   const [categoryId, setCategoryId] = useState(0);
   const [perPage] = useState(4);
   const [cursorPaginator, setCursorPaginator] = useState("");
-  const [hasNextPage, setHasNextPage] = useState(true);
+  //const [hasNextPage, setHasNextPage] = useState(true);
 
   const fullDataGenerator = (prevData, nextData) => {
     let nextData_ = [];
@@ -42,7 +43,12 @@ const UseGetListing = () => {
         });
         if (filterCategory.length) {
           setCategoryId(filterCategory[0].databaseId);
+        } else {
+          setIsFirtsFetch(true);
         }
+      },
+      onError: () => {
+        setIsFirtsFetch(false);
       },
     },
   });
@@ -52,6 +58,7 @@ const UseGetListing = () => {
     isLoading: loadingListing,
     isFetching: fetchingListing,
     isError: errorListing,
+    refetch: refetchListing,
   } = useQueryHelper({
     name: "get-listing-featured",
     gql: GET_LISTING_FEATURED_GQL,
@@ -61,9 +68,13 @@ const UseGetListing = () => {
         const { listings } = response;
         const { nodes, pageInfo } = listings;
         setCursorPaginator(pageInfo.endCursor);
-        setHasNextPage(pageInfo.hasNextPage);
+        //setHasNextPage(pageInfo.hasNextPage);
         const newData = fullDataGenerator(fullData, nodes);
         setFullData(newData);
+        setIsFirtsFetch(false);
+      },
+      onError: () => {
+        setIsFirtsFetch(false);
       },
     },
     variables: {
@@ -74,16 +85,13 @@ const UseGetListing = () => {
   });
 
   const fetchListing = () => {
-    alert("LOAD MORE");
+    refetchListing();
   };
 
   return {
     data: fullData,
-    isLoading:
-      loadingCategories ||
-      fetchingCategories ||
-      loadingListing ||
-      fetchingListing,
+    renderSkeleton: isFirtsFetch,
+    isLoading: loadingListing || fetchingListing || isFirtsFetch,
     isError: errorCategories || errorListing,
     fetchListing: fetchListing,
   };
