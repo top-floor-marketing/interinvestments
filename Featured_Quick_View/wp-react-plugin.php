@@ -56,7 +56,7 @@ function featured_Quick_View_shortcode($atts)
     $handle .= 'dev';
     wp_enqueue_script($handle, 'http://localhost:3000/static/js/bundle.js', ['wp-element'], '0.1', true);
   }
-  return "<div id='gameroom'></div>";
+  return "<div id='Featured_Quick_View'></div>";
 }
 
 add_shortcode('Featured_Quick_View', 'featured_Quick_View_shortcode');

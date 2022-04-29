@@ -1,13 +1,25 @@
-import './App.css'
+import { useEffect } from "react";
 
-function App () {
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import ContainerMain from "./Containers/main";
+
+import AOS from "aos";
+
+import "aos/dist/aos.css";
+
+const queryClient = new QueryClient();
+
+function App() {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   return (
-    <div className='App'>
-      <h1 className='text-[80px] font-bold underline decoration-red-700'>
-        Hello world!
-      </h1>
-    </div>
-  )
+    <QueryClientProvider client={queryClient}>
+      <ContainerMain />
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
