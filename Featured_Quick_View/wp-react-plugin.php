@@ -43,7 +43,7 @@ class Featured_Quick_View
 $featured_Quick_View = new Featured_Quick_View();
 $featured_Quick_View->init();
 
-function featured_Quick_View_shortcode($atts)
+function Featured_Quick_View_shortcode($atts)
 {
   $handle = 'wp-react-plugin-';
 
@@ -59,4 +59,4 @@ function featured_Quick_View_shortcode($atts)
   return "<div id='Featured_Quick_View'></div>";
 }
 
-add_shortcode('Featured_Quick_View', 'featured_Quick_View_shortcode');
+add_shortcode('Featured_Quick_View', 'Featured_Quick_View_shortcode');
