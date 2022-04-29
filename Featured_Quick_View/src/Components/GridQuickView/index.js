@@ -21,11 +21,11 @@ const GridQuickView = ({
         "group relative flex  flex-col min-h-[300px] max-h-[350px] w-full rounded-[10px] shadow-[0px_4px_25px_4px_rgba(0,0,0,0.0.5)]",
     },
     imgCover: {
-      class:
+      className:
         "bg-cover	bg-fixed bg-center bg-no-repeat group-hover:backdrop-contrast-200 w-full h-full absolute rounded-[10px]",
     },
     filter: {
-      class:
+      className:
         "bg-gray-500 group-hover:bg-white w-full h-full absolute opacity-[0.20] group-hover:opacity-[0.05] rounded-[10px]",
     },
     infoContainer: {
@@ -44,13 +44,15 @@ const GridQuickView = ({
     gridButtons: {
       className: "flex flex-row gap-5 pt-1",
     },
-    buttonQuickView: {
-      onClick: () => openQuickView(),
-      disabled: showOverlay,
-      loading: showOverlay,
-      variant: "white",
-      className:
-        "text-black bg-white rounded-[32px] font-outfit hover:bg-gray-100 ",
+    buttonQuickView: (id) => {
+      return {
+        onClick: () => openQuickView(id),
+        disabled: showOverlay,
+        loading: showOverlay,
+        variant: "white",
+        className:
+          "text-black bg-white rounded-[32px] font-outfit hover:bg-gray-100 ",
+      };
     },
     buttonRedirect: {
       disabled: showOverlay,
@@ -108,7 +110,9 @@ const GridQuickView = ({
                   <Text {...allProps.textTitle}>{val.title}</Text>
                   <Text {...allProps.textSubTitle}>{val.subTitle}</Text>
                   <div {...allProps.gridButtons}>
-                    <Button {...allProps.buttonQuickView}>Quick View</Button>
+                    <Button {...allProps.buttonQuickView(val.id)}>
+                      Quick View
+                    </Button>
                     <Button {...allProps.buttonRedirect}>
                       <ChevronRight size={18} color="#FFB839" />
                     </Button>
@@ -119,7 +123,6 @@ const GridQuickView = ({
           </Paper>
         ))}
       </div>
-      {showOverlay && <Overlay opacity={0.7} color="#000" zIndex={999} />}
     </>
   );
 };

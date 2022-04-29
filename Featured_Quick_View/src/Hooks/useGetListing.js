@@ -4,6 +4,7 @@ import { useQueryHelper } from "../GraphqlClient/useRequest";
 import {
   GET_LISTING_FEATURED_GQL,
   GET_CATEGORIES_GQL,
+  GET_SINGLE_LISTING_GQL,
 } from "../GraphqlClient/gql";
 
 const UseGetListing = () => {
@@ -12,7 +13,11 @@ const UseGetListing = () => {
   const [categoryId, setCategoryId] = useState(0);
   const [perPage] = useState(8);
   const [cursorPaginator, setCursorPaginator] = useState("");
-  const [showOverlay, setShowOverlay] = useState(false);
+  const [modalQuickView, setModalQuickView] = useState({
+    id: 0,
+    content: null,
+  });
+  const [delayOverlay, setDelayOverlay] = useState(false);
 
   const fullDataGenerator = (prevData, nextData) => {
     let nextData_ = [];
@@ -30,8 +35,8 @@ const UseGetListing = () => {
   // first query
   const {
     isLoading: loadingCategories,
-    isFetching: fetchingCategories,
     isError: errorCategories,
+    isFetching: isFetchingCategories,
   } = useQueryHelper({
     name: "get-categories",
     gql: GET_CATEGORIES_GQL,
@@ -55,12 +60,12 @@ const UseGetListing = () => {
 
   // second and main query, Dependent Query
   const {
-    isLoading: loadingListing,
-    isFetching: fetchingListing,
-    isError: errorListing,
-    refetch: refetchListing,
+    isLoading: loadingListListing,
+    isFetching: isFetchingListListing,
+    isError: errorListListing,
+    refetch: refetchListListing,
   } = useQueryHelper({
-    name: "get-listing-featured",
+    name: "get-list-listing-featured",
     gql: GET_LISTING_FEATURED_GQL,
     config: {
       enabled: categoryId > 0,
@@ -85,22 +90,70 @@ const UseGetListing = () => {
     },
   });
 
-  const fetchListing = () => {
-    refetchListing();
+  // Get Specific Listing
+  const {
+    isLoading: loadingSingleListing,
+    isFetching: isFetchingSingleListing,
+    isError: errorSingleListing,
+    refetch: refetchSingleListing,
+  } = useQueryHelper({
+    name: "get-single-listing",
+    gql: GET_SINGLE_LISTING_GQL,
+    config: {
+      enabled: false,
+      onSuccess: (response) => {
+        const { listings } = response;
+        setModalQuickView({
+          ...modalQuickView,
+          content: listings.nodes,
+        });
+      },
+      onError: () => {
+        setModalQuickView({
+          content: null,
+          id: 0,
+        });
+      },
+    },
+    variables: {
+      id: modalQuickView.id,
+    },
+  });
+
+  const fetchListListing = () => {
+    refetchListListing();
   };
 
-  const openQuickView = () => {
-    setShowOverlay(true);
+  const openQuickView = (id) => {
+    setDelayOverlay(true);
+    setModalQuickView({
+      ...modalQuickView,
+      id: id,
+    });
+    refetchSingleListing();
+    setTimeout(() => {
+      setDelayOverlay(false);
+    }, 3000);
   };
 
   return {
     data: fullData,
-    renderSkeleton: isFirtsFetch,
-    isLoading: loadingListing || fetchingListing || isFirtsFetch,
-    isError: errorCategories || errorListing,
-    fetchListing: fetchListing,
+    renderSkeleton:
+      loadingCategories ||
+      isFirtsFetch ||
+      isFetchingCategories ||
+      isFetchingListListing,
+    isLoading:
+      loadingCategories ||
+      loadingListListing ||
+      isFetchingCategories ||
+      isFetchingListListing,
+    isError: errorCategories || errorListListing,
+    fetchListListing: fetchListListing,
     openQuickView: openQuickView,
-    showOverlay,
+    showOverlay:
+      loadingSingleListing || isFetchingSingleListing || delayOverlay,
+    modalQuickView,
   };
 };
 

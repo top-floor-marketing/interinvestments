@@ -5,18 +5,21 @@ import { useMediaQuery } from "@mantine/hooks";
 import GridQuickView from "../Components/GridQuickView";
 import SkeletonGrid from "../Components/SkeletonGrid";
 import EmptyGrid from "../Components/EmptyGrid";
+import ModalQuickView from "../Components/ModalQuickView";
 
 import UseGetListing from "../Hooks/useGetListing";
+import OverlayLoading from "../Components/OverlayLoading";
 
 const MainContainer = () => {
   const {
     data,
     isLoading,
     isError,
-    fetchListing,
+    fetchListListing,
     renderSkeleton,
     openQuickView,
     showOverlay,
+    modalQuickView,
   } = UseGetListing();
 
   const isMobileScreen = useMediaQuery(
@@ -29,7 +32,7 @@ const MainContainer = () => {
       const getButtonOffSet =
         document.querySelector("#btnLoadMore_wp").offsetTop;
       window.scrollTo({
-        top: getButtonOffSet - 200,
+        top: getButtonOffSet,
         behavior: "smooth",
       });
     }
@@ -52,12 +55,16 @@ const MainContainer = () => {
     },
     btnLoadMore: {
       id: "btnLoadMore_wp",
-      onClick: () => fetchListing(),
+      onClick: () => fetchListListing(),
       variant: "white",
       disabled: isLoading,
       loading: isLoading,
       className:
         "text-black mt-2 max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-100 border border-solid border-black",
+    },
+    modalQuickView: {
+      showOverlay,
+      modalQuickView,
     },
   };
 
@@ -72,6 +79,11 @@ const MainContainer = () => {
         <GridQuickView {...allProps.gridQuickView} />
       )}
       <Button {...allProps.btnLoadMore}>Load More</Button>
+      {showOverlay ? (
+        <OverlayLoading />
+      ) : (
+        <ModalQuickView {...allProps.modalQuickView} />
+      )}
     </div>
   );
 };
