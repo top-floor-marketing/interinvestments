@@ -59,3 +59,37 @@ export const GET_CATEGORIES_GQL = gql`
     }
   }
 `;
+
+export const GET_SINGLE_LISTING_GQL = gql`
+  query listings($id: Int!) {
+    listings(first: 1, where: { id: $id }) {
+      nodes {
+        databaseId
+        address {
+          address {
+            address2
+            addressLine1
+            city
+            zip
+            state
+          }
+        }
+        listingData {
+          newDevelopment {
+            description
+            photos {
+              altText
+              description
+              sourceUrl
+              title
+            }
+            priceMax
+            priceMin
+            nameOfDevelopment
+          }
+        }
+        title
+      }
+    }
+  }
+`;
