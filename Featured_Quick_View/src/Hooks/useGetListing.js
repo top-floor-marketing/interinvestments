@@ -10,7 +10,7 @@ const UseGetListing = () => {
   const [isFirtsFetch, setIsFirtsFetch] = useState(true);
   const [fullData, setFullData] = useState([]);
   const [categoryId, setCategoryId] = useState(0);
-  const [perPage] = useState(4);
+  const [perPage] = useState(8);
   const [cursorPaginator, setCursorPaginator] = useState("");
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -67,7 +67,9 @@ const UseGetListing = () => {
       onSuccess: (response) => {
         const { listings } = response;
         const { nodes, pageInfo } = listings;
-        setCursorPaginator(pageInfo.endCursor);
+        if (pageInfo.endCursor) {
+          setCursorPaginator(pageInfo.endCursor);
+        }
         const newData = fullDataGenerator(fullData, nodes);
         setFullData(newData);
         setIsFirtsFetch(false);
