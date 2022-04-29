@@ -5,6 +5,8 @@ import SelectTabs from './SelectTabs'
 import InputTabs from './InputTabs'
 // mantine
 import { useMediaQuery } from '@mantine/hooks';
+// css
+import './styles.css'
 
 const BUTTONS_TABS = [
     {
@@ -32,10 +34,9 @@ const SELECT_TABS = BUTTONS_TABS.map(value => {
 const TapsQuickSearch = () => {
     const [searchActive, setSearchActive] = useState(BUTTONS_TABS[0].id);
     const matches = useMediaQuery('(min-width: 1024px)');
-    
 
     return (
-        <div className={'grid grid-cols-1 lg:grid-cols-3 gap-4'}>
+        <div className='containerTabs'>
             {
                 (matches) ? (
                     BUTTONS_TABS.map((val, index) =>
