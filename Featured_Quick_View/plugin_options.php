@@ -60,5 +60,5 @@ class Featured_Quick_View_options
   }
 }
 
-$featured_Quick_View_options = new Featured_Quick_View_options();
-$featured_Quick_View_options->init();
+$Featured_Quick_View_options = new Featured_Quick_View_options();
+$Featured_Quick_View_options->init();

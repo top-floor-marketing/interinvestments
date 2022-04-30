@@ -40,8 +40,8 @@ class Featured_Quick_View
   }
 }
 
-$featured_Quick_View = new Featured_Quick_View();
-$featured_Quick_View->init();
+$Featured_Quick_View = new Featured_Quick_View();
+$Featured_Quick_View->init();
 
 function Featured_Quick_View_shortcode($atts)
 {
