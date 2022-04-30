@@ -22,6 +22,6 @@
     @apply w-full text-base font-normal;
 }
 
-.InputTabs{
+#Quick_search .InputTabs{
     @apply border-t-0 border-l-0 border-r-0 rounded-none text-neutral border-neutral focus:border-neutral;
 }
