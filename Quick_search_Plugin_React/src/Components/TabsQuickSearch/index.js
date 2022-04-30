@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 // componest
 import ButtonTabs from './ButtonTabs';
 import SelectTabs from './SelectTabs'
@@ -12,35 +12,15 @@ import { LISTINGS_CATEGORY } from '../../GraphqlClient/GQL';
 
 // mantine
 import { useMediaQuery } from '@mantine/hooks';
+
+// store
+import useStore from '../../Store/useStore';
 // css
 import './styles.css'
 
-const BUTTONS_TABS = [
-    {
-        id: 0,
-        label: 'New Construction',
-    },
-    {
-        id: 1,
-        label: 'New Homes',
-    },
-    {
-        id: 2,
-        label: 'Rental Community',
-    }
-]
-
-// const SELECT_TABS = BUTTONS_TABS.map(value => {
-//     return ({
-//         value: value.id.toString(),
-//         label: value.label
-//     })
-// })
-
-
 const TapsQuickSearch = () => {
-    const [searchActive, setSearchActive] = useState();
     const matches = useMediaQuery('(min-width: 1024px)');
+    const { state: { listCategories, activeCategory }, setCategories, setActiveCategory } = useStore();
 
     const { isLoading, isError, data } = useQueryHelper({
         name: 'LISTINGS_CATEGORY',
@@ -50,7 +30,8 @@ const TapsQuickSearch = () => {
         },
         config: {
             onSuccess: (req) => {
-                setSearchActive(req.categories.nodes[0].databaseId)
+                setCategories(req.categories.nodes)
+                setActiveCategory(req.categories.nodes[0].databaseId)
             }
         }
     });
@@ -86,23 +67,24 @@ const TapsQuickSearch = () => {
     if (data) {
         return (
             <div className='containerTabs'>
+
                 {
                     (matches) ? (
-                        data.categories.nodes.map((val, index) =>
+                        listCategories.map((val, index) =>
                             <ButtonTabs
                                 key={index}
                                 id={val.databaseId}
-                                onChageActive={setSearchActive}
-                                active={(val.databaseId === searchActive)}
+                                onChageActive={setActiveCategory}
+                                active={(val.databaseId === activeCategory)}
                                 text={val.name}
                             />
                         )
                     ) : (
                         <SelectTabs
                             placeholder='Select category'
-                            onChange={setSearchActive}
-                            value={searchActive.toString()}
-                            data={SELECT_TABS(data.categories.nodes)}
+                            onChange={setActiveCategory}
+                            value={activeCategory.toString()}
+                            data={SELECT_TABS(listCategories)}
                             className='w-full col-span-3'
                         />
                     )
