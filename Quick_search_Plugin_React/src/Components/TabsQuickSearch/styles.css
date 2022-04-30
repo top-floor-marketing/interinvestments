@@ -14,6 +14,14 @@
     @apply text-neutral border-neutral;
 }
 
+.ButtonTabsDiable{
+    @apply text-disableColor border-disableColor;
+}
+
 .ButtonTabslabel{
     @apply w-full text-base font-normal;
+}
+
+.InputTabs{
+    @apply border-t-0 border-l-0 border-r-0 rounded-none text-neutral border-neutral focus:border-neutral;
 }

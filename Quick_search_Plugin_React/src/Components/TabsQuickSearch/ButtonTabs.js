@@ -7,13 +7,6 @@ import './styles.css'
 const ButtonTabs = (props) => {
     const { text = 'Settings', active: activeButton, onChageActive, id } = props
 
-    const chageActive = () => {
-        if (activeButton) {
-            return 'ButtonTabsActive'
-        }
-        return 'text-disableColor border-disableColor'
-    }
-
     return (
         <Button
             classNames={{
@@ -21,7 +14,7 @@ const ButtonTabs = (props) => {
             }}
             variant="outline"
             onClick={() => onChageActive(id)}
-            className={`ButtonTabs ${chageActive()}`}>
+            className={`ButtonTabs ${(activeButton) ? 'ButtonTabsActive' : 'ButtonTabsDiable'}`}>
             {text}
         </Button>
     )
