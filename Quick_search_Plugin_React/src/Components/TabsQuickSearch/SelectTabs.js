@@ -5,7 +5,7 @@ import { ChevronDown } from 'tabler-icons-react';
 import './styles.css'
 
 const SelectTabs = (props) => {
-    const { className: classNameprops, data = [], value, onChange } = props
+    const { className: classNameprops, data = [], value, onChange, placeholder = '' } = props
     return (
         <Select
             value={value}
@@ -15,7 +15,7 @@ const SelectTabs = (props) => {
                 input: 'categorySelect',
             }}
             rightSection={<ChevronDown size={14} />}
-            placeholder="New Construction"
+            placeholder={placeholder}
             data={data}
         />
     )
