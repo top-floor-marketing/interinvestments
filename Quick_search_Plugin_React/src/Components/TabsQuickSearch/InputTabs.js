@@ -1,15 +1,17 @@
 import React from 'react'
 
-import { Input } from '@mantine/core';
+import { TextInput } from '@mantine/core';
 import { Search } from 'tabler-icons-react';
 
 // css
 import './styles.css'
 
 const InputTabs = (props) => {
-    const { className: classNameprops } = props
+    const { className: classNameprops, value = '', onChange } = props
     return (
-        <Input
+        <TextInput
+            onChange={(text) => onChange(text.target.value)}
+            value={value}
             className={classNameprops}
             classNames={{
                 input: 'InputTabs',
