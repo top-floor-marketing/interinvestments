@@ -20,7 +20,16 @@ import './styles.css'
 
 const TapsQuickSearch = () => {
     const matches = useMediaQuery('(min-width: 1024px)');
-    const { state: { listCategories, activeCategory }, setCategories, setActiveCategory, setSearchListing } = useStore();
+    const {
+        state: {
+            listCategories,
+            activeCategory,
+            searchListing
+        },
+        setCategories,
+        setActiveCategory,
+        setSearchListing
+    } = useStore();
 
     const { isLoading, isError, data } = useQueryHelper({
         name: 'LISTINGS_CATEGORY',
@@ -89,8 +98,15 @@ const TapsQuickSearch = () => {
                         />
                     )
                 }
-                <SelectTabs placeholder='Select Location' className='col-span-3 md:col-span-1' />
-                <InputTabs className='col-span-3 md:col-span-2' />
+                <SelectTabs
+                    placeholder='Select Location'
+                    className='col-span-3 md:col-span-1'
+                />
+                <InputTabs
+                    onChange={setSearchListing}
+                    value={searchListing}
+                    className='col-span-3 md:col-span-2'
+                />
             </div>
         )
     }
