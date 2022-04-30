@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { useQueryHelper } from "../GraphqlClient/useRequest";
+
 import {
   GET_LISTING_FEATURED_GQL,
   GET_CATEGORIES_GQL,
@@ -150,6 +151,7 @@ const UseGetListing = () => {
     showOverlay:
       loadingSingleListing || isFetchingSingleListing || delayOverlay,
     modalQuickView,
+    showErrorSingleListing: errorSingleListing,
   };
 };
 
