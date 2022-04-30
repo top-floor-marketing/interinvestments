@@ -4,9 +4,9 @@ import initialState from './initalState'
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionName.SET_SEARCH_ACTIVE: return {
+        case actionName.SET_SEARCH_LISTING: return {
             ...state,
-            searchActive: action.payload
+            searchListing: action.payload
         }
         case actionName.SET_ALL_CATEGORIES: return {
             ...state,

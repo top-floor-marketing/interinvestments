@@ -1,5 +1,5 @@
 const initalState = {
-    searchActive: '',
+    searchListing: '',
     activeCategory: 0,
     listCategories : []
 }

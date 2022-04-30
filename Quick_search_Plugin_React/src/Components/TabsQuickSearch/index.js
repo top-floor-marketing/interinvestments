@@ -20,7 +20,7 @@ import './styles.css'
 
 const TapsQuickSearch = () => {
     const matches = useMediaQuery('(min-width: 1024px)');
-    const { state: { listCategories, activeCategory }, setCategories, setActiveCategory } = useStore();
+    const { state: { listCategories, activeCategory }, setCategories, setActiveCategory, setSearchListing } = useStore();
 
     const { isLoading, isError, data } = useQueryHelper({
         name: 'LISTINGS_CATEGORY',
