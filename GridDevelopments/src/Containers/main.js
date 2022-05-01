@@ -17,9 +17,10 @@ const MainContainer = () => {
     isError,
     fetchListListing,
     renderSkeleton,
-    openQuickView,
+    openModalQuickView,
     showOverlay,
-    modalQuickView,
+    dataQuickView,
+    onCloseModalQuickView,
   } = UseGetListing();
 
   const isMobileScreen = useMediaQuery(
@@ -50,7 +51,7 @@ const MainContainer = () => {
     gridQuickView: {
       isMobileScreen,
       data,
-      openQuickView,
+      openModalQuickView,
       showOverlay,
     },
     btnLoadMore: {
@@ -63,8 +64,8 @@ const MainContainer = () => {
         "text-black mt-2 max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-100 border border-solid border-black",
     },
     modalQuickView: {
-      showOverlay,
-      modalQuickView,
+      data: dataQuickView,
+      onClose: onCloseModalQuickView,
     },
   };
 
@@ -79,9 +80,8 @@ const MainContainer = () => {
         <GridQuickView {...allProps.gridQuickView} />
       )}
       <Button {...allProps.btnLoadMore}>Load More</Button>
-      {showOverlay ? (
-        <OverlayLoading />
-      ) : (
+      {showOverlay && <OverlayLoading />}
+      {!showOverlay && dataQuickView.content && (
         <ModalQuickView {...allProps.modalQuickView} />
       )}
     </div>

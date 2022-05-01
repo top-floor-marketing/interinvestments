@@ -7,7 +7,7 @@ import CarouselMobile from "../CarouselMobile";
 
 const GridQuickView = ({
   data,
-  openQuickView,
+  openModalQuickView,
   showOverlay,
   isMobileScreen,
 }) => {
@@ -46,7 +46,7 @@ const GridQuickView = ({
     },
     buttonQuickView: (id) => {
       return {
-        onClick: () => openQuickView(id),
+        onClick: () => openModalQuickView(id),
         disabled: showOverlay,
         loading: showOverlay,
         variant: "white",
@@ -129,7 +129,7 @@ const GridQuickView = ({
 
 GridQuickView.propTypes = {
   data: PropTypes.array,
-  openQuickView: PropTypes.func,
+  openModalQuickView: PropTypes.func,
   showOverlay: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
 };

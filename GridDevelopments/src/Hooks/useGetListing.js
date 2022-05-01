@@ -14,7 +14,7 @@ const UseGetListing = () => {
   const [categoryId, setCategoryId] = useState(0);
   const [perPage] = useState(8);
   const [cursorPaginator, setCursorPaginator] = useState("");
-  const [modalQuickView, setModalQuickView] = useState({
+  const [dataQuickView, setDataQuickView] = useState({
     id: 0,
     content: null,
   });
@@ -39,7 +39,7 @@ const UseGetListing = () => {
     isError: errorCategories,
     isFetching: isFetchingCategories,
   } = useQueryHelper({
-    name: "get-categories",
+    name: "get-list-categories",
     gql: GET_CATEGORIES_GQL,
     config: {
       onSuccess: (response) => {
@@ -104,20 +104,20 @@ const UseGetListing = () => {
       enabled: false,
       onSuccess: (response) => {
         const { listings } = response;
-        setModalQuickView({
-          ...modalQuickView,
+        setDataQuickView({
+          ...dataQuickView,
           content: listings.nodes,
         });
       },
       onError: () => {
-        setModalQuickView({
+        setDataQuickView({
           content: null,
           id: 0,
         });
       },
     },
     variables: {
-      id: modalQuickView.id,
+      id: dataQuickView.id,
     },
   });
 
@@ -125,16 +125,24 @@ const UseGetListing = () => {
     refetchListListing();
   };
 
-  const openQuickView = (id) => {
+  const openModalQuickView = (id) => {
     setDelayOverlay(true);
-    setModalQuickView({
-      ...modalQuickView,
+    setDataQuickView({
+      ...dataQuickView,
       id: id,
     });
     refetchSingleListing();
     setTimeout(() => {
       setDelayOverlay(false);
     }, 3000);
+  };
+
+  const onCloseModalQuickView = () => {
+    console.log("onCloseModalQuickView");
+    setDataQuickView({
+      content: null,
+      id: 0,
+    });
   };
 
   return {
@@ -146,12 +154,13 @@ const UseGetListing = () => {
       isFetchingCategories ||
       isFetchingListListing,
     isError: errorCategories || errorListListing,
-    fetchListListing: fetchListListing,
-    openQuickView: openQuickView,
+    fetchListListing,
+    openModalQuickView,
     showOverlay:
       loadingSingleListing || isFetchingSingleListing || delayOverlay,
-    modalQuickView,
+    dataQuickView,
     showErrorSingleListing: errorSingleListing,
+    onCloseModalQuickView,
   };
 };
 
