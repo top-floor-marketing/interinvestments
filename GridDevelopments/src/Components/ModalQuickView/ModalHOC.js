@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import { Modal, Button } from "@mantine/core";
 
-const ModalHOC = ({ children, onClose, config, opened }) => {
+const ModalHOC = (props) => {
+  const { onClose, config, opened } = props;
   const propsModal = {
     opened,
     overlayColor: "#000",
@@ -40,7 +41,7 @@ const ModalHOC = ({ children, onClose, config, opened }) => {
         <div {...allProps.headerClose}>
           <Button {...allProps.buttonClose}>X</Button>
         </div>
-        <div {...allProps.children}>{children}</div>
+        <div {...allProps.children}>{props.children}</div>
       </div>
     </Modal>
   );
@@ -48,7 +49,6 @@ const ModalHOC = ({ children, onClose, config, opened }) => {
 
 ModalHOC.propTypes = {
   opened: PropTypes.bool,
-  children: PropTypes.element,
   onClose: PropTypes.func,
   config: PropTypes.object,
 };

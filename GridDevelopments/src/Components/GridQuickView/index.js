@@ -48,7 +48,6 @@ const GridQuickView = ({
       return {
         onClick: () => openModalQuickView(id),
         disabled: showOverlay,
-        loading: showOverlay,
         variant: "white",
         className:
           "text-black bg-white rounded-[32px] font-outfit hover:bg-gray-100 ",
@@ -56,7 +55,6 @@ const GridQuickView = ({
     },
     buttonRedirect: {
       disabled: showOverlay,
-      loading: showOverlay,
       variant: "white",
       className:
         "bg-transparent mt-auto hover:font-semibold font-outfit ml-auto rounded-full border-solid border-white hover:bg-gray-100",

@@ -7,6 +7,7 @@ import {
   GET_CATEGORIES_GQL,
   GET_SINGLE_LISTING_GQL,
 } from "../GraphqlClient/gql";
+import { data } from "autoprefixer";
 
 const UseGetListing = () => {
   const [isFirtsFetch, setIsFirtsFetch] = useState(true);
@@ -104,9 +105,17 @@ const UseGetListing = () => {
       enabled: false,
       onSuccess: (response) => {
         const { listings } = response;
+        let content = null;
+        if (listings.nodes.length > 0) {
+          const findListing = listings.nodes[0];
+          content = {
+            photos: findListing.listingData?.newDevelopment?.photos || [],
+            ...findListing,
+          };
+        }
         setDataQuickView({
           ...dataQuickView,
-          content: listings.nodes,
+          content: content,
         });
       },
       onError: () => {
@@ -138,7 +147,6 @@ const UseGetListing = () => {
   };
 
   const onCloseModalQuickView = () => {
-    console.log("onCloseModalQuickView");
     setDataQuickView({
       content: null,
       id: 0,

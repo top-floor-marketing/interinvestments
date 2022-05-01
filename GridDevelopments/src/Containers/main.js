@@ -61,7 +61,7 @@ const MainContainer = () => {
       disabled: isLoading,
       loading: isLoading,
       className:
-        "text-black mt-2 max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-100 border border-solid border-black",
+        "text-black my-3 min-w-[200px] max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-100 border border-solid border-black",
     },
     modalQuickView: {
       data: dataQuickView,
