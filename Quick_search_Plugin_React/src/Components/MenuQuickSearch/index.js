@@ -10,10 +10,12 @@ import useStore from '../../Store/useStore';
 import { useQueryHelper } from '../../GraphqlClient/useRequest';
 import { ALL_LISTING } from '../../GraphqlClient/GQL';
 
-
+//css
+import './stylesMenuQuickSearch.css'
 
 const MenuQuickSearch = () => {
-    const { state: { searchListing, activeCategory }, } = useStore();
+    const { state: { searchListing, activeCategory, foscusInput } } = useStore();
+    // const [foscusInput, setFoscusInput] = useState(false)
 
     const { isLoading, isError, data, refetch: refetchListing, isFetching } = useQueryHelper({
         name: 'ALL_LISTING',
@@ -32,9 +34,9 @@ const MenuQuickSearch = () => {
     }, [searchListing, refetchListing, activeCategory])
 
 
-    if (searchListing.length >= 4) {
+    if (searchListing.length >= 4 && foscusInput) {
         return (
-            <div className='absolute flex flex-col w-full mt-[-1rem] z-1'>
+            <div className='MenuQuickSearch z-1'>
                 <Card radius={10} className='max-w-[1200px] w-[90%] mx-auto border-0 pt-[3rem] shadow-cards'>
                     {
                         (isError) && (

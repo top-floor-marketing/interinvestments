@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 // store
 import ProviderStore from './Store/ProviderStore';
 // react-query
-import { ReactQueryDevtools } from 'react-query/devtools'
+// import { ReactQueryDevtools } from 'react-query/devtools'
 const queryClient = new QueryClient()
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <MenuQuickSearch />
       </ProviderStore>
       {
-        <ReactQueryDevtools initialIsOpen={false} />
+        // <ReactQueryDevtools initialIsOpen={false} />
       }
     </QueryClientProvider>
   )

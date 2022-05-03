@@ -3,12 +3,15 @@ import React from 'react'
 import { Divider } from '@mantine/core';
 import { DatabaseOff } from 'tabler-icons-react';
 
+//css
+import './stylesMenuQuickSearch.css'
+
 const CardListing = (props) => {
     const { data } = props
- 
+
     if (data.length === 0) {
         return (
-            <div className='h-[80px] flex justify-center items-center'>
+            <div className='nodata'>
                 <DatabaseOff
                     size={48}
                     strokeWidth={2}
@@ -20,33 +23,33 @@ const CardListing = (props) => {
     }
 
     return (
-        <div className='h-[350px] overflow-auto'>
+        <div className='containerMenu'>
             {
                 data.map((val, index) => {
                     const { newDevelopment } = val.listingData
                     return (
-                        <div className='hover:bg-[#F6F6F6] cursor-pointer' key={index}>
-                            <div className='flex flex-col gap-3 md:flex-row'>
+                        <div className='cardListing' key={index}>
+                            <div className='contendCardListing'>
                                 {
                                     (newDevelopment.photos) ? (
                                         <img
-                                            className='min-w-[187px] h-[200px] sm:h-[120px] my-auto'
+                                            className='object-cover my-auto imageListing'
                                             src={newDevelopment.photos[0].sourceUrl}
                                             alt={`ImageListing_${index}`}
                                         />
                                     ) : (
-                                        <div className='min-w-[187px] h-[200px] sm:h-[120px] flex justify-center'>
+                                        <div className='flex justify-center imageListing'>
                                             <p className='my-auto text-center'>No Image</p>
                                         </div>
                                     )
                                 }
 
-                                <div style={{ height: 'inherit' }} className='flex flex-col w-full'>
-                                    <h4 className='text-xl sm:text-3xl font-normal leading-[26px]'>
+                                <div style={{ height: 'inherit' }} className='dataListing'>
+                                    <h4 className='titleListing'>
                                         {val.title}
                                     </h4>
                                     <div className='mt-auto'>
-                                        <p className='text-[20px] leading-[26px]'>{newDevelopment.nameOfDevelopment}</p>
+                                        <p className='decriptionListing'>{newDevelopment.nameOfDevelopment}</p>
                                         <span>{`Price $ ${newDevelopment.priceMin}m`} - {`$ ${newDevelopment.priceMax}m`}</span>
                                     </div>
                                 </div>
