@@ -20,8 +20,19 @@ const reducer = (state = initialState, action) => {
 
         case actionName.SET_FOCUS_INPUT : return {
             ...state,
-            foscusInput: action.payload
+            focusInput: action.payload
         }
+
+        case actionName.SET_FOCUS_CARD : return {
+            ...state,
+            focusCard: action.payload
+        }
+
+        case actionName.SET_FOCUS_Menu : return {
+            ...state,
+            focusMenu: action.payload
+        }
+
 
         default: return { ...state }
     }
