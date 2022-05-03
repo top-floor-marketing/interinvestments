@@ -50,7 +50,7 @@ const GridQuickView = ({
         disabled: showOverlay,
         variant: "white",
         className:
-          "text-black bg-white font-[500] rounded-[32px] transition-all duration-500 ease-in-out font-outfit hover:bg-gray-200  ",
+          "text-black bg-white font-[400] rounded-[32px] transition-all duration-500 ease-in-out font-outfit hover:bg-gray-200  ",
       };
     },
     buttonRedirect: (id) => {
@@ -60,7 +60,7 @@ const GridQuickView = ({
         component: "a",
         href: `/project?id=${id}`,
         className:
-          "bg-transparent transition-all duration-500 ease-in-out mt-auto hover:font-[700] font-outfit ml-auto rounded-full border-solid border-white hover:bg-gray-100",
+          "bg-transparent transition-all duration-500 ease-in-out mt-auto hover:font-[600] font-outfit ml-auto rounded-full border-solid border-white hover:bg-gray-100",
       };
     },
   };
