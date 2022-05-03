@@ -4,6 +4,7 @@ const initalState = {
         value: '1',
         label: 'Miami'
     }],
+    foscusInput: false,
     activeCategory: 0,
     listCategories: []
 }

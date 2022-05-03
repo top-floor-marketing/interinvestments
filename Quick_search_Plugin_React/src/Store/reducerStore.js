@@ -18,6 +18,11 @@ const reducer = (state = initialState, action) => {
             activeCategory: action.payload
         }
 
+        case actionName.SET_FOCUS_INPUT : return {
+            ...state,
+            foscusInput: action.payload
+        }
+
         default: return { ...state }
     }
 }

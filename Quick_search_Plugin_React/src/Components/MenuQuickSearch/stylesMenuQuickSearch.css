@@ -1,0 +1,36 @@
+.MenuQuickSearch{
+    @apply absolute flex flex-col w-full mt-[-1rem];
+}
+
+.nodata{
+    @apply h-[80px] flex justify-center items-center;
+}
+
+.containerMenu{
+    @apply h-[350px] overflow-auto;
+}
+
+.cardListing{
+    @apply hover:bg-[#F6F6F6] cursor-pointer;
+}
+
+#Quick_search .contendCardListing{
+    @apply flex flex-col gap-3 md:flex-row;
+}
+
+.imageListing{
+    @apply min-w-[187px] h-[200px] sm:h-[120px];
+}
+
+#Quick_search .dataListing{
+    @apply flex flex-col w-full;
+}
+
+.titleListing{
+    @apply text-xl sm:text-3xl font-normal leading-[26px];
+}
+
+
+.decriptionListing{
+    @apply text-[20px] leading-[26px];
+}
