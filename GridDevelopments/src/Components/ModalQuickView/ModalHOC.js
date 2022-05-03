@@ -20,7 +20,7 @@ const ModalHOC = (props) => {
     modal: propsModal,
     bodyModal: {
       className:
-        "w-full max-w-screen-xl bg-transparent flex flex-col min-h-[400px]",
+        "w-full max-w-screen-xl bg-transparent flex flex-col min-h-[450px]",
     },
     headerClose: {
       className: "flex flex-row mb-3",

@@ -65,7 +65,15 @@ const GridQuickView = ({
     if (index < 9) {
       return index * 50 + 300;
     } else {
-      return index * 40 + 100;
+      return index * 30 + 150;
+    }
+  };
+
+  const calcDuration = (index) => {
+    if (index < 9) {
+      return 700;
+    } else {
+      return 500;
     }
   };
 
@@ -76,7 +84,7 @@ const GridQuickView = ({
           <Paper
             data-aos="zoom-in"
             data-aos-delay={calcDelay(index)}
-            data-aos-duration="700"
+            data-aos-duration={calcDuration(index)}
             data-aos-once={true}
             key={index}
             {...allProps.paperItem}
