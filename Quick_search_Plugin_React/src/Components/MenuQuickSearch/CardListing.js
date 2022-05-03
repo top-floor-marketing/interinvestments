@@ -26,7 +26,7 @@ const CardListing = (props) => {
                     const { newDevelopment } = val.listingData
                     return (
                         <div className='hover:bg-[#F6F6F6] cursor-pointer' key={index}>
-                            <div className='flex flex-col gap-3 sm:flex-row'>
+                            <div className='flex flex-col gap-3 md:flex-row'>
                                 {
                                     (newDevelopment.photos) ? (
                                         <img
