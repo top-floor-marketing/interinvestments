@@ -29,7 +29,8 @@ const TapsQuickSearch = () => {
         },
         setCategories,
         setActiveCategory,
-        setSearchListing
+        setSearchListing,
+        setFocusInput
     } = useStore();
 
     const { isLoading, isError, data } = useQueryHelper({
@@ -105,6 +106,7 @@ const TapsQuickSearch = () => {
                     className='col-span-3 md:col-span-1'
                 />
                 <InputTabs
+                    onFocusChange={(value) => setFocusInput(value)}
                     onChange={setSearchListing}
                     value={searchListing}
                     className='col-span-3 md:col-span-2'

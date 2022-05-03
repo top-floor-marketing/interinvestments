@@ -7,9 +7,11 @@ import { Search } from 'tabler-icons-react';
 import './styles.css'
 
 const InputTabs = (props) => {
-    const { className: classNameprops, value = '', onChange } = props
+    const { className: classNameprops, value = '', onChange, onFocusChange } = props
     return (
         <TextInput
+            onFocus={() => onFocusChange(true)}
+            onBlur={() => onFocusChange(false)}
             onChange={(text) => onChange(text.target.value)}
             value={value}
             className={classNameprops}
