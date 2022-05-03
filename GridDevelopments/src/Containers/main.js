@@ -35,7 +35,7 @@ const MainContainer = () => {
     },
     textFeatured: {
       className:
-        "font-outfit font-[400] text-[36px] text-center lg:text-left mb-0",
+        "font-outfit font-[500] text-[36px] text-center lg:text-left mb-0",
     },
     gridQuickView: {
       isMobileScreen,
@@ -50,7 +50,7 @@ const MainContainer = () => {
       disabled: isLoading,
       loading: isLoading,
       className:
-        "text-black transition-all duration-500 ease-in-out my-3 min-w-[200px] max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-200 border border-solid border-black",
+        "text-black font-[500] transition-all duration-500 ease-in-out my-3 min-w-[200px] max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-200 border border-solid border-black",
     },
     modalQuickView: {
       data: dataQuickView,
