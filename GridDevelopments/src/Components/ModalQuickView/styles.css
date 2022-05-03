@@ -14,5 +14,8 @@
 .CarouselModal_wp>.carousel.carousel-slider>.control-dots {
     display: flex;
     flex-direction: row;
-    padding: 1.25rem;
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }

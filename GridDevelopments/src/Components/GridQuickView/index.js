@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Paper, Text, Overlay } from "@mantine/core";
+import { Button, Paper, Text } from "@mantine/core";
 import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
@@ -53,11 +53,15 @@ const GridQuickView = ({
           "text-black bg-white rounded-[32px] transition-all duration-500 ease-in-out font-outfit hover:bg-gray-200  ",
       };
     },
-    buttonRedirect: {
-      disabled: showOverlay,
-      variant: "white",
-      className:
-        "bg-transparent transition-all duration-500 ease-in-out mt-auto hover:font-semibold font-outfit ml-auto rounded-full border-solid border-white hover:bg-gray-100",
+    buttonRedirect: (id) => {
+      return {
+        disabled: showOverlay,
+        variant: "white",
+        component: "a",
+        href: `/project?id=${id}`,
+        className:
+          "bg-transparent transition-all duration-500 ease-in-out mt-auto hover:font-[500] font-outfit ml-auto rounded-full border-solid border-white hover:bg-gray-100",
+      };
     },
   };
 
@@ -119,7 +123,7 @@ const GridQuickView = ({
                     <Button {...allProps.buttonQuickView(val.id)}>
                       Quick View
                     </Button>
-                    <Button {...allProps.buttonRedirect}>
+                    <Button {...allProps.buttonRedirect(val.id)}>
                       <ChevronRight size={18} color="#FFB839" />
                     </Button>
                   </div>
