@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 
@@ -28,25 +28,10 @@ const MainContainer = () => {
     false
   );
 
-  useEffect(() => {
-    if (!renderSkeleton && !isLoading) {
-      const getButtonOffSet =
-        document.querySelector("#btnLoadMore_wp").offsetTop;
-
-      console.log("getButtonOffSet ", getButtonOffSet);
-
-      document.getElementById("btnLoadMore_wp").focus();
-      /*window.scrollTo({
-        top: getButtonOffSet,
-        behavior: "smooth",
-      });*/
-    }
-  }, [renderSkeleton, isLoading]);
-
   const allProps = {
     container: {
       className:
-        "w-full min-h-[400px] bg-white mx-auto max-w-[1280px] py-12 flex flex-col gap-7 px-5 lg:px-0",
+        "w-full min-h-[400px] bg-white mx-auto max-w-[1280px] py-8 flex flex-col gap-5 px-5 lg:px-0",
     },
     textFeatured: {
       className:
@@ -75,7 +60,7 @@ const MainContainer = () => {
 
   return (
     <div data-aos="fade-up" data-aos-duration="700" {...allProps.container}>
-      <p {...allProps.className}>Featured Developments</p>
+      <p {...allProps.textFeatured}>Featured Developments</p>
       {!renderSkeleton && isError ? (
         <EmptyGrid />
       ) : renderSkeleton ? (
