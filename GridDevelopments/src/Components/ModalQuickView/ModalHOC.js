@@ -29,7 +29,7 @@ const ModalHOC = (props) => {
       onClick: () => onClose(),
       variant: "subtle",
       className:
-        "ml-auto hover:bg-[rgb(156_163_175)] w-[1.7rem] h-[1.7rem] p-0 text-[18px] rounded-full flex justify-center items-center text-white font-semibold border border-white border-solid",
+        "ml-auto hover:bg-[rgb(156_163_175)] w-[1.7rem] h-[1.7rem] p-0 text-[18px] rounded-full flex justify-center items-center text-white font-[400] border border-white border-solid",
     },
     children: {
       className: "bg-white w-full",

@@ -7,7 +7,6 @@ import {
   GET_CATEGORIES_GQL,
   GET_SINGLE_LISTING_GQL,
 } from "../GraphqlClient/gql";
-import { data } from "autoprefixer";
 
 const UseGetListing = () => {
   const [isFirtsFetch, setIsFirtsFetch] = useState(true);
@@ -141,7 +140,7 @@ const UseGetListing = () => {
     });
     setTimeout(() => {
       setDelayOverlay(false);
-    }, 3000);
+    }, 1500);
   };
 
   const onCloseModalQuickView = () => {
