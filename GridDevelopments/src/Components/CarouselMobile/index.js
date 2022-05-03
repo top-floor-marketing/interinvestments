@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { Carousel } from "react-responsive-carousel";
 
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./styles.css";
 
 const CarouselMobile = ({ photos }) => {
@@ -11,7 +10,7 @@ const CarouselMobile = ({ photos }) => {
       animationHandler="fade"
       autoPlay
       infiniteLoop
-      interval={4000 + random}
+      interval={2500 + random}
       axis="horizontal"
       transitionTime={2000}
       showIndicators={false}

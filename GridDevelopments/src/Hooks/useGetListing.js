@@ -97,12 +97,11 @@ const UseGetListing = () => {
     isLoading: loadingSingleListing,
     isFetching: isFetchingSingleListing,
     isError: errorSingleListing,
-    refetch: refetchSingleListing,
   } = useQueryHelper({
     name: "get-single-listing",
     gql: GET_SINGLE_LISTING_GQL,
     config: {
-      enabled: false,
+      enabled: dataQuickView.id > 0,
       onSuccess: (response) => {
         const { listings } = response;
         let content = null;
@@ -140,7 +139,6 @@ const UseGetListing = () => {
       ...dataQuickView,
       id: id,
     });
-    refetchSingleListing();
     setTimeout(() => {
       setDelayOverlay(false);
     }, 3000);

@@ -7,6 +7,7 @@ import ContainerMain from "./Containers/main";
 import AOS from "aos";
 
 import "aos/dist/aos.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const queryClient = new QueryClient();
 
