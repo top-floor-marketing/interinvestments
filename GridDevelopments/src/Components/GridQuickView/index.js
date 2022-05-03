@@ -60,7 +60,7 @@ const GridQuickView = ({
         component: "a",
         href: `/project?id=${id}`,
         className:
-          "bg-transparent transition-all duration-500 ease-in-out mt-auto hover:font-[500] font-outfit ml-auto rounded-full border-solid border-white hover:bg-gray-100",
+          "bg-transparent transition-all duration-500 ease-in-out mt-auto hover:font-[400] font-outfit ml-auto rounded-full border-solid border-white hover:bg-gray-100",
       };
     },
   };
