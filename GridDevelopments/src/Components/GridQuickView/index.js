@@ -50,7 +50,7 @@ const GridQuickView = ({
         disabled: showOverlay,
         variant: "white",
         className:
-          "text-black bg-white font-[400] rounded-[32px] transition-all duration-500 ease-in-out font-outfit hover:bg-gray-200  ",
+          "text-black bg-white font-wp-semibold rounded-[32px] transition-all duration-500 ease-in-out font-outfit hover:bg-gray-200  ",
       };
     },
     buttonRedirect: (id) => {

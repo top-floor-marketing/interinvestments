@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Carousel } from "react-responsive-carousel";
 
-import "./styles.css";
+import "./overrideStylesCarousel.css";
 
 const CarouselMobile = ({ photos }) => {
   const random = Math.random() * (4000 - 1000) + 1000;

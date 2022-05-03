@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Carousel } from "react-responsive-carousel";
 import { Image } from "@mantine/core";
-import "./styles.css";
+import "./overrideStylesCarousel.css";
 
 const CarouselQuickView = ({ photos }) => {
   const CustomIndicator = (props) => {
