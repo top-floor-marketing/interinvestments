@@ -15,7 +15,11 @@ module.exports = {
       error: "#F87272",
       disableColor: '#E5E5E5'
     },
-    extend: {},
+    extend: {
+      boxShadow: {
+        'cards': '0px 4px 25px 4px rgba(0, 0, 0, 0.05)',
+      }
+    },
   },
   plugins: [
     function ({ addVariant, e }) {

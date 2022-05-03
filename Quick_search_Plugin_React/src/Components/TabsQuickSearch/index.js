@@ -24,7 +24,8 @@ const TapsQuickSearch = () => {
         state: {
             listCategories,
             activeCategory,
-            searchListing
+            searchListing,
+            listLocation
         },
         setCategories,
         setActiveCategory,
@@ -76,7 +77,6 @@ const TapsQuickSearch = () => {
     if (data) {
         return (
             <div className='containerTabs'>
-
                 {
                     (matches) ? (
                         listCategories.map((val, index) =>
@@ -99,6 +99,8 @@ const TapsQuickSearch = () => {
                     )
                 }
                 <SelectTabs
+                    value='1'
+                    data={listLocation}
                     placeholder='Select Location'
                     className='col-span-3 md:col-span-1'
                 />
@@ -110,8 +112,6 @@ const TapsQuickSearch = () => {
             </div>
         )
     }
-
-
 }
 
 export default TapsQuickSearch

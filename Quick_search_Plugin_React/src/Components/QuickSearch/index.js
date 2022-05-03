@@ -8,7 +8,7 @@ import './stylesQuickSearch.css'
 
 const QuickSearch = () => {
   return (
-    <Card className='py-8 bg-white'>
+    <Card radius={10} className='py-8 bg-white z-10 max-w-[1280px] mx-auto relative shadow-cards'>
       <div className='gridQuickSearch'>
         <div className='containerQuickSearch'>
           <h3 className='labelQuickSearch'>
