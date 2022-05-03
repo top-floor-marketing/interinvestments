@@ -45,7 +45,7 @@ class Grid_Developments_options
       $dep = ['wp-element'];
       //$dep = ['react', 'react-dom']; // alternative way of loading React via WP core
 
-      $handle = 'wp-react-plugin-';
+      $handle = 'grid-developments-wp-react-plugin-';
 
       // enqueue development or production React code
       if (file_exists(dirname(__FILE__) . "/dist/static/js/main.js")) {

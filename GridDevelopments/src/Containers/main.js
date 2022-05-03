@@ -34,10 +34,12 @@ const MainContainer = () => {
         document.querySelector("#btnLoadMore_wp").offsetTop;
 
       console.log("getButtonOffSet ", getButtonOffSet);
-      window.scrollTo({
+
+      document.getElementById("btnLoadMore_wp").focus();
+      /*window.scrollTo({
         top: getButtonOffSet,
         behavior: "smooth",
-      });
+      });*/
     }
   }, [renderSkeleton, isLoading]);
 
