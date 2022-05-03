@@ -45,7 +45,7 @@ $Grid_Developments->init();
 
 function Grid_Developments_shortcode($atts)
 {
-  $handle = 'wp-react-plugin-';
+  $handle = 'grid-developments-wp-react-plugin-';
 
   // enqueue development or production React code
   if (file_exists(dirname(__FILE__) . "/dist/static/js/main.js")) {

@@ -17,9 +17,10 @@ const MainContainer = () => {
     isError,
     fetchListListing,
     renderSkeleton,
-    openQuickView,
+    openModalQuickView,
     showOverlay,
-    modalQuickView,
+    dataQuickView,
+    onCloseModalQuickView,
   } = UseGetListing();
 
   const isMobileScreen = useMediaQuery(
@@ -31,6 +32,8 @@ const MainContainer = () => {
     if (!renderSkeleton && !isLoading) {
       const getButtonOffSet =
         document.querySelector("#btnLoadMore_wp").offsetTop;
+
+      console.log("getButtonOffSet ", getButtonOffSet);
       window.scrollTo({
         top: getButtonOffSet,
         behavior: "smooth",
@@ -50,7 +53,7 @@ const MainContainer = () => {
     gridQuickView: {
       isMobileScreen,
       data,
-      openQuickView,
+      openModalQuickView,
       showOverlay,
     },
     btnLoadMore: {
@@ -60,11 +63,11 @@ const MainContainer = () => {
       disabled: isLoading,
       loading: isLoading,
       className:
-        "text-black mt-2 max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-100 border border-solid border-black",
+        "text-black transition-all duration-500 ease-in-out my-3 min-w-[200px] max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-200 border border-solid border-black",
     },
     modalQuickView: {
-      showOverlay,
-      modalQuickView,
+      data: dataQuickView,
+      onClose: onCloseModalQuickView,
     },
   };
 
@@ -79,9 +82,8 @@ const MainContainer = () => {
         <GridQuickView {...allProps.gridQuickView} />
       )}
       <Button {...allProps.btnLoadMore}>Load More</Button>
-      {showOverlay ? (
-        <OverlayLoading />
-      ) : (
+      {showOverlay && <OverlayLoading />}
+      {!showOverlay && dataQuickView.content && (
         <ModalQuickView {...allProps.modalQuickView} />
       )}
     </div>

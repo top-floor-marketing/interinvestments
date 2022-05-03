@@ -1,23 +1,19 @@
 import PropTypes from "prop-types";
 import { Carousel } from "react-responsive-carousel";
-
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "./styles.css";
 
-const CarouselMobile = ({ photos }) => {
-  const random = Math.random() * (4000 - 1000) + 1000;
+const CarouselQuickView = ({ photos }) => {
   return (
     <Carousel
       animationHandler="fade"
-      autoPlay
+      autoPlay={false}
       infiniteLoop
-      interval={4000 + random}
       axis="horizontal"
-      transitionTime={2000}
-      showIndicators={false}
+      transitionTime={700}
+      showIndicators={true}
       showArrows={false}
-      showThumbs={false}
-      className="w-full h-full absolute overflow-hidden rounded-[10px] flex flex-col CarouselMobile_wp"
+      showThumbs={true}
+      className="w-full h-full absolute overflow-hidden rounded-[10px] flex flex-col"
     >
       {photos.map((val, index) => (
         <img
@@ -31,8 +27,8 @@ const CarouselMobile = ({ photos }) => {
   );
 };
 
-CarouselMobile.propTypes = {
+CarouselQuickView.propTypes = {
   photos: PropTypes.array,
 };
 
-export default CarouselMobile;
+export default CarouselQuickView;

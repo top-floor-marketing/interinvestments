@@ -7,7 +7,7 @@ import CarouselMobile from "../CarouselMobile";
 
 const GridQuickView = ({
   data,
-  openQuickView,
+  openModalQuickView,
   showOverlay,
   isMobileScreen,
 }) => {
@@ -18,7 +18,7 @@ const GridQuickView = ({
     },
     paperItem: {
       className:
-        "group relative flex  flex-col min-h-[300px] max-h-[350px] w-full rounded-[10px] shadow-[0px_4px_25px_4px_rgba(0,0,0,0.0.5)]",
+        "group relative flex  flex-col min-h-[320px] max-h-[370px] w-full rounded-[10px] shadow-[0px_4px_25px_4px_rgba(0,0,0,0.0.5)]",
     },
     imgCover: {
       className:
@@ -26,7 +26,7 @@ const GridQuickView = ({
     },
     filter: {
       className:
-        "bg-gray-500 group-hover:bg-white w-full h-full absolute opacity-[0.20] group-hover:opacity-[0.05] rounded-[10px]",
+        "bg-gray-600 transition-all duration-500 ease-in-out group-hover:bg-white w-full h-full absolute opacity-[0.30] group-hover:opacity-[0.05] rounded-[10px]",
     },
     infoContainer: {
       className:
@@ -46,20 +46,18 @@ const GridQuickView = ({
     },
     buttonQuickView: (id) => {
       return {
-        onClick: () => openQuickView(id),
+        onClick: () => openModalQuickView(id),
         disabled: showOverlay,
-        loading: showOverlay,
         variant: "white",
         className:
-          "text-black bg-white rounded-[32px] font-outfit hover:bg-gray-100 ",
+          "text-black bg-white rounded-[32px] transition-all duration-500 ease-in-out font-outfit hover:bg-gray-200  ",
       };
     },
     buttonRedirect: {
       disabled: showOverlay,
-      loading: showOverlay,
       variant: "white",
       className:
-        "bg-transparent mt-auto hover:font-semibold font-outfit ml-auto rounded-full border-solid border-white hover:bg-gray-100",
+        "bg-transparent transition-all duration-500 ease-in-out mt-auto hover:font-semibold font-outfit ml-auto rounded-full border-solid border-white hover:bg-gray-100",
     },
   };
 
@@ -129,7 +127,7 @@ const GridQuickView = ({
 
 GridQuickView.propTypes = {
   data: PropTypes.array,
-  openQuickView: PropTypes.func,
+  openModalQuickView: PropTypes.func,
   showOverlay: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
 };

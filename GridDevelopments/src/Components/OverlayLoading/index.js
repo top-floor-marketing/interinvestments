@@ -1,7 +1,3 @@
-/*  if (newVal)
-        document.getElementsByTagName("body")[0].style.overflow = "hidden";
-      else document.getElementsByTagName("body")[0].style.overflow = "auto";
-    }, */
 import { useEffect } from "react";
 import { Loader, Overlay, Center } from "@mantine/core";
 
