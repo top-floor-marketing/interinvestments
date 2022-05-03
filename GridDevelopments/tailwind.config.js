@@ -1,7 +1,14 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    fontWeight: {
+      "wp-semibold": 400,
+      "wp-bold": 500,
+    },
     extend: {
+      boxShadow: {
+        "wp-normal": "0px 4px 25px 4px rgba(0, 0, 0, 0.05)",
+      },
       screens: {
         sm: "640px",
         md: "768px",

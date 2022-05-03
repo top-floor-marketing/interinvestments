@@ -10,6 +10,8 @@ import ModalQuickView from "../Components/ModalQuickView";
 import UseGetListing from "../Hooks/useGetListing";
 import OverlayLoading from "../Components/OverlayLoading";
 
+import styles from "./styles.module.scss";
+
 const MainContainer = () => {
   const {
     data,
@@ -30,12 +32,10 @@ const MainContainer = () => {
 
   const allProps = {
     container: {
-      className:
-        "w-full min-h-[400px] bg-white mx-auto max-w-[1280px] py-8 flex flex-col gap-5 px-5 lg:px-0",
+      className: styles.container,
     },
     textFeatured: {
-      className:
-        "font-outfit font-[500] text-[36px] text-center lg:text-left mb-0",
+      className: styles.textFeatured,
     },
     gridQuickView: {
       isMobileScreen,
@@ -49,8 +49,7 @@ const MainContainer = () => {
       variant: "white",
       disabled: isLoading,
       loading: isLoading,
-      className:
-        "text-black font-[500] transition-all duration-500 ease-in-out my-3 min-w-[200px] max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-200 border border-solid border-black",
+      className: styles.btnLoadMore,
     },
     modalQuickView: {
       data: dataQuickView,
