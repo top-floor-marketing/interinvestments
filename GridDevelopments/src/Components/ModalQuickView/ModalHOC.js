@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { Modal, Button } from "@mantine/core";
 
+import styles from "./styles.module.scss";
+
 const ModalHOC = (props) => {
   const { onClose, config, opened } = props;
   const propsModal = {
@@ -11,16 +13,15 @@ const ModalHOC = (props) => {
     onClose,
     withCloseButton: false,
     classNames: {
-      modal: "p-0 w-4/5 lg:w-3/4 max-w-screen-xl bg-transparent",
+      modal: styles.modal,
     },
     centered: true,
     ...config,
   };
   const allProps = {
     modal: propsModal,
-    bodyModal: {
-      className:
-        "w-full max-w-screen-xl bg-transparent flex flex-col min-h-[450px]",
+    fullContent: {
+      className: styles.modalFullContent,
     },
     headerClose: {
       className: "flex flex-row mb-3",
@@ -28,20 +29,23 @@ const ModalHOC = (props) => {
     buttonClose: {
       onClick: () => onClose(),
       variant: "subtle",
-      className:
-        "ml-auto hover:bg-[rgb(156_163_175)] w-[1.7rem] h-[1.7rem] p-0 text-[18px] rounded-full flex justify-center items-center text-white font-[400] border border-white border-solid",
+      className: styles.buttonClose,
     },
-    children: {
-      className: "bg-white w-full",
+    childrenModal: {
+      className: styles.childrenModal,
     },
   };
   return (
     <Modal {...allProps.modal}>
-      <div {...allProps.bodyModal} data-aos="zoom-in" data-aos-duration="700">
+      <div
+        {...allProps.fullContent}
+        data-aos="zoom-in"
+        data-aos-duration="1000"
+      >
         <div {...allProps.headerClose}>
           <Button {...allProps.buttonClose}>X</Button>
         </div>
-        <div {...allProps.children}>{props.children}</div>
+        <div {...allProps.childrenModal}>{props.children}</div>
       </div>
     </Modal>
   );

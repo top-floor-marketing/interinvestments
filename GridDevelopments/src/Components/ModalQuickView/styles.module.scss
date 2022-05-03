@@ -1,9 +1,9 @@
 .bodyModal {
-    @apply flex flex-row min-h-[60vh] max-h-[1200px] border border-solid border-b-[#D1D1D1] gap-0 border-x-0;
+    @apply flex flex-row min-h-[65vh] max-h-[1200px] border border-solid border-t-0 border-x-0 border-b-[#D1D1D1] gap-0;
 }
 
 .carouselDivContainer {
-    @apply w-2/3 border border-solid border-r-[#D1D1D1] border-y-0 border-l-0;
+    @apply w-2/3 border border-solid border-t-0 border-b-0 border-r-[#D1D1D1] border-y-0 border-l-0;
 }
 
 .contentDivContainer {
@@ -11,3 +11,18 @@
 }
 
 // modal HOC
+.modal {
+    @apply p-0 w-4/5 lg:w-3/4 max-w-screen-xl bg-transparent;
+}
+
+.modalFullContent {
+    @apply w-full max-w-screen-xl bg-transparent flex flex-col min-h-[450px];
+}
+
+.buttonClose {
+    @apply ml-auto hover:bg-[rgb(156_163_175)] w-[1.7rem] h-[1.7rem] p-0 text-[18px] rounded-full flex justify-center items-center text-white font-wp-semibold border border-white border-solid;
+}
+
+.childrenModal {
+    @apply bg-white w-full border-0 border-none;
+}
