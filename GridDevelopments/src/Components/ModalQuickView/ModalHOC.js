@@ -37,7 +37,7 @@ const ModalHOC = (props) => {
   };
   return (
     <Modal {...allProps.modal}>
-      <div {...allProps.bodyModal} data-aos="zoom-in" data-aos-duration="1000">
+      <div {...allProps.bodyModal} data-aos="zoom-in" data-aos-duration="700">
         <div {...allProps.headerClose}>
           <Button {...allProps.buttonClose}>X</Button>
         </div>

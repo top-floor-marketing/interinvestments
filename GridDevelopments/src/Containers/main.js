@@ -32,6 +32,8 @@ const MainContainer = () => {
     if (!renderSkeleton && !isLoading) {
       const getButtonOffSet =
         document.querySelector("#btnLoadMore_wp").offsetTop;
+
+      console.log("getButtonOffSet ", getButtonOffSet);
       window.scrollTo({
         top: getButtonOffSet,
         behavior: "smooth",
@@ -61,7 +63,7 @@ const MainContainer = () => {
       disabled: isLoading,
       loading: isLoading,
       className:
-        "text-black my-3 min-w-[200px] max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-100 border border-solid border-black",
+        "text-black transition-all duration-500 ease-in-out my-3 min-w-[200px] max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-200 border border-solid border-black",
     },
     modalQuickView: {
       data: dataQuickView,
