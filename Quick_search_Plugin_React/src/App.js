@@ -1,6 +1,6 @@
-import QuickSearch from './Components/QuickSearch'
-import MenuQuickSearch from './Components/MenuQuickSearch'
+
 import { QueryClient, QueryClientProvider } from 'react-query';
+import ContainerComponts from './Components/ContainerComponts'
 // store
 import ProviderStore from './Store/ProviderStore';
 // react-query
@@ -12,12 +12,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ProviderStore>
-        <QuickSearch />
-        <MenuQuickSearch />
+        <ContainerComponts />
       </ProviderStore>
-      {
-        // <ReactQueryDevtools initialIsOpen={false} />
-      }
     </QueryClientProvider>
   )
 }
