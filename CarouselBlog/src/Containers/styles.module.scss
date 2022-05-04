@@ -1,0 +1,18 @@
+.container {
+    @apply w-full min-h-[400px] bg-white mx-auto max-w-[1280px] py-10 flex flex-col gap-5 px-5 lg:px-0;
+}
+
+.textFeatured {
+    @apply font-outfit font-wp-bold text-[36px] text-center lg:text-left mb-0;
+}
+
+.btnLoadMore {
+    @apply text-black mt-3 mb-5 font-wp-bold 
+    transition-all duration-500 ease-in-out 
+    min-w-[200px] max-w-[200px] mx-auto bg-white 
+    font-outfit  border-solid 
+    border-black border-[2px]
+    transition-all ease-in-out duration-500 
+    hover:bg-black hover:text-white
+    ;
+}
