@@ -34,7 +34,10 @@
 }
 
 .buttonView {
-    @apply text-black font-wp-semibold uppercase font-outfit text-[20px] bg-white hover:bg-gray-200 my-auto h-full;
+    @apply text-black font-wp-semibold uppercase font-outfit text-[20px] 
+    bg-white 
+    transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black
+    my-auto h-full;
 }
 // modal HOC
 .modal {

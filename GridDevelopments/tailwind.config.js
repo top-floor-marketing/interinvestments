@@ -18,7 +18,7 @@ module.exports = {
         "3xl": "1920px",
       },
       fontFamily: {
-        outfit: ["Outfit"],
+        outfit: ["Outfit, Helvetica, Arial, Lucida, sans-serif"],
       },
     },
   },

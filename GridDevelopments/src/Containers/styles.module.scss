@@ -3,9 +3,16 @@
 }
 
 .textFeatured {
-    @apply font-outfit font-wp-semibold text-[36px] text-center lg:text-left mb-0;
+    @apply font-outfit font-wp-bold text-[36px] text-center lg:text-left mb-0;
 }
 
 .btnLoadMore {
-    @apply text-black mt-3 mb-5 font-wp-semibold transition-all duration-500 ease-in-out min-w-[200px] max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-200 border-solid border-black border-[2px];
+    @apply text-black mt-3 mb-5 font-wp-bold 
+    transition-all duration-500 ease-in-out 
+    min-w-[200px] max-w-[200px] mx-auto bg-white 
+    font-outfit  border-solid 
+    border-black border-[2px]
+    transition-all ease-in-out duration-500 
+    hover:bg-black hover:text-white
+    ;
 }

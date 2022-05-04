@@ -31,9 +31,15 @@
 }
 
 .buttonQuickView {
-    @apply text-black bg-white font-wp-semibold rounded-[32px] transition-all duration-500 ease-in-out font-outfit hover:bg-gray-200;
+    @apply text-black bg-white font-wp-semibold border-black
+    rounded-[32px] 
+    transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black
+    font-outfit;
 }
 
 .buttonRedirect {
-@apply bg-transparent transition-all duration-500 ease-in-out mt-auto hover:font-[600] font-outfit ml-auto rounded-full border-solid border-white hover:bg-gray-100;
+@apply bg-transparent 
+mt-auto hover:font-[600]
+transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black
+font-outfit ml-auto rounded-full border-solid border-white;
 }
