@@ -1,5 +1,5 @@
 .container {
-    @apply w-full min-h-[400px] bg-white mx-auto max-w-[1280px] py-8 flex flex-col gap-5 px-5 lg:px-0;
+    @apply w-full min-h-[400px] bg-white mx-auto max-w-[1280px] py-10 flex flex-col gap-5 px-5 lg:px-0;
 }
 
 .textFeatured {
@@ -7,5 +7,5 @@
 }
 
 .btnLoadMore {
-    @apply text-black font-wp-semibold transition-all duration-500 ease-in-out my-3 min-w-[200px] max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-200 border border-solid border-black;
+    @apply text-black mt-3 mb-5 font-wp-semibold transition-all duration-500 ease-in-out min-w-[200px] max-w-[200px] mx-auto bg-white font-outfit hover:bg-gray-200 border-solid border-black border-[2px];
 }
