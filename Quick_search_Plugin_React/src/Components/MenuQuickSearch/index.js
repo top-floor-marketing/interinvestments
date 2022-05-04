@@ -14,15 +14,22 @@ import { ALL_LISTING } from '../../GraphqlClient/GQL';
 import './stylesMenuQuickSearch.css'
 
 const MenuQuickSearch = () => {
-    const { state: { searchListing, activeCategory, foscusInput } } = useStore();
-    // const [foscusInput, setFoscusInput] = useState(false)
+    const {
+        state: {
+            searchListing,
+            activeCategory,
+            focusCard,
+            focusMenu
+        },
+        setFocusMenu
+    } = useStore();
 
     const { isLoading, isError, data, refetch: refetchListing, isFetching } = useQueryHelper({
         name: 'ALL_LISTING',
         gql: ALL_LISTING,
         variables: {
             "categoryId": activeCategory,
-            "title": ""
+            "search": searchListing
         },
         config: { enabled: false }
     });
@@ -33,11 +40,15 @@ const MenuQuickSearch = () => {
         }
     }, [searchListing, refetchListing, activeCategory])
 
-
-    if (searchListing.length >= 4 && foscusInput) {
+    if ((searchListing.length >= 4)) {
         return (
-            <div className='MenuQuickSearch z-1'>
-                <Card radius={10} className='max-w-[1200px] w-[90%] mx-auto border-0 pt-[3rem] shadow-cards'>
+            <div
+                onMouseEnter={() => setFocusMenu(true)}
+                onMouseLeave={() => setFocusMenu(false)}
+                className={`MenuQuickSearch z-1 ${focusCard || focusMenu ? '' : '!hidden'}`}>
+                <Card
+                    radius={10}
+                    className='max-w-[1200px] w-[90%] mx-auto border-0 pt-[3rem] shadow-cards'>
                     {
                         (isError) && (
                             <AlertError
