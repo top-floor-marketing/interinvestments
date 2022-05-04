@@ -5,52 +5,50 @@ import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
 
+import styles from "./styles.module.scss";
+
 const GridQuickView = ({
   data,
   openModalQuickView,
   showOverlay,
   isMobileScreen,
 }) => {
+  // @apply should not be used with the 'group' utility
   const allProps = {
     container: {
-      className:
-        "relative grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 auto-rows-max gap-7 w-full",
+      className: styles.container,
     },
     paperItem: {
-      className:
-        "group relative flex  flex-col min-h-[320px] max-h-[370px] w-full rounded-[10px] shadow-[0px_4px_25px_4px_rgba(0,0,0,0.0.5)]",
+      className: " group " + styles.paperItem,
     },
     imgCover: {
-      className:
-        "bg-cover	bg-fixed bg-center bg-no-repeat group-hover:backdrop-contrast-200 w-full h-full absolute rounded-[10px]",
+      className: styles.imgCover,
     },
     filter: {
       className:
-        "bg-gray-600 transition-all duration-500 ease-in-out group-hover:bg-white w-full h-full absolute opacity-[0.30] group-hover:opacity-[0.05] rounded-[10px]",
+        " group-hover:bg-white  group-hover:opacity-[0.08] " + styles.filter,
     },
     infoContainer: {
       className:
-        "relative w-full mt-auto flex p-5 gap-2 " +
+        styles.infoContainer +
+        "  " +
         (isMobileScreen ? "flex-row" : "flex-col"),
     },
     textTitle: {
-      className:
-        "font-outfit text-white text-[22px] break-words mb-0 leading-[27px]",
+      className: styles.textTitle,
     },
     textSubTitle: {
-      className:
-        "font-outfit text-white text-[14px] break-words mb-0 leading-[17px]",
+      className: styles.textSubTitle,
     },
     gridButtons: {
-      className: "flex flex-row gap-5 pt-1",
+      className: styles.gridButtons,
     },
     buttonQuickView: (id) => {
       return {
         onClick: () => openModalQuickView(id),
         disabled: showOverlay,
         variant: "white",
-        className:
-          "text-black bg-white font-wp-semibold rounded-[32px] transition-all duration-500 ease-in-out font-outfit hover:bg-gray-200  ",
+        className: styles.buttonQuickView,
       };
     },
     buttonRedirect: (id) => {
@@ -59,8 +57,7 @@ const GridQuickView = ({
         variant: "white",
         component: "a",
         href: `/project?id=${id}`,
-        className:
-          "bg-transparent transition-all duration-500 ease-in-out mt-auto hover:font-[600] font-outfit ml-auto rounded-full border-solid border-white hover:bg-gray-100",
+        className: styles.buttonRedirect,
       };
     },
   };
@@ -111,7 +108,7 @@ const GridQuickView = ({
                     <Text {...allProps.textTitle}>{val.title}</Text>
                     <Text {...allProps.textSubTitle}>{val.subTitle}</Text>
                   </div>
-                  <Button {...allProps.buttonRedirect}>
+                  <Button {...allProps.buttonRedirect(val.id)}>
                     <ChevronRight size={18} color="#FFB839" />
                   </Button>
                 </>

@@ -19,3 +19,10 @@
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
 }
+
+.CarouselModal_wp > .carousel .slide img {
+    border: 0;
+    vertical-align: top;
+    width: 100%;
+    object-fit: cover;
+}
