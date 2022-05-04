@@ -22,8 +22,15 @@ const CardListing = (props) => {
         )
     }
 
+    const heightContainerMenu = () => {
+        if (data.length >= 3) {
+            return 'containerMenu'
+        }
+        return 'h-full'
+    }
+
     return (
-        <div className='containerMenu'>
+        <div className={heightContainerMenu()}>
             {
                 data.map((val, index) => {
                     const { newDevelopment } = val.listingData

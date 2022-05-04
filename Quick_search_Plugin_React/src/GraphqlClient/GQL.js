@@ -12,8 +12,8 @@ export const LISTINGS_CATEGORY = gql`
 `
 
 export const ALL_LISTING = gql`
-  query listings($categoryId: Int!, $title: String!) {
-    listings(first: 10, where: {categoryId: $categoryId, title: $title}) {
+  query listings($categoryId: Int!, $search: String!) {
+    listings(first: 10, where: {categoryId: $categoryId, search: $search}) {
       nodes {
         databaseId
         title
