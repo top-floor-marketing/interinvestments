@@ -31,9 +31,10 @@
 }
 
 .buttonQuickView {
-    @apply text-black bg-white font-wp-semibold border-black
+    @apply text-black bg-white font-wp-semibold
     rounded-[32px] 
     transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black
+    hover:font-wp-bold
     font-outfit;
 }
 
