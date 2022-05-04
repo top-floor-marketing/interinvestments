@@ -6,16 +6,10 @@ import TabsQuickSearch from '../TabsQuickSearch'
 // css
 import './stylesQuickSearch.css'
 
-// store
-import useStore from '../../Store/useStore';
 
 const QuickSearch = () => {
-  const { setFocusCard } = useStore();
-
   return (
     <Card
-      onMouseEnter={() => setFocusCard(true)}
-      onMouseLeave={() => setFocusCard(false)}
       radius={10}
       className='py-8 bg-base-100 z-10 max-w-[1280px] mx-auto relative shadow-cards'
     >

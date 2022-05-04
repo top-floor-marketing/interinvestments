@@ -9,7 +9,7 @@ const SelectTabs = (props) => {
     return (
         <Select
             value={value}
-            onChange={(value) => onChange(parseInt(value))}
+            onChange={(value) => (onChange) && onChange(parseInt(value))}
             className={classNameprops}
             classNames={{
                 input: 'categorySelect',
