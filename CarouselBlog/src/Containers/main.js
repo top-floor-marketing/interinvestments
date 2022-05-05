@@ -1,6 +1,10 @@
 import React from "react";
 import { useMediaQuery } from "@mantine/hooks";
 
+// components
+import SkeletonBlog from "../Components/SkeletonBlog";
+import CarouselBlog from "../Components/CarouselBlog";
+
 import useGetBlogs from "../Hooks/useGetBlogs";
 
 import styles from "./styles.module.scss";
@@ -17,14 +21,19 @@ const MainContainer = () => {
     container: {
       className: styles.container,
     },
+    carouselBlog: {
+      isMobileScreen,
+    },
   };
 
   return (
-    <div
-      data-aos="fade-up"
-      data-aos-duration="700"
-      {...allProps.container}
-    ></div>
+    <div data-aos="fade-up" data-aos-duration="700" {...allProps.container}>
+      {isLoading ? (
+        <SkeletonBlog />
+      ) : (
+        <CarouselBlog {...allProps.carouselBlog} />
+      )}
+    </div>
   );
 };
 
