@@ -4,25 +4,26 @@ import { useQueryHelper } from "../GraphqlClient/useRequest";
 
 import { GET_POST_BLOG_GQL } from "../GraphqlClient/gql";
 
+import { removeHtmlInString } from "../utils";
+
 const UseGetBlogs = () => {
-  const [isFirtsFetch, setIsFirtsFetch] = useState(true);
   const [fullData, setFullData] = useState([]);
   const [perPage] = useState(4);
 
-  const fullDataGenerator = (prevData, nextData) => {
-    let nextData_ = [];
-    nextData_ = nextData.map((val) => {
+  const fullDataGenerator = (newData) => {
+    let parseData = [];
+    parseData = newData.map((val) => {
       return {
-        title: val.title,
-        subTitle: val.listingData.newDevelopment.nameOfDevelopment,
         id: val.databaseId,
-        photos: val.listingData.newDevelopment.photos || [],
+        urlImage: val.featuredImage?.node?.sourceUrl || null,
+        title: val.title,
+        description: removeHtmlInString(val.excerpt),
       };
     });
-    return [...prevData, ...nextData_];
+    return parseData;
   };
 
-  // first query
+  // fget firts 4 Blogs
   const {
     isLoading: loadingBlogs,
     isError: errorBlogs,
@@ -33,17 +34,9 @@ const UseGetBlogs = () => {
     config: {
       onSuccess: (response) => {
         const { posts } = response;
-        console.log("GET_POST_BLOG_GQL ", posts);
-        console.log("nodes ", posts.nodes);
-
-        /* const regex = /(<([^>]+)>)/gi;
-        const body = "<p>test</p>";
-        const result = body.replace(regex, "");
-        console.log(result); */
+        setFullData(fullDataGenerator(posts.nodes));
       },
-      onError: () => {
-        setIsFirtsFetch(false);
-      },
+      onError: () => {},
     },
     variables: {
       first: perPage,
@@ -52,9 +45,9 @@ const UseGetBlogs = () => {
 
   return {
     data: fullData,
-    renderSkeleton: loadingBlogs || isFirtsFetch || isFetchingBlogs,
     isLoading: loadingBlogs || isFetchingBlogs,
     isError: errorBlogs,
+    isEmpty: fullData.length === 0,
   };
 };
 

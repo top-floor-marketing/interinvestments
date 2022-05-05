@@ -3,7 +3,8 @@ import { useMediaQuery } from "@mantine/hooks";
 
 // components
 import SkeletonBlog from "../Components/SkeletonBlog";
-import CarouselBlog from "../Components/CarouselBlog";
+import CarouselContainer from "../Components/CarouselContainer";
+import EmptyBlog from "../Components/Empty";
 
 import useGetBlogs from "../Hooks/useGetBlogs";
 
@@ -11,11 +12,11 @@ import styles from "./styles.module.scss";
 
 const MainContainer = () => {
   const isMobileScreen = useMediaQuery(
-    "only screen and (max-width: 640px)",
+    "only screen and (max-width: 1279px)",
     false
   );
 
-  const { isLoading } = useGetBlogs();
+  const { isLoading, isEmpty, isError, data } = useGetBlogs();
 
   const allProps = {
     container: {
@@ -23,15 +24,18 @@ const MainContainer = () => {
     },
     carouselBlog: {
       isMobileScreen,
+      listBlogs: data,
     },
   };
 
   return (
     <div data-aos="fade-up" data-aos-duration="700" {...allProps.container}>
-      {isLoading ? (
+      {(isError || isEmpty) && !isLoading ? (
+        <EmptyBlog />
+      ) : isLoading ? (
         <SkeletonBlog />
       ) : (
-        <CarouselBlog {...allProps.carouselBlog} />
+        <CarouselContainer {...allProps.carouselBlog} />
       )}
     </div>
   );
