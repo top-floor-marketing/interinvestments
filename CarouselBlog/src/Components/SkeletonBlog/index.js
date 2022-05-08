@@ -1,9 +1,11 @@
 import { Skeleton } from "@mantine/core";
 
+import styles from "./styles.module.scss";
+
 const SkeletonBlog = () => {
   return (
-    <div className="w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-7">
-      <div className="grid grid-cols-1 justify-center content-center px-7 py-36 lg:p-48 gap-7">
+    <div className={styles.container}>
+      <div className={styles.gridContent}>
         <Skeleton visible className="w-2/3">
           <div className="h-[25px]"></div>
         </Skeleton>
@@ -17,9 +19,9 @@ const SkeletonBlog = () => {
           <div className="w-full h-[45px]"></div>
         </Skeleton>
       </div>
-      <div className="hidden absolute lg:static lg:block z-0">
+      <div className={styles.imageContainer}>
         <Skeleton visible>
-          <div className="w-full min-h-screen max-h-[1200px]"></div>
+          <div className={styles.image}></div>
         </Skeleton>
       </div>
     </div>

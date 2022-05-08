@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import PropTypes from "prop-types";
 import { Carousel } from "react-responsive-carousel";
@@ -9,38 +9,69 @@ import CarouselScreenXl from "./ScreenXl/CarouselScreenXl";
 const CarouselContainer = (props) => {
   const { listBlogs, isMobileScreen } = props;
 
-  const [autoPlay, setAutoPlay] = useState(false);
+  const [activeBlog, setActiveBlog] = useState(0);
 
-  useEffect(() => {
-    if (!autoPlay) {
-      setTimeout(() => {
-        setAutoPlay(true);
-      }, 7000);
+  const nextBlog = () => {
+    setActiveBlog(activeBlog + 1);
+  };
+
+  const prevBlog = () => {
+    setActiveBlog(activeBlog - 1);
+  };
+
+  const specificBlog = (index) => {
+    setActiveBlog(index);
+  };
+
+  const onChangeCurrentSlide = (index) => {
+    if (activeBlog !== index) {
+      setActiveBlog(index);
     }
-  }, [autoPlay]);
+  };
+
+  const allProps = {
+    carousel: {
+      selectedItem: activeBlog,
+      onChange: onChangeCurrentSlide,
+      axis: "vertical",
+      autoPlay: false,
+      infiniteLoop: true,
+      interval: 7000,
+      transitionTime: 800,
+      showThumbs: false,
+      showArrows: false,
+      stopOnHover: true,
+      dynamicHeight: true,
+      showStatus: false,
+      showIndicators: false,
+      renderIndicator: false,
+      className: "flex flex-col",
+    },
+    carouselMobile: {
+      nextBlog,
+      prevBlog,
+      specificBlog,
+      activeBlog,
+      totalData: listBlogs.length,
+    },
+    carouselScreenXl: {
+      nextBlog,
+      prevBlog,
+      specificBlog,
+      activeBlog,
+      totalData: listBlogs.length,
+    },
+  };
+
   return (
-    <Carousel
-      selectedItem={0}
-      axis="vertical"
-      autoPlay={false}
-      infiniteLoop
-      interval={7000}
-      transitionTime={1200}
-      showThumbs={false}
-      showArrows={false}
-      stopOnHover
-      showStatus={false}
-      showIndicators={false}
-      renderIndicator={false}
-      className="w-full h-full flex flex-col"
-    >
+    <Carousel {...allProps.carousel}>
       {listBlogs.map((val, index) => {
         return (
           <div key={index}>
             {isMobileScreen ? (
-              <CarouselMobile />
+              <CarouselMobile {...val} {...allProps.carouselMobile} />
             ) : (
-              <CarouselScreenXl {...val} totalData={listBlogs.length} />
+              <CarouselScreenXl {...val} {...allProps.carouselScreenXl} />
             )}
           </div>
         );

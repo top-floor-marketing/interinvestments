@@ -4,7 +4,7 @@ import { useQueryHelper } from "../GraphqlClient/useRequest";
 
 import { GET_POST_BLOG_GQL } from "../GraphqlClient/gql";
 
-import { removeHtmlInString } from "../utils";
+import { removeHtmlInString, maxString } from "../utils";
 
 const UseGetBlogs = () => {
   const [fullData, setFullData] = useState([]);
@@ -16,14 +16,14 @@ const UseGetBlogs = () => {
       return {
         id: val.databaseId,
         urlImage: val.featuredImage?.node?.sourceUrl || null,
-        title: val.title,
-        description: removeHtmlInString(val.excerpt),
+        title: maxString(val.title, 150),
+        description: maxString(removeHtmlInString(val.excerpt), 250),
       };
     });
     return parseData;
   };
 
-  // fget firts 4 Blogs
+  // get firts 4 Blogs
   const {
     isLoading: loadingBlogs,
     isError: errorBlogs,

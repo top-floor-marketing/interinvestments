@@ -1,9 +1,11 @@
 import { Text } from "@mantine/core";
 
+import styles from "./styles.module.scss";
+
 const EmptyBlog = () => {
   return (
-    <div className="w-full h-full my-auto p-32">
-      <Text className="text-red-500 text-center text-[36px]">No data</Text>
+    <div className={styles.container}>
+      <Text className={styles.noData}>No data</Text>
     </div>
   );
 };
