@@ -1,6 +1,6 @@
 import { Skeleton } from "@mantine/core";
 
-import styles from "./styles.module.scss";
+import styles from "./blog_grid_styles.module.scss";
 
 const SkeletonBlog = () => {
   return (

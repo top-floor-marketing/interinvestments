@@ -2,7 +2,7 @@ import { Button } from "@mantine/core";
 
 import CustomIndicator from "../../CustomIndicator";
 
-import styles from "./styles.module.scss";
+import styles from "./blog_grid_styles.module.scss";
 
 const CarouselScreenXl = (props) => {
   const {

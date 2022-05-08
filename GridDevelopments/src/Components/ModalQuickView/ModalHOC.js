@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Modal, Button } from "@mantine/core";
 
-import styles from "./styles.module.scss";
+import styles from "./grid_developments_styles.module.scss";
 
 const ModalHOC = (props) => {
   const { onClose, config, opened } = props;

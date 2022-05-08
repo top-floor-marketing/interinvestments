@@ -1,6 +1,6 @@
 import { Text } from "@mantine/core";
 
-import styles from "./styles.module.scss";
+import styles from "./blog_grid_styles.module.scss";
 
 const EmptyBlog = () => {
   return (

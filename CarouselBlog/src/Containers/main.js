@@ -8,7 +8,7 @@ import EmptyBlog from "../Components/Empty";
 
 import useGetBlogs from "../Hooks/useGetBlogs";
 
-import styles from "./styles.module.scss";
+import styles from "./blog_grid_styles.module.scss";
 
 const MainContainer = () => {
   const isMobileScreen = useMediaQuery(

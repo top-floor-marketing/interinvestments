@@ -3,7 +3,7 @@ import { Button } from "@mantine/core";
 import { ChevronDown, ChevronUp } from "tabler-icons-react";
 import PropTypes from "prop-types";
 
-import styles from "./styles.module.scss";
+import styles from "./blog_grid_styles.module.scss";
 
 const CustomIndicator = ({
   totalData,
