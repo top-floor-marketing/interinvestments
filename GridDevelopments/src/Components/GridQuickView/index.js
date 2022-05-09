@@ -48,8 +48,7 @@ const GridQuickView = ({
         onClick: () => openModalQuickView(id),
         disabled: showOverlay,
         variant: "white",
-        className: styles.btnQuickView,
-        //style: { backgroundColor: "#FFFFFF" },
+        className: styles.btnQuickView + " bg-white",
       };
     },
     buttonRedirect: (id) => {
