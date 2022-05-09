@@ -44,7 +44,6 @@ const MainContainer = () => {
       showOverlay,
     },
     btnLoadMore: {
-      id: "btnLoadMore_wp",
       onClick: () => fetchListListing(),
       variant: "white",
       disabled: isLoading,
@@ -59,7 +58,7 @@ const MainContainer = () => {
 
   return (
     <div data-aos="fade-up" data-aos-duration="700" {...allProps.container}>
-      <p {...allProps.textFeatured}>Featured Developments</p>
+      <h5 {...allProps.textFeatured}>Featured Developments</h5>
       {!renderSkeleton && isError ? (
         <EmptyGrid />
       ) : renderSkeleton ? (
