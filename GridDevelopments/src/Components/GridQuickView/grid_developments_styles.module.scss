@@ -31,11 +31,15 @@
 }
 
 .btnQuickView {
-    @apply text-black font-wp-semibold 
+    background-color: white !important;
+    @apply bg-white text-black font-wp-semibold 
     rounded-[32px] min-w-[120px] 
     transition-all ease-in-out duration-500 
     hover:bg-black hover:text-white hover:border-black 
     font-outfit;
+    &:hover{    
+        background-color: black !important;
+    }
 }
 
 .btnRedirect {
