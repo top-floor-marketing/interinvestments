@@ -30,10 +30,18 @@
     @apply flex flex-row gap-5 pt-1;
 }
 
-.buttonQuickView {
-    @apply text-black bg-white font-wp-semibold rounded-[32px] min-w-[120px] transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black font-outfit;
+.btnQuickView {
+    @apply text-black bg-[#FFFFFF] font-wp-semibold 
+    rounded-[32px] min-w-[120px] 
+    transition-all ease-in-out duration-500 
+    hover:bg-black hover:text-white hover:border-black 
+    font-outfit;
 }
 
-.buttonRedirect {
-    @apply bg-transparent mt-auto hover:font-[600] transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black font-outfit ml-auto rounded-full border-solid border-white w-[35px] h-[35px] p-0;
+.btnRedirect {
+    @apply bg-transparent mt-auto 
+    hover:font-[600] hover:bg-black hover:text-white
+    transition-all ease-in-out duration-500 
+     hover:border-black font-outfit 
+     ml-auto rounded-full border-solid border-white w-[35px] h-[35px] p-0;
 }

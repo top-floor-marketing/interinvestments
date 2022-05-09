@@ -48,7 +48,8 @@ const GridQuickView = ({
         onClick: () => openModalQuickView(id),
         disabled: showOverlay,
         variant: "white",
-        className: styles.buttonQuickView,
+        className: styles.btnQuickView,
+        style: { backgroundColor: "#FFFFFF" },
       };
     },
     buttonRedirect: (id) => {
@@ -57,7 +58,7 @@ const GridQuickView = ({
         variant: "white",
         component: "a",
         href: `/project?id=${id}`,
-        className: styles.buttonRedirect,
+        className: styles.btnRedirect,
       };
     },
   };
