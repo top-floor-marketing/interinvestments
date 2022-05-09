@@ -32,7 +32,7 @@
 
 .btnQuickView {
     background-color: white !important;
-    @apply bg-white text-black font-wp-semibold 
+    @apply bg-white text-black font-wp-bold 
     rounded-[32px] min-w-[120px] 
     transition-all ease-in-out duration-500 
     hover:bg-black hover:text-white hover:border-black 
@@ -43,7 +43,7 @@
 }
 
 .btnRedirect {
-    @apply bg-transparent mt-auto 
+    @apply bg-transparent mt-auto font-wp-bold
     hover:font-[600] hover:bg-black hover:text-white
     transition-all ease-in-out duration-500 
      hover:border-black font-outfit 
