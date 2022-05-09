@@ -49,7 +49,7 @@ const GridQuickView = ({
         disabled: showOverlay,
         variant: "white",
         className: styles.btnQuickView,
-        style: { backgroundColor: "#FFFFFF" },
+        //style: { backgroundColor: "#FFFFFF" },
       };
     },
     buttonRedirect: (id) => {
@@ -59,6 +59,7 @@ const GridQuickView = ({
         component: "a",
         href: `/project?id=${id}`,
         className: styles.btnRedirect,
+        title: "View Project",
       };
     },
   };
