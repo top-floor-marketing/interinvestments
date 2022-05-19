@@ -1,18 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { DEFAULT_ROUTE } from "../Route/routes";
+
 export const userSlice = createSlice({
-  name: "theme",
+  name: "user",
   initialState: {
     isLoadingFull: false,
+    route: DEFAULT_ROUTE,
+    infoUser: null,
   },
   reducers: {
-    toggleLoading: (state) => {
-      state.isLoadingFull = !state.isLoadingFull;
+    toggleLoadingFull: (state, action) => {
+      state.isLoadingFull = action.payload || !state.isLoadingFull;
+    },
+    setRoute: (state, action) => {
+      state.route = action.payload;
+    },
+    setInfoUser: (state, action) => {
+      state.infoUser = {
+        ...state.infoUser,
+        ...action.payload,
+      };
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { toggleLoading } = userSlice.actions;
+export const { toggleLoadingFull, setRoute, setInfoUser } = userSlice.actions;
 
 export default userSlice.reducer;

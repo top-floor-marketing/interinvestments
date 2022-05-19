@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Center, Box, Overlay, createStyles } from "@mantine/core";
+import { Box, Overlay, createStyles } from "@mantine/core";
 import lottie from "lottie-web";
 import IntroLoading from "../../Lottie/IntroLoading.json";
 
@@ -29,12 +29,12 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
 }));
 
-const LoadingFull = () => {
-  const isLoadingFull = useSelector((state) => state.user.isLoadingFull);
-  const { classes } = useStyles({ isLoading: isLoadingFull });
-  const id = "wp-loading-full";
+const LoadingFull = ({ isLoadingLazy, idLazy }) => {
+  const { isLoadingFull } = useSelector((state) => state.user);
+  const { classes } = useStyles({ isLoading: isLoadingFull || isLoadingLazy });
+  const id = "wp-loading-full".concat(idLazy || "");
   useEffect(() => {
-    if (id && isLoadingFull) {
+    if (id && (isLoadingFull || isLoadingLazy)) {
       lottie.loadAnimation({
         container: document.querySelector(`#${id}`),
         animationData: IntroLoading,
@@ -48,7 +48,7 @@ const LoadingFull = () => {
     } else if (id) {
       lottie.destroy(id);
     }
-  }, [isLoadingFull, id]);
+  }, [isLoadingFull, isLoadingLazy, id]);
   return (
     <Box className={classes.box}>
       <Overlay zIndex={9998} color="#000" opacity={0.3} />
