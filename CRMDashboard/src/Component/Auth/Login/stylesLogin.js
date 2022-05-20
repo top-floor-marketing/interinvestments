@@ -8,10 +8,14 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     containerLogin: {
         width: '100%',
         margin: 'auto',
-        height: '431px',
+        height: '100%',
         padding: '12px',
-        [`@media (min-width: ${theme.breakpoints.xs}px)`]: {
-            width: '60%',
+        [`@media (min-width: ${theme.breakpoints.xs}px) and (max-width: 1500px)`]: {
+            width: '65%',
+        },
+
+        [`@media (min-width: 1501px)`]: {
+            width: '55%',
         }
 
     },
@@ -94,15 +98,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         width: '100%',
         fontSize: '20px',
         lineHeight: '1.7em',
-        color: '#0C0C0C',
         borderWidth: '1px',
-        borderColor: '#0C0C0C',
         padding: '0.3em 1em',
-        [`&:hover`]: {
-            color: '#ffffff',
-            backgroundColor: '#0C0C0C',
-            borderColor: '#0C0C0C',
-        }
     }
 }))
 

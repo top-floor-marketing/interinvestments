@@ -16,15 +16,12 @@ const FormLogin = () => {
             email: '',
         },
     });
-
-    // console.log(form)
-
+    
     return (
         <Box className={classes.containerForm}>
             <form onSubmit={form.onSubmit((values) => console.log(values))}>
                 <TextInput
-                    // required
-                    // type={'email'}
+                    style={{ margin: 0 }}
                     className={classes.InputForm}
                     icon={<At />}
                     placeholder="Your email"
@@ -32,7 +29,6 @@ const FormLogin = () => {
                     {...form.getInputProps('email')}
                 />
                 <TextInput
-                    //required
                     type='password'
                     className={classes.InputForm}
                     icon={<User />}
@@ -45,7 +41,8 @@ const FormLogin = () => {
                     radius="lg"
                     size="xl"
                     compact
-                    className={classes.buttonLogin}>
+                    className={classes.buttonLogin}
+                >
                     Login
                 </Button>
             </form>
