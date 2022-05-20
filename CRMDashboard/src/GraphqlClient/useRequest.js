@@ -2,6 +2,8 @@ import { useQuery, useMutation } from "react-query";
 
 import { GraphQLClient } from "graphql-request";
 
+import { useLocalStorage } from "@mantine/hooks";
+
 const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
 const API_URL =
   ENVIROMENT === "production"
@@ -13,13 +15,18 @@ const globalConfig = {
 };
 
 const graphQLClient = new GraphQLClient(API_URL, {
-  headers: {
+  /* headers: {
     Authorization: `Bearer `,
-  },
+  }, */
 });
 
 const useQueryHelper = (props) => {
   const { name, gql, variables, config = {} } = props;
+  const [token] = useLocalStorage({
+    key: "crm-token",
+    defaultValue: null,
+  });
+  graphQLClient.setHeader("authorization", `Bearer ${token}`);
   return useQuery(
     name,
     async () => {
@@ -35,6 +42,11 @@ const useQueryHelper = (props) => {
 
 const useMutationHelper = (props) => {
   const { name, gql, variables, config = {} } = props;
+  const [token] = useLocalStorage({
+    key: "crm-token",
+    defaultValue: null,
+  });
+  graphQLClient.setHeader("authorization", `Bearer ${token}`);
   return useMutation(
     name,
     async () => {

@@ -1,20 +1,9 @@
-import React, { Suspense } from "react";
+import React from "react";
 
-import LoadingFull from "../LoadingFull";
-import { Box } from "@mantine/core";
-
-const LoginComponent = React.lazy(() => import("./Login"));
+import Login from "./Login";
 
 const AuthContainer = () => {
-  return (
-    <Box>
-      <Suspense
-        fallback={<LoadingFull idLazy={"LoginComponent"} isLoadingLazy />}
-      >
-        <LoginComponent />
-      </Suspense>
-    </Box>
-  );
+  return <Login />;
 };
 
 export default AuthContainer;

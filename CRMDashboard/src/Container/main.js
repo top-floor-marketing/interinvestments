@@ -1,11 +1,9 @@
-import { Box, createStyles, Text, Button } from "@mantine/core";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleLoading } from "../Store/userSlice";
+import { Box, createStyles } from "@mantine/core";
+import React from "react";
 
-import { CRM_ROUTES } from "../Route/routes";
+import NotFound404 from "../Component/NotFound404";
 
-import useIsLogin from "../Hooks/useIsLogin";
+import useVerifyRoute from "../Hooks/useVerifyRoute";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   mainContainer: {
@@ -14,55 +12,27 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     flexDirection: "flex-column",
     minHeight: "100vh",
     backgroundColor: theme.colors.gray[0],
+    justifyContent: "center",
+    alignContent: "center",
   },
 }));
 
 const ContainerMain = () => {
   const { classes } = useStyles();
-  const { route } = useSelector((state) => state.user);
-  const { isVerifyLogin } = useIsLogin();
-  if (isVerifyLogin) {
+
+  const { loadingFirtsMount, routeActive } = useVerifyRoute();
+
+  if (loadingFirtsMount) {
     return null;
   }
+
   return (
     <Box className={classes.mainContainer}>
-      {/*    {(() => {
-        switch (msgType) {
-          case "resolved":
-            return (
-              <div className="msg-resolved">
-                Your Ticker is Resolved Successfully
-              </div>
-            );
-          case "pending":
-            return <div className="msg-resolved">Your Ticker is pending</div>;
-          case "closed":
-            return (
-              <div className="msg-closed">
-                Your Ticker is Closed Successfully
-              </div>
-            );
-          default:
-            return (
-              <div className="msg-empty">
-                The Ticket Status is unknown. Check back later.
-              </div>
-            );
-        }
-      })()} */}
+      {routeActive ? routeActive.component() : <NotFound404 />}
     </Box>
   );
-  /* return (
-    <Box className={classes.container}>
-      <Text size="lg">ROUTE: {JSON.stringify(route)}&nbsp;&nbsp;&nbsp;</Text>
-      <Text size="lg">VERIFY: {JSON.stringify(isVerifyLogin)}</Text>
-      <Box className={classes.routes}>
-        {CRM_ROUTES.map((val, index) => {
-          return <Button key={index}>{val.name}</Button>;
-        })}
-      </Box>
-    </Box>
-  ); */
 };
 
-export default ContainerMain;
+const memoContainerMain = React.memo(ContainerMain);
+
+export default memoContainerMain;

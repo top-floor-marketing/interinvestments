@@ -46,7 +46,7 @@ export const CRM_ROUTES = [
       </Suspense>
     ),
     useInSideBar: false,
-    loginRequired: true,
+    loginRequired: false,
   },
   {
     name: ROUTES_NAMES.HOME,
