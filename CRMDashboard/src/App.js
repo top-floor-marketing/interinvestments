@@ -4,6 +4,7 @@ import store from "./Store/store";
 import { Provider } from "react-redux";
 
 import ThemeGlobalProvider from "./MatineProvider";
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import Main from "./Container/main";
 const queryClient = new QueryClient();
@@ -15,6 +16,7 @@ function App() {
         <ThemeGlobalProvider>
           <Main />
         </ThemeGlobalProvider>
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </Provider>
   );
