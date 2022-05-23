@@ -3,7 +3,7 @@ import React from "react";
 
 import NotFound404 from "../Component/NotFound404";
 
-import useVerifyRoute from "../Hooks/useVerifyRoute";
+import useVerifyRoute from "../Route/useVerifyRoute";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   mainContainer: {
@@ -20,7 +20,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const ContainerMain = () => {
   const { classes } = useStyles();
 
-  const { loadingFirtsMount, routeActive } = useVerifyRoute();
+  const { loadingFirtsMount, routeActive, routeValidate } = useVerifyRoute();
 
   if (loadingFirtsMount) {
     return null;
