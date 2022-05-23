@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 //componets
 import FormLogin from "./FormLogin";
-import Forgotpassword from "./Forgotpassword";
 // mantine
 import { Card, Text, Button, Box, Image } from "@mantine/core";
 // styles
@@ -10,7 +9,6 @@ import logoLogin from "./assets/images/Logo.svg";
 
 const Login = () => {
   const { classes } = useStyles();
-  const [activeViewLogin, setActiveViewLogin] = useState(true);
   return (
     <Box className={classes.containerLogin}>
       <Card style={{ padding: 0 }} shadow="sm" p="lg">
@@ -25,15 +23,16 @@ const Login = () => {
               align="content-center"
               weight={500}
             >
-              {activeViewLogin ? "Sign in" : "Forgot password"}
+              Sign in Admin CRM
             </Text>
-            {activeViewLogin ? <FormLogin /> : <Forgotpassword />}
+            <FormLogin />
             <Button
-              onClick={() => setActiveViewLogin(!activeViewLogin)}
+              component='a'
+              href="/wp-login.php?action=lostpassword"
               className={classes.buttonPassword}
               variant="subtle"
             >
-              {!activeViewLogin ? "back to Sign in" : "Forgot your password?"}
+              "Forgot your password?
             </Button>
           </Box>
           <Box className={classes.imageLogin}>
