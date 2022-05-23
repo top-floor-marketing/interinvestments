@@ -1,6 +1,7 @@
 import React from "react";
 //componets
 import FormLogin from "./FormLogin";
+import CarouselLogin from './CarouselLogin'
 // mantine
 import { Card, Text, Button, Box, Image } from "@mantine/core";
 // styles
@@ -36,10 +37,7 @@ const Login = (props) => {
               "Forgot your password?
             </Button>
           </Box>
-          <Box className={classes.imageLogin}>
-            <Box className={classes.ParallaxCroma} />
-            <Box className={classes.ParallaxContain} />
-          </Box>
+          <CarouselLogin />
         </Box>
       </Card>
     </Box>
