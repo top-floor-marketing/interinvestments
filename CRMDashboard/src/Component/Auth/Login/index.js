@@ -7,8 +7,9 @@ import { Card, Text, Button, Box, Image } from "@mantine/core";
 import useStyles from "./stylesLogin";
 import logoLogin from "./assets/images/Logo.svg";
 
-const Login = () => {
+const Login = (props) => {
   const { classes } = useStyles();
+  const { onSuccessLogin = null } = props
   return (
     <Box className={classes.containerLogin}>
       <Card style={{ padding: 0 }} shadow="sm" p="lg">
@@ -25,7 +26,7 @@ const Login = () => {
             >
               Sign in Admin CRM
             </Text>
-            <FormLogin />
+            <FormLogin onSuccessLogin={onSuccessLogin} />
             <Button
               component='a'
               href="/wp-login.php?action=lostpassword"
