@@ -5,13 +5,13 @@ import { DEFAULT_ROUTE } from "../Route/routes";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    isLoadingFull: false,
+    isLoadingFull: true,
     route: DEFAULT_ROUTE,
     infoUser: null,
   },
   reducers: {
     toggleLoadingFull: (state, action) => {
-      state.isLoadingFull = action.payload || !state.isLoadingFull;
+      state.isLoadingFull = action.payload || false;
     },
     setRoute: (state, action) => {
       state.route = action.payload;

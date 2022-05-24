@@ -17,7 +17,7 @@ export const ROUTES_NAMES = {
   TESTMANTINE: "testmantine",
 };
 
-export const DEFAULT_ROUTE = ROUTES_NAMES.AUTH; //ROUTES_NAMES.HOME;
+export const DEFAULT_ROUTE = ROUTES_NAMES.HOME;
 
 export const CRM_ROUTES = [
   {
@@ -54,7 +54,9 @@ export const CRM_ROUTES = [
     component: () => (
       <Suspense
         fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}
-      ></Suspense>
+      >
+        <TestComponent />
+      </Suspense>
     ),
     useInSideBar: true,
     loginRequired: true,

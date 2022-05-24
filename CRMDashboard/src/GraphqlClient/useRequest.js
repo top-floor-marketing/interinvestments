@@ -4,6 +4,8 @@ import { GraphQLClient } from "graphql-request";
 
 import { LOCAL_STORAGE } from "../Utils/globalConstants";
 
+import isNull from "lodash/isNull";
+
 const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
 const API_URL =
   ENVIROMENT === "production"
@@ -23,8 +25,9 @@ const graphQLClient = new GraphQLClient(API_URL, {
 
 const useQueryHelper = (props) => {
   const { name, gql, variables, config = {} } = props;
-  const token = localStorage.getItem(LOCAL_STORAGE.TOKEN);
-  if (token) graphQLClient.setHeader("Authorization", `${token}`);
+  const token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
+  if (!isNull(token) && token !== "null")
+    graphQLClient.setHeader("Authorization", `Bearer ${token}`);
   return useQuery(
     name,
     async () => {
@@ -40,8 +43,9 @@ const useQueryHelper = (props) => {
 
 const useMutationHelper = (props) => {
   const { name, gql, config = {} } = props;
-  const token = localStorage.getItem(LOCAL_STORAGE.TOKEN);
-  if (token) graphQLClient.setHeader("Authorization", `${token}`);
+  const token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
+  if (!isNull(token) && token !== "null")
+    graphQLClient.setHeader("Authorization", `Bearer ${token}`);
   return useMutation(
     name,
     async ({ variables }) => {
