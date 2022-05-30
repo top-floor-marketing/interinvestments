@@ -17,11 +17,19 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   mainContainer: {
     width: "100%",
     display: "flex",
-    flexDirection: "flex-column",
+    flexDirection: "column",
     minHeight: "100vh",
-    backgroundColor: theme.colors.gray[0],
+    backgroundColor: theme.colors.white[1],
     justifyContent: "center",
     alignContent: "center",
+    ".mantine-Paper-root": {
+      backgroundColor: theme.colors.white[0],
+    },
+    ".mantine-TextInput-input": {
+      border: "1px solid #83837C",
+      backgroundColor: theme.colors.white[0],
+      color: "#000",
+    },
   },
 }));
 

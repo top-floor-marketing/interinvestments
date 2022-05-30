@@ -7,6 +7,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       theme.colorScheme === COLOR_SCHEME_DARK
         ? theme.colors.dark[8]
         : theme.colors.gray[1],
+    padding: "1.25rem",
   },
   boxContainer: {
     minHeight: "calc(100vh)",
@@ -19,9 +20,8 @@ const NavBarDashboard = ({ opened }) => {
   const { classes } = useStyles();
   return (
     <Navbar
-      p="xl"
       hidden={!opened}
-      hiddenBreakpoint="md"
+      hiddenBreakpoint="lg"
       width={{ lg: 350 }}
       className={classes.navBarContainer}
     >

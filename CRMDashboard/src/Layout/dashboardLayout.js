@@ -4,32 +4,29 @@ import React, { useState } from "react";
 import Navbar from "./NavBar";
 import Header from "./Header";
 
-/* const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params, getRef) => ({
   boxContainer: {
-    backgroundColor: theme.colors.white[1],
+    backgroundColor: "transparent",
     height: "100%",
-    widows: "100%",
+    width: "100%",
     display: "flex",
+    minHeight: "300px",
     flexDirection: "column",
+    padding: theme.other.spacing.p5,
   },
-})); */
+}));
 
 const DashboardLayout = (props) => {
-  // const { classes } = useStyles();
+  const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
   return (
     <AppShell
       fixed
-      navbarOffsetBreakpoint="md"
+      padding="0"
       navbar={<Navbar opened={opened} />}
       header={<Header opened={opened} setOpened={setOpened} />}
-      styles={(theme) => ({
-        main: {
-          backgroundColor: theme.colors.white[1],
-        },
-      })}
     >
-      {props.children}
+      <Box className={classes.boxContainer}>{props.children}</Box>
     </AppShell>
   );
 };

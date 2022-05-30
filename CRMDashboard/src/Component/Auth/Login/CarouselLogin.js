@@ -13,7 +13,7 @@ import fondoLogin2 from "./assets/images/fondoLogin2.jpg";
 import fondoLogin3 from "./assets/images/fondoLogin3.jpg";
 
 const CarouselLogin = () => {
-  const matches = useMediaQuery("(min-width: 1024px)");
+  const matches = useMediaQuery("(min-width: 768px)");
   return (
     <Box className="containCarousel">
       {matches && (

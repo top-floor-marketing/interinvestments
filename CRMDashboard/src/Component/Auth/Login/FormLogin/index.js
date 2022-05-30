@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 // mantine
-import { Box, TextInput, Button, Alert } from "@mantine/core";
+import {
+  Box,
+  TextInput,
+  Button,
+  Alert,
+  UnstyledButton,
+  Text,
+} from "@mantine/core";
 import { At, User, AlertCircle } from "tabler-icons-react";
 import { useForm, joiResolver } from "@mantine/form";
+import { useMantineTheme } from "@mantine/core";
 import schema from "./schema";
 //styles
 import useStyles from "../stylesLogin";
@@ -12,6 +20,7 @@ import { useMutationHelper } from "../../../../GraphqlClient/useRequest";
 
 const FormLogin = (props) => {
   const { classes } = useStyles();
+  const theme = useMantineTheme();
   const [watchAlert, setwatchAlert] = useState(false);
   const { onSuccessLogin } = props;
 
@@ -51,45 +60,52 @@ const FormLogin = (props) => {
   return (
     <Box className={classes.containerForm}>
       {watchAlert && (
-        <Alert
-          style={{ marginBottom: "10px" }}
-          icon={<AlertCircle size={16} />}
-          color="red"
-          radius="lg"
-        >
-          network error, please try again later
+        <Alert icon={<AlertCircle size={20} />} color="error">
+          <Text style={{ color: theme.colors.dark[0] }}>
+            Network error, please try again later
+          </Text>
         </Alert>
       )}
       <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
-        <TextInput
-          disabled={isLoading}
-          style={{ margin: 0 }}
-          className={classes.InputForm}
-          icon={<At />}
-          placeholder="Your user name"
-          radius="md"
-          {...form.getInputProps("username")}
-        />
-        <TextInput
-          disabled={isLoading}
-          type="password"
-          className={classes.InputForm}
-          icon={<User />}
-          placeholder="Your pass"
-          radius="md"
-          {...form.getInputProps("password")}
-        />
-        <Button
-          type="submit"
-          radius="lg"
-          size="xl"
-          compact
-          loading={isLoading}
-          className={classes.buttonLogin}
-        >
-          Login
-        </Button>
+        <Box className={classes.formLogin}>
+          <TextInput
+            disabled={isLoading}
+            className={classes.InputForm}
+            icon={<At />}
+            placeholder="User name"
+            radius="sm"
+            {...form.getInputProps("username")}
+          />
+          <TextInput
+            disabled={isLoading}
+            type="password"
+            className={classes.InputForm}
+            icon={<User />}
+            placeholder="Password"
+            radius="sm"
+            {...form.getInputProps("password")}
+          />
+          <Button
+            type="submit"
+            radius="sm"
+            size="xl"
+            compact
+            color="primary"
+            loading={isLoading}
+            className={classes.buttonLogin}
+          >
+            Login
+          </Button>
+        </Box>
       </form>
+      <UnstyledButton
+        component="a"
+        href="/wp-login.php?action=lostpassword"
+        className={classes.buttonForgot}
+        variant="subtle"
+      >
+        Forgot your password?
+      </UnstyledButton>
     </Box>
   );
 };
