@@ -6,9 +6,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     backgroundColor:
       theme.colorScheme === "dark"
         ? theme.colors.dark[5]
-        : theme.colors.gray[1],
-    width: "100%",
-    minHeight: "100vh",
+        : theme.colors.gray[0],
     display: "flex",
   },
 }));

@@ -44,7 +44,7 @@ const AuthContainer = ({ isModal = false }) => {
     // localStorage set null
     setRefreshTokenLocal(null);
     setTokenLocal(null);
-    setRouteInLocalStorage(null);
+    setRouteInLocalStorage(ROUTES_NAMES.AUTH);
     setIdLocalStorage(null);
 
     // userSlice store set null

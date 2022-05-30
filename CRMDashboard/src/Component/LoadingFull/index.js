@@ -46,10 +46,13 @@ const LoadingFull = ({ isLoadingLazy = false, idLazy }) => {
         autoplay: true,
         name: id,
       });
+      document.getElementsByTagName("body")[0].style.overflow = "hidden";
     } else if (id) {
+      document.getElementsByTagName("body")[0].style.overflow = "auto";
       lottie.destroy(id);
     }
     return () => {
+      document.getElementsByTagName("body")[0].style.overflow = "auto";
       lottie.destroy(id);
     };
   }, [isLoadingFull, isLoadingLazy, id]);

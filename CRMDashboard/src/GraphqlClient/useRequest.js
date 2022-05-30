@@ -26,12 +26,13 @@ const graphQLClient = new GraphQLClient(API_URL, {
 const useQueryHelper = (props) => {
   const { name, gql, variables, config = {} } = props;
   const token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
-  if (!isNull(token) && token !== "null")
-    graphQLClient.setHeader("Authorization", `Bearer ${token}`);
+  const requestHeaders = {
+    authorization: !isNull(token) ? `Bearer ${token}` : "",
+  };
   return useQuery(
     name,
     async () => {
-      const data = await graphQLClient.request(gql, variables);
+      const data = await graphQLClient.request(gql, variables, requestHeaders);
       return data;
     },
     {
@@ -44,12 +45,13 @@ const useQueryHelper = (props) => {
 const useMutationHelper = (props) => {
   const { name, gql, config = {} } = props;
   const token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
-  if (!isNull(token) && token !== "null")
-    graphQLClient.setHeader("Authorization", `Bearer ${token}`);
+  const requestHeaders = {
+    authorization: !isNull(token) ? `Bearer ${token}` : "",
+  };
   return useMutation(
     name,
     async ({ variables }) => {
-      return await graphQLClient.request(gql, variables);
+      return await graphQLClient.request(gql, variables, requestHeaders);
     },
     {
       ...globalConfig,

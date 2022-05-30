@@ -50,7 +50,20 @@ export const CRM_ROUTES = [
   },
   {
     name: ROUTES_NAMES.HOME,
-    layout: LAYOUT_NAMES.EMPTY,
+    layout: LAYOUT_NAMES.DASHBOARD,
+    component: () => (
+      <Suspense
+        fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}
+      >
+        <TestComponent />
+      </Suspense>
+    ),
+    useInSideBar: true,
+    loginRequired: true,
+  },
+  {
+    name: ROUTES_NAMES.HOME,
+    layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
       <Suspense
         fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}

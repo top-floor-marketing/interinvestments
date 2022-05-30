@@ -2,11 +2,15 @@ import { Box, createStyles } from "@mantine/core";
 import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { CRM_ROUTES } from "../Route/routes";
+import { CRM_ROUTES, LAYOUT_NAMES } from "../Route/routes";
 
 import filter from "lodash/filter";
 import isEmpty from "lodash/isEmpty";
 
+// layouts
+import { DashboardLayout } from "../Layout";
+
+// components
 import NotFound404 from "../Component/NotFound404";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -31,7 +35,15 @@ const RoutesContainer = () => {
   });
 
   const RenderActive = ({ active }) => {
-    return active.component();
+    switch (active.layout) {
+      case LAYOUT_NAMES.DASHBOARD:
+        return <DashboardLayout>{active.component()}</DashboardLayout>;
+      case LAYOUT_NAMES.EMPTY:
+        return active.component();
+
+      default:
+        return active.component();
+    }
   };
 
   return (

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const COLOR_SCHEME_DARK = "dark";
-const COLOR_SCHEME_LIGHT = "light";
+export const COLOR_SCHEME_DARK = "dark";
+export const COLOR_SCHEME_LIGHT = "light";
 // https://convertingcolors.com/hex-color-0C0C0C.html?search=Hex(0C0C0C)
 export const themeSlice = createSlice({
   name: "theme",
@@ -54,7 +54,8 @@ export const themeSlice = createSlice({
         "#066044",
         "#033022",
       ],
-      white: ["#FFF"],
+      white: ["#FFF", "#f3f3f2"],
+      black: ["#000"],
       gray: [
         "#E6E6E5",
         "#D6D6D4",

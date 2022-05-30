@@ -39,14 +39,14 @@ const useVerifyRoute = () => {
     const hasRoles = !isEmpty(get(data, ["user", "roles"]));
     const hasUserName = get(data, ["user", "username"]);
     const hasId = get(data, ["user", "id"]);
-    return hasRoles && hasUserName && hasId;
+    return !!(hasUserName && hasId && hasRoles);
   };
 
   const setNullStore = () => {
     // localStorage set null
     setRefreshTokenLocal(null);
     setTokenLocal(null);
-    setRouteInLocalStorage(null);
+    setRouteInLocalStorage(ROUTES_NAMES.AUTH);
     setIdLocalStorage(null);
 
     // userSlice store set null
@@ -72,11 +72,18 @@ const useVerifyRoute = () => {
         }
         dispatch(toggleLoadingFull(false));
         setLoadingVerify(false);
+        /* dispatch(toggleLoadingFull(false));
+        setLoadingVerify(false);
+        dispatch(setRoute(routeInLocalStorage)); */
       },
       onError: (e) => {
         setNullStore();
         dispatch(toggleLoadingFull(false));
         setLoadingVerify(false);
+        /* dispatch(toggleLoadingFull(false));
+        setLoadingVerify(false);
+        setRouteInLocalStorage(DEFAULT_ROUTE);
+        dispatch(setRoute(DEFAULT_ROUTE)); */
       },
     },
   });
