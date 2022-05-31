@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Header,
-  Text,
   MediaQuery,
   Burger,
   useMantineTheme,
@@ -23,6 +22,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         : theme.colors.black[0],
     paddingLeft: theme.other.spacing.p5,
     paddingRight: theme.other.spacing.p5,
+    boxShadow: theme.shadows.xl,
+    borderBottom: `1px solid ${theme.colors.gray[2]}`,
     [`@media (min-width: ${theme.breakpoints.xl}px)`]: {
       padding: 0,
     },
@@ -36,9 +37,9 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   logoContainer: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "start",
     height: "100%",
-    width: "350px",
+    width: "300px",
     borderRight:
       theme.colorScheme === COLOR_SCHEME_DARK
         ? `1px solid ${theme.colors.dark[9]}`
@@ -69,7 +70,7 @@ const HeaderDashboard = ({ opened, setOpened }) => {
 
   const { classes } = useStyles();
   return (
-    <Header className={classes.headerContainer} height={70}>
+    <Header className={classes.headerContainer} height={80}>
       <Box className={classes.boxContainer}>
         <MediaQuery largerThan="lg" styles={{ display: "none" }}>
           <Burger
@@ -84,9 +85,7 @@ const HeaderDashboard = ({ opened, setOpened }) => {
             <Image src={LogoInter} alt="Logo interinvestments" />
           </Box>
         </Box>
-        <Box className={classes.content}>
-          <Box>HEADER</Box>
-        </Box>
+        <Box className={classes.content}></Box>
       </Box>
     </Header>
   );

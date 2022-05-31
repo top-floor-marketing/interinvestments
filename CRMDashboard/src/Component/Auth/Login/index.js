@@ -21,7 +21,7 @@ const Login = (props) => {
           <Box className={classes.contentFom}>
             <Image
               className={classes.logo}
-              height={matches ? 28 : 20}
+              height={matches ? 22 : 18}
               src={logoLogin}
               alt="ImageLogo"
             />

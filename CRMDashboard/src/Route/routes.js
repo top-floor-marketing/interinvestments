@@ -2,6 +2,8 @@ import React, { Suspense } from "react";
 
 import LoadingFull from "../Component/LoadingFull";
 
+import { Dashboard, List, LayoutGrid } from "tabler-icons-react";
+
 // components
 const AuthComponent = React.lazy(() => import("../Component/Auth"));
 const TestComponent = React.lazy(() => import("../Component/MantineTest"));
@@ -14,29 +16,61 @@ export const LAYOUT_NAMES = {
 export const ROUTES_NAMES = {
   AUTH: "auth",
   HOME: "home",
-  TESTMANTINE: "testmantine",
+  LEAD: "lead-list",
+  PIPELINE: "pipeline",
 };
 
 export const DEFAULT_ROUTE = ROUTES_NAMES.HOME;
 
 export const CRM_ROUTES = [
   {
-    name: ROUTES_NAMES.TESTMANTINE,
-    layout: LAYOUT_NAMES.EMPTY,
+    name: ROUTES_NAMES.HOME,
+    label: "Home",
+    layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
       <Suspense
-        fallback={
-          <LoadingFull idLazy={ROUTES_NAMES.TESTMANTINE} isLoadingLazy />
-        }
+        fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}
       >
         <TestComponent />
       </Suspense>
     ),
-    useInSideBar: false,
+    useInNavbar: true,
     loginRequired: true,
+    icon: () => <Dashboard size={25} strokeWidth={2} color={"white"} />,
+  },
+  {
+    name: ROUTES_NAMES.LEAD,
+    label: "Lead list",
+    layout: LAYOUT_NAMES.DASHBOARD,
+    component: () => (
+      <Suspense
+        fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}
+      >
+        <TestComponent />
+      </Suspense>
+    ),
+    useInNavbar: true,
+    loginRequired: true,
+    icon: () => <List size={25} strokeWidth={2} color={"white"} />,
+  },
+  {
+    name: ROUTES_NAMES.PIPELINE,
+    label: "Pipeline",
+    layout: LAYOUT_NAMES.DASHBOARD,
+    component: () => (
+      <Suspense
+        fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}
+      >
+        <TestComponent />
+      </Suspense>
+    ),
+    useInNavbar: true,
+    loginRequired: true,
+    icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
   },
   {
     name: ROUTES_NAMES.AUTH,
+    label: null,
     layout: LAYOUT_NAMES.EMPTY,
     component: () => (
       <Suspense
@@ -45,33 +79,8 @@ export const CRM_ROUTES = [
         <AuthComponent />
       </Suspense>
     ),
-    useInSideBar: false,
+    useInNavbar: false,
     loginRequired: false,
-  },
-  {
-    name: ROUTES_NAMES.HOME,
-    layout: LAYOUT_NAMES.DASHBOARD,
-    component: () => (
-      <Suspense
-        fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}
-      >
-        <TestComponent />
-      </Suspense>
-    ),
-    useInSideBar: true,
-    loginRequired: true,
-  },
-  {
-    name: ROUTES_NAMES.HOME,
-    layout: LAYOUT_NAMES.DASHBOARD,
-    component: () => (
-      <Suspense
-        fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}
-      >
-        <TestComponent />
-      </Suspense>
-    ),
-    useInSideBar: true,
-    loginRequired: true,
+    icon: null,
   },
 ];

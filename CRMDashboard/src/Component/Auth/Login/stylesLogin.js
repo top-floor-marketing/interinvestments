@@ -11,12 +11,11 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       width: "85%",
     },
     [`@media (min-width: 1501px)`]: {
-      width: "60%",
+      width: "50%",
     },
   },
   contentLogin: {
     display: "grid",
-    gridGap: "1rem",
     gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
     [`@media (min-width: ${theme.breakpoints.md}px)`]: {
       gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
