@@ -1,13 +1,32 @@
 @tailwind utilities;
 
 .divContent {
-    @apply grid grid-cols-3 gap-2;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5;
 }
 
 .container {
-    @apply max-w-screen-xl w-full flex flex-col mx-auto mt-5 bg-blue-300;
+    @apply max-w-screen-xl w-full mx-auto;
+}
+
+.imageCard {
+    @apply object-cover w-full my-auto h-[245px];
 }
 
 .divCard {
-    @apply w-[370px];
+    @apply w-full h-full mx-auto;
+}
+
+.contendCard {
+    @apply flex flex-col gap-5 p-5 bg-black;
+}
+
+.titleComponet {
+    @apply my-5 font-outfit text-[24px] leading-[32px];
+}
+
+.textTag {
+    @apply text-[#FFB839];
+    span {
+        @apply text-white;
+    }
 }
