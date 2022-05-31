@@ -1,13 +1,19 @@
 import React from 'react'
 
 // components
-import HeroBlog from './HeroBlog'
+import CardBlog from './CardBlog'
+
+// scss
+import styles from "../blogStyles.module.scss";
 
 const ContainerBlogView = () => {
     return (
-        <div>
-            <HeroBlog />
-            ContainerBlogView
+        <div className={styles.container}>
+            <div className={styles.divContent}>
+                <CardBlog />
+                <CardBlog />
+                <CardBlog />
+            </div>
         </div>
     )
 }
