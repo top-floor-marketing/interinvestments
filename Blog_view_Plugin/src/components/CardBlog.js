@@ -1,7 +1,7 @@
 import React from 'react'
 
 // mantine 
-import { Card, Text, Button } from '@mantine/core';
+import { Card, Text, Button, Box } from '@mantine/core';
 import image from './asset/Hero_Image-min.jpg'
 
 // scss
@@ -16,13 +16,14 @@ const CardBlog = () => {
                 </Card.Section>
                 <Card.Section className={styles.contendCard}>
                     <Text className={styles.textTag}>04.25.2022 - <span>News</span></Text>
-                    <Text size="sm">
-                        With Fjord Tours you can explore more of the magical fjord landscapes with tours and
-                        activities on and around the fjords of Norway
+                    <Text className={styles.titleCard}>
+                        Celebrations Of Earth Day In South Florida
                     </Text>
-                    <Button variant="light" color="blue" fullWidth>
-                        Book classic tour now
-                    </Button>
+                    <Box>
+                        <Button className={styles.buttonCard} variant="default" radius="xl" size="md">
+                            View Post
+                        </Button>
+                    </Box>
                 </Card.Section>
             </Card>
         </div>

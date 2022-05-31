@@ -17,7 +17,7 @@
 }
 
 .contendCard {
-    @apply flex flex-col gap-5 p-5 bg-black;
+    @apply flex flex-col gap-7 p-5 bg-black;
 }
 
 .titleComponet {
@@ -25,8 +25,16 @@
 }
 
 .textTag {
-    @apply text-[#FFB839];
+    @apply font-outfit text-[14px] leading-[18px] text-[#FFB839];
     span {
         @apply text-white;
     }
+}
+
+.titleCard {
+    @apply font-outfit text-[24px] leading-[30px] text-white;
+}
+
+.buttonCard {
+    @apply transition-all duration-700 ease-in-out bg-white border-white hover:bg-black hover:text-white;
 }
