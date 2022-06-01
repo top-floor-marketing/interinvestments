@@ -7,8 +7,11 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   containerLogin: {
     margin: "auto",
     height: "auto",
-    [`@media (max-width: 1501px)`]: {
-      width: "85%",
+    [`@media (max-width: 1000px)`]: {
+      width: "80%",
+    },
+    [`@media (min-width: 1001px) and (max-width: 1500px)`]: {
+      width: "65%",
     },
     [`@media (min-width: 1501px)`]: {
       width: "50%",

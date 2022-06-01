@@ -29,6 +29,14 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       border: "1px solid #83837C",
       backgroundColor: theme.colors.white[0],
       color: "#000",
+      "&:disabled": {
+        backgroundColor: theme.colors.gray[6],
+      },
+    },
+    ".mantine-Button-filled": {
+      "&::before": {
+        backgroundColor: theme.fn.rgba(theme.colors.gray[6], 0.5),
+      },
     },
   },
 }));

@@ -11,7 +11,7 @@ const Dashboard = () => {
   const { classes } = useStyles();
   return (
     <Box className={classes.box}>
-      <h1>MANTINE TEST</h1>
+      <h1>DASHBOARD</h1>
     </Box>
   );
 };

@@ -7,6 +7,8 @@ import { Dashboard, List, LayoutGrid } from "tabler-icons-react";
 // components
 const AuthComponent = React.lazy(() => import("../Component/Auth"));
 const TestComponent = React.lazy(() => import("../Component/MantineTest"));
+const ProfileComponent = React.lazy(() => import("../Component/Profile"));
+const DashboardComponent = React.lazy(() => import("../Component/Dashboard"));
 
 export const LAYOUT_NAMES = {
   EMPTY: "empty",
@@ -18,6 +20,7 @@ export const ROUTES_NAMES = {
   HOME: "home",
   LEAD: "lead-list",
   PIPELINE: "pipeline",
+  PROFILE: "profile",
 };
 
 export const DEFAULT_ROUTE = ROUTES_NAMES.HOME;
@@ -31,7 +34,7 @@ export const CRM_ROUTES = [
       <Suspense
         fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}
       >
-        <TestComponent />
+        <DashboardComponent />
       </Suspense>
     ),
     useInNavbar: true,
@@ -81,6 +84,21 @@ export const CRM_ROUTES = [
     ),
     useInNavbar: false,
     loginRequired: false,
+    icon: null,
+  },
+  {
+    name: ROUTES_NAMES.PROFILE,
+    label: null,
+    layout: LAYOUT_NAMES.DASHBOARD,
+    component: () => (
+      <Suspense
+        fallback={<LoadingFull idLazy={ROUTES_NAMES.PROFILE} isLoadingLazy />}
+      >
+        <ProfileComponent />
+      </Suspense>
+    ),
+    useInNavbar: false,
+    loginRequired: true,
     icon: null,
   },
 ];

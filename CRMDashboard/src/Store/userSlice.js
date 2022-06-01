@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { DEFAULT_ROUTE } from "../Route/routes";
+import { LOCAL_STORAGE } from "../Utils/globalConstants";
 
 export const userSlice = createSlice({
   name: "user",
@@ -22,10 +23,16 @@ export const userSlice = createSlice({
         ...action.payload,
       };
     },
+    setNavigation: (state, action) => {
+      const routeName = action.payload;
+      localStorage.setItem(LOCAL_STORAGE.ROUTE, routeName);
+      state.route = routeName;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { toggleLoadingFull, setRoute, setInfoUser } = userSlice.actions;
+export const { toggleLoadingFull, setRoute, setInfoUser, setNavigation } =
+  userSlice.actions;
 
 export default userSlice.reducer;

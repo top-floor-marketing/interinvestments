@@ -13,6 +13,10 @@ import LogoInter from "../../Assets/logo-inter.svg";
 
 import { COLOR_SCHEME_DARK } from "../../Store/themeSlice";
 
+import { useDispatch } from "react-redux";
+import { ROUTES_NAMES } from "../../Route/routes";
+import { setNavigation } from "../../Store/userSlice";
+
 const useStyles = createStyles((theme, _params, getRef) => ({
   headerContainer: {
     backgroundColor: theme.colors.white[0],
@@ -24,7 +28,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     paddingRight: theme.other.spacing.p5,
     boxShadow: theme.shadows.xl,
     borderBottom: `1px solid ${theme.colors.gray[2]}`,
-    [`@media (min-width: ${theme.breakpoints.xl}px)`]: {
+    [`@media (min-width: ${theme.breakpoints.lg}px)`]: {
       padding: 0,
     },
   },
@@ -39,7 +43,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     alignItems: "center",
     justifyContent: "start",
     height: "100%",
-    width: "300px",
+    width: "320px",
     borderRight:
       theme.colorScheme === COLOR_SCHEME_DARK
         ? `1px solid ${theme.colors.dark[9]}`
@@ -48,9 +52,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       theme.colorScheme === COLOR_SCHEME_DARK
         ? theme.colors.dark[8]
         : theme.colors.gray[1],
-    [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
-      width: "130px",
-      borderRight: 0,
+    "&:hover": {
+      cursor: "pointer",
     },
   },
   imageContainer: {
@@ -66,8 +69,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 }));
 
 const HeaderDashboard = ({ opened, setOpened }) => {
+  const dispatch = useDispatch();
   const theme = useMantineTheme();
-
   const { classes } = useStyles();
   return (
     <Header className={classes.headerContainer} height={80}>
@@ -76,15 +79,20 @@ const HeaderDashboard = ({ opened, setOpened }) => {
           <Burger
             opened={opened}
             onClick={() => setOpened((o) => !o)}
-            size="md"
+            size="lg"
             color={theme.colors.dark[8]}
           />
         </MediaQuery>
-        <Box className={classes.logoContainer}>
-          <Box className={classes.imageContainer}>
-            <Image src={LogoInter} alt="Logo interinvestments" />
+        <MediaQuery smallerThan="lg" styles={{ display: "none" }}>
+          <Box className={classes.logoContainer}>
+            <Box
+              className={classes.imageContainer}
+              onClick={() => dispatch(setNavigation(ROUTES_NAMES.HOME))}
+            >
+              <Image src={LogoInter} alt="Logo interinvestments" />
+            </Box>
           </Box>
-        </Box>
+        </MediaQuery>
         <Box className={classes.content}></Box>
       </Box>
     </Header>
