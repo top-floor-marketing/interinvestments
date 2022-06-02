@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 
 import LoadingFull from "../Component/LoadingFull";
 
-import { Dashboard, List, LayoutGrid } from "tabler-icons-react";
+import { List, LayoutGrid, Home2 } from "tabler-icons-react";
 
 // components
 const AuthComponent = React.lazy(() => import("../Component/Auth"));
@@ -39,7 +39,7 @@ export const CRM_ROUTES = [
     ),
     useInNavbar: true,
     loginRequired: true,
-    icon: () => <Dashboard size={25} strokeWidth={2} color={"white"} />,
+    icon: () => <Home2 size={25} strokeWidth={2} color={"white"} />,
   },
   {
     name: ROUTES_NAMES.LEAD,

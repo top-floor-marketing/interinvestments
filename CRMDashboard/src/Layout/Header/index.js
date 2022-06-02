@@ -26,7 +26,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         : theme.colors.black[0],
     paddingLeft: theme.other.spacing.p5,
     paddingRight: theme.other.spacing.p5,
-    boxShadow: theme.shadows.xl,
+    boxShadow: theme.shadows.md,
     borderBottom: `1px solid ${theme.colors.gray[2]}`,
     [`@media (min-width: ${theme.breakpoints.lg}px)`]: {
       padding: 0,
