@@ -38,3 +38,11 @@
 .buttonCard {
     @apply transition-all duration-700 ease-in-out bg-white border-white hover:bg-black hover:text-white;
 }
+
+.buttonAll {
+    @apply font-outfit transition-all duration-700 ease-in-out text-[16px] leading-[26px] bg-white hover:bg-black text-black hover:text-white border border-black px-[16px] py-[4.8px] rounded-none;
+}
+
+.divTitle {
+    @apply flex flex-col justify-center h-[60px] overflow-y-auto;
+}

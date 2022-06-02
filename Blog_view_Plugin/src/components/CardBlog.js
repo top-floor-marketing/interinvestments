@@ -3,30 +3,47 @@ import React from 'react'
 // mantine 
 import { Card, Text, Button, Box } from '@mantine/core';
 import image from './asset/Hero_Image-min.jpg'
+import dayjs from 'dayjs';
 
 // scss
 import styles from "../blogStyles.module.scss";
 
-const CardBlog = () => {
+const CardBlog = (props) => {
+    const { valueCard } = props
     return (
-        <div className={styles.divCard}>
+        <Box {...props.Attr} data-aos-duration="2000" data-aos="zoom-in" className={styles.divCard}>
             <Card shadow="sm" p="lg">
                 <Card.Section>
-                    <img src={image} className={styles.imageCard} alt="Norway" />
+                    <img
+                        src={valueCard.featuredImage.node.sourceUrl}
+                        className={styles.imageCard}
+                        alt={`imageBlog_${valueCard.featuredImage.node.altText}`}
+                    />
                 </Card.Section>
                 <Card.Section className={styles.contendCard}>
-                    <Text className={styles.textTag}>04.25.2022 - <span>News</span></Text>
-                    <Text className={styles.titleCard}>
-                        Celebrations Of Earth Day In South Florida
+                    <Text className={styles.textTag}>
+                        {dayjs(valueCard.date).format('MM.DD.YYYY')} - <span>{valueCard.categories.nodes[0].name}</span>
                     </Text>
+                    <Box className={styles.divTitle}>
+                        <Text component='span' className={styles.titleCard}>
+                            {valueCard.title}
+                        </Text>
+                    </Box>
                     <Box>
-                        <Button className={styles.buttonCard} variant="default" radius="xl" size="md">
+                        <Button
+                            component="a"
+                            href={valueCard.uri}
+                            className={styles.buttonCard}
+                            variant="default"
+                            radius="xl"
+                            size="md"
+                        >
                             View Post
                         </Button>
                     </Box>
                 </Card.Section>
             </Card>
-        </div>
+        </Box>
     )
 }
 
