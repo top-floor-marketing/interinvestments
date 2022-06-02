@@ -17,7 +17,7 @@
 }
 
 .contendCard {
-    @apply flex flex-col gap-7 p-5 bg-black;
+    @apply flex flex-col h-[54%] gap-7 p-5 bg-black;
 }
 
 .titleComponet {
@@ -44,5 +44,5 @@
 }
 
 .divTitle {
-    @apply flex flex-col justify-center h-[60px] overflow-y-auto;
+    @apply h-full flex flex-col justify-center;
 }
