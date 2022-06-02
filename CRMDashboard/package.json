@@ -9,6 +9,9 @@
     "@mantine/hooks": "^4.2.5",
     "@mantine/modals": "^4.2.5",
     "@mantine/notifications": "^4.2.5",
+    "@nivo/bar": "^0.79.1",
+    "@nivo/core": "^0.79.0",
+    "@nivo/radial-bar": "^0.79.1",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
@@ -27,6 +30,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-scripts": "5.0.0",
     "react-spring": "^9.4.5",
+    "recharts": "^2.1.10",
     "rewire": "^6.0.0",
     "tabler-icons-react": "^1.47.0"
   },

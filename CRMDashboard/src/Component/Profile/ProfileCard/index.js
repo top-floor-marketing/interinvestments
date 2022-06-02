@@ -1,9 +1,6 @@
 import { Box, Card, createStyles } from "@mantine/core";
 import { useSpring, animated } from "react-spring";
 
-import { useQueryHelper } from "../../../GraphqlClient/useRequest";
-import { GET_ALL_LISTINGS } from "./gql";
-
 const useStyles = createStyles((theme, _params, getRef) => ({
   cardContainer: {
     width: "100%",
@@ -19,22 +16,22 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
 }));
 
-const ListingList = (props) => {
+const ProfileCard = (props) => {
   const { classes } = useStyles();
   const animateProps = useSpring({
     to: { opacity: 1 },
     from: { opacity: 0 },
     reset: false,
-    delay: 400,
-    config: { duration: 300 },
+    delay: 100,
+    config: { duration: 500 },
   });
   return (
     <animated.div style={{ ...animateProps, gridArea: props.gridArea }}>
       <Card className={classes.cardContainer}>
-        <Box className={classes.boxContainer}>ListingList</Box>
+        <Box className={classes.boxContainer}>ProfileList</Box>
       </Card>
     </animated.div>
   );
 };
 
-export default ListingList;
+export default ProfileCard;

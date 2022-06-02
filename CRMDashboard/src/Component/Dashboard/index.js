@@ -1,5 +1,5 @@
 import { Box, createStyles } from "@mantine/core";
-import { useSpring, animated, Transition } from "react-spring";
+import { useSpring, animated } from "react-spring";
 
 // components
 import ListingList from "./ListingList";
@@ -54,7 +54,7 @@ const Dashboard = () => {
     from: { opacity: 0 },
     reset: false,
     delay: 200,
-    config: { duration: 1000 },
+    config: { duration: 700 },
   });
   return (
     <animated.div style={animateProps}>
