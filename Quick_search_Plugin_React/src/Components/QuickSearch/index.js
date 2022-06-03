@@ -17,11 +17,11 @@ const QuickSearch = () => {
         <div className='containerQuickSearch'>
           <h3 className='labelQuickSearch'>
             Search for new
-            <br />
+            <br className='hidden md:block' />
             properties:
           </h3>
         </div>
-        <div className='col-span-2 pr-5'>
+        <div className='col-span-7 pr-5'>
           <TabsQuickSearch />
         </div>
       </div>

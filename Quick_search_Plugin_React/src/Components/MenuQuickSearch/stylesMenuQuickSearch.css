@@ -23,14 +23,15 @@
 }
 
 #Quick_search .dataListing{
-    @apply flex flex-col w-full;
+    @apply flex flex-col w-full gap-8;
 }
 
 .titleListing{
-    @apply text-xl sm:text-3xl font-normal leading-[26px];
+    @apply text-[30px] font-normal leading-[26px];
 }
 
 
 .decriptionListing{
     @apply text-[20px] leading-[26px];
 }
+

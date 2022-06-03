@@ -1,9 +1,7 @@
 const initalState = {
     searchListing: '',
-    listLocation: [{
-        value: '1',
-        label: 'Miami'
-    }],
+    listNeighborhoods: [],
+    activeNeighborhoods: '',
     focusInput: false,
     focusCard: false,
     focusMenu: false,

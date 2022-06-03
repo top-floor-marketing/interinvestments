@@ -6,10 +6,24 @@ import './styles.css'
 
 const SelectTabs = (props) => {
     const { className: classNameprops, data = [], value, onChange, placeholder = '' } = props
+
+    function isNumeric(num) {
+        return !isNaN(num)
+    }
+
+    const OnchageSelect = (valueSelect) => {
+        if (isNumeric(valueSelect)) {
+            return onChange(parseInt(valueSelect))
+        } else {
+            onChange(valueSelect)
+        }
+    }
+
+
     return (
         <Select
             value={value}
-            onChange={(value) => (onChange) && onChange(parseInt(value))}
+            onChange={(value) => (onChange) && OnchageSelect(value)}
             className={classNameprops}
             classNames={{
                 input: 'categorySelect',

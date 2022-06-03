@@ -18,7 +18,10 @@ module.exports = {
     extend: {
       boxShadow: {
         'cards': '0px 4px 25px 4px rgba(0, 0, 0, 0.05)',
-      }
+      },
+      fontFamily: {
+        outfit: ["Outfit, Helvetica, Arial, Lucida, sans-serif"],
+      },
     },
   },
   plugins: [
