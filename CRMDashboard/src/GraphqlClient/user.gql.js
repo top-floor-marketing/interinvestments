@@ -22,6 +22,11 @@ export const LOGIN_WITH_JWT = gql`
             id
           }
         }
+        mediaItems {
+          nodes {
+            mediaItemUrl
+          }
+        }
       }
     }
   }
