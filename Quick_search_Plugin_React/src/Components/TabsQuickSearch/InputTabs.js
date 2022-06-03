@@ -19,7 +19,7 @@ const InputTabs = (props) => {
                 input: 'InputTabs',
             }}
             rightSection={<Search />}
-            placeholder="City, condo name, or zip code"
+            placeholder="condo name, or zip code"
         />
     )
 }

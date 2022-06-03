@@ -1,5 +1,5 @@
 #Quick_search .categorySelect{
-    @apply border-t-0 border-l-0 border-r-0 rounded-none text-neutral border-neutral focus:border-neutral;
+    @apply font-outfit leading-5 text-[16px] border-t-0 border-l-0 border-r-0 rounded-none text-neutral border-neutral focus:border-neutral;
 }
 
 .containerTabs{
@@ -7,7 +7,7 @@
 }
 
 .ButtonTabs{
-    @apply text-left transition duration-500 border-t-0 border-l-0 border-r-0 rounded-none;
+    @apply font-outfit text-left pl-[12px] transition duration-500 border-t-0 border-l-0 border-r-0 rounded-none;
 }
 
 .ButtonTabsActive{
@@ -15,11 +15,11 @@
 }
 
 .ButtonTabsDiable{
-    @apply text-disableColor border-disableColor;
+    @apply font-outfit text-disableColor border-disableColor;
 }
 
 .ButtonTabslabel{
-    @apply w-full text-base font-normal;
+    @apply w-full text-base font-normal font-outfit;
 }
 
 #Quick_search .InputTabs{

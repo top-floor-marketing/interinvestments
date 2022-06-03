@@ -5,10 +5,12 @@ import SelectTabs from './SelectTabs'
 import InputTabs from './InputTabs'
 import SkeletonQuickSearch from '../SkeletonQuickSearch'
 import AlertError from '../AlertError'
+// utils
+import { SELECT_TABS_CATEGORY, SELECT_NEIGHBORHOODS } from '../../utils/mapValueSelect'
 
 // react-query
 import { useQueryHelper } from '../../GraphqlClient/useRequest';
-import { LISTINGS_CATEGORY } from '../../GraphqlClient/GQL';
+import { LISTINGS_CATEGORY, ALL_NEIGHBORHOODS } from '../../GraphqlClient/GQL';
 
 // mantine
 import { useMediaQuery } from '@mantine/hooks';
@@ -25,12 +27,15 @@ const TapsQuickSearch = () => {
             listCategories,
             activeCategory,
             searchListing,
-            listLocation
+            listNeighborhoods,
+            activeNeighborhoods
         },
         setCategories,
         setActiveCategory,
         setSearchListing,
-        setFocusInput
+        setFocusInput,
+        setNeighborhoods,
+        setactiveNeighborhoods
     } = useStore();
 
     const { isLoading, isError, data } = useQueryHelper({
@@ -47,18 +52,20 @@ const TapsQuickSearch = () => {
         }
     });
 
+    const { isLoading: isLoadingNEIGHBORHOODS, isError: isErrorNEIGHBORHOODS, data: dataNEIGHBORHOODS } = useQueryHelper({
+        name: 'ALL_NEIGHBORHOODS',
+        gql: ALL_NEIGHBORHOODS,
+        config: {
+            onSuccess: (req) => {
+                setNeighborhoods(SELECT_NEIGHBORHOODS(req.neighborhoods.nodes))
+                setactiveNeighborhoods(SELECT_NEIGHBORHOODS(req.neighborhoods.nodes)[0].value)
+            }
+        }
+    });
 
-    const SELECT_TABS = (req) => {
-        return req.map(value => {
-            return ({
-                value: value.databaseId.toString(),
-                label: value.name
-            })
-        })
 
-    }
 
-    if (isLoading && !data) {
+    if ((isLoading || isLoadingNEIGHBORHOODS) && (!data || !dataNEIGHBORHOODS)) {
         return (
             <div className='containerTabs'>
                 <SkeletonQuickSearch />
@@ -66,7 +73,7 @@ const TapsQuickSearch = () => {
         )
     }
 
-    if (isError) {
+    if (isError || isErrorNEIGHBORHOODS) {
         return (
             <AlertError
                 label='Error!'
@@ -75,7 +82,7 @@ const TapsQuickSearch = () => {
         )
     }
 
-    if (data) {
+    if (data && dataNEIGHBORHOODS) {
         return (
             <div className='containerTabs'>
                 {
@@ -94,22 +101,23 @@ const TapsQuickSearch = () => {
                             placeholder='Select category'
                             onChange={setActiveCategory}
                             value={activeCategory.toString()}
-                            data={SELECT_TABS(listCategories)}
+                            data={SELECT_TABS_CATEGORY(listCategories)}
                             className='w-full col-span-3'
                         />
                     )
                 }
                 <SelectTabs
-                    value='1'
-                    data={listLocation}
-                    placeholder='Select Location'
+                    value={activeNeighborhoods}
+                    data={listNeighborhoods}
+                    onChange={setactiveNeighborhoods}
+                    placeholder='Select Neighborhoods'
                     className='col-span-3 md:col-span-1'
                 />
                 <InputTabs
                     onFocusChange={(value) => setFocusInput(value)}
                     onChange={setSearchListing}
                     value={searchListing}
-                    className='col-span-3 md:col-span-2'
+                    className='col-span-3 font-outfit md:col-span-2'
                 />
             </div>
         )

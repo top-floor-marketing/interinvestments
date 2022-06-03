@@ -7,7 +7,10 @@ import { DatabaseOff } from 'tabler-icons-react';
 import './stylesMenuQuickSearch.css'
 
 const CardListing = (props) => {
-    const { data } = props
+    const {
+        data,
+        // setFocusMenu
+    } = props
 
     if (data.length === 0) {
         return (
@@ -29,13 +32,21 @@ const CardListing = (props) => {
         return 'h-full'
     }
 
+    const redirectListing = (page) => {
+        window.location.replace(page)
+    }
+
     return (
-        <div className={heightContainerMenu()}>
+        <div
+            // onFocus={() => setFocusMenu(true)}
+            // onBlur={() => setFocusMenu(false)}
+            className={heightContainerMenu()}
+        >
             {
                 data.map((val, index) => {
                     const { newDevelopment } = val.listingData
                     return (
-                        <div className='cardListing' key={index}>
+                        <div onClick={() => redirectListing(val.uri)} className='cardListing' key={index}>
                             <div className='contendCardListing'>
                                 {
                                     (newDevelopment.photos) ? (
@@ -51,13 +62,17 @@ const CardListing = (props) => {
                                     )
                                 }
 
-                                <div style={{ height: 'inherit' }} className='dataListing'>
-                                    <h4 className='titleListing'>
+                                <div style={{ height: 'inherit' }} className=' dataListing'>
+                                    <h4 className='font-outfit titleListing'>
                                         {val.title}
                                     </h4>
                                     <div className='mt-auto'>
-                                        <p className='decriptionListing'>{newDevelopment.nameOfDevelopment}</p>
-                                        <span>{`Price $ ${newDevelopment.priceMin}m`} - {`$ ${newDevelopment.priceMax}m`}</span>
+                                        <h4 style={{ fontWeight: 500 }} className='font-outfit decriptionListing'>
+                                            {newDevelopment.nameOfDevelopment}
+                                        </h4>
+                                        <span style={{ fontWeight: 300 }} className='font-outfit decriptionListing'>
+                                            {`Price $ ${newDevelopment.priceMin}m`} - {`$ ${newDevelopment.priceMax}m`}
+                                        </span>
                                     </div>
                                 </div>
                             </div>

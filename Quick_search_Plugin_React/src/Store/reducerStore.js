@@ -18,21 +18,30 @@ const reducer = (state = initialState, action) => {
             activeCategory: action.payload
         }
 
-        case actionName.SET_FOCUS_INPUT : return {
+        case actionName.SET_FOCUS_INPUT: return {
             ...state,
             focusInput: action.payload
         }
 
-        case actionName.SET_FOCUS_CARD : return {
+        case actionName.SET_FOCUS_CARD: return {
             ...state,
             focusCard: action.payload
         }
 
-        case actionName.SET_FOCUS_Menu : return {
+        case actionName.SET_FOCUS_Menu: return {
             ...state,
             focusMenu: action.payload
         }
 
+        case actionName.SET_LIST_NEIGHBORHOODS: return {
+            ...state,
+            listNeighborhoods: action.payload
+        }
+
+        case actionName.SET_ACTIVE_NEIGHBORHOODS: return {
+            ...state,
+            activeNeighborhoods: action.payload
+        }
 
         default: return { ...state }
     }
