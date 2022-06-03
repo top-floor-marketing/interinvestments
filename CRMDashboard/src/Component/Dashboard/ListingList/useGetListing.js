@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useQueryHelper } from "../../../GraphqlClient/useRequest";
 import { GET_ALL_LISTINGS } from "./gql";
 
-import get from "lodash/get";
-
 const useGetListing = () => {
   const [firtsMount, setFirtsMount] = useState(false);
   const [perPage] = useState(20);
@@ -21,6 +19,7 @@ const useGetListing = () => {
         if (pageInfo.endCursor) {
           setCursorPaginator(pageInfo.endCursor);
         }
+        setListingData(nodes);
         setFirtsMount(false);
       },
       onError: () => {
@@ -34,6 +33,7 @@ const useGetListing = () => {
   });
 
   return {
+    listingData,
     isSkeleton: firtsMount,
     isLoading,
     isFetching,

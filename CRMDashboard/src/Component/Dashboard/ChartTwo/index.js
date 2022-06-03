@@ -1,70 +1,27 @@
-import { Box, Card, createStyles } from "@mantine/core";
+import { Card, createStyles, Text, Select } from "@mantine/core";
 import { useSpring, animated } from "react-spring";
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   cardContainer: {
     width: "100%",
     minHeight: "400px",
-    maxHeight: "400px",
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.other.spacing.p5,
     boxShadow: theme.shadows.md,
   },
+  titleCard: {
+    fontSize: "20px",
+    fontWeight: "700",
+  },
+  select: {
+    maxWidth: "250px",
+    marginLeft: "auto",
+  },
 }));
-
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
 
 const ChartTwo = (props) => {
   const { classes } = useStyles();
@@ -72,28 +29,83 @@ const ChartTwo = (props) => {
     to: { opacity: 1 },
     from: { opacity: 0 },
     reset: false,
-    delay: 200,
-    config: { duration: 400 },
+    delay: 100,
+    config: { duration: 500 },
   });
+  const options = {
+    chart: {
+      type: "line",
+      margin: [0, 0, 0, 0],
+      spacingTop: 0,
+      height: 250,
+    },
+    title: {
+      text: null,
+    },
+    subtitle: {
+      text: null,
+    },
+    legend: {
+      enabled: false,
+    },
+    credits: {
+      enabled: false,
+    },
+    xAxis: {
+      categories: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
+    },
+    yAxis: {
+      title: {
+        text: "",
+      },
+    },
+    plotOptions: {
+      line: {
+        dataLabels: {
+          enabled: true,
+        },
+        enableMouseTracking: true,
+      },
+    },
+    series: [
+      {
+        name: "Leads",
+        data: [
+          7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6,
+        ],
+      },
+    ],
+  };
+
   return (
     <animated.div style={{ ...animateProps, gridArea: props.gridArea }}>
       <Card className={classes.cardContainer}>
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart width={400} height={400} data={data}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="pv"
-              stroke="#8884d8"
-              activeDot={{ r: 8 }}
-            />
-            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-          </LineChart>
-        </ResponsiveContainer>
+        <Text className={classes.titleCard}>Lead Timeline</Text>
+        <Select
+          placeholder="Select a filter type"
+          className={classes.select}
+          data={[
+            { value: "year", label: "Year" },
+            { value: "day", label: "Day" },
+            { value: "month", label: "Month" },
+            { value: "week", label: "Week" },
+          ]}
+          value={"year"}
+        />
+        <HighchartsReact highcharts={Highcharts} options={options} />
       </Card>
     </animated.div>
   );

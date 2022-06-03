@@ -11,6 +11,12 @@ export const GET_ALL_LISTINGS = gql`
         databaseId
         title
         status
+        neighborhoods {
+          nodes {
+            slug
+            title
+          }
+        }
         listingData {
           newDevelopment {
             description

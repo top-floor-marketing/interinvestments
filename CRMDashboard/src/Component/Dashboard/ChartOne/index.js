@@ -1,14 +1,21 @@
-import { Card, createStyles } from "@mantine/core";
+import { Card, createStyles, Text } from "@mantine/core";
 import { useSpring, animated } from "react-spring";
 
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   cardContainer: {
     width: "100%",
     minHeight: "400px",
-    maxHeight: "400px",
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.other.spacing.p5,
     boxShadow: theme.shadows.md,
+  },
+  titleCard: {
+    fontSize: "20px",
+    fontWeight: "700",
   },
 }));
 
@@ -21,52 +28,95 @@ const ChartOne = (props) => {
     delay: 100,
     config: { duration: 500 },
   });
-
-  const data01 = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-    { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 },
-  ];
-  const data02 = [
-    { name: "A1", value: 100 },
-    { name: "A2", value: 300 },
-    { name: "B1", value: 100 },
-    { name: "B2", value: 80 },
-    { name: "B3", value: 40 },
-    { name: "B4", value: 30 },
-    { name: "B5", value: 50 },
-    { name: "C1", value: 100 },
-    { name: "C2", value: 200 },
-    { name: "D1", value: 150 },
-    { name: "D2", value: 50 },
-  ];
+  const options = {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: "pie",
+      animation: true,
+      margin: [0, 0, 0, 0],
+      spacingTop: 0,
+      height: 300,
+    },
+    legend: {
+      enabled: true,
+    },
+    credits: {
+      enabled: false,
+    },
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxHeight: 300,
+          },
+          chartOptions: {
+            legend: {
+              enabled: false,
+            },
+          },
+        },
+      ],
+    },
+    title: {
+      text: null,
+    },
+    tooltip: {
+      pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
+    },
+    accessibility: {
+      point: {
+        valueSuffix: "%",
+      },
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: "pointer",
+        dataLabels: {
+          enabled: true,
+          format: "<b>{point.name}</b>: {point.percentage:.1f} %",
+        },
+      },
+    },
+    series: [
+      {
+        name: "Leads Status",
+        colorByPoint: true,
+        data: [
+          {
+            name: "Open",
+            y: 60,
+            sliced: true,
+            selected: true,
+          },
+          {
+            name: "In progress",
+            y: 10,
+          },
+          {
+            name: "Paused",
+            y: 5,
+          },
+          {
+            name: "Cancelled",
+            y: 15,
+          },
+          {
+            name: "Completed",
+            y: 10,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <animated.div style={{ ...animateProps, gridArea: props.gridArea }}>
       <Card className={classes.cardContainer}>
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart width={400} height={400}>
-            <Pie
-              data={data01}
-              dataKey="value"
-              cx="50%"
-              cy="50%"
-              outerRadius={60}
-              fill="#8884d8"
-            />
-            <Pie
-              data={data02}
-              dataKey="value"
-              cx="50%"
-              cy="50%"
-              innerRadius={70}
-              outerRadius={90}
-              fill="#82ca9d"
-              label
-            />
-          </PieChart>
-        </ResponsiveContainer>
+        <Text className={classes.titleCard}>Listing Stats</Text>
+        <HighchartsReact highcharts={Highcharts} options={options} />
       </Card>
     </animated.div>
   );

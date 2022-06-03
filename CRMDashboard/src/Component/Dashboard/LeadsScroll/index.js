@@ -1,4 +1,4 @@
-import { Box, Card, createStyles } from "@mantine/core";
+import { Text, Card, createStyles } from "@mantine/core";
 import { useSpring, animated } from "react-spring";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -15,6 +15,10 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     width: "100%",
     height: "100%",
   },
+  titleCard: {
+    fontSize: "20px",
+    fontWeight: "700",
+  },
 }));
 
 const LeadScroll = (props) => {
@@ -29,7 +33,7 @@ const LeadScroll = (props) => {
   return (
     <animated.div style={{ ...animateProps, gridArea: props.gridArea }}>
       <Card className={classes.cardContainer}>
-        <Box className={classes.boxContainer}></Box>
+        <Text className={classes.titleCard}>Latest Leads</Text>
       </Card>
     </animated.div>
   );
