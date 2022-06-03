@@ -46,8 +46,8 @@ const TapsQuickSearch = () => {
         },
         config: {
             onSuccess: (req) => {
-                setCategories(req.categories.nodes)
-                setActiveCategory(req.categories.nodes[0].databaseId)
+                setCategories(req.listingCategories.nodes)
+                setActiveCategory(req.listingCategories.nodes[0].slug)
             }
         }
     });
@@ -90,9 +90,9 @@ const TapsQuickSearch = () => {
                         listCategories.map((val, index) =>
                             <ButtonTabs
                                 key={index}
-                                id={val.databaseId}
+                                id={val.slug}
                                 onChageActive={setActiveCategory}
-                                active={(val.databaseId === activeCategory)}
+                                active={(val.slug === activeCategory)}
                                 text={val.name}
                             />
                         )
@@ -100,7 +100,7 @@ const TapsQuickSearch = () => {
                         <SelectTabs
                             placeholder='Select category'
                             onChange={setActiveCategory}
-                            value={activeCategory.toString()}
+                            value={activeCategory}
                             data={SELECT_TABS_CATEGORY(listCategories)}
                             className='w-full col-span-3'
                         />

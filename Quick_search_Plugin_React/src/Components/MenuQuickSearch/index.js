@@ -29,9 +29,9 @@ const MenuQuickSearch = () => {
         name: 'ALL_LISTING',
         gql: ALL_LISTING,
         variables: {
-            "categoryIn": activeCategory,
+            "slugCategories": activeCategory,
             "search": searchListing,
-            "slug": activeNeighborhoods
+            "slugneighborhoods": activeNeighborhoods
         },
         config: { enabled: false }
     });

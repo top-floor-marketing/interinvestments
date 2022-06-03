@@ -1,7 +1,7 @@
 export const SELECT_TABS_CATEGORY = (req) => {
     return req.map(value => {
         return ({
-            value: value.databaseId.toString(),
+            value: value.slug,
             label: value.name
         })
     })
