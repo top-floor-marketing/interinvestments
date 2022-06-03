@@ -1,15 +1,16 @@
 import { Box, Card, createStyles } from "@mantine/core";
 import { useSpring, animated } from "react-spring";
 
-import { useQueryHelper } from "../../../GraphqlClient/useRequest";
-import { GET_ALL_LISTINGS } from "./gql";
+import useGetListing from "./useGetListing";
+
+// components
+import SkeletonListing from "./skeletonListing";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   cardContainer: {
     width: "100%",
-    minHeight: "200px",
+    height: "500px",
     boxShadow: theme.shadows.md,
-    height: "100%",
   },
   boxContainer: {
     display: "flex",
@@ -28,10 +29,16 @@ const ListingList = (props) => {
     delay: 400,
     config: { duration: 300 },
   });
+
+  const { isSkeleton } = useGetListing();
   return (
     <animated.div style={{ ...animateProps, gridArea: props.gridArea }}>
       <Card className={classes.cardContainer}>
-        <Box className={classes.boxContainer}>ListingList</Box>
+        {isSkeleton ? (
+          <SkeletonListing />
+        ) : (
+          <Box className={classes.boxContainer}></Box>
+        )}
       </Card>
     </animated.div>
   );

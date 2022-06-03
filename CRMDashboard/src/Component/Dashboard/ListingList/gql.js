@@ -1,7 +1,7 @@
 import { gql } from "graphql-request";
 
 export const GET_ALL_LISTINGS = gql`
-  query listings($categoryId: Int!, $perPage: Int!, $after: String) {
+  query listings($perPage: Int!, $after: String) {
     listings(
       where: { orderby: { field: TITLE, order: ASC } }
       first: $perPage

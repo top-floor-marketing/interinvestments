@@ -38,6 +38,14 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         backgroundColor: theme.fn.rgba(theme.colors.gray[6], 0.5),
       },
     },
+    ".mantine-Skeleton-visible": {
+      "&::before": {
+        backgroundColor: theme.fn.rgba(theme.colors.gray[9], 0.5),
+      },
+      "&::after": {
+        backgroundColor: theme.fn.rgba(theme.colors.gray[2], 0.5),
+      },
+    },
   },
 }));
 

@@ -14,24 +14,24 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     minHeight: "300px",
     gap: theme.other.spacing.p5,
     gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-    gridTemplateRows: "repeat(2, minmax(0, 1fr))",
+    gridTemplateRows: "repeat(2, minmax(0, auto))",
     gridTemplateAreas: `
-    'a b c'
+    'a b b'
     'd d c'
     'd d c'
     `,
     [`${theme.fn.smallerThan("lg")}`]: {
       gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-      gridTemplateRows: "repeat(3, minmax(0, 1fr))",
+      gridTemplateRows: "repeat(3, minmax(0, auto))",
       gridTemplateAreas: `
-    'a b'
-    'c c'
+    'b b'
+    'a c'
     'd d'
     `,
     },
     [`${theme.fn.smallerThan("md")}`]: {
       gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
-      gridTemplateRows: "repeat(4, minmax(0, 1fr))",
+      gridTemplateRows: "repeat(4, minmax(0, auto))",
       gridTemplateAreas: `
     'a'
     'b'

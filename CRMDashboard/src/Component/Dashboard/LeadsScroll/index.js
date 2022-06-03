@@ -5,6 +5,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   cardContainer: {
     width: "100%",
     minHeight: "200px",
+    maxHeight: "900px",
     boxShadow: theme.shadows.md,
     height: "100%",
   },
@@ -28,7 +29,7 @@ const LeadScroll = (props) => {
   return (
     <animated.div style={{ ...animateProps, gridArea: props.gridArea }}>
       <Card className={classes.cardContainer}>
-        <Box className={classes.boxContainer}>LeadScroll</Box>
+        <Box className={classes.boxContainer}></Box>
       </Card>
     </animated.div>
   );
