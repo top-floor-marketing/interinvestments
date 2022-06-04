@@ -15,10 +15,12 @@ import { LISTINGS_CATEGORY, ALL_NEIGHBORHOODS } from '../../GraphqlClient/GQL';
 // mantine
 import { useMediaQuery } from '@mantine/hooks';
 
+import { Box } from '@mantine/core';
+
 // store
 import useStore from '../../Store/useStore';
 // css
-import './styles.css'
+import styles from './styles.tqs.module.scss'
 
 const TapsQuickSearch = () => {
     const matches = useMediaQuery('(min-width: 1024px)');
@@ -67,9 +69,9 @@ const TapsQuickSearch = () => {
 
     if ((isLoading || isLoadingNEIGHBORHOODS) && (!data || !dataNEIGHBORHOODS)) {
         return (
-            <div className='containerTabs'>
+            <Box className={styles.containerTabs}>
                 <SkeletonQuickSearch />
-            </div>
+            </Box>
         )
     }
 
@@ -84,7 +86,7 @@ const TapsQuickSearch = () => {
 
     if (data && dataNEIGHBORHOODS) {
         return (
-            <div className='containerTabs'>
+            <Box className={styles.containerTabs}>
                 {
                     (matches) ? (
                         listCategories.map((val, index) =>
@@ -102,7 +104,7 @@ const TapsQuickSearch = () => {
                             onChange={setActiveCategory}
                             value={activeCategory}
                             data={SELECT_TABS_CATEGORY(listCategories)}
-                            className='w-full col-span-3'
+                            className={`${styles.SelectTabsCategory}`}
                         />
                     )
                 }
@@ -111,15 +113,15 @@ const TapsQuickSearch = () => {
                     data={listNeighborhoods}
                     onChange={setactiveNeighborhoods}
                     placeholder='Select Neighborhoods'
-                    className='col-span-3 md:col-span-1'
+                    className={`${styles.SelectTabsNeighborhoods}`}
                 />
                 <InputTabs
                     onFocusChange={(value) => setFocusInput(value)}
                     onChange={setSearchListing}
                     value={searchListing}
-                    className='col-span-3 font-outfit md:col-span-2'
+                    className={`${styles.InputTabs}`}
                 />
-            </div>
+            </Box>
         )
     }
 }

@@ -34,6 +34,7 @@ export const ALL_LISTING = gql`
           title
         }
       }
+      uri
       databaseId
       title
       listingData {

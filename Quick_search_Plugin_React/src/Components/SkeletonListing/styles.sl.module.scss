@@ -1,0 +1,15 @@
+.containerSkeletonListing {
+    @apply flex gap-3;
+}
+
+.imageSkeleton {
+    @apply w-[187px] my-auto;
+}
+
+.boxContend {
+    @apply justify-center w-full;
+}
+
+.boxDescription {
+    @apply flex w-full gap-2;
+}
