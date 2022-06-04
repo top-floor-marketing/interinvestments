@@ -44,12 +44,11 @@ const MainContainer = () => {
       showOverlay,
     },
     btnLoadMore: {
-      id: "btnLoadMore_wp",
       onClick: () => fetchListListing(),
-      variant: "white",
+      variant: "outline",
       disabled: isLoading,
       loading: isLoading,
-      className: " animate-fade-in " + styles.btnLoadMore,
+      className: "btn-wp-primary",
     },
     modalQuickView: {
       data: dataQuickView,

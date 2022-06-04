@@ -29,10 +29,11 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
 }));
 
-const LoadingFull = ({ isLoadingLazy, idLazy }) => {
+const LoadingFull = ({ isLoadingLazy = false, idLazy }) => {
   const { isLoadingFull } = useSelector((state) => state.user);
   const { classes } = useStyles({ isLoading: isLoadingFull || isLoadingLazy });
   const id = "wp-loading-full".concat(idLazy || "");
+
   useEffect(() => {
     if (id && (isLoadingFull || isLoadingLazy)) {
       lottie.loadAnimation({
@@ -45,13 +46,20 @@ const LoadingFull = ({ isLoadingLazy, idLazy }) => {
         autoplay: true,
         name: id,
       });
+      document.getElementsByTagName("body")[0].style.overflow = "hidden";
     } else if (id) {
+      document.getElementsByTagName("body")[0].style.overflow = "auto";
       lottie.destroy(id);
     }
+    return () => {
+      document.getElementsByTagName("body")[0].style.overflow = "auto";
+      lottie.destroy(id);
+    };
   }, [isLoadingFull, isLoadingLazy, id]);
+
   return (
     <Box className={classes.box}>
-      <Overlay zIndex={9998} color="#000" opacity={0.3} />
+      <Overlay zIndex={9998} color="#000" opacity={0.4} />
       <Box id={id} className={classes.lottieContainer} />
     </Box>
   );

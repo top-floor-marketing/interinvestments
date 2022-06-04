@@ -8,7 +8,12 @@ import LoadingFull from "../Component/LoadingFull";
 const ThemeGlobalProvider = (props) => {
   const themeStore = useSelector((state) => state.theme);
   return (
-    <MantineProvider theme={themeStore} withCSSVariables withNormalizeCSS>
+    <MantineProvider
+      theme={themeStore}
+      emotionOptions={{ key: "wp" }}
+      withGlobalStyles
+      withNormalizeCSS
+    >
       <LoadingFull />
       {props.children}
     </MantineProvider>

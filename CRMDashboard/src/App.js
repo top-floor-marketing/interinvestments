@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 
 import ThemeGlobalProvider from "./MatineProvider";
 
-import Main from "./Container/main";
+import Main from "./Container";
 const queryClient = new QueryClient();
 
 function App() {
