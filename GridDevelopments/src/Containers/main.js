@@ -44,9 +44,8 @@ const MainContainer = () => {
       showOverlay,
     },
     btnLoadMore: {
-      id: "btnLoadMore_wp",
       onClick: () => fetchListListing(),
-      variant: "white",
+      variant: "outline",
       disabled: isLoading,
       loading: isLoading,
       className: "btn-wp-primary",
