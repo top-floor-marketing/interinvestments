@@ -25,6 +25,7 @@
     "react-query": "^3.38.0",
     "react-scripts": "5.0.0",
     "rewire": "^6.0.0",
+    "sass": "^1.52.2",
     "tabler-icons-react": "^1.44.0"
   },
   "scripts": {

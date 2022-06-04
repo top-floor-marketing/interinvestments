@@ -1,0 +1,54 @@
+.MenuQuickSearch {
+    @apply absolute flex flex-col w-full mt-[-1rem];
+}
+
+.CardInputMenuMenuQuickSearch {
+    @apply max-w-[1200px] w-[90%] mx-auto border-0 pt-[3rem] shadow-cards;
+}
+
+.NoImageBox {
+    @apply flex justify-center;
+    p {
+        @apply my-auto text-center;
+    }
+}
+
+.imagenMenu {
+    @apply object-cover my-auto;
+}
+
+.nodata {
+    @apply h-[80px] flex justify-center items-center;
+}
+
+.containerMenu {
+    @apply h-[350px] overflow-auto;
+}
+
+.cardListing {
+    @apply hover:bg-[#F6F6F6] cursor-pointer;
+}
+
+.contendCardListing {
+    @apply flex flex-col gap-3 md:flex-row;
+}
+
+.imageListing {
+    @apply min-w-[187px] h-[200px] sm:h-[120px];
+}
+
+.dataListing {
+    @apply flex flex-col w-full gap-8;
+}
+
+.titleListing {
+    @apply font-outfit text-[30px] font-normal leading-[26px];
+}
+
+.decriptionListing {
+    @apply font-outfit text-[20px] leading-[26px];
+}
+
+.SkeletonListing {
+    @apply h-[350px] overflow-auto;
+}

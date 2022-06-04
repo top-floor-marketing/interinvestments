@@ -1,0 +1,39 @@
+.categorySelect {
+    @apply pl-[12px] pr-[36px] font-outfit leading-5 text-[16px] border-t-0 border-l-0 border-r-0 rounded-none text-neutral border-neutral focus:border-neutral;
+}
+
+.containerTabs {
+    @apply grid grid-cols-1 gap-4 lg:grid-cols-3;
+}
+
+.ButtonTabs {
+    @apply font-outfit text-left pl-[12px] transition duration-500 border-t-0 border-l-0 border-r-0 rounded-none;
+}
+
+.ButtonTabsActive {
+    @apply text-neutral border-neutral;
+}
+
+.ButtonTabsDiable {
+    @apply font-outfit text-disableColor border-disableColor;
+}
+
+.ButtonTabslabel {
+    @apply w-full text-base font-normal font-outfit;
+}
+
+.InputTabsMantine {
+    @apply text-[16px] font-outfit border-t-0 border-l-0 border-r-0 rounded-none text-neutral border-neutral focus:border-neutral;
+}
+
+.SelectTabsCategory {
+    @apply w-full col-span-3;
+}
+
+.SelectTabsNeighborhoods {
+    @apply col-span-3 md:col-span-1;
+}
+
+.InputTabs {
+    @apply col-span-3 font-outfit md:col-span-2;
+}

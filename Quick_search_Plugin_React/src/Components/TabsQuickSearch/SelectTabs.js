@@ -2,10 +2,11 @@ import React from 'react'
 import { Select } from '@mantine/core';
 import { ChevronDown } from 'tabler-icons-react';
 
-import './styles.css'
+// css
+import styles from './styles.tqs.module.scss'
 
 const SelectTabs = (props) => {
-    const { className: classNameprops, data = [], value, onChange, placeholder = '' } = props
+    const { type, data = [], value, onChange, placeholder = '' } = props
 
     function isNumeric(num) {
         return !isNaN(num)
@@ -24,9 +25,9 @@ const SelectTabs = (props) => {
         <Select
             value={value}
             onChange={(value) => (onChange) && OnchageSelect(value)}
-            className={classNameprops}
+            className={`${(type === 'SelectTabsCategory') ? styles.SelectTabsCategory : styles.SelectTabsNeighborhoods}`}
             classNames={{
-                input: 'categorySelect',
+                input: `${styles.categorySelect}`,
             }}
             rightSection={<ChevronDown size={14} />}
             placeholder={placeholder}
