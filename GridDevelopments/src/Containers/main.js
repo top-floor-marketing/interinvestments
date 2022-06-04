@@ -49,7 +49,7 @@ const MainContainer = () => {
       variant: "white",
       disabled: isLoading,
       loading: isLoading,
-      className: " animate-fade-in " + styles.btnLoadMore,
+      className: "btn-wp-primary",
     },
     modalQuickView: {
       data: dataQuickView,
