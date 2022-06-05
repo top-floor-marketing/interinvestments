@@ -1,5 +1,22 @@
 .categorySelect {
-    @apply pl-[12px] pr-[36px] font-outfit leading-5 text-[16px] border-t-0 border-l-0 border-r-0 rounded-none text-neutral border-neutral focus:border-neutral;
+    --tw-border-opacity: 1 !important;
+    --tw-text-opacity: 1 !important;
+    border-color: rgb(24 26 42 / var(--tw-border-opacity)) !important;
+    border-left-width: 0 !important;
+    border-radius: 0 !important;
+    border-right-width: 0 !important;
+    border-top-width: 0 !important;
+    color: rgb(24 26 42 / var(--tw-text-opacity)) !important;
+    font-family: Outfit, Helvetica, Arial, Lucida, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.25rem !important;
+    padding-left: 12px !important;
+    padding-right: 36px !important;
+}
+
+.categorySelect:hover {
+    --tw-border-opacity: 1 !important;
+    border-color: rgb(24 26 42 / var(--tw-border-opacity)) !important;
 }
 
 .containerTabs {
@@ -23,7 +40,21 @@
 }
 
 .InputTabsMantine {
-    @apply text-[16px] font-outfit border-t-0 border-l-0 border-r-0 rounded-none text-neutral border-neutral focus:border-neutral;
+    --tw-border-opacity: 1 !important;
+    --tw-text-opacity: 1 !important;
+    border-color: rgb(24 26 42 / var(--tw-border-opacity)) !important;
+    border-left-width: 0 !important;
+    border-radius: 0 !important;
+    border-right-width: 0 !important;
+    border-top-width: 0 !important;
+    color: rgb(24 26 42 / var(--tw-text-opacity)) !important;
+    font-family: Outfit, Helvetica, Arial, Lucida, sans-serif !important;
+    font-size: 16px !important;
+}
+
+.InputTabsMantine:focus {
+    --tw-border-opacity: 1 !important;
+    border-color: rgb(24 26 42 / var(--tw-border-opacity)) !important;
 }
 
 .SelectTabsCategory {
