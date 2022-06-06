@@ -5,7 +5,7 @@ import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
 
-import styles from "./styles.module.scss";
+import styles from "./styles.gd.module.scss";
 
 const GridQuickView = ({
   data,

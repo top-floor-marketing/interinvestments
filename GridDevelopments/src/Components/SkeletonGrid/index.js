@@ -1,6 +1,6 @@
 import { Skeleton } from "@mantine/core";
 
-import styles from "./styles.module.scss";
+import styles from "./styles.gd.module.scss";
 
 const SkeletonGrid = () => {
   const listItems = new Array(8).fill(0);

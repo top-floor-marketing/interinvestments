@@ -10,7 +10,7 @@ import ModalQuickView from "../Components/ModalQuickView";
 import UseGetListing from "../Hooks/useGetListing";
 import OverlayLoading from "../Components/OverlayLoading";
 
-import styles from "./styles.module.scss";
+import styles from "./styles.gd.module.scss";
 
 const MainContainer = () => {
   const {
