@@ -1,11 +1,11 @@
-const initalState = {
+let initalState = {
     searchListing: '',
     listNeighborhoods: [],
     activeNeighborhoods: '',
     focusInput: false,
     focusCard: false,
     focusMenu: false,
-    activeCategory: 0,
+    activeCategory: '',
     listCategories: []
 }
 

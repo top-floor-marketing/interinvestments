@@ -35,7 +35,7 @@ const TapsQuickSearch = () => {
         setCategories,
         setActiveCategory,
         setSearchListing,
-        setFocusInput,
+        setFocusCard,
         setNeighborhoods,
         setactiveNeighborhoods
     } = useStore();
@@ -49,7 +49,7 @@ const TapsQuickSearch = () => {
         config: {
             onSuccess: (req) => {
                 setCategories(req.listingCategories.nodes)
-                setActiveCategory(req.listingCategories.nodes[0].slug)
+                setActiveCategory(req.listingCategories.nodes[0].databaseId.toString())
             }
         }
     });
@@ -92,9 +92,9 @@ const TapsQuickSearch = () => {
                         listCategories.map((val, index) =>
                             <ButtonTabs
                                 key={index}
-                                id={val.slug}
+                                id={val.databaseId.toString()}
                                 onChageActive={setActiveCategory}
-                                active={(val.slug === activeCategory)}
+                                active={(val.databaseId.toString() === activeCategory)}
                                 text={val.name}
                             />
                         )
@@ -116,7 +116,7 @@ const TapsQuickSearch = () => {
                     className={`${styles.SelectTabsNeighborhoods}`}
                 />
                 <InputTabs
-                    onFocusChange={(value) => setFocusInput(value)}
+                    onFocusChange={(value) => setFocusCard(value)}
                     onChange={setSearchListing}
                     value={searchListing}
                     className={`${styles.InputTabs}`}

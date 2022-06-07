@@ -8,11 +8,9 @@ import useStore from '../Store/useStore';
 
 const ContainerComponts = (props) => {
     const { setFocusCard } = useStore();
+
     return (
-        <div
-            onFocus={() => setFocusCard(true)}
-            onBlur={() => setFocusCard(false)}
-        >
+        <div onMouseLeave={() => setFocusCard(false)}>
             <QuickSearch />
             <MenuQuickSearch />
         </div>

@@ -1,63 +1,72 @@
 import { gql } from 'graphql-request';
 
 export const LISTINGS_CATEGORY = gql`
-   query listingsCategory($first: Int) {
+  query listingsCategory($first: Int) {
     listingCategories(first: $first) {
       nodes {
-        slug
         name
         databaseId
       }
     }
-  }
+}
 `
 export const ALL_NEIGHBORHOODS = gql`
   query neighborhoods {
     neighborhoods {
       nodes{
-          slug
-          databaseId
-          title
-      }
+        name
+        databaseId
     }
+  }
   }
 `
 
 export const ALL_LISTING = gql`
- query listings($slugneighborhoods: [String], $search: String, $slugCategories: [String]) {
-  listings(where: {search: $search}, first: 10) {
-    nodes {
-      neighborhoods(where: {slug: $slugneighborhoods}) {
-        nodes {
-          slug
-          databaseId
-          title
-        }
+  query listings(
+    $NEIGHBORHOOD: [String], 
+    $LISTINGCATEGORY: [String] ,
+    $search: String,
+  ) {
+    listings(
+      where: {
+        taxQuery: {
+          taxArray: [
+            {operator: IN, terms: $NEIGHBORHOOD, taxonomy: NEIGHBORHOOD}, 
+            {operator: IN, terms: $LISTINGCATEGORY, taxonomy: LISTINGCATEGORY}
+          ]},
+        search: $search
       }
-      uri
-      databaseId
-      title
-      listingData {
-        newDevelopment {
-          photos {
-            fileSize
-            sourceUrl
-            altText
+    ) {
+      nodes {
+        databaseId
+        title
+        listingData {
+          newDevelopment {
+            photos {
+              fileSize
+              sourceUrl
+              altText
+            }
+            description
+            priceMin
+            priceMax
+            status
+            nameOfDevelopment
           }
-          description
-          priceMin
-          priceMax
-          status
-          nameOfDevelopment
         }
-      }
-      listingCategories(where: {slug: $slugCategories}) {
-        nodes {
-          name
-          databaseId
+        listingCategories {
+          nodes {
+            name
+            termTaxonomyId
+          }
+        }
+        neighborhoods {
+          nodes {
+            name
+            termTaxonomyId
+          }
         }
       }
     }
   }
-}
 `
