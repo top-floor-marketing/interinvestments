@@ -7,6 +7,8 @@ import LeadScroll from "./LeadsScroll";
 import ChartTwo from "./ChartTwo";
 import ChartOne from "./ChartOne";
 
+import SpringDiv from "../SpringDiv";
+
 const useStyles = createStyles((theme, _params, getRef) => ({
   boxContainer: {
     display: "grid",
@@ -59,7 +61,9 @@ const Dashboard = () => {
   return (
     <animated.div style={animateProps}>
       <Box className={classes.boxContainer}>
-        <ChartOne gridArea="a" />
+        <SpringDiv style={{gridArea:"a" }} delay={100} duration={500}>
+          <ChartOne />
+        </SpringDiv>
         <ChartTwo gridArea="b" />
         <LeadScroll gridArea="c" />
         <ListingList gridArea="d" />

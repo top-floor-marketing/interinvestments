@@ -10,7 +10,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     height: "100%",
     width: "100%",
     display: "flex",
-    minHeight: "300px",
+    minHeight: "400px",
     flexDirection: "column",
     padding: theme.other.spacing.p8,
   },
