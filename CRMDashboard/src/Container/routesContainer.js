@@ -19,39 +19,15 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     display: "flex",
     flexDirection: "column",
     minHeight: "100vh",
-    backgroundColor: theme.colors.white[1],
+    backgroundColor: theme.colors.gray[0],
     justifyContent: "center",
     alignContent: "center",
-    ".mantine-Paper-root": {
-      backgroundColor: theme.colors.white[0],
-    },
-    ".mantine-TextInput-input": {
-      border: "1px solid #83837C",
-      backgroundColor: theme.colors.white[0],
-      color: "#000",
-      "&:disabled": {
-        backgroundColor: theme.colors.gray[6],
-      },
-    },
-    ".mantine-Select-filledVariant": {
-      border: "1px solid #83837C",
-      backgroundColor: theme.colors.white[0],
-      color: "#000",
-      "&:disabled": {
-        backgroundColor: theme.colors.gray[6],
-      },
-    },
-    ".mantine-Button-filled": {
-      "&::before": {
-        backgroundColor: theme.fn.rgba(theme.colors.gray[6], 0.5),
-      },
-    },
     ".mantine-Skeleton-visible": {
       "&::before": {
-        backgroundColor: theme.fn.rgba(theme.colors.gray[9], 0.5),
+        backgroundColor: theme.fn.rgba(theme.colors.gray[9], 1),
       },
       "&::after": {
-        backgroundColor: theme.fn.rgba(theme.colors.gray[2], 0.5),
+        backgroundColor: theme.fn.rgba(theme.colors.gray[2], 0.7),
       },
     },
   },
@@ -72,7 +48,6 @@ const RoutesContainer = () => {
         return <DashboardLayout>{active.component()}</DashboardLayout>;
       case LAYOUT_NAMES.EMPTY:
         return active.component();
-
       default:
         return active.component();
     }

@@ -40,6 +40,7 @@ export const CRM_ROUTES = [
     useInNavbar: true,
     loginRequired: true,
     icon: () => <Home2 size={25} strokeWidth={2} color={"white"} />,
+    roles: ["administrator"]
   },
   {
     name: ROUTES_NAMES.LEAD,
@@ -55,6 +56,7 @@ export const CRM_ROUTES = [
     useInNavbar: true,
     loginRequired: true,
     icon: () => <List size={25} strokeWidth={2} color={"white"} />,
+    roles: ["administrator"]
   },
   {
     name: ROUTES_NAMES.PIPELINE,
@@ -70,6 +72,7 @@ export const CRM_ROUTES = [
     useInNavbar: true,
     loginRequired: true,
     icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
+    roles: ["administrator"]
   },
   {
     name: ROUTES_NAMES.AUTH,
@@ -85,6 +88,7 @@ export const CRM_ROUTES = [
     useInNavbar: false,
     loginRequired: false,
     icon: null,
+    roles: ["administrator"]
   },
   {
     name: ROUTES_NAMES.PROFILE,
@@ -100,5 +104,6 @@ export const CRM_ROUTES = [
     useInNavbar: false,
     loginRequired: true,
     icon: null,
+    roles: ["administrator"]
   },
 ];

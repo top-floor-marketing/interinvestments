@@ -92,7 +92,7 @@ const ChartTwo = (props) => {
 
   return (
     <animated.div style={{ ...animateProps, gridArea: props.gridArea }}>
-      <Card className={classes.cardContainer}>
+       <Card className={classes.cardContainer}>
         <Text className={classes.titleCard}>Lead Timeline</Text>
         <Select
           placeholder="Select a filter type"
