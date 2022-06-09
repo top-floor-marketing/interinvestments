@@ -10,11 +10,7 @@ import ModalQuickView from "../Components/ModalQuickView";
 import UseGetListing from "../Hooks/useGetListing";
 import OverlayLoading from "../Components/OverlayLoading";
 
-<<<<<<< HEAD
-import styles from "./grid_developments_styles.module.scss";
-=======
 import styles from "./styles.gd.module.scss";
->>>>>>> e695d59bd466a9d4a55fa894ee3a3ee47ec9fc42
 
 const MainContainer = () => {
   const {
@@ -62,7 +58,7 @@ const MainContainer = () => {
 
   return (
     <div data-aos="fade-up" data-aos-duration="700" {...allProps.container}>
-      <h5 {...allProps.textFeatured}>Featured Developments</h5>
+      <p {...allProps.textFeatured}>Featured Developments</p>
       {!renderSkeleton && isError ? (
         <EmptyGrid />
       ) : renderSkeleton ? (

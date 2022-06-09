@@ -1,7 +1,0 @@
-.container {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-max gap-5;
-}
-
-.skeletonDiv {
-    @apply min-h-[300px] max-h-[350px] w-full shadow-wp-normal;
-}
