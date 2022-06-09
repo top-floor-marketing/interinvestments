@@ -5,18 +5,22 @@ import SelectTabs from './SelectTabs'
 import InputTabs from './InputTabs'
 import SkeletonQuickSearch from '../SkeletonQuickSearch'
 import AlertError from '../AlertError'
+// utils
+import { SELECT_TABS_CATEGORY, SELECT_NEIGHBORHOODS } from '../../utils/mapValueSelect'
 
 // react-query
 import { useQueryHelper } from '../../GraphqlClient/useRequest';
-import { LISTINGS_CATEGORY } from '../../GraphqlClient/GQL';
+import { LISTINGS_CATEGORY, ALL_NEIGHBORHOODS } from '../../GraphqlClient/GQL';
 
 // mantine
 import { useMediaQuery } from '@mantine/hooks';
 
+import { Box } from '@mantine/core';
+
 // store
 import useStore from '../../Store/useStore';
 // css
-import './styles.css'
+import styles from './styles.tqs.module.scss'
 
 const TapsQuickSearch = () => {
     const matches = useMediaQuery('(min-width: 1024px)');
@@ -25,12 +29,15 @@ const TapsQuickSearch = () => {
             listCategories,
             activeCategory,
             searchListing,
-            listLocation
+            listNeighborhoods,
+            activeNeighborhoods
         },
         setCategories,
         setActiveCategory,
         setSearchListing,
-        setFocusInput
+        setFocusCard,
+        setNeighborhoods,
+        setactiveNeighborhoods
     } = useStore();
 
     const { isLoading, isError, data } = useQueryHelper({
@@ -41,32 +48,34 @@ const TapsQuickSearch = () => {
         },
         config: {
             onSuccess: (req) => {
-                setCategories(req.categories.nodes)
-                setActiveCategory(req.categories.nodes[0].databaseId)
+                setCategories(req.listingCategories.nodes)
+                setActiveCategory(req.listingCategories.nodes[0].databaseId.toString())
+            }
+        }
+    });
+
+    const { isLoading: isLoadingNEIGHBORHOODS, isError: isErrorNEIGHBORHOODS, data: dataNEIGHBORHOODS } = useQueryHelper({
+        name: 'ALL_NEIGHBORHOODS',
+        gql: ALL_NEIGHBORHOODS,
+        config: {
+            onSuccess: (req) => {
+                setNeighborhoods(SELECT_NEIGHBORHOODS(req.neighborhoods.nodes))
+                setactiveNeighborhoods(SELECT_NEIGHBORHOODS(req.neighborhoods.nodes)[0].value)
             }
         }
     });
 
 
-    const SELECT_TABS = (req) => {
-        return req.map(value => {
-            return ({
-                value: value.databaseId.toString(),
-                label: value.name
-            })
-        })
 
-    }
-
-    if (isLoading && !data) {
+    if ((isLoading || isLoadingNEIGHBORHOODS) && (!data || !dataNEIGHBORHOODS)) {
         return (
-            <div className='containerTabs'>
+            <Box className={styles.containerTabs}>
                 <SkeletonQuickSearch />
-            </div>
+            </Box>
         )
     }
 
-    if (isError) {
+    if (isError || isErrorNEIGHBORHOODS) {
         return (
             <AlertError
                 label='Error!'
@@ -75,17 +84,17 @@ const TapsQuickSearch = () => {
         )
     }
 
-    if (data) {
+    if (data && dataNEIGHBORHOODS) {
         return (
-            <div className='containerTabs'>
+            <Box className={styles.containerTabs}>
                 {
                     (matches) ? (
                         listCategories.map((val, index) =>
                             <ButtonTabs
                                 key={index}
-                                id={val.databaseId}
+                                id={val.databaseId.toString()}
                                 onChageActive={setActiveCategory}
-                                active={(val.databaseId === activeCategory)}
+                                active={(val.databaseId.toString() === activeCategory)}
                                 text={val.name}
                             />
                         )
@@ -93,25 +102,26 @@ const TapsQuickSearch = () => {
                         <SelectTabs
                             placeholder='Select category'
                             onChange={setActiveCategory}
-                            value={activeCategory.toString()}
-                            data={SELECT_TABS(listCategories)}
-                            className='w-full col-span-3'
+                            value={activeCategory}
+                            data={SELECT_TABS_CATEGORY(listCategories)}
+                            className={`${styles.SelectTabsCategory}`}
                         />
                     )
                 }
                 <SelectTabs
-                    value='1'
-                    data={listLocation}
-                    placeholder='Select Location'
-                    className='col-span-3 md:col-span-1'
+                    value={activeNeighborhoods}
+                    data={listNeighborhoods}
+                    onChange={setactiveNeighborhoods}
+                    placeholder='Select Neighborhoods'
+                    className={`${styles.SelectTabsNeighborhoods}`}
                 />
                 <InputTabs
-                    onFocusChange={(value) => setFocusInput(value)}
+                    onFocusChange={(value) => setFocusCard(value)}
                     onChange={setSearchListing}
                     value={searchListing}
-                    className='col-span-3 md:col-span-2'
+                    className={`${styles.InputTabs}`}
                 />
-            </div>
+            </Box>
         )
     }
 }

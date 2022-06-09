@@ -10,6 +10,7 @@ const API_URL =
 
 const globalConfig = {
   refetchOnWindowFocus: false,
+  cacheTime: null
 };
 
 const graphQLClient = new GraphQLClient(API_URL, {
@@ -23,8 +24,8 @@ const useQueryHelper = (props) => {
   const { name, gql, variables, config = {} } = props;
   return useQuery(
     name,
-    async () => {
-      const data = await graphQLClient.request(gql, variables);
+    async ({ signal }) => {
+      const data = await graphQLClient.request(gql, variables, signal);
       return data;
     },
     {

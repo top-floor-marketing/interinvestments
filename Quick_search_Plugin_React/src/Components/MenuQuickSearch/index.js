@@ -11,40 +11,41 @@ import { useQueryHelper } from '../../GraphqlClient/useRequest';
 import { ALL_LISTING } from '../../GraphqlClient/GQL';
 
 //css
-import './stylesMenuQuickSearch.css'
+import styles from './styles.mqs.module.scss'
 
 const MenuQuickSearch = () => {
     const {
         state: {
             searchListing,
             activeCategory,
-            focusCard,
-            focusMenu
+            activeNeighborhoods,
+            focusCard
         },
     } = useStore();
+
 
     const { isLoading, isError, data, refetch: refetchListing, isFetching } = useQueryHelper({
         name: 'ALL_LISTING',
         gql: ALL_LISTING,
         variables: {
-            "categoryId": activeCategory,
-            "search": searchListing
+            "LISTINGCATEGORY": activeCategory,
+            "search": searchListing,
+            "NEIGHBORHOOD": activeNeighborhoods
         },
         config: { enabled: false }
     });
-
     useEffect(() => {
-        if (searchListing.length >= 4) {
+        if (activeCategory && activeNeighborhoods) {
             refetchListing()
         }
-    }, [searchListing, refetchListing, activeCategory])
+    }, [searchListing, refetchListing, activeCategory, activeNeighborhoods])
 
-    if ((searchListing.length >= 4)) {
+    if ((focusCard)) {
         return (
-            <div className={`MenuQuickSearch z-1 ${focusCard || focusMenu ? '' : '!hidden'}`}>
+            <div className={`z-1 ${styles.MenuQuickSearch}`}>
                 <Card
                     radius={10}
-                    className='max-w-[1200px] w-[90%] mx-auto border-0 pt-[3rem] shadow-cards'>
+                    className={styles.CardInputMenuMenuQuickSearch}>
                     {
                         (isError) && (
                             <AlertError
@@ -56,7 +57,13 @@ const MenuQuickSearch = () => {
                     {
                         (isLoading || isFetching)
                             ? (<LoadingMenu />)
-                            : (data && (<CardListing data={data.listings.nodes} />))
+                            : (
+                                data && (
+                                    <CardListing
+                                        data={data.listings.nodes}
+                                    />
+                                )
+                            )
                     }
                 </Card>
             </div>

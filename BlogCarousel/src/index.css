@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@100&display=swap');
+@tailwind base;
+
+@layer base {
+    .button-wp-primary {
+        display: flex !important;
+        flex-direction: row;
+        align-content: center;
+        justify-content: space-between;
+        font-weight: 500;
+        padding: .3em 1em;
+        line-height: 1.7em !important;
+        background-color: #fff;
+        background-size: cover;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        border: 2px solid;
+        -webkit-transition-duration: .2s;
+        transition-duration: .2s;
+        -webkit-transition-property: all !important;
+        transition-property: all !important;
+        transition: all 300ms ease 0ms;
+        font-size: 16px;
+        border-width: 1px !important;
+        border-color: #000000;
+        position: relative;
+    }
+
+    .button-wp-primary>.icon-tabler-chevron-right {
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        width: 0;
+        color: #fff !important;
+        margin-top: auto;
+        margin-bottom: auto;
+        position: absolute;
+        right: 0.5em;
+        top: 0;
+        bottom: 0;
+    }
+
+    .button-wp-primary:hover {
+        color: #ffffff !important;
+        background-color: #000000;
+        border-color: #000000 !important;
+        border: 2px solid transparent;
+        padding: 0.3em 2em 0.3em 1em;
+    }
+
+    .button-wp-primary:hover>.icon-tabler-chevron-right {
+        visibility: visible;
+        opacity: 1;
+        height: auto;
+        width: 17px !important;
+        transition: all 0.8s, opacity .5s;
+    }
+}
+
+@tailwind components;
+@tailwind utilities;

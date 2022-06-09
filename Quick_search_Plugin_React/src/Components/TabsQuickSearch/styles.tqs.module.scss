@@ -1,0 +1,70 @@
+.categorySelect {
+    --tw-border-opacity: 1 !important;
+    --tw-text-opacity: 1 !important;
+    border-color: rgb(24 26 42 / var(--tw-border-opacity)) !important;
+    border-left-width: 0 !important;
+    border-radius: 0 !important;
+    border-right-width: 0 !important;
+    border-top-width: 0 !important;
+    color: rgb(24 26 42 / var(--tw-text-opacity)) !important;
+    font-family: Outfit, Helvetica, Arial, Lucida, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.25rem !important;
+    padding-left: 12px !important;
+    padding-right: 36px !important;
+}
+
+.categorySelect:hover {
+    --tw-border-opacity: 1 !important;
+    border-color: rgb(24 26 42 / var(--tw-border-opacity)) !important;
+}
+
+.containerTabs {
+    @apply grid grid-cols-1 gap-4 lg:grid-cols-3;
+}
+
+.ButtonTabs {
+    @apply font-outfit text-left pl-[12px] transition duration-500 border-t-0 border-l-0 border-r-0 rounded-none;
+}
+
+.ButtonTabsActive {
+    @apply text-neutral border-neutral;
+}
+
+.ButtonTabsDiable {
+    @apply font-outfit text-disableColor border-disableColor;
+}
+
+.ButtonTabslabel {
+    @apply w-full text-base font-normal font-outfit;
+}
+
+.InputTabsMantine {
+    --tw-border-opacity: 1 !important;
+    --tw-text-opacity: 1 !important;
+    border-color: rgb(24 26 42 / var(--tw-border-opacity)) !important;
+    border-left-width: 0 !important;
+    border-radius: 0 !important;
+    border-right-width: 0 !important;
+    border-top-width: 0 !important;
+    color: rgb(24 26 42 / var(--tw-text-opacity)) !important;
+    font-family: Outfit, Helvetica, Arial, Lucida, sans-serif !important;
+    font-size: 16px !important;
+}
+
+.InputTabsMantine:focus {
+    --tw-border-opacity: 1 !important;
+    border-color: rgb(24 26 42 / var(--tw-border-opacity)) !important;
+}
+
+.SelectTabsCategory {
+    @apply w-full col-span-3;
+}
+
+.SelectTabsNeighborhoods {
+    @apply col-span-3 md:col-span-1;
+}
+
+.InputTabs {
+    @apply col-span-3 font-outfit md:col-span-2;
+}

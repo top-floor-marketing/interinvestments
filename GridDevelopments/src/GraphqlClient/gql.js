@@ -48,13 +48,14 @@ export const GET_LISTING_FEATURED_GQL = gql`
 `;
 
 export const GET_CATEGORIES_GQL = gql`
-  query categories {
-    categories {
+  query listingCategories {
+    listingCategories {
       nodes {
         databaseId
         description
-        id
         name
+        slug
+        id
       }
     }
   }

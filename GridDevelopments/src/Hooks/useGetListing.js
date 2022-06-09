@@ -39,12 +39,12 @@ const UseGetListing = () => {
     isError: errorCategories,
     isFetching: isFetchingCategories,
   } = useQueryHelper({
-    name: "get-list-categories",
+    name: "get-list-categories-gd",
     gql: GET_CATEGORIES_GQL,
     config: {
       onSuccess: (response) => {
-        const { categories } = response;
-        const filterCategory = categories.nodes.filter((val) => {
+        const { listingCategories } = response;
+        const filterCategory = listingCategories.nodes.filter((val) => {
           return val.name.toLowerCase() === "featured developments";
         });
         if (filterCategory.length) {
