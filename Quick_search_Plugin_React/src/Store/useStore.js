@@ -12,7 +12,6 @@ const useStore = () => {
     const dispatchCategories = useCategories(dispatch);
     const dispatchSearchListing = useSearchListing(dispatch)
 
-
     return {
         state,
         ...dispatchCategories,

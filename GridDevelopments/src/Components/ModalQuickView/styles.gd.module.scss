@@ -1,0 +1,87 @@
+.containerTopRow {
+    @apply flex flex-row min-h-[65vh] max-h-[1200px] border border-solid border-t-0 border-x-0 border-b-[#D1D1D1] gap-0;
+    border-top: none !important; 
+    padding: 0 !important;
+}
+
+.carouselDivContainer {
+    @apply w-2/3 border border-solid border-t-0 border-b-0 border-r-[#D1D1D1] border-y-0 border-l-0;
+}
+
+.contentDivContainer {
+    @apply w-1/3 flex flex-col p-5 gap-5;
+}
+
+
+.containerBottomRow {
+    @apply flex flex-row min-h-[100px];
+}
+
+.nameOfDevelopmentContainer {
+    @apply w-2/3 border border-solid border-r-[#D1D1D1] border-y-0 border-l-0 grid grid-cols-1 p-5 gap-2;
+}
+
+.labelTitle {
+    @apply font-outfit text-[40px] font-wp-semibold text-black mb-0;
+}
+
+.labelNameOfDevelopment {
+    @apply mt-auto font-outfit text-[22px] text-black;
+}
+
+.containerButtonView {
+    @apply w-1/3 flex flex-col p-5;
+}
+
+.buttonView {
+    @apply text-black font-wp-semibold uppercase font-outfit text-[20px] 
+    bg-white 
+    transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black
+    my-auto h-full;
+}
+// modal HOC
+.modal {
+    @apply p-0 w-4/5 lg:w-3/4 max-w-screen-xl bg-transparent;
+}
+
+.modalFullContent {
+    @apply w-full max-w-screen-xl bg-transparent flex flex-col min-h-[450px];
+}
+
+.buttonClose {
+    @apply ml-auto hover:bg-black hover:text-white hover:border-black
+    transition-all ease-in-out duration-500
+    w-[1.7rem] h-[1.7rem] p-0 text-[18px] 
+    rounded-full flex justify-center items-center
+     text-white font-wp-semibold border border-white border-solid;
+}
+
+.childrenModal {
+    @apply bg-white w-full;
+    border: none !important;
+}
+
+// Carousel Quick View
+.customIndicator {
+    @apply inline-block min-h-[5px] min-w-[50px] mr-2 transition-all duration-500 ease-in-out hover:cursor-pointer;
+}
+
+.containerNoImage {
+    @apply z-[600] w-full h-full flex flex-col p-0;
+    figcaption {
+        margin-top: 2rem;
+    }
+}
+
+.imageEmpty {
+    @apply z-[600] mx-auto my-auto w-full h-fit;
+}
+
+.carouselModal {
+    @apply z-[600] w-full h-full absolute overflow-hidden flex flex-col p-0;
+    margin-top: -1px !important;
+} 
+
+.carouselImg {
+    @apply w-full h-full bg-no-repeat z-[610];
+}

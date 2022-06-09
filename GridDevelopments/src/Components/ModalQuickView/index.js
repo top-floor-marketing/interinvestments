@@ -4,7 +4,7 @@ import { Button } from "@mantine/core";
 import ModalHOC from "./ModalHOC";
 import CarouselQuickView from "./CarouselQuickView";
 
-import styles from "./grid_developments_styles.module.scss";
+import styles from "./styles.gd.module.scss";
 
 const ModalQuickView = ({ data, onClose }) => {
   const { id, content } = data;

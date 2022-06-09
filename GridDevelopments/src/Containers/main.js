@@ -10,7 +10,7 @@ import ModalQuickView from "../Components/ModalQuickView";
 import UseGetListing from "../Hooks/useGetListing";
 import OverlayLoading from "../Components/OverlayLoading";
 
-import styles from "./grid_developments_styles.module.scss";
+import styles from "./styles.gd.module.scss";
 
 const MainContainer = () => {
   const {
@@ -45,10 +45,10 @@ const MainContainer = () => {
     },
     btnLoadMore: {
       onClick: () => fetchListListing(),
-      variant: "white",
+      variant: "outline",
       disabled: isLoading,
       loading: isLoading,
-      className: " animate-fade-in " + styles.btnLoadMore,
+      className: "btn-wp-primary",
     },
     modalQuickView: {
       data: dataQuickView,
@@ -58,7 +58,7 @@ const MainContainer = () => {
 
   return (
     <div data-aos="fade-up" data-aos-duration="700" {...allProps.container}>
-      <h5 {...allProps.textFeatured}>Featured Developments</h5>
+      <p {...allProps.textFeatured}>Featured Developments</p>
       {!renderSkeleton && isError ? (
         <EmptyGrid />
       ) : renderSkeleton ? (

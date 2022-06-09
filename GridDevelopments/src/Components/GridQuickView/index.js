@@ -5,7 +5,7 @@ import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
 
-import styles from "./grid_developments_styles.module.scss";
+import styles from "./styles.gd.module.scss";
 
 const GridQuickView = ({
   data,
@@ -48,7 +48,7 @@ const GridQuickView = ({
         onClick: () => openModalQuickView(id),
         disabled: showOverlay,
         variant: "white",
-        className: styles.btnQuickView + " bg-white",
+        className: styles.buttonQuickView,
       };
     },
     buttonRedirect: (id) => {
@@ -57,8 +57,7 @@ const GridQuickView = ({
         variant: "white",
         component: "a",
         href: `/project?id=${id}`,
-        className: styles.btnRedirect,
-        title: "View Project",
+        className: styles.buttonRedirect,
       };
     },
   };

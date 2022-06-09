@@ -4,24 +4,23 @@ import { Card } from '@mantine/core';
 // componest
 import TabsQuickSearch from '../TabsQuickSearch'
 // css
-import './stylesQuickSearch.css'
-
+import styles from './styles.qs.module.scss'
 
 const QuickSearch = () => {
   return (
     <Card
       radius={10}
-      className='py-8 bg-base-100 z-10 max-w-[1280px] mx-auto relative shadow-cards'
+      className={styles.cardQuickSearch}
     >
-      <div className='gridQuickSearch'>
-        <div className='containerQuickSearch'>
-          <h3 className='labelQuickSearch'>
+      <div className={styles.gridQuickSearch}>
+        <div className={styles.containerQuickSearch}>
+          <h3 className={styles.labelQuickSearch}>
             Search for new
-            <br />
+            <br className={styles.brlabelQuickSearch} />
             properties:
           </h3>
         </div>
-        <div className='col-span-2 pr-5'>
+        <div className={styles.menuQuickSearch}>
           <TabsQuickSearch />
         </div>
       </div>

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Carousel } from "react-responsive-carousel";
 import { Image } from "@mantine/core";
 
-import styles from "./grid_developments_styles.module.scss";
+import styles from "./styles.gd.module.scss";
 
 import "./overrideStylesCarousel.css";
 

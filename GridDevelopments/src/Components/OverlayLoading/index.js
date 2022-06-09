@@ -3,7 +3,7 @@ import { Overlay, Center } from "@mantine/core";
 import lottie from "lottie-web";
 import introJson from "../../Lottie/Intro.json";
 
-import styles from "./grid_developments_styles.module.scss";
+import styles from "./styles.gd.module.scss";
 
 const OverlayLoading = () => {
   useEffect(() => {

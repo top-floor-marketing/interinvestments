@@ -1,19 +1,42 @@
 import { gql } from 'graphql-request';
 
 export const LISTINGS_CATEGORY = gql`
-    query listingsCategory($first: Int) {
-      categories(first: $first) {
-        nodes {
-            databaseId
-            name
-        }
-      } 
+  query listingsCategory($first: Int) {
+    listingCategories(first: $first) {
+      nodes {
+        name
+        databaseId
+      }
     }
+}
+`
+export const ALL_NEIGHBORHOODS = gql`
+  query neighborhoods {
+    neighborhoods {
+      nodes{
+        name
+        databaseId
+    }
+  }
+  }
 `
 
 export const ALL_LISTING = gql`
-  query listings($categoryId: Int!, $search: String!) {
-    listings(first: 10, where: {categoryId: $categoryId, search: $search}) {
+  query listings(
+    $NEIGHBORHOOD: [String], 
+    $LISTINGCATEGORY: [String] ,
+    $search: String,
+  ) {
+    listings(
+      where: {
+        taxQuery: {
+          taxArray: [
+            {operator: IN, terms: $NEIGHBORHOOD, taxonomy: NEIGHBORHOOD}, 
+            {operator: IN, terms: $LISTINGCATEGORY, taxonomy: LISTINGCATEGORY}
+          ]},
+        search: $search
+      }
+    ) {
       nodes {
         databaseId
         title
@@ -29,6 +52,18 @@ export const ALL_LISTING = gql`
             priceMax
             status
             nameOfDevelopment
+          }
+        }
+        listingCategories {
+          nodes {
+            name
+            termTaxonomyId
+          }
+        }
+        neighborhoods {
+          nodes {
+            name
+            termTaxonomyId
           }
         }
       }
