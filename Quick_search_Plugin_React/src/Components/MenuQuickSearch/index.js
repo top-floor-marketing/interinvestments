@@ -19,28 +19,28 @@ const MenuQuickSearch = () => {
             searchListing,
             activeCategory,
             activeNeighborhoods,
+            focusCard
         },
     } = useStore();
+
 
     const { isLoading, isError, data, refetch: refetchListing, isFetching } = useQueryHelper({
         name: 'ALL_LISTING',
         gql: ALL_LISTING,
         variables: {
-            "slugCategories": activeCategory,
+            "LISTINGCATEGORY": activeCategory,
             "search": searchListing,
-            "slugneighborhoods": activeNeighborhoods
+            "NEIGHBORHOOD": activeNeighborhoods
         },
         config: { enabled: false }
     });
-
     useEffect(() => {
-        if (searchListing.length >= 4) {
+        if (activeCategory && activeNeighborhoods) {
             refetchListing()
         }
     }, [searchListing, refetchListing, activeCategory, activeNeighborhoods])
 
-
-    if ((searchListing.length >= 4)) {
+    if ((focusCard)) {
         return (
             <div className={`z-1 ${styles.MenuQuickSearch}`}>
                 <Card

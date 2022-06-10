@@ -11,7 +11,6 @@ const InputTabs = (props) => {
     return (
         <TextInput
             onFocus={() => onFocusChange(true)}
-            onBlur={() => onFocusChange(false)}
             onChange={(text) => onChange(text.target.value)}
             value={value}
             className={`${classNameprops}`}

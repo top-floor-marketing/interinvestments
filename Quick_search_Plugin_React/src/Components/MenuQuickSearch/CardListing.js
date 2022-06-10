@@ -9,8 +9,10 @@ import styles from './styles.mqs.module.scss'
 const CardListing = (props) => {
     const { data } = props
 
-    if (data.length === 0) {
-        <NoDataCard />
+    if (!data.length) {
+        return (
+            <NoDataCard />
+        )
     }
 
     return (
@@ -77,7 +79,7 @@ const NoImagen = () => {
 
 const NoDataCard = () => {
     return (
-        <div className='nodata'>
+        <div className={styles.nodata}>
             <DatabaseOff
                 size={48}
                 strokeWidth={2}
