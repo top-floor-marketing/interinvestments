@@ -52,7 +52,7 @@ const NavBarDashboard = ({ opened }) => {
     navbar: {
       hidden: !opened,
       hiddenBreakpoint: "lg",
-      width: { lg: 320 },
+      width: { lg: 300 },
       className: classes.navBarContainer,
     },
     boxContainer: {

@@ -9,6 +9,7 @@ const AuthComponent = React.lazy(() => import("../Component/Auth"));
 const TestComponent = React.lazy(() => import("../Component/MantineTest"));
 const ProfileComponent = React.lazy(() => import("../Component/Profile"));
 const DashboardComponent = React.lazy(() => import("../Component/Dashboard"));
+const PipelineComponent = React.lazy(() => import("../Component/Pipeline"));
 
 export const LAYOUT_NAMES = {
   EMPTY: "empty",
@@ -43,30 +44,14 @@ export const CRM_ROUTES = [
     roles: ["administrator"]
   },
   {
-    name: ROUTES_NAMES.LEAD,
-    label: "Lead list",
-    layout: LAYOUT_NAMES.DASHBOARD,
-    component: () => (
-      <Suspense
-        fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}
-      >
-        <TestComponent />
-      </Suspense>
-    ),
-    useInNavbar: true,
-    loginRequired: true,
-    icon: () => <List size={25} strokeWidth={2} color={"white"} />,
-    roles: ["administrator"]
-  },
-  {
     name: ROUTES_NAMES.PIPELINE,
     label: "Pipeline",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
       <Suspense
-        fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}
+        fallback={<LoadingFull idLazy={ROUTES_NAMES.PIPELINE} isLoadingLazy />}
       >
-        <TestComponent />
+        <PipelineComponent />
       </Suspense>
     ),
     useInNavbar: true,
