@@ -1,0 +1,25 @@
+@tailwind utilities;
+
+.imageCarucel {
+    @apply block w-full lg:w-[1000px] 2xl:w-[1200px] h-[400px] lg:h-[585px] 2xl:h-[645px] bg-center bg-cover bg-no-repeat;
+}
+
+.containerCarucel {
+    @apply relative items-center h-full w-full;
+}
+
+.BoxCarucel {
+    @apply py-20 md:py-40 h-full max-h-[900px];
+}
+
+.containerImage {
+    @apply flex justify-center items-center;
+}
+
+.containerNavigation {
+    @apply hidden absolute w-full md:flex justify-between top-[42%] px-12;
+}
+
+.ButtonCarucel {
+    @apply p-5 border-white rounded-full;
+}
