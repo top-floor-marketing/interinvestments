@@ -3,6 +3,7 @@ import React from 'react'
 import HeroParalax from '../HeroParalax'
 import DescriptionListing from '../DescriptionListing';
 import DataLIsting from '../DataLIsting'
+import CarucelListing from '../CarucelListing'
 // mantine
 import { Box } from '@mantine/core';
 
@@ -12,6 +13,7 @@ const Main = () => {
             <HeroParalax />
             <DescriptionListing />
             <DataLIsting />
+            <CarucelListing />
         </Box>
     )
 }

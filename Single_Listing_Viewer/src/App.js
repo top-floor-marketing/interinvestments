@@ -11,7 +11,7 @@ function App() {
   const queryClient = new QueryClient();
   useEffect(() => {
     AOS.init();
-    // AOS.refresh();
+    AOS.refresh();
   }, []);
   return (
     <div className='App'>

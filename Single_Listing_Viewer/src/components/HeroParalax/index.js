@@ -15,7 +15,11 @@ const HeroParalax = () => {
                 className={styles.BoxImagenParalax}
             >
                 <div style={{ zIndex: 1 }} className={styles.containerParalax}>
-                    <Text component='h2'>
+                    <Text
+                        data-aos-duration='2000'
+                        data-aos="zoom-out-up"
+                        component='h2'
+                    >
                         Waldorf Astoria
                         <br />
                         <Text component='span'>

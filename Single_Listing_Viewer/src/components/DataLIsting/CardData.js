@@ -10,13 +10,19 @@ const CardData = (props) => {
     const {
         number = 0,
         type = 'text',
+        durationAnimation = '2000',
         description = 'Lorem ipsum dolor sit amet, consectetuer adipiscing'
     } = props
 
-    const propsSpring = useSpring({ val: number, from: { val: 0 } });
+    const propsSpring = useSpring({ val: number, from: { val: 0 }, config: { duration: 2000 } });
 
     return (
-        <Box className={styles.containerCard}>
+        <Box
+            data-aos-once="false"
+            data-aos-duration={durationAnimation}
+            data-aos="zoom-in"
+            className={styles.containerCard}
+        >
             <Box className='flex'>
                 <Text component='span' className={styles.titleCard}>
                     {

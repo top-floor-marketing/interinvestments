@@ -2,7 +2,7 @@ import React from 'react'
 // compontes
 import CardData from './CardData'
 // mantine
-import { Box, Text } from '@mantine/core';
+import { Box } from '@mantine/core';
 // css
 import styles from './styles.dl.module.scss'
 
