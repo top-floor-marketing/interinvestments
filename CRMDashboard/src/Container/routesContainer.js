@@ -19,7 +19,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     display: "flex",
     flexDirection: "column",
     minHeight: "100vh",
-    backgroundColor: theme.colors.gray[0],
+    backgroundColor: theme.fn.rgba(theme.colors.gray[0], 0.6),
     justifyContent: "center",
     alignContent: "center",
     ".mantine-Skeleton-visible": {
@@ -35,9 +35,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
 const RoutesContainer = () => {
   const { classes } = useStyles();
-
   const { route: routeInStore } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const routeActive = filter(CRM_ROUTES, (o) => {
     return o.name === routeInStore;
   });

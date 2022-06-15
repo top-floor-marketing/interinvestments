@@ -67,7 +67,17 @@ const stylesProvider = () => {
             active: {
                 backgroundColor: theme.colors.primary[0],
             }
-        })
+        }),
+        Avatar: (theme, params) => ({
+            placeholder: {
+                fontWeight: "700"
+            }
+        }),
+        Accordion: (theme, params) => ({
+            item: {
+                borderBottom: "none",
+            },
+        }),
     }
 }
 
