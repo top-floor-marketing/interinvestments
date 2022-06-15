@@ -1,6 +1,6 @@
-import { Box, createStyles, TextInput } from "@mantine/core";
+import { Box, createStyles, TextInput, Button } from "@mantine/core";
 
-import { Search } from "tabler-icons-react";
+import { Search, Plus } from "tabler-icons-react";
 
 import usePipelineStore from "../PipelineStore/usePipelineStore";
 
@@ -8,15 +8,21 @@ import get from 'lodash/get';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
     container: {
-        minHeight: "100px",
         width: "100%",
         height: "auto",
         display: "flex",
         flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "space-between",
         gap: theme.other.spacing.p5
     },
     searchInput: {
-        minWidth: "300px"
+        minWidth: "250px"
+    },
+    buttonAdd: {
+        "&:hover": {
+            backgroundColor: theme.fn.rgba(theme.colors.dark[0], 0.9)
+        }
     }
 }));
 
@@ -32,6 +38,9 @@ const SearchBox = () => {
                 onChange={(e) => setFilter({ ...filter, search: e.currentTarget.value })}
                 className={classes.searchInput}
             />
+            <Button className={classes.buttonAdd} color="dark" leftIcon={<Plus/>} size="md">
+                Add Lead
+            </Button>
         </Box>
     );
 };

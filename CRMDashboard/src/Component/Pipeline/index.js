@@ -12,7 +12,7 @@ import PipelineProvider from './PipelineStore/pipelineProvider';
 const useStyles = createStyles((theme, _params, getRef) => ({
     container: {
         width: "100%",
-        minHeight: "400px",
+        minHeight: "300px",
         display: "flex",
         flexDirection: "column",
         gap: theme.other.spacing.p5,
