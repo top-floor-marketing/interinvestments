@@ -4,17 +4,17 @@ import HeroParalax from '../HeroParalax'
 import DescriptionListing from '../DescriptionListing';
 import DataLIsting from '../DataLIsting'
 import CarucelListing from '../CarucelListing'
-// mantine
-import { Box } from '@mantine/core';
+import CollapseListing from '../CollapseListing'
 
 const Main = () => {
     return (
-        <Box>
+        <>
             <HeroParalax />
             <DescriptionListing />
             <DataLIsting />
             <CarucelListing />
-        </Box>
+            <CollapseListing />
+        </>
     )
 }
 

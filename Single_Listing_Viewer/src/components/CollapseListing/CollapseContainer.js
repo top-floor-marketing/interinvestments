@@ -1,0 +1,54 @@
+import React, { useState } from 'react'
+// mantine
+import { Button, Collapse, Box, Text, Divider } from '@mantine/core';
+import { ArrowNarrowRight } from 'tabler-icons-react';
+// css
+import styles from './styles.cl.module.scss'
+
+const defaultChildren = (
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, quo, voluptas, officia natus perferendis veritatis voluptatum est quia eligendi nisi excepturi earum dolores expedita. Ad enim distinctio modi incidunt aliquam!
+    </p>
+)
+
+const CollapseContainer = (props) => {
+    const [opened, setOpen] = useState(false)
+    const { title = 'text title', children = defaultChildren, index = '01' } = props
+
+    return (
+        <>
+            <Box className={styles.container}>
+                <Text component='span' className={styles.textIndex}>{index}</Text>
+                <Text component='p' className={styles.titleCollapse}>{title}</Text>
+                <Button
+                    radius="xl"
+                    color="yellow"
+                    className='border-0'
+                    size="2xl"
+                    compact
+                    variant="outline"
+                    onClick={() => setOpen(!opened)}
+                >
+                    <ArrowNarrowRight
+                        className={`${styles.ArrowRight} ${opened ? styles.ArrowRight_active : ''}`}
+                        size={69}
+                        strokeWidth={1.5}
+                        color={'#FFB839'}
+                    />
+                </Button>
+            </Box>
+            <Collapse
+                in={opened}
+                transitionDuration={500}
+                transitionTimingFunction="linear"
+            >
+                <Box className={styles.collapseListing}>
+                    {children}
+                </Box>
+            </Collapse>
+            <Divider className={styles.dividerListing} my="sm" />
+        </>
+    )
+}
+
+export default CollapseContainer

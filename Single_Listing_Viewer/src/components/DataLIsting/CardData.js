@@ -14,7 +14,7 @@ const CardData = (props) => {
         description = 'Lorem ipsum dolor sit amet, consectetuer adipiscing'
     } = props
 
-    const propsSpring = useSpring({ val: number, from: { val: 0 }, config: { duration: 2000 } });
+    const propsSpring = useSpring({ delay: 1800, val: number, from: { val: 0 }, config: { duration: 2500 } });
 
     return (
         <Box

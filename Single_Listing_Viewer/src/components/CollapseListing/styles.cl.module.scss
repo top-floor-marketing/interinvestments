@@ -1,0 +1,31 @@
+.containerCollapse {
+    @apply px-12 xl:px-0 my-20 md:my-28 max-w-screen-lg w-full mx-auto h-full;
+}
+
+.textIndex {
+    @apply font-outfit font-[300] text-[20px];
+}
+
+.titleCollapse {
+    @apply font-outfit text-center my-auto font-[300] text-[32px] md:text-[72px] leading-[91px] p-[10px];
+}
+
+.ArrowRight {
+    @apply transition duration-[350ms];
+}
+
+.ArrowRight_active {
+    @apply rotate-90;
+}
+
+.collapseListing {
+    @apply my-12;
+}
+
+.dividerListing {
+    @apply mt-8;
+}
+
+.container {
+    @apply flex flex-row items-center justify-between h-full mt-3;
+}
