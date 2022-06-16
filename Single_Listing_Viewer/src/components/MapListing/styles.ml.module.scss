@@ -1,0 +1,15 @@
+.containerMap {
+    @apply px-12 xl:px-0 my-20 md:my-28 max-w-screen-lg w-full mx-auto h-full;
+}
+
+.BoxContainer {
+    @apply flex flex-col justify-center items-center;
+}
+
+.titleMap {
+    @apply font-outfit font-[400] text-[16px] leading-[20px] tracking-[0.2em] uppercase;
+}
+
+.NameNeighborhood {
+    @apply font-outfit font-[300] text-[72px] leading-[91px] mt-5;
+}

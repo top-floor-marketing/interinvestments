@@ -5,6 +5,7 @@ import DescriptionListing from '../DescriptionListing';
 import DataLIsting from '../DataLIsting'
 import CarucelListing from '../CarucelListing'
 import CollapseListing from '../CollapseListing'
+import MapListing from '../MapListing'
 
 const Main = () => {
     return (
@@ -14,6 +15,7 @@ const Main = () => {
             <DataLIsting />
             <CarucelListing />
             <CollapseListing />
+            <MapListing />
         </>
     )
 }
