@@ -1,5 +1,5 @@
 .containerMap {
-    @apply px-12 xl:px-0 my-20 md:my-28 max-w-screen-lg w-full mx-auto h-full;
+    @apply px-12 xl:px-0 my-20 md:my-28 max-w-screen-lg w-full mx-auto h-full overflow-auto;
 }
 
 .BoxContainer {
@@ -11,5 +11,13 @@
 }
 
 .NameNeighborhood {
-    @apply font-outfit font-[300] text-[72px] leading-[91px] mt-5;
+    @apply font-outfit font-[300] text-[36px] md:text-[52px] lg:text-[72px] leading-[91px] mt-5;
+}
+
+.containerMapCanvas {
+    @apply mt-10 w-full min-w-[1170px] md:min-w-full max-w-screen-lg h-[565px];
+}
+
+.imagePinMAp {
+    @apply w-[34px] h-[42px] bg-center bg-cover bg-no-repeat;
 }

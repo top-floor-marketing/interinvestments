@@ -13,12 +13,10 @@ const CardData = (props) => {
         durationAnimation = '2000',
         description = 'Lorem ipsum dolor sit amet, consectetuer adipiscing'
     } = props
-
-    const propsSpring = useSpring({ delay: 1800, val: number, from: { val: 0 }, config: { duration: 2500 } });
-
+    const propsSpring = useSpring({ delay: 600, val: number, from: { val: 0 }, config: { duration: 1200 } });
     return (
         <Box
-            data-aos-once="false"
+            data-aos-once="true"
             data-aos-duration={durationAnimation}
             data-aos="zoom-in"
             className={styles.containerCard}
@@ -49,4 +47,3 @@ const CardData = (props) => {
 
 export default CardData
 
-/// https://levelup.gitconnected.com/create-a-number-animation-with-react-spring-670975daa28d
