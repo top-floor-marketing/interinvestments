@@ -16,6 +16,7 @@ const HeroParalax = () => {
             >
                 <div style={{ zIndex: 1 }} className={styles.containerParalax}>
                     <Text
+                        data-aos-once="true"
                         data-aos-duration='2000'
                         data-aos="zoom-out-up"
                         component='h2'

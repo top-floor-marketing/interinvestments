@@ -19,7 +19,13 @@ const CollapseContainer = (props) => {
         <>
             <Box className={styles.container}>
                 <Text component='span' className={styles.textIndex}>{index}</Text>
-                <Text component='p' className={styles.titleCollapse}>{title}</Text>
+                <Text
+                    onClick={() => setOpen(!opened)}
+                    component='p'
+                    className={styles.titleCollapse}
+                >
+                    {title}
+                </Text>
                 <Button
                     radius="xl"
                     color="yellow"

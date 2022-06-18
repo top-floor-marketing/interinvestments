@@ -1,5 +1,5 @@
 .containerMap {
-    @apply px-12 xl:px-0 my-20 md:my-28 max-w-screen-lg w-full mx-auto h-full overflow-auto;
+    @apply px-12 xl:px-0 mt-20 mb-12 md:mt-28 max-w-screen-lg w-full mx-auto h-full overflow-auto;
 }
 
 .BoxContainer {
@@ -15,7 +15,7 @@
 }
 
 .containerMapCanvas {
-    @apply mt-10 w-full min-w-[1170px] md:min-w-full max-w-screen-lg h-[565px];
+    @apply mb-10 mx-auto px-0 md:px-[28px] lg:px-0 w-full md:max-w-screen-md lg:max-w-screen-lg h-[565px];
 }
 
 .imagePinMAp {

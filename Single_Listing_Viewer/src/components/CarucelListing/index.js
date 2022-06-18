@@ -64,6 +64,7 @@ const CarucelListing = () => {
                     </Button>
                 </Box>
                 <Swiper
+                    speed={1500}
                     autoplay={{ delay: 5000 }}
                     navigation={{
                         prevEl: navigationPrevRef.current,
@@ -98,9 +99,13 @@ const CarucelListing = () => {
                     pagination={paginationCustom}
                     modules={[EffectCoverflow, Pagination, Navigation]}
                 >
+                    {
+                        // el 0,1,end del array tiene el delay
+                    }
                     <SwiperSlide className={styles.containerImage}>
                         <img
-                            data-aos-once="false"
+                            data-aos-once="true"
+                            data-aos-delay="300"
                             data-aos-duration='2000'
                             data-aos="fade-down"
                             className={styles.imageCarucel}
@@ -110,9 +115,10 @@ const CarucelListing = () => {
                     </SwiperSlide>
                     <SwiperSlide className={styles.containerImage}>
                         <img
-                            data-aos-once="false"
+                            data-aos-once="true"
                             data-aos-duration='2000'
-                            data-aos="fade-down"
+                            data-aos="fade-left"
+                            data-aos-delay="1100"
                             className={styles.imageCarucel}
                             alt='Image_2'
                             src={image2}
@@ -120,9 +126,10 @@ const CarucelListing = () => {
                     </SwiperSlide>
                     <SwiperSlide className={styles.containerImage}>
                         <img
-                            data-aos-once="false"
+                            data-aos-once="true"
                             data-aos-duration='2000'
-                            data-aos="fade-down"
+                            data-aos-delay="700"
+                            data-aos="fade-right"
                             className={styles.imageCarucel}
                             alt='Image_3'
                             src={image3}

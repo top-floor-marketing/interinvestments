@@ -1,6 +1,7 @@
 import React from 'react'
 //mantine
 // import { Box, Text } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks';
 // map
 import ReactMapGL, { Marker } from "react-map-gl";
 import pinMap from '../../assets/img/pinMap.svg'
@@ -10,16 +11,18 @@ import styles from './styles.ml.module.scss'
 const TokenMAp = process.env.REACT_APP_TFM_TOKEN_MAP
 
 const MapComp = () => {
+    const matches = useMediaQuery('(min-width: 1024px)');
     return (
         <ReactMapGL
             mapboxAccessToken={TokenMAp}
             initialViewState={{
                 longitude: -122.4,
                 latitude: 37.8,
-                zoom: 14
+                zoom: (matches) ? 14 : 12
             }}
             style={{ width: '100%', height: '100%' }}
             mapStyle="mapbox://styles/mapbox/light-v10"
+            onViewportChange={(value) => console.log('onViewportChange', value)}
         >
             <Marker
                 latitude={37.799884}
@@ -35,6 +38,8 @@ const MapComp = () => {
 
 export default MapComp
 
+
+// https://mantine.dev/core/popper/
 
 
 //// Default public token

@@ -14,9 +14,9 @@ const MapListing = () => {
           <Text className={styles.titleMap} component='h4'>Neighborhood</Text>
           <Text className={styles.NameNeighborhood} component='p'>Downtown Miami</Text>
         </Box>
-        <Box className={styles.containerMapCanvas}>
-          <MapComp />
-        </Box>
+      </Box>
+      <Box className={styles.containerMapCanvas}>
+        <MapComp />
       </Box>
     </>
   )

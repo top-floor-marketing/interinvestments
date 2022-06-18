@@ -9,6 +9,7 @@ const DescriptionListing = () => {
     <Box className={styles.container}>
       <Box className={styles.containerDescription}>
         <Text
+          data-aos-once="true"
           data-aos-duration='2000'
           data-aos="fade-up"
           className={styles.title}
@@ -17,6 +18,7 @@ const DescriptionListing = () => {
           a view from above
         </Text>
         <Text
+          data-aos-once="true"
           data-aos-duration='2000'
           data-aos="fade-up"
           className={styles.textDescription}

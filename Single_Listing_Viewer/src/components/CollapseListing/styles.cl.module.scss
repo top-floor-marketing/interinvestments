@@ -7,7 +7,7 @@
 }
 
 .titleCollapse {
-    @apply font-outfit text-center my-auto font-[300] text-[32px] md:text-[72px] leading-[91px] p-[10px];
+    @apply transition duration-[350ms] hover:text-[#FFB839] cursor-pointer font-outfit text-center my-auto font-[300] text-[32px] md:text-[72px] leading-[91px] p-[10px];
 }
 
 .ArrowRight {
