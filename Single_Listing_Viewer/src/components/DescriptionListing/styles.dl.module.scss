@@ -1,0 +1,20 @@
+@tailwind utilities;
+
+.containerDescription {
+    @apply flex flex-col items-start justify-center w-full h-full;
+}
+
+.container {
+    @apply px-12 xl:px-0 my-20 md:my-28 max-w-screen-lg w-full mx-auto h-full;
+}
+
+.title {
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    @apply mb-2 md:mb-7 font-[400] leading-[20px] font-outfit text-[12px] md:text-[16px];
+}
+
+.textDescription {
+    font-weight: 400;
+    @apply mt-4 font-outfit text-[26px] md:text-[36px] leading-[40px] md:leading-[45px] overflow-auto;
+}

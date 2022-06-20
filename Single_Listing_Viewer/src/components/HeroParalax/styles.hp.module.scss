@@ -1,0 +1,37 @@
+@tailwind utilities;
+
+.BoxImagenParalax {
+    @apply flex items-center justify-center min-h-screen bg-fixed bg-center bg-cover relative bg-no-repeat;
+}
+
+.ParallaxCroma {
+    @apply absolute h-full bg-black w-full opacity-20;
+}
+
+.containerParalax {
+    @apply flex flex-col h-screen;
+    &:first-child {
+        h2 {
+            @apply font-outfit my-auto font-normal 
+            text-center text-[65px] md:text-[80px] lg:text-[100px] 
+            leading-[60px] 
+            text-white;
+            span {
+                font-weight: 400;
+                @apply font-outfit font-normal
+                text-[15px] md:text-[24px];
+                line-height: 32px;
+            }
+        }
+    }
+}
+
+.icon {
+    @apply mx-auto align-text-bottom animate-bounce;
+}
+
+.imagechevron_down {
+    @apply mb-7;
+    width: 70px !important;
+    height: 70px !important;
+}

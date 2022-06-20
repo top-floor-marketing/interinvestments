@@ -1,0 +1,15 @@
+.swiper-pagination {
+    position: relative !important;
+    top: 10px !important;
+    padding: 10px !important;
+}
+
+.swiper-pagination-bullet {
+    width: 42px !important;
+    border-radius: 0 !important;
+    height: 3.8px !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: #FFB839;
+}

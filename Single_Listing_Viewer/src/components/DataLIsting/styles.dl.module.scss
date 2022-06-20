@@ -1,0 +1,26 @@
+.container {
+    background-image: url("../../assets/img/FondoData.jpg");
+    @apply w-full mx-auto py-20 md:py-32 h-full  bg-center bg-cover bg-no-repeat overflow-auto;
+}
+
+.boxdata {
+    @apply w-full h-full px-12 xl:px-0 max-w-screen-lg mx-auto 
+    grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 
+    justify-center items-center;
+}
+
+.titleCard {
+    font-weight: 300;
+    line-height: 91px;
+    @apply text-center md:text-left font-outfit text-[52px] lg:text-[72px];
+}
+
+.descriptionCard {
+    font-weight: 300;
+    line-height: 26px;
+    @apply font-outfit text-center md:text-left text-[18px] md:text-[20px];
+}
+
+.containerCard {
+    @apply flex flex-col items-center lg:items-start justify-center;
+}
