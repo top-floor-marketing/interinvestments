@@ -65,7 +65,7 @@ const CarucelListing = () => {
                 </Box>
                 <Swiper
                     speed={1500}
-                    autoplay={{ delay: 5000 }}
+                    autoplay={{ delay: 8000 }}
                     navigation={{
                         prevEl: navigationPrevRef.current,
                         nextEl: navigationNextRef.current,

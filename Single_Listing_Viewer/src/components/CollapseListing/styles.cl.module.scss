@@ -3,11 +3,13 @@
 }
 
 .textIndex {
-    @apply font-outfit font-[300] text-[20px];
+    font-weight: 300;
+    @apply font-outfit text-[20px];
 }
 
 .titleCollapse {
-    @apply transition duration-[350ms] hover:text-[#FFB839] cursor-pointer font-outfit text-center my-auto font-[300] text-[32px] md:text-[72px] leading-[91px] p-[10px];
+    font-weight: 300;
+    @apply transition duration-[350ms] hover:text-[#FFB839] cursor-pointer font-outfit text-center my-auto text-[32px] md:text-[72px] leading-[91px] p-[10px];
 }
 
 .ArrowRight {
@@ -19,7 +21,7 @@
 }
 
 .collapseListing {
-    @apply my-12;
+    @apply py-4 md:py-12;
 }
 
 .dividerListing {
@@ -28,4 +30,22 @@
 
 .container {
     @apply flex flex-row items-center justify-between h-full mt-3;
+}
+
+.gridContendCollapse {
+    @apply grid grid-cols-3 gap-4;
+}
+
+.containerConted {
+    @apply flex flex-col col-span-3 md:col-span-2;
+}
+
+.boxContend {
+    @apply grid grid-cols-1 gap-5 md:grid-cols-2;
+    span {
+        @apply font-outfit;
+    }
+    p {
+        @apply font-outfit;
+    }
 }

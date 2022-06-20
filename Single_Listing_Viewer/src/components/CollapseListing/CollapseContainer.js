@@ -13,11 +13,21 @@ const defaultChildren = (
 
 const CollapseContainer = (props) => {
     const [opened, setOpen] = useState(false)
-    const { title = 'text title', children = defaultChildren, index = '01' } = props
+    const {
+        title = 'text title',
+        children = defaultChildren,
+        delayAnimatio = '300',
+        index = '01'
+    } = props
 
     return (
         <>
-            <Box className={styles.container}>
+            <Box
+                data-aos-once="true"
+                data-aos-delay={delayAnimatio}
+                data-aos-duration='2000'
+                data-aos="fade-right"
+                className={styles.container}>
                 <Text component='span' className={styles.textIndex}>{index}</Text>
                 <Text
                     onClick={() => setOpen(!opened)}
@@ -52,7 +62,14 @@ const CollapseContainer = (props) => {
                     {children}
                 </Box>
             </Collapse>
-            <Divider className={styles.dividerListing} my="sm" />
+            <Divider
+                data-aos-once="true"
+                data-aos-delay={delayAnimatio}
+                data-aos-duration='2000'
+                data-aos="zoom-in"
+                className={styles.dividerListing}
+                my="sm"
+            />
         </>
     )
 }
