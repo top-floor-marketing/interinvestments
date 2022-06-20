@@ -31,8 +31,8 @@ const ContendCollapse = () => {
                 <Divider my="sm" />
                 {
                     defaultContend.map((value, index) => (
-                        <>
-                            <Box className={styles.boxContend} key={index}>
+                        <Box key={index}>
+                            <Box className={styles.boxContend}>
                                 <Text component='span'>
                                     <strong>{value.title}</strong>
                                 </Text>
@@ -43,8 +43,7 @@ const ContendCollapse = () => {
                                     <Divider my="sm" />
                                 )
                             }
-
-                        </>
+                        </Box>
                     ))
                 }
             </Box>
