@@ -1,21 +1,37 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { Card, createStyles, Avatar, Text, Box, Accordion } from "@mantine/core";
+import { useState, useEffect } from 'react';
+import { Card, createStyles, Avatar, Text, Box, ActionIcon } from "@mantine/core";
+import { useElementSize } from '@mantine/hooks';
+import { ChevronUp } from 'tabler-icons-react';
+
+import { useSpring, animated } from "react-spring";
+
+import LeadsSubTable from '../LeadsSubTable';
+
 
 const useStyles = createStyles((theme, _params, getRef) => ({
+    animateContainer: {
+        marginBottom: theme.other.spacing.p5
+    },
     container: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: theme.other.spacing.p5,
+    },
+    leadRow: {
         width: "100%",
         display: "flex",
         flexDirection: "row",
         gap: theme.other.spacing.p5,
         alignItems: "center",
-        padding: theme.other.spacing.p5,
         justifyContent: "space-between"
     },
     avatarContainer: {
         width: "100px",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
+        justifyContent: "flex-start",
         height: "auto"
     },
     avatar: {
@@ -24,50 +40,89 @@ const useStyles = createStyles((theme, _params, getRef) => ({
             color: theme.colors.black[0]
         }
     },
+    infoContainer: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        height: "auto",
+        gap: theme.other.spacing.p5,
+        justifyContent: "space-between"
+    },
+    textInfo: {
+        width: "auto",
+        //minWidth: "33.33%"
+    },
     chevronContainer: {
         width: "100px",
         display: "flex",
-        flexDirection: "column",
-        height: "auto"
+        flexDirection: "row",
+        height: "auto",
+        justifyContent: "flex-end"
     },
-    accordion: {
-        backgroundColor: theme.colors.white[0],
-        borderRadius: "10px",
-        ".mantine-Accordion-control": {
-            borderRadius: "10px",
-            color: theme.fn.rgba(theme.colors.black[0], 1),
-            "&:hover": {
-                backgroundColor: theme.fn.rgba(theme.colors.gray[0], 0.6),
-            }
-        }
+    cardTableContainer: {
+        marginLeft: "auto",
+        marginRight: "auto",
+        width: "96%",
+        display: "flex",
+        flexDirection: "column",
+        padding: "0 !important"
     }
 }));
 
 const ItemTable = ({ id, imageUrl, name, phoneNumber, email, key }) => {
-    const [isActive, setIsActive] = useState(false);
     const { classes } = useStyles();
+    const [active, setActive] = useState(false);
+    const { ref, height } = useElementSize();
 
-    const AccordionInfo = () => {
-        return (
-            <Box className={classes.container}>
-                <Box className={classes.avatarContainer}>
-                    <Avatar radius="xl" className={classes.avatar}>
-                        JD
-                    </Avatar>
-                </Box>
-                <Text transform="capitalize" align="left" size="sm">{name}</Text>
-                <Text transform="capitalize" align="left" size="sm">{phoneNumber}</Text>
-                <Text transform="capitalize" align="left" size="sm">{email}</Text>
-            </Box>
-        )
-    }
+    const [contentHeight, setContentHeight] = useState(height);
+
+     // Animations
+  const expand = useSpring({
+    config: { friction: 35 },
+    height: active ? `${contentHeight}px` :  `${height}px`
+  });
+  const spin = useSpring({
+    config: { friction: 40 },
+    transform: active ? "rotate(180deg)" : "rotate(0deg)"
+  });
+
+  useEffect(() => {
+    //Sets initial height
+    setContentHeight(height);
+
+    //Adds resize event listener
+    window.addEventListener("resize", setContentHeight(height));
+
+    // Clean-up
+    return window.removeEventListener("resize", setContentHeight(height));
+  }, [height]);
+
     return (
-        <Accordion iconPosition="right" className={classes.accordion}>
-            <Accordion.Item label={<AccordionInfo />}>
-                Colors, fonts, shadows and many other parts are customizable to fit your design needs
-            </Accordion.Item>
-        </Accordion>
-
+        <animated.div style={expand} className={classes.animateContainer}>
+            <Card className={classes.container} ref={ref} style={{ minHeight: "10px"}} >
+                <Box className={classes.leadRow}>
+                    <Box className={classes.infoContainer}>
+                        <Text className={classes.textInfo} transform="capitalize" align="left" size="sm">{name}</Text>
+                        <Text className={classes.textInfo} transform="capitalize" align="left" size="sm">{phoneNumber}</Text>
+                        <Text className={classes.textInfo} transform="capitalize" align="left" size="sm">{email}</Text>
+                    </Box>
+                    <Box className={classes.chevronContainer}>
+                    <animated.div  style={spin}>
+                    <ActionIcon size="lg" variant="outline" onClick={() => setActive(!active)}>
+                            <ChevronUp />
+                        </ActionIcon>
+                    </animated.div>
+                       
+                    </Box>
+                </Box>
+                {
+                    active &&
+                    <Card className={classes.cardTableContainer}>
+                        <LeadsSubTable />
+                    </Card>
+                }
+            </Card>
+        </animated.div>
     )
 }
 

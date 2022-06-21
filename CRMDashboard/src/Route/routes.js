@@ -24,7 +24,7 @@ export const ROUTES_NAMES = {
   PROFILE: "profile",
 };
 
-export const DEFAULT_ROUTE = ROUTES_NAMES.HOME;
+export const DEFAULT_ROUTE = ROUTES_NAMES.PIPELINE;
 
 export const CRM_ROUTES = [
   {
@@ -38,7 +38,7 @@ export const CRM_ROUTES = [
         <DashboardComponent />
       </Suspense>
     ),
-    useInNavbar: true,
+    useInNavbar: false,
     loginRequired: true,
     icon: () => <Home2 size={25} strokeWidth={2} color={"white"} />,
     roles: ["administrator"]

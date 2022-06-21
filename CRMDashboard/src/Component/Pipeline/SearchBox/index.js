@@ -38,7 +38,7 @@ const SearchBox = () => {
                 onChange={(e) => setFilter({ ...filter, search: e.currentTarget.value })}
                 className={classes.searchInput}
             />
-            <Button className={classes.buttonAdd} color="dark" leftIcon={<Plus/>} size="md">
+            <Button className={classes.buttonAdd} color="dark" leftIcon={<Plus/>} size="sm">
                 Add Lead
             </Button>
         </Box>

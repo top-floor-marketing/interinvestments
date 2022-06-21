@@ -29,7 +29,6 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const PipelineTable = () => {
   const { classes } = useStyles();
   const [activePage, onChangePage] = useState(1);
-  const [accordionState, handlersAccordion] = useAccordionState({ total: 10, initialItem: -1 });
   const dummyData = [{
     id: useId("test-"),
     imageUrl: "https://www.exalco.gr/uploads/resources/10823/mls-central-office-building-thessaloniki-40-normal.jpg?lm=1435F7BDBEABA38D5F412518F7E055E9" ,
@@ -41,7 +40,7 @@ const PipelineTable = () => {
     id: useId("test-"),
     imageUrl: "https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blt92407140cee4688a/60dc2b1222d24e38a38c8ac6/7c418f59b234271bd6522d7dcf3393daa6b27c23.jpg" ,
     name: "Fulanito Perez Gomez",
-    phoneNumber:  "(555)555-555",
+    phoneNumber:  "(315)478-995",
     email: "PerezGomezEmailMLS@gmail.com"
   },
 ]
@@ -52,9 +51,10 @@ const PipelineTable = () => {
         <Box className={classes.tableContainer}>
         {
           new Array(10).fill(0).map((val,index) => {
-            const random =  Math.floor(Math.random() * (2 - 1) + 1)
+            const even = (index % 2 == 0);
+            const random = even ? 0 : 1;
             return (
-              <ItemTable {...dummyData[random-1]} key={index} />
+              <ItemTable {...dummyData[random]} key={index} />
             )
           })
          }
