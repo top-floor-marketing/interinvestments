@@ -20,7 +20,7 @@ import image2 from '../../assets/img/ExampleCarucel/Hero Image.jpg'
 import image3 from '../../assets/img/ExampleCarucel/Rectangle 11.png'
 
 
-const CarucelListing = () => {
+const CarucelListing = (props) => {
     SwiperCore.use([Autoplay]);
     const paginationCustom = {
         clickable: true,
@@ -29,8 +29,67 @@ const CarucelListing = () => {
         }
     };
 
+    const { data } = props
     const navigationPrevRef = React.useRef(null)
     const navigationNextRef = React.useRef(null)
+
+
+    const ImageCarucel = (value, index) => {
+        switch (index) {
+            case 0:
+                return (
+                    <SwiperSlide key={index} className={styles.containerImage}>
+                        <img
+                            data-aos-once="true"
+                            data-aos-delay="300"
+                            data-aos-duration='2000'
+                            data-aos="fade-down"
+                            className={styles.imageCarucel}
+                            alt={`ImageCarucel_${index}`}
+                            src={value.sourceUrl}
+                        />
+                    </SwiperSlide>
+                )
+            case 1:
+                return (
+                    <SwiperSlide key={index} className={styles.containerImage}>
+                        <img
+                            data-aos-once="true"
+                            data-aos-delay="300"
+                            data-aos-duration='2000'
+                            data-aos="fade-down"
+                            className={styles.imageCarucel}
+                            alt={`ImageCarucel_${index}`}
+                            src={value.sourceUrl}
+                        />
+                    </SwiperSlide>
+                )
+            case data.photos.length - 1:
+                return (
+                    <SwiperSlide key={index} className={styles.containerImage}>
+                        <img
+                            data-aos-once="true"
+                            data-aos-delay="300"
+                            data-aos-duration='2000'
+                            data-aos="fade-down"
+                            className={styles.imageCarucel}
+                            alt={`ImageCarucel_${index}`}
+                            src={value.sourceUrl}
+                        />
+                    </SwiperSlide>
+                )
+            default: return (
+                <SwiperSlide key={index} className={styles.containerImage}>
+                    <img
+                        className={styles.imageCarucel}
+                        alt={`ImageCarucel_${index}`}
+                        src={value.sourceUrl}
+                    />
+                </SwiperSlide>
+            )
+
+        }
+    }
 
     return (
         <Box className={styles.BoxCarucel}>
@@ -100,41 +159,48 @@ const CarucelListing = () => {
                     modules={[EffectCoverflow, Pagination, Navigation]}
                 >
                     {
+                        data.photos.map((value, index) => ImageCarucel(value, index))
+                    }
+
+                    {
                         // el 0,1,end del array tiene el delay
                     }
-                    <SwiperSlide className={styles.containerImage}>
-                        <img
-                            data-aos-once="true"
-                            data-aos-delay="300"
-                            data-aos-duration='2000'
-                            data-aos="fade-down"
-                            className={styles.imageCarucel}
-                            alt='Image_1'
-                            src={image1}
-                        />
-                    </SwiperSlide>
-                    <SwiperSlide className={styles.containerImage}>
-                        <img
-                            data-aos-once="true"
-                            data-aos-duration='2000'
-                            data-aos="fade-left"
-                            data-aos-delay="1100"
-                            className={styles.imageCarucel}
-                            alt='Image_2'
-                            src={image2}
-                        />
-                    </SwiperSlide>
-                    <SwiperSlide className={styles.containerImage}>
-                        <img
-                            data-aos-once="true"
-                            data-aos-duration='2000'
-                            data-aos-delay="700"
-                            data-aos="fade-right"
-                            className={styles.imageCarucel}
-                            alt='Image_3'
-                            src={image3}
-                        />
-                    </SwiperSlide>
+                    {
+                        //     <SwiperSlide className={styles.containerImage}>
+                        //         <img
+                        //             data-aos-once="true"
+                        //             data-aos-delay="300"
+                        //             data-aos-duration='2000'
+                        //             data-aos="fade-down"
+                        //             className={styles.imageCarucel}
+                        //             alt='Image_1'
+                        //             src={image1}
+                        //         />
+                        //     </SwiperSlide>
+                        //     <SwiperSlide className={styles.containerImage}>
+                        //         <img
+                        //             data-aos-once="true"
+                        //             data-aos-duration='2000'
+                        //             data-aos="fade-left"
+                        //             data-aos-delay="1100"
+                        //             className={styles.imageCarucel}
+                        //             alt='Image_2'
+                        //             src={image2}
+                        //         />
+                        //     </SwiperSlide>
+                        //     <SwiperSlide className={styles.containerImage}>
+                        //         <img
+                        //             data-aos-once="true"
+                        //             data-aos-duration='2000'
+                        //             data-aos-delay="700"
+                        //             data-aos="fade-right"
+                        //             className={styles.imageCarucel}
+                        //             alt='Image_3'
+                        //             src={image3}
+                        //         />
+                        //     </SwiperSlide>
+                        // 
+                    }
                 </Swiper>
             </Box>
         </Box >

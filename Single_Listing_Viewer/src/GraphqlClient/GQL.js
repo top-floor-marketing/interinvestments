@@ -33,6 +33,10 @@ export const LISTINGS_BY_SLOG = gql`
         }
         listingData {
           newDevelopment {
+            status
+            latitude
+            longitude
+            totalUnits
             estimatedDateOfCompletion
             description
             photos {

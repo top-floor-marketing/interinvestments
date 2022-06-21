@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+// components
+import AlertError from '../AlertError'
+
 // mantine
 import { Box, Overlay, createStyles } from "@mantine/core";
 // animation lottie
@@ -36,10 +39,9 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const ListingWrapper = (props) => {
     const { classes } = useStyles({ isLoading: true });
     const { setValueListing, children } = props
-    // const [isLoadingFull, setIsLoadingFull] = useState(true)
-    const id = "wp-loading-full";
+    const id = "wp-loading-full-single-listing";
 
-    const { isLoading, } = useQueryHelper({
+    const { isLoading, error } = useQueryHelper({
         name: 'LISTINGS_BY_SLOG',
         gql: LISTINGS_BY_SLOG,
         variables: {
@@ -49,9 +51,9 @@ const ListingWrapper = (props) => {
             onSuccess: (req) => {
                 setValueListing(...req.listings.nodes)
             },
-            onError: () => {
-                console.log('error data')
-            }
+            // onError: () => {
+            //     console.log('error data')
+            // }
         }
     });
 
@@ -85,6 +87,19 @@ const ListingWrapper = (props) => {
                 <Box id={id} className={classes.lottieContainer} />
             </Box>
         );
+    }
+
+    if (error) {
+        return (
+            <Box className='flex items-center justify-center w-full h-screen'>
+                <Box className='max-w-screen-md'>
+                    <AlertError
+                        label='Error!'
+                        description='Please wait a few minutes before you try again'
+                    />
+                </Box>
+            </Box>
+        )
     }
 
     return (children)

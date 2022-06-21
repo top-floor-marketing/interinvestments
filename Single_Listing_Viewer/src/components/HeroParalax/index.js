@@ -21,10 +21,10 @@ const HeroParalax = (props) => {
                         data-aos="zoom-out-up"
                         component='h2'
                     >
-                        Waldorf Astoria
+                        {data.title}
                         <br />
                         <Text component='span'>
-                            Downtown Miami &nbsp;&nbsp; • &nbsp; $300,000 &nbsp;&nbsp; • &nbsp; $12,000/mo
+                            {data.neighborhoods[0].name} &nbsp;&nbsp; • &nbsp; ${data.priceMin} &nbsp;&nbsp; • &nbsp; ${data.priceMax}/mo
                         </Text>
                     </Text>
                     <Text component='span' className={styles.icon}>

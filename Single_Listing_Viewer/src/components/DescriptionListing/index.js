@@ -4,7 +4,13 @@ import styles from './styles.dl.module.scss'
 // mantine
 import { Box, Text } from '@mantine/core';
 
-const DescriptionListing = () => {
+const DescriptionListing = (props) => {
+  const { data } = props
+
+  const descriptionHTMLDangerous = () => {
+    return { __html: data.description }
+  }
+
   return (
     <Box className={styles.container}>
       <Box className={styles.containerDescription}>
@@ -15,17 +21,15 @@ const DescriptionListing = () => {
           className={styles.title}
           component='span'
         >
-          a view from above
+          {data.status}
         </Text>
-        <Text
+        <Box
+          dangerouslySetInnerHTML={descriptionHTMLDangerous()}
           data-aos-once="true"
           data-aos-duration='2000'
           data-aos="fade-up"
           className={styles.textDescription}
-          component='p'
-        >
-          Waldorf Astoria is known for providing unforgettable experiences in landmark destinations worldwide. Rising 1,049 feet above Biscayne Bay, the striking tower will be the tallest building south of Manhattan, offering breathtaking views and signature experiences.
-        </Text>
+        />
       </Box>
     </Box>
   )

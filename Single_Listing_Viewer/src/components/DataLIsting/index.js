@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 // compontes
 import CardData from './CardData'
+import dayjs from 'dayjs';
 // mantine
 import { Box } from '@mantine/core';
 // css
@@ -8,10 +9,11 @@ import styles from './styles.dl.module.scss'
 // utils
 import useOnScreen from '../../Hook/useOnScreen'
 
-
-const DataLIsting = () => {
+const DataLIsting = (props) => {
+    const { data } = props
     const rootRef = useRef();
     const onScreen = useOnScreen(rootRef);
+
     return (
         <Box
             ref={rootRef}
@@ -20,22 +22,23 @@ const DataLIsting = () => {
                 onScreen && (
                     <Box className={styles.boxdata}>
                         <CardData
-                            number={500}
+                            number={`${data.estimatedDateOfCompletion.split('/')[1]}.${dayjs(data.estimatedDateOfCompletion.split('/')[2]).format('YY')}`}
                             type='text'
                             description='Est. Date of Completion'
                         />
                         <CardData
-                            number={700}
+                            number={data.priceMin}
                             type='number'
                             description='Price Min'
                         />
                         <CardData
-                            number={500}
+                            number={data.priceMax}
                             type='number'
                             description='Price Max'
+                            tag='m'
                         />
                         <CardData
-                            number={846}
+                            number={parseInt(data.totalUnits)}
                             description='Total Units'
                         />
                     </Box>

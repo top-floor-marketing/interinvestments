@@ -18,11 +18,27 @@ const Main = () => {
             setValueListing={setValueListing}
         >
             <HeroParalax
-                data={valueListing?.listingData.newDevelopment}
+                data={{
+                    ...valueListing?.listingData.newDevelopment,
+                    title: valueListing?.title,
+                    neighborhoods: valueListing?.neighborhoods.nodes
+                }}
             />
-            <DescriptionListing />
-            <DataLIsting />
-            <CarucelListing />
+            <DescriptionListing
+                data={{
+                    ...valueListing?.listingData.newDevelopment,
+                }}
+            />
+            <DataLIsting
+                data={{
+                    ...valueListing?.listingData.newDevelopment,
+                }}
+            />
+            <CarucelListing
+                data={{
+                    ...valueListing?.listingData.newDevelopment,
+                }}
+            />
             <CollapseListing />
             <MapListing />
         </ListingWrapper>
