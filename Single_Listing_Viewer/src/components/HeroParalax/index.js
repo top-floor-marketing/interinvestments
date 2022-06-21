@@ -1,17 +1,17 @@
 import React from 'react'
-import imagenPalarax from '../../assets/img/Hero_Image.jpg'
-import chevron_down from '../../assets/img/chevron_down.svg'
 // css
 import styles from "./styles.hp.module.scss";
 // mantine
-import { Box, Text } from '@mantine/core';
+import { Box, Text, Button } from '@mantine/core';
+import { ChevronDown } from 'tabler-icons-react';
 
-const HeroParalax = () => {
+const HeroParalax = (props) => {
+    const { data } = props
     return (
         <Box className='relative w-full h-full'>
             <Box style={{ zIndex: 1 }} className={`${styles.ParallaxCroma}`} />
             <Box
-                style={{ backgroundImage: `url(${imagenPalarax})` }}
+                style={{ backgroundImage: `url(${data.photos[0].sourceUrl})` }}
                 className={styles.BoxImagenParalax}
             >
                 <div style={{ zIndex: 1 }} className={styles.containerParalax}>
@@ -28,11 +28,24 @@ const HeroParalax = () => {
                         </Text>
                     </Text>
                     <Text component='span' className={styles.icon}>
-                        <img className={styles.imagechevron_down} src={chevron_down} alt="Imagechevron_down" />
+                        <Button
+                            component='span'
+                            style={{ marginBottom: '20px' }}
+                            variant="outline"
+                            className={styles.ButtonCarucel}
+                            size="2xl"
+                            compact
+                        >
+                            <ChevronDown
+                                size={28}
+                                color='white'
+                                strokeWidth={1}
+                            />
+                        </Button>
                     </Text>
                 </div>
             </Box>
-        </Box>
+        </Box >
     )
 }
 

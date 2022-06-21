@@ -26,6 +26,10 @@
     }
 }
 
+.ButtonCarucel {
+    @apply p-5 border-white rounded-full hover:bg-transparent cursor-auto;
+}
+
 .icon {
     @apply mx-auto align-text-bottom animate-bounce;
 }

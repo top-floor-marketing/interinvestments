@@ -1,46 +1,71 @@
 import { gql } from "graphql-request";
 
-export const POST_BY_ID = gql`
-  query PostById($slug: String!) {
-    postBy(slug: $slug) {
-      status
-      databaseId
-      slug
-      tags {
-        nodes {
-          databaseId
-        }
-      }
-    }
-  }
-`
-export const otherInterestingBlogs = gql`
-  query otherInterestingBlogs($first: Int!, $tagIn: [ID]) {
-    posts(first: $first, where: {tagIn: $tagIn}) {
+export const LISTINGS_BY_SLOG = gql`
+  query listingsBySlog($title: String!) {
+    listings(where: {title: $title}) {
       nodes {
-        uri
-        date
-        featuredImage {
-          node {
-            altText
-            sourceUrl
-            id
+        databaseId
+        address {
+          address {
+            city
+            addressLine1
+            address2
+            state
+            zip
           }
         }
         title
-        tags {
-          nodes {
-            name
-            databaseId
-          }
-        }
-        categories {
-          nodes {
-            name
-          }
-        }
         slug
-        databaseId
+        neighborhoods {
+          nodes {
+            databaseId
+            name
+          }
+        }
+        team {
+          team {
+            arquitect
+            fieldGroupName
+            interiorDesigner
+            landscapeArchitect
+            paymentStructure
+          }
+        }
+        listingData {
+          newDevelopment {
+            estimatedDateOfCompletion
+            description
+            photos {
+              fileSize
+              sourceUrl
+              altText
+            }
+            priceMax
+            priceMin
+          }
+        }
+        listingCategories {
+          nodes {
+            slug
+          }
+        }
+        floorplans {
+          floorplans {
+            photos {
+              altText
+              fileSize
+              sourceUrl
+            }
+            fieldGroupName
+            den
+            floorplanAcSqft
+            floorplanNBaths
+            floorplanNBeds
+            floorplanNHbaths
+            floorplanTotalSqft
+            name
+          }
+        }
       }
     }
   }

@@ -1,33 +1,51 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 // mantine
-import { Progress, Box } from '@mantine/core';
+import { Progress, Box, Button } from '@mantine/core';
+import { FileDownload } from 'tabler-icons-react';
+// Hooks
+import useCouter from '../../Hook/useCouter'
+
+// styles
+import stylesGlobal from '../../styles.global.module.scss'
 
 const ButtonProgress = () => {
-    const [counterState, setCounter] = useState(0)
-    const [goCount, setGoCount] = useState(false)
-    let timer;
-    useEffect(() => {
-        if (goCount) {
-            clearInterval(timer)
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-            timer = setInterval(() => {
-                if (counterState === 100) {
-                    clearInterval(timer)
-                    return
-                }
-                setCounter(prev => prev + 1)
-            }, 10)
+    const { counterState, isActivate, activateCounter, colorBar } = useCouter()
 
-            return () => clearInterval(timer)
-        }
-
-    }, [counterState, goCount])
+    const createPDFListing = () => {
+        activateCounter()
+    }
 
     return (
-        <Box>
-            <Progress value={counterState} label={`${counterState}%`} size="xl" radius="xl" />
-            <br />
-            <button onClick={() => setGoCount(true)}>go</button>
+        <Box className={stylesGlobal.genericLisFlex}>
+            <Box>
+                <Button
+                    onClick={() => createPDFListing()}
+                    className={stylesGlobal.buttonAll}
+                    radius="lg"
+                    size="lg"
+                    disabled={isActivate}
+                    rightIcon={<FileDownload />}
+                    uppercase
+                >
+                    create PDF
+                </Button>
+            </Box>
+            {
+                (isActivate) && (
+                    <Box className='w-full'>
+                        <Progress
+                            color={colorBar}
+                            value={counterState}
+                            label={`Generate PDF ${counterState}%`}
+                            size={20}
+                            radius="xl"
+                            striped
+                            animate
+                        />
+                    </Box>
+                )
+            }
+
         </Box>
     )
 }

@@ -6,7 +6,7 @@ import { Box } from '@mantine/core';
 // css
 import styles from './styles.dl.module.scss'
 // utils
-import useOnScreen from '../../utils/useOnScreen'
+import useOnScreen from '../../Hook/useOnScreen'
 
 
 const DataLIsting = () => {
