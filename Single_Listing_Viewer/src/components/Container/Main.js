@@ -39,7 +39,13 @@ const Main = () => {
                     ...valueListing?.listingData.newDevelopment,
                 }}
             />
-            <CollapseListing />
+            <CollapseListing
+                data={{
+                    address: valueListing?.address.address,
+                    floorplans: valueListing?.floorplans.floorplans,
+                    team: valueListing?.team.team,
+                }}
+            />
             <MapListing />
         </ListingWrapper>
     )

@@ -9,7 +9,7 @@ import useCouter from '../../Hook/useCouter'
 import stylesGlobal from '../../styles.global.module.scss'
 
 const ButtonProgress = () => {
-    const { counterState, isActivate, activateCounter, colorBar } = useCouter()
+    const { counterState, isActivate, activateCounter } = useCouter()
 
     const createPDFListing = () => {
         activateCounter()
@@ -32,15 +32,12 @@ const ButtonProgress = () => {
             </Box>
             {
                 (isActivate) && (
-                    <Box className='w-full'>
+                    <Box className='w-full max-w-[450px]'>
                         <Progress
-                            color={colorBar}
                             value={counterState}
-                            label={`Generate PDF ${counterState}%`}
-                            size={20}
-                            radius="xl"
-                            striped
-                            animate
+                            color="dark"
+                            radius="xs"
+                            size="xs"
                         />
                     </Box>
                 )

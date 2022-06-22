@@ -4,7 +4,7 @@ import React from 'react'
 import { useMediaQuery } from '@mantine/hooks';
 // map
 import ReactMapGL, { Marker } from "react-map-gl";
-import pinMap from '../../assets/img/pinMap.svg'
+import pinMap from '../../assets/pinMap.svg'
 // css
 import styles from './styles.ml.module.scss'
 

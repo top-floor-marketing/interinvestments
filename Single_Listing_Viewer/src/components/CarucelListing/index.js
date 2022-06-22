@@ -1,5 +1,4 @@
 import React from 'react'
-// components
 // mantine
 import { Box, Button } from '@mantine/core';
 import { ChevronLeft, ChevronRight } from 'tabler-icons-react';
@@ -14,12 +13,6 @@ import "swiper/css/pagination";
 import styles from './styles.cl.module.scss'
 import './stylesPagination.css'
 
-// Image
-import image1 from '../../assets/img/ExampleCarucel/Hero Image(1).jpg'
-import image2 from '../../assets/img/ExampleCarucel/Hero Image.jpg'
-import image3 from '../../assets/img/ExampleCarucel/Rectangle 11.png'
-
-
 const CarucelListing = (props) => {
     SwiperCore.use([Autoplay]);
     const paginationCustom = {
@@ -32,7 +25,6 @@ const CarucelListing = (props) => {
     const { data } = props
     const navigationPrevRef = React.useRef(null)
     const navigationNextRef = React.useRef(null)
-
 
     const ImageCarucel = (value, index) => {
         switch (index) {
@@ -55,9 +47,9 @@ const CarucelListing = (props) => {
                     <SwiperSlide key={index} className={styles.containerImage}>
                         <img
                             data-aos-once="true"
-                            data-aos-delay="300"
                             data-aos-duration='2000'
-                            data-aos="fade-down"
+                            data-aos="fade-left"
+                            data-aos-delay="1100"
                             className={styles.imageCarucel}
                             alt={`ImageCarucel_${index}`}
                             src={value.sourceUrl}
@@ -69,9 +61,9 @@ const CarucelListing = (props) => {
                     <SwiperSlide key={index} className={styles.containerImage}>
                         <img
                             data-aos-once="true"
-                            data-aos-delay="300"
                             data-aos-duration='2000'
-                            data-aos="fade-down"
+                            data-aos-delay="700"
+                            data-aos="fade-right"
                             className={styles.imageCarucel}
                             alt={`ImageCarucel_${index}`}
                             src={value.sourceUrl}
@@ -142,7 +134,6 @@ const CarucelListing = (props) => {
                             swiper.navigation.update()
                         })
                     }}
-
                     effect={"coverflow"}
                     grabCursor={true}
                     loop={true}
@@ -160,46 +151,6 @@ const CarucelListing = (props) => {
                 >
                     {
                         data.photos.map((value, index) => ImageCarucel(value, index))
-                    }
-
-                    {
-                        // el 0,1,end del array tiene el delay
-                    }
-                    {
-                        //     <SwiperSlide className={styles.containerImage}>
-                        //         <img
-                        //             data-aos-once="true"
-                        //             data-aos-delay="300"
-                        //             data-aos-duration='2000'
-                        //             data-aos="fade-down"
-                        //             className={styles.imageCarucel}
-                        //             alt='Image_1'
-                        //             src={image1}
-                        //         />
-                        //     </SwiperSlide>
-                        //     <SwiperSlide className={styles.containerImage}>
-                        //         <img
-                        //             data-aos-once="true"
-                        //             data-aos-duration='2000'
-                        //             data-aos="fade-left"
-                        //             data-aos-delay="1100"
-                        //             className={styles.imageCarucel}
-                        //             alt='Image_2'
-                        //             src={image2}
-                        //         />
-                        //     </SwiperSlide>
-                        //     <SwiperSlide className={styles.containerImage}>
-                        //         <img
-                        //             data-aos-once="true"
-                        //             data-aos-duration='2000'
-                        //             data-aos-delay="700"
-                        //             data-aos="fade-right"
-                        //             className={styles.imageCarucel}
-                        //             alt='Image_3'
-                        //             src={image3}
-                        //         />
-                        //     </SwiperSlide>
-                        // 
                     }
                 </Swiper>
             </Box>
