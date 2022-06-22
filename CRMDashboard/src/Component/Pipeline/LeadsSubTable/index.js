@@ -9,30 +9,23 @@ dayjs.extend(relativeTime);
 const useStyles = createStyles((theme, _params, getRef) => ({
     container: {
         marginBottom: theme.other.spacing.p5,
-        "td": {
-           
-            paddingTop: `${theme.other.spacing.p2} !important`,
-            paddingBottom: `${theme.other.spacing.p2} !important`,
-        },
         "th": {
-            borderBottom: "0 !important",
-            paddingBottom: `${theme.other.spacing.p5} !important`,
+            borderBottom: "1px solid #83837C !important",
+            paddingBottom: `${theme.other.spacing.p2} !important`,
         },
     },
     tbody: {
-        backgroundColor: theme.colors.white[0],
-        paddingLeft: theme.other.spacing.p2,
+        backgroundColor: theme.colors.white[1],
         minHeight: "50px",
         borderRadius: "10px",
     },
     trBody: {
         "&:hover": {
             backgroundColor: theme.colors.white[0],
-            boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
-           /*  [`& .${getRef('tdRow')}`]: {
-                borderTop: `1px solid ${theme.colors.error[0]} !important`,
-                borderBottom: `1px solid ${theme.colors.error[0]} !important`,
-            } */
+            boxShadow: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+            [`& .${getRef('tdRow')}`]: {
+                border: `1px solid ${theme.colors.white[0]} !important`,
+            } 
         }
     },
     avatarContainer: {
@@ -53,7 +46,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         marginBottom: "auto"
     },
     tdRow: {
-        border: `1px solid ${theme.colors.white[0]} !important`,
+        border: `1px solid ${theme.colors.white[1]} !important`,
         ref: getRef('tdRow')
     }
 }));
@@ -93,7 +86,7 @@ const elements = [
             photo: "https://interinvestments.bytfm.com/wp-content/uploads/2022/05/what-we-do-services.jpg",
             name: "Saints Alley"
         }
-        , date: dayjs('2022-05-01').fromNow(), service: 'New home', status: 'cancel'
+        , date: dayjs('2022-05-01').fromNow(), service: 'Rental', status: 'cancel'
     },
 ];
 
@@ -114,8 +107,8 @@ const LeadsSubTable = ({ id }) => {
             <td className={classes.tdRow}>{element.date}</td>
             <td className={classes.tdRow}>
                 <Badge variant="gradient" gradient={{
-                    from: theme.colors[STATUS[element.status]][5],
-                    to: theme.colors[STATUS[element.status]][8]
+                    from: theme.colors[STATUS[element.status]][3],
+                    to: theme.colors[STATUS[element.status]][9]
                 }}>
                     {element.status}
                 </Badge>
