@@ -27,18 +27,19 @@ const DataLIsting = (props) => {
                             description='Est. Date of Completion'
                         />
                         <CardData
-                            number={data.priceMin}
+                            number={data.priceMin ? data.priceMin : 0}
                             type='number'
                             description='Price Min'
                         />
                         <CardData
-                            number={data.priceMax}
+                            number={data.priceMax ? data.priceMax : 0}
                             type='number'
                             description='Price Max'
                             tag='m'
                         />
                         <CardData
-                            number={parseInt(data.totalUnits)}
+                            number={data.totalUnits ? parseInt(data.totalUnits) : 'n/a'}
+                            type={data.totalUnits ? 'number' : 'text'}
                             description='Total Units'
                         />
                     </Box>

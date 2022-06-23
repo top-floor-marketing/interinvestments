@@ -8,40 +8,55 @@ import styles from './styles.ml.module.scss'
 
 const MapListing = (props) => {
   const { data } = props
-  return (
-    <>
-      <Box className={styles.containerMap}>
-        <Box className={styles.BoxContainer}>
-          <Text
-            className={styles.titleMap}
-            component='h4'
-            data-aos-once="true"
-            data-aos="fade-down"
-          >
-            Neighborhood
-          </Text>
-          <Text
-            className={styles.NameNeighborhood}
-            component='p'
-            data-aos-once="true"
-            data-aos="fade-down"
-            data-aos-delay='1200'
-          >
-            {data.neighborhoods[0].name}
-          </Text>
+
+  if (data.latitude !== null || data.longitude !== null) {
+    return (
+      <>
+        <Box className={styles.containerMap}>
+          <Box className={styles.BoxContainer}>
+            <Text
+              className={styles.titleMap}
+              component='h4'
+              data-aos-once="true"
+              data-aos="fade-down"
+            >
+              Neighborhood
+            </Text>
+            {
+              data.neighborhoods.length ? (
+                <Text
+                  className={styles.NameNeighborhood}
+                  component='p'
+                  data-aos-once="true"
+                  data-aos="fade-down"
+                  data-aos-delay='1200'
+                >
+                  {data.neighborhoods[0].name}
+                </Text>
+              ) : null
+            }
+          </Box>
         </Box>
-      </Box>
-      <Box
-        data-aos-once="true"
-        data-aos="zoom-in"
-        data-aos-delay='1200'
-        className={styles.containerMapCanvas}>
-        <MapComp
-          dataListing={{ ...data }}
-        />
-      </Box>
-    </>
-  )
+        {
+          data.latitude !== null || data.longitude !== null ? (
+            <Box
+              data-aos-once="true"
+              data-aos="zoom-in"
+              data-aos-delay='1200'
+              className={styles.containerMapCanvas}>
+              <MapComp
+                dataListing={{ ...data }}
+              />
+            </Box>
+          ) : null
+        }
+      </>
+    )
+  } else {
+    return (<div />)
+  }
+
+
 }
 
 export default MapListing

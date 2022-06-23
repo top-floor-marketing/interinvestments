@@ -15,6 +15,7 @@ const Main = () => {
     // console.log('valueListing', valueListing)
     return (
         <ListingWrapper
+            valueListing={valueListing}
             setValueListing={setValueListing}
         >
             <HeroParalax

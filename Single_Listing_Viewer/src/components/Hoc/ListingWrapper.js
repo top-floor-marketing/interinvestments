@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 // components
 import AlertError from '../AlertError'
 
@@ -12,7 +12,7 @@ import IntroLoading from "../../assets/Lottie/IntroLoading.json";
 import { useQueryHelper } from '../../GraphqlClient/useRequest';
 import { LISTINGS_BY_SLOG } from '../../GraphqlClient/GQL';
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
     box: {
         position: "absolute",
         height: "100vh",
@@ -39,21 +39,22 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const ListingWrapper = (props) => {
     const { classes } = useStyles({ isLoading: true });
     const { setValueListing, children } = props
-    const id = "wp-loading-full-single-listing";
 
-    const { isLoading, error } = useQueryHelper({
+
+    const id = "wp-loading-full-single-listing";
+    const uri = window.location.pathname
+    const slugLIsting = uri.split('/')[uri.split('/').length - 2]
+
+    const { isLoading, error, data } = useQueryHelper({
         name: 'LISTINGS_BY_SLOG',
         gql: LISTINGS_BY_SLOG,
         variables: {
-            "title": "test"
+            "title": slugLIsting.replace(/-/g, ' ')
         },
         config: {
             onSuccess: (req) => {
                 setValueListing(...req.listings.nodes)
-            },
-            // onError: () => {
-            //     console.log('error data')
-            // }
+            }
         }
     });
 
@@ -89,7 +90,7 @@ const ListingWrapper = (props) => {
         );
     }
 
-    if (error) {
+    if (error || data.listings.nodes.length === 0) {
         return (
             <Box className='flex items-center justify-center w-full h-screen'>
                 <Box className='max-w-screen-md'>

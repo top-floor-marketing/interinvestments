@@ -21,8 +21,8 @@ const MapComp = (props) => {
     parseFloat(latitude)
     parseFloat(longitude)
 
-    console.log('dataListing', dataListing)
-    console.log(parseFloat(dataListing.latitude))
+    // console.log('dataListing', dataListing)
+    // console.log(parseFloat(dataListing.latitude))
 
     return (
         <ReactMapGL

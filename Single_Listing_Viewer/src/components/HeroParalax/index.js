@@ -22,10 +22,16 @@ const HeroParalax = (props) => {
                         component='h2'
                     >
                         {data.title}
-                        <br />
-                        <Text component='span'>
-                            {data.neighborhoods[0].name} &nbsp;&nbsp; • &nbsp; ${data.priceMin} &nbsp;&nbsp; • &nbsp; ${data.priceMax}/mo
-                        </Text>
+                        {
+                            data.neighborhoods.length && (
+                                <>
+                                    <br />
+                                    <Text component='span'>
+                                        {data.neighborhoods[0].name} &nbsp;&nbsp; • &nbsp; ${data.priceMin} &nbsp;&nbsp; • &nbsp; ${data.priceMax}/mo
+                                    </Text>
+                                </>
+                            )
+                        }
                     </Text>
                     <Text component='span' className={styles.icon}>
                         <Button
