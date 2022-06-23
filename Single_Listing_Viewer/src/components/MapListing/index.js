@@ -6,20 +6,57 @@ import { Box, Text } from '@mantine/core'
 // css
 import styles from './styles.ml.module.scss'
 
-const MapListing = () => {
-  return (
-    <>
-      <Box className={styles.containerMap}>
-        <Box className={styles.BoxContainer}>
-          <Text className={styles.titleMap} component='h4'>Neighborhood</Text>
-          <Text className={styles.NameNeighborhood} component='p'>Downtown Miami</Text>
+const MapListing = (props) => {
+  const { data } = props
+
+  if (data.latitude !== null || data.longitude !== null) {
+    return (
+      <>
+        <Box className={styles.containerMap}>
+          <Box className={styles.BoxContainer}>
+            <Text
+              className={styles.titleMap}
+              component='h4'
+              data-aos-once="true"
+              data-aos="fade-down"
+            >
+              Neighborhood
+            </Text>
+            {
+              data.neighborhoods.length ? (
+                <Text
+                  className={styles.NameNeighborhood}
+                  component='p'
+                  data-aos-once="true"
+                  data-aos="fade-down"
+                  data-aos-delay='1200'
+                >
+                  {data.neighborhoods[0].name}
+                </Text>
+              ) : null
+            }
+          </Box>
         </Box>
-      </Box>
-      <Box className={styles.containerMapCanvas}>
-        <MapComp />
-      </Box>
-    </>
-  )
+        {
+          data.latitude !== null || data.longitude !== null ? (
+            <Box
+              data-aos-once="true"
+              data-aos="zoom-in"
+              data-aos-delay='1200'
+              className={styles.containerMapCanvas}>
+              <MapComp
+                dataListing={{ ...data }}
+              />
+            </Box>
+          ) : null
+        }
+      </>
+    )
+  } else {
+    return (<div />)
+  }
+
+
 }
 
 export default MapListing

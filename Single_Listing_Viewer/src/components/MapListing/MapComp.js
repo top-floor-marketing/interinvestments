@@ -1,23 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 //mantine
-// import { Box, Text } from '@mantine/core'
+// import { Popper, Button, Paper, Center, Group, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 // map
 import ReactMapGL, { Marker } from "react-map-gl";
-import pinMap from '../../assets/img/pinMap.svg'
+import pinMap from '../../assets/pinMap.svg'
+// import pinMapHover from '../../assets/pinMapHover.svg'
 // css
 import styles from './styles.ml.module.scss'
 
 const TokenMAp = process.env.REACT_APP_TFM_TOKEN_MAP
 
-const MapComp = () => {
+const MapComp = (props) => {
+    // const [isHoverPin, setIsShownHoverPin] = useState(false);
+    // const [isActivePin, setIsActivePin] = useState(false)
+    // const [referenceElement, setReferenceElement] = useState(null);
     const matches = useMediaQuery('(min-width: 1024px)');
+    const { dataListing } = props
+    let { latitude, longitude } = dataListing
+    parseFloat(latitude)
+    parseFloat(longitude)
+
+    // console.log('dataListing', dataListing)
+    // console.log(parseFloat(dataListing.latitude))
+
     return (
         <ReactMapGL
             mapboxAccessToken={TokenMAp}
             initialViewState={{
-                longitude: -122.4,
-                latitude: 37.8,
+                longitude: longitude,
+                latitude: latitude,
                 zoom: (matches) ? 14 : 12
             }}
             style={{ width: '100%', height: '100%' }}
@@ -25,12 +37,17 @@ const MapComp = () => {
             onViewportChange={(value) => console.log('onViewportChange', value)}
         >
             <Marker
-                latitude={37.799884}
-                longitude={-122.400390}
+                latitude={latitude}
+                longitude={longitude}
                 offsetLeft={-20}
                 offsetTop={-10}
             >
-                <img src={pinMap} alt="pin" className={styles.imagePinMAp} />
+                <img
+                    // ref={setReferenceElement}
+                    src={pinMap}
+                    alt="pinMap"
+                    className={styles.imagePinMAp}
+                />
             </Marker>
         </ReactMapGL>
     )

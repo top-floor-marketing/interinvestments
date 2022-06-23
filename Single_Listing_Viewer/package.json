@@ -31,7 +31,8 @@
     "react-spring": "^9.4.5",
     "rewire": "^6.0.0",
     "swiper": "^8.2.4",
-    "tabler-icons-react": "^1.48.1"
+    "tabler-icons-react": "^1.48.1",
+    "video-react": "^0.15.0"
   },
   "scripts": {
     "dev": "react-scripts start",
