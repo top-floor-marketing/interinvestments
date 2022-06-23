@@ -12,7 +12,7 @@ import ListingWrapper from '../Hoc/ListingWrapper'
 const Main = () => {
     const [valueListing, setValueListing] = useState(null)
 
-    console.log('valueListing', valueListing)
+    // console.log('valueListing', valueListing)
     return (
         <ListingWrapper
             setValueListing={setValueListing}
@@ -46,7 +46,12 @@ const Main = () => {
                     team: valueListing?.team.team,
                 }}
             />
-            <MapListing />
+            <MapListing
+                data={{
+                    ...valueListing?.listingData.newDevelopment,
+                    neighborhoods: valueListing?.neighborhoods.nodes
+                }}
+            />
         </ListingWrapper>
     )
 }
