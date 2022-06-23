@@ -9,7 +9,7 @@ import PipelineTable from './PipelineTable';
 // pipeline context-store
 import PipelineProvider from './PipelineStore/pipelineProvider';
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
     container: {
         width: "100%",
         minHeight: "300px",

@@ -1,15 +1,11 @@
-import React, { Suspense } from "react";
+import React from "react";
 
-import LoadingFull from "../Component/LoadingFull";
+import { LayoutGrid, Home2 } from "tabler-icons-react";
 
-import { List, LayoutGrid, Home2 } from "tabler-icons-react";
-
-// components
-const AuthComponent = React.lazy(() => import("../Component/Auth"));
-const TestComponent = React.lazy(() => import("../Component/MantineTest"));
-const ProfileComponent = React.lazy(() => import("../Component/Profile"));
-const DashboardComponent = React.lazy(() => import("../Component/Dashboard"));
-const PipelineComponent = React.lazy(() => import("../Component/Pipeline"));
+import AuthComponent  from '../Component/Auth';
+import ProfileComponent from '../Component/Profile';
+import DashboardComponent  from '../Component/Dashboard';
+import PipelineComponent  from '../Component/Pipeline';
 
 export const LAYOUT_NAMES = {
   EMPTY: "empty",
@@ -32,11 +28,7 @@ export const CRM_ROUTES = [
     label: "Home",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <Suspense
-        fallback={<LoadingFull idLazy={ROUTES_NAMES.DASHBOARD} isLoadingLazy />}
-      >
-        <DashboardComponent />
-      </Suspense>
+      <DashboardComponent />
     ),
     useInNavbar: false,
     loginRequired: true,
@@ -48,11 +40,7 @@ export const CRM_ROUTES = [
     label: "Pipeline",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <Suspense
-        fallback={<LoadingFull idLazy={ROUTES_NAMES.PIPELINE} isLoadingLazy />}
-      >
-        <PipelineComponent />
-      </Suspense>
+      <PipelineComponent />
     ),
     useInNavbar: true,
     loginRequired: true,
@@ -64,11 +52,7 @@ export const CRM_ROUTES = [
     label: null,
     layout: LAYOUT_NAMES.EMPTY,
     component: () => (
-      <Suspense
-        fallback={<LoadingFull idLazy={ROUTES_NAMES.AUTH} isLoadingLazy />}
-      >
-        <AuthComponent />
-      </Suspense>
+      <AuthComponent />
     ),
     useInNavbar: false,
     loginRequired: false,
@@ -80,11 +64,7 @@ export const CRM_ROUTES = [
     label: null,
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <Suspense
-        fallback={<LoadingFull idLazy={ROUTES_NAMES.PROFILE} isLoadingLazy />}
-      >
-        <ProfileComponent />
-      </Suspense>
+      <ProfileComponent />
     ),
     useInNavbar: false,
     loginRequired: true,
