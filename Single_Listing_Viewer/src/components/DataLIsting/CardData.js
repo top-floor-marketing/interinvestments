@@ -15,7 +15,15 @@ const CardData = (props) => {
         tag
     } = props
 
-    const propsSpring = useSpring({ delay: 600, val: number, from: { val: 0 }, config: { duration: 1200 } });
+    const propsSpring = useSpring(
+        {
+            delay: 600,
+            val: type === 'number' ? number : 0,
+            from: { val: 0 },
+            config: { duration: 1200 }
+        }
+    );
+
     return (
         <Box
             data-aos-once="true"

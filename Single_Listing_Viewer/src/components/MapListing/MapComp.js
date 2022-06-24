@@ -9,24 +9,24 @@ import pinMap from '../../assets/pinMap.svg'
 // css
 import styles from './styles.ml.module.scss'
 
-const TokenMAp = process.env.REACT_APP_TFM_TOKEN_MAP
+// const TokenMAp = process.env.REACT_APP_TFM_TOKEN_MAP
 
 const MapComp = (props) => {
     // const [isHoverPin, setIsShownHoverPin] = useState(false);
     // const [isActivePin, setIsActivePin] = useState(false)
     // const [referenceElement, setReferenceElement] = useState(null);
     const matches = useMediaQuery('(min-width: 1024px)');
-    const { dataListing } = props
+    const { dataListing, optionTheme } = props
     let { latitude, longitude } = dataListing
     parseFloat(latitude)
     parseFloat(longitude)
 
-    // console.log('dataListing', dataListing)
+    // console.log('optionThemeINMap', optionTheme)
     // console.log(parseFloat(dataListing.latitude))
 
     return (
         <ReactMapGL
-            mapboxAccessToken={TokenMAp}
+            mapboxAccessToken={optionTheme.mapApiKey}
             initialViewState={{
                 longitude: longitude,
                 latitude: latitude,

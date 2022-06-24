@@ -76,3 +76,12 @@ export const LISTINGS_BY_SLOG = gql`
 `
 
 
+export const ACF_OPTIONS_GlOBAL_OPTIONS = gql`
+  query acfOptionsGlobalOptions {
+    acfOptionsGlobalOptions {
+      optionPage {
+        mapApiKey
+      }
+    }
+  }
+`
