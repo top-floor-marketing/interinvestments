@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 // components
 import AlertError from '../AlertError'
 
@@ -10,7 +10,7 @@ import IntroLoading from "../../assets/Lottie/IntroLoading.json";
 
 // react-query
 import { useQueryHelper } from '../../GraphqlClient/useRequest';
-import { LISTINGS_BY_SLOG } from '../../GraphqlClient/GQL';
+import { LISTINGS_BY_SLOG, ACF_OPTIONS_GlOBAL_OPTIONS } from '../../GraphqlClient/GQL';
 
 const useStyles = createStyles((theme, _params) => ({
     box: {
@@ -38,7 +38,7 @@ const useStyles = createStyles((theme, _params) => ({
 
 const ListingWrapper = (props) => {
     const { classes } = useStyles({ isLoading: true });
-    const { setValueListing, children } = props
+    const { setValueListing, children, setOptionTheme } = props
 
 
     const id = "wp-loading-full-single-listing";
@@ -58,8 +58,19 @@ const ListingWrapper = (props) => {
         }
     });
 
+    const { isLoading: isLoadingTheme, error: errorTheme, data: dataTheme } = useQueryHelper({
+        name: 'ACF_OPTIONS_GlOBAL_OPTIONS',
+        gql: ACF_OPTIONS_GlOBAL_OPTIONS,
+        config: {
+            onSuccess: (req) => {
+                //console.log('ThemeData', { ...req.acfOptionsGlobalOptions })
+                setOptionTheme({ ...req.acfOptionsGlobalOptions.optionPage })
+            }
+        }
+    });
+
     useEffect(() => {
-        if (id && isLoading) {
+        if (id && (isLoading || isLoadingTheme)) {
             lottie.loadAnimation({
                 container: document.querySelector(`#${id}`),
                 animationData: IntroLoading,
@@ -79,9 +90,9 @@ const ListingWrapper = (props) => {
             document.getElementsByTagName("body")[0].style.overflow = "auto";
             lottie.destroy(id);
         };
-    }, [isLoading]);
+    }, [isLoading, isLoadingTheme]);
 
-    if (isLoading) {
+    if (isLoading || isLoadingTheme) {
         return (
             <Box className={classes.box}>
                 <Overlay zIndex={9998} color="#000" opacity={0.4} />
@@ -90,7 +101,7 @@ const ListingWrapper = (props) => {
         );
     }
 
-    if (error || data.listings.nodes.length === 0) {
+    if ((error || errorTheme) || (data.listings.nodes.length === 0 || dataTheme.acfOptionsGlobalOptions.optionPage.mapApiKey === null)) {
         return (
             <Box className='flex items-center justify-center w-full h-screen'>
                 <Box className='max-w-screen-md'>

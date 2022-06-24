@@ -11,12 +11,14 @@ import ListingWrapper from '../Hoc/ListingWrapper'
 
 const Main = () => {
     const [valueListing, setValueListing] = useState(null)
+    const [optionTheme, setOptionTheme] = useState(null)
 
     // console.log('valueListing', valueListing)
     return (
         <ListingWrapper
             valueListing={valueListing}
             setValueListing={setValueListing}
+            setOptionTheme={setOptionTheme}
         >
             <HeroParalax
                 data={{
@@ -52,6 +54,7 @@ const Main = () => {
                     ...valueListing?.listingData.newDevelopment,
                     neighborhoods: valueListing?.neighborhoods.nodes
                 }}
+                optionTheme={optionTheme}
             />
         </ListingWrapper>
     )

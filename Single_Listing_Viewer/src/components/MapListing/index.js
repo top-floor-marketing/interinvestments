@@ -7,23 +7,23 @@ import { Box, Text } from '@mantine/core'
 import styles from './styles.ml.module.scss'
 
 const MapListing = (props) => {
-  const { data } = props
+  const { data, optionTheme } = props
 
   if (data.latitude !== null || data.longitude !== null) {
     return (
       <>
         <Box className={styles.containerMap}>
-          <Box className={styles.BoxContainer}>
-            <Text
-              className={styles.titleMap}
-              component='h4'
-              data-aos-once="true"
-              data-aos="fade-down"
-            >
-              Neighborhood
-            </Text>
-            {
-              data.neighborhoods.length ? (
+          {
+            data.neighborhoods.length ? (
+              <Box className={styles.BoxContainer}>
+                <Text
+                  className={styles.titleMap}
+                  component='h4'
+                  data-aos-once="true"
+                  data-aos="fade-down"
+                >
+                  Neighborhood
+                </Text>
                 <Text
                   className={styles.NameNeighborhood}
                   component='p'
@@ -33,9 +33,9 @@ const MapListing = (props) => {
                 >
                   {data.neighborhoods[0].name}
                 </Text>
-              ) : null
-            }
-          </Box>
+              </Box>
+            ) : null
+          }
         </Box>
         {
           data.latitude !== null || data.longitude !== null ? (
@@ -46,6 +46,7 @@ const MapListing = (props) => {
               className={styles.containerMapCanvas}>
               <MapComp
                 dataListing={{ ...data }}
+                optionTheme={optionTheme}
               />
             </Box>
           ) : null
