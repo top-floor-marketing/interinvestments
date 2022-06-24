@@ -40,6 +40,7 @@ export const ALL_LISTING = gql`
       nodes {
         databaseId
         title
+        uri
         listingData {
           newDevelopment {
             photos {
