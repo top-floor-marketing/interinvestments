@@ -11,6 +11,7 @@ import styles from './styles.cl.module.scss'
 
 const CollapseListing = (props) => {
     const { data } = props
+    
     const addressData = () => {
         const newArray = []
         Array({ ...data.address }).map((value) => (

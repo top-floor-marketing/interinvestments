@@ -6,6 +6,7 @@ import DataLIsting from '../DataLIsting'
 import CarucelListing from '../CarucelListing'
 import CollapseListing from '../CollapseListing'
 import MapListing from '../MapListing'
+import VideoListing from '../VideoListing'
 // Hoc
 import ListingWrapper from '../Hoc/ListingWrapper'
 
@@ -47,6 +48,11 @@ const Main = () => {
                     address: valueListing?.address.address,
                     floorplans: valueListing?.floorplans.floorplans,
                     team: valueListing?.team.team,
+                }}
+            />
+            <VideoListing
+                data={{
+                    ...valueListing?.listingData.newDevelopment,
                 }}
             />
             <MapListing

@@ -29,6 +29,7 @@
     "react-query": "^3.39.1",
     "react-scripts": "5.0.0",
     "react-spring": "^9.4.5",
+    "redux": "^4.2.0",
     "rewire": "^6.0.0",
     "swiper": "^8.2.4",
     "tabler-icons-react": "^1.48.1",

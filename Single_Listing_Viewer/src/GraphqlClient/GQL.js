@@ -39,6 +39,11 @@ export const LISTINGS_BY_SLOG = gql`
             totalUnits
             estimatedDateOfCompletion
             description
+            video {
+              altText
+              mediaItemUrl
+              title
+            }
             photos {
               fileSize
               sourceUrl
