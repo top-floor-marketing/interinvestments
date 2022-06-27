@@ -42,7 +42,6 @@ export default createStyles((theme, _params, getRef) => ({
     transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
     "&:hover": {
       cursor: "pointer",
-      fontWeight: 600,
     },
     [`&:hover .${getRef("iconContainer")}`]: {
       backgroundColor: theme.colors.primary[6],
@@ -66,7 +65,7 @@ export default createStyles((theme, _params, getRef) => ({
     display: "flex",
     flexDirection: "row",
     width: "100%",
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p2,
     padding: theme.other.spacing.p5,
     alignItems: "center",
     transition: "all",

@@ -32,7 +32,7 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { toggleLoadingFull, setRoute, setInfoUser, setNavigation } =
+export const { toggleLoadingFull, setRoute, setInfoUser, setNavigation, setFilter } =
   userSlice.actions;
 
 export default userSlice.reducer;
