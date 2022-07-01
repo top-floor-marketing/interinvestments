@@ -1,48 +1,10 @@
 @tailwind utilities;
 
-.divContent {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5;
+.containerMain {
+    // background-image: url("./assets/fondoForm.jpg");
+    @apply w-full mx-auto py-20 md:py-32 h-full  bg-center bg-cover bg-no-repeat overflow-auto bg-[url('./assets/fondoForm.jpg')];
 }
 
-.container {
-    @apply max-w-screen-xl w-full mx-auto;
-}
-
-.imageCard {
-    @apply object-cover w-full my-auto h-[245px];
-}
-
-.divCard {
-    @apply w-full h-full mx-auto;
-}
-
-.contendCard {
-    @apply flex flex-col h-[54%] gap-7 p-5 bg-black;
-}
-
-.titleComponet {
-    @apply my-5 font-outfit text-[24px] leading-[32px];
-}
-
-.textTag {
-    @apply font-outfit text-[14px] leading-[18px] text-[#FFB839];
-    span {
-        @apply text-white;
-    }
-}
-
-.titleCard {
-    @apply font-outfit text-[24px] leading-[30px] text-white;
-}
-
-.buttonCard {
-    @apply transition-all duration-700 ease-in-out bg-white border-white hover:bg-black hover:text-white;
-}
-
-.buttonAll {
-    @apply font-outfit transition-all duration-700 ease-in-out text-[16px] leading-[26px] bg-white hover:bg-black text-black hover:text-white border border-black px-[16px] py-[4.8px] rounded-none;
-}
-
-.divTitle {
-    @apply h-full flex flex-col justify-center;
+.containerForm {
+    @apply w-full flex flex-col md:flex-row justify-between gap-5 px-24;
 }

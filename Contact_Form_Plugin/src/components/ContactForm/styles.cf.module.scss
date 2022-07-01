@@ -1,0 +1,17 @@
+.containerForm {
+    @apply w-full max-w-[371px];
+}
+
+.PaperForm {
+    @apply text-white p-6 rounded-none bg-black opacity-75;
+}
+
+.titlePaper {
+    font-weight: 400;
+    @apply font-outfit text-[36px] leading-[45px];
+}
+
+.descriptionForm {
+    font-weight: 300;
+    @apply mt-3 font-outfit text-[16px] leading-[26px];
+}

@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+// components
+import Main from './components/container/Main'
 // react query
 import { QueryClient, QueryClientProvider } from "react-query";
 // animation aos
@@ -15,9 +17,7 @@ function App() {
   return (
     <div className='App'>
       <QueryClientProvider client={queryClient}>
-        <div>
-          <p>Hola mundo</p>
-        </div>
+        <Main />
       </QueryClientProvider>
     </div>
   )
