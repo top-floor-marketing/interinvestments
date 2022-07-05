@@ -13,8 +13,9 @@ const queryClient = new QueryClient();
 
 function App() {
   useEffect(() => {
-    AOS.init();
-    AOS.refresh();
+    AOS.init({
+      once: true
+    });
   }, []);
   return (
     <QueryClientProvider client={queryClient}>

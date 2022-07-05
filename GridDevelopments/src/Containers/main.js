@@ -7,7 +7,8 @@ import SkeletonGrid from "../Components/SkeletonGrid";
 import EmptyGrid from "../Components/EmptyGrid";
 import ModalQuickView from "../Components/ModalQuickView";
 
-import UseGetListing from "../Hooks/useGetListing";
+//import UseGetListing from "../Hooks/useGetListing";
+import useGetFeaturedDevelopments from '../Hooks/useGetFeaturedDevelopments';
 import OverlayLoading from "../Components/OverlayLoading";
 
 import styles from "./styles.gd.module.scss";
@@ -23,7 +24,8 @@ const MainContainer = () => {
     showOverlay,
     dataQuickView,
     onCloseModalQuickView,
-  } = UseGetListing();
+    hasNextPage
+  } = useGetFeaturedDevelopments();
 
   const isMobileScreen = useMediaQuery(
     "only screen and (max-width: 640px)",
@@ -48,7 +50,7 @@ const MainContainer = () => {
       variant: "outline",
       disabled: isLoading,
       loading: isLoading,
-      className: "btn-wp-primary",
+      className: "btn-wp-primary mx-auto mt-3",
     },
     modalQuickView: {
       data: dataQuickView,
@@ -66,7 +68,9 @@ const MainContainer = () => {
       ) : (
         <GridQuickView {...allProps.gridQuickView} />
       )}
-      <Button {...allProps.btnLoadMore}>Load More</Button>
+      {
+        (hasNextPage) && <Button {...allProps.btnLoadMore}>Load More</Button>
+      }
       {showOverlay && <OverlayLoading />}
       {!showOverlay && dataQuickView.content && (
         <ModalQuickView {...allProps.modalQuickView} />
