@@ -51,12 +51,12 @@ const GridQuickView = ({
         className: styles.buttonQuickView,
       };
     },
-    buttonRedirect: (id) => {
+    buttonRedirect: (uri) => {
       return {
         disabled: showOverlay,
         variant: "white",
         component: "a",
-        href: `/project?id=${id}`,
+        href: uri,
         className: styles.buttonRedirect,
       };
     },
@@ -108,7 +108,7 @@ const GridQuickView = ({
                     <Text {...allProps.textTitle}>{val.title}</Text>
                     <Text {...allProps.textSubTitle}>{val.subTitle}</Text>
                   </div>
-                  <Button {...allProps.buttonRedirect(val.id)}>
+                  <Button {...allProps.buttonRedirect(val.uri)}>
                     <ChevronRight size={18} color="#FFB839" />
                   </Button>
                 </>
@@ -120,8 +120,8 @@ const GridQuickView = ({
                     <Button {...allProps.buttonQuickView(val.id)}>
                       Quick View
                     </Button>
-                    <Button {...allProps.buttonRedirect(val.id)}>
-                      <ChevronRight size={18} color="#FFB839" />
+                    <Button {...allProps.buttonRedirect(val.uri)}>
+                      <ChevronRight size={24} color="#FFB839" />
                     </Button>
                   </div>
                 </>

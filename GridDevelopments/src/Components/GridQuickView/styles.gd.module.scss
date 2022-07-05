@@ -19,11 +19,11 @@
 }
 
 .textTitle {
-    @apply font-outfit text-white text-[22px] break-words mb-0 leading-[27px];
+    @apply capitalize font-outfit text-white text-[22px] break-words mb-0 leading-[27px];
 }
 
 .textSubTitle {
-    @apply font-outfit text-white text-[14px] break-words mb-0 leading-[17px];
+    @apply capitalize font-outfit text-white text-[14px] break-words mb-0 leading-[17px];
 }
 
 .gridButtons {
@@ -40,7 +40,7 @@
 
 .buttonRedirect {
 @apply bg-transparent 
-mt-auto hover:font-[600]
+mt-auto hover:font-[600] p-0
 transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black
-font-outfit ml-auto rounded-full border-solid border-white;
+font-outfit ml-auto rounded-full border-solid border-white h-[40px] w-[40px];
 }
