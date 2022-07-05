@@ -1,8 +1,25 @@
 import React from 'react'
+// mantine
+import { TextInput } from '@mantine/core';
 
-const InputForm = () => {
+const InputForm = (props) => {
+    const { placeholder, propsForm } = props
+
+    const borderInput = 'border-t-transparent border-r-transparent border-l-transparent'
+
+    const classNamesInput = {
+        input: `text-white bg-transparent font-outfit ${!propsForm.error && borderInput}`,
+        error: 'hidden'
+    }
+
     return (
-        <div>InputForm</div>
+        <TextInput
+            {...propsForm}
+            classNames={{ ...classNamesInput }}
+            radius={0}
+            size="lg"
+            placeholder={placeholder}
+        />
     )
 }
 
