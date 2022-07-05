@@ -43,7 +43,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     alignItems: "center",
     justifyContent: "start",
     height: "100%",
-    width: "320px",
+    width: "300px",
     borderRight:
       theme.colorScheme === COLOR_SCHEME_DARK
         ? `1px solid ${theme.colors.dark[9]}`

@@ -59,6 +59,25 @@ const stylesProvider = () => {
                 backgroundColor: theme.colors.primary[0],
             }
         }),
+        Pagination: (theme, params) => ({
+            item: {
+                backgroundColor: theme.colors.white[0],
+                border: BORDER_INPUT,
+            },
+            active: {
+                backgroundColor: theme.colors.primary[0],
+            }
+        }),
+        Avatar: (theme, params) => ({
+            placeholder: {
+                fontWeight: "700"
+            }
+        }),
+        Accordion: (theme, params) => ({
+            item: {
+                borderBottom: "none",
+            },
+        }),
     }
 }
 

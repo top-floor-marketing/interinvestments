@@ -1,0 +1,23 @@
+.containerMap {
+    @apply px-12 xl:px-0 mt-20 mb-12 md:mt-28 max-w-screen-lg w-full mx-auto h-full overflow-auto;
+}
+
+.BoxContainer {
+    @apply flex flex-col justify-center items-center;
+}
+
+.titleMap {
+    @apply font-outfit font-[400] text-[16px] leading-[20px] tracking-[0.2em] uppercase;
+}
+
+.NameNeighborhood {
+    @apply font-outfit font-[300] text-[36px] md:text-[52px] lg:text-[72px] leading-[91px] mt-5;
+}
+
+.containerMapCanvas {
+    @apply mb-10 mx-auto px-0 md:px-[28px] lg:px-0 w-full md:max-w-screen-md lg:max-w-screen-lg h-[565px];
+}
+
+.imagePinMAp {
+    @apply cursor-pointer w-[34px] h-[42px] bg-center bg-cover bg-no-repeat;
+}
