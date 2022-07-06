@@ -16,6 +16,7 @@ const CarouselMobile = ({ photos }) => {
       showIndicators={false}
       showArrows={false}
       showThumbs={false}
+      showStatus={false}
       className="w-full h-full absolute overflow-hidden rounded-[10px] flex flex-col CarouselMobile_wp"
     >
       {photos.map((val, index) => (

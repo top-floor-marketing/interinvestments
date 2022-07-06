@@ -7,11 +7,10 @@ import SkeletonGrid from "../Components/SkeletonGrid";
 import EmptyGrid from "../Components/EmptyGrid";
 import ModalQuickView from "../Components/ModalQuickView";
 
-//import UseGetListing from "../Hooks/useGetListing";
 import useGetFeaturedDevelopments from '../Hooks/useGetFeaturedDevelopments';
 import OverlayLoading from "../Components/OverlayLoading";
 
-import styles from "./styles.gd.module.scss";
+import styles from "./styles_gd.module.scss";
 
 const MainContainer = () => {
   const {
@@ -69,7 +68,7 @@ const MainContainer = () => {
         <GridQuickView {...allProps.gridQuickView} />
       )}
       {
-        (hasNextPage) && <Button {...allProps.btnLoadMore}>Load More</Button>
+        (true) && <Button {...allProps.btnLoadMore}>Load More</Button>
       }
       {showOverlay && <OverlayLoading />}
       {!showOverlay && dataQuickView.content && (

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Carousel } from "react-responsive-carousel";
 import { Image } from "@mantine/core";
 
-import styles from "./styles.gd.module.scss";
+import styles from "./styles_gd.module.scss";
 
 import "./overrideStylesCarousel.css";
 
@@ -46,6 +46,7 @@ const CarouselQuickView = ({ photos }) => {
         showIndicators={true}
         showArrows={false}
         showThumbs={false}
+        showStatus={false}
         className={styles.carouselModal + " CarouselModal_wp"}
         renderIndicator={(onClickHandler, isSelected, index, label) => (
           <CustomIndicator

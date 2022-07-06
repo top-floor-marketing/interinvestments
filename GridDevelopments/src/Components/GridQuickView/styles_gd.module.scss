@@ -31,11 +31,7 @@
 }
 
 .buttonQuickView {
-    @apply text-black bg-white font-wp-semibold
-    rounded-[32px] 
-    transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black
-    hover:font-wp-bold
-    font-outfit;
+    @apply font-outfit rounded-[32px] font-wp-semibold hover:font-wp-bold hover:rounded-[32px] border-white;
 }
 
 .buttonRedirect {
