@@ -5,11 +5,11 @@ import { TextInput, Loader } from '@mantine/core';
 const InputForm = (props) => {
     const { placeholder, propsForm, isLoading, isDisabled } = props
 
-    const borderInput = 'border-t-transparent border-r-transparent border-l-transparent'
+    const borderInput = '!border-t-transparent !border-r-transparent !border-l-transparent'
 
     const classNamesInput = {
-        input: `text-white bg-transparent font-outfit ${!propsForm.error && borderInput}`,
-        error: 'hidden'
+        input: `!text-white !bg-transparent !font-outfit ${!propsForm.error && borderInput}`,
+        error: '!hidden'
     }
 
     return (
