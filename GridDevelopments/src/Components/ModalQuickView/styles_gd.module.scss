@@ -18,15 +18,15 @@
 }
 
 .nameOfDevelopmentContainer {
-    @apply w-2/3 border border-solid border-r-[#D1D1D1] border-y-0 border-l-0 grid grid-cols-1 p-5 gap-2;
+    @apply w-2/3 border border-solid border-r-[#D1D1D1] border-y-0 border-l-0 grid grid-cols-1 p-5 gap-1;
 }
 
 .labelTitle {
-    @apply font-outfit text-[40px] font-wp-semibold text-black mb-0;
+    @apply capitalize font-outfit text-[36px] leading-[40px] font-wp-semibold text-black mb-0;
 }
 
 .labelNameOfDevelopment {
-    @apply mt-auto font-outfit text-[22px] text-black;
+    @apply capitalize mt-auto font-outfit text-[22px] leading-[30px] text-black;
 }
 
 .containerButtonView {
@@ -34,10 +34,10 @@
 }
 
 .buttonView {
-    @apply text-black font-wp-semibold uppercase font-outfit text-[20px] 
-    bg-white 
-    transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black
-    my-auto h-full;
+    @apply text-black font-wp-semibold uppercase font-outfit text-[20px] my-auto h-full w-full flex border-white;
+    div:first-child {
+        @apply mx-auto;
+    }
 }
 // modal HOC
 .modal {
@@ -79,7 +79,6 @@
 
 .carouselModal {
     @apply z-[600] w-full h-full absolute overflow-hidden flex flex-col p-0;
-    margin-top: -1px !important;
 } 
 
 .carouselImg {

@@ -102,7 +102,7 @@ const useGetFeaturedDevelopments = () => {
     isFetching: isFetchingSingleListing,
     isError: errorSingleListing,
   } = useQueryHelper({
-    name: "get-single-listing",
+    name: "get-single-featured-listing",
     gql: GET_SINGLE_LISTING_GQL,
     config: {
       enabled: dataQuickView.id > 0,
@@ -145,7 +145,7 @@ const useGetFeaturedDevelopments = () => {
     });
     setTimeout(() => {
       setDelayOverlay(false);
-    }, 1500);
+    }, 700);
   };
 
   const onCloseModalQuickView = () => {

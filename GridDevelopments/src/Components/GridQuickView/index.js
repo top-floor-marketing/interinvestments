@@ -26,7 +26,7 @@ const GridQuickView = ({
     },
     filter: {
       className:
-        " group-hover:bg-white  group-hover:opacity-[0.08] " + styles.filter,
+        " group-hover:bg-white  group-hover:opacity-[0.05] " + styles.filter,
     },
     infoContainer: {
       className:
@@ -48,7 +48,7 @@ const GridQuickView = ({
         onClick: () => openModalQuickView(id),
         disabled: showOverlay,
         variant: "white",
-        className: "btn-wp-primary "+ styles.buttonQuickView,
+        className: "btn-wp-primary " + styles.buttonQuickView,
       };
     },
     buttonRedirect: (uri) => {
