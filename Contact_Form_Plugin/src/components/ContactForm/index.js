@@ -33,7 +33,11 @@ const ContactForm = () => {
 
     if (error || isErroForm) {
         return (
-            <Box className={styles.containerForm}>
+            <Box
+                className={styles.containerForm}
+                data-aos="zoom-in"
+                data-aos-duration="700"
+            >
                 <Box className={styles.PaperFondo} />
                 <Box className='w-full h-[485px] flex flex-col justify-center items-center'>
                     <Text

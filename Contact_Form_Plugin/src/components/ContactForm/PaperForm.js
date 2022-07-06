@@ -54,7 +54,11 @@ const PaperForm = (props) => {
     }
 
     return (
-        <Paper className={styles.PaperForm}>
+        <Paper
+            data-aos="zoom-in"
+            data-aos-duration="700"
+            className={styles.PaperForm}
+        >
             {
                 (onSuccessAlert) ? (
                     <>
