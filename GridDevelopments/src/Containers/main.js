@@ -68,7 +68,7 @@ const MainContainer = () => {
         <GridQuickView {...allProps.gridQuickView} />
       )}
       {
-        (true) && <Button {...allProps.btnLoadMore}>Load More</Button>
+        (hasNextPage && !renderSkeleton) && <Button {...allProps.btnLoadMore}>Load More</Button>
       }
       {showOverlay && <OverlayLoading />}
       {!showOverlay && dataQuickView.content && (

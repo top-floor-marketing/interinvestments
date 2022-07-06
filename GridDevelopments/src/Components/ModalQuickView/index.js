@@ -16,8 +16,8 @@ const ModalQuickView = ({ data, onClose }) => {
     buttonView: {
       variant: "white",
       component: "a",
-      href: `/property?id=${id}`,
-      className: styles.buttonView,
+      href: content?.uri || "",
+      className: "btn-wp-primary " + styles.buttonView,
     },
   };
   return (
@@ -32,7 +32,9 @@ const ModalQuickView = ({ data, onClose }) => {
         <div className={styles.nameOfDevelopmentContainer}>
           <label className={styles.labelTitle}>{content.title}</label>
           <label className={styles.labelNameOfDevelopment}>
-            {content.listingData.newDevelopment.nameOfDevelopment}
+            {
+              content.neighborhoods?.nodes.length ? content.neighborhoods?.nodes[0]?.name || '' : ''
+            }
           </label>
         </div>
         <div className={styles.containerButtonView}>
