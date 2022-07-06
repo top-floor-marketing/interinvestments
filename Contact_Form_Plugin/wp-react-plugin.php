@@ -40,7 +40,7 @@ $Contact_Form = new Contact_Form();
 $Contact_Form->init();
 
 function Contact_Form_shortcode( $atts ) {
-  $handle = 'blog-view-wp-react-plugin-';
+  $handle = 'contact-form-wp-react-plugin-';
 
   // enqueue development or production React code
   if(file_exists(dirname(__FILE__) . "/dist/static/js/main.js")) {
