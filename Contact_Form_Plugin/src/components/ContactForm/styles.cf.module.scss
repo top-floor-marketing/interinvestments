@@ -5,7 +5,7 @@
 .PaperForm {
     z-index: 1 !important;
     position: inherit;
-    @apply text-white p-10 rounded-none bg-transparent;
+    @apply text-white h-full min-h-[485px] p-10 rounded-none bg-transparent;
 }
 
 .PaperFondo {

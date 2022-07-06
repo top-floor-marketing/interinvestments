@@ -43,20 +43,20 @@ const AlertErrorForm = (props) => {
                         }
 
                         {
-                            ((errorForm.email !== 'empty' && errorForm.email) || (errorForm.messageContact !== 'empty' && errorForm.messageContact))
+                            (errorForm.email || errorForm.messageContact)
                             && (
                                 <>
                                     <Text component='p'>Please, fix the following errors:</Text>
                                     <List withPadding listStyleType="disc">
                                         {
-                                            (errorForm.email) ? (
+                                            (errorForm.email !== 'empty' && errorForm.email) ? (
                                                 <List.Item className='my-2'>
                                                     {errorForm.email}
                                                 </List.Item>
                                             ) : null
                                         }
                                         {
-                                            (errorForm.messageContact) ? (
+                                            (errorForm.messageContact !== 'empty' && errorForm.messageContact) ? (
                                                 <List.Item className='my-2'>
                                                     {errorForm.messageContact}
                                                 </List.Item>

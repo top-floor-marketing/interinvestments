@@ -2,9 +2,9 @@
 
 .containerMain {
     // background-image: url("./assets/fondoForm.jpg");
-    @apply w-full mx-auto py-20 h-full  bg-center bg-cover bg-no-repeat overflow-auto bg-[url('./assets/fondoForm.jpg')];
+    @apply w-full mx-auto py-20 h-full bg-center bg-cover bg-no-repeat overflow-auto bg-[url('./assets/fondoForm.jpg')];
 }
 
 .containerForm {
-    @apply w-full flex flex-col md:flex-row justify-between gap-5 px-24;
+    @apply w-full flex flex-col lg:flex-row justify-between items-center gap-5 px-10 md:px-24;
 }
