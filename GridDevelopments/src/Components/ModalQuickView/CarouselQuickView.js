@@ -32,17 +32,17 @@ const CarouselQuickView = ({ photos }) => {
     );
   }
   return (
-    <div className="w-full relative h-full p-0">
+    <div className="w-full relative min-h-[40vh] h-full p-0">
       <Carousel
         animationHandler="fade"
         autoPlay={true}
-        interval={7000}
+        interval={4000}
         infiniteLoop
         swipeable
         stopOnHover
         useKeyboardArrows
         axis="horizontal"
-        transitionTime={700}
+        transitionTime={1000}
         showIndicators={true}
         showArrows={false}
         showThumbs={false}
