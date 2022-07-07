@@ -5,7 +5,7 @@ import { LayoutGrid, Home2 } from "tabler-icons-react";
 import AuthComponent  from '../Component/Auth';
 import ProfileComponent from '../Component/Profile';
 import DashboardComponent  from '../Component/Dashboard';
-import PipelineComponent  from '../Component/Pipeline';
+import LeadsComponent  from '../Component/Leads';
 
 export const LAYOUT_NAMES = {
   EMPTY: "empty",
@@ -15,12 +15,11 @@ export const LAYOUT_NAMES = {
 export const ROUTES_NAMES = {
   AUTH: "auth",
   HOME: "home",
-  LEAD: "lead-list",
-  PIPELINE: "pipeline",
+  LEADS: "leads",
   PROFILE: "profile",
 };
 
-export const DEFAULT_ROUTE = ROUTES_NAMES.PIPELINE;
+export const DEFAULT_ROUTE = ROUTES_NAMES.LEADS;
 
 export const CRM_ROUTES = [
   {
@@ -36,11 +35,11 @@ export const CRM_ROUTES = [
     roles: ["administrator"]
   },
   {
-    name: ROUTES_NAMES.PIPELINE,
-    label: "Pipeline",
+    name: ROUTES_NAMES.LEADS,
+    label: "Leads",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <PipelineComponent />
+      <LeadsComponent />
     ),
     useInNavbar: true,
     loginRequired: true,
