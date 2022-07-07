@@ -12,3 +12,7 @@ export const getRouteActive = (routeName) => {
     null
   );
 };
+
+export const getIsAdminUser = () => {
+  return true;
+}

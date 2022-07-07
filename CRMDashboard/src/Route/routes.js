@@ -16,6 +16,7 @@ export const ROUTES_NAMES = {
   AUTH: "auth",
   HOME: "home",
   LEADS: "leads",
+  LEADS_DETAILS: "leads/details",
   PROFILE: "profile",
 };
 
@@ -42,6 +43,18 @@ export const CRM_ROUTES = [
       <LeadsComponent />
     ),
     useInNavbar: true,
+    loginRequired: true,
+    icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
+    roles: ["administrator"]
+  },
+  {
+    name: ROUTES_NAMES.LEADS_DETAILS,
+    label: "Leads",
+    layout: LAYOUT_NAMES.DASHBOARD,
+    component: () => (
+      <LeadsComponent />
+    ),
+    useInNavbar: false,
     loginRequired: true,
     icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
     roles: ["administrator"]

@@ -3,12 +3,16 @@ import React, {useReducer} from 'react';
 import LeadsContext from './leadsContext';
 import LeadsReducer from './leadsReducer';
 
-import { SET_FILTER, SET_LOADING, SET_LEADS_DATA } from './leadsReducer';
+import { SET_FILTER, SET_LOADING, SET_LEADS_DATA, SET_CURRENT_PAGE } from './leadsReducer';
 
 const initialState = {
     filter: null,
     isLoading: true,
-    leadsData: null
+    leadsData: null,
+    perPage: 10,
+    currentPage: 1,
+    cursorPaginator: "",
+    totalData: 0
 }
 
 const LeadsProvider = (props) => {
@@ -32,6 +36,12 @@ const LeadsProvider = (props) => {
             setLeadsData: (val) => {
                 dispatch({
                     type: SET_LEADS_DATA,
+                    payload: val
+                });
+            },
+            setCurrentPage: (val) => {
+                dispatch({
+                    type: SET_CURRENT_PAGE,
                     payload: val
                 });
             }
