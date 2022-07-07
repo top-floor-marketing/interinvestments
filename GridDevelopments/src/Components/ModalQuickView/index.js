@@ -20,11 +20,6 @@ const ModalQuickView = ({ data, onClose }) => {
       className: "btn-wp-primary " + styles.buttonView,
     },
   };
-  console.log("content", content);
-  /*   priceMax: 500
-  priceMin: 1
-  views: "City, Intracoastal, Ocean"
-  livingArea: "750 sqft - 3,740 sqft" */
 
   const contentData = {
     priceMin: content.listingData?.newDevelopment?.priceMin || null,
