@@ -65,7 +65,7 @@ const PaperForm = (props) => {
                         <Text component='h4' className={styles.titlePaper}>Let’s get in touch:</Text>
                         <Box className='flex justify-center w-full h-full mt-12'>
                             <Text component='p' className={styles.descriptionForm}>
-                                Using the form below, please provide as much detailed information as possible.
+                                Thank you for submitting a request for information, one of our agents will be in contact with you shortly
                             </Text>
                         </Box>
                     </>
