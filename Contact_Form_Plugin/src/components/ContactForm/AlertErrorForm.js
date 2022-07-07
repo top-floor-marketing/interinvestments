@@ -43,7 +43,7 @@ const AlertErrorForm = (props) => {
                         }
 
                         {
-                            (errorForm.email || errorForm.messageContact)
+                            ((errorForm.email && errorForm.email !== 'empty') || (errorForm.messageContact && errorForm.messageContact !== 'empty'))
                             && (
                                 <>
                                     <Text component='p'>Please, fix the following errors:</Text>
