@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Button } from "@mantine/core";
+import { Button, Divider } from "@mantine/core";
 
 import ModalHOC from "./ModalHOC";
 import CarouselQuickView from "./CarouselQuickView";
@@ -7,7 +7,7 @@ import CarouselQuickView from "./CarouselQuickView";
 import styles from "./styles_gd.module.scss";
 
 const ModalQuickView = ({ data, onClose }) => {
-  const { id, content } = data;
+  const { content } = data;
   const allProps = {
     modalHoc: {
       onClose,
@@ -20,13 +20,51 @@ const ModalQuickView = ({ data, onClose }) => {
       className: "btn-wp-primary " + styles.buttonView,
     },
   };
+  console.log("content", content);
+  /*   priceMax: 500
+  priceMin: 1
+  views: "City, Intracoastal, Ocean"
+  livingArea: "750 sqft - 3,740 sqft" */
+
+  const contentData = {
+    priceMin: content.listingData?.newDevelopment?.priceMin || null,
+    priceMax: content.listingData?.newDevelopment?.priceMax || null,
+    views: content.listingData?.newDevelopment?.views || null,
+    livingArea: content.listingData?.newDevelopment?.livingArea || null
+  }
+
   return (
     <ModalHOC {...allProps.modalHoc}>
       <div className={styles.containerTopRow}>
         <div className={styles.carouselDivContainer}>
           <CarouselQuickView photos={content.photos} />
         </div>
-        <div className={styles.contentDivContainer}></div>
+        <div className={styles.contentDivContainer}>
+          {
+            (contentData.priceMin) &&
+            <>
+              <Divider size="xs" color="dark" className="my-5" />
+              <label className={styles.labelContentTittle}>Price Ranges:</label>
+              <label className={styles.labelContentValue}>${contentData.priceMin} - ${contentData.priceMax}</label>
+            </>
+          }
+          {
+            (contentData.livingArea) &&
+            <>
+              <Divider size="xs" color="dark" className="my-5" />
+              <label className={styles.labelContentTittle}>Living Area:</label>
+              <label className={styles.labelContentValue}>{contentData.livingArea}</label>
+            </>
+          }
+           {
+            (contentData.views) &&
+            <>
+              <Divider size="xs" color="dark" className="my-5" />
+              <label className={styles.labelContentTittle}>Views:</label>
+              <label className={styles.labelContentValue}>{contentData.views}</label>
+            </>
+          }
+        </div>
       </div>
       <div className={styles.containerBottomRow}>
         <div className={styles.nameOfDevelopmentContainer}>
