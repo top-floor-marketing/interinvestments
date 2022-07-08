@@ -3,12 +3,12 @@ import React, {useReducer} from 'react';
 import LeadsContext from './leadsContext';
 import LeadsReducer from './leadsReducer';
 
-import { SET_FILTER, SET_LOADING, SET_LEADS_DATA, SET_CURRENT_PAGE } from './leadsReducer';
+import { SET_FILTER, SET_IS_SKELETON, SET_LEADS_DATA, SET_CURRENT_PAGE } from './leadsReducer';
 
 const initialState = {
     filter: null,
-    isLoading: true,
-    leadsData: null,
+    isSkeleton: true,
+    leadsData: [],
     perPage: 10,
     currentPage: 1,
     cursorPaginator: "",
@@ -27,9 +27,9 @@ const LeadsProvider = (props) => {
                     payload: val
                 });
             },
-            setLoading: (val) => {
+            setIsSkeleton: (val) => {
                 dispatch({
-                    type: SET_LOADING,
+                    type: SET_IS_SKELETON,
                     payload: val
                 });
             },

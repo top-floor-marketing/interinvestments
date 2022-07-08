@@ -1,14 +1,22 @@
+const dotenv = require('dotenv')
 const rewire = require('rewire')
 const path = require('path')
 const fs = require('fs')
 const defaults = rewire('react-scripts/scripts/build.js') // If you ejected, use this instead: const defaults = rewire('./build.js')
 let config = defaults.__get__('config')
 
+dotenv.config()
+
+const { PROD_PATH, FOLDER_NAME } = process.env
+
 config.optimization.splitChunks = {
 	cacheGroups: {
 		default: false
 	}
 }
+
+// url side
+config.output.publicPath = `${PROD_PATH}/wp-content/plugins/${FOLDER_NAME}/dist/`
 
 // change output folder
 config.output.path = path.resolve(__dirname, 'dist');
