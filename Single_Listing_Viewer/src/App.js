@@ -4,8 +4,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 // animation aos
 import AOS from "aos";
 import "aos/dist/aos.css";
-// map css
-import 'mapbox-gl/dist/mapbox-gl.css';
 // components
 import Main from './components/Container/Main'
 

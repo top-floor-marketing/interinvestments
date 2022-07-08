@@ -7,11 +7,13 @@
 }
 
 .titleMap {
-    @apply font-outfit font-[400] text-[16px] leading-[20px] tracking-[0.2em] uppercase;
+    font-weight: 400 !important;
+    @apply font-outfit text-[16px] leading-[20px] tracking-[0.2em] uppercase;
 }
 
 .NameNeighborhood {
-    @apply font-outfit font-[300] text-[36px] md:text-[52px] lg:text-[72px] leading-[91px] mt-5;
+    font-weight: 300 !important;
+    @apply font-outfit  text-[36px] md:text-[52px] lg:text-[72px] leading-[91px] mt-5;
 }
 
 .containerMapCanvas {
@@ -20,4 +22,8 @@
 
 .imagePinMAp {
     @apply cursor-pointer w-[34px] h-[42px] bg-center bg-cover bg-no-repeat;
+}
+
+.BoxMap {
+    @apply w-full h-full;
 }
