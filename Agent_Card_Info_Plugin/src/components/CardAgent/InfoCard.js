@@ -1,8 +1,13 @@
 import React from 'react'
 // mantine
-import { Text, Box } from '@mantine/core';
+import { Text, Box, Image } from '@mantine/core';
 // styles 
 import styles from './styles.ca.module.scss'
+// Icons
+import facebookIcon from '../../assets/faceIcon.svg'
+import twitterIcon from '../../assets/twitterIcon.svg'
+import instagramIcon from '../../assets/instagramIcon.svg'
+import linkedinIcon from '../../assets/linkedinIcon.svg'
 
 const InfoCard = () => {
     return (
@@ -39,6 +44,40 @@ const InfoCard = () => {
                 >
                     305-456-6839
                 </Text>
+            </Box>
+            <Box className={styles.containerSocialMedia}>
+                <Image
+                    component='a'
+                    target="_blank"
+                    href='https://mantine.dev/core/image/'
+                    className={styles.imageIcon}
+                    src={facebookIcon}
+                    alt="facebookIcon"
+                />
+                <Image
+                    component='a'
+                    target="_blank"
+                    href='https://mantine.dev/core/image/'
+                    className={styles.imageIcon}
+                    src={twitterIcon}
+                    alt="twitterIcon"
+                />
+                <Image
+                    component='a'
+                    target="_blank"
+                    href='https://mantine.dev/core/image/'
+                    className={styles.imageIcon}
+                    src={instagramIcon}
+                    alt="instagramIcon"
+                />
+                <Image
+                    component='a'
+                    target="_blank"
+                    href='https://mantine.dev/core/image/'
+                    className={styles.imageIcon}
+                    src={linkedinIcon}
+                    alt="linkedinIcon"
+                />
             </Box>
 
         </>

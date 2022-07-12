@@ -32,3 +32,11 @@
         @apply transition duration-300 text-center hover:text-[#FFB839] md:text-left font-outfit ml-0 md:ml-4 text-[20px] md:text-[30px] leading-[30px] md:leading-[49.8px];
     }
 }
+
+.containerSocialMedia {
+    @apply pt-0 md:pt-10 ml-0 md:ml-4 flex flex-row items-center gap-5;
+}
+
+.imageIcon {
+    @apply h-auto w-[32.45px];
+}
