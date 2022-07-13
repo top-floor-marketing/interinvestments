@@ -1,7 +1,7 @@
 @tailwind utilities;
 
 .imageCarucel {
-    @apply block w-full lg:w-[1000px] 2xl:w-[1200px] h-[400px] lg:h-[585px] 2xl:h-[645px] bg-center bg-cover bg-no-repeat;
+    @apply block w-full lg:w-[1000px] 2xl:w-[1200px] h-[400px] lg:h-[585px] 2xl:h-[645px] bg-center bg-cover object-cover bg-no-repeat;
 }
 
 .containerCarucel {
