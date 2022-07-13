@@ -1,43 +1,55 @@
 import { Box, createStyles } from "@mantine/core";
-import { useSpring, animated } from "react-spring";
-
+import SpringDiv from "../SpringDiv";
 // components
 import ProfileCard from "./ProfileCard";
 import Contacts from "./Contacts";
 import MyListings from "./MyListings";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
-  boxContainer: {
+  container: {
     width: "100%",
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gridTemplateRows: "1fr 1fr",
-    gap: theme.other.spacing.p5,
-    minHeigth: "600px",
-    gridTemplateAreas: `
-    'a a'
-    'b c'
-    `,
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.other.spacing.p5
   },
+  infoAndLeadsRow: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    gap: theme.other.spacing.p5,
+    [`${theme.fn.smallerThan("md")}`]: {
+      flexDirection: "column",
+    }
+  },
+  leadsRow: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.other.spacing.p5
+  }
 }));
 
 const Profile = () => {
   const { classes } = useStyles();
-  const animateProps = useSpring({
-    to: { opacity: 1 },
-    from: { opacity: 0 },
-    reset: false,
-    delay: 200,
-    config: { duration: 700 },
-  });
   return (
-    <animated.div style={animateProps}>
-      <Box className={classes.boxContainer}>
-        <ProfileCard gridArea="a" />
-        <MyListings gridArea="b" />
-        <Contacts gridArea="c" />
+    <SpringDiv delay={200} duration={400}>
+      <Box className={classes.container}>
+
+        <SpringDiv delay={300} duration={400}>
+          <Box className={classes.infoAndLeadsRow}>
+            <ProfileCard />
+            <MyListings />
+          </Box>
+        </SpringDiv>
+
+        <SpringDiv delay={600} duration={400}>
+          <Box className={classes.leadsRow}>
+            <Contacts />
+          </Box>
+        </SpringDiv>
+
       </Box>
-    </animated.div>
+    </SpringDiv>
   );
 };
 

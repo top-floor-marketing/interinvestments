@@ -1,5 +1,4 @@
 import { Box, createStyles } from "@mantine/core";
-import { useSpring, animated } from "react-spring";
 
 // components
 import ListingList from "./ListingList";

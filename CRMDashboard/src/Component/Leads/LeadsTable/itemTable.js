@@ -8,6 +8,7 @@ import { useSpring, animated } from "react-spring";
 
 import LeadsSubTable from '../LeadsSubTable';
 
+import classNames from 'classnames';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
     animateContainer: {
@@ -46,11 +47,17 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         flexDirection: "row",
         height: "auto",
         gap: theme.other.spacing.p5,
-        justifyContent: "space-between"
+        justifyContent: "start",
+        /* [theme.fn.smallerThan('sm')]: {
+            fontSize: theme.fontSizes.sm,
+        }, */
     },
     textInfo: {
         width: "auto",
-        //minWidth: "33.33%"
+        width: "33.33%",
+    },
+    textName: {
+        wordBreak: "break-word"
     },
     chevronContainer: {
         width: "100px",
@@ -69,50 +76,50 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     }
 }));
 
-const ItemTable = ({ id, imageUrl, name, phoneNumber, email, key }) => {
+const ItemTable = ({ id, name, phoneNumber, email, key }) => {
     const { classes } = useStyles();
     const [active, setActive] = useState(false);
     const { ref, height } = useElementSize();
 
     const [contentHeight, setContentHeight] = useState(height);
 
-     // Animations
-  const expand = useSpring({
-    config: { friction: 35 },
-    height: active ? `${contentHeight}px` :  `${height}px`
-  });
-  const spin = useSpring({
-    config: { friction: 40 },
-    transform: active ? "rotate(180deg)" : "rotate(0deg)"
-  });
+    // Animations
+    const expand = useSpring({
+        config: { friction: 35 },
+        height: active ? `${contentHeight}px` : `${height}px`
+    });
+    const spin = useSpring({
+        config: { friction: 40 },
+        transform: active ? "rotate(180deg)" : "rotate(0deg)"
+    });
 
-  useEffect(() => {
-    //Sets initial height
-    setContentHeight(height);
-
-    //Adds resize event listener
-    window.addEventListener("resize", setContentHeight(height));
-
-    // Clean-up
-    return window.removeEventListener("resize", setContentHeight(height));
-  }, [height]);
+    useEffect(() => {
+        //Sets initial height
+        setContentHeight(height);
+        //Adds resize event listener
+        window.addEventListener("resize", setContentHeight(height));
+        // Clean-up
+        return window.removeEventListener("resize", setContentHeight(height));
+    }, [height]);
 
     return (
-        <animated.div style={expand} className={classes.animateContainer}>
-            <Card className={classes.container} ref={ref} style={{ minHeight: "10px"}} >
+        <animated.div key={key} style={expand} className={classes.animateContainer}>
+            <Card className={classes.container} ref={ref} style={{ minHeight: "10px" }} >
                 <Box className={classes.leadRow}>
                     <Box className={classes.infoContainer}>
-                        <Text className={classes.textInfo} transform="capitalize" align="left" size="sm">{name}</Text>
-                        <Text className={classes.textInfo} transform="capitalize" align="left" size="sm">{phoneNumber}</Text>
+                        <Text className={classNames(classes.textInfo, classes.textName)} transform="capitalize" align="left" size="sm">{name}</Text>
                         <Text className={classes.textInfo} transform="capitalize" align="left" size="sm">{email}</Text>
+                        {
+                            (phoneNumber) && 
+                            <Text className={classes.textInfo} transform="capitalize" align="left" size="sm">{phoneNumber}</Text>
+                        }
                     </Box>
                     <Box className={classes.chevronContainer}>
-                    <animated.div  style={spin}>
-                    <ActionIcon size="lg" variant="outline" onClick={() => setActive(!active)}>
-                            <ChevronUp />
-                        </ActionIcon>
-                    </animated.div>
-                       
+                        <animated.div style={spin}>
+                            <ActionIcon size="lg" variant="outline" onClick={() => setActive(!active)}>
+                                <ChevronUp />
+                            </ActionIcon>
+                        </animated.div>
                     </Box>
                 </Box>
                 {
@@ -128,7 +135,6 @@ const ItemTable = ({ id, imageUrl, name, phoneNumber, email, key }) => {
 
 ItemTable.prototype = {
     id: PropTypes.string,
-    imageUrl: PropTypes.string,
     name: PropTypes.string,
     phoneNumber: PropTypes.string,
     email: PropTypes.string,

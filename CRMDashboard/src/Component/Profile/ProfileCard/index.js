@@ -1,12 +1,14 @@
 import { Box, Card, createStyles } from "@mantine/core";
-import { useSpring, animated } from "react-spring";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   cardContainer: {
-    width: "100%",
+    width: "67%",
     minHeight: "200px",
-    boxShadow: theme.shadows.md,
+    boxShadow: theme.shadows.sm,
     height: "100%",
+    [`${theme.fn.smallerThan("md")}`]: {
+      width: "100%",
+    }
   },
   boxContainer: {
     display: "flex",
@@ -18,19 +20,11 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
 const ProfileCard = (props) => {
   const { classes } = useStyles();
-  const animateProps = useSpring({
-    to: { opacity: 1 },
-    from: { opacity: 0 },
-    reset: false,
-    delay: 100,
-    config: { duration: 500 },
-  });
+
   return (
-    <animated.div style={{ ...animateProps, gridArea: props.gridArea }}>
       <Card className={classes.cardContainer}>
         <Box className={classes.boxContainer}>ProfileList</Box>
       </Card>
-    </animated.div>
   );
 };
 

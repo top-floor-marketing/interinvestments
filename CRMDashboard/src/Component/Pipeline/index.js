@@ -1,15 +1,10 @@
+import { Box, createStyles } from "@mantine/core";
 
-import { createStyles, Box } from '@mantine/core';
+import SpringDiv from "../SpringDiv";
 
-// components
-import SpringDiv from '../SpringDiv';
-import SearchBox from './SearchBox';
-import PipelineTable from './PipelineTable';
+import DndColumn from "../DndColumn";
 
-// pipeline context-store
-import PipelineProvider from './PipelineStore/pipelineProvider';
-
-const useStyles = createStyles((theme, _params) => ({
+const useStyles = createStyles((theme, _params, getRef) => ({
     container: {
         width: "100%",
         minHeight: "300px",
@@ -20,23 +15,14 @@ const useStyles = createStyles((theme, _params) => ({
 }));
 
 const Pipeline = () => {
-
-    const { classes } = useStyles();
-
-    return (
-        <PipelineProvider>
-            <SpringDiv delay={200} duration={400}>
-                <Box className={classes.container}>
-                    <SpringDiv delay={400} duration={200}>
-                        <SearchBox />
-                    </SpringDiv>
-                    <SpringDiv delay={600} duration={200}>
-                        <PipelineTable />
-                    </SpringDiv>
-                </Box>
-            </SpringDiv>
-        </PipelineProvider>
-    )
-}
+  const { classes } = useStyles();
+  return (
+    <SpringDiv delay={300} duration={500}>
+      <Box className={classes.container}>
+            <DndColumn />
+      </Box>
+    </SpringDiv>
+  );
+};
 
 export default Pipeline;

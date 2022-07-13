@@ -3,4 +3,5 @@ export const LOCAL_STORAGE = {
   REFRESH: "crm-refresh-token",
   USER: "crm-user-id",
   ROUTE: "crm-route-name",
+  LEAD_DETAIL_ID: "crm-lead-detail-id"
 };

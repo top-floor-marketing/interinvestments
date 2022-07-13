@@ -2,9 +2,10 @@ import { Box, createStyles, TextInput, Button } from "@mantine/core";
 
 import { Search, Plus } from "tabler-icons-react";
 
-import usePipelineStore from "../PipelineStore/usePipelineStore";
+import useLeadsStore from "../LeadsStore/useLeadsStore";
 
 import get from 'lodash/get';
+import { is } from "@react-spring/shared";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
     container: {
@@ -28,17 +29,19 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
 const SearchBox = () => {
     const { classes } = useStyles();
-    const { state: { filter }, actions: { setFilter } } = usePipelineStore();
+    const { state: { filter, isLoading }, actions: { setFilter } } = useLeadsStore();
     return (
         <Box className={classes.container}>
             <TextInput
+                loading={isLoading}
+                disabled={isLoading}
                 placeholder="Search"
                 rightSection={<Search />}
                 value={get(filter, ["search"], "")}
                 onChange={(e) => setFilter({ ...filter, search: e.currentTarget.value })}
                 className={classes.searchInput}
             />
-            <Button className={classes.buttonAdd} color="dark" leftIcon={<Plus/>} size="sm">
+            <Button loading={isLoading} disabled={isLoading} className={classes.buttonAdd} color="dark" leftIcon={<Plus/>} size="sm">
                 Add Lead
             </Button>
         </Box>
