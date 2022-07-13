@@ -36,8 +36,6 @@ const PipelineTable = () => {
 
   const { isLoading, isSkeleton, leadsData, refetchData } = useGetLeads({ fetchInMount: true });
 
-  console.log("dataLeads ", leadsData)
-
   return (
     <Box className={classes.container}>
       <Pagination page={activePage} onChange={onChangePage} total={10} />
