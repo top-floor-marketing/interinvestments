@@ -17,18 +17,30 @@ const InfoCard = (props) => {
     return (
         <>
             <Text
+                data-aos-once="true"
+                data-aos-duration='900'
+                data-aos-delay="700"
+                data-aos="fade-left"
                 component='h3'
                 className={styles.titleNameAgent}
             >
                 {dataAgent.name}
             </Text>
             <Text
+                data-aos-once="true"
+                data-aos-duration='900'
+                data-aos-delay="900"
+                data-aos="fade-left"
                 component='span'
                 className={styles.PositionAgent}
             >
                 {dataAgent.position}
             </Text>
             <Box
+                data-aos-once="true"
+                data-aos-duration='900'
+                data-aos-delay="1100"
+                data-aos="fade-left"
                 dangerouslySetInnerHTML={descriptionHTMLDangerous()}
                 className={styles.contentCArdAgent}
             >
@@ -36,6 +48,10 @@ const InfoCard = (props) => {
             </Box>
             <Box className={styles.contactAgent}>
                 <Text
+                    data-aos-once="true"
+                    data-aos-duration='900'
+                    data-aos-delay="1300"
+                    data-aos="fade-left"
                     component='a'
                     href='mailto: emilio@interinvestments.us'
                 >
@@ -45,6 +61,10 @@ const InfoCard = (props) => {
                 {
                     dataAgent.phone && (
                         <Text
+                            data-aos-once="true"
+                            data-aos-duration='900'
+                            data-aos-delay="1500"
+                            data-aos="fade-left"
                             component='a'
                             href='tel:305-456-6839'
                         >
@@ -58,6 +78,10 @@ const InfoCard = (props) => {
                 {
                     dataAgent.facebook && (
                         <Image
+                            data-aos-once="true"
+                            data-aos-duration='900'
+                            data-aos-delay="1700"
+                            data-aos="fade-left"
                             component='a'
                             target="_blank"
                             href={dataAgent.facebook}
@@ -70,6 +94,10 @@ const InfoCard = (props) => {
                 {
                     dataAgent.twitter && (
                         <Image
+                            data-aos-once="true"
+                            data-aos-duration='900'
+                            data-aos-delay="1700"
+                            data-aos="fade-left"
                             component='a'
                             target="_blank"
                             href={dataAgent.twitter}
@@ -83,6 +111,10 @@ const InfoCard = (props) => {
                 {
                     dataAgent.instagram && (
                         <Image
+                            data-aos-once="true"
+                            data-aos-duration='900'
+                            data-aos-delay="1700"
+                            data-aos="fade-left"
                             component='a'
                             target="_blank"
                             href={dataAgent.instagram}
@@ -95,6 +127,10 @@ const InfoCard = (props) => {
                 {
                     dataAgent.linkedin && (
                         <Image
+                            data-aos-once="true"
+                            data-aos-duration='900'
+                            data-aos-delay="1700"
+                            data-aos="fade-left"
                             component='a'
                             target="_blank"
                             href={dataAgent.linkedin}
