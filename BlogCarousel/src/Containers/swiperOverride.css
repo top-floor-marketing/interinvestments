@@ -41,13 +41,13 @@
     position: absolute;
     left: 0;
     width: 75px;
-    background-color: aqua;
+    background-color: white;
     padding-left: 27px;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   #blogCarouselContainer .swiper-pagination-bullet {
-    width: 0 !important;
-    height: 0 !important;
+/*     width: 0 !important;
+    height: 0 !important; */
   }

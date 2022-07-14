@@ -6,24 +6,44 @@ import { GET_POST_BLOG_GQL } from "../GraphqlClient/gql";
 
 import { removeHtmlInString, maxString } from "../utils";
 
+const ANIMATIONS = {
+  0: {
+    image: ["animate__animated animate__delay-0.5s animate__bounceInUp", "animate__animated animate__delay-0.5s animate__fadeInTopRight"],
+    content: ["animate__animated animate__delay-0.5s animate__bounceInRight", "animate__animated animate__delay-0.5s animate__flipInY"]
+  },
+  1: {
+    image: ["animate__animated animate__delay-0.5s animate__jackInTheBox", "animate__animated animate__delay-0.5s animate__zoomInDown"],
+    content: ["animate__animated animate__delay-0.5s animate__slideInDown", "animate__animated animate__delay-0.5s animate__bounceInUp"]
+  },
+  2: {
+    image: ["animate__animated animate__delay-0.5s animate__pulse", "animate__animated animate__delay-0.5s animate__fadeInRightBig"],
+    content: ["animate__animated animate__delay-0.5s animate__fadeInTopLeft", "animate__animated animate__delay-0.5s animate__rotateInDownLeft"]
+  },
+  3: {
+    image: ["animate__animated animate__delay-0.5s animate__zoomInDown", "animate__animated animate__delay-0.5s animate__fadeInUp"],
+    content: ["animate__animated animate__delay-0.5s animate__slideInUp", "animate__animated animate__delay-0.5s animate__flipInX"]
+  }
+}
+
 const UseGetBlogs = () => {
   const [fullData, setFullData] = useState([]);
   const [perPage] = useState(4);
 
   const fullDataGenerator = (newData) => {
     let parseData = [];
-    parseData = newData.map((val) => {
+    parseData = newData.map((val, index) => {
       return {
         id: val.databaseId,
         urlImage: val.featuredImage?.node?.sourceUrl || null,
         title: maxString(val.title, 150),
         description: maxString(removeHtmlInString(val.excerpt), 250),
+        imageAnimation: ANIMATIONS[index]?.image || [],
+        contentAnimation: ANIMATIONS[index]?.content || [],
       };
     });
     return parseData;
   };
 
-  // get firts 4 Blogs
   const {
     isLoading: loadingBlogs,
     isError: errorBlogs,
