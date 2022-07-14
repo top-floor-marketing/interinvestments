@@ -8,6 +8,7 @@ import styles from "./styles_bc.module.scss";
 const CustomIndicator = ({
   totalData,
   activeBlog,
+  specificBlog,
   nextBlog,
   prevBlog,
 }) => {
@@ -16,7 +17,7 @@ const CustomIndicator = ({
 
   const getClassActive = (index) => {
     const activeColor = "bg-[#FFB839]";
-    return " bg-gray-200";// index === activeBlog ? ` ${activeColor} ` : " bg-gray-200 ";
+    return index === activeBlog ? ` ${activeColor} ` : " bg-gray-200 ";
   };
 
   return (
@@ -24,18 +25,18 @@ const CustomIndicator = ({
       <Button
         variant="white"
         size={25}
+        onClick={() => prevBlog()}
         classNames={{
           root: "bg-transparent flex flex-row",
           label: "mr-0 text-black",
         }}
-        ref={nextBlog}
       >
         <ChevronUp size={25} className="mr-auto" />
       </Button>
       {listArrows.map((val, index) => {
         return (
           <div
-            onClick={() => prevBlog()}
+            onClick={() => specificBlog(index)}
             className={styles.itemIndicadorScreenXl + getClassActive(index)}
             key={val + index}
           />
@@ -44,7 +45,7 @@ const CustomIndicator = ({
       <Button
         variant="white"
         size={25}
-        ref={prevBlog}
+        onClick={() => nextBlog()}
         classNames={{
           root: "bg-transparent flex flex-row",
           label: "mr-0 text-black",

@@ -12,16 +12,16 @@ const ANIMATIONS = {
     content: ["animate__animated animate__delay-0.5s animate__bounceInRight", "animate__animated animate__delay-0.5s animate__flipInY"]
   },
   1: {
-    image: ["animate__animated animate__delay-0.5s animate__jackInTheBox", "animate__animated animate__delay-0.5s animate__zoomInDown"],
-    content: ["animate__animated animate__delay-0.5s animate__slideInDown", "animate__animated animate__delay-0.5s animate__bounceInUp"]
+    image: ["animate__animated animate__delay-0.5s animate__jackInTheBox", "animate__animated animate__delay-0.5s animate__slideInDown"],
+    content: ["animate__animated animate__delay-0.5s animate__zoomInDown", "animate__animated animate__delay-0.5s animate__bounceInUp"]
   },
   2: {
     image: ["animate__animated animate__delay-0.5s animate__pulse", "animate__animated animate__delay-0.5s animate__fadeInRightBig"],
     content: ["animate__animated animate__delay-0.5s animate__fadeInTopLeft", "animate__animated animate__delay-0.5s animate__rotateInDownLeft"]
   },
   3: {
-    image: ["animate__animated animate__delay-0.5s animate__zoomInDown", "animate__animated animate__delay-0.5s animate__fadeInUp"],
-    content: ["animate__animated animate__delay-0.5s animate__slideInUp", "animate__animated animate__delay-0.5s animate__flipInX"]
+    image: ["animate__animated animate__delay-0.5s animate__flipInX", "animate__animated animate__delay-0.5s animate__fadeInUp"],
+    content: ["animate__animated animate__delay-0.5s animate__slideInUp", "animate__animated animate__delay-0.5s animate__zoomInDown"]
   }
 }
 

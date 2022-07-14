@@ -1,53 +1,19 @@
 import PropTypes from "prop-types";
-import { Button } from "@mantine/core";
-import { ChevronDown, ChevronUp } from "tabler-icons-react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import CarouselScreenXl from "./ScreenXl/CarouselScreenXl";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper";
 
-import './stylesChevron.css';
+import CustomIndicator from "../CustomIndicator";
 
 const CarouselContainer = (props) => {
-  const { listBlogs, isMobileScreen } = props;
+  const { listBlogs } = props;
 
-  const pagination = {
-    el: '#blogCustomPaginationIndicator',
-    clickable: true,
-    renderBullet: (index, className) => {
-      let componentRender = "";
-      switch(parseInt(index)) {
-        case 0: 
-        componentRender = `
-        <div class="flex flex-col gap-5">
-          <div class="${className} blog-chevron-up">
-           
-          </div>
-          <div class="${className} blog-item-indicador">
-           
-          </div>
-        <div> 
-        `
-        break;
-        case 1: 
-        componentRender = '<span class="' + className + '">' + (index + 1) + "</span>"
-        break;
-        case 2: 
-        componentRender = '<span class="' + className + '">' + (index + 1) + "</span>"
-        break;
-        case 3: 
-        componentRender = `
-        <div class="${className} h-full w-full blog-chevron-down">
-         
-        </div>
-      `
-        break;
-        default:
-          componentRender = '<span class="' + className + '">' + (index + 1) + "</span>"
-      }
-      return componentRender;
-    },
-  };
+  // Swiper instance
+  const swiperRef = useRef(null);
+
+  // Slides current index
+  const [currentIndex, updateCurrentIndex] = useState(0);
 
   const allProps = {
     carouselScreenXl: {
@@ -55,22 +21,60 @@ const CarouselContainer = (props) => {
     },
   };
 
+  const updateIndex = useCallback(
+    () => updateCurrentIndex(swiperRef.current.swiper.realIndex),
+    []
+  );
+
+  // Manipulate swiper from outside
+  const nextBlog = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
+
+  const prevBlog = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
+  const specificBlog = (index) => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideToLoop(parseInt(index));
+    }
+  }
+
+  // Add eventlisteners for swiper after initializing
+  useEffect(() => {
+    const swiperInstance = swiperRef.current.swiper;
+    if (swiperInstance) {
+      swiperInstance.on("slideChange", updateIndex);
+    }
+    return () => {
+      if (swiperInstance) {
+        swiperInstance.off("slideChange", updateIndex);
+      }
+    };
+  }, [updateIndex]);
+
   return (
     <div className="w-full flex flex-row bg-white" >
       <div id="blogCustomPaginationIndicator" className="min-w-[50px] h-fit bg-white my-auto">
+        <CustomIndicator specificBlog={specificBlog} activeBlog={currentIndex} nextBlog={nextBlog} prevBlog={prevBlog} totalData={listBlogs.length} />
       </div>
       <div className="w-full h-full">
         <Swiper
+          ref={swiperRef}
           direction={"vertical"}
-          /* autoplay={{
-            delay: 8000,
-            disableOnInteraction: true,
-          }} */
           mousewheel={false}
-          pagination={pagination}
+          pagination={{
+            el: "#blogCustomPaginationIndicator",
+            clickable: true
+          }}
+          draggable={false}
           slidesPerView={1}
           loop={true}
-          modules={[Autoplay, Pagination]}
         >
           {listBlogs.map((val, index) => {
             return (
@@ -91,13 +95,3 @@ CarouselContainer.propTypes = {
 };
 
 export default CarouselContainer;
-
-
-/*  return (
-   <div className="w-full h-screen bg-blue-500">
-     <button className="button-wp-primary flex">
-       Load More
-       <ChevronRight />
-     </button>
-   </div>
- ); */

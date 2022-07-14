@@ -31,12 +31,9 @@ const CarouselScreenXl = (props) => {
     }),
   }
 
-  //swiperSlide.isActive ? "animate__animated animate__bounce  animate__delay-2s" : ""
-  // swiperSlide.isActive
   return (
     <div className={styles.container}>
-      <div className="w-full flex flex-row">
-
+      
           <div className={classesAnimation.content}>
             <label className={styles.labelFrom}>FROM OUR BLOG</label>
             <label className={styles.labelTitle}>{title}</label>
@@ -45,13 +42,11 @@ const CarouselScreenXl = (props) => {
               component="a"
               href={`/post?=${id}`}
               variant="white"
-              className={styles.buttonReadMore}
+              className="btn-wp-primary"
             >
               Read More
             </Button>
           </div>
-
-      </div>
 
       <div className={classesAnimation.image}>
         <img src={urlImage} alt="alt" className={styles.image} />

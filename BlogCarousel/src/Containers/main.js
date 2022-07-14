@@ -1,5 +1,4 @@
 import React from "react";
-import { useMediaQuery } from "@mantine/hooks";
 
 // components
 import SkeletonBlog from "../Components/SkeletonBlog";
@@ -14,20 +13,15 @@ import styles from "./styles_bc.module.scss";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import swiperOverride from './swiperOverride.css';
+import './swiperOverride.css';
 
 const MainContainer = () => {
-  const isMobileScreen = useMediaQuery(
-    "only screen and (max-width: 1080px)",
-    false
-  );
   const { isLoading, isEmpty, isError, data } = useGetBlogs();
   const allProps = {
     container: {
       className: styles.container,
     },
     carouselBlog: {
-      isMobileScreen,
       listBlogs: data,
     },
   };

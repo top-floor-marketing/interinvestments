@@ -1,15 +1,15 @@
 #blogCarouselContainer .swiper {
     width: 100% !important;
     height: 100vh;
-    min-height: 600px !important;
-    max-height: 800px !important;
+    min-height: 400px !important;
+    max-height: 700px !important;
 }
 
-/* Extra small devices (phones, 600px and down) */
+/* Extra small devices (phones,  1000px and down) */
 @media only screen and (min-width: 1000px) {
     #blogCarouselContainer .swiper {
         height: 100vh;
-        max-height: 1200px;
+        max-height: 700px;
     }
 }
 
@@ -34,7 +34,7 @@
   }
 
   #blogCarouselContainer .swiper-container {
-    height: 300px;
+    height: 700px;
   }
 
   #blogCarouselContainer .swiper-pagination {
@@ -48,6 +48,6 @@
   }
 
   #blogCarouselContainer .swiper-pagination-bullet {
-/*     width: 0 !important;
-    height: 0 !important; */
+    width: 0 !important;
+    height: 0 !important; 
   }
