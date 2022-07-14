@@ -1,7 +1,7 @@
 import CustomIndicator from "../../CustomIndicator";
 import { Button } from "@mantine/core";
 
-import styles from "./styles.cb.module.scss";
+import styles from "./styles_bc.module.scss";
 
 const CarouselMobile = (props) => {
   const {

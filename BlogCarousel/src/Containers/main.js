@@ -8,7 +8,13 @@ import EmptyBlog from "../Components/Empty";
 
 import useGetBlogs from "../Hooks/useGetBlogs";
 
-import styles from "./styles.cb.module.scss";
+import styles from "./styles_bc.module.scss";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import swiperOverride from './swiperOverride.css';
 
 const MainContainer = () => {
   const isMobileScreen = useMediaQuery(
@@ -27,7 +33,7 @@ const MainContainer = () => {
   };
 
   return (
-    <div data-aos="fade-up" data-aos-duration="700" {...allProps.container}>
+    <div id="blogCarouselContainer" data-aos="fade-up" data-aos-duration="700" {...allProps.container}>
       {(isError || isEmpty) && !isLoading ? (
         <EmptyBlog />
       ) : isLoading ? (

@@ -1,54 +1,56 @@
 import { Button } from "@mantine/core";
 
-import CustomIndicator from "../../CustomIndicator";
+import styles from "./styles_bc.module.scss";
 
-import styles from "./styles.cb.module.scss";
+import { useSwiperSlide } from 'swiper/react';
+
+import './styles.css';
 
 const CarouselScreenXl = (props) => {
+
   const {
     urlImage,
     description,
     id,
-    title,
-    totalData,
-    nextBlog,
-    prevBlog,
-    specificBlog,
-    activeBlog,
+    title
   } = props;
-  const allProps = {
-    customIndicador: {
-      totalData,
-      nextBlog,
-      prevBlog,
-      specificBlog,
-      activeBlog,
-    },
-  };
+
+  const swiperSlide = useSwiperSlide();
+
+
+  // swiperSlide.isActive
   return (
     <div className={styles.container}>
       <div className="w-full flex flex-row">
-        <div className="w-1/6">
-          <CustomIndicator {...allProps.customIndicador} />
-        </div>
-        <div className={styles.content}>
-          <label className={styles.labelFrom}>FROM OUR BLOG</label>
-          <label className={styles.labelTitle}>{title}</label>
-          <label className={styles.description}>{description}</label>
-          <Button
-            component="a"
-            href={`/post?=${id}`}
-            variant="white"
-            className={styles.buttonReadMore}
-          >
-            Read More
-          </Button>
-        </div>
-        <div className="w-1/6"></div>
+
+
+          <div className={styles.content}>
+            <span className={
+              swiperSlide.isActive ? "animate__animated animate__bounce  animate__delay-2s" : ""
+            }>sadsadasdsa</span>
+            <label className={styles.labelFrom}>FROM OUR BLOG</label>
+            <label className={styles.labelTitle}>{title}</label>
+            <label className={styles.description}>{description}</label>
+            <Button
+
+              component="a"
+              href={`/post?=${id}`}
+              variant="white"
+              className={styles.buttonReadMore}
+            >
+              Read More
+            </Button>
+
+
+
+          </div>
+
       </div>
+
       <div className={styles.containerImage}>
         <img src={urlImage} alt="alt" className={styles.image} />
       </div>
+
     </div>
   );
 };

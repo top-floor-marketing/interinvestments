@@ -3,20 +3,20 @@ import { Button } from "@mantine/core";
 import { ChevronDown, ChevronUp } from "tabler-icons-react";
 import PropTypes from "prop-types";
 
-import styles from "./styles.cb.module.scss";
+import styles from "./styles_bc.module.scss";
 
 const CustomIndicator = ({
   totalData,
   activeBlog,
   nextBlog,
   prevBlog,
-  specificBlog,
 }) => {
+
   const [listArrows] = useState(new Array(totalData).fill(0));
 
   const getClassActive = (index) => {
     const activeColor = "bg-[#FFB839]";
-    return index === activeBlog ? ` ${activeColor} ` : " bg-gray-200 ";
+    return " bg-gray-200";// index === activeBlog ? ` ${activeColor} ` : " bg-gray-200 ";
   };
 
   return (
@@ -28,14 +28,14 @@ const CustomIndicator = ({
           root: "bg-transparent flex flex-row",
           label: "mr-0 text-black",
         }}
-        onClick={() => prevBlog()}
+        ref={nextBlog}
       >
         <ChevronUp size={25} className="mr-auto" />
       </Button>
       {listArrows.map((val, index) => {
         return (
           <div
-            onClick={() => specificBlog(index)}
+            onClick={() => prevBlog()}
             className={styles.itemIndicadorScreenXl + getClassActive(index)}
             key={val + index}
           />
@@ -44,7 +44,7 @@ const CustomIndicator = ({
       <Button
         variant="white"
         size={25}
-        onClick={() => nextBlog()}
+        ref={prevBlog}
         classNames={{
           root: "bg-transparent flex flex-row",
           label: "mr-0 text-black",

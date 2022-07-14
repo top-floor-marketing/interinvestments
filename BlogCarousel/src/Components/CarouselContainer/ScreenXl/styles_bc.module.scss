@@ -3,7 +3,7 @@
 }
 
 .content {
-    @apply w-4/6 flex flex-col content-center justify-center px-20;
+    @apply w-full flex flex-col content-center justify-center px-8 mx-auto h-full;
 }
 
 .labelFrom {
@@ -24,7 +24,6 @@
     hover:bg-black hover:text-white 
     transition-all duration-500 ease-in-out;
 }
-
 
 .containerImage {
     @apply w-full bg-gray-200 min-h-screen;
