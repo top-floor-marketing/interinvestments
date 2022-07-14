@@ -2,34 +2,32 @@
     @apply flex flex-col justify-center md:flex-row gap-5;
 }
 
-.containAvatarAgent {
-    // @apply w-full;
-}
-
 .containInfoAgent {
     @apply w-full flex flex-col justify-start gap-5 md:gap-1;
 }
 
 .titleNameAgent {
     font-weight: 300;
-    @apply text-center md:text-left ml-0 md:ml-4 font-outfit text-[41px] leading-[50px] md:text-[57px] md:leading-[70px] 2xl:text-[72px] 2xl:leading-[91px];
+    @apply capitalize text-center md:text-left ml-0 md:ml-4 font-outfit text-[41px] leading-[50px] md:text-[57px] md:leading-[70px] 2xl:text-[72px] 2xl:leading-[91px];
 }
 
 .PositionAgent {
     font-weight: 400;
-    @apply text-center md:text-left font-outfit ml-0 md:ml-4 text-[20px] leading-[26px];
+    @apply capitalize text-center md:text-left font-outfit ml-0 md:ml-4 text-[20px] leading-[26px];
 }
 
 .contentCArdAgent {
-    font-weight: 300;
-    @apply text-justify md:text-left ml-0 md:ml-4 pt-0 md:pt-10 font-outfit text-[20px] leading-[26px];
+    p {
+        font-weight: 300;
+        @apply capitalize text-justify md:text-left ml-0 md:ml-4 pt-0 md:pt-10 font-outfit text-[20px] leading-[26px];
+    }
 }
 
 .contactAgent {
     @apply pt-0 md:pt-10;
     a {
         font-weight: 400;
-        @apply transition duration-300 text-center hover:text-[#FFB839] md:text-left font-outfit ml-0 md:ml-4 text-[20px] md:text-[30px] leading-[30px] md:leading-[40px];
+        @apply capitalize transition duration-300 text-center hover:text-[#FFB839] md:text-left font-outfit ml-0 md:ml-4 text-[20px] md:text-[30px] leading-[30px] md:leading-[40px];
     }
 }
 

@@ -9,77 +9,102 @@ import twitterIcon from '../../assets/twitterIcon.svg'
 import instagramIcon from '../../assets/instagramIcon.svg'
 import linkedinIcon from '../../assets/linkedinIcon.svg'
 
-const InfoCard = () => {
+const InfoCard = (props) => {
+    const { dataAgent } = props
+    const descriptionHTMLDangerous = () => {
+        return { __html: dataAgent.content }
+    }
     return (
         <>
             <Text
                 component='h3'
                 className={styles.titleNameAgent}
             >
-                Emilio Cardenal
+                {dataAgent.name}
             </Text>
             <Text
                 component='span'
                 className={styles.PositionAgent}
             >
-                Real Estate Broker / Founder
+                {dataAgent.position}
             </Text>
-            <Text
-                component='p'
+            <Box
+                dangerouslySetInnerHTML={descriptionHTMLDangerous()}
                 className={styles.contentCArdAgent}
             >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </Text>
+
+            </Box>
             <Box className={styles.contactAgent}>
                 <Text
                     component='a'
                     href='mailto: emilio@interinvestments.us'
                 >
-                    emilio@interinvestments.us
+                    {dataAgent.email}
                 </Text>
                 <br />
-                <Text
-                    component='a'
-                    href='tel:305-456-6839'
-                >
-                    305-456-6839
-                </Text>
+                {
+                    dataAgent.phone && (
+                        <Text
+                            component='a'
+                            href='tel:305-456-6839'
+                        >
+                            {dataAgent.phone}
+                        </Text>
+                    )
+                }
+
             </Box>
             <Box className={styles.containerSocialMedia}>
-                <Image
-                    component='a'
-                    target="_blank"
-                    href='https://mantine.dev/core/image/'
-                    className={styles.imageIcon}
-                    src={facebookIcon}
-                    alt="facebookIcon"
-                />
-                <Image
-                    component='a'
-                    target="_blank"
-                    href='https://mantine.dev/core/image/'
-                    className={styles.imageIcon}
-                    src={twitterIcon}
-                    alt="twitterIcon"
-                />
-                <Image
-                    component='a'
-                    target="_blank"
-                    href='https://mantine.dev/core/image/'
-                    className={styles.imageIcon}
-                    src={instagramIcon}
-                    alt="instagramIcon"
-                />
-                <Image
-                    component='a'
-                    target="_blank"
-                    href='https://mantine.dev/core/image/'
-                    className={styles.imageIcon}
-                    src={linkedinIcon}
-                    alt="linkedinIcon"
-                />
-            </Box>
+                {
+                    dataAgent.facebook && (
+                        <Image
+                            component='a'
+                            target="_blank"
+                            href={dataAgent.facebook}
+                            className={styles.imageIcon}
+                            src={facebookIcon}
+                            alt="facebookIcon"
+                        />
+                    )
+                }
+                {
+                    dataAgent.twitter && (
+                        <Image
+                            component='a'
+                            target="_blank"
+                            href={dataAgent.twitter}
+                            className={styles.imageIcon}
+                            src={twitterIcon}
+                            alt="twitterIcon"
+                        />
+                    )
+                }
 
+                {
+                    dataAgent.instagram && (
+                        <Image
+                            component='a'
+                            target="_blank"
+                            href={dataAgent.instagram}
+                            className={styles.imageIcon}
+                            src={instagramIcon}
+                            alt="instagramIcon"
+                        />
+                    )
+                }
+                {
+                    dataAgent.linkedin && (
+                        <Image
+                            component='a'
+                            target="_blank"
+                            href={dataAgent.linkedin}
+                            className={styles.imageIcon}
+                            src={linkedinIcon}
+                            alt="linkedinIcon"
+                        />
+                    )
+                }
+            </Box>
         </>
     )
 }
