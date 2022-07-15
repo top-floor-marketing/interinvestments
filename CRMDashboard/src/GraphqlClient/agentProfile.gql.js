@@ -1,25 +1,26 @@
 import { gql } from "graphql-request";
 
+const AGENT_TYPE = 'AGENT';
+
 export const GET_AGENT_INFO= gql`
-query GetAgentInfo($agentId: Number) {
+query GetAgentInfo($agentId: Int = 10) {
     dataAgent(
-        agentType: "AGENT", agenId: $agentId
+        agentType: ${AGENT_TYPE}, agenId: $agentId
       ) {
-      nodes {
-        description
+        id
         email
-        databaseId
         firstName
         lastName
-        name
-        username
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
+        phone
+        position
+        avatar
+        roles
+        content
+        facebook
+        instagram
+        twitter
+        linkedin
+        listing
     }
   }
 `;

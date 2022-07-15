@@ -11,13 +11,19 @@ import random from 'lodash/random';
 
 const useGetProfileInfo = () => {
 
-    const { infoUser: { roles } } = useSelector((state) => state.user);
+    const { infoUser: { databaseId } } = useSelector((state) => state.user);
 
     const [dataAgent,setDataAgent] = useState(null);
     const [isSkeleton, setIsSkeleton] = useState(true);
 
     const formatResponseData = (nextData) => {
-      return {};
+      const { dataAgent } = nextData;
+      if(dataAgent.length) {
+        return {
+          ...dataAgent[0]
+        }
+      }
+      return null;
     }
 
     const { isLoading: isLoadingQuery, isFetching: isFetchingQuery, isError, refetch } = useQueryHelper({
@@ -34,7 +40,7 @@ const useGetProfileInfo = () => {
           },
         },
         variables: {
-            agentId: 2
+            agentId: databaseId
         },
     });
 

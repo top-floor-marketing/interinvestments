@@ -88,9 +88,26 @@ const stylesProvider = () => {
                     backgroundColor: "transparent",
                     color: theme.colors.dark[9],
                     transform: "scale(1.1)"
-                }
+                },
+                "&:disabled": {
+                    backgroundColor: "transparent",
+                    color: theme.colors.gray[7],
+                    border: 0
+                },
             },
-        })
+        }),
+        Tooltip: (theme, params) => {
+            return {
+                body: {
+                    color: theme.colors.white[1],
+                    fontWeight: (params.color === "success") ? 700 : "normal",
+                    backgroundColor: (params.color === "success") ? theme.colors.success[0] : theme.colors.dark[1],
+                },
+                arrow: {
+                    backgroundColor: (params.color === "success") ? theme.colors.success[0] : theme.colors.dark[1],
+                }
+            }
+        }
     }
 }
 

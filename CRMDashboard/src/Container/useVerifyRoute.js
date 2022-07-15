@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toggleLoadingFull, setInfoUser, setRoute } from "../Store/userSlice";
 import { useLocalStorage } from "@mantine/hooks";
 

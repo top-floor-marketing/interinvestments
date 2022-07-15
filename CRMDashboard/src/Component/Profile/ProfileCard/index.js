@@ -1,4 +1,4 @@
-import { Box, Card, createStyles, Text } from "@mantine/core";
+import { Box, Card, createStyles, Text, Skeleton } from "@mantine/core";
 
 import { ShareAgent, EditModal } from "../../ActionButtons";
 
@@ -6,7 +6,7 @@ import useGetProfileInfo from "./useGetProfileInfo";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   cardContainer: {
-    width: "67%",
+    width: "100%",
     minHeight: "200px",
     boxShadow: theme.shadows.sm,
     height: "100%",
@@ -48,18 +48,20 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const ProfileCard = (props) => {
   const { classes } = useStyles();
 
-  const { isLoading } = useGetProfileInfo();
+  const { isLoading, dataAgent, isSkeleton } = useGetProfileInfo();
 
   return (
+    <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Card className={classes.cardContainer}>
         <Box className={classes.boxContainer}>
           <Box className={classes.myProfileActions}>
             <Text className={classes.titleCard}>My profile</Text>
-            <ShareAgent className={classes.shareButton} />
-            <EditModal className={classes.editButton}/>
+            <ShareAgent disabled={isLoading} className={classes.shareButton} />
+            <EditModal disabled={isLoading} className={classes.editButton}/>
           </Box>
         </Box>
       </Card>
+    </Skeleton> 
   );
 };
 
