@@ -14,17 +14,17 @@ import styles from './styles.ca.module.scss'
 
 const CardAgent = () => {
     const [dataAgent, setDataAgent] = useState(null)
-    const agentId = localStorage.getItem("crm-agent")
+    const urlParams = new URLSearchParams(window.location.search);
+    const agentId = urlParams.get('id')
+
     let variables = {
         agentType: "AGENT",
     }
-    // crm-agent 
-    // agentType AGENT MASTER
 
     if (agentId) {
         variables = {
             agentType: "AGENT",
-            agenId: agentId
+            agenId: parseInt(agentId)
         }
     } else {
         variables = {
