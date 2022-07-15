@@ -3,15 +3,16 @@ import { Button } from "@mantine/core";
 import { ChevronDown, ChevronUp } from "tabler-icons-react";
 import PropTypes from "prop-types";
 
-import styles from "./styles.cb.module.scss";
+import styles from "./styles_bc.module.scss";
 
 const CustomIndicator = ({
   totalData,
   activeBlog,
+  specificBlog,
   nextBlog,
   prevBlog,
-  specificBlog,
 }) => {
+
   const [listArrows] = useState(new Array(totalData).fill(0));
 
   const getClassActive = (index) => {
@@ -24,11 +25,11 @@ const CustomIndicator = ({
       <Button
         variant="white"
         size={25}
+        onClick={() => prevBlog()}
         classNames={{
           root: "bg-transparent flex flex-row",
           label: "mr-0 text-black",
         }}
-        onClick={() => prevBlog()}
       >
         <ChevronUp size={25} className="mr-auto" />
       </Button>

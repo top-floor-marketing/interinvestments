@@ -1,0 +1,53 @@
+#blogCarouselContainer .swiper {
+    width: 100% !important;
+    height: 100vh;
+    min-height: 400px !important;
+    max-height: 700px !important;
+}
+
+/* Extra small devices (phones,  1000px and down) */
+@media only screen and (min-width: 1000px) {
+    #blogCarouselContainer .swiper {
+        height: 100vh;
+        max-height: 700px;
+    }
+}
+
+#blogCarouselContainer .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+  #blogCarouselContainer .swiper-container {
+    height: 700px;
+  }
+
+  #blogCarouselContainer .swiper-pagination {
+    position: absolute;
+    left: 0;
+    width: 75px;
+    background-color: white;
+    padding-left: 27px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  #blogCarouselContainer .swiper-pagination-bullet {
+    width: 0 !important;
+    height: 0 !important; 
+  }

@@ -1,0 +1,27 @@
+.container {
+    @apply w-full h-full grid grid-cols-1 lg:grid-cols-2;
+}
+
+.content {
+    @apply w-full flex flex-col content-center justify-center pl-0 pr-7 py-7 lg:py-0 lg:px-20 mx-auto h-full;
+}
+
+.labelFrom {
+    @apply text-left mb-3 lg:mb-7 font-wp-semibold uppercase text-[14px] lg:text-[16px] font-outfit;
+}
+
+.labelTitle {
+    @apply text-left mb-3 lg:mb-7 font-wp-semibold text-[24px] lg:text-[36px] font-outfit break-words leading-[45px];
+}
+
+.description {
+    @apply text-left max-h-[250px] overflow-auto mb-7 lg:mb-16 font-wp-semibold text-[16px] lg:text-[20px] font-outfit break-words leading-[25px];
+}
+
+.containerImage {
+    @apply w-full bg-transparent lg:min-h-screen pr-7 lg:px-0;
+}
+
+.image {
+    @apply max-h-[400px] lg:max-h-max w-full object-contain lg:object-cover  bg-cover h-full bg-no-repeat my-auto mx-auto;
+}
