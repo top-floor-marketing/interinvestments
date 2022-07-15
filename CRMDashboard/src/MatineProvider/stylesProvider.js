@@ -78,6 +78,19 @@ const stylesProvider = () => {
                 borderBottom: "none",
             },
         }),
+        ActionIcon: (theme) => ({
+            root: {
+                color: theme.colors.dark[0],
+                transition: "all",
+                transitionDuration: "300",
+                transitionTimingFunction: "ease-in-out",
+                "&:hover": {
+                    backgroundColor: "transparent",
+                    color: theme.colors.dark[9],
+                    transform: "scale(1.1)"
+                }
+            },
+        })
     }
 }
 
