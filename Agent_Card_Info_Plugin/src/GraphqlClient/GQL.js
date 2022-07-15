@@ -5,7 +5,8 @@ const DATA_AGENT = gql`
     dataAgent(agentType: $agentType, agenId: $agenId) {
       id
       email
-      name
+      firstName
+      lastName
       phone
       position
       avatar
@@ -15,6 +16,7 @@ const DATA_AGENT = gql`
       instagram
       linkedin
       twitter
+      listing
     }
   }
 `

@@ -24,7 +24,7 @@ const InfoCard = (props) => {
                 component='h3'
                 className={styles.titleNameAgent}
             >
-                {dataAgent.name}
+                {`${dataAgent.firstName} ${dataAgent.lastName}`}
             </Text>
             <Text
                 data-aos-once="true"
