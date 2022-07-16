@@ -78,24 +78,27 @@ const stylesProvider = () => {
                 borderBottom: "none",
             },
         }),
-        ActionIcon: (theme) => ({
-            root: {
-                color: theme.colors.dark[0],
-                transition: "all",
-                transitionDuration: "300",
-                transitionTimingFunction: "ease-in-out",
-                "&:hover": {
-                    backgroundColor: "transparent",
-                    color: theme.colors.dark[9],
-                    transform: "scale(1.1)"
+        ActionIcon: (theme, params) => {
+            const _color =  params.color || 'dark'
+            return {
+                root: {
+                    color: theme.colors[_color][0],
+                    transition: "all",
+                    transitionDuration: "300",
+                    transitionTimingFunction: "ease-in-out",
+                    "&:hover": {
+                        backgroundColor: "transparent",
+                        color: theme.colors[_color][9],
+                        transform: "scale(1.1)"
+                    },
+                    "&:disabled": {
+                        backgroundColor: "transparent",
+                        color: theme.colors.gray[7],
+                        border: 0
+                    },
                 },
-                "&:disabled": {
-                    backgroundColor: "transparent",
-                    color: theme.colors.gray[7],
-                    border: 0
-                },
-            },
-        }),
+            }
+        },
         Tooltip: (theme, params) => {
             return {
                 body: {

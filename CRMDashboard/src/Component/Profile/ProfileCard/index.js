@@ -1,10 +1,13 @@
-import { Box, Card, createStyles, Text, Skeleton } from "@mantine/core";
-
-import { ShareAgent, EditModal } from "../../ActionButtons";
+import { Box, Card, createStyles, Skeleton } from "@mantine/core";
 
 import useGetProfileInfo from "./useGetProfileInfo";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+import MyProfileActions from "./myProfileActions";
+import InfoAgent from "./infoAgent";
+
+import get from 'lodash/get';
+
+const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
     width: "100%",
     minHeight: "200px",
@@ -21,31 +24,9 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     height: "100%",
     gap: theme.other.spacing.p5
   },
-  myProfileActions: {
-    display: "flex",
-    flexDirection: "row",
-    width: "100%",
-    gap: theme.other.spacing.p3,
-    justifyContent: "space-between",
-    alignContent: "center"
-  },
-  titleCard: {
-    fontSize: "16px",
-    fontWeight: 700,
-  },
-  shareButton: {
-    marginLeft: "auto",
-    marginTop: "auto",
-    marginBottom: "auto",
-    borderRadius: "10px",
-  },
-  editButton: {
-    marginTop: "auto",
-    marginBottom: "auto"
-  }
 }));
 
-const ProfileCard = (props) => {
+const ProfileCard = () => {
   const { classes } = useStyles();
 
   const { isLoading, dataAgent, isSkeleton } = useGetProfileInfo();
@@ -54,11 +35,8 @@ const ProfileCard = (props) => {
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Card className={classes.cardContainer}>
         <Box className={classes.boxContainer}>
-          <Box className={classes.myProfileActions}>
-            <Text className={classes.titleCard}>My profile</Text>
-            <ShareAgent disabled={isLoading} className={classes.shareButton} />
-            <EditModal disabled={isLoading} className={classes.editButton}/>
-          </Box>
+          <MyProfileActions id={get(dataAgent, ["id"], null)} isLoading={isLoading} />
+          <InfoAgent dataAgent={dataAgent}/>
         </Box>
       </Card>
     </Skeleton> 

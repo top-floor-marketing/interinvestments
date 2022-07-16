@@ -18,7 +18,8 @@ EditModal.defaultProps = {
     className: "",
     variant: "hover",
     size: 20,
-    labelTooltip: "Edit info"
+    labelTooltip: "Edit info",
+    color: "dark"
 };
 
   EditModal.propTypes = {
@@ -28,6 +29,7 @@ EditModal.defaultProps = {
     variant: PropTypes.oneOf(['transparent', 'hover',"default", "outline", "filled", "light"]),
     size: PropTypes.number,
     labelTooltip: PropTypes.string,
+    color: PropTypes.string
 };
 
 export default EditModal;
