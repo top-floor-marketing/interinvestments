@@ -5,12 +5,19 @@ import classNames from "classnames";
 
 import styles from "./styles_bc.module.scss";
 
+const ENVIROMENT_BC = process.env.REACT_APP_NODE_ENV;
+const DOMAIN_URL_BC =
+ENVIROMENT_BC === "production"
+    ? process.env.REACT_APP_DOMAIN_PROD
+    : process.env.REACT_APP_DOMAIN_DEV;
+
 const CarouselScreenXl = (props) => {
 
+  // slug, id
   const {
     urlImage,
     description,
-    id,
+    uri,
     title,
     imageAnimation,
     contentAnimation
@@ -40,7 +47,7 @@ const CarouselScreenXl = (props) => {
             <label className={styles.description}>{description}</label>
             <Button
               component="a"
-              href={`/post?=${id}`}
+              href={uri ? DOMAIN_URL_BC.concat(uri) : "#"}
               variant="white"
               className="btn-wp-primary"
             >
