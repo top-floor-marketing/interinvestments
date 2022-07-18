@@ -39,6 +39,8 @@ const UseGetBlogs = () => {
         description: maxString(removeHtmlInString(val.excerpt), 250),
         imageAnimation: ANIMATIONS[index]?.image || [],
         contentAnimation: ANIMATIONS[index]?.content || [],
+        slug: val?.slug || null,
+        uri: val?.uri || null
       };
     });
     return parseData;

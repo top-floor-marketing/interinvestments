@@ -16,9 +16,9 @@ import random from 'lodash/random';
 
 const useGetLead = ({ fetchInMount }) => {
 
-    const { infoUser: { roles } } = useSelector((state) => state.user);
+    const { infoUser } = useSelector((state) => state.user);
 
-    const isAdmin = getIsAdminUser(roles);
+    const isAdmin = getIsAdminUser(infoUser?.roles || []);
 
     const { 
         state: { isSkeleton, currentPage, perPage, cursorPaginator, leadsData }, 

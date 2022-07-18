@@ -16,7 +16,8 @@
         background-size: cover;
         background-position: 50%;
         background-repeat: no-repeat;
-        border: 2px solid;
+        border: 2px solid !important;
+        border-width: 1px !important;
         -webkit-transition-duration: .2s;
         transition-duration: .2s;
         -webkit-transition-property: all !important;
@@ -67,6 +68,14 @@
         border-color: #000000 !important;
         border: 2px solid transparent;
         border-radius: 0;
+    }
+
+    .btn-wp-primary-rounded {
+        border-radius: 32px !important;
+        -webkit-border-radius: 32px !important;
+        -moz-border-radius: 32px !important;
+        -ms-border-radius: 32px !important;
+        -o-border-radius: 32px !important;
     }
 
 }

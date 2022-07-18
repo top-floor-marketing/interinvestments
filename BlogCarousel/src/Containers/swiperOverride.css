@@ -1,15 +1,15 @@
 #blogCarouselContainer .swiper {
     width: 100% !important;
-    height: 100vh;
+    min-height: 85vh;
     min-height: 400px !important;
-    max-height: 700px !important;
+    max-height: 750px !important;
 }
 
 /* Extra small devices (phones,  1000px and down) */
 @media only screen and (min-width: 1000px) {
     #blogCarouselContainer .swiper {
-        height: 100vh;
-        max-height: 700px;
+        min-height: 85vh;
+        max-height: 750px;
     }
 }
 

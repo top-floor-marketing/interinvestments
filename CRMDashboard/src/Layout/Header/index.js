@@ -11,6 +11,8 @@ import {
 
 import LogoInter from "../../Assets/logo-inter.svg";
 
+import { LogoutIcon } from "../../Component/ActionButtons";
+
 import { COLOR_SCHEME_DARK } from "../../Store/themeSlice";
 
 import { useDispatch } from "react-redux";
@@ -34,6 +36,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
   boxContainer: {
     display: "flex",
+    flexDirection: "row",
     alignItems: "center",
     height: "100%",
     gap: theme.other.spacing.p5,
@@ -62,8 +65,11 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
   content: {
     display: "flex",
+    flexDirection: "row",
     alignItems: "center",
     height: "100%",
+    marginLeft: "auto",
+    padding: theme.other.spacing.p5,
     color: theme.colors.black[0],
   },
 }));
@@ -93,7 +99,9 @@ const HeaderDashboard = ({ opened, setOpened }) => {
             </Box>
           </Box>
         </MediaQuery>
-        <Box className={classes.content}></Box>
+        <Box className={classes.content}>
+          <LogoutIcon  size={24} color="dark" />
+        </Box>
       </Box>
     </Header>
   );
