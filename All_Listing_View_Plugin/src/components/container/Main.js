@@ -4,7 +4,7 @@ import { SkeletonGrid, LoaderMaps } from '../LoadingListing'
 // mantine
 import { Box, ScrollArea, Divider } from '@mantine/core';
 // styles
-import style from '../../blogStyles.ALV.module.scss'
+import style from '../../styles.ALV.module.scss'
 
 const Main = () => {
     return (

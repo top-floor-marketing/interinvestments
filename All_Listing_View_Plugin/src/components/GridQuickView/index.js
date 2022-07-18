@@ -5,7 +5,7 @@ import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
 
-import styles from "./styles_gd.module.scss";
+import styles from "./styles_gd_ALV.module.scss";
 
 const GridQuickView = ({
   data,
@@ -48,7 +48,7 @@ const GridQuickView = ({
         onClick: () => openModalQuickView(id),
         disabled: showOverlay,
         variant: "white",
-        className: "btn-wp-primary " + styles.buttonQuickView,
+        className: "btn-wp-primary btn-wp-primary-rounded " + styles.buttonQuickView,
       };
     },
     buttonRedirect: (uri) => {
