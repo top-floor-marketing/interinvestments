@@ -5,7 +5,7 @@ import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
 
-import styles from "./styles.gd.module.scss";
+import styles from "./styles_gd.module.scss";
 
 const GridQuickView = ({
   data,
@@ -26,7 +26,7 @@ const GridQuickView = ({
     },
     filter: {
       className:
-        " group-hover:bg-white  group-hover:opacity-[0.08] " + styles.filter,
+        " group-hover:bg-white  group-hover:opacity-[0.05] " + styles.filter,
     },
     infoContainer: {
       className:
@@ -48,15 +48,15 @@ const GridQuickView = ({
         onClick: () => openModalQuickView(id),
         disabled: showOverlay,
         variant: "white",
-        className: styles.buttonQuickView,
+        className: "btn-wp-primary btn-wp-primary-rounded " + styles.buttonQuickView,
       };
     },
-    buttonRedirect: (id) => {
+    buttonRedirect: (uri) => {
       return {
         disabled: showOverlay,
         variant: "white",
         component: "a",
-        href: `/project?id=${id}`,
+        href: uri,
         className: styles.buttonRedirect,
       };
     },
@@ -108,7 +108,7 @@ const GridQuickView = ({
                     <Text {...allProps.textTitle}>{val.title}</Text>
                     <Text {...allProps.textSubTitle}>{val.subTitle}</Text>
                   </div>
-                  <Button {...allProps.buttonRedirect(val.id)}>
+                  <Button {...allProps.buttonRedirect(val.uri)}>
                     <ChevronRight size={18} color="#FFB839" />
                   </Button>
                 </>
@@ -120,8 +120,8 @@ const GridQuickView = ({
                     <Button {...allProps.buttonQuickView(val.id)}>
                       Quick View
                     </Button>
-                    <Button {...allProps.buttonRedirect(val.id)}>
-                      <ChevronRight size={18} color="#FFB839" />
+                    <Button {...allProps.buttonRedirect(val.uri)}>
+                      <ChevronRight size={24} color="#FFB839" />
                     </Button>
                   </div>
                 </>

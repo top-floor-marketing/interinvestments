@@ -1,4 +1,4 @@
-import styles from "./styles.gd.module.scss";
+import styles from "./styles_gd.module.scss";
 
 const EmptyGrid = () => {
   return (
