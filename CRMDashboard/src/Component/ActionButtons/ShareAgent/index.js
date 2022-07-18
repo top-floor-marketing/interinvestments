@@ -48,7 +48,7 @@ ShareAgent.propTypes = {
   variant: PropTypes.oneOf(['transparent', 'hover', "default", "outline", "filled", "light"]),
   size: PropTypes.number,
   labelTooltip: PropTypes.string,
-  id: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   color: PropTypes.string
 };
 

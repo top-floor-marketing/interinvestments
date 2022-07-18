@@ -44,8 +44,8 @@ const AuthContainer = ({ isModal = false }) => {
     // localStorage set null
     setRefreshTokenLocal(null);
     setTokenLocal(null);
-    setRouteInLocalStorage(ROUTES_NAMES.AUTH);
     setIdLocalStorage(null);
+    setRouteInLocalStorage(ROUTES_NAMES.AUTH);
 
     // userSlice store set null
     dispatch(setInfoUser(null));
@@ -60,14 +60,14 @@ const AuthContainer = ({ isModal = false }) => {
     const isLogin = isLoginResponse(response);
 
     if (isLogin && getToken) {
-      setRefreshTokenLocal(getRefresh);
-      setTokenLocal(getToken);
-      setIdLocalStorage(getUser.id);
-      if (routeInStore === ROUTES_NAMES.AUTH) {
-        setRouteInLocalStorage(DEFAULT_ROUTE);
-        dispatch(setRoute(DEFAULT_ROUTE));
-      }
       dispatch(setInfoUser(getUser));
+        setRefreshTokenLocal(getRefresh);
+        setTokenLocal(getToken);
+        setIdLocalStorage(getUser.id);
+        if (routeInStore === ROUTES_NAMES.AUTH || !routeInStore) {
+          setRouteInLocalStorage(DEFAULT_ROUTE);
+          dispatch(setRoute(DEFAULT_ROUTE));
+        }
     } else {
       setNullStore();
     }
