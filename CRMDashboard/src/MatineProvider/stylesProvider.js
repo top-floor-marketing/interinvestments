@@ -96,6 +96,11 @@ const stylesProvider = () => {
                         color: theme.colors.gray[7],
                         border: 0
                     },
+                    ".icon-tabler-logout": {
+                        "&:hover": {
+                            color: theme.colors.error[0],
+                        },
+                    }
                 },
             }
         },

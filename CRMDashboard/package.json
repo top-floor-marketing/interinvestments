@@ -32,6 +32,7 @@
     "react-responsive-carousel": "3.2.23",
     "react-scripts": "5.0.0",
     "react-spring": "9.4.5",
+    "react-window": "1.8.7",
     "rewire": "6.0.0",
     "tabler-icons-react": "1.47.0"
   },

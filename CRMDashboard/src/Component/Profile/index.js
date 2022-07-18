@@ -2,8 +2,8 @@ import { Box, createStyles } from "@mantine/core";
 import SpringDiv from "../SpringDiv";
 // components
 import ProfileCard from "./ProfileCard";
-import Contacts from "./Contacts";
-import MyListings from "./MyListings";
+import RecentLeads from "./RecentLeads";
+import FeaturedListing from "./FeaturedListing";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
@@ -21,11 +21,10 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       flexDirection: "column",
     }
   },
-  leadsRow: {
+  featuredListingRow: {
     width: "100%",
     display: "flex",
-    flexDirection: "column",
-    gap: theme.other.spacing.p5
+    flexDirection: "column"
   }
 }));
 
@@ -38,13 +37,13 @@ const Profile = () => {
         <SpringDiv delay={300} duration={400}>
           <Box className={classes.infoAndLeadsRow}>
             <ProfileCard />
-            <MyListings />
+            <RecentLeads />
           </Box>
         </SpringDiv>
 
         <SpringDiv delay={600} duration={400}>
-          <Box className={classes.leadsRow}>
-            <Contacts />
+          <Box className={classes.featuredListingRow}>
+            <FeaturedListing />
           </Box>
         </SpringDiv>
 

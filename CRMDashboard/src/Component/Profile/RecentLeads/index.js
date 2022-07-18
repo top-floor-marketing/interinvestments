@@ -1,11 +1,11 @@
 import { Box, Card, createStyles } from "@mantine/core";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
     width: "33.3%",
     minHeight: "200px",
     boxShadow: theme.shadows.sm,
-    height: "100%",
+    height: "auto",
     [`${theme.fn.smallerThan("md")}`]: {
       width: "100%",
     }
@@ -18,14 +18,14 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
 }));
 
-const MyListings = (props) => {
+const RecentLeads = (props) => {
   const { classes } = useStyles();
 
   return (
       <Card className={classes.cardContainer}>
-        <Box className={classes.boxContainer}>My listings</Box>
+        <Box className={classes.boxContainer}>Recent leads</Box>
       </Card>
   );
 };
 
-export default MyListings;
+export default RecentLeads;
