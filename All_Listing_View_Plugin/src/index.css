@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.mantine-1fgj4n5:hover .__mantine-ref-thumb {
+    background-color: #dd9e32 !important;
+}
