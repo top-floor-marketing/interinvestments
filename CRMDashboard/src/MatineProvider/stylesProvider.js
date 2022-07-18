@@ -78,6 +78,44 @@ const stylesProvider = () => {
                 borderBottom: "none",
             },
         }),
+        ActionIcon: (theme, params) => {
+            const _color =  params.color || 'dark'
+            return {
+                root: {
+                    color: theme.colors[_color][0],
+                    transition: "all",
+                    transitionDuration: "300",
+                    transitionTimingFunction: "ease-in-out",
+                    "&:hover": {
+                        backgroundColor: "transparent",
+                        color: theme.colors[_color][9],
+                        transform: "scale(1.1)"
+                    },
+                    "&:disabled": {
+                        backgroundColor: "transparent",
+                        color: theme.colors.gray[7],
+                        border: 0
+                    },
+                    ".icon-tabler-logout": {
+                        "&:hover": {
+                            color: theme.colors.error[0],
+                        },
+                    }
+                },
+            }
+        },
+        Tooltip: (theme, params) => {
+            return {
+                body: {
+                    color: theme.colors.white[1],
+                    fontWeight: (params.color === "success") ? 700 : "normal",
+                    backgroundColor: (params.color === "success") ? theme.colors.success[0] : theme.colors.dark[1],
+                },
+                arrow: {
+                    backgroundColor: (params.color === "success") ? theme.colors.success[0] : theme.colors.dark[1],
+                }
+            }
+        }
     }
 }
 

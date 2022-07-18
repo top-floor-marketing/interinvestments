@@ -9,7 +9,7 @@
 }
 
 .contentDivContainer {
-    @apply min-h-[26vh] w-full lg:w-1/3 flex flex-col pb-5 pt-0 px-5;
+    @apply min-h-[26vh] w-full lg:w-1/3 flex flex-col pb-3 pt-0 px-3;
 }
 
 .containerBottomRow {
@@ -17,23 +17,44 @@
 }
 
 .nameOfDevelopmentContainer {
-    @apply w-2/3 border border-solid border-r-[#D1D1D1] border-y-0 border-l-0 grid grid-cols-1 p-5 gap-1;
+    @apply w-2/3 border border-solid border-r-[#D1D1D1] border-y-0 border-l-0 grid grid-cols-1 p-3 gap-3;
+    display: flex !important;
+    flex-direction: row !important;
+    border-right: 1px solid #D1D1D1 !important;
 }
 
+.nameRowDevelopment {
+    @apply w-full flex flex-col;
+}
+
+.externalButtonsDevelopment {
+    @apply flex flex-row justify-center content-center h-full gap-3;
+    width: 150px !important;
+}
+
+.buttonChangeCarousel {
+    @apply bg-transparent 
+mt-auto hover:font-[600] p-0
+transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black
+font-outfit ml-auto rounded-full border-solid border-black h-[60px] w-[60px] my-auto mx-auto;
+}
+
+
 .labelTitle {
-    @apply capitalize font-outfit text-[36px] leading-[40px] font-wp-semibold text-black mb-0;
+    @apply capitalize font-outfit text-[32px] leading-[36px] font-wp-semibold text-black mb-0;
 }
 
 .labelNameOfDevelopment {
-    @apply capitalize mt-auto font-outfit text-[22px] leading-[30px] text-black;
+    @apply capitalize mt-auto font-outfit text-[20px] leading-[28px] text-black;
 }
 
 .containerButtonView {
-    @apply w-1/3 flex flex-col p-5;
+    @apply w-1/3 flex flex-col p-3;
 }
 
 .buttonView {
     @apply text-black font-wp-semibold uppercase font-outfit text-[20px] my-auto h-full w-full flex border-white;
+    width: 100% !important;
     div:first-child {
         @apply mx-auto;
     }
@@ -70,7 +91,7 @@
 
 // Carousel Quick View
 .customIndicator {
-    @apply inline-block min-h-[5px] min-w-[50px] mr-2 transition-all duration-500 ease-in-out hover:cursor-pointer;
+    @apply inline-block min-h-[3px] min-w-[40px] mr-2 transition-all duration-500 ease-in-out hover:cursor-pointer;
 }
 
 .containerNoImage {

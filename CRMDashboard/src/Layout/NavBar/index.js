@@ -81,7 +81,7 @@ const NavBarDashboard = ({ opened }) => {
     },
     avatar: (avatarUrl) => {
       return {
-        radius: "xxl",
+        radius: "_40px",
         size: "lg",
         src: avatarUrl,
         alt: "Profile Image",

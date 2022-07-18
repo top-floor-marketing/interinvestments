@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+# ENV FOR REACT PLUGINS
+
 GENERATE_SOURCEMAP= false
 PROD_PATH = /* domain prod path */
 FOLDER_NAME = /* Name of plugin folder for build */

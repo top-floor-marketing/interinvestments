@@ -103,7 +103,7 @@ const ItemTable = ({ id, name, phoneNumber, email, key }) => {
     }, [height]);
 
     return (
-        <animated.div key={key} style={expand} className={classes.animateContainer}>
+        <animated.div style={expand} className={classes.animateContainer}>
             <Card className={classes.container} ref={ref} style={{ minHeight: "10px" }} >
                 <Box className={classes.leadRow}>
                     <Box className={classes.infoContainer}>

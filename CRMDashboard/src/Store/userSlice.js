@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { DEFAULT_ROUTE } from "../Route/routes";
+import { DEFAULT_ROUTE, ROUTES_NAMES } from "../Route/routes";
 import { LOCAL_STORAGE } from "../Utils/globalConstants";
 
 export const userSlice = createSlice({
@@ -28,11 +28,23 @@ export const userSlice = createSlice({
       localStorage.setItem(LOCAL_STORAGE.ROUTE, routeName);
       state.route = routeName;
     },
+    setLogout: (state) => {
+
+      localStorage.setItem(LOCAL_STORAGE.ROUTE, null);
+      localStorage.setItem(LOCAL_STORAGE.TOKEN, null);
+      localStorage.setItem(LOCAL_STORAGE.REFRESH, null);
+      localStorage.setItem(LOCAL_STORAGE.USER, null);
+      localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, null);
+
+      state.infoUser = null;
+      state.route = ROUTES_NAMES.AUTH;
+
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { toggleLoadingFull, setRoute, setInfoUser, setNavigation, setFilter } =
+export const { toggleLoadingFull, setRoute, setInfoUser, setNavigation, setFilter, setLogout } =
   userSlice.actions;
 
 export default userSlice.reducer;
