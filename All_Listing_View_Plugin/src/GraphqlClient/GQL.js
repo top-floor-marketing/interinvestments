@@ -1,21 +1,70 @@
 import { gql } from "graphql-request";
 
-const LEAD_LISTING_MUTATION = gql`
-  mutation leadListingMutation($input: LeadListingMutationInput!) {
-    leadListingMutation(input: $input) {
-      leadId
-      clientMutationId
-    }
-  }
-`
-
-const LISTINGS_BY_SLOG_FORM = gql`
-  query listingsBySlogForm($title: String!) {
-    listings(where: {title: $title}) {
+const ALL_LISTINGS_DEVELOPMENTS = gql`
+  query listings(
+    $NEIGHBORHOOD: [String], 
+    $LISTINGCATEGORY: [String] ,
+    $search: String,
+    $perPage: Int!, 
+    $after: String
+  ) {
+    listings(
+      where: {
+        taxQuery: {
+          taxArray: [
+            {operator: IN, terms: $NEIGHBORHOOD, taxonomy: NEIGHBORHOOD}, 
+            {operator: IN, terms: $LISTINGCATEGORY, taxonomy: LISTINGCATEGORY}
+          ]},
+        search: $search
+      }
+      first: $perPage
+      after: $after
+    ) {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
       nodes {
-        slug
-        title
         databaseId
+        date
+        uri
+        title
+        featuredImage {
+          node {
+            sourceUrl
+            uri
+          }
+        }
+        listingData {
+          newDevelopment {
+            photos {
+              fileSize
+              sourceUrl
+              altText
+            }
+            description
+            priceMin
+            priceMax
+            status
+            nameOfDevelopment
+          }
+        }
+        listingCategories {
+          nodes {
+            name
+            termTaxonomyId
+          }
+        }
+        neighborhoods {
+          nodes {
+            name
+            description
+            databaseId
+            termTaxonomyId
+          }
+        }
       }
     }
   }
@@ -23,4 +72,4 @@ const LISTINGS_BY_SLOG_FORM = gql`
 
 
 
-export { LEAD_LISTING_MUTATION, LISTINGS_BY_SLOG_FORM }
+export { ALL_LISTINGS_DEVELOPMENTS }

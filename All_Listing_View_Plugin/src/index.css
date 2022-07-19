@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@100&display=swap');
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
 
@@ -80,5 +82,8 @@
 
 }
 
-@tailwind components;
-@tailwind utilities;
+
+
+.mantine-1fgj4n5:hover .__mantine-ref-thumb {
+    background-color: #FFB839;
+}

@@ -6,6 +6,9 @@ module.exports = {
       "wp-bold": 500,
     },
     extend: {
+      height: {
+        'inherit': 'inherit',
+      },
       boxShadow: {
         "wp-normal": "0px 4px 25px 4px rgba(0, 0, 0, 0.05)",
       },
