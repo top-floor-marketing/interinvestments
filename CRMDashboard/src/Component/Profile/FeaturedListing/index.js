@@ -1,8 +1,8 @@
-import { Box, Card, createStyles, Text } from "@mantine/core";
-import { useViewportSize } from '@mantine/hooks';
+import { Card, createStyles, Text, Skeleton } from "@mantine/core";
 
-import InfiniteScrollContainer from "./infiniteScrollContainer";
 import useGetAgentListing from "./useGetAgentListing";
+
+import LoadInfiniteScroll from "../../LoadInfiniteScroll";
 
 const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
@@ -12,7 +12,7 @@ const useStyles = createStyles((theme, _params) => ({
     flexDirection: "column",
     boxShadow: theme.shadows.sm,
     gap: theme.other.spacing.p5,
-    height: "auto",
+    height: "100%",
   },
   titleCard: {
     fontSize: "18px",
@@ -20,23 +20,32 @@ const useStyles = createStyles((theme, _params) => ({
   },
   boxInfiniteLoader: {
     width: "100%",
-    minHeight: "200px",
-    maxHeight: "400px"
+    height: "100%",
+    minHeight:"250px",
+    maxHeight:"250px",
   }
 }));
 
 const FeaturedListing = (props) => {
+
   const { classes } = useStyles();
 
-  const { isSkeleton, isLoading, listingAgent, totalData, refetchData  } = useGetAgentListing();
+  const { isSkeleton, isLoading, listingAgent, totalData, refetchData } = useGetAgentListing();
 
   return (
+    <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Card className={classes.cardContainer}>
         <Text className={classes.titleCard}>Featured listings</Text>
-        <Box className={classes.boxInfiniteLoader}>
-          <InfiniteScrollContainer data={listingAgent} refetch={refetchData} isLoading={isLoading} />
-        </Box>  
+        <LoadInfiniteScroll
+          parentClassname={classes.boxInfiniteLoader}
+          name="listing"
+          data={listingAgent}
+          totalData={totalData}
+          refetch={refetchData}
+          isLoading={isLoading} />
       </Card>
+    </Skeleton>
+
   );
 };
 

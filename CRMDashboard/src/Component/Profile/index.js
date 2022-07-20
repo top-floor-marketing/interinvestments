@@ -10,7 +10,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    gap: theme.other.spacing.p5
+    gap: theme.other.spacing.p5,
+    height: "100%"
   },
   infoAndLeadsRow: {
     width: "100%",
@@ -23,6 +24,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
   featuredListingRow: {
     width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column"
   }

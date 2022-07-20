@@ -1,6 +1,8 @@
 import { useSpring, animated } from "react-spring";
 import PropTypes from 'prop-types';
 
+import './index.css';
+
 const SpringDiv = (props) => {
   const { style, delay = 500, duration = 500, children } = props;
   const animateProps = useSpring({
@@ -11,7 +13,7 @@ const SpringDiv = (props) => {
   });
 
   return (
-    <animated.div style={{ ...animateProps, ...style }}>
+    <animated.div className="springDivContainer" style={{ ...animateProps, ...style }}>
       {children}
     </animated.div>
   );
