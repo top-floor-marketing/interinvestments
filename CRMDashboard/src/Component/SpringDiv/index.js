@@ -1,5 +1,6 @@
 import { useSpring, animated } from "react-spring";
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './index.css';
 
@@ -13,7 +14,9 @@ const SpringDiv = (props) => {
   });
 
   return (
-    <animated.div className="springDivContainer" style={{ ...animateProps, ...style }}>
+    <animated.div className={classNames({
+      "springDivContainer": props.fullHeight
+    })} style={{ ...animateProps, ...style }}>
       {children}
     </animated.div>
   );
@@ -23,7 +26,8 @@ SpringDiv.propTypes = {
   style: PropTypes.object,
   delay: PropTypes.number,
   duration: PropTypes.number,
-  children: PropTypes.element
+  children: PropTypes.element,
+  fullHeight: PropTypes.bool
 };
 
 

@@ -1,8 +1,8 @@
-import { Card, createStyles, Text, Skeleton } from "@mantine/core";
+import { Card, createStyles, Text, Skeleton, ScrollArea } from "@mantine/core";
 
 import useGetAgentListing from "./useGetAgentListing";
 
-import LoadInfiniteScroll from "../../LoadInfiniteScroll";
+import InfiniteListingScroll from './infiniteListingScroll';
 
 const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
@@ -22,7 +22,15 @@ const useStyles = createStyles((theme, _params) => ({
     width: "100%",
     height: "100%",
     minHeight:"250px",
-    maxHeight:"250px",
+    maxHeight:"500px",
+  },
+  scrollTest: {
+    width: "100%",
+    backgroundColor: theme.colors.success[0],
+    height: "150px",
+     display: "flex",
+     flexDirection: "column",
+     gap: theme.other.spacing.p5,
   }
 }));
 
@@ -36,7 +44,7 @@ const FeaturedListing = (props) => {
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Card className={classes.cardContainer}>
         <Text className={classes.titleCard}>Featured listings</Text>
-        <LoadInfiniteScroll
+        <InfiniteListingScroll
           parentClassname={classes.boxInfiniteLoader}
           name="listing"
           data={listingAgent}

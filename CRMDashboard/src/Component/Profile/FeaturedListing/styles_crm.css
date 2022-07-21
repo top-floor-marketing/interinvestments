@@ -1,0 +1,4 @@
+.containerInfinite > *  {
+    scrollbar-color: #6969dd #e0e0e0 !important;
+    scrollbar-width: thin !important;
+}

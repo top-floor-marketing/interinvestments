@@ -9,21 +9,23 @@ import get from 'lodash/get';
 
 import ScrollComponent from "./scrollComponent";
 
-const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, columnCount, parentClassname }) => {
+const LoadInfiniteScroll = ({ name, children, data, isLoading, refetch, totalData, columnCount, parentClassname }) => {
 
     const uuid = useId("_" + random(1, 1000) + "_" + name);
     const refParentBox = useRef(null);
 
     return (
         <Box ref={refParentBox} className={parentClassname}>
-<ScrollComponent
-            id={uuid}
-            columnCount={columnCount}
-            parentHeight={get(refParentBox, ["current", "clientHeight"], null)}
-            data={data}
-            totalData={totalData}
-            refetch={refetch}
-            isLoading={isLoading} />
+            <ScrollComponent
+                id={uuid}
+                columnCount={columnCount}
+                parentHeight={get(refParentBox, ["current", "clientHeight"], null)}
+                data={data}
+                totalData={totalData}
+                refetch={refetch}
+                isLoading={isLoading} >
+                {React.cloneElement(children)}
+            </ScrollComponent>
         </Box>
 
     )
@@ -36,7 +38,8 @@ LoadInfiniteScroll.defaultProps = {
     refetch: null,
     totalData: 0,
     columnCount: 1,
-    parentClassname: ""
+    parentClassname: "",
+    children: null
 };
 
 LoadInfiniteScroll.propTypes = {
@@ -46,7 +49,8 @@ LoadInfiniteScroll.propTypes = {
     refetch: PropTypes.func,
     totalData: PropTypes.number,
     columnCount: PropTypes.number,
-    parentClassname: PropTypes.string
+    parentClassname: PropTypes.string,
+    children: PropTypes.node,
 };
 
 export default LoadInfiniteScroll;

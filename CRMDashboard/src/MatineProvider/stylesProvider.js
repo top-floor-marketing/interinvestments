@@ -115,6 +115,10 @@ const stylesProvider = () => {
                     backgroundColor: (params.color === "success") ? theme.colors.success[0] : theme.colors.dark[1],
                 }
             }
+        },
+        ScrollArea: (theme, params) => {
+            return {
+            }
         }
     }
 }

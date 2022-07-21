@@ -16,15 +16,15 @@ const useGetAgentListing = () => {
     const [isSkeleton, setIsSkeleton] = useState(true);
 
     const formatResponseData = (nextData) => {
-      return Array.from(Array(100), (index) => {
+      return Array.from(Array(10), (index) => {
         const _number = random(1, 10100);
         return {
-          imageUrl: "imageUrl_" + _number,
-          name: "name_" + _number,
-          neighborhood: "neighborhood_" + _number,
+          imageUrl: "https://www.mashvisor.com/blog/wp-content/uploads/2018/04/bigstock-Row-Of-New-Suburban-Homes-55511546.jpg",
+          name: "Astoria " + _number,
+          neighborhood: "Downtown Miami" + _number,
           id: "id_" + _number,
           uri: "uri_" + _number,
-          category: "category_" + _number,
+          category: "New Homes " + _number,
         }
       })
       /* const { listingAgent } = nextData;
@@ -42,11 +42,7 @@ const useGetAgentListing = () => {
         config: {
           onSuccess: (response) => {
             setIsSkeleton(false);
-            if(isSkeleton) {
-              setListingAgent([...listingAgent, ...formatResponseData(response)]);
-              setIsSkeleton(false);
-            }
-            setIsSkeleton(false);
+            setListingAgent([...listingAgent, ...formatResponseData(response)]);
           },
           onError: (e) => {
             setIsSkeleton(false);

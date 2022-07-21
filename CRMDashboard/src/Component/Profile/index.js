@@ -33,7 +33,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const Profile = () => {
   const { classes } = useStyles();
   return (
-    <SpringDiv delay={200} duration={400}>
+    <SpringDiv delay={200} duration={400} fullHeight>
       <Box className={classes.container}>
 
         <SpringDiv delay={300} duration={400}>
@@ -43,7 +43,7 @@ const Profile = () => {
           </Box>
         </SpringDiv>
 
-        <SpringDiv delay={600} duration={400}>
+        <SpringDiv delay={600} duration={400} fullHeight>
           <Box className={classes.featuredListingRow}>
             <FeaturedListing />
           </Box>
