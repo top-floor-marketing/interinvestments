@@ -1,7 +1,7 @@
 @tailwind utilities;
 
 .containerContend {
-    @apply w-full h-screen flex flex-col lg:flex-row gap-5 lg:gap-1 pt-5 mt-[200px] md:mt-[80px];
+    @apply w-full h-screen flex flex-col lg:flex-row gap-5;
 }
 
 .containerMain {
@@ -9,5 +9,9 @@
 }
 
 .containerGridCard {
-    @apply w-full pr-4 lg:w-2/5;
+    @apply w-full lg:w-2/5 pt-5;
+}
+
+.containerMap {
+    @apply w-full h-inherit lg:h-full lg:w-[60%];
 }

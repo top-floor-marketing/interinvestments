@@ -2,6 +2,9 @@ import React from 'react'
 // components
 import FiltersListings from '../FiltersListings'
 import { SkeletonGrid, LoaderMaps } from '../LoadingListing'
+import MapListing from '../MapListing'
+import GridListing from '../GridListing'
+import AlertError from '../AlertError'
 // Hooks
 import { useGetFeaturedDev } from '../../Hooks'
 // mantine
@@ -13,9 +16,23 @@ const Main = () => {
     // usar hook, validar error o skeleton
     const { isLoading, isError } = useGetFeaturedDev()
 
+    if (isError) {
+        return (
+            <Box className='flex items-center justify-center w-full h-screen'>
+                <AlertError
+                    label='Error!'
+                    description='Please wait a few minutes before you try again'
+                />
+            </Box>
+        )
+    }
+
     return (
         <AppShell
             className={style.containerMain}
+            classNames={{
+                main: 'p-[20px] pb-0 lg:pl-[20px] lg:pr-0 lg:pt-0 mt-[200px] md:mt-[88px]'
+            }}
             header={
                 <Header fixed>
                     <FiltersListings />
@@ -28,7 +45,7 @@ const Main = () => {
                     className={style.containerGridCard}
                     classNames={{
                         root: 'h-[350px] lg:h-full lg:max-h-screen',
-                        viewport: 'pr-0 md:pr-2',
+                        viewport: 'pr-0 md:pr-4',
                         thumb: 'bg-[#FFB839]'
                     }}
                 >
@@ -36,17 +53,17 @@ const Main = () => {
                         (isLoading && !isError) ? (
                             <SkeletonGrid />
                         ) : (
-                            <p>data true</p>
+                            <GridListing />
                         )
                     }
 
                 </Box>
-                <Box className='flex items-center justify-center w-full gap-3 lg:w-3/5'>
+                <Box className={style.containerMap}>
                     {
                         (isLoading && !isError) ? (
                             <LoaderMaps />
                         ) : (
-                            <p>data true</p>
+                            <MapListing />
                         )
                     }
                 </Box>

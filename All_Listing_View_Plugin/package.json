@@ -19,6 +19,7 @@
     "@testing-library/user-event": "^13.5.0",
     "aos": "^2.3.4",
     "dayjs": "^1.11.2",
+    "google-map-react": "^2.2.0",
     "graphql": "^16.5.0",
     "graphql-request": "^4.3.0",
     "lottie-react": "^2.3.1",

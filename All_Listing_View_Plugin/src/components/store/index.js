@@ -1,7 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 // slices
 import filterSlice, { setSearch, setneighborhood, setcategoy } from './filterSlice'
-import statusQuerySlice, { setIsLoading, setcISError, setDataCategory, setDataNeighborhood } from './statusQuerysSlice'
+import statusQuerySlice, {
+    setIsLoading,
+    setcISError,
+    setDataCategory,
+    setDataNeighborhood,
+    setDataMapApiKey
+} from './statusQuerysSlice'
 
 export const store = configureStore({
     reducer: {
@@ -17,7 +23,8 @@ const actionslices = {
     setDataCategory,
     setDataNeighborhood,
     setneighborhood,
-    setcategoy
+    setcategoy,
+    setDataMapApiKey
 }
 
 export { actionslices }

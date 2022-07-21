@@ -15,13 +15,14 @@ const SegmentedTypeListing = (props) => {
             { label: 'tes  2', value: 'tes2' },
         ],
         value,
-        onChange: onChangeSegmente = () => {}
+        onChange: onChangeSegmente = () => { }
     } = props
 
     if (!matches) {
         return (
             <Select
                 value={value}
+                onChange={(value) => onChangeSegmente(value)}
                 className={styles.inputsearch}
                 placeholder="Select category"
                 radius="xl"
