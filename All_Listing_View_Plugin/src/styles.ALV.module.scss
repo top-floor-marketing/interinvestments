@@ -1,17 +1,13 @@
 @tailwind utilities;
 
 .containerContend {
-    @apply w-full h-screen flex flex-col lg:flex-row gap-5 lg:gap-1 py-2;
+    @apply w-full h-screen flex flex-col lg:flex-row gap-5 lg:gap-1 pt-5 mt-[200px] md:mt-[80px];
 }
 
 .containerMain {
     @apply flex flex-col gap-5;
 }
 
-.containerFilters {
-    @apply sticky top-0 w-full p-4 pb-0 z-10;
-}
-
 .containerGridCard {
-    @apply w-full px-4 lg:w-2/5;
+    @apply w-full pr-4 lg:w-2/5;
 }

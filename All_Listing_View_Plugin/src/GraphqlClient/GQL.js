@@ -1,6 +1,28 @@
 import { gql } from "graphql-request";
 
-const ALL_LISTINGS_DEVELOPMENTS = gql`
+
+export const LISTINGS_CATEGORY = gql`
+  query listingsCategory($first: Int) {
+    listingCategories(first: $first) {
+      nodes {
+        name
+        databaseId
+      }
+    }
+}`
+
+export const ALL_NEIGHBORHOODS = gql`
+  query neighborhoods {
+    neighborhoods {
+      nodes{
+        name
+        databaseId
+    }
+  }
+  }
+`
+
+export const ALL_LISTINGS_DEVELOPMENTS = gql`
   query listings(
     $NEIGHBORHOOD: [String], 
     $LISTINGCATEGORY: [String] ,
@@ -69,7 +91,3 @@ const ALL_LISTINGS_DEVELOPMENTS = gql`
     }
   }
 `
-
-
-
-export { ALL_LISTINGS_DEVELOPMENTS }
