@@ -14,7 +14,7 @@ import style from '../../styles.ALV.module.scss'
 
 const Main = () => {
     // usar hook, validar error o skeleton
-    const { isLoading, isError } = useGetFeaturedDev()
+    const { isLoading, isError, refetchListing, dataListing, totalData, loadingListing } = useGetFeaturedDev()
 
     if (isError) {
         return (
@@ -40,24 +40,32 @@ const Main = () => {
             }
         >
             <Box className={style.containerContend}>
-                <Box
-                    component={ScrollArea}
-                    className={style.containerGridCard}
-                    classNames={{
-                        root: 'h-[350px] lg:h-full lg:max-h-screen',
-                        viewport: 'pr-0 md:pr-4',
-                        thumb: 'bg-[#FFB839]'
-                    }}
-                >
-                    {
-                        (isLoading && !isError) ? (
+                {
+                    (isLoading && !isError) ? (
+                        <Box
+                            component={ScrollArea}
+                            className={style.containerGridCard}
+                            classNames={{
+                                root: 'h-[350px] lg:h-full lg:max-h-screen',
+                                viewport: 'pr-0 md:pr-4',
+                                thumb: 'bg-[#FFB839]'
+                            }}
+                        >
                             <SkeletonGrid />
-                        ) : (
-                            <GridListing />
-                        )
-                    }
-
-                </Box>
+                        </Box>
+                    ) : (
+                        <Box className={style.sectionGridListing}>
+                            <GridListing
+                                refetch={refetchListing}
+                                data={dataListing}
+                                totalData={totalData}
+                                name="grid"
+                                isLoading={loadingListing}
+                                parentClassname={style.containerGridInfinite}
+                            />
+                        </Box>
+                    )
+                }
                 <Box className={style.containerMap}>
                     {
                         (isLoading && !isError) ? (

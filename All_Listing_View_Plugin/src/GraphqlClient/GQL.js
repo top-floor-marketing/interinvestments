@@ -47,7 +47,7 @@ export const ALL_LISTINGS_DEVELOPMENTS = (Category = null, neighborhood = null) 
                 ${(neighborhood) ? ' {operator: IN, terms: $NEIGHBORHOOD, taxonomy: NEIGHBORHOOD},' : ''} 
                 ${(Category) ? '{operator: IN, terms: $LISTINGCATEGORY, taxonomy: LISTINGCATEGORY}' : ''}
               ]},
-            search: $search
+            search: $search,
           }
           first: $perPage
           after: $after

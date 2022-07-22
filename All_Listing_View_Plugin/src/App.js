@@ -2,7 +2,7 @@ import { useEffect } from "react";
 // components
 import Main from './components/container/Main'
 // react query
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // redux
 import { Provider } from 'react-redux'
 import { store } from './components/store'

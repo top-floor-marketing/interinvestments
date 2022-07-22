@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 // react-query
 import { useQueryHelper } from '../GraphqlClient/useRequest';
 import { LISTINGS_CATEGORY, ALL_NEIGHBORHOODS, ACF_OPTIONS_GlOBAL_OPTIONS, ALL_LISTINGS_DEVELOPMENTS } from '../GraphqlClient/GQL';
@@ -6,6 +6,9 @@ import { LISTINGS_CATEGORY, ALL_NEIGHBORHOODS, ACF_OPTIONS_GlOBAL_OPTIONS, ALL_L
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import { actionslices } from '../components/store'
+
+import isEmpty from 'lodash/isEmpty';
+import get from 'lodash/get';
 
 const useGetFeaturedDev = () => {
     // redux vales
@@ -20,7 +23,9 @@ const useGetFeaturedDev = () => {
         setcategoy
     } = actionslices
     const { search, neighborhood, categoy } = useSelector((state) => state.filter)
-    const { dataCategory, isLoading, isError, dataNei, mapApiKey } = useSelector((state) => state.statusQuery)
+    const { dataCategory, dataListing, pageInfoListing, isLoading, isError, dataNei, mapApiKey } = useSelector((state) => state.statusQuery)
+
+    const [perPage] = useState(15);
 
     // 1
     useQueryHelper({
@@ -85,7 +90,14 @@ const useGetFeaturedDev = () => {
 
     const variablesListint = () => {
         let variables = {
-            search
+            perPage,
+            after: get(pageInfoListing, ["endCursor"], "")
+        }
+        if (search) {
+            variables = {
+                ...variables,
+                search
+            }
         }
         if (neighborhood) {
             variables = {
@@ -96,18 +108,18 @@ const useGetFeaturedDev = () => {
         if (categoy) {
             variables = {
                 ...variables,
-                LISTINGCATEGORY: categoy
+                LISTINGCATEGORY: [categoy]
             }
         }
         return variables
     }
 
     // 4
-    const { refetch: refetchListing } = useQueryHelper({
+    const { isLoading: isLoadingListing, isFetching: isFetchingListing, refetch: refetchListing } = useQueryHelper({
         name: 'ALL_LISTINGS_DEVELOPMENTS_By_AllListingView',
         gql: ALL_LISTINGS_DEVELOPMENTS((categoy ? categoy : null), (neighborhood ? neighborhood : null)),
         config: {
-            enabled: !!mapApiKey,
+            enabled: !isEmpty(mapApiKey),
             onSuccess: (req) => {
                 // set data acf opcion
                 dispatch(setDataListing({ ...req.listings }))
@@ -121,18 +133,24 @@ const useGetFeaturedDev = () => {
                 dispatch(setcISError(true))
             },
         },
-        variables: { ...variablesListint() }
+        variables: {
+            ...variablesListint()
+         }
     });
 
     useEffect(() => {
-        if (mapApiKey) {
+        if (!isEmpty(mapApiKey)) {
             refetchListing()
         }
     }, [search, neighborhood, categoy, refetchListing, mapApiKey])
 
     return {
         isError,
-        isLoading
+        isLoading,
+        refetchListing,
+        dataListing: dataListing,
+        totalData: dataListing.length,
+        loadingListing: isLoading || isFetchingListing || isLoadingListing
     }
 }
 

@@ -7,7 +7,8 @@ const initialState = {
     mapApiKey: '',
     dataCategory: [],
     dataNei: [],
-    dataListing: {}
+    dataListing: [],
+    pageInfoListing: {}
 }
 
 export const filterSlice = createSlice({
@@ -30,7 +31,10 @@ export const filterSlice = createSlice({
             state.mapApiKey = action.payload
         },
         setDataListing: (state, action) => {
-            state.dataListing = action.payload
+            state.dataListing = [...action.payload.nodes, ...state.dataListing];
+            if(action.payload.pageInfo?.endCursor) {
+                state.pageInfoListing = action.payload.pageInfo;
+            }
         },
     },
 })
