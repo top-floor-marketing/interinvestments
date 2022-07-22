@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQueryHelper } from "../../../GraphqlClient/useRequest";
-import { GET_AGENT_PROFILE_INFO } from "../../../GraphqlClient/agentProfile.gql";
+import { GET_AGENT_FEATURED_LISTING } from "../../../GraphqlClient/agentProfile.gql";
 
 // global Store
 import { useSelector } from "react-redux";
@@ -37,8 +37,8 @@ const useGetAgentListing = () => {
     }
 
     const { isLoading: isLoadingQuery, isFetching: isFetchingQuery, isError, refetch } = useQueryHelper({
-        name: "get-agent-info-crm",
-        gql: GET_AGENT_PROFILE_INFO,
+        name: "get-agent-featured-listing-crm",
+        gql: GET_AGENT_FEATURED_LISTING,
         config: {
           onSuccess: (response) => {
             setIsSkeleton(false);
