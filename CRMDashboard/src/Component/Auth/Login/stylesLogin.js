@@ -51,7 +51,10 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     marginBottom: "0.70rem",
   },
   InputForm: {
-    ref: getRef("InputForm"),
+    '.mantine-TextInput-withIcon': {
+      padding: "1px 2px !important",
+      paddingLeft: "36px !important"
+    }
   },
   containerForm: {
     width: "100%",

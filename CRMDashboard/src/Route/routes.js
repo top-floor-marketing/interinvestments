@@ -21,7 +21,7 @@ export const ROUTES_NAMES = {
   PROFILE: "profile",
 };
 
-export const DEFAULT_ROUTE = ROUTES_NAMES.LEADS;
+export const DEFAULT_ROUTE = ROUTES_NAMES.PROFILE;
 
 export const CRM_ROUTES = [
   {

@@ -10,7 +10,8 @@ const AvatarAgent = (props) => {
             // data-aos-delay="700"
             data-aos="zoom-in"
             classNames={{
-                root: 'mx-auto'
+                root: 'mx-auto',
+                image: 'border-solid border-1 border-[#D1D1D1]'
             }}
             radius={90}
             size={170}

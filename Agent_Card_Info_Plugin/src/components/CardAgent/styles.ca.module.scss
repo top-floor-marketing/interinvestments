@@ -3,7 +3,7 @@
 }
 
 .containInfoAgent {
-    @apply w-full flex flex-col justify-start gap-5 md:gap-1;
+    @apply w-full max-w-[680px] flex flex-col justify-start gap-5 md:gap-1;
 }
 
 .titleNameAgent {

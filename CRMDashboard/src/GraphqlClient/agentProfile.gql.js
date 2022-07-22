@@ -2,7 +2,7 @@ import { gql } from "graphql-request";
 
 const AGENT_TYPE = 'AGENT';
 
-export const GET_AGENT_INFO= gql`
+export const GET_AGENT_PROFILE_INFO= gql`
 query GetAgentInfo($agentId: Int = 10) {
     dataAgent(
         agentType: ${AGENT_TYPE}, agenId: $agentId
