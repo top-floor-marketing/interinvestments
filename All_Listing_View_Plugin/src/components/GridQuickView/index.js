@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Paper, Text } from "@mantine/core";
+import { Button, Text, Box } from "@mantine/core";
 import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
@@ -9,15 +9,13 @@ import styles from "./styles_gd_ALV.module.scss";
 
 const GridQuickView = ({
   data,
-  openModalQuickView,
-  showOverlay,
-  isMobileScreen,
+  openModalQuickView = (id) => { console.log('ModalId', id) },
+  showOverlay = false,
+  isMobileScreen = false,
+  index
 }) => {
   // @apply should not be used with the 'group' utility
   const allProps = {
-    container: {
-      className: styles.container,
-    },
     paperItem: {
       className: " group " + styles.paperItem,
     },
@@ -25,8 +23,7 @@ const GridQuickView = ({
       className: styles.imgCover,
     },
     filter: {
-      className:
-        " group-hover:bg-white  group-hover:opacity-[0.05] " + styles.filter,
+      className: "group-hover:bg-white group-hover:opacity-[0.05] " + styles.filter,
     },
     infoContainer: {
       className:
@@ -79,58 +76,55 @@ const GridQuickView = ({
   };
 
   return (
-    <>
-      <div {...allProps.container}>
-        {data.map((val, index) => (
-          <Paper
-            data-aos="zoom-in"
-            data-aos-delay={calcDelay(index)}
-            data-aos-duration={calcDuration(index)}
-            data-aos-once={true}
-            key={index}
-            {...allProps.paperItem}
-          >
-            {isMobileScreen ? (
-              <CarouselMobile photos={val.photos} />
-            ) : (
-              <img
-                src={val.photos[0] ? val.photos[0].sourceUrl : ""}
-                alt="Interinvestments img"
-                {...allProps.imgCover}
-              />
-            )}
+    <Box
+      data-aos="zoom-in"
+      data-aos-delay={calcDelay(index)}
+      data-aos-duration={calcDuration(index)}
+      data-aos-once={true}
+      key={index}
+      classNames={{
+        root: '!p-0'
+      }}
+      {...allProps.paperItem}
+    >
+      {isMobileScreen ? (
+        <CarouselMobile photos={data.photos} />
+      ) : (
+        <img
+          src={data.photos[0] ? data.photos[0].sourceUrl : ""}
+          alt="Interinvestments img"
+          {...allProps.imgCover}
+        />
+      )}
 
-            <div {...allProps.filter}></div>
-            <div {...allProps.infoContainer}>
-              {isMobileScreen ? (
-                <>
-                  <div className="flex flex-col gap-2">
-                    <Text {...allProps.textTitle}>{val.title}</Text>
-                    <Text {...allProps.textSubTitle}>{val.subTitle}</Text>
-                  </div>
-                  <Button {...allProps.buttonRedirect(val.uri)}>
-                    <ChevronRight size={18} color="#FFB839" />
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Text {...allProps.textTitle}>{val.title}</Text>
-                  <Text {...allProps.textSubTitle}>{val.subTitle}</Text>
-                  <div {...allProps.gridButtons}>
-                    <Button {...allProps.buttonQuickView(val.id)}>
-                      Quick View
-                    </Button>
-                    <Button {...allProps.buttonRedirect(val.uri)}>
-                      <ChevronRight size={24} color="#FFB839" />
-                    </Button>
-                  </div>
-                </>
-              )}
+      <div {...allProps.filter}></div>
+      <div {...allProps.infoContainer}>
+        {isMobileScreen ? (
+          <>
+            <div className="flex flex-col gap-2">
+              <Text {...allProps.textTitle}>{data.title}</Text>
+              <Text {...allProps.textSubTitle}>{data.subTitle}</Text>
             </div>
-          </Paper>
-        ))}
+            <Button {...allProps.buttonRedirect(data.uri)}>
+              <ChevronRight size={18} color="#FFB839" />
+            </Button>
+          </>
+        ) : (
+          <>
+            <Text {...allProps.textTitle}>{data.title}</Text>
+            <Text {...allProps.textSubTitle}>{data.subTitle}</Text>
+            <div {...allProps.gridButtons}>
+              <Button {...allProps.buttonQuickView(data.id)}>
+                Quick View
+              </Button>
+              <Button {...allProps.buttonRedirect(data.uri)}>
+                <ChevronRight size={24} color="#FFB839" />
+              </Button>
+            </div>
+          </>
+        )}
       </div>
-    </>
+    </Box>
   );
 };
 
@@ -139,6 +133,7 @@ GridQuickView.propTypes = {
   openModalQuickView: PropTypes.func,
   showOverlay: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
+  index: PropTypes.number
 };
 
 export default GridQuickView;

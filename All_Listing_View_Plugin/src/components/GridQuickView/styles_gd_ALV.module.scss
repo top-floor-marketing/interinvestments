@@ -4,7 +4,7 @@
 }
 
 .paperItem {
-    @apply relative flex flex-col min-h-[280px] max-h-[300px] w-full rounded-[10px] shadow-wp-normal;
+    @apply relative flex flex-col w-full h-full rounded-[10px] shadow-wp-normal;
 }
 
 .imgCover {
@@ -35,7 +35,7 @@
 }
 
 .buttonRedirect {
-@apply bg-transparent 
+    @apply bg-transparent 
 mt-auto hover:font-[600] p-0
 transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black
 font-outfit ml-auto rounded-full border-solid border-white h-[40px] w-[40px];

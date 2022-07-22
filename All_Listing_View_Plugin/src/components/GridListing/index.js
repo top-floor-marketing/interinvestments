@@ -2,20 +2,21 @@ import React, { forwardRef, useRef } from "react";
 import { FixedSizeGrid as Grid } from "react-window";
 import PropTypes from 'prop-types';
 
+// mantine devs
 import { useId } from '@mantine/hooks';
-
-import AutoSizer from "react-virtualized-auto-sizer";
-
 import { Box, Card, createStyles } from '@mantine/core';
-
-import random from 'lodash/random';
+// componets
+import AutoSizer from "react-virtualized-auto-sizer";
+import GridQuickView from '../GridQuickView'
+// utils
 import get from 'lodash/get';
+import random from 'lodash/random';
 
 import './styles_all_listing.css';
 
 // 1.25rem === p5
 const GUTTER_SIZE = 20;
-const ROW_HEIGHT = 270;
+const ROW_HEIGHT = 300;
 
 const useStyles = createStyles((theme, _params) => ({
   itemScroll: {
@@ -86,8 +87,22 @@ const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentC
                   height: style.height - GUTTER_SIZE
                 }}
               >
-                <Card className={classes.itemScroll}>
-                  {(rowIndex * 2) + columnIndex}
+                <Card
+                  className={classes.itemScroll}
+                  classNames={{
+                    root: '!p-0'
+                  }}
+                >
+                  {
+                    // (rowIndex * 2) + columnIndex
+                    // console.log(data.listingData)
+                  }
+                  {
+                    <GridQuickView
+                      data={data[(rowIndex * 2) + columnIndex].listingData.newDevelopment}
+                      index={(rowIndex * 2) + columnIndex}
+                    />
+                  }
                 </Card>
               </div>
             }}
