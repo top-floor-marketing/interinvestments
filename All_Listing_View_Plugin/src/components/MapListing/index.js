@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux'
 
 const MapListing = () => {
     const { mapApiKey } = useSelector((state) => state.statusQuery)
-    console.log('mapApiKey', mapApiKey)
 
     const defaultProps = {
         center: {
@@ -18,7 +17,6 @@ const MapListing = () => {
         },
         zoom: 11
     };
-
 
     return (
         <Box className='w-full h-full'>

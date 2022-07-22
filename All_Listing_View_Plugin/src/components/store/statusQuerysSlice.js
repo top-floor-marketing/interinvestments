@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     isLoading: true,
-    isListingErro: false,
+    isListingError: false,
     isError: false,
     mapApiKey: '',
     dataCategory: [],
     dataNei: [],
-    dataListing: []
+    dataListing: {}
 }
 
 export const filterSlice = createSlice({
@@ -29,10 +29,20 @@ export const filterSlice = createSlice({
         setDataMapApiKey: (state, action) => {
             state.mapApiKey = action.payload
         },
+        setDataListing: (state, action) => {
+            state.dataListing = action.payload
+        },
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setIsLoading, setcISError, setDataCategory, setDataNeighborhood, setDataMapApiKey } = filterSlice.actions
+export const {
+    setIsLoading,
+    setcISError,
+    setDataCategory,
+    setDataNeighborhood,
+    setDataMapApiKey,
+    setDataListing
+} = filterSlice.actions
 
 export default filterSlice.reducer
