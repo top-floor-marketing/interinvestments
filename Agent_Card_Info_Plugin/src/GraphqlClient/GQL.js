@@ -16,7 +16,6 @@ const DATA_AGENT = gql`
       instagram
       linkedin
       twitter
-      listing
     }
   }
 `
