@@ -5,8 +5,7 @@ import { GET_AGENT_FEATURED_LISTING } from "../../../GraphqlClient/agentProfile.
 // global Store
 import { useSelector } from "react-redux";
 
-import random from 'lodash/random';
-
+import get from 'lodash/get';
 
 const useGetAgentListing = () => {
 
@@ -15,25 +14,9 @@ const useGetAgentListing = () => {
     const [listingAgent,setListingAgent] = useState([]);
     const [isSkeleton, setIsSkeleton] = useState(true);
 
-    const formatResponseData = (nextData) => {
-      return Array.from(Array(10), (index) => {
-        const _number = random(1, 10100);
-        return {
-          imageUrl: "https://www.mashvisor.com/blog/wp-content/uploads/2018/04/bigstock-Row-Of-New-Suburban-Homes-55511546.jpg",
-          name: "Astoria " + _number,
-          neighborhood: "Downtown Miami" + _number,
-          id: "id_" + _number,
-          uri: "uri_" + _number,
-          category: "New Homes " + _number,
-        }
-      })
-      /* const { listingAgent } = nextData;
-      if(listingAgent?.length) {
-        return {
-          ...listingAgent[0]
-        }
-      }
-      return null; */
+    const formatResponseData = (response) => {
+      const listings = get(response, ["dataAgent", "0", "listings", "nodes"], []);
+      return listings;
     }
 
     const { isLoading: isLoadingQuery, isFetching: isFetchingQuery, isError, refetch } = useQueryHelper({
@@ -42,11 +25,10 @@ const useGetAgentListing = () => {
         config: {
           onSuccess: (response) => {
             setIsSkeleton(false);
-            setListingAgent([...listingAgent, ...formatResponseData(response)]);
+            setListingAgent(formatResponseData(response));
           },
           onError: (e) => {
             setIsSkeleton(false);
-            console.log("e ", e);
           },
         },
         variables: {

@@ -12,19 +12,19 @@ import classNames from 'classnames';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
     animateContainer: {
-        marginBottom: theme.other.spacing.p5
+        marginBottom: theme.other.spacing.p4
     },
     container: {
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        gap: theme.other.spacing.p5,
+        gap: theme.other.spacing.p4,
     },
     leadRow: {
         width: "100%",
         display: "flex",
         flexDirection: "row",
-        gap: theme.other.spacing.p5,
+        gap: theme.other.spacing.p4,
         alignItems: "center",
         justifyContent: "space-between"
     },
@@ -46,7 +46,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         display: "flex",
         flexDirection: "row",
         height: "auto",
-        gap: theme.other.spacing.p5,
+        gap: theme.other.spacing.p4,
         justifyContent: "start",
         /* [theme.fn.smallerThan('sm')]: {
             fontSize: theme.fontSizes.sm,

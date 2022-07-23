@@ -33,6 +33,28 @@ query GetAgentInfo($agentId: Int = 10) {
           nodes {
             title
             listingId
+            databaseId
+      date
+      uri
+      neighborhoods {
+        nodes {
+          description
+          databaseId
+          name
+        }
+      }
+      listingData {
+        newDevelopment {
+          latitude
+          longitude
+          photos {
+            altText
+            databaseId
+            mimeType
+            sourceUrl
+          }
+        }
+      }
           }
         }
     }

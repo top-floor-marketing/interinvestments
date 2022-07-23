@@ -10,14 +10,14 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p4,
     height: "100%"
   },
   infoAndLeadsRow: {
     width: "100%",
     display: "flex",
     flexDirection: "row",
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p4,
     [`${theme.fn.smallerThan("md")}`]: {
       flexDirection: "column",
     }

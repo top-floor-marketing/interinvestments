@@ -22,7 +22,7 @@ const useStyles = createStyles((theme, _params) => ({
     flexDirection: "column",
     width: "100%",
     height: "100%",
-    gap: theme.other.spacing.p5
+    gap: theme.other.spacing.p4
   },
 }));
 

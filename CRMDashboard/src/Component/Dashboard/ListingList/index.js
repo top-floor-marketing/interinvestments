@@ -32,7 +32,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     width: "100%",
     height: "100%",
     alignContent: "center",
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p4,
     paddingBottom: theme.other.spacing.p8,
   },
   itemListing: {
@@ -41,7 +41,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     width: "100%",
     minHeight: "80px",
     height: "max-content",
-    padding: theme.other.spacing.p5,
+    padding: theme.other.spacing.p4,
     gap: theme.other.spacing.p8,
     alignContent: "center",
     backgroundColor: theme.colors.gray[0],

@@ -8,7 +8,7 @@ dayjs.extend(relativeTime);
 
 const useStyles = createStyles((theme, _params, getRef) => ({
     container: {
-        marginBottom: theme.other.spacing.p5,
+        marginBottom: theme.other.spacing.p4,
         "th": {
             borderBottom: "1px solid #83837C !important",
             paddingBottom: `${theme.other.spacing.p2} !important`,

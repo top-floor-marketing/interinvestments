@@ -11,7 +11,7 @@ const useStyles = createStyles((theme, _params) => ({
     display: "flex",
     flexDirection: "column",
     boxShadow: theme.shadows.sm,
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p4,
     height: "100%",
   },
   titleCard: {
@@ -30,7 +30,7 @@ const useStyles = createStyles((theme, _params) => ({
     height: "150px",
      display: "flex",
      flexDirection: "column",
-     gap: theme.other.spacing.p5,
+     gap: theme.other.spacing.p4,
   }
 }));
 
@@ -46,7 +46,7 @@ const FeaturedListing = (props) => {
         <Text className={classes.titleCard}>Featured listings</Text>
         <InfiniteListingScroll
           parentClassname={classes.boxInfiniteLoader}
-          name="listing"
+          name="agent"
           data={listingAgent}
           totalData={totalData}
           refetch={refetchData}

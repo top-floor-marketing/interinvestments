@@ -15,7 +15,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "space-between",
-        gap: theme.other.spacing.p5
+        gap: theme.other.spacing.p4
     },
     searchInput: {
         minWidth: "250px"
