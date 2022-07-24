@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useRef } from "react";
+import React, { forwardRef, useRef } from "react";
 import PropTypes from 'prop-types';
 
 import { FixedSizeGrid as Grid } from "react-window";
@@ -15,8 +15,8 @@ import get from 'lodash/get';
 import './styles_crm.css';
 
 // 1.25rem === p5
-const GUTTER_SIZE = 20;
-const ROW_HEIGHT = 70;
+const GUTTER_SIZE = 16;
+const ROW_HEIGHT = 90;
 
 const innerElementType = forwardRef(({ style, ...rest }, ref) => (
     <div
@@ -34,18 +34,14 @@ const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentC
     const idGrid = useId("_" + random(1, 1000) + "_" + name);
     const refParentBox = useRef(null);
 
-    const [isLazyLoading, setIsLazyLoading] = useState(false);
-
     const onScroll = (e) => {
         const { scrollTop } = e;
         const gridContainer = document.getElementsByClassName(idGrid)[0]?.firstChild?.clientHeight || null;
-        if (!isLazyLoading && refetch !== undefined && !isLoading) {
+        if (refetch !== undefined && !isLoading) {
             const parentHeight = get(refParentBox, ["current", "clientHeight"], null);
             if (parentHeight + scrollTop === gridContainer) {
-                setIsLazyLoading(true);
                 setTimeout(() => {
                     refetch();
-                    setIsLazyLoading(false);
                 }, 700);
             }
         }
@@ -78,7 +74,11 @@ const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentC
                                     height: style.height - GUTTER_SIZE
                                 }}
                             >
-                                <ItemListingCard {...data[rowIndex]}/>
+                                <ItemListingCard 
+                                {...data[rowIndex]}
+                                width={style.width}
+                                height={style.height-GUTTER_SIZE}
+                                />
                             </div>
                         }}
                     </Grid>                    
