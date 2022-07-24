@@ -1,5 +1,5 @@
 import { ActionIcon, Tooltip } from "@mantine/core";
-import { ExternalLink } from 'tabler-icons-react';
+import { ArrowForwardUp } from 'tabler-icons-react';
 import { useClipboard } from '@mantine/hooks';
 import PropTypes from 'prop-types';
 
@@ -11,11 +11,11 @@ const DOMAIN_URL =
     ? process.env.REACT_APP_DOMAIN_PROD
     : process.env.REACT_APP_DOMAIN_DEV;
 
-const ShareAgent = (props) => {
+const ShareListing = (props) => {
   const clipboard = useClipboard({ timeout: 2000 });
 
   const clipboardCopy = () => {
-    clipboard.copy(`${DOMAIN_URL}agent?id=${props.id}&shared=true`)
+    clipboard.copy(`${DOMAIN_URL}${props.uri}?agent=${props.id}&shared=true`)
   }
 
   return (
@@ -25,23 +25,26 @@ const ShareAgent = (props) => {
       placement={clipboard.copied ? "end" : "center"}
       label={(clipboard.copied) ? "Copied!" : props.labelTooltip}
       withArrow className={props.className}>
-      <ActionIcon {...omit(props, ['labelTooltip', 'id'])} onClick={() => clipboardCopy()}><ExternalLink size={props.size} /></ActionIcon>
+      <ActionIcon {...omit(props, ['labelTooltip', 'id'])} onClick={() => clipboardCopy()}>
+        <ArrowForwardUp size={props.size} />
+      </ActionIcon>
     </Tooltip>
   );
 };
 
 // Specifies the default values for props:
-ShareAgent.defaultProps = {
+ShareListing.defaultProps = {
   disabled: false,
   className: "",
   variant: "hover",
   size: 20,
-  labelTooltip: "Share my profile",
+  labelTooltip: "Share listing",
   id: null,
+  uri: null,
   color: "dark"
 };
 
-ShareAgent.propTypes = {
+ShareListing.propTypes = {
   disabled: PropTypes.bool,
   color: PropTypes.string,
   className: PropTypes.string,
@@ -49,7 +52,8 @@ ShareAgent.propTypes = {
   size: PropTypes.number,
   labelTooltip: PropTypes.string,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  uri: PropTypes.string,
   color: PropTypes.string
 };
 
-export default ShareAgent;
+export default ShareListing;

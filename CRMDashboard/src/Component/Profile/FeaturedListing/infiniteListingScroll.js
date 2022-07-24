@@ -9,6 +9,8 @@ import { Box } from '@mantine/core';
 
 import ItemListingCard from "./itemListingCard";
 
+import { useSelector } from "react-redux";
+
 import random from 'lodash/random';
 import get from 'lodash/get';
 
@@ -30,6 +32,8 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 ));
 
 const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentClassname }) => {
+
+    const { infoUser: { databaseId } } = useSelector((state) => state.user);
 
     const idGrid = useId("_" + random(1, 1000) + "_" + name);
     const refParentBox = useRef(null);
@@ -78,6 +82,7 @@ const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentC
                                 {...data[rowIndex]}
                                 width={style.width}
                                 height={style.height-GUTTER_SIZE}
+                                idAgent={databaseId}
                                 />
                             </div>
                         }}

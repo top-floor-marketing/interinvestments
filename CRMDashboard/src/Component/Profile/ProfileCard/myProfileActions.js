@@ -35,8 +35,8 @@ const MyProfileActions = ({ isLoading, id }) => {
   return (
     <Box className={classes.container}>
         <Text className={classes.titleCard}>My profile</Text>
-        <ShareAgent id={id} disabled={isLoading} className={classes.shareButton} />
-        <EditModal disabled={isLoading} className={classes.editButton}/>
+        <ShareAgent id={id} disabled={isLoading} className={classes.shareButton} size={24}/>
+        <EditModal disabled={isLoading} className={classes.editButton} size={24}/>
     </Box>
   );
 };

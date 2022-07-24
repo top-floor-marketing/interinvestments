@@ -82,15 +82,9 @@ const stylesProvider = () => {
             const _color =  params.color || 'dark'
             return {
                 root: {
-                    color: theme.colors[_color][0],
                     transition: "all",
-                    transitionDuration: "300",
+                    transitionDuration: "600",
                     transitionTimingFunction: "ease-in-out",
-                    "&:hover": {
-                        backgroundColor: "transparent",
-                        color: theme.colors[_color][9],
-                        transform: "scale(1.1)"
-                    },
                     "&:disabled": {
                         backgroundColor: "transparent",
                         color: theme.colors.gray[7],
@@ -102,6 +96,23 @@ const stylesProvider = () => {
                         },
                     }
                 },
+                hover: {
+                    color: theme.colors[_color][0],
+                    "&:hover": {
+                        backgroundColor: "transparent",
+                        color: theme.colors[_color][6],
+                        transform: "scale(1.1)"
+                    },
+                },
+                filled: {
+                    color: _color === "gray" ?  theme.colors.dark[0] : theme.colors.white[0],
+                    backgroundColor: _color === "gray" ? theme.colors.gray[4]:  theme.colors[_color][0],
+                    "&:hover": {
+                        backgroundColor: theme.colors[_color][6],
+                        color:_color === "gray" ? theme.colors.dark[0] :  theme.colors.white[1],
+                        transform: "scale(1.1)"
+                    },
+                }
             }
         },
         Tooltip: (theme, params) => {

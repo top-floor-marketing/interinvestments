@@ -1,4 +1,4 @@
-import { Box, createStyles, Text, Avatar } from "@mantine/core";
+import { Box, createStyles, Text, Avatar, Spoiler  } from "@mantine/core";
 import DOMPurify from 'dompurify'
 import PropTypes from 'prop-types';
 
@@ -163,7 +163,9 @@ const InfoAgent = ({ dataAgent }) => {
                 </Box>
                 <Box className={classes.aboutMeContainer}>
                     <Text transform="capitalize" component="h4">About me</Text>
-                    <Box dangerouslySetInnerHTML={sanitizedContentData()} />
+                    <Spoiler maxHeight={700} showLabel="Show more" hideLabel="Hide">
+                        <Box dangerouslySetInnerHTML={sanitizedContentData()} /> 
+                    </Spoiler>
                 </Box>
             </Box>
             <Box className={classes.infoContact}>

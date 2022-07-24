@@ -2,67 +2,71 @@ import React, { useCallback } from 'react';
 
 import { Box, Card, createStyles, Avatar, Text } from '@mantine/core';
 
+import { ShareListing, ViewLandingListing, IconDownloadPdf, IconRemove } from '../../ActionButtons';
+
 import classNames from 'classnames';
 
 import get from 'lodash/get';
 
-const useStyles = createStyles((theme, _params) => ({
-    containerItemListing: {
-        width: "100%",
-        boxShadow: theme.shadows.md,
-        height: "100%",
-        backgroundColor: theme.colors.gray[0],
-        display: "flex",
-        flexDirection: "row",
-        justifyItems: "start",
-        alignItems: "center",
-        padding: theme.other.spacing.p4,
-        gap: theme.other.spacing.p4
-    },
-    avatarImageContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignContent: "center",
-        marginRight: "auto",
-        width: "50px",
-    },
-    items: {
-        minWidth: "160px",
-        fontSize: "14px",
-        fontWeight: 400,
-        textAlign: "text-left",
-    },
-    itemTitle: {
-        fontWeight: "600 !important",
-    },
-    containerInfo: {
-        minWidth: "512px",
-        height: "auto",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        gap: theme.other.spacing.p4,
-    },
-    containerActions: {
-        width: "100%",
-        minWidth: "110px",
-        height: "100%",
-        display: "flex",
-        flexDirection: "row",
-        alignContent: "center",
-        padding: theme.other.spacing.p4,
-        gap: theme.other.spacing.p4
+const useStyles = createStyles((theme, _params) => {
+    const { width } = _params;
+    const widthReserved = 310;
+    const infoWidth = Math.round((width - widthReserved) / 4);
+    return {
+        containerItemListing: {
+            width: "100%",
+            boxShadow: theme.shadows.md,
+            height: "100%",
+            backgroundColor: theme.colors.gray[0],
+            display: "flex",
+            flexDirection: "row",
+            justifyItems: "start",
+            alignItems: "center",
+            padding: theme.other.spacing.p4,
+            gap: theme.other.spacing.p4
+        },
+        avatarImageContainer: {
+            display: "flex",
+            flexDirection: "column",
+            alignContent: "center",
+            marginRight: "auto",
+            width: "50px",
+        },
+        items: {
+            minWidth: `${infoWidth}px`,
+            fontSize: "14px",
+            fontWeight: 400,
+            textAlign: "text-left",
+        },
+        itemTitle: {
+            fontWeight: "600 !important",
+        },
+        responsiveInfo: {
+            display: "block",
+            [`${theme.fn.smallerThan(650)}`]: {
+                display: "none",
+            }
+        },
+        containerActions: {
+            width: "100%",
+            minWidth: "150px",
+            height: "auto",
+            display: "flex",
+            marginLeft: "auto",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            alignContent: "center",
+            gap: theme.other.spacing.p2,
+            paddingRight: theme.other.spacing.p2,
+        },
     }
-}));
+})
 
 const ItemListingCard = (props) => {
 
-    const { width } = props;
+    const { width, idAgent, uri } = props;
 
-    const { classes } = useStyles({width});
-
-    //console.log("props ", props)
-    console.log("width ", width)
+    const { classes } = useStyles({ width });
 
     const getPhoto = useCallback(() => {
         return get(props, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], "");
@@ -82,23 +86,21 @@ const ItemListingCard = (props) => {
             <Text className={classNames(classes.items, classes.itemTitle)}>
                 {getTitle()}
             </Text>
-                <Box className={classes.containerInfo}>
-                    <Text className={classes.items} lineClamp={3}>
-                        {getTitle()}
-                    </Text>
-                    <Text className={classes.items} lineClamp={3}>
-                        {getTitle()}
-                    </Text>
-                    <Text className={classes.items} lineClamp={3}>
-                        {getTitle()}
-                    </Text>
-                </Box>
-                <Box className={classes.containerActions}>
-                    <a>a</a>
-                    <a>b</a>
-                    <a>c</a>
-                    <a>d</a>
-                </Box>
+            <Text className={classNames(classes.items, classes.responsiveInfo)} lineClamp={3}>
+                {getTitle()}
+            </Text>
+            <Text className={classNames(classes.items, classes.responsiveInfo)} lineClamp={3}>
+                {getTitle()}
+            </Text>
+            <Text className={classNames(classes.items, classes.responsiveInfo)} lineClamp={3}>
+                {getTitle()}
+            </Text>
+            <Box className={classes.containerActions}>
+                <ViewLandingListing variant="filled" labelTooltip="Open listing" id={idAgent} uri={uri} radius="_40px"  size={20} />
+                <ShareListing variant="filled" color="primary" id={idAgent} uri={uri} radius="_40px"  size={20} />
+                <IconDownloadPdf variant="filled" color="gray" id={idAgent} radius="_40px"  size={20} />
+                <IconRemove variant="filled" placementTooltip="end" color="error" id={idAgent} radius="_40px" size={20} />
+            </Box>
         </Card>
     )
 }
