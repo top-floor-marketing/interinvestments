@@ -12,7 +12,7 @@ const LogoutIcon = (props) => {
   const dispatch = useDispatch();
 
   return (
-    <Tooltip wrapLines gutter={10} label={props.labelTooltip} withArrow className={props.className}>
+    <Tooltip multiline gutter={10} label={props.labelTooltip} withArrow className={props.className}>
       <ActionIcon onClick={() => dispatch(setLogout())} {...omit(props, ['size', 'labelTooltip'])}><Logout size={props.size} /></ActionIcon>
     </Tooltip>
   );

@@ -13,7 +13,7 @@ const CustomIconTooltip = (props) => {
     }
 
     return (
-        <Tooltip wrapLines
+        <Tooltip multiline
             position="top"
             color={clipboard.copied ? "success" : "dark"}
             placement={clipboard.copied ? "end" : "center"}

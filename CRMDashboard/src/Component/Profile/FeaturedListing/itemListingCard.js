@@ -10,7 +10,7 @@ import get from 'lodash/get';
 
 const useStyles = createStyles((theme, _params) => {
     const { width } = _params;
-    const widthReserved = 310;
+    const widthReserved = (width<600) ? 260 : 290;
     const infoWidth = Math.round((width - widthReserved) / 4);
     return {
         containerItemListing: {
@@ -49,7 +49,7 @@ const useStyles = createStyles((theme, _params) => {
         },
         containerActions: {
             width: "100%",
-            minWidth: "150px",
+            minWidth: "130px",
             height: "auto",
             display: "flex",
             marginLeft: "auto",
@@ -58,6 +58,9 @@ const useStyles = createStyles((theme, _params) => {
             alignContent: "center",
             gap: theme.other.spacing.p2,
             paddingRight: theme.other.spacing.p2,
+            [`${theme.fn.smallerThan(650)}`]: {
+                minWidth: "100px",
+            }
         },
     }
 })

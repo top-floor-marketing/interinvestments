@@ -60,3 +60,40 @@ query GetAgentInfo($agentId: Int = 10) {
     }
   }
 `;
+
+// Mutations
+
+
+export const MUTATION_EDIT_AGENT_PROFILE = gql`
+query agentEditProfile(
+  $content: String,
+  $email: String,
+  $facebook: String,
+  $firstname: String,
+  $id: Int,
+  $instagram: String,
+  $lastname: String,
+  $linkedin: String,
+  $phone: String,
+  $position: String,
+  $twitter: String
+) {
+  agentEditProfile(
+    input: {
+      content: $content, 
+      email: $email, 
+      facebook: $facebook, 
+      firstname: $firstname, 
+      id: $id, 
+      instagram: $instagram, 
+      lastname: $lastname, 
+      linkedin: $linkedin, 
+      phone: $phone, 
+      position: $position, 
+      twitter: $twitter
+    }
+  ) {
+    request_info
+  }
+}
+`;

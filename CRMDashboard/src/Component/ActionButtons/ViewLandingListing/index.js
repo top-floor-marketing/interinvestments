@@ -15,7 +15,7 @@ const ViewLandingListing = (props) => {
   const fullUrl = `${DOMAIN_URL}agent?id=${props.id}&shared=true`;
 
   return (
-    <Tooltip wrapLines
+    <Tooltip multiline
       position="top"
       color={"dark"}
       placement={"center"}
