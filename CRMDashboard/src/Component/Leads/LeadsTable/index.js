@@ -12,7 +12,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p4,
     alignItems: "end",
     position: "relative"
   },
@@ -24,7 +24,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     borderRadius: "10px",
     display: "flex",
     flexDirection: "column",
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p4,
     padding: theme.other.spacing.p3,
     paddingBottom: theme.other.spacing.p8
   }

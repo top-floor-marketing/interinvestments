@@ -1,6 +1,8 @@
-import { Box, createStyles, Text, } from "@mantine/core";
+import { useState } from "react";
+import { Box, createStyles, Text } from "@mantine/core";
 
-import { ShareAgent, EditModal } from "../../ActionButtons";
+import { ShareAgent, IconEditModal } from "../../ActionButtons";
+import ModalEditInfo from "./modalEditInfo";
 
 import PropTypes from 'prop-types';
 
@@ -29,14 +31,17 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   }
 }));
 
-const MyProfileActions = ({ isLoading, id }) => {
+const MyProfileActions = ({ isLoading, id, dataAgent }) => {
   const { classes } = useStyles();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Box className={classes.container}>
+        <ModalEditInfo isOpen={isOpen} onClose={() => setIsOpen(false)} dataAgent={dataAgent} />
         <Text className={classes.titleCard}>My profile</Text>
-        <ShareAgent id={id} disabled={isLoading} className={classes.shareButton} />
-        <EditModal disabled={isLoading} className={classes.editButton}/>
+        <ShareAgent id={id} disabled={isLoading} className={classes.shareButton} size={24}/>
+        <IconEditModal onClick={() => setIsOpen(true)} disabled={isLoading || isOpen} className={classes.editButton} size={24}/>
     </Box>
   );
 };
@@ -44,7 +49,8 @@ const MyProfileActions = ({ isLoading, id }) => {
 // Specifies the default values for props:
 MyProfileActions.defaultProps = {
     isLoading: false,
-    id: null
+    id: null,
+    dataAgent: null
 };
 
 MyProfileActions.propTypes = {
@@ -52,7 +58,8 @@ MyProfileActions.propTypes = {
     id: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string
-    ])
+    ]),
+    dataAgent: PropTypes.object
 };
 
 export default MyProfileActions;

@@ -10,19 +10,21 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    gap: theme.other.spacing.p5
+    gap: theme.other.spacing.p4,
+    height: "100%"
   },
   infoAndLeadsRow: {
     width: "100%",
     display: "flex",
     flexDirection: "row",
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p4,
     [`${theme.fn.smallerThan("md")}`]: {
       flexDirection: "column",
     }
   },
   featuredListingRow: {
     width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column"
   }
@@ -31,7 +33,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const Profile = () => {
   const { classes } = useStyles();
   return (
-    <SpringDiv delay={200} duration={400}>
+    <SpringDiv delay={200} duration={400} fullHeight>
       <Box className={classes.container}>
 
         <SpringDiv delay={300} duration={400}>
@@ -41,7 +43,7 @@ const Profile = () => {
           </Box>
         </SpringDiv>
 
-        <SpringDiv delay={600} duration={400}>
+        <SpringDiv delay={600} duration={400} fullHeight>
           <Box className={classes.featuredListingRow}>
             <FeaturedListing />
           </Box>

@@ -17,7 +17,7 @@ const useStyles = createStyles((theme, _params) => ({
         width: "100%",
         display: "flex",
         flexDirection: "row",
-        gap: theme.other.spacing.p5,
+        gap: theme.other.spacing.p4,
     },
     itemsTest: {
         minWidth: "200px",
