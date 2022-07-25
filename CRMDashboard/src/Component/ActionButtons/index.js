@@ -1,5 +1,5 @@
 import ShareAgent from "./ShareAgent";
-import EditModal from "./EditModal";
+import IconEditModal from "./IconEditModal";
 import CustomIconTooltip from "./CustomIconTooltip";
 import LogoutIcon from './Logout';
 import ShareListing from "./ShareListing";
@@ -9,7 +9,7 @@ import IconRemove from "./IconRemove";
 
 export {
     LogoutIcon,
-    EditModal,
+    IconEditModal,
     ShareAgent,
     ShareListing,
     ViewLandingListing,

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import omit from 'lodash/omit';
 
-const EditModal = (props) => {
+const IconEditModal = (props) => {
   return (
     <Tooltip wrapLines label={props.labelTooltip} withArrow className={props.className}>
       <ActionIcon {...omit(props, ['labelTooltip'])}><Edit size={props.size} /></ActionIcon>
@@ -13,7 +13,7 @@ const EditModal = (props) => {
 };
 
 // Specifies the default values for props:
-EditModal.defaultProps = {
+IconEditModal.defaultProps = {
     disabled: false,
     className: "",
     variant: "hover",
@@ -22,7 +22,7 @@ EditModal.defaultProps = {
     color: "dark"
 };
 
-  EditModal.propTypes = {
+IconEditModal.propTypes = {
     disabled: PropTypes.bool,
     color: PropTypes.string,
     className: PropTypes.string,
@@ -32,4 +32,4 @@ EditModal.defaultProps = {
     color: PropTypes.string
 };
 
-export default EditModal;
+export default IconEditModal;

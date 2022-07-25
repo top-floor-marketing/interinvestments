@@ -7,7 +7,7 @@ const stylesProvider = () => {
     return {
         Card: (theme, params) => ({
             root: {
-                backgroundColor: theme.colorScheme === COLOR_SCHEME_DARK ? theme.colors.white[0] : theme.colors.white[0]
+                backgroundColor: theme.colors.white[0]
             }
         }),
         TextInput: (theme, params) => ({
@@ -130,7 +130,31 @@ const stylesProvider = () => {
         ScrollArea: (theme, params) => {
             return {
             }
-        }
+        },
+        Modal: (theme, params) => {
+            return {
+                root: {
+                    padding: theme.other.spacing.p2
+                },
+                modal: {
+                    backgroundColor: theme.colors.white[0],
+                    padding: "16px !important",
+                    minWidth: "55% !important",
+                    maxWidth: "80% !important"
+                },
+                close: {
+                    color: theme.colors.dark[0],
+                    transition: "all !important",
+                    transitionDuration: "600 !important",
+                    transitionTimingFunction: "ease-in-out !important",
+                    "&:hover": {
+                        backgroundColor: theme.colors.dark[0],
+                        color: theme.colors.white[1],
+                        transform: "scale(1.1) !important"
+                    },
+                },
+            }
+        },
     }
 }
 
