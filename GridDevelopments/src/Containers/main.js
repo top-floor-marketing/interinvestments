@@ -12,7 +12,7 @@ import OverlayLoading from "../Components/OverlayLoading";
 
 import styles from "./styles_gd.module.scss";
 
-const MainContainer = () => {
+const MainContainer = ({ idAgent }) => {
   const {
     data,
     isLoading,
@@ -24,7 +24,7 @@ const MainContainer = () => {
     dataQuickView,
     onCloseModalQuickView,
     hasNextPage
-  } = useGetFeaturedDevelopments();
+  } = useGetFeaturedDevelopments(idAgent);
 
   const isMobileScreen = useMediaQuery(
     "only screen and (max-width: 640px)",

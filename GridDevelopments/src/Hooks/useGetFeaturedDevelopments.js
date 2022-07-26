@@ -6,9 +6,10 @@ import {
   GET_LISTING_FEATURED_DEVELOPMENTS,
   GET_TAG_FEATURED_DEVELOPMENTS,
   GET_SINGLE_LISTING_GQL,
+  GET_AGENT_FEATURED_LISTING
 } from "../GraphqlClient/gql";
 
-const useGetFeaturedDevelopments = () => {
+const useGetFeaturedDevelopments = (idAgent) => {
   const [isFirtsFetch, setIsFirtsFetch] = useState(true);
   const [fullData, setFullData] = useState([]);
   const [tagId, setTagId] = useState(0);
@@ -19,7 +20,7 @@ const useGetFeaturedDevelopments = () => {
     id: 0,
     content: null,
   });
-  const [delayOverlay, setDelayOverlay] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const fullDataGenerator = (prevData, nextData) => {
     let nextData_ = nextData.map((val) => {
@@ -68,12 +69,13 @@ const useGetFeaturedDevelopments = () => {
     isError: errorListListing,
     refetch: refetchListListing,
   } = useQueryHelper({
-    name: "get-listing-featured-dev-gd",
-    gql: GET_LISTING_FEATURED_DEVELOPMENTS,
+    name: (idAgent) ? "get-agent-listing-gd" : "get-listing-featured-dev-gd",
+    gql: (idAgent) ? GET_AGENT_FEATURED_LISTING : GET_LISTING_FEATURED_DEVELOPMENTS,
     config: {
       enabled: tagId > 0,
       onSuccess: (response) => {
-        const { listings } = response;
+        console.log("response ", response)
+        /* const { listings } = response;
         const { nodes, pageInfo } = listings;
         if (pageInfo.endCursor) {
           setCursorPaginator(pageInfo.endCursor);
@@ -81,7 +83,7 @@ const useGetFeaturedDevelopments = () => {
         setHasNextPage(pageInfo?.hasNextPage || false);
         const newData = fullDataGenerator(fullData, nodes);
         setFullData(newData);
-        setIsFirtsFetch(false);
+        setIsFirtsFetch(false); */
       },
       onError: () => {
         setFullData([]);
@@ -89,11 +91,16 @@ const useGetFeaturedDevelopments = () => {
         setIsFirtsFetch(false);
       },
     },
-    variables: {
-      tagId: (""+tagId),
-      perPage: perPage,
-      after: cursorPaginator,
-    },
+    variables: 
+      (idAgent) ? {
+        agentId: parseInt(idAgent)
+      } :
+      {
+        tagId: (""+tagId),
+        perPage: perPage,
+        after: cursorPaginator,
+      }
+    ,
   });
 
   // Get Specific Listing
@@ -102,10 +109,10 @@ const useGetFeaturedDevelopments = () => {
     isFetching: isFetchingSingleListing,
     isError: errorSingleListing,
   } = useQueryHelper({
-    name: "get-single-featured-listing",
+    name: "get-single-listing-gd",
     gql: GET_SINGLE_LISTING_GQL,
     config: {
-      enabled: dataQuickView.id > 0,
+      enabled: !isFirtsFetch && dataQuickView.id > 0,
       onSuccess: (response) => {
         const { listings } = response;
         let content = null;
@@ -120,6 +127,7 @@ const useGetFeaturedDevelopments = () => {
           ...dataQuickView,
           content: content,
         });
+        setShowOverlay(false);
       },
       onError: () => {
         setDataQuickView({
@@ -138,14 +146,11 @@ const useGetFeaturedDevelopments = () => {
   };
 
   const openModalQuickView = (id) => {
-    setDelayOverlay(true);
+    setShowOverlay(true);
     setDataQuickView({
       ...dataQuickView,
       id: id,
     });
-    setTimeout(() => {
-      setDelayOverlay(false);
-    }, 700);
   };
 
   const onCloseModalQuickView = () => {
@@ -167,8 +172,7 @@ const useGetFeaturedDevelopments = () => {
     hasNextPage,
     fetchListListing,
     openModalQuickView,
-    showOverlay:
-      loadingSingleListing || isFetchingSingleListing || delayOverlay,
+    showOverlay,
     dataQuickView,
     showErrorSingleListing: errorSingleListing,
     onCloseModalQuickView,
