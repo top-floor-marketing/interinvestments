@@ -6,14 +6,14 @@ const BORDER_FOCUS = '#5398ff';
 const stylesProvider = () => {
     return {
         Card: {
-            styles: (theme) => ({ 
+            styles: (theme) => ({
                 root: {
                     backgroundColor: theme.colors.white[0]
                 }
             })
         },
         TextInput: {
-            styles: (theme) => ({ 
+            styles: (theme) => ({
                 input: {
                     border: BORDER_INPUT,
                     backgroundColor: theme.colors.white[0],
@@ -23,12 +23,26 @@ const stylesProvider = () => {
                     },
                     "&:focus": {
                         borderColor: `${BORDER_FOCUS} !important`
+                    },
+                    "&::-webkit-input-placeholder": {
+                        color: theme.colors.dark[0],
+                        opacity: 0.7
+                    },
+
+                    "&:-ms-input-placeholder": {
+                        color: theme.colors.dark[0],
+                        opacity: 0.7
+                    },
+
+                    "&::placeholder": {
+                        color: theme.colors.dark[0],
+                        opacity: 0.7
                     }
                 }
             })
         },
         Textarea: {
-            styles: (theme) => ({ 
+            styles: (theme) => ({
                 input: {
                     border: BORDER_INPUT,
                     backgroundColor: theme.colors.white[0],
@@ -43,7 +57,7 @@ const stylesProvider = () => {
             })
         },
         Button: {
-            styles: (theme) => ({ 
+            styles: (theme) => ({
                 filled: {
                     "&::before": {
                         backgroundColor: theme.fn.rgba(theme.colors.gray[6], 0.5),
@@ -52,7 +66,7 @@ const stylesProvider = () => {
             })
         },
         Select: {
-            styles: (theme) => ({ 
+            styles: (theme) => ({
                 input: {
                     "&:focus": {
                         borderColor: `${BORDER_FOCUS} !important`
@@ -83,7 +97,7 @@ const stylesProvider = () => {
             })
         },
         Pagination: {
-            styles: (theme) => ({ 
+            styles: (theme) => ({
                 item: {
                     backgroundColor: theme.colors.white[0],
                     border: BORDER_INPUT,
@@ -94,14 +108,14 @@ const stylesProvider = () => {
             })
         },
         Avatar: {
-            styles: (theme) => ({ 
+            styles: (theme) => ({
                 placeholder: {
                     fontWeight: "700"
                 }
             })
         },
         Accordion: {
-            styles: (theme) => ({ 
+            styles: (theme) => ({
                 pitem: {
                     borderBottom: "none",
                 },
@@ -109,10 +123,10 @@ const stylesProvider = () => {
         },
         ActionIcon: {
             styles: (theme, params) => {
-                const _color =  params?.color || 'dark';
+                const _color = params?.color || 'dark';
                 const _variant = params?.variant || 'hover';
-                const filledColor =  _color === "gray" ?  theme.colors.dark[0] : theme.colors.white[0];
-                const filledBackground = _color === "gray" ? theme.colors.gray[4]:  theme.colors[_color][0];
+                const filledColor = _color === "gray" ? theme.colors.dark[0] : theme.colors.white[0];
+                const filledBackground = _color === "gray" ? theme.colors.gray[4] : theme.colors[_color][0];
                 return {
                     root: {
                         transition: "all",
@@ -197,14 +211,33 @@ const stylesProvider = () => {
                     },
                     toolbarGroup: {
                         backgroundColor: theme.colors.white[0],
-                        
+
                     },
                     toolbarControl: {
                         backgroundColor: theme.colors.white[0],
                         border: "0 !important",
                         borderRadius: "0px !important"
                     },
-                    toolbarInner: {
+                }
+            }
+        },
+        ScrollArea: {
+            styles: (theme, params) => {
+                return {
+                    root: {
+                    },
+                    scrollbar: {
+                        backgroundColor: theme.colors.gray[0],
+                        "&:hover": {
+                            backgroundColor: theme.colors.gray[0],
+                        },
+                    },
+                    thumb: {
+                        backgroundColor: theme.colors.gray[9],
+                        "&:hover": {
+                            backgroundColor: `${theme.colors.gray[9]} !important`,
+                            opacity: "1 !important"
+                        },
                     }
                 }
             }

@@ -23,6 +23,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     fontWeight: 700,
   },
   containerForm: {
+    paddingRight: "5px !important",
     width: "100%",
     display: "grid",
     maxHeight: "62vh",
@@ -64,9 +65,45 @@ const schemaEditAgent = Joi.object({
     "any.required": "Required",
   }),
   email: Joi.string().email({ tlds: { allow: false } }).required().messages({
-    "string.email": "gg",
+    "string.email": "Invalid email",
     "string.empty": "Required",
     "any.required": "Required",
+  }),
+  facebook: Joi.string().uri({
+    scheme: [
+      'https',
+    ]
+  }).empty('')
+  .allow('').messages({
+    "string.uri": "Invalid url",
+    "string.uriCustomScheme": "Invalid url",
+  }),
+  instagram: Joi.string().uri({
+    scheme: [
+      'https',
+    ]
+  }).empty('')
+  .allow('').messages({
+    "string.uri": "Invalid url",
+    "string.uriCustomScheme": "Invalid url",
+  }),
+  twitter: Joi.string().uri({
+    scheme: [
+      'https',
+    ]
+  }).empty('')
+  .allow('').messages({
+    "string.uri": "Invalid url",
+    "string.uriCustomScheme": "Invalid url",
+  }),
+  linkedin: Joi.string().uri({
+    scheme: [
+      'https',
+    ]
+  }).empty('')
+  .allow('').messages({
+    "string.uri": "Invalid url",
+    "string.uriCustomScheme": "Invalid url",
   }),
 });
 
@@ -108,58 +145,86 @@ const ModalEditInfo = ({ isOpen, dataAgent, onClose, isLoading, onSubmit }) => {
       </Box>}
     >
 
-        <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
-        <ScrollArea>
-        <Box  className={classes.containerForm}>
+      <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
+        <ScrollArea offsetScrollbars scrollbarSize={6}>
+          <Box className={classes.containerForm}>
 
-          <TextInput
-            disabled={isLoading}
-            label="First Name"
-            placeholder="First Name"
-            {...form.getInputProps('firstName')}
-          />
-          <TextInput
-            disabled={isLoading}
-            label="Last Name"
-            placeholder="Last Name"
-            {...form.getInputProps('lastName')}
-          />
-          <TextInput
-            disabled={isLoading}
-            label="Position"
-            placeholder="Position"
-            {...form.getInputProps('position')}
-          />
-         
-          <TextInput
-            disabled={isLoading}
-            label="Email"
-            placeholder="Email"
-            {...form.getInputProps('email')}
-          />
-           <Box className={classes.gridColumnFull}>
-            <Text component="label" for="content" className={classes.labelAboutMe}>About me</Text>
-           <RichTextEditor
-          controls={[
-            ['bold', 'italic', 'underline'],
-            ['h3', 'h4', 'h5'],
-            ['alignLeft', 'alignCenter', 'alignRight'],
-          ]}
-          disabled={isLoading}
-          placeholder="About me"
-          {...form.getInputProps('content')}
-          />
+            <TextInput
+              disabled={isLoading}
+              label="First Name"
+              placeholder="First Name"
+              {...form.getInputProps('firstName')}
+            />
+            <TextInput
+              disabled={isLoading}
+              label="Last Name"
+              placeholder="Last Name"
+              {...form.getInputProps('lastName')}
+            />
+            <TextInput
+              disabled={isLoading}
+              label="Position"
+              placeholder="Position"
+              {...form.getInputProps('position')}
+            />
+
+            <TextInput
+              disabled={isLoading}
+              label="Email"
+              placeholder="Email"
+              {...form.getInputProps('email')}
+            />
+            <Box className={classes.gridColumnFull}>
+              <Text component="label" for="content" className={classes.labelAboutMe}>About me</Text>
+              <RichTextEditor
+                controls={[
+                  ['bold', 'italic', 'underline'],
+                  ['h3', 'h4', 'h5'],
+                  ['alignLeft', 'alignCenter', 'alignRight'],
+                ]}
+                disabled={isLoading}
+                placeholder="About me"
+                {...form.getInputProps('content')}
+              />
+            </Box>
+
+            <TextInput
+              disabled={isLoading}
+              label="Facebook"
+              placeholder="Facebook profile"
+              {...form.getInputProps('facebook')}
+            />
+
+            <TextInput
+              disabled={isLoading}
+              label="Instagram"
+              placeholder="Instagram profile"
+              {...form.getInputProps('instagram')}
+            />
+
+            <TextInput
+              disabled={isLoading}
+              label="Twitter"
+              placeholder="Twitter profile"
+              {...form.getInputProps('twitter')}
+            />
+
+            <TextInput
+              disabled={isLoading}
+              label="Linkedin"
+              placeholder="Linkedin profile"
+              {...form.getInputProps('linkedin')}
+            />
+
           </Box>
-         
-   </Box>
         </ScrollArea>
 
-          <Group position="right">
-            <Button type="submit">Save</Button>
-          </Group>
-        </form>
+        <Group position="right" mt="16px">
+          <Button type="submit">Save</Button>
+        </Group>
+      </form>
 
-   
+
     </Modal>
   );
 };
