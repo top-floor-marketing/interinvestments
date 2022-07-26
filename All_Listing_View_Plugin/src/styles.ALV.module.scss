@@ -1,7 +1,9 @@
 @tailwind utilities;
 
 .containerContend {
-    @apply w-full h-screen flex flex-col lg:flex-row gap-5 xl:gap-0;
+    position: inherit;
+    z-index: 0 !important;
+    @apply w-full h-screen flex flex-col lg:flex-row gap-5 xl:gap-0 pl-[20px];
 }
 
 .containerMain {

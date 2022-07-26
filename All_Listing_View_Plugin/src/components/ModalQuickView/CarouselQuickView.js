@@ -1,17 +1,17 @@
 import PropTypes from "prop-types";
-import {forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 import { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { Image } from "@mantine/core";
 
-import styles from "./styles_gd_ALV.module.scss";
+import styles from "./styles_alv.module.scss";
 
 import "./overrideStylesCarousel.css";
 
 const CarouselQuickView = forwardRef(({ photos }, ref) => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   const CustomIndicator = (props) => {
     const bgIsSelected = props.isSelected
       ? "bg-[#FFB839]"
@@ -69,7 +69,7 @@ const CarouselQuickView = forwardRef(({ photos }, ref) => {
         showStatus={false}
         selectedItem={currentSlide}
         onChange={updateCurrentSlide}
-        className={styles.carouselModal + " CarouselModal_wp"}
+        className={styles.carouselModal + " modalAllListing"}
         renderIndicator={(onClickHandler, isSelected, index, label) => (
           <CustomIndicator
             index={index}
@@ -78,9 +78,9 @@ const CarouselQuickView = forwardRef(({ photos }, ref) => {
             isSelected={isSelected}
           />
         )}
-        
+
       >
-        {photos.slice(0,8).map((val, index) => (
+        {photos.slice(0, 8).map((val, index) => (
           <img
             key={index}
             src={val.sourceUrl}

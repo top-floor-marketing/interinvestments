@@ -23,7 +23,7 @@ const useStyles = createStyles((theme, _params) => ({
     width: "100%",
     boxShadow: theme.shadows.sm,
     height: "100%",
-    backgroundColor: theme.colors.gray[2]
+    // backgroundColor: theme.colors.gray[2]
   },
 }));
 
@@ -38,7 +38,7 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
   />
 ));
 
-const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentClassname }) => {
+const GridListing = ({ name, data, isLoading, refetch, totalData, parentClassname, openModalQuickView }) => {
 
   const { classes } = useStyles();
 
@@ -94,12 +94,15 @@ const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentC
                   }}
                 >
                   {
-                    // (rowIndex * 2) + columnIndex
-                    // console.log(data.listingData)
-                  }
-                  {
                     <GridQuickView
-                      data={data[(rowIndex * 2) + columnIndex].listingData.newDevelopment}
+                      data={{
+                        ...data[(rowIndex * 2) + columnIndex].listingData.newDevelopment,
+                        uri: data[(rowIndex * 2) + columnIndex].uri,
+                        title: data[(rowIndex * 2) + columnIndex].title,
+                        subTitle: data[(rowIndex * 2) + columnIndex].neighborhoods.nodes[0].name,
+                        id: data[(rowIndex * 2) + columnIndex].databaseId
+                      }}
+                      openModalQuickView={(id) => openModalQuickView(id)}
                       index={(rowIndex * 2) + columnIndex}
                     />
                   }
@@ -113,17 +116,18 @@ const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentC
   )
 }
 
-LoadInfiniteScroll.defaultProps = {
+GridListing.defaultProps = {
   name: "scroll",
   data: [],
   isLoading: false,
   refetch: null,
   totalData: 0,
   columnCount: 1,
-  parentClassname: ""
+  parentClassname: "",
+  openModalQuickView: () => { }
 };
 
-LoadInfiniteScroll.propTypes = {
+GridListing.propTypes = {
   name: PropTypes.string,
   data: PropTypes.array,
   isLoading: PropTypes.bool,
@@ -131,6 +135,7 @@ LoadInfiniteScroll.propTypes = {
   totalData: PropTypes.number,
   columnCount: PropTypes.number,
   parentClassname: PropTypes.string,
+  openModalQuickView: PropTypes.func
 };
 
-export default LoadInfiniteScroll;
+export default GridListing;

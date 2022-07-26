@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Overlay, Center } from "@mantine/core";
+import { Overlay, Center, Box } from "@mantine/core";
 import lottie from "lottie-web";
 import introJson from "../../Lottie/Intro.json";
 
@@ -17,10 +17,10 @@ const OverlayLoading = () => {
     };
   }, []);
   return (
-    <div className={styles.container}>
+    <Box className={styles.container}>
       <Overlay opacity={0.6} color="#000" zIndex={999} />
       <Center className={styles.center} id="wp-grid-overlay-inter" />
-    </div>
+    </Box>
   );
 };
 

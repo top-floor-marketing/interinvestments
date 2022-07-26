@@ -59,28 +59,8 @@ const GridQuickView = ({
     },
   };
 
-  const calcDelay = (index) => {
-    if (index < 9) {
-      return index * 50 + 300;
-    } else {
-      return index * 30 + 150;
-    }
-  };
-
-  const calcDuration = (index) => {
-    if (index < 9) {
-      return 700;
-    } else {
-      return 500;
-    }
-  };
-
   return (
     <Box
-      data-aos="zoom-in"
-      data-aos-delay={calcDelay(index)}
-      data-aos-duration={calcDuration(index)}
-      data-aos-once={true}
       key={index}
       classNames={{
         root: '!p-0'
@@ -129,7 +109,7 @@ const GridQuickView = ({
 };
 
 GridQuickView.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.object,
   openModalQuickView: PropTypes.func,
   showOverlay: PropTypes.bool,
   isMobileScreen: PropTypes.bool,

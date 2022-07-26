@@ -103,3 +103,53 @@ export const ALL_LISTINGS_DEVELOPMENTS = (Category = null, neighborhood = null) 
     `
   )
 } 
+
+export const GET_SINGLE_LISTING_GQL = gql`
+  query listings($id: Int!) {
+    listings(first: 1, where: { id: $id }) {
+      nodes {
+        databaseId
+        uri
+        address {
+          address {
+            address2
+            addressLine1
+            city
+            zip
+            state
+          }
+        }
+        listingData {
+          newDevelopment {
+            description
+            photos {
+              altText
+              description
+              sourceUrl
+              title
+            }
+            livingArea
+            views
+            priceMin
+            priceMax
+            nameOfDevelopment
+          }
+        }
+        title
+        neighborhoods {
+          nodes {
+            description
+            databaseId
+            name
+          }
+        }
+        featuredImage {
+          node {
+            sourceUrl
+            uri
+          }
+        }
+      }
+    }
+  }
+`;
