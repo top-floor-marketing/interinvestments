@@ -27,8 +27,7 @@ const useQueryHelper = (props) => {
   return useQuery(
     [name],
     async ({ signal }) => {
-      const data = client.request({ document: gql, variables, requestHeaders, signal })   
-      // await graphQLClient.request(gql, variables, requestHeaders);
+      const data = client.request({ document: gql, variables, requestHeaders, signal });   
       return data;
     },
     {
@@ -48,7 +47,7 @@ const useMutationHelper = (props) => {
   return useMutation(
     [name],
     async ({ signal, variables }) => {
-      return await client.request({ document: gql, variables, requestHeaders, signal })
+      return await client.request({ document: gql, variables, requestHeaders, signal });
       //await graphQLClient.request(gql, variables, requestHeaders);
     },
     {

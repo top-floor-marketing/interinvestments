@@ -109,12 +109,22 @@ const stylesProvider = () => {
         },
         ActionIcon: {
             styles: (theme, params) => {
-                const _color =  params.color || 'dark'
+                const _color =  params?.color || 'dark';
+                const _variant = params?.variant || 'hover';
+                const filledColor =  _color === "gray" ?  theme.colors.dark[0] : theme.colors.white[0];
+                const filledBackground = _color === "gray" ? theme.colors.gray[4]:  theme.colors[_color][0];
                 return {
                     root: {
                         transition: "all",
                         transitionDuration: "600",
                         transitionTimingFunction: "ease-in-out",
+                        color: (_variant === "filled") ? filledColor : theme.colors[_color][0],
+                        backgroundColor: (_variant === "filled") ? filledBackground : "transparent",
+                        "&:hover": {
+                            backgroundColor: (_variant === "filled") ? theme.colors[_color][9] : "transparent",
+                            color: (_variant === "filled") ? theme.colors.white[1] : theme.colors[_color][6],
+                            transform: "scale(1.1)"
+                        },
                         "&:disabled": {
                             backgroundColor: "transparent",
                             color: theme.colors.gray[7],
@@ -126,23 +136,6 @@ const stylesProvider = () => {
                             },
                         }
                     },
-                    hover: {
-                        color: theme.colors[_color][0],
-                        "&:hover": {
-                            backgroundColor: "transparent",
-                            color: theme.colors[_color][6],
-                            transform: "scale(1.1)"
-                        },
-                    },
-                    filled: {
-                        color: _color === "gray" ?  theme.colors.dark[0] : theme.colors.white[0],
-                        backgroundColor: _color === "gray" ? theme.colors.gray[4]:  theme.colors[_color][0],
-                        "&:hover": {
-                            backgroundColor: theme.colors[_color][6],
-                            color:_color === "gray" ? theme.colors.dark[0] :  theme.colors.white[1],
-                            transform: "scale(1.1)"
-                        },
-                    }
                 }
             }
         },
@@ -150,6 +143,7 @@ const stylesProvider = () => {
             styles: (theme, params) => {
                 return {
                     root: {
+                        zIndex: 999,
                         color: theme.colors.white[1],
                         fontWeight: (params.color === "success") ? 700 : "normal",
                         backgroundColor: (params.color === "success") ? theme.colors.success[0] : theme.colors.dark[1],
@@ -178,6 +172,40 @@ const stylesProvider = () => {
                             transform: "scale(1.1) !important"
                         },
                     },
+                }
+            }
+        },
+        RichTextEditor: {
+            styles: (theme, params) => {
+                return {
+                    root: {
+                        border: BORDER_INPUT,
+                        backgroundColor: theme.colors.white[0],
+                        ".mantine-ActionIcon-root": {
+                            transition: "all",
+                            transitionDuration: "600",
+                            transitionTimingFunction: "ease-in-out",
+                            "&:hover": {
+                                backgroundColor: theme.colors.primary[0],
+                                color: theme.colors.dark[9],
+                                transform: "scale(1) !important"
+                            },
+                        }
+                    },
+                    toolbar: {
+                        backgroundColor: theme.colors.white[0],
+                    },
+                    toolbarGroup: {
+                        backgroundColor: theme.colors.white[0],
+                        
+                    },
+                    toolbarControl: {
+                        backgroundColor: theme.colors.white[0],
+                        border: "0 !important",
+                        borderRadius: "0px !important"
+                    },
+                    toolbarInner: {
+                    }
                 }
             }
         },

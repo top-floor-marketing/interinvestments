@@ -18,7 +18,7 @@ import './styles_crm.css';
 
 // 1.25rem === p5
 const GUTTER_SIZE = 16;
-const ROW_HEIGHT = 90;
+const ROW_HEIGHT = 110;
 
 const innerElementType = forwardRef(({ style, ...rest }, ref) => (
     <div

@@ -10,7 +10,7 @@ import get from 'lodash/get';
 
 const useStyles = createStyles((theme, _params) => {
     const { width } = _params;
-    const widthReserved = (width<600) ? 260 : 290;
+    const widthReserved = (width<600) ? 270 : 300;
     const infoWidth = Math.round((width - widthReserved) / 4);
     return {
         containerItemListing: {
@@ -30,7 +30,7 @@ const useStyles = createStyles((theme, _params) => {
             flexDirection: "column",
             alignContent: "center",
             marginRight: "auto",
-            width: "50px",
+            width: "60px",
         },
         items: {
             minWidth: `${infoWidth}px`,
@@ -83,7 +83,7 @@ const ItemListingCard = (props) => {
         <Card className={classes.containerItemListing}>
             <Avatar
                 radius="_40px"
-                size="50px"
+                size="60px"
                 src={getPhoto()}
             />
             <Text className={classNames(classes.items, classes.itemTitle)}>
@@ -102,7 +102,7 @@ const ItemListingCard = (props) => {
                 <ViewLandingListing variant="filled" labelTooltip="Open listing" id={idAgent} uri={uri} radius="_40px"  size={20} />
                 <ShareListing variant="filled" color="primary" id={idAgent} uri={uri} radius="_40px"  size={20} />
                 <IconDownloadPdf variant="filled" color="gray" id={idAgent} radius="_40px"  size={20} />
-                <IconRemove variant="filled" placementTooltip="end" color="error" id={idAgent} radius="_40px" size={20} />
+                <IconRemove variant="filled" position="top-end" color="error" id={idAgent} radius="_40px" size={20} />
             </Box>
         </Card>
     )

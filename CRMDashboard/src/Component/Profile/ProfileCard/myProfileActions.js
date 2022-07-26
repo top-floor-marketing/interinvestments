@@ -67,7 +67,11 @@ const MyProfileActions = ({ isLoading, id, dataAgent }) => {
       }
       <Text className={classes.titleCard}>My profile</Text>
       <ShareAgent id={id} disabled={isLoading || isLoadingMutation} className={classes.shareButton} size={24} />
-      <IconEditModal onClick={() => setIsOpen(true)} disabled={isLoading || isOpen} className={classes.editButton} size={24} />
+      <IconEditModal
+        onClick={() => setIsOpen(true)}
+        disabled={isLoading}
+        className={classes.editButton}
+        size={24} />
     </Box>
   );
 };

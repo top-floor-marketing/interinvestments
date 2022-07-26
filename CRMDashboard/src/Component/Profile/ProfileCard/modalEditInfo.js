@@ -33,8 +33,17 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
     },
   },
-  submitButton: {
-    gridColumn: 2
+  gridColumnFull: {
+    gridColumn: "1 / -1",
+    width: "100%"
+  },
+  labelAboutMe: {
+    display: "inline-block",
+    fontSize: "14px",
+    fontWeight: 500,
+    color: "#1b1b1b",
+    wordBreak: "break-word",
+    cursor: "col-resize"
   }
 }));
 
@@ -121,18 +130,27 @@ const ModalEditInfo = ({ isOpen, dataAgent, onClose, isLoading, onSubmit }) => {
             placeholder="Position"
             {...form.getInputProps('position')}
           />
+         
           <TextInput
             disabled={isLoading}
             label="Email"
             placeholder="Email"
             {...form.getInputProps('email')}
           />
-          <RichTextEditor
+           <Box className={classes.gridColumnFull}>
+            <Text component="label" for="content" className={classes.labelAboutMe}>About me</Text>
+           <RichTextEditor
+          controls={[
+            ['bold', 'italic', 'underline'],
+            ['h3', 'h4', 'h5'],
+            ['alignLeft', 'alignCenter', 'alignRight'],
+          ]}
           disabled={isLoading}
-          label="About me"
           placeholder="About me"
           {...form.getInputProps('content')}
-          />;
+          />
+          </Box>
+         
    </Box>
         </ScrollArea>
 
