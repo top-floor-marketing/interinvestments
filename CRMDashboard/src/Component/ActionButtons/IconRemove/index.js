@@ -6,13 +6,12 @@ import omit from 'lodash/omit';
 
 const IconRemove = (props) => {
   return (
-    <Tooltip wrapLines
-      position="top"
+    <Tooltip multiline
       color={"dark"}
-      placement={props.placementTooltip}
+      position={props.position}
       label={props.labelTooltip}
       withArrow className={props.className}>
-      <ActionIcon {...omit(props, ['labelTooltip', 'id'])}>
+      <ActionIcon {...omit(props, ['position', 'id', 'placementTooltip'])}>
         <Trash size={props.size} />
       </ActionIcon>
     </Tooltip>
@@ -28,7 +27,7 @@ IconRemove.defaultProps = {
   labelTooltip: "Remove featured listing",
   id: null,
   color: "dark",
-  placementTooltip: "center"
+  position: ""
 };
 
 IconRemove.propTypes = {
@@ -40,7 +39,7 @@ IconRemove.propTypes = {
   labelTooltip: PropTypes.string,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   color: PropTypes.string,
-  placementTooltip: PropTypes.string,
+  position: PropTypes.string,
 };
 
 export default IconRemove;

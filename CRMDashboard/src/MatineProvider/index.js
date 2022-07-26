@@ -11,11 +11,16 @@ const ThemeGlobalProvider = (props) => {
   const themeStore = useSelector((state) => state.theme);
   return (
     <MantineProvider
-      theme={themeStore}
+      theme={{
+        ...themeStore,
+        components: { 
+          ...stylesProvider()
+        }
+      }}
       emotionOptions={{ key: "wp" }}
       withGlobalStyles
       withNormalizeCSS
-      styles={stylesProvider()}
+     // styles={stylesProvider()}
     >
       <LoadingFull />
       {props.children}

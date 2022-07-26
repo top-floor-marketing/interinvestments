@@ -17,22 +17,17 @@ const globalConfig = {
   retry: false,
 };
 
-const graphQLClient = new GraphQLClient(API_URL, {
-  /* headers: {
-    Authorization: `Bearer `,
-  }, */
-});
-
 const useQueryHelper = (props) => {
   const { name, gql, variables, config = {} } = props;
   const token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
   const requestHeaders = {
     authorization: !isNull(token) ? `Bearer ${token}` : "",
   };
+  const client = new GraphQLClient(API_URL);
   return useQuery(
     [name],
-    async () => {
-      const data = await graphQLClient.request(gql, variables, requestHeaders);
+    async ({ signal }) => {
+      const data = client.request({ document: gql, variables, requestHeaders, signal });   
       return data;
     },
     {
@@ -48,10 +43,12 @@ const useMutationHelper = (props) => {
   const requestHeaders = {
     authorization: !isNull(token) ? `Bearer ${token}` : "",
   };
+  const client = new GraphQLClient(API_URL);
   return useMutation(
     [name],
-    async ({ variables }) => {
-      return await graphQLClient.request(gql, variables, requestHeaders);
+    async ({ signal, variables }) => {
+      return await client.request({ document: gql, variables, requestHeaders, signal });
+      //await graphQLClient.request(gql, variables, requestHeaders);
     },
     {
       ...globalConfig,

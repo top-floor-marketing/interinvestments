@@ -15,11 +15,11 @@ const ShareListing = (props) => {
   const clipboard = useClipboard({ timeout: 2000 });
 
   const clipboardCopy = () => {
-    clipboard.copy(`${DOMAIN_URL}${props.uri}?agent=${props.id}&shared=true`)
+    clipboard.copy(`${DOMAIN_URL}${props.uri}?id=${props.id}&shared=true`)
   }
 
   return (
-    <Tooltip wrapLines
+    <Tooltip multiline
       position="top"
       color={clipboard.copied ? "success" : "dark"}
       placement={clipboard.copied ? "end" : "center"}

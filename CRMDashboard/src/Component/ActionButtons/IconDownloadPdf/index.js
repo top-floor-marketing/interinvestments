@@ -6,7 +6,7 @@ import omit from 'lodash/omit';
 
 const IconDownloadPdf = (props) => {
   return (
-    <Tooltip wrapLines
+    <Tooltip multiline
       position="top"
       color={"dark"}
       placement={"center"}
