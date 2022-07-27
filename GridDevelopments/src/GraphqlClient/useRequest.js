@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation } from '@tanstack/react-query'
 
 import { GraphQLClient } from "graphql-request";
 
@@ -10,21 +10,17 @@ const API_URL =
 
 const globalConfig = {
   refetchOnWindowFocus: false,
+  retry: false,
 };
 
-const graphQLClient = new GraphQLClient(API_URL, {
-  headers: {
-    Authorization: `Bearer `,
-  },
-});
+const client = new GraphQLClient(API_URL);
 
-// https://react-query.tanstack.com/reference/useQuery
 const useQueryHelper = (props) => {
   const { name, gql, variables, config = {} } = props;
   return useQuery(
-    name,
-    async () => {
-      const data = await graphQLClient.request(gql, variables);
+    [name],
+    async ({ signal }) => {
+      const data = client.request({ document: gql, variables, signal });   
       return data;
     },
     {
@@ -35,11 +31,11 @@ const useQueryHelper = (props) => {
 };
 
 const useMutationHelper = (props) => {
-  const { name, gql, variables, config = {} } = props;
+  const { name, gql, config = {} } = props;
   return useMutation(
-    name,
-    async () => {
-      return await graphQLClient.request(gql, variables);
+    [name],
+    async ({ signal, variables }) => {
+      return await client.request({ document: gql, variables, signal });
     },
     {
       ...globalConfig,

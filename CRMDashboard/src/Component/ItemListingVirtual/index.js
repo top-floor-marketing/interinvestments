@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import { Box, Card, createStyles, Avatar, Text } from '@mantine/core';
 
-import { ShareListing, ViewLandingListing, IconDownloadPdf, IconRemove } from '../../ActionButtons';
+import { ShareListing, ViewLandingListing, IconDownloadPdf, IconRemove } from '../ActionButtons';
 
 import classNames from 'classnames';
 
@@ -65,7 +65,7 @@ const useStyles = createStyles((theme, _params) => {
     }
 })
 
-const ItemListingCard = (props) => {
+const ItemListingVirtual = (props) => {
 
     const { width, idAgent, uri } = props;
 
@@ -108,4 +108,4 @@ const ItemListingCard = (props) => {
     )
 }
 
-export default React.memo(ItemListingCard);
+export default React.memo(ItemListingVirtual);

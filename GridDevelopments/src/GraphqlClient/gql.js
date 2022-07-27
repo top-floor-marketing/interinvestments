@@ -107,3 +107,42 @@ export const GET_SINGLE_LISTING_GQL = gql`
     }
   }
 `;
+
+const AGENT_TYPE = 'AGENT';
+
+export const GET_AGENT_FEATURED_LISTING = gql`
+query GetAgentInfo($agentId: Int = 10) {
+    dataAgent(
+        agentType: ${AGENT_TYPE}, agenId: $agentId
+      ) {
+        listings {
+          nodes {
+            title
+            listingId
+            databaseId
+      date
+      uri
+      neighborhoods {
+        nodes {
+          description
+          databaseId
+          name
+        }
+      }
+      listingData {
+        newDevelopment {
+          latitude
+          longitude
+          photos {
+            altText
+            databaseId
+            mimeType
+            sourceUrl
+          }
+        }
+      }
+          }
+        }
+    }
+  }
+`;
