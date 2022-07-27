@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Text, Box } from "@mantine/core";
+import { Button, Text, Box, Paper } from "@mantine/core";
 import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
@@ -60,11 +60,8 @@ const GridQuickView = ({
   };
 
   return (
-    <Box
+    <Paper
       key={index}
-      classNames={{
-        root: '!p-0'
-      }}
       {...allProps.paperItem}
     >
       {isMobileScreen ? (
@@ -104,7 +101,7 @@ const GridQuickView = ({
           </>
         )}
       </div>
-    </Box>
+    </Paper>
   );
 };
 

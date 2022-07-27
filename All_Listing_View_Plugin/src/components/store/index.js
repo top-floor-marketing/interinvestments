@@ -7,7 +7,8 @@ import statusQuerySlice, {
     setDataCategory,
     setDataNeighborhood,
     setDataMapApiKey,
-    setDataListing
+    setDataListing,
+    setEmptyData
 } from './statusQuerysSlice'
 
 export const store = configureStore({
@@ -26,7 +27,8 @@ const actionslices = {
     setneighborhood,
     setcategoy,
     setDataMapApiKey,
-    setDataListing
+    setDataListing,
+    setEmptyData
 }
 
 export { actionslices }

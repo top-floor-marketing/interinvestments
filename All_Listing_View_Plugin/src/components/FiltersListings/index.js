@@ -15,7 +15,7 @@ const FiltersListings = () => {
     const dispatch = useDispatch()
     const { search, neighborhood, categoy } = useSelector((state) => state.filter)
     const { dataCategory, dataNei, isLoading } = useSelector((state) => state.statusQuery)
-    const { setSearch, setneighborhood, setcategoy, setDataListing } = actionslices
+    const { setSearch, setneighborhood, setcategoy, setEmptyData } = actionslices
 
     if (isLoading) {
         return (
@@ -29,22 +29,11 @@ const FiltersListings = () => {
                 className={styles.inputsearch}
                 name='search'
                 value={search}
-                onChange={(valueInpu) => {
+                onChange={(valueInput) => {
                     // set value input
-                    dispatch(setSearch(valueInpu.target.value))
+                    dispatch(setSearch(valueInput.target.value))
                     // reset vaues listing
-                    dispatch(setDataListing({
-                        data: {
-                            nodes: [],
-                            pageInfo: {
-                                "endCursor": null,
-                                "hasNextPage": false,
-                                "hasPreviousPage": true,
-                                "startCursor": null
-                            }
-                        },
-                        reset: true
-                    }))
+                    dispatch(setEmptyData())               
                 }}
                 classNames={{
                     rightSection: 'm-[10px] opacity-50',
@@ -61,18 +50,7 @@ const FiltersListings = () => {
                     // set value input
                     dispatch(setneighborhood(value))
                     // reset vaues listing
-                    dispatch(setDataListing({
-                        data: {
-                            nodes: [],
-                            pageInfo: {
-                                "endCursor": null,
-                                "hasNextPage": false,
-                                "hasPreviousPage": true,
-                                "startCursor": null
-                            }
-                        },
-                        reset: true
-                    }))
+                    dispatch(setEmptyData())  
                 }}
                 className={styles.inputsearch}
                 placeholder="select Neighborhood"
@@ -93,18 +71,7 @@ const FiltersListings = () => {
                     // set value input
                     dispatch(setcategoy(value))
                     // reset vaues listing
-                    dispatch(setDataListing({
-                        data: {
-                            nodes: [],
-                            pageInfo: {
-                                "endCursor": null,
-                                "hasNextPage": false,
-                                "hasPreviousPage": true,
-                                "startCursor": null
-                            }
-                        },
-                        reset: true
-                    }))
+                    dispatch(setEmptyData())  
                 }}
                 dataCategory={dataCategory.map(
                     (value) => (

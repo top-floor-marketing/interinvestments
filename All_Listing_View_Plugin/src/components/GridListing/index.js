@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 // mantine devs
 import { useId } from '@mantine/hooks';
-import { Box, Card, createStyles } from '@mantine/core';
+import { Box } from '@mantine/core';
 // componets
 import AutoSizer from "react-virtualized-auto-sizer";
 import GridQuickView from '../GridQuickView'
@@ -17,15 +17,6 @@ import './styles_all_listing.css';
 // 1.25rem === p5
 const GUTTER_SIZE = 20;
 const ROW_HEIGHT = 300;
-
-const useStyles = createStyles((theme, _params) => ({
-  itemScroll: {
-    width: "100%",
-    boxShadow: theme.shadows.sm,
-    height: "100%",
-    // backgroundColor: theme.colors.gray[2]
-  },
-}));
 
 const innerElementType = forwardRef(({ style, ...rest }, ref) => (
   <div
@@ -40,7 +31,6 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 
 const GridListing = ({ name, data, isLoading, refetch, totalData, parentClassname, openModalQuickView }) => {
 
-  const { classes } = useStyles();
 
   const idGrid = useId("_" + random(1, 1000) + "_" + name);
   const refParentBox = useRef(null);
@@ -68,16 +58,17 @@ const GridListing = ({ name, data, isLoading, refetch, totalData, parentClassnam
             itemData={data}
             className={"containerInfinite " + idGrid}
             onScroll={onScroll}
-            columnCount={2}
+            columnCount={totalData > 1 ? 2 : 1}
             columnWidth={(width / 2)}
             height={height}
             innerElementType={innerElementType}
-            rowCount={Math.ceil(totalData / 2)}
+            rowCount={totalData > 2 ? Math.ceil(totalData / 2) : 1}
             rowHeight={ROW_HEIGHT + GUTTER_SIZE}
             width={width}
           >
-            {({ data, rowIndex, columnIndex, style }) => {
-              return <div
+            {({ rowIndex, columnIndex, style }) => {
+              if(data.length) {
+                return <div
                 key={rowIndex.toString().concat(columnIndex)}
                 style={{
                   ...style,
@@ -87,18 +78,6 @@ const GridListing = ({ name, data, isLoading, refetch, totalData, parentClassnam
                   height: style.height - GUTTER_SIZE
                 }}
               >
-                <Card
-                  className={classes.itemScroll}
-                  classNames={{
-                    root: '!p-0'
-                  }}
-                >
-
-                  {
-                    console.log('data', data)
-                  }
-
-                  {
                     <GridQuickView
                       data={{
                         ...data[(rowIndex * 2) + columnIndex].listingData.newDevelopment,
@@ -110,9 +89,9 @@ const GridListing = ({ name, data, isLoading, refetch, totalData, parentClassnam
                       openModalQuickView={(id) => openModalQuickView(id)}
                       index={(rowIndex * 2) + columnIndex}
                     />
-                  }
-                </Card>
               </div>
+              }
+              return null;
             }}
           </Grid>
         )}

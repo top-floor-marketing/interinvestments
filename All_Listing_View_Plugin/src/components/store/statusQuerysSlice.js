@@ -31,17 +31,15 @@ export const filterSlice = createSlice({
             state.mapApiKey = action.payload
         },
         setDataListing: (state, action) => {
-            const { data, reset } = action.payload
-
-            if (reset) {
-                state.dataListing = [...data.nodes];
+            const { data } = action.payload
+            state.dataListing = [...data.nodes, ...state.dataListing];
+            if (data.pageInfo?.endCursor) {
                 state.pageInfoListing = data.pageInfo;
-            } else {
-                state.dataListing = [...data.nodes, ...state.dataListing];
-                if (data.pageInfo?.endCursor) {
-                    state.pageInfoListing = data.pageInfo;
-                }
             }
+        },
+        setEmptyData: (state) => {
+            state.dataListing = [];
+            state.pageInfoListing = {};
         },
     },
 })
@@ -53,7 +51,8 @@ export const {
     setDataCategory,
     setDataNeighborhood,
     setDataMapApiKey,
-    setDataListing
+    setDataListing,
+    setEmptyData
 } = filterSlice.actions
 
 export default filterSlice.reducer

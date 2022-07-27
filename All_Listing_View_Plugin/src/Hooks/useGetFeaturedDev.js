@@ -126,7 +126,7 @@ const useGetFeaturedDev = () => {
             enabled: !isEmpty(mapApiKey),
             onSuccess: (req) => {
                 // set data acf opcion
-                dispatch(setDataListing({ data: { ...req.listings }, reset: false }))
+                dispatch(setDataListing({ data: { ...req.listings } }))
                 // dispatch loading global false
                 dispatch(setIsLoading(false))
             },

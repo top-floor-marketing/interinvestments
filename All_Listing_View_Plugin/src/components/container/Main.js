@@ -29,7 +29,6 @@ const Main = () => {
         )
     }
 
-
     const onOpenModal = (idListing) => {
         setIdSingleListing(idListing)
     }
