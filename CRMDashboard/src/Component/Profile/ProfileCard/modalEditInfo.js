@@ -1,10 +1,9 @@
-import { Box, createStyles, Text, Modal, Group, Button, ScrollArea, TextInput, Textarea } from "@mantine/core";
+import { Box, createStyles, Text, Modal, Group, Button, ScrollArea, TextInput } from "@mantine/core";
 import { useForm, joiResolver } from '@mantine/form';
 import { RichTextEditor } from '@mantine/rte';
 import Joi from 'joi';
 import { get } from "lodash";
 import { Edit } from 'tabler-icons-react';
-
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   boxTitle: {
@@ -178,7 +177,7 @@ const ModalEditInfo = ({ isOpen, dataAgent, onClose, isLoading, onSubmit }) => {
               <Text component="label" htmlFor="content" className={classes.labelAboutMe}>About me</Text>
               <RichTextEditor
                 controls={[]}
-                disabled={isLoading}
+                readOnly={isLoading}
                 placeholder="About me"
                 {...form.getInputProps('content')}
               />

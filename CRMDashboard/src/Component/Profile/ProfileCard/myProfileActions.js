@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, createStyles, Text } from "@mantine/core";
-import { useForm, joiResolver } from '@mantine/form';
+import { QueryClient } from '@tanstack/react-query'
 
 import { ShareAgent, IconEditModal } from "../../ActionButtons";
 import ModalEditInfo from "./modalEditInfo";
@@ -35,24 +35,35 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   }
 }));
 
-const MyProfileActions = ({ isLoading, id, dataAgent }) => {
+const MyProfileActions = ({ isLoading, id, dataAgent, refetchData }) => {
   const { classes } = useStyles();
 
   const [isOpen, setIsOpen] = useState(false);
 
   const onSubmitForm = (data) => {
-    console.log("onSubmitForm ", data)
+    try {
+      fetchEditAgent({
+        variables: {
+          id,
+          ...data
+        }
+      })
+    } catch(e) {
+      setIsOpen(false);
+    }
   }
 
-  const { data, isError, isLoading: isLoadingMutation, mutate: fetchEditAgent } = useMutationHelper({
+  const { isLoading: isLoadingMutation, mutate: fetchEditAgent } = useMutationHelper({
     name: "edit-agent-profile",
     gql: MUTATION_EDIT_AGENT_PROFILE,
     config: {
-      onSuccess: (response) => {
-
+      onSuccess: async () => {
+        await refetchData();
+        setIsOpen(false);
       },
-      onError: () => {
-
+      onError: async () => {
+        await refetchData();
+        setIsOpen(false);
       },
     },
   });
@@ -80,7 +91,8 @@ const MyProfileActions = ({ isLoading, id, dataAgent }) => {
 MyProfileActions.defaultProps = {
   isLoading: false,
   id: null,
-  dataAgent: null
+  dataAgent: null,
+  refetchData: () => {}
 };
 
 MyProfileActions.propTypes = {
@@ -89,7 +101,8 @@ MyProfileActions.propTypes = {
     PropTypes.number,
     PropTypes.string
   ]),
-  dataAgent: PropTypes.object
+  dataAgent: PropTypes.object,
+  refetchData: PropTypes.func
 };
 
 export default MyProfileActions;

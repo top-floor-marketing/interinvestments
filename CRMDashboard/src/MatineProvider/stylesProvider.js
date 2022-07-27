@@ -58,6 +58,12 @@ const stylesProvider = () => {
         },
         Button: {
             styles: (theme) => ({
+                root: {
+                    "&:disabled": {
+                        backgroundColor: theme.colors.gray[6],
+                        opacity: "0.8 !important"
+                    },
+                },
                 filled: {
                     "&::before": {
                         backgroundColor: theme.fn.rgba(theme.colors.gray[6], 0.5),

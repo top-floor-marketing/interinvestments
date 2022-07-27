@@ -65,14 +65,14 @@ query GetAgentInfo($agentId: Int = 10) {
 
 
 export const MUTATION_EDIT_AGENT_PROFILE = gql`
-query agentEditProfile(
+mutation agentEditProfile(
   $content: String,
   $email: String,
   $facebook: String,
-  $firstname: String,
+  $firstName: String,
   $id: Int,
   $instagram: String,
-  $lastname: String,
+  $lastName: String,
   $linkedin: String,
   $phone: String,
   $position: String,
@@ -83,10 +83,10 @@ query agentEditProfile(
       content: $content, 
       email: $email, 
       facebook: $facebook, 
-      firstname: $firstname, 
+      firstName: $firstName, 
       id: $id, 
       instagram: $instagram, 
-      lastname: $lastname, 
+      lastName: $lastName, 
       linkedin: $linkedin, 
       phone: $phone, 
       position: $position, 
