@@ -7,7 +7,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { useId } from '@mantine/hooks';
 import { Box } from '@mantine/core';
 
-import ItemListingCard from "./itemListingCard";
+import ItemListingVirtual from "../../ItemListingVirtual";
 
 import { useSelector } from "react-redux";
 
@@ -52,10 +52,10 @@ const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentC
     };
 
     return (
-        <Box ref={refParentBox} className={ parentClassname }>
+        <Box ref={refParentBox} className={parentClassname}>
             <AutoSizer>
                 {({ height, width }) => (
-                        <Grid
+                    <Grid
                         itemData={data}
                         className={"containerInfinite " + idGrid}
                         onScroll={onScroll}
@@ -78,15 +78,15 @@ const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentC
                                     height: style.height - GUTTER_SIZE
                                 }}
                             >
-                                <ItemListingCard 
-                                {...data[rowIndex]}
-                                width={style.width}
-                                height={style.height-GUTTER_SIZE}
-                                idAgent={databaseId}
+                                <ItemListingVirtual
+                                    {...data[rowIndex]}
+                                    width={style.width}
+                                    height={style.height - GUTTER_SIZE}
+                                    idAgent={databaseId}
                                 />
                             </div>
                         }}
-                    </Grid>                    
+                    </Grid>
                 )}
             </AutoSizer>
         </Box>

@@ -11,7 +11,7 @@ const IconRemove = (props) => {
       position={props.position}
       label={props.labelTooltip}
       withArrow className={props.className}>
-      <ActionIcon {...omit(props, ['position', 'id', 'placementTooltip'])}>
+      <ActionIcon {...omit(props, ['position', 'id', 'placementTooltip', 'labelTooltip'])}>
         <Trash size={props.size} />
       </ActionIcon>
     </Tooltip>
@@ -32,7 +32,6 @@ IconRemove.defaultProps = {
 
 IconRemove.propTypes = {
   disabled: PropTypes.bool,
-  color: PropTypes.string,
   className: PropTypes.string,
   variant: PropTypes.oneOf(['transparent', 'hover', "default", "outline", "filled", "light"]),
   size: PropTypes.number,

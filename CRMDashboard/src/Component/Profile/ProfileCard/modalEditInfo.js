@@ -33,6 +33,9 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     [`${theme.fn.smallerThan(750)}`]: {
       gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
     },
+    ".mantine-RichTextEditor-toolbar": {
+      display: "none !important"
+    }
   },
   gridColumnFull: {
     gridColumn: "1 / -1",
@@ -45,7 +48,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     color: "#1b1b1b",
     wordBreak: "break-word",
     cursor: "col-resize"
-  }
+  },
 }));
 
 const schemaEditAgent = Joi.object({
@@ -64,6 +67,7 @@ const schemaEditAgent = Joi.object({
     "string.empty": "Required",
     "any.required": "Required",
   }),
+  content: Joi.string().allow(''),
   email: Joi.string().email({ tlds: { allow: false } }).required().messages({
     "string.email": "Invalid email",
     "string.empty": "Required",
@@ -73,8 +77,7 @@ const schemaEditAgent = Joi.object({
     scheme: [
       'https',
     ]
-  }).empty('')
-  .allow('').messages({
+  }).messages({
     "string.uri": "Invalid url",
     "string.uriCustomScheme": "Invalid url",
   }),
@@ -82,8 +85,7 @@ const schemaEditAgent = Joi.object({
     scheme: [
       'https',
     ]
-  }).empty('')
-  .allow('').messages({
+  }).messages({
     "string.uri": "Invalid url",
     "string.uriCustomScheme": "Invalid url",
   }),
@@ -91,8 +93,7 @@ const schemaEditAgent = Joi.object({
     scheme: [
       'https',
     ]
-  }).empty('')
-  .allow('').messages({
+  }).messages({
     "string.uri": "Invalid url",
     "string.uriCustomScheme": "Invalid url",
   }),
@@ -100,8 +101,7 @@ const schemaEditAgent = Joi.object({
     scheme: [
       'https',
     ]
-  }).empty('')
-  .allow('').messages({
+  }).messages({
     "string.uri": "Invalid url",
     "string.uriCustomScheme": "Invalid url",
   }),
@@ -114,7 +114,7 @@ const ModalEditInfo = ({ isOpen, dataAgent, onClose, isLoading, onSubmit }) => {
   const form = useForm({
     validate: joiResolver(schemaEditAgent),
     initialValues: {
-      avatarUrl: get(dataAgent, ["avatar"], ""),
+      //avatarUrl: get(dataAgent, ["avatar"], ""),
       content: get(dataAgent, ["content"], ""),
       email: get(dataAgent, ["email"], ""),
       facebook: get(dataAgent, ["facebook"], ""),
@@ -175,13 +175,9 @@ const ModalEditInfo = ({ isOpen, dataAgent, onClose, isLoading, onSubmit }) => {
               {...form.getInputProps('email')}
             />
             <Box className={classes.gridColumnFull}>
-              <Text component="label" for="content" className={classes.labelAboutMe}>About me</Text>
+              <Text component="label" htmlFor="content" className={classes.labelAboutMe}>About me</Text>
               <RichTextEditor
-                controls={[
-                  ['bold', 'italic', 'underline'],
-                  ['h3', 'h4', 'h5'],
-                  ['alignLeft', 'alignCenter', 'alignRight'],
-                ]}
+                controls={[]}
                 disabled={isLoading}
                 placeholder="About me"
                 {...form.getInputProps('content')}
@@ -219,11 +215,10 @@ const ModalEditInfo = ({ isOpen, dataAgent, onClose, isLoading, onSubmit }) => {
           </Box>
         </ScrollArea>
 
-        <Group position="right" mt="16px">
-          <Button type="submit">Save</Button>
+        <Group position="right" mt="16px" pr="11px">
+          <Button disabled={isLoading} loading={isLoading} type="submit">Save</Button>
         </Group>
       </form>
-
 
     </Modal>
   );

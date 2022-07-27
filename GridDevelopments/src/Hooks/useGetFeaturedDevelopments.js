@@ -74,16 +74,28 @@ const useGetFeaturedDevelopments = (idAgent) => {
     config: {
       enabled: tagId > 0,
       onSuccess: (response) => {
-        console.log("response ", response)
-        /* const { listings } = response;
-        const { nodes, pageInfo } = listings;
-        if (pageInfo.endCursor) {
-          setCursorPaginator(pageInfo.endCursor);
+        if(idAgent) {
+          const { dataAgent } = response;
+          if(dataAgent[0]) {
+            const { listings } = dataAgent[0];
+            const { nodes } = listings;
+            const newData = fullDataGenerator(fullData, nodes);
+            setFullData(newData);
+          }
+          setCursorPaginator("");
+          setHasNextPage(false);
+          setIsFirtsFetch(false);
+        } else {
+          const { listings } = response;
+          const { nodes, pageInfo } = listings;
+          if (pageInfo.endCursor) {
+            setCursorPaginator(pageInfo.endCursor);
+          }
+          setHasNextPage(pageInfo?.hasNextPage || false);
+          const newData = fullDataGenerator(fullData, nodes);
+          setFullData(newData);
+          setIsFirtsFetch(false);
         }
-        setHasNextPage(pageInfo?.hasNextPage || false);
-        const newData = fullDataGenerator(fullData, nodes);
-        setFullData(newData);
-        setIsFirtsFetch(false); */
       },
       onError: () => {
         setFullData([]);
@@ -105,8 +117,6 @@ const useGetFeaturedDevelopments = (idAgent) => {
 
   // Get Specific Listing
   const {
-    isLoading: loadingSingleListing,
-    isFetching: isFetchingSingleListing,
     isError: errorSingleListing,
   } = useQueryHelper({
     name: "get-single-listing-gd",
