@@ -115,14 +115,18 @@ const useGetFeaturedDev = () => {
     }
 
     // 4
-    const { isLoading: isLoadingListing, isFetching: isFetchingListing, refetch: refetchListing } = useQueryHelper({
+    const {
+        isLoading: isLoadingListing,
+        isFetching: isFetchingListing,
+        refetch: refetchListing
+    } = useQueryHelper({
         name: 'ALL_LISTINGS_DEVELOPMENTS_By_AllListingView',
         gql: ALL_LISTINGS_DEVELOPMENTS((categoy ? categoy : null), (neighborhood ? neighborhood : null)),
         config: {
             enabled: !isEmpty(mapApiKey),
             onSuccess: (req) => {
                 // set data acf opcion
-                dispatch(setDataListing({ ...req.listings }))
+                dispatch(setDataListing({ data: { ...req.listings }, reset: false }))
                 // dispatch loading global false
                 dispatch(setIsLoading(false))
             },
@@ -135,18 +139,25 @@ const useGetFeaturedDev = () => {
         },
         variables: {
             ...variablesListint()
-         }
+        }
     });
+
 
     useEffect(() => {
         if (!isEmpty(mapApiKey)) {
             refetchListing()
         }
-    }, [search, neighborhood, categoy, refetchListing, mapApiKey])
+    }, [
+        search,
+        neighborhood,
+        categoy,
+        refetchListing,
+        mapApiKey
+    ])
 
     return {
         isError,
-        isLoading,
+        isLoading: isLoading || isFetchingListing,
         refetchListing,
         dataListing: dataListing,
         totalData: dataListing.length,

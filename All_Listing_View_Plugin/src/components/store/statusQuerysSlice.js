@@ -31,9 +31,16 @@ export const filterSlice = createSlice({
             state.mapApiKey = action.payload
         },
         setDataListing: (state, action) => {
-            state.dataListing = [...action.payload.nodes, ...state.dataListing];
-            if(action.payload.pageInfo?.endCursor) {
-                state.pageInfoListing = action.payload.pageInfo;
+            const { data, reset } = action.payload
+
+            if (reset) {
+                state.dataListing = [...data.nodes];
+                state.pageInfoListing = data.pageInfo;
+            } else {
+                state.dataListing = [...data.nodes, ...state.dataListing];
+                if (data.pageInfo?.endCursor) {
+                    state.pageInfoListing = data.pageInfo;
+                }
             }
         },
     },

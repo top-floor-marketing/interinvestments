@@ -93,6 +93,11 @@ const GridListing = ({ name, data, isLoading, refetch, totalData, parentClassnam
                     root: '!p-0'
                   }}
                 >
+
+                  {
+                    console.log('data', data)
+                  }
+
                   {
                     <GridQuickView
                       data={{

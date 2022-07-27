@@ -15,7 +15,7 @@ const FiltersListings = () => {
     const dispatch = useDispatch()
     const { search, neighborhood, categoy } = useSelector((state) => state.filter)
     const { dataCategory, dataNei, isLoading } = useSelector((state) => state.statusQuery)
-    const { setSearch, setneighborhood, setcategoy } = actionslices
+    const { setSearch, setneighborhood, setcategoy, setDataListing } = actionslices
 
     if (isLoading) {
         return (
@@ -29,9 +29,23 @@ const FiltersListings = () => {
                 className={styles.inputsearch}
                 name='search'
                 value={search}
-                onChange={(valueInpu) => (
+                onChange={(valueInpu) => {
+                    // set value input
                     dispatch(setSearch(valueInpu.target.value))
-                )}
+                    // reset vaues listing
+                    dispatch(setDataListing({
+                        data: {
+                            nodes: [],
+                            pageInfo: {
+                                "endCursor": null,
+                                "hasNextPage": false,
+                                "hasPreviousPage": true,
+                                "startCursor": null
+                            }
+                        },
+                        reset: true
+                    }))
+                }}
                 classNames={{
                     rightSection: 'm-[10px] opacity-50',
                     input: '!pr-[45px]'
@@ -43,7 +57,23 @@ const FiltersListings = () => {
             />
             <Select
                 value={neighborhood}
-                onChange={(value) => dispatch(setneighborhood(value))}
+                onChange={(value) => {
+                    // set value input
+                    dispatch(setneighborhood(value))
+                    // reset vaues listing
+                    dispatch(setDataListing({
+                        data: {
+                            nodes: [],
+                            pageInfo: {
+                                "endCursor": null,
+                                "hasNextPage": false,
+                                "hasPreviousPage": true,
+                                "startCursor": null
+                            }
+                        },
+                        reset: true
+                    }))
+                }}
                 className={styles.inputsearch}
                 placeholder="select Neighborhood"
                 radius="xl"
@@ -59,7 +89,23 @@ const FiltersListings = () => {
             />
             <SegmentedTypeListing
                 value={categoy}
-                onChange={(value) => dispatch(setcategoy(value))}
+                onChange={(value) => {
+                    // set value input
+                    dispatch(setcategoy(value))
+                    // reset vaues listing
+                    dispatch(setDataListing({
+                        data: {
+                            nodes: [],
+                            pageInfo: {
+                                "endCursor": null,
+                                "hasNextPage": false,
+                                "hasPreviousPage": true,
+                                "startCursor": null
+                            }
+                        },
+                        reset: true
+                    }))
+                }}
                 dataCategory={dataCategory.map(
                     (value) => (
                         {
