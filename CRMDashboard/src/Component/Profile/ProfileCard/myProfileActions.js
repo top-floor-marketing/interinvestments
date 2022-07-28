@@ -4,6 +4,7 @@ import { Box, createStyles, Text } from "@mantine/core";
 import { ShareAgent, IconEditModal } from "../../ActionButtons";
 import { notificationError, notificationSuccess } from "../../Notifications";
 import ModalEditInfo from "./modalEditInfo";
+import ListingFinder from "../../ListingFinder";
 
 import { useMutationHelper } from "../../../GraphqlClient/useRequest";
 import { MUTATION_EDIT_AGENT_PROFILE } from "../../../GraphqlClient/agentProfile.gql";

@@ -36,7 +36,6 @@ const useQueryHelper = (props) => {
       }
     },
     {
-      ...globalConfig,
       ...config,
     }
   );
@@ -61,7 +60,6 @@ const useMutationHelper = (props) => {
       }
     },
     {
-      ...globalConfig,
       ...config,
     }
   );

@@ -3,6 +3,7 @@ import { IconPlus } from '@tabler/icons';
 
 import useGetAgentListing from "./useGetAgentListing";
 
+import ModalAddListing from "./modalAddListing";
 import InfiniteListingScroll from './infiniteListingScroll';
 
 const useStyles = createStyles((theme, _params) => ({
@@ -39,7 +40,7 @@ const FeaturedListing = (props) => {
 
   const { classes } = useStyles();
 
-  const { isSkeleton, isLoading, listingAgent, totalData, refetchData } = useGetAgentListing();
+  const { isSkeleton, isLoading, listingAgent, totalData, arrayIdListings, refetchData } = useGetAgentListing();
 
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
@@ -49,6 +50,7 @@ const FeaturedListing = (props) => {
           <Button color="dark" leftIcon={<IconPlus size={12} />}>
             Add featured listing
           </Button>
+          <ModalAddListing arrayIdListings={arrayIdListings} />
         </Group>
         <InfiniteListingScroll
           parentClassname={classes.boxInfiniteLoader}
