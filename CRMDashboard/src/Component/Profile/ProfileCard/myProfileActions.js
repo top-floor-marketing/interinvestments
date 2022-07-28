@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Box, createStyles, Text } from "@mantine/core";
-import { QueryClient } from '@tanstack/react-query'
+import { Alert, Box, createStyles, Text } from "@mantine/core";
+import { Check, AlertCircle } from 'tabler-icons-react';
+import { showNotification } from '@mantine/notifications';
 
 import { ShareAgent, IconEditModal } from "../../ActionButtons";
 import ModalEditInfo from "./modalEditInfo";
@@ -9,6 +10,8 @@ import { useMutationHelper } from "../../../GraphqlClient/useRequest";
 import { MUTATION_EDIT_AGENT_PROFILE } from "../../../GraphqlClient/agentProfile.gql";
 
 import PropTypes from 'prop-types';
+
+import isEqual from 'lodash/isEqual';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
@@ -42,13 +45,17 @@ const MyProfileActions = ({ isLoading, id, dataAgent, refetchData }) => {
 
   const onSubmitForm = (data) => {
     try {
-      fetchEditAgent({
-        variables: {
-          id,
-          ...data
-        }
-      })
-    } catch(e) {
+      if (isEqual(data, dataAgent)) {
+        Alert("dataAgent")
+      } else {
+        fetchEditAgent({
+          variables: {
+            id,
+            ...data
+          }
+        })
+      }
+    } catch (e) {
       setIsOpen(false);
     }
   }
@@ -60,10 +67,46 @@ const MyProfileActions = ({ isLoading, id, dataAgent, refetchData }) => {
       onSuccess: async () => {
         await refetchData();
         setIsOpen(false);
+        showNotification({
+          id: 'edit-agent-profile',
+          disallowClose: true,
+          title: "Profile updated",
+          color: 'success',
+          styles: (theme) => ({
+            root: {
+              width: "fit-content",
+              marginLeft: "auto",
+              backgroundColor: theme.colors.dark[6],
+              borderColor: theme.colors.dark[6],
+              '&::before': { backgroundColor: theme.white },
+            },
+            title: { color: theme.colors.white[1] },
+            description: { color: theme.colors.dark[1] },
+          }),
+          icon: <Check />,
+        });
       },
       onError: async () => {
         await refetchData();
         setIsOpen(false);
+        showNotification({
+          id: 'edit-agent-profile',
+          disallowClose: true,
+          title: "Error",
+          color: 'secondary',
+          styles: (theme) => ({
+            root: {
+              width: "fit-content",
+              marginLeft: "auto",
+              backgroundColor: theme.colors.error[6],
+              borderColor: theme.colors.error[6],
+              '&::before': { backgroundColor: theme.white },
+            },
+            title: { color: theme.white },
+            description: { color: theme.white },
+          }),
+          icon: <AlertCircle />,
+        });
       },
     },
   });
@@ -92,7 +135,7 @@ MyProfileActions.defaultProps = {
   isLoading: false,
   id: null,
   dataAgent: null,
-  refetchData: () => {}
+  refetchData: () => { }
 };
 
 MyProfileActions.propTypes = {

@@ -1,4 +1,5 @@
 import { Box, createStyles, Text, Modal, Group, Button, ScrollArea, TextInput } from "@mantine/core";
+
 import { useForm, joiResolver } from '@mantine/form';
 import { RichTextEditor } from '@mantine/rte';
 import Joi from 'joi';
@@ -67,6 +68,7 @@ const schemaEditAgent = Joi.object({
     "any.required": "Required",
   }),
   content: Joi.string().allow(''),
+  phone: Joi.string().allow(''),
   email: Joi.string().email({ tlds: { allow: false } }).required().messages({
     "string.email": "Invalid email",
     "string.empty": "Required",
@@ -123,6 +125,7 @@ const ModalEditInfo = ({ isOpen, dataAgent, onClose, isLoading, onSubmit }) => {
       position: get(dataAgent, ["position"], ""),
       firstName: get(dataAgent, ["firstName"], ""),
       lastName: get(dataAgent, ["lastName"], ""),
+      phone: get(dataAgent, ["phone"], ""),
     },
   });
 
@@ -160,6 +163,14 @@ const ModalEditInfo = ({ isOpen, dataAgent, onClose, isLoading, onSubmit }) => {
               placeholder="Last Name"
               {...form.getInputProps('lastName')}
             />
+
+            <TextInput
+              disabled={isLoading}
+              label="Phone"
+              placeholder="Phone"
+              {...form.getInputProps('phone')}
+            />
+
             <TextInput
               disabled={isLoading}
               label="Position"
@@ -168,11 +179,14 @@ const ModalEditInfo = ({ isOpen, dataAgent, onClose, isLoading, onSubmit }) => {
             />
 
             <TextInput
+              className={classes.gridColumnFull}
               disabled={isLoading}
               label="Email"
               placeholder="Email"
               {...form.getInputProps('email')}
             />
+
+
             <Box className={classes.gridColumnFull}>
               <Text component="label" htmlFor="content" className={classes.labelAboutMe}>About me</Text>
               <RichTextEditor
