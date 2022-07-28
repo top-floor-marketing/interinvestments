@@ -3,7 +3,7 @@ import { Skeleton } from "@mantine/core";
 import styles from "./styles_gd_ALV.module.scss";
 
 const SkeletonGrid = () => {
-  const listItems = new Array(8).fill(0);
+  const listItems = new Array(4).fill(0);
   return (
     <div className={styles.container}>
       {listItems.map((val, index) => (

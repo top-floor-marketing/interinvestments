@@ -23,7 +23,7 @@ const useGetFeaturedDev = () => {
         setcategoy
     } = actionslices
     const { search, neighborhood, categoy } = useSelector((state) => state.filter)
-    const { dataCategory, dataListing, pageInfoListing, isLoading, isError, dataNei, mapApiKey } = useSelector((state) => state.statusQuery)
+    const { dataCategory, dataListing, pageInfoListing, isError, dataNei, mapApiKey } = useSelector((state) => state.statusQuery)
 
     const [perPage] = useState(15);
 
@@ -118,7 +118,9 @@ const useGetFeaturedDev = () => {
     const {
         isLoading: isLoadingListing,
         isFetching: isFetchingListing,
-        refetch: refetchListing
+        refetch: refetchListing,
+        isFetched,
+        isSuccess
     } = useQueryHelper({
         name: 'ALL_LISTINGS_DEVELOPMENTS_By_AllListingView',
         gql: ALL_LISTINGS_DEVELOPMENTS((categoy ? categoy : null), (neighborhood ? neighborhood : null)),
@@ -157,11 +159,11 @@ const useGetFeaturedDev = () => {
 
     return {
         isError,
-        isLoading: isLoading || isFetchingListing,
+        isSkeleton: !isFetched && !isSuccess,
         refetchListing,
         dataListing: dataListing,
         totalData: dataListing.length,
-        loadingListing: isLoading || isFetchingListing || isLoadingListing
+        loadingListing: isFetchingListing || isLoadingListing
     }
 }
 

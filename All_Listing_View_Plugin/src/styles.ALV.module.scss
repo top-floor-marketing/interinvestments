@@ -11,7 +11,7 @@
 }
 
 .containerGridCard {
-    @apply w-full lg:w-2/5 pt-5;
+    @apply w-full lg:w-2/5 pt-5 lg:pr-5;
 }
 
 .containerMap {
@@ -23,5 +23,9 @@
 }
 
 .sectionGridListing {
-    @apply w-full h-auto my-5 lg:w-2/5;
+    @apply w-full h-auto my-5 lg:w-2/5 relative;
+}
+
+.overlayGridListing {
+    @apply h-auto w-full;
 }

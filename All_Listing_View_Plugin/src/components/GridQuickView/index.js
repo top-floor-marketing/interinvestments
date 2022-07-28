@@ -74,14 +74,14 @@ const GridQuickView = ({
         />
       )}
 
-      <div {...allProps.filter}></div>
-      <div {...allProps.infoContainer}>
+      <Box {...allProps.filter}></Box>
+      <Box {...allProps.infoContainer}>
         {isMobileScreen ? (
           <>
-            <div className="flex flex-col gap-2">
+            <Box className="flex flex-col gap-2">
               <Text {...allProps.textTitle}>{data.title}</Text>
               <Text {...allProps.textSubTitle}>{data.subTitle}</Text>
-            </div>
+            </Box>
             <Button {...allProps.buttonRedirect(data.uri)}>
               <ChevronRight size={18} color="#FFB839" />
             </Button>
@@ -90,17 +90,17 @@ const GridQuickView = ({
           <>
             <Text {...allProps.textTitle}>{data.title}</Text>
             <Text {...allProps.textSubTitle}>{data.subTitle}</Text>
-            <div {...allProps.gridButtons}>
+            <Box {...allProps.gridButtons}>
               <Button {...allProps.buttonQuickView(data.id)}>
                 Quick View
               </Button>
               <Button {...allProps.buttonRedirect(data.uri)}>
                 <ChevronRight size={24} color="#FFB839" />
               </Button>
-            </div>
+            </Box>
           </>
         )}
-      </div>
+      </Box>
     </Paper>
   );
 };

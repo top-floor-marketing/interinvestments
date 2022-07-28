@@ -71,6 +71,8 @@ export const ALL_LISTINGS_DEVELOPMENTS = (Category = null, neighborhood = null) 
             }
             listingData {
               newDevelopment {
+                latitude
+					      longitude
                 photos {
                   fileSize
                   sourceUrl
@@ -102,7 +104,7 @@ export const ALL_LISTINGS_DEVELOPMENTS = (Category = null, neighborhood = null) 
       }
     `
   )
-} 
+}
 
 export const GET_SINGLE_LISTING_GQL = gql`
   query listings($id: Int!) {

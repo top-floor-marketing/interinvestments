@@ -31,10 +31,8 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 
 const GridListing = ({ name, data, isLoading, refetch, totalData, parentClassname, openModalQuickView }) => {
 
-
   const idGrid = useId("_" + random(1, 1000) + "_" + name);
   const refParentBox = useRef(null);
-
 
 
   const onScroll = (e) => {

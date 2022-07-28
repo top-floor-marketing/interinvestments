@@ -9,14 +9,14 @@ import AlertError from '../AlertError'
 // Hooks
 import { useGetFeaturedDev } from '../../Hooks'
 // mantine
-import { Box, ScrollArea, Header, AppShell } from '@mantine/core';
+import { Box, Header, AppShell, LoadingOverlay } from '@mantine/core';
 // styles
 import style from '../../styles.ALV.module.scss'
 
 const Main = () => {
     const [idSingleListing, setIdSingleListing] = useState(null)
     // usar hook, validar error o skeleton
-    const { isLoading, isError, refetchListing, dataListing, totalData, loadingListing } = useGetFeaturedDev()
+    const { isSkeleton, isError, refetchListing, dataListing, totalData, loadingListing } = useGetFeaturedDev()
 
     if (isError) {
         return (
@@ -61,20 +61,19 @@ const Main = () => {
 
                 <Box className={style.containerContend}>
                     {
-                        (isLoading && !isError) ? (
-                            <Box
-                                component={ScrollArea}
-                                className={style.containerGridCard}
-                                classNames={{
-                                    root: 'h-[350px] lg:h-full lg:max-h-screen',
-                                    viewport: 'pr-0 md:pr-4',
-                                    thumb: 'bg-[#FFB839]'
-                                }}
-                            >
+                        (isSkeleton) ? (
+                            <Box className={style.containerGridCard}>
                                 <SkeletonGrid />
                             </Box>
                         ) : (
-                            <Box className={style.sectionGridListing}>
+                            <Box
+                                className={style.sectionGridListing}
+                            >
+                                <LoadingOverlay
+                                    className={style.overlayGridListing}
+                                    visible={loadingListing}
+                                //  overlayBlur={2}
+                                />
                                 <GridListing
                                     openModalQuickView={onOpenModal}
                                     refetch={refetchListing}
@@ -89,10 +88,12 @@ const Main = () => {
                     }
                     <Box className={style.containerMap}>
                         {
-                            (isLoading && !isError) ? (
+                            (isSkeleton) ? (
                                 <LoaderMaps />
                             ) : (
-                                <MapListing />
+                                <MapListing
+                                    isLoading={loadingListing}
+                                />
                             )
                         }
                     </Box>
