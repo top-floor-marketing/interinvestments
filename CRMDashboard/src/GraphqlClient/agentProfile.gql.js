@@ -70,7 +70,7 @@ mutation agentEditProfile(
   $email: String,
   $facebook: String,
   $firstName: String,
-  $id: Int,
+  $id: Int!,
   $instagram: String,
   $lastName: String,
   $linkedin: String,

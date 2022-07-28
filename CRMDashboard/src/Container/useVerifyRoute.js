@@ -72,18 +72,11 @@ const useVerifyRoute = () => {
         }
         dispatch(toggleLoadingFull(false));
         setLoadingVerify(false);
-        /* dispatch(toggleLoadingFull(false));
-        setLoadingVerify(false);
-        dispatch(setRoute(routeInLocalStorage)); */
       },
       onError: (e) => {
         setNullStore();
         dispatch(toggleLoadingFull(false));
         setLoadingVerify(false);
-        /* dispatch(toggleLoadingFull(false));
-        setLoadingVerify(false);
-        setRouteInLocalStorage(DEFAULT_ROUTE);
-        dispatch(setRoute(DEFAULT_ROUTE)); */
       },
     },
   });

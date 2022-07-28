@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Alert, Box, createStyles, Text } from "@mantine/core";
-import { Check, AlertCircle } from 'tabler-icons-react';
-import { showNotification } from '@mantine/notifications';
+import { Box, createStyles, Text } from "@mantine/core";
 
 import { ShareAgent, IconEditModal } from "../../ActionButtons";
+import { notificationError, notificationSuccess } from "../../Notifications";
 import ModalEditInfo from "./modalEditInfo";
 
 import { useMutationHelper } from "../../../GraphqlClient/useRequest";
@@ -12,6 +11,8 @@ import { MUTATION_EDIT_AGENT_PROFILE } from "../../../GraphqlClient/agentProfile
 import PropTypes from 'prop-types';
 
 import isEqual from 'lodash/isEqual';
+import omit from 'lodash/omit';
+import endsWith from 'lodash/endsWith';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
@@ -45,8 +46,13 @@ const MyProfileActions = ({ isLoading, id, dataAgent, refetchData }) => {
 
   const onSubmitForm = (data) => {
     try {
-      if (isEqual(data, dataAgent)) {
-        Alert("dataAgent")
+      const omitData = omit(dataAgent, ['avatar', 'id', 'roles']);
+      const isLineBreak = endsWith(dataAgent?.content, '\n');
+      if(isLineBreak) {
+        omitData.content = omitData.content.substring(0, omitData.content.length-1);
+      }
+      if (isEqual(data,omitData)) {
+        setIsOpen(false);
       } else {
         fetchEditAgent({
           variables: {
@@ -67,46 +73,20 @@ const MyProfileActions = ({ isLoading, id, dataAgent, refetchData }) => {
       onSuccess: async () => {
         await refetchData();
         setIsOpen(false);
-        showNotification({
+        notificationSuccess({
           id: 'edit-agent-profile',
-          disallowClose: true,
           title: "Profile updated",
-          color: 'success',
-          styles: (theme) => ({
-            root: {
-              width: "fit-content",
-              marginLeft: "auto",
-              backgroundColor: theme.colors.dark[6],
-              borderColor: theme.colors.dark[6],
-              '&::before': { backgroundColor: theme.white },
-            },
-            title: { color: theme.colors.white[1] },
-            description: { color: theme.colors.dark[1] },
-          }),
-          icon: <Check />,
+          color: 'success'
         });
       },
       onError: async () => {
         await refetchData();
         setIsOpen(false);
-        showNotification({
+        notificationError({
           id: 'edit-agent-profile',
-          disallowClose: true,
           title: "Error",
-          color: 'secondary',
-          styles: (theme) => ({
-            root: {
-              width: "fit-content",
-              marginLeft: "auto",
-              backgroundColor: theme.colors.error[6],
-              borderColor: theme.colors.error[6],
-              '&::before': { backgroundColor: theme.white },
-            },
-            title: { color: theme.white },
-            description: { color: theme.white },
-          }),
-          icon: <AlertCircle />,
-        });
+          color: 'secondary'
+        })
       },
     },
   });
