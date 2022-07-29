@@ -4,7 +4,8 @@
 }
 
 .paperItem {
-    @apply relative flex flex-col w-full h-full rounded-[10px] shadow-2xl;
+    @apply relative flex flex-col w-full h-full rounded-[10px];
+    box-shadow: 1px 5px 10px 1px rgba(0,0,0,0.6) !important;
 }
 
 .imgCover {

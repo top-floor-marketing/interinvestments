@@ -38,68 +38,70 @@ const Main = () => {
     }
 
     return (
-        <AppShell
-            className={style.containerMain}
-            classNames={{
-                main: 'p-[20px] pb-0 lg:pl-[0px] lg:pr-0 lg:pt-0 mt-[200px] md:mt-[88px]'
-            }}
-            header={
-                <Header fixed>
-                    <FiltersListings />
-                </Header>
+        <>
+            {
+                (idSingleListing) && (
+                    <ModalQuickView
+                        idSingleListing={idSingleListing}
+                        onClose={() => onCloseModal()}
+                    />
+                )
             }
-        >
-            <Box className='relative'>
-                {
-                    (idSingleListing) && (
-                        <ModalQuickView
-                            idSingleListing={idSingleListing}
-                            onClose={() => onCloseModal()}
-                        />
-                    )
+            <AppShell
+                className={style.containerMain}
+                classNames={{
+                    main: 'p-[20px] pb-0 lg:pl-[0px] lg:pr-0 lg:pt-0 mt-[200px] md:mt-[88px]'
+                }}
+                header={
+                    <Header fixed>
+                        <FiltersListings />
+                    </Header>
                 }
-
-                <Box className={style.containerContend}>
-                    {
-                        (isSkeleton) ? (
-                            <Box className={style.containerGridCard}>
-                                <SkeletonGrid />
-                            </Box>
-                        ) : (
-                            <Box
-                                className={style.sectionGridListing}
-                            >
-                                <LoadingOverlay
-                                    className={style.overlayGridListing}
-                                    visible={loadingListing}
-                                //  overlayBlur={2}
-                                />
-                                <GridListing
-                                    openModalQuickView={onOpenModal}
-                                    refetch={refetchListing}
-                                    data={dataListing}
-                                    totalData={totalData}
-                                    name="grid"
-                                    isLoading={loadingListing}
-                                    parentClassname={style.containerGridInfinite}
-                                />
-                            </Box>
-                        )
-                    }
-                    <Box className={style.containerMap}>
+            >
+                <Box className='relative'>
+                    <Box className={style.containerContend}>
                         {
                             (isSkeleton) ? (
-                                <LoaderMaps />
+                                <Box className={style.containerGridCard}>
+                                    <SkeletonGrid />
+                                </Box>
                             ) : (
-                                <MapListing
-                                    isLoading={loadingListing}
-                                />
+                                <Box
+                                    className={style.sectionGridListing}
+                                >
+                                    <LoadingOverlay
+                                        className={style.overlayGridListing}
+                                        visible={loadingListing}
+                                    //  overlayBlur={2}
+                                    />
+                                    <GridListing
+                                        openModalQuickView={onOpenModal}
+                                        refetch={refetchListing}
+                                        data={dataListing}
+                                        totalData={totalData}
+                                        name="grid"
+                                        isLoading={loadingListing}
+                                        parentClassname={style.containerGridInfinite}
+                                    />
+                                </Box>
                             )
                         }
+                        <Box className={style.containerMap}>
+                            {
+                                (isSkeleton) ? (
+                                    <LoaderMaps />
+                                ) : (
+                                    <MapListing
+                                        isLoading={loadingListing}
+                                    />
+                                )
+                            }
+                        </Box>
                     </Box>
                 </Box>
-            </Box>
-        </AppShell>
+            </AppShell>
+        </>
+
     )
 }
 

@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@100&display=swap');
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @layer base {
 
@@ -35,7 +33,7 @@
     }
 
     .btn-wp-primary-icon .icon-tabler-chevron-right {
-        visibility: hidden;
+        visibility: hidden !important;
         opacity: 0;
         height: 0;
         width: 0;
@@ -57,7 +55,7 @@
     }
 
     .btn-wp-primary-icon:hover .icon-tabler-chevron-right {
-        visibility: visible;
+        visibility: visible !important;
         opacity: 1;
         height: auto;
         width: 17px !important;
@@ -82,7 +80,5 @@
 
 }
 
-
-.mantine-1fgj4n5:hover .__mantine-ref-thumb {
-    background-color: #FFB839 !important;
-}
+@tailwind components;
+@tailwind utilities;
