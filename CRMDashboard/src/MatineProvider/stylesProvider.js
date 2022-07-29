@@ -210,7 +210,10 @@ const stylesProvider = () => {
                                 color: theme.colors.dark[9],
                                 transform: "scale(1) !important"
                             },
-                        }
+                        },
+                        "&:disabled": {
+                            backgroundColor: theme.colors.gray[6],
+                        },
                     },
                     toolbar: {
                         backgroundColor: theme.colors.white[0],

@@ -5,7 +5,7 @@ import { IconPlus } from '@tabler/icons';
 import useGetAgentListing from "./useGetAgentListing";
 
 import ModalAddListing from "./modalAddListing";
-import InfiniteListingScroll from './infiniteListingScroll';
+import VirtualAgentListingScroll from './virtualAgentListingScroll';
 
 const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
@@ -26,14 +26,6 @@ const useStyles = createStyles((theme, _params) => ({
     height: "100%",
     minHeight: "250px",
     maxHeight: "500px",
-  },
-  scrollTest: {
-    width: "100%",
-    backgroundColor: theme.colors.success[0],
-    height: "150px",
-    display: "flex",
-    flexDirection: "column",
-    gap: theme.other.spacing.p4,
   }
 }));
 
@@ -71,7 +63,7 @@ const FeaturedListing = () => {
             />
           )}
         </Group>
-        <InfiniteListingScroll
+        <VirtualAgentListingScroll
           parentClassname={classes.boxInfiniteLoader}
           name="agent"
           data={listingAgent}
