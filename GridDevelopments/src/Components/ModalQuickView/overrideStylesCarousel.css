@@ -14,19 +14,16 @@
 .CarouselModal_wp>.carousel.carousel-slider>.control-dots {
     display: flex;
     flex-direction: row;
-    padding-right: 1.25rem;
-    padding-left: 1.25rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding: 0.75rem !important;
 }
 
 .CarouselModal_wp > .carousel .slide img {
-    border: 0;
+    border: 0 !important;
     vertical-align: top;
     width: 100%;
     object-fit: cover;
 }
 
 .mantine-Modal-inner {
-    top: -3% !important;
+    top: -5% !important;
 }

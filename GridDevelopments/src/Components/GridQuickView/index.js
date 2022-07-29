@@ -48,7 +48,7 @@ const GridQuickView = ({
         onClick: () => openModalQuickView(id),
         disabled: showOverlay,
         variant: "white",
-        className: "btn-wp-primary " + styles.buttonQuickView,
+        className: "btn-wp-primary btn-wp-primary-rounded " + styles.buttonQuickView,
       };
     },
     buttonRedirect: (uri) => {

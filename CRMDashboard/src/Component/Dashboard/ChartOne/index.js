@@ -6,7 +6,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     minHeight: "400px",
     display: "flex",
     flexDirection: "column",
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p4,
     boxShadow: theme.shadows.md,
   },
   titleCard: {

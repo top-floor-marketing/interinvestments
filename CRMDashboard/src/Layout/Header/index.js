@@ -11,6 +11,8 @@ import {
 
 import LogoInter from "../../Assets/logo-inter.svg";
 
+import { LogoutIcon } from "../../Component/ActionButtons";
+
 import { COLOR_SCHEME_DARK } from "../../Store/themeSlice";
 
 import { useDispatch } from "react-redux";
@@ -24,8 +26,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       theme.colorScheme === COLOR_SCHEME_DARK
         ? theme.colors.white[0]
         : theme.colors.black[0],
-    paddingLeft: theme.other.spacing.p5,
-    paddingRight: theme.other.spacing.p5,
+    paddingLeft: theme.other.spacing.p4,
+    paddingRight: theme.other.spacing.p4,
     boxShadow: theme.shadows.md,
     borderBottom: `1px solid ${theme.colors.gray[2]}`,
     [`@media (min-width: ${theme.breakpoints.lg}px)`]: {
@@ -34,9 +36,10 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
   boxContainer: {
     display: "flex",
+    flexDirection: "row",
     alignItems: "center",
     height: "100%",
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p4,
   },
   logoContainer: {
     display: "flex",
@@ -57,13 +60,16 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     },
   },
   imageContainer: {
-    paddingLeft: theme.other.spacing.p5,
-    paddingRight: theme.other.spacing.p5,
+    paddingLeft: theme.other.spacing.p4,
+    paddingRight: theme.other.spacing.p4,
   },
   content: {
     display: "flex",
+    flexDirection: "row",
     alignItems: "center",
     height: "100%",
+    marginLeft: "auto",
+    padding: theme.other.spacing.p4,
     color: theme.colors.black[0],
   },
 }));
@@ -93,7 +99,9 @@ const HeaderDashboard = ({ opened, setOpened }) => {
             </Box>
           </Box>
         </MediaQuery>
-        <Box className={classes.content}></Box>
+        <Box className={classes.content}>
+          <LogoutIcon  size={24} color="dark" />
+        </Box>
       </Box>
     </Header>
   );

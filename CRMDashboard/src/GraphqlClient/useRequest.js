@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation } from '@tanstack/react-query'
 
 import { GraphQLClient } from "graphql-request";
 
@@ -17,23 +17,23 @@ const globalConfig = {
   retry: false,
 };
 
-const graphQLClient = new GraphQLClient(API_URL, {
-  /* headers: {
-    Authorization: `Bearer `,
-  }, */
-});
-
 const useQueryHelper = (props) => {
   const { name, gql, variables, config = {} } = props;
   const token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
   const requestHeaders = {
     authorization: !isNull(token) ? `Bearer ${token}` : "",
   };
+  const client = new GraphQLClient(API_URL);
   return useQuery(
-    name,
-    async () => {
-      const data = await graphQLClient.request(gql, variables, requestHeaders);
-      return data;
+    [name],
+    async ({ signal }) => {
+      try {
+        const response = await client.request({ document: gql, variables, requestHeaders, signal });   
+        console.log('response ', response)
+        return response;
+      } catch (error) {
+        console.log('ERRRRROOORRR QUERY ', error)
+      }
     },
     {
       ...globalConfig,
@@ -48,10 +48,22 @@ const useMutationHelper = (props) => {
   const requestHeaders = {
     authorization: !isNull(token) ? `Bearer ${token}` : "",
   };
+  const client = new GraphQLClient(API_URL);
   return useMutation(
-    name,
-    async ({ variables }) => {
-      return await graphQLClient.request(gql, variables, requestHeaders);
+    [name],
+    async ({ signal, variables }) => {
+      try {
+        const response = await client.request({
+          document: gql,
+          variables,
+          requestHeaders,
+          signal,
+        });
+        console.log("response ", response);
+        return response;
+      } catch (error) {
+        console.log("ERRRRROOORRR MUTATION ", error);
+      }
     },
     {
       ...globalConfig,

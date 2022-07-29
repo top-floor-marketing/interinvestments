@@ -1,0 +1,11 @@
+.container {
+    @apply w-full flex flex-col gap-3 content-center justify-center
+    px-1 self-center 
+    h-full;
+}
+
+.itemIndicadorScreenXl {
+    @apply min-h-[45px] w-[7px] ml-[10px] 
+    transition-all duration-700 ease-in-out
+    hover:bg-[#FFB839] hover:cursor-pointer;
+}

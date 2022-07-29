@@ -9,7 +9,9 @@ export const GET_POST_BLOG_GQL = gql`
       }
       nodes {
         databaseId
+        slug
         id
+        uri
         featuredImage {
           node {
             altText
