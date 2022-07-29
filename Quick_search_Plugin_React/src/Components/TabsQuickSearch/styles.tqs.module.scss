@@ -68,3 +68,7 @@
 .InputTabs {
     @apply col-span-3 font-outfit md:col-span-2;
 }
+
+.ContainerIconSelect {
+    @apply cursor-pointer w-[36px] h-[36px] flex justify-center items-center;
+}
