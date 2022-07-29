@@ -21,7 +21,7 @@
 }
 
 .imagenPin {
-    @apply transition duration-[450ms] opacity-60;
+    @apply transition duration-[450ms];
 }
 
 .avatarListing {
@@ -55,4 +55,12 @@
 
 .containerMarker {
     @apply w-[28px] h-[35px] cursor-pointer;
+}
+
+.contendInfoListing {
+    @apply flex flex-col gap-5 lg:flex-row;
+
+    div#infoListing {
+        @apply flex flex-col justify-between;
+    }
 }
