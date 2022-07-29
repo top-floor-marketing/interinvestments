@@ -50,10 +50,14 @@ const Main = () => {
             <AppShell
                 className={style.containerMain}
                 classNames={{
-                    main: 'p-[20px] pb-0 lg:pl-[0px] lg:pr-0 lg:pt-0 mt-[200px] md:mt-[88px]'
+                    main: 'p-[20px] pb-0 lg:pl-[0px] lg:pr-0 lg:pt-0'
                 }}
                 header={
-                    <Header fixed>
+                    <Header fixed
+                        classNames={{
+                            root: '!sticky'
+                        }}
+                    >
                         <FiltersListings />
                     </Header>
                 }
