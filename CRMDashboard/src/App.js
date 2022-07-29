@@ -7,10 +7,7 @@ import { NotificationsProvider } from '@mantine/notifications';
 import ThemeGlobalProvider from "./MatineProvider";
 
 import Main from "./Container";
-const queryClient = new QueryClient({
-  refetchOnWindowFocus: false,
-  retry: false,
-});
+const queryClient = new QueryClient();
 
 function App() {
   return (

@@ -47,6 +47,8 @@ query GetAgentInfo($agentId: Int = 10) {
         newDevelopment {
           latitude
           longitude
+          livingArea
+          views
           photos {
             altText
             databaseId

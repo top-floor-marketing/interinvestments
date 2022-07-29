@@ -52,7 +52,7 @@ const CarouselQuickView = forwardRef(({ photos }, ref) => {
     );
   }
   return (
-    <div className="w-full relative min-h-[35vh] h-full p-0">
+    <div className="w-full relative min-h-[40vh] h-full p-0">
       <Carousel
         animationHandler="fade"
         autoPlay={true}

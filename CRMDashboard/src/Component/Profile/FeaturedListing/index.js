@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, createStyles, Text, Skeleton, Group, Button } from "@mantine/core";
 import { IconPlus } from '@tabler/icons';
 
@@ -36,21 +37,39 @@ const useStyles = createStyles((theme, _params) => ({
   }
 }));
 
-const FeaturedListing = (props) => {
+const FeaturedListing = () => {
 
   const { classes } = useStyles();
 
   const { isSkeleton, isLoading, listingAgent, totalData, arrayIdListings, refetchData } = useGetAgentListing();
+
+  const [isOpenModalAddListing, setIsOpenModalAddListing] = useState(false);
+
+  const onCloseModalAddListing = () => {
+    setIsOpenModalAddListing(false);
+  }
 
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Card className={classes.cardContainer}>
         <Group position="apart">
           <Text className={classes.titleCard}>Featured listings</Text>
-          <Button color="dark" leftIcon={<IconPlus size={12} />}>
+          <Button
+            color="dark"
+            disabled={isLoading || isOpenModalAddListing}
+            leftIcon={<IconPlus size={12} />}
+            onClick={() => setIsOpenModalAddListing(true)}
+          >
             Add featured listing
           </Button>
-          <ModalAddListing arrayIdListings={arrayIdListings} />
+          {!isSkeleton && (
+            <ModalAddListing
+              isOpen={isOpenModalAddListing}
+              isLoading={isLoading}
+              arrayIdListings={arrayIdListings}
+              onClose={onCloseModalAddListing}
+            />
+          )}
         </Group>
         <InfiniteListingScroll
           parentClassname={classes.boxInfiniteLoader}
@@ -58,10 +77,10 @@ const FeaturedListing = (props) => {
           data={listingAgent}
           totalData={totalData}
           refetch={refetchData}
-          isLoading={isLoading} />
+          isLoading={isLoading}
+        />
       </Card>
     </Skeleton>
-
   );
 };
 
