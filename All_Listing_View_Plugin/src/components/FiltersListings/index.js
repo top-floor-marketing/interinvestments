@@ -33,11 +33,11 @@ const FiltersListings = () => {
                     // set value input
                     dispatch(setSearch(valueInput.target.value))
                     // reset vaues listing
-                    dispatch(setEmptyData())               
+                    dispatch(setEmptyData())
                 }}
                 classNames={{
                     rightSection: 'm-[10px] opacity-50',
-                    input: '!pr-[45px]'
+                    input: '!pr-[45px] !pl-[14px]'
                 }}
                 rightSection={<Search size={21} />}
                 placeholder="conde name, or zip code"
@@ -50,11 +50,12 @@ const FiltersListings = () => {
                     // set value input
                     dispatch(setneighborhood(value))
                     // reset vaues listing
-                    dispatch(setEmptyData())  
+                    dispatch(setEmptyData())
                 }}
                 className={styles.inputsearch}
                 placeholder="select Neighborhood"
                 radius="xl"
+                clearable
                 size="md"
                 data={dataNei.map(
                     (value) => (
@@ -71,7 +72,7 @@ const FiltersListings = () => {
                     // set value input
                     dispatch(setcategoy(value))
                     // reset vaues listing
-                    dispatch(setEmptyData())  
+                    dispatch(setEmptyData())
                 }}
                 dataCategory={dataCategory.map(
                     (value) => (
