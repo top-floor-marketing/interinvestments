@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import random from 'lodash/random';
 import get from 'lodash/get';
 
-import './styles_crm.css';
+import '../../../styles_crm_scroll.css';
 
 // 1.25rem === p5
 const GUTTER_SIZE = 16;
@@ -31,7 +31,7 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
     />
 ));
 
-const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentClassname }) => {
+const VirtualAgentListingScroll = ({ name, data, isLoading, refetch, totalData, parentClassname }) => {
 
     const { infoUser: { databaseId } } = useSelector((state) => state.user);
 
@@ -44,9 +44,7 @@ const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentC
         if (refetch !== undefined && !isLoading) {
             const parentHeight = get(refParentBox, ["current", "clientHeight"], null);
             if (parentHeight + scrollTop === gridContainer) {
-                setTimeout(() => {
-                    refetch();
-                }, 700);
+                refetch();
             }
         }
     };
@@ -93,7 +91,7 @@ const LoadInfiniteScroll = ({ name, data, isLoading, refetch, totalData, parentC
     )
 }
 
-LoadInfiniteScroll.defaultProps = {
+VirtualAgentListingScroll.defaultProps = {
     name: "scroll",
     data: [],
     isLoading: false,
@@ -103,7 +101,7 @@ LoadInfiniteScroll.defaultProps = {
     parentClassname: ""
 };
 
-LoadInfiniteScroll.propTypes = {
+VirtualAgentListingScroll.propTypes = {
     name: PropTypes.string,
     data: PropTypes.array,
     isLoading: PropTypes.bool,
@@ -113,4 +111,4 @@ LoadInfiniteScroll.propTypes = {
     parentClassname: PropTypes.string,
 };
 
-export default LoadInfiniteScroll;
+export default VirtualAgentListingScroll;

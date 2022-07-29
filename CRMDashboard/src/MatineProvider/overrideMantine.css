@@ -1,0 +1,7 @@
+.mantine-Skeleton-root::before {
+    background-color: #b8b8b5 !important;
+}
+
+.mantine-Skeleton-root::after {
+    background-color: #a4a4a0 !important;
+}

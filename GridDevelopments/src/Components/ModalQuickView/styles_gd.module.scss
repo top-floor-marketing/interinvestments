@@ -52,7 +52,7 @@ font-outfit ml-auto rounded-full border-solid border-black h-[40px] w-[40px] lg:
 }
 
 .buttonView {
-    @apply text-black font-wp-semibold uppercase font-outfit text-[20px] my-auto h-full w-full flex border-white;
+    @apply text-black font-wp-bold lg:font-wp-semibold uppercase font-outfit text-[14px] lg:text-[20px] my-auto h-full w-full flex border-white;
     width: 100% !important;
     div:first-child {
         @apply mx-auto;

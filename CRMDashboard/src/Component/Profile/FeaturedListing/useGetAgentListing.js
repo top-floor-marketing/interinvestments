@@ -6,7 +6,6 @@ import { GET_AGENT_FEATURED_LISTING } from "../../../GraphqlClient/agentProfile.
 import { useSelector } from "react-redux";
 
 import get from 'lodash/get';
-import reduce from 'lodash/reduce';
 
 const useGetAgentListing = () => {
 

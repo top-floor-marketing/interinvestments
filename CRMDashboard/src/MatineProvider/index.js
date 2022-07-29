@@ -7,6 +7,8 @@ import LoadingFull from "../Component/LoadingFull";
 
 import stylesProvider from "./stylesProvider";
 
+import './overrideMantine.css';
+
 const ThemeGlobalProvider = (props) => {
   const themeStore = useSelector((state) => state.theme);
   return (
@@ -20,7 +22,6 @@ const ThemeGlobalProvider = (props) => {
       emotionOptions={{ key: "wp" }}
       withGlobalStyles
       withNormalizeCSS
-     // styles={stylesProvider()}
     >
       <LoadingFull />
       {props.children}

@@ -1,10 +1,9 @@
-import { Box, createStyles, Text, Modal, Group, Button, ScrollArea, TextInput } from "@mantine/core";
+import { Box, createStyles, Text, Modal } from "@mantine/core";
+import { useViewportSize } from '@mantine/hooks';
 
-import { useForm, joiResolver } from '@mantine/form';
-import { RichTextEditor } from '@mantine/rte';
-import Joi from 'joi';
-import { get } from "lodash";
-import { Edit } from 'tabler-icons-react';
+import ListingFinder from "../../ListingFinder";
+
+import { Home } from 'tabler-icons-react';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   boxTitle: {
@@ -54,6 +53,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
 const ModalAddListing = ({ isOpen, arrayIdListings, onClose, isLoading }) => {
   const { classes } = useStyles();
+  const { height } = useViewportSize();
 
   return (
     <Modal
@@ -61,13 +61,27 @@ const ModalAddListing = ({ isOpen, arrayIdListings, onClose, isLoading }) => {
       closeOnClickOutside={false}
       closeButtonLabel={!isLoading}
       opened={isOpen}
+      transition="fade"
+      overflow="outside"
       onClose={() => onClose()}
       title={<Box className={classes.boxTitle}>
-        <Edit size={20} />
+        <Home size={20} />
         <Text component="h1" className={classes.titleModal}>Add featured listings</Text>
       </Box>}
+      styles={(theme) => ({
+        modal: {
+          width: "90%",
+          height: height-60,
+          maxHeight: "1200px",
+          display: "flex",
+          flexDirection: "column"
+        },
+        body: {
+          height: "100%",
+        }
+      })}
     >
-
+      <ListingFinder />
     </Modal>
   );
 };
