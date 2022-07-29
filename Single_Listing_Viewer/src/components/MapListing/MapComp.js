@@ -1,66 +1,56 @@
 import React from 'react'
+// componet
+import Marker from './Marker'
 //mantine
-// import { Popper, Button, Paper, Center, Group, useMantineTheme } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { Box } from '@mantine/core';
 // map
-import ReactMapGL, { Marker } from "react-map-gl";
-import pinMap from '../../assets/pinMap.svg'
-// import pinMapHover from '../../assets/pinMapHover.svg'
+import GoogleMapReact from 'google-map-react';
+import stylesmaps from './stylesmaps'
 // css
 import styles from './styles.ml.module.scss'
 
-// const TokenMAp = process.env.REACT_APP_TFM_TOKEN_MAP
-
 const MapComp = (props) => {
-    // const [isHoverPin, setIsShownHoverPin] = useState(false);
-    // const [isActivePin, setIsActivePin] = useState(false)
-    // const [referenceElement, setReferenceElement] = useState(null);
-    const matches = useMediaQuery('(min-width: 1024px)');
     const { dataListing, optionTheme } = props
-    let { latitude, longitude } = dataListing
-    parseFloat(latitude)
-    parseFloat(longitude)
+    const { latitude, longitude } = dataListing
 
-    // console.log('optionThemeINMap', optionTheme)
-    // console.log(parseFloat(dataListing.latitude))
-
+    const defaultProps = {
+        center: {
+            lat: parseFloat(latitude),
+            lng: parseFloat(longitude)
+        },
+    };
+    // console.log('defaultProps', defaultProps)
+    // console.log("dataListingMap", dataListing)
     return (
-        <ReactMapGL
-            mapboxAccessToken={optionTheme.mapApiKey}
-            initialViewState={{
-                longitude: longitude,
-                latitude: latitude,
-                zoom: (matches) ? 14 : 12
-            }}
-            style={{ width: '100%', height: '100%' }}
-            mapStyle="mapbox://styles/mapbox/light-v10"
-            onViewportChange={(value) => console.log('onViewportChange', value)}
-        >
-            <Marker
-                latitude={latitude}
-                longitude={longitude}
-                offsetLeft={-20}
-                offsetTop={-10}
+        <Box className={styles.BoxMap}>
+            <GoogleMapReact
+                options={{
+                    styles: stylesmaps,
+                    scrollwheel: false,
+                    gestureHandling: "greedy",
+                    fullscreenControl: false,
+                    zoomControl: false
+                }}
+                bootstrapURLKeys={{ key: optionTheme.mapApiKey }}
+                defaultCenter={defaultProps.center}
+                defaultZoom={15}
             >
-                <img
-                    // ref={setReferenceElement}
-                    src={pinMap}
-                    alt="pinMap"
-                    className={styles.imagePinMAp}
-                />
-            </Marker>
-        </ReactMapGL>
+                {
+                    <Marker
+                        uri={dataListing.uri}
+                        title={dataListing.title}
+                        subTitle={dataListing.neighborhoods[0]?.name}
+                        price={`$${dataListing.priceMin} - $${dataListing.priceMax}`}
+                        lat={parseFloat(latitude)}
+                        lng={parseFloat(longitude)}
+                        urlImagen={dataListing.photos[0]?.sourceUrl}
+                    />
+                }
+            </GoogleMapReact>
+        </Box>
     )
 }
 
 export default MapComp
-
-
-// https://mantine.dev/core/popper/
-
-
-//// Default public token
-/// pk.eyJ1IjoibWlndWVsLWNoYW5nIiwiYSI6ImNsNGg4dWYwYzBmbngzY3J5bHVweHU1MDMifQ.8G5d5W8A_klOsSzuHfdHAA
-
-/// Interinvestments_TFM
-/// sk.eyJ1IjoibWlndWVsLWNoYW5nIiwiYSI6ImNsNGg4ejBzdTAzNm0zaW1wbWxqNDJ0MGoifQ.Tab8xObr4uRoes_d3-D6lw
+// api key google maps
+/// AIzaSyBzy7z6wmop9ROv42s6-Rt244ZHJjOIdV0

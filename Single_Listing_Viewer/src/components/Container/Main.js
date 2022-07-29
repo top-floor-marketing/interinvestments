@@ -58,6 +58,8 @@ const Main = () => {
             <MapListing
                 data={{
                     ...valueListing?.listingData.newDevelopment,
+                    uri: valueListing?.uri,
+                    title: valueListing?.title,
                     neighborhoods: valueListing?.neighborhoods.nodes
                 }}
                 optionTheme={optionTheme}
