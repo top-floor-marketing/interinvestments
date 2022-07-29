@@ -1,0 +1,28 @@
+.modalAllListing > .carousel.carousel-slider {
+    height: 100% !important;
+}
+
+.modalAllListing > .carousel.carousel-slider>.slider-wrapper {
+    height: 100% !important;
+}
+
+.modalAllListing > .carousel.carousel-slider>.slider-wrapper>.slider {
+    height: 100% !important;
+}
+
+.modalAllListing > .carousel.carousel-slider>.control-dots {
+    display: flex;
+    flex-direction: row;
+    padding: 0.75rem !important;
+}
+
+.modalAllListing > .carousel .slide img {
+    border: 0 !important;
+    vertical-align: top;
+    width: 100%;
+    object-fit: cover;
+}
+
+.mantine-Modal-inner {
+    top: -5% !important;
+}
