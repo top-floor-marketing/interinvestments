@@ -47,6 +47,8 @@ query GetAgentInfo($agentId: Int = 10) {
         newDevelopment {
           latitude
           longitude
+          livingArea
+          views
           photos {
             altText
             databaseId
@@ -70,7 +72,7 @@ mutation agentEditProfile(
   $email: String,
   $facebook: String,
   $firstName: String,
-  $id: Int,
+  $id: Int!,
   $instagram: String,
   $lastName: String,
   $linkedin: String,

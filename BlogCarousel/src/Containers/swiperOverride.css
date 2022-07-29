@@ -2,14 +2,14 @@
     width: 100% !important;
     min-height: 85vh;
     min-height: 400px !important;
-    max-height: 750px !important;
+    max-height: 2300px !important;
 }
 
 /* Extra small devices (phones,  1000px and down) */
 @media only screen and (min-width: 1000px) {
     #blogCarouselContainer .swiper {
         min-height: 85vh;
-        max-height: 750px;
+        max-height: 2300px;
     }
 }
 

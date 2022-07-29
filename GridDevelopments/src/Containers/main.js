@@ -9,6 +9,7 @@ import ModalQuickView from "../Components/ModalQuickView";
 
 import useGetFeaturedDevelopments from '../Hooks/useGetFeaturedDevelopments';
 import OverlayLoading from "../Components/OverlayLoading";
+import { ChevronRight } from "tabler-icons-react";
 
 import styles from "./styles_gd.module.scss";
 
@@ -49,7 +50,7 @@ const MainContainer = ({ idAgent }) => {
       variant: "outline",
       disabled: isLoading,
       loading: isLoading,
-      className: "btn-wp-primary mx-auto mt-3",
+      className: "btn-wp-primary-icon mx-auto mt-3",
     },
     modalQuickView: {
       data: dataQuickView,

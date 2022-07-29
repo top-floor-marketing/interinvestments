@@ -43,7 +43,7 @@ const CarouselContainer = (props) => {
     if (swiperRef.current && swiperRef.current.swiper) {
       swiperRef.current.swiper.slideToLoop(parseInt(index));
     }
-  }
+  };
 
   // Add eventlisteners for swiper after initializing
   useEffect(() => {
@@ -59,34 +59,41 @@ const CarouselContainer = (props) => {
   }, [updateIndex]);
 
   return (
-    <div className="w-full flex flex-row bg-white" >
-      <div id="blogCustomPaginationIndicator" className="min-w-[50px] h-fit bg-white my-auto">
-        <CustomIndicator specificBlog={specificBlog} activeBlog={currentIndex} nextBlog={nextBlog} prevBlog={prevBlog} totalData={listBlogs.length} />
+    <div className="w-full flex flex-row h-full">
+      <div
+        id="blogCustomPaginationIndicator"
+        className="min-w-[50px] h-fit bg-white my-auto"
+      >
+        <CustomIndicator
+          specificBlog={specificBlog}
+          activeBlog={currentIndex}
+          nextBlog={nextBlog}
+          prevBlog={prevBlog}
+          totalData={listBlogs.length}
+        />
       </div>
-      <div className="w-full h-full">
-        <Swiper
-          ref={swiperRef}
-          direction={"vertical"}
-          mousewheel={false}
-          pagination={{
-            el: "#blogCustomPaginationIndicator",
-            clickable: true
-          }}
-          draggable={false}
-          slidesPerView={1}
-          loop={true}
-        >
-          {listBlogs.map((val, index) => {
-            return (
-              <SwiperSlide key={index}>
-                <CarouselScreenXl {...val} {...allProps.carouselScreenXl} />
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-      </div>
+      <Swiper
+        ref={swiperRef}
+        direction={"vertical"}
+        mousewheel={false}
+        pagination={{
+          el: "#blogCustomPaginationIndicator",
+          clickable: true,
+        }}
+        draggable={false}
+        slidesPerView={1}
+        loop={true}
+      >
+        {listBlogs.map((val, index) => {
+          return (
+            <SwiperSlide key={index}>
+              <CarouselScreenXl {...val} {...allProps.carouselScreenXl} />
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
     </div>
-  )
+  );
 };
 
 CarouselContainer.propTypes = {

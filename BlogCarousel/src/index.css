@@ -32,7 +32,7 @@
     }
 
     .btn-wp-primary-icon .icon-tabler-chevron-right {
-        visibility: hidden;
+        visibility: hidden !important;
         opacity: 0;
         height: 0;
         width: 0;
@@ -54,7 +54,7 @@
     }
 
     .btn-wp-primary-icon:hover .icon-tabler-chevron-right {
-        visibility: visible;
+        visibility: visible !important;
         opacity: 1;
         height: auto;
         width: 17px !important;

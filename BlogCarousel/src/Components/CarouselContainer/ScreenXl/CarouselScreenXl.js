@@ -1,5 +1,6 @@
 import { Button } from "@mantine/core";
 import { useSwiperSlide } from 'swiper/react';
+import { ChevronRight } from "tabler-icons-react";
 
 import classNames from "classnames";
 
@@ -13,7 +14,6 @@ ENVIROMENT_BC === "production"
 
 const CarouselScreenXl = (props) => {
 
-  // slug, id
   const {
     urlImage,
     description,
@@ -40,25 +40,24 @@ const CarouselScreenXl = (props) => {
 
   return (
     <div className={styles.container}>
-      
-          <div className={classesAnimation.content}>
-            <label className={styles.labelFrom}>FROM OUR BLOG</label>
-            <label className={styles.labelTitle}>{title}</label>
-            <label className={styles.description}>{description}</label>
-            <Button
-              component="a"
-              href={uri ? DOMAIN_URL_BC.concat(uri) : "#"}
-              variant="white"
-              className="btn-wp-primary"
-            >
-              Read More
-            </Button>
-          </div>
+      <div className={classesAnimation.content}>
+        <label className={styles.labelFrom}>FROM OUR BLOG</label>
+        <label className={styles.labelTitle}>{title}</label>
+        <label className={styles.description}>{description}</label>
+        <Button
+          component="a"
+          href={uri ? DOMAIN_URL_BC.concat(uri) : "#"}
+          variant="white"
+          className="btn-wp-primary-icon font-bold"
+        >
+          Read More
+          <ChevronRight />
+        </Button>
+      </div>
 
       <div className={classesAnimation.image}>
         <img src={urlImage} alt="alt" className={styles.image} />
       </div>
-
     </div>
   );
 };

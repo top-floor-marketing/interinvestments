@@ -24,7 +24,7 @@
 }
 
 .nameRowDevelopment {
-    @apply w-full flex flex-col;
+    @apply w-full flex flex-col my-auto;
 }
 
 .externalButtonsDevelopment {
@@ -36,16 +36,15 @@
     @apply bg-transparent 
 mt-auto hover:font-[600] p-0
 transition-all ease-in-out duration-500 hover:bg-black hover:text-white hover:border-black
-font-outfit ml-auto rounded-full border-solid border-black h-[60px] w-[60px] my-auto mx-auto;
+font-outfit ml-auto rounded-full border-solid border-black h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] my-auto mx-auto;
 }
 
-
 .labelTitle {
-    @apply capitalize font-outfit text-[32px] leading-[36px] font-wp-semibold text-black mb-0;
+    @apply capitalize font-outfit text-[24px] leading-[28px] lg:text-[32px] lg:leading-[36px] font-wp-semibold text-black mb-0;
 }
 
 .labelNameOfDevelopment {
-    @apply capitalize mt-auto font-outfit text-[20px] leading-[28px] text-black;
+    @apply capitalize m-0 lg:mt-auto font-outfit text-[16px] leading-[22px] lg:text-[20px] lg:leading-[28px] text-black;
 }
 
 .containerButtonView {
@@ -110,5 +109,5 @@ font-outfit ml-auto rounded-full border-solid border-black h-[60px] w-[60px] my-
 } 
 
 .carouselImg {
-    @apply w-full h-full bg-no-repeat z-[610];
+    @apply w-full h-full bg-no-repeat z-[610] bg-cover;
 }
