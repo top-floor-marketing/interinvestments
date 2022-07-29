@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 // mantine devs
 import { useId } from '@mantine/hooks';
-import { Box } from '@mantine/core';
+import { Box, Text } from '@mantine/core';
 // componets
 import AutoSizer from "react-virtualized-auto-sizer";
 import GridQuickView from '../GridQuickView'
@@ -50,32 +50,33 @@ const GridListing = ({ name, data, isLoading, refetch, totalData, parentClassnam
 
   return (
     <Box ref={refParentBox} className={parentClassname}>
-      <AutoSizer>
-        {({ height, width }) => (
-          <Grid
-            itemData={data}
-            className={"containerInfinite " + idGrid}
-            onScroll={onScroll}
-            columnCount={totalData > 1 ? 2 : 1}
-            columnWidth={(width / 2)}
-            height={height}
-            innerElementType={innerElementType}
-            rowCount={totalData > 2 ? Math.ceil(totalData / 2) : 1}
-            rowHeight={ROW_HEIGHT + GUTTER_SIZE}
-            width={width}
-          >
-            {({ rowIndex, columnIndex, style }) => {
-              if(data.length) {
-                return <div
-                key={rowIndex.toString().concat(columnIndex)}
-                style={{
-                  ...style,
-                  maxWidth: "100%",
-                  top: style.top,
-                  width: style.width - GUTTER_SIZE,
-                  height: style.height - GUTTER_SIZE
-                }}
+      {
+        (data.length) ? (
+          <AutoSizer>
+            {({ height, width }) => (
+              <Grid
+                itemData={data}
+                className={"containerInfinite " + idGrid}
+                onScroll={onScroll}
+                columnCount={totalData > 1 ? 2 : 1}
+                columnWidth={(width / 2)}
+                height={height}
+                innerElementType={innerElementType}
+                rowCount={totalData > 2 ? Math.ceil(totalData / 2) : 1}
+                rowHeight={ROW_HEIGHT + GUTTER_SIZE}
+                width={width}
               >
+                {({ rowIndex, columnIndex, style }) => {
+                  return <div
+                    key={rowIndex.toString().concat(columnIndex)}
+                    style={{
+                      ...style,
+                      maxWidth: "100%",
+                      top: style.top,
+                      width: style.width - GUTTER_SIZE,
+                      height: style.height - GUTTER_SIZE
+                    }}
+                  >
                     <GridQuickView
                       data={{
                         ...data[(rowIndex * 2) + columnIndex].listingData.newDevelopment,
@@ -87,14 +88,19 @@ const GridListing = ({ name, data, isLoading, refetch, totalData, parentClassnam
                       openModalQuickView={(id) => openModalQuickView(id)}
                       index={(rowIndex * 2) + columnIndex}
                     />
-              </div>
-              }
-              return null;
-            }}
-          </Grid>
-        )}
-      </AutoSizer>
-    </Box>
+                  </div>
+                }}
+              </Grid>
+            )}
+          </AutoSizer>
+        ) : (
+          <Box className="flex items-center justify-center w-full h-full">
+            <Text>No Data</Text>
+          </Box >
+        )
+      }
+
+    </Box >
   )
 }
 
