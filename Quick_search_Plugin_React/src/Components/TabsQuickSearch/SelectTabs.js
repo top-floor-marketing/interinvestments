@@ -1,5 +1,5 @@
-import React from 'react'
-import { Select } from '@mantine/core';
+import React, { useRef } from 'react'
+import { Select, Box } from '@mantine/core';
 import { ChevronDown } from 'tabler-icons-react';
 
 // css
@@ -8,17 +8,18 @@ import styles from './styles.tqs.module.scss'
 const SelectTabs = (props) => {
     const { type, data = [], value, onChange, placeholder = '' } = props
 
-    // function isNumeric(num) {
-    //     return !isNaN(num)
-    // }
+    const refSelect = useRef(null)
 
-    // const OnchageSelect = (valueSelect) => {
-    //     if (isNumeric(valueSelect)) {
-    //         return onChange(parseInt(valueSelect))
-    //     } else {
-    //         onChange(valueSelect)
-    //     }
-    // }
+    const IconSelct = ({ refProps }) => {
+        return (
+            <Box
+                className={styles.ContainerIconSelect}
+                onClick={() => refProps.current.click()}
+            >
+                <ChevronDown size={14} />
+            </Box>
+        )
+    }
 
     return (
         <Select
@@ -28,7 +29,10 @@ const SelectTabs = (props) => {
             classNames={{
                 input: `${styles.categorySelect}`,
             }}
-            rightSection={<ChevronDown size={14} />}
+            dropdownPosition="bottom"
+            zIndex={100}
+            ref={refSelect}
+            rightSection={<IconSelct refProps={refSelect} />}
             placeholder={placeholder}
             data={data}
         />
