@@ -1,0 +1,7 @@
+.container {
+    @apply grid grid-flow-col auto-cols-max md:grid-flow-row md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 md:auto-rows-max  gap-5;
+}
+
+.skeletonDiv {
+    @apply min-h-[320px] max-h-[350px] min-w-[250px] shadow-wp-normal;
+}

@@ -1,0 +1,31 @@
+@tailwind utilities;
+
+.containerContend {
+    position: inherit;
+    z-index: 0 !important;
+    @apply w-full h-screen flex flex-col lg:flex-row gap-5 xl:gap-0 xl:pl-[20px];
+}
+
+.containerMain {
+    @apply flex flex-col gap-5;
+}
+
+.containerGridCard {
+    @apply w-full lg:w-2/5 pt-5 lg:pr-5;
+}
+
+.containerMap {
+    @apply w-full h-inherit lg:h-full lg:w-[60%];
+}
+
+.containerGridInfinite {
+    @apply w-full h-full max-h-[700px];
+}
+
+.sectionGridListing {
+    @apply w-full h-auto my-5 lg:w-2/5 relative;
+}
+
+.overlayGridListing {
+    @apply h-auto w-full;
+}
