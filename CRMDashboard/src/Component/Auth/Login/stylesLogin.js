@@ -31,8 +31,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     alignItems: "center",
     gap: theme.other.spacing.p8,
     padding: theme.other.spacing.p12,
-    marginTop: theme.other.spacing.p5,
-    marginBottom: theme.other.spacing.p5,
+    marginTop: theme.other.spacing.p4,
+    marginBottom: theme.other.spacing.p4,
     [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
       padding: theme.other.spacing.p8,
     },
@@ -51,20 +51,23 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     marginBottom: "0.70rem",
   },
   InputForm: {
-    ref: getRef("InputForm"),
+    '.mantine-TextInput-withIcon': {
+      padding: "1px 2px !important",
+      paddingLeft: "36px !important"
+    }
   },
   containerForm: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p4,
     padding: 0,
   },
   formLogin: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    gap: theme.other.spacing.p5,
+    gap: theme.other.spacing.p4,
   },
   buttonForgot: {
     color: "black",

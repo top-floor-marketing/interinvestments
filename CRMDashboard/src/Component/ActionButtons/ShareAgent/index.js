@@ -19,13 +19,13 @@ const ShareAgent = (props) => {
   }
 
   return (
-    <Tooltip wrapLines
+    <Tooltip multiline
       position="top"
       color={clipboard.copied ? "success" : "dark"}
       placement={clipboard.copied ? "end" : "center"}
       label={(clipboard.copied) ? "Copied!" : props.labelTooltip}
       withArrow className={props.className}>
-      <ActionIcon {...omit(props, ['size', 'labelTooltip', 'id'])} onClick={() => clipboardCopy()}><ExternalLink size={props.size} /></ActionIcon>
+      <ActionIcon {...omit(props, ['labelTooltip', 'id'])} onClick={() => clipboardCopy()}><ExternalLink size={props.size} /></ActionIcon>
     </Tooltip>
   );
 };
@@ -48,7 +48,7 @@ ShareAgent.propTypes = {
   variant: PropTypes.oneOf(['transparent', 'hover', "default", "outline", "filled", "light"]),
   size: PropTypes.number,
   labelTooltip: PropTypes.string,
-  id: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   color: PropTypes.string
 };
 

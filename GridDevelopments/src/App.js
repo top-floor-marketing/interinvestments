@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import ContainerMain from "./Containers/main";
 
@@ -12,14 +12,30 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 const queryClient = new QueryClient();
 
 function App() {
+
+  const [urlIdAgent, setUrlIdAgent] = useState(null);
+  const [verifyUrl, setVerifyUrl] = useState(false);
+
+  const getUrlIdAgent = useCallback(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idParams = urlParams.get('id');
+    if(idParams) {
+      setUrlIdAgent(idParams);
+    }
+    setVerifyUrl(true)
+  },[setUrlIdAgent, setVerifyUrl])
+
   useEffect(() => {
     AOS.init({
       once: true
     });
-  }, []);
+    getUrlIdAgent()
+  }, [getUrlIdAgent]);
   return (
     <QueryClientProvider client={queryClient}>
-      <ContainerMain />
+      {
+        (verifyUrl) && <ContainerMain idAgent={urlIdAgent} />
+      }
     </QueryClientProvider>
   );
 }

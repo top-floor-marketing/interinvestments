@@ -12,7 +12,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     display: "flex",
     minHeight: "400px",
     flexDirection: "column",
-    padding: theme.other.spacing.p5,
+    padding: theme.other.spacing.p4,
   },
 }));
 

@@ -22,24 +22,29 @@ const useStyles = createStyles((theme, _params) => ({
     flexDirection: "column",
     width: "100%",
     height: "100%",
-    gap: theme.other.spacing.p5
+    gap: theme.other.spacing.p4
   },
 }));
 
 const ProfileCard = () => {
   const { classes } = useStyles();
 
-  const { isLoading, dataAgent, isSkeleton } = useGetProfileInfo();
+  const { isLoading, dataAgent, isSkeleton, refetchData } = useGetProfileInfo();
 
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Card className={classes.cardContainer}>
         <Box className={classes.boxContainer}>
-          <MyProfileActions id={get(dataAgent, ["id"], null)} isLoading={isLoading} />
-          <InfoAgent dataAgent={dataAgent}/>
+          <MyProfileActions
+            dataAgent={dataAgent}
+            id={get(dataAgent, ["id"], null)}
+            isLoading={isLoading}
+            refetchData={refetchData}
+          />
+          <InfoAgent dataAgent={dataAgent} />
         </Box>
       </Card>
-    </Skeleton> 
+    </Skeleton>
   );
 };
 

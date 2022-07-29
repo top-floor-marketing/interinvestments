@@ -1,4 +1,4 @@
-import { Box, createStyles, Text, Avatar } from "@mantine/core";
+import { Box, createStyles, Text, Avatar, Spoiler  } from "@mantine/core";
 import DOMPurify from 'dompurify'
 import PropTypes from 'prop-types';
 
@@ -14,7 +14,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         display: "flex",
         flexDirection: "row",
         width: "100%",
-        gap: theme.other.spacing.p5,
+        gap: theme.other.spacing.p4,
         [`${theme.fn.smallerThan("md")}`]: {
             flexDirection: "column",
         },
@@ -37,7 +37,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         display: "flex",
         flexDirection: "column",
         width: "60%",
-        gap: theme.other.spacing.p5,
+        gap: theme.other.spacing.p4,
         [`${theme.fn.smallerThan("md")}`]: {
             width: "100%",
         }
@@ -46,7 +46,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         display: "flex",
         flexDirection: "column",
         width: "40%",
-        gap: theme.other.spacing.p5,
+        gap: theme.other.spacing.p4,
         [`${theme.fn.smallerThan("md")}`]: {
             width: "100%",
         },
@@ -63,7 +63,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     infoItem: {
         display: "flex",
         flexDirection: "row",
-        gap: theme.other.spacing.p5,
+        gap: theme.other.spacing.p4,
         'span': {
             fontSize: "12px",
             margin: "0px !important",
@@ -72,14 +72,14 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     infoSocialMedia: {
         display: "flex",
         flexDirection: "row",
-        gap: theme.other.spacing.p5,
+        gap: theme.other.spacing.p4,
     },
     avatarContainer: {
         display: "flex",
         flexDirection: "row",
         width: "100%",
         padding: 0,
-        gap: theme.other.spacing.p5,
+        gap: theme.other.spacing.p4,
         [`${theme.fn.smallerThan("sm")}`]: {
             flexDirection: "column",
         }
@@ -118,7 +118,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         display: "flex",
         flexDirection: "column",
         width: "100%",
-        gap: theme.other.spacing.p5,
+        gap: theme.other.spacing.p4,
         'h4': {
             fontSize: "16px",
             fontWeight: 500,
@@ -163,7 +163,9 @@ const InfoAgent = ({ dataAgent }) => {
                 </Box>
                 <Box className={classes.aboutMeContainer}>
                     <Text transform="capitalize" component="h4">About me</Text>
-                    <Box dangerouslySetInnerHTML={sanitizedContentData()} />
+                    <Spoiler maxHeight={300} showLabel="Show more" hideLabel="Hide">
+                        <Box dangerouslySetInnerHTML={sanitizedContentData()} /> 
+                    </Spoiler>
                 </Box>
             </Box>
             <Box className={classes.infoContact}>
