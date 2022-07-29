@@ -1,7 +1,7 @@
 import { Box, createStyles } from "@mantine/core";
 import React from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { CRM_ROUTES, LAYOUT_NAMES } from "../Route/routes";
 
 import filter from "lodash/filter";

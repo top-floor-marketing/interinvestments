@@ -27,10 +27,15 @@ const useQueryHelper = (props) => {
   return useQuery(
     [name],
     async ({ signal }) => {
-      return await client.request({ document: gql, variables, requestHeaders, signal });   
+      try {
+        const response = await client.request({ document: gql, variables, requestHeaders, signal });   
+        console.log('response ', response)
+        return response;
+      } catch (error) {
+        console.log('ERRRRROOORRR QUERY ', error)
+      }
     },
     {
-      ...globalConfig,
       ...config,
     }
   );
@@ -46,10 +51,15 @@ const useMutationHelper = (props) => {
   return useMutation(
     [name],
     async ({ signal, variables }) => {
-      return await client.request({ document: gql, variables, requestHeaders, signal });
+      try {
+        const response = await client.request({ document: gql, variables, requestHeaders, signal });
+        console.log('response ', response)
+        return response;
+      } catch (error) {
+        console.log('ERRRRROOORRR MUTATION ', error)
+      }
     },
     {
-      ...globalConfig,
       ...config,
     }
   );

@@ -171,13 +171,13 @@ const InfoAgent = ({ dataAgent }) => {
             <Box className={classes.infoContact}>
                 <Text transform="capitalize" component="h4">Contact info</Text>
                 <Box className={classes.infoItem}>
-                    <CustomIconTooltip size={24} color="secondary" labelTooltip="Copy email">
+                    <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataAgent, ["email"], "")}>
                         <Mail />
                     </CustomIconTooltip>
                     <Text transform="capitalize" component="span">{get(dataAgent, ["email"], "")}</Text>
                 </Box>
                 <Box className={classes.infoItem}>
-                    <CustomIconTooltip size={24} color="secondary" labelTooltip="Copy phone">
+                    <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataAgent, ["phone"], "")}>
                         <Phone />
                     </CustomIconTooltip>
                     <Text transform="capitalize" component="span">{get(dataAgent, ["phone"], "")}</Text>

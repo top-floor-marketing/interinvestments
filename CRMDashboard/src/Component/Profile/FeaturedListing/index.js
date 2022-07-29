@@ -1,7 +1,9 @@
-import { Card, createStyles, Text, Skeleton, ScrollArea } from "@mantine/core";
+import { Card, createStyles, Text, Skeleton, Group, Button } from "@mantine/core";
+import { IconPlus } from '@tabler/icons';
 
 import useGetAgentListing from "./useGetAgentListing";
 
+import ModalAddListing from "./modalAddListing";
 import InfiniteListingScroll from './infiniteListingScroll';
 
 const useStyles = createStyles((theme, _params) => ({
@@ -21,16 +23,16 @@ const useStyles = createStyles((theme, _params) => ({
   boxInfiniteLoader: {
     width: "100%",
     height: "100%",
-    minHeight:"250px",
-    maxHeight:"500px",
+    minHeight: "250px",
+    maxHeight: "500px",
   },
   scrollTest: {
     width: "100%",
     backgroundColor: theme.colors.success[0],
     height: "150px",
-     display: "flex",
-     flexDirection: "column",
-     gap: theme.other.spacing.p4,
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.other.spacing.p4,
   }
 }));
 
@@ -38,12 +40,18 @@ const FeaturedListing = (props) => {
 
   const { classes } = useStyles();
 
-  const { isSkeleton, isLoading, listingAgent, totalData, refetchData } = useGetAgentListing();
+  const { isSkeleton, isLoading, listingAgent, totalData, arrayIdListings, refetchData } = useGetAgentListing();
 
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Card className={classes.cardContainer}>
-        <Text className={classes.titleCard}>Featured listings</Text>
+        <Group position="apart">
+          <Text className={classes.titleCard}>Featured listings</Text>
+          <Button color="dark" leftIcon={<IconPlus size={12} />}>
+            Add featured listing
+          </Button>
+          <ModalAddListing arrayIdListings={arrayIdListings} />
+        </Group>
         <InfiniteListingScroll
           parentClassname={classes.boxInfiniteLoader}
           name="agent"
