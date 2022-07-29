@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 // componet
 import Marker from './Marker'
 //mantine
@@ -10,6 +10,7 @@ import stylesmaps from './stylesmaps'
 import styles from './styles.ml.module.scss'
 
 const MapComp = (props) => {
+    const [openedMarker, setOpenedMarker] = useState(false);
     const { dataListing, optionTheme } = props
     const { latitude, longitude } = dataListing
 
@@ -19,10 +20,13 @@ const MapComp = (props) => {
             lng: parseFloat(longitude)
         },
     };
-    // console.log('defaultProps', defaultProps)
-    // console.log("dataListingMap", dataListing)
+
     return (
-        <Box className={styles.BoxMap}>
+        <Box
+            className={styles.BoxMap}
+            onMouseOver={() => setOpenedMarker(true)}
+            onMouseOut={() => setOpenedMarker(false)}
+        >
             <GoogleMapReact
                 options={{
                     styles: stylesmaps,
@@ -37,6 +41,7 @@ const MapComp = (props) => {
             >
                 {
                     <Marker
+                        opened={openedMarker}
                         uri={dataListing.uri}
                         title={dataListing.title}
                         subTitle={dataListing.neighborhoods[0]?.name}

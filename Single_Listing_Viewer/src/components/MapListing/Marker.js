@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 //mantine
 import { Box, Image, HoverCard, Text, Avatar } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -8,8 +8,7 @@ import imagePin from '../../assets/PinMap.svg'
 import style from './styles.ml.module.scss'
 
 const Marker = (props) => {
-    const { lat, lng, title, subTitle, price, urlImagen, uri } = props
-    const [opened, setOpened] = useState(false);
+    const { lat, lng, title, subTitle, price, urlImagen, uri, opened = true } = props
     const refImagen = useRef(null);
     const matches = useMediaQuery('(min-width: 1024px)');
 
@@ -18,7 +17,7 @@ const Marker = (props) => {
             <Box
                 lat={lat}
                 lng={lng}
-                className={`${style.containerMarker} group`}
+                className={style.containerMarker}
             >
                 <HoverCard
                     width={!matches ? 217 : 340}
@@ -29,9 +28,8 @@ const Marker = (props) => {
                 >
                     <HoverCard.Target>
                         <Image
-                            className={`${style.imagenPin} group-hover:opacity-100 ${opened ? '!opacity-100' : ''}`}
+                            className={style.imagenPin}
                             ref={refImagen}
-                            onClick={() => setOpened(!opened)}
                             width={28}
                             height={35}
                             radius={null}
@@ -42,14 +40,14 @@ const Marker = (props) => {
                     <HoverCard.Dropdown
                         className='!cursor-grab px-3'
                     >
-                        <Box className='flex flex-col gap-5 lg:flex-row'>
+                        <Box className={style.contendInfoListing}>
                             <Avatar
                                 className={style.avatarListing}
                                 radius="xs"
                                 alt={`ImagenListing_${title}`}
                                 src={urlImagen}
                             />
-                            <Box className='flex flex-col justify-between'>
+                            <Box id='infoListing'>
                                 {
                                     title && (
                                         <Text
