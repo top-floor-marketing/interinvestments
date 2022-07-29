@@ -1,47 +1,51 @@
 import React from 'react'
+// componet
+import Marker from './Marker'
 //mantine
 import { Box } from '@mantine/core';
-// import { useMediaQuery } from '@mantine/hooks';
 // map
 import GoogleMapReact from 'google-map-react';
-// import pinMap from '../../assets/pinMap.svg'
-// import pinMapHover from '../../assets/pinMapHover.svg'
+import stylesmaps from './stylesmaps'
 // css
 import styles from './styles.ml.module.scss'
 
-// const TokenMAp = process.env.REACT_APP_TFM_TOKEN_MAP
-
 const MapComp = (props) => {
     const { dataListing, optionTheme } = props
-    let { latitude, longitude } = dataListing
-    parseFloat(latitude)
-    parseFloat(longitude)
-
-    console.log('optionThemeINMap', optionTheme)
-    console.log("dataListing", dataListing)
+    const { latitude, longitude } = dataListing
 
     const defaultProps = {
         center: {
-            lat: 10.99835602,
-            lng: 77.01502627
+            lat: parseFloat(latitude),
+            lng: parseFloat(longitude)
         },
-        zoom: 11
     };
-
-    const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
+    // console.log('defaultProps', defaultProps)
+    // console.log("dataListingMap", dataListing)
     return (
         <Box className={styles.BoxMap}>
             <GoogleMapReact
-                bootstrapURLKeys={{ key: "AIzaSyBzy7z6wmop9ROv42s6-Rt244ZHJjOIdV0" }}
+                options={{
+                    styles: stylesmaps,
+                    scrollwheel: false,
+                    gestureHandling: "greedy",
+                    fullscreenControl: false,
+                    zoomControl: false
+                }}
+                bootstrapURLKeys={{ key: optionTheme.mapApiKey }}
                 defaultCenter={defaultProps.center}
-                defaultZoom={defaultProps.zoom}
+                defaultZoom={15}
             >
-                <AnyReactComponent
-                    lat={59.955413}
-                    lng={30.337844}
-                    text="My Marker"
-                />
+                {
+                    <Marker
+                        uri={dataListing.uri}
+                        title={dataListing.title}
+                        subTitle={dataListing.neighborhoods[0]?.name}
+                        price={`$${dataListing.priceMin} - $${dataListing.priceMax}`}
+                        lat={parseFloat(latitude)}
+                        lng={parseFloat(longitude)}
+                        urlImagen={dataListing.photos[0]?.sourceUrl}
+                    />
+                }
             </GoogleMapReact>
         </Box>
     )

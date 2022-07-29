@@ -4,6 +4,7 @@ export const LISTINGS_BY_SLOG = gql`
   query listingsBySlog($title: String!) {
     listings(where: {title: $title}, first: 1) {
       nodes {
+        uri
         databaseId
         address {
           address {
