@@ -34,7 +34,7 @@ const GridAgend = ({ listAgent, isLoading }) => {
         <Box className={styles.ContainerGridAllAGent}>
             {
                 listAgent.map((value, index) => (
-                    <CardAgent data={{ ...value }} key={index} />
+                    <CardAgent index={index} data={{ ...value }} key={index} />
                 ))
             }
         </Box>
