@@ -68,7 +68,7 @@ const ModalAddListing = ({ isOpen, arrayIdListings, onClose, isLoading }) => {
         <Home size={20} />
         <Text component="h1" className={classes.titleModal}>Add featured listings</Text>
       </Box>}
-      styles={(theme) => ({
+      styles={() => ({
         modal: {
           width: "90%",
           height: height-60,
@@ -81,7 +81,7 @@ const ModalAddListing = ({ isOpen, arrayIdListings, onClose, isLoading }) => {
         }
       })}
     >
-      <ListingFinder />
+      <ListingFinder arrayIdListings={arrayIdListings}/>
     </Modal>
   );
 };

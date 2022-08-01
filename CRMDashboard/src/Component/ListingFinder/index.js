@@ -1,4 +1,6 @@
-import { Box, createStyles, Skeleton } from "@mantine/core";
+import { Box, createStyles, Skeleton, SegmentedControl, Text } from "@mantine/core";
+import { useMediaQuery } from '@mantine/hooks';
+
 import SpringDiv from "../SpringDiv";
 
 import useGetListingFinder from "./useGetListingFinder";
@@ -11,7 +13,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
       width: "100%",
       display: "flex",
       flexDirection: "column",
-      gap: theme.other.spacing.p4,
+      gap: theme.other.spacing.p8,
       height: "100%",
       minHeight: (isSkeleton) ? '350px' : '400px'
     },
@@ -20,17 +22,24 @@ const useStyles = createStyles((theme, _params, getRef) => {
       display: "flex",
       flexDirection: "row",
       gap: theme.other.spacing.p4,
+      alignContent: "center",
       [`${theme.fn.smallerThan("md")}`]: {
         flexDirection: "column",
       },
-      minHeight: (isSkeleton) ? '150px' : '20px'
+      minHeight: (isSkeleton) ? '30px' : '20px'
+    },
+    textSearch: {
+      height: "auto",
+      alignSelf: "center",
+      fontWeight: 700,
+      fontSize: "14px"
     },
     listingRow: {
       width: "100%",
       height: "100%",
       display: "flex",
       flexDirection: "column",
-      minHeight: (isSkeleton) ? '250px' : 'auto',
+      minHeight: (isSkeleton) ? '100px' : 'auto',
     },
     boxInfiniteLoader: {
       width: "100%",
@@ -41,16 +50,22 @@ const useStyles = createStyles((theme, _params, getRef) => {
   }
 
 });
-//arrayIdListings
+
 const ListingFinder = ({ arrayIdListings }) => {
-  
+
   const { isSkeleton,
     allListings,
     isLoading,
-    totalData, 
-    refetchData  } = useGetListingFinder(arrayIdListings);
+    totalData,
+    allCategories,
+    onChangeCategory,
+    categorySelect,
+    allNei,
+    refetchData } = useGetListingFinder(arrayIdListings);
 
   const { classes } = useStyles({ isSkeleton });
+
+  const matches = useMediaQuery('(max-width: 640px)');
 
   return (
     <SpringDiv delay={200} duration={400} fullHeight>
@@ -58,7 +73,18 @@ const ListingFinder = ({ arrayIdListings }) => {
         <SpringDiv delay={300} duration={400}>
           <Skeleton visible={isSkeleton} className={classes.filtersRow}>
             <Box className={classes.filtersRow}>
-
+              <Text className={classes.textSearch} >Search for properties: </Text>
+              {
+                (allCategories.length && categorySelect.length) &&
+                <SegmentedControl
+                  fullWidth
+                  orientation={matches ? 'vertical' : 'horizontal'}
+                  value={categorySelect}
+                  onChange={(val) => onChangeCategory(val)}
+                  data={allCategories}
+                  transitionDuration={0}
+                />
+              }
             </Box>
           </Skeleton>
         </SpringDiv>
@@ -73,6 +99,7 @@ const ListingFinder = ({ arrayIdListings }) => {
                 totalData={totalData}
                 refetch={refetchData}
                 isLoading={isLoading}
+                isAddListing={true}
               />
             </Box>
           </Skeleton>

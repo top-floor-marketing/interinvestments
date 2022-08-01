@@ -6,6 +6,7 @@ import ShareListing from "./ShareListing";
 import ViewLandingListing from "./ViewLandingListing";
 import IconDownloadPdf from "./IconDownloadPdf";
 import IconRemove from "./IconRemove";
+import IconAddListing from "./IconAddListing";
 
 export {
     LogoutIcon,
@@ -15,5 +16,6 @@ export {
     ViewLandingListing,
     CustomIconTooltip,
     IconDownloadPdf,
-    IconRemove
+    IconRemove,
+    IconAddListing
 }

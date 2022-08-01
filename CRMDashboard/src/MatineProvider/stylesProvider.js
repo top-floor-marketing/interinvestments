@@ -251,6 +251,48 @@ const stylesProvider = () => {
                 }
             }
         },
+        SegmentedControl : {
+            styles: (theme, params) => {
+                return {
+                    root: {
+                        backgroundColor: "transparent",
+                        gap: theme.other.spacing.p2,
+                        ".__mantine-ref-control": {
+                            border: "0 !important"
+                        }
+
+                    },
+                    label: {
+                        backgroundColor: theme.colors.gray[6]
+                    },
+                    labelActive: {
+                        backgroundColor: theme.colors.dark[6]
+                    },
+                    control: {
+                        backgroundColor: "transparent",
+                      
+                    },
+                    controlActive: {
+                        backgroundColor: "transparent",
+                    }
+                  /*   control: {
+                        backgroundColor: "transparent",
+                    },
+                    label: {
+                        backgroundColor: theme.colors.gray[6]
+                    },
+                    input: {
+                        backgroundColor: theme.colors.gray[6]
+                    },
+                    controlActive: {
+                        backgroundColor: theme.colors.white[1]
+                    },
+                    active: {
+                        color: theme.colors.white[1]
+                    } */
+                }
+               
+            }}
     }
 }
 
