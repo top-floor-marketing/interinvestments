@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { Box, Card, createStyles, Avatar, Text, Badge } from '@mantine/core';
+import { openConfirmModal } from '@mantine/modals';
 import { MapPin, Check } from "tabler-icons-react";
 
 import { ShareListing, ViewLandingListing, IconDownloadPdf, IconRemove, IconAddListing } from '../ActionButtons';
@@ -113,6 +114,37 @@ const ItemListingVirtual = (props) => {
     return get(props, ["isFeatured"], false);
   }, [props]);
 
+  const onClickAddListing = () => {
+   openConfirmModal({
+      title: 'Please confirm your action',
+      children: (
+        <Text size="sm">
+          This action is so important that you are required to confirm it with a modal. Please click
+          one of these buttons to proceed.
+        </Text>
+      ),
+      labels: { confirm: 'Confirm', cancel: 'Cancel' },
+      onCancel: () => console.log('Cancel'),
+      onConfirm: () => console.log('Confirmed'),
+    });
+  }
+
+  const onClickRemoveListing = () => {
+    openConfirmModal({
+      title: 'Please confirm your action',
+      children: (
+        <Text size="sm">
+          This action is so important that you are required to confirm it with a modal. Please click
+          one of these buttons to proceed.
+        </Text>
+      ),
+      labels: { confirm: 'Confirm', cancel: 'Cancel' },
+      confirmProps: { color: 'error' },
+      onCancel: () => console.log('Cancel'),
+      onConfirm: () => console.log('Confirmed'),
+    });
+  }
+
   return (
     <Card className={classes.containerItemListing}>
       <Avatar radius="_40px" size="60px" src={getPhoto()} />
@@ -163,12 +195,13 @@ const ItemListingVirtual = (props) => {
           (isAddListing)
           &&
           <IconAddListing
-            disabled={isFeaturedListing()}
+            //disabled={isFeaturedListing()}
             variant="filled"
             position="top-end"
             color="success"
             id={idAgent}
             radius="_40px"
+            onClick={onClickAddListing}
             size={24}
           />
         }
@@ -206,6 +239,7 @@ const ItemListingVirtual = (props) => {
             id={idAgent}
             radius="_40px"
             size={24}
+            onClick={onClickRemoveListing}
           />
         }
 

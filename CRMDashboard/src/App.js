@@ -4,6 +4,8 @@ import store from "./Store/store";
 import { Provider } from "react-redux";
 
 import { NotificationsProvider } from '@mantine/notifications';
+import { ModalsProvider } from '@mantine/modals';
+
 import ThemeGlobalProvider from "./MatineProvider";
 
 import Main from "./Container";
@@ -15,7 +17,9 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ThemeGlobalProvider>
           <NotificationsProvider autoClose={4000} limit={2} position="top-right" zIndex={9999}>
-            <Main />
+            <ModalsProvider>
+              <Main />
+            </ModalsProvider>
           </NotificationsProvider>
         </ThemeGlobalProvider>
       </QueryClientProvider>

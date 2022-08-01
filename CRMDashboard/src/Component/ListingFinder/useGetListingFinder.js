@@ -165,7 +165,7 @@ const useGetListingFinder = (arrayIdListings) => {
 
 
   return {
-    isSkeleton: (!isFetched && !isSuccess) && (isSuccessNei && isSuccessCategory),
+    isSkeleton: (!isFetched && !isSuccess) && (isSuccessNei && isSuccessCategory) && loadingRefresh,
     allListings,
     isLoading: isLoading || isFetching || loadingRefresh,
     totalData: allListings.length,

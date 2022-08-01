@@ -27,7 +27,8 @@ IconAddListing.defaultProps = {
   labelTooltip: "Add to featured listing",
   id: null,
   color: "dark",
-  position: ""
+  position: "",
+  onClick: () => {}
 };
 
 IconAddListing.propTypes = {
@@ -39,6 +40,7 @@ IconAddListing.propTypes = {
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   color: PropTypes.string,
   position: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 export default IconAddListing;

@@ -27,7 +27,8 @@ IconRemove.defaultProps = {
   labelTooltip: "Remove featured listing",
   id: null,
   color: "dark",
-  position: ""
+  position: "",
+  onClick: () => {}
 };
 
 IconRemove.propTypes = {
@@ -39,6 +40,7 @@ IconRemove.propTypes = {
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   color: PropTypes.string,
   position: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 export default IconRemove;
