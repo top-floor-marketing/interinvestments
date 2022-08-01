@@ -17,7 +17,7 @@ const AvatarAgent = (props) => {
             }}
             radius={90}
             size={170}
-            src={dataAgent.avatarProfile}
+            src={dataAgent.avatarProfile ? dataAgent.avatarProfile : null}
         />
     )
 }
