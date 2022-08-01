@@ -13,7 +13,7 @@ query GetAgentInfo($agentId: Int = 10) {
         lastName
         phone
         position
-        avatar
+        avatarProfile
         roles
         content
         facebook

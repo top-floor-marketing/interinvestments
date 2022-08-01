@@ -8,6 +8,8 @@ import ProfileComponent from '../Component/Profile';
 import PipelineComponent from '../Component/Pipeline';
 import LeadsComponent  from '../Component/Leads';
 
+import Listings from '../Component/ListingFinder';
+
 export const LAYOUT_NAMES = {
   EMPTY: "empty",
   DASHBOARD: "dashboard",
@@ -116,7 +118,7 @@ export const CRM_ROUTES = [
     label: "Listings",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <div>LISTINGS</div>
+      <Listings />
     ),
     useInNavbar: true,
     loginRequired: true,

@@ -1,168 +1,217 @@
 import React, { useCallback } from 'react';
 
-import { Box, Card, createStyles, Avatar, Text } from '@mantine/core';
-import { MapPin } from "tabler-icons-react";
+import { Box, Card, createStyles, Avatar, Text, Badge } from '@mantine/core';
+import { MapPin, Check } from "tabler-icons-react";
 
-import { ShareListing, ViewLandingListing, IconDownloadPdf, IconRemove } from '../ActionButtons';
+import { ShareListing, ViewLandingListing, IconDownloadPdf, IconRemove, IconAddListing } from '../ActionButtons';
 
 import classNames from 'classnames';
 
 import get from 'lodash/get';
 
 const useStyles = createStyles((theme, _params) => {
-    const { width } = _params;
-    const widthReserved = (width<600) ? 270 : (width>1200) ? 350 : 400;
-    const infoWidth = Math.round((width - widthReserved) / 4);
-    return {
-      containerItemListing: {
-        width: "100%",
-        boxShadow: theme.shadows.md,
-        height: "100%",
-        backgroundColor: theme.colors.gray[0],
-        display: "flex",
-        flexDirection: "row",
-        justifyItems: "start",
-        alignItems: "center",
-        padding: theme.other.spacing.p4,
-        gap: theme.other.spacing.p4,
+  const { width } = _params;
+  const widthReserved = (width < 600) ? 250 : (width > 1200) ? 380 : 360;
+  const infoWidth = Math.round((width - widthReserved) / 4);
+  return {
+    containerItemListing: {
+      width: "100%",
+      boxShadow: theme.shadows.md,
+      height: "100%",
+      backgroundColor: theme.colors.gray[0],
+      display: "flex",
+      flexDirection: "row",
+      justifyItems: "start",
+      alignItems: "center",
+      padding: theme.other.spacing.p4,
+      gap: theme.other.spacing.p4,
+    },
+    avatarImageContainer: {
+      display: "flex",
+      flexDirection: "column",
+      alignContent: "center",
+      marginRight: "auto",
+      width: "60px",
+    },
+    titleWithIcon: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "row",
+      alignContent: "center",
+      gap: theme.other.spacing.p2,
+    },
+    items: {
+      minWidth: `${infoWidth}px`,
+      fontSize: "14px",
+      fontWeight: 400,
+      textAlign: "text-left",
+    },
+    itemTitle: {
+      fontWeight: "600 !important",
+    },
+    badgeFeatured: {
+      '.mantine-Badge-rightSection': {
+        display: "flex !important",
+        flexDirection: "column !important",
+        '.icon-tabler': {
+          marginTop: "auto !important",
+          marginBottom: "auto !important"
+        }
+      }
+    },
+    responsiveInfo: {
+      display: "block",
+      [`${theme.fn.smallerThan(650)}`]: {
+        display: "none",
       },
-      avatarImageContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignContent: "center",
-        marginRight: "auto",
-        width: "60px",
+    },
+    containerActions: {
+      width: "100%",
+      minWidth: "130px",
+      height: "auto",
+      display: "flex",
+      marginLeft: "auto",
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      alignContent: "center",
+      gap: theme.other.spacing.p2,
+      paddingRight: theme.other.spacing.p2,
+      [`${theme.fn.smallerThan(650)}`]: {
+        minWidth: "100px",
       },
-      titleWithIcon: {
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        alignContent: "center",
-        gap: theme.other.spacing.p2,
-      },
-      items: {
-        minWidth: `${infoWidth}px`,
-        fontSize: "14px",
-        fontWeight: 400,
-        textAlign: "text-left",
-      },
-      itemTitle: {
-        fontWeight: "600 !important",
-      },
-      responsiveInfo: {
-        display: "block",
-        [`${theme.fn.smallerThan(650)}`]: {
-          display: "none",
-        },
-      },
-      containerActions: {
-        width: "100%",
-        minWidth: "130px",
-        height: "auto",
-        display: "flex",
-        marginLeft: "auto",
-        flexDirection: "row",
-        justifyContent: "flex-end",
-        alignContent: "center",
-        gap: theme.other.spacing.p2,
-        paddingRight: theme.other.spacing.p2,
-        [`${theme.fn.smallerThan(650)}`]: {
-          minWidth: "100px",
-        },
-      },
-    };
+    },
+  };
 })
 
 const ItemListingVirtual = (props) => {
 
-    const { width, idAgent, uri } = props;
+  const { width, idAgent, uri, isAddListing, useTagFeatured } = props;
 
-    const { classes } = useStyles({ width });
+  const { classes } = useStyles({ width });
 
-    const getPhoto = useCallback(() => {
-        return get(props, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], "");
-    }, [props]);
+  const getPhoto = useCallback(() => {
+    return get(props, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], "");
+  }, [props]);
 
-    const getTitle = useCallback(() => {
-        return get(props, ["title"], "");
-    }, [props]);
+  const getTitle = useCallback(() => {
+    return get(props, ["title"], "");
+  }, [props]);
 
-    const getNeighborhood = useCallback(() => {
-      return get(props, ["neighborhoods", "nodes", "0", "name"], "");
-    }, [props]);
+  const getNeighborhood = useCallback(() => {
+    return get(props, ["neighborhoods", "nodes", "0", "name"], "");
+  }, [props]);
 
-    const getViews = useCallback(() => {
-      return get(props, ["listingData", "newDevelopment", "views"], "");
-    }, [props]);
+  const getViews = useCallback(() => {
+    return get(props, ["listingData", "newDevelopment", "views"], "");
+  }, [props]);
 
-    const getLivingArea = useCallback(() => {
-      return get(props, ["listingData", "newDevelopment", "livingArea"], "");
-    }, [props]);
+  const getLivingArea = useCallback(() => {
+    return get(props, ["listingData", "newDevelopment", "livingArea"], "");
+  }, [props]);
 
-    return (
-      <Card className={classes.containerItemListing}>
-        <Avatar radius="_40px" size="60px" src={getPhoto()} />
-        <Text className={classNames(classes.items, classes.itemTitle)}>
-          {getTitle()}
-        </Text>
-        <Box className={classes.titleWithIcon}>
-          <MapPin size={20} />
-          <Text
-            className={classNames(classes.items, classes.responsiveInfo)}
-            lineClamp={3}
-            title={`${getNeighborhood()} neighborhood`}
-          >
-            {getNeighborhood()}
-          </Text>
-        </Box>
+  const isFeaturedListing = useCallback(() => {
+    return get(props, ["isFeatured"], false);
+  }, [props]);
 
+  return (
+    <Card className={classes.containerItemListing}>
+      <Avatar radius="_40px" size="60px" src={getPhoto()} />
+      <Box className={classNames(classes.items)}>
+        <Text className={classes.itemTitle}>{getTitle()}</Text>
+        {
+          (useTagFeatured)
+          &&
+          <Badge
+            className={classes.badgeFeatured}
+            color="success"
+            variant="filled"
+            sx={{ paddingRight: 3 }}
+            rightSection={<Check size={14} />}>
+            Featured
+          </Badge>
+        }
+
+      </Box>
+
+      <Box className={classes.titleWithIcon}>
+        <MapPin size={24} />
         <Text
           className={classNames(classes.items, classes.responsiveInfo)}
           lineClamp={3}
+          title={`${getNeighborhood()} neighborhood`}
         >
-          {getViews()}
+          {getNeighborhood()}
         </Text>
-        <Text
-          className={classNames(classes.items, classes.responsiveInfo)}
-          lineClamp={3}
-        >
-          {getLivingArea()}
-        </Text>
-        <Box className={classes.containerActions}>
-          <ViewLandingListing
+      </Box>
+
+      <Text
+        className={classNames(classes.items, classes.responsiveInfo)}
+        lineClamp={2}
+        title={getViews()}
+      >
+        {getViews()}
+      </Text>
+      <Text
+        className={classNames(classes.items, classes.responsiveInfo)}
+        lineClamp={2}
+        title={getLivingArea()}
+      >
+        {getLivingArea()}
+      </Text>
+      <Box className={classes.containerActions}>
+        {
+          (isAddListing)
+          &&
+          <IconAddListing
+            disabled={isFeaturedListing()}
             variant="filled"
-            labelTooltip="Open listing"
-            id={idAgent}
-            uri={uri}
-            radius="_40px"
-            size={20}
-          />
-          <ShareListing
-            variant="filled"
-            color="primary"
-            id={idAgent}
-            uri={uri}
-            radius="_40px"
-            size={20}
-          />
-          <IconDownloadPdf
-            variant="filled"
-            color="gray"
+            position="top-end"
+            color="success"
             id={idAgent}
             radius="_40px"
-            size={20}
+            size={24}
           />
+        }
+
+        <ViewLandingListing
+          variant="filled"
+          labelTooltip="Open listing"
+          id={idAgent}
+          uri={uri}
+          radius="_40px"
+          size={24}
+        />
+        <ShareListing
+          variant="filled"
+          color="primary"
+          id={idAgent}
+          uri={uri}
+          radius="_40px"
+          size={24}
+        />
+        <IconDownloadPdf
+          variant="filled"
+          color="gray"
+          id={idAgent}
+          radius="_40px"
+          size={24}
+        />
+        {
+          (!isAddListing)
+          &&
           <IconRemove
             variant="filled"
             position="top-end"
             color="error"
             id={idAgent}
             radius="_40px"
-            size={20}
+            size={24}
           />
-        </Box>
-      </Card>
-    );
+        }
+
+      </Box>
+    </Card>
+  );
 }
 
 export default React.memo(ItemListingVirtual);
