@@ -9,7 +9,7 @@ const DATA_AGENT = gql`
       lastName
       phone
       position
-      avatar
+      avatarProfile
       roles
       content
       facebook

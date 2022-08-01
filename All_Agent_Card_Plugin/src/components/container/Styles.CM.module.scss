@@ -8,3 +8,7 @@
         @apply text-center font-outfit text-[36px] leading-[45px];
     }
 }
+
+.BoxAlertError {
+    @apply flex justify-center items-center my-20;
+}
