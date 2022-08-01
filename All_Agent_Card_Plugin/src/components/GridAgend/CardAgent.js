@@ -4,12 +4,21 @@ import { Card, Avatar, Box, Text, Button } from '@mantine/core';
 // styles
 import styles from './styles.GA.module.scss'
 
-const CardAgent = ({ data }) => {
+const CardAgent = ({ data, index }) => {
 
-    console.log('data', data)
+    // console.log('data', data)
 
     return (
-        <Card shadow={null} p="lg" radius={null} withBorder={false}>
+        <Card
+            shadow={null}
+            p="lg"
+            radius={null}
+            withBorder={false}
+            data-aos-once="true"
+            data-aos-duration='900'
+            data-aos-delay={`${900 + (index * 200)}`}
+            data-aos="fade-left"
+        >
             <Card.Section className='p-[20px] flex justify-center items-center'>
                 <Avatar
                     radius={80}

@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import GridAgend from '../GridAgend'
 import AlertError from '../AlertError'
 // mantine
-import { Box, Text, Button } from '@mantine/core';
-import { IconChevronRight } from '@tabler/icons';
+import { Box, Text } from '@mantine/core';
+// import { IconChevronRight } from '@tabler/icons';
 // styles
 import styles from './Styles.CM.module.scss'
 
