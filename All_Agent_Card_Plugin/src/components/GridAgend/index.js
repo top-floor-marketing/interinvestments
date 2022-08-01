@@ -9,7 +9,7 @@ import styles from './styles.GA.module.scss'
 
 const GridAgend = ({ listAgent, isLoading }) => {
 
-    console.log('listAgent', listAgent)
+    //console.log('listAgent', listAgent)
 
     if (isLoading) {
         return (
@@ -22,12 +22,21 @@ const GridAgend = ({ listAgent, isLoading }) => {
         )
     }
 
+    if (listAgent.length === 0) {
+        return (
+            <Box className={styles.ContainerGridAllAGent}>
+                <p className='col-span-4 text-center'>no data</p>
+            </Box>
+        )
+    }
+
     return (
         <Box className={styles.ContainerGridAllAGent}>
-            <CardAgent />
-            <CardAgent />
-            <CardAgent />
-            <CardAgent />
+            {
+                listAgent.map((value, index) => (
+                    <CardAgent data={{ ...value }} key={index} />
+                ))
+            }
         </Box>
     )
 }

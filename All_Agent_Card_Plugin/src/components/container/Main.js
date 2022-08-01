@@ -49,16 +49,20 @@ const Main = () => {
             <Text component='h3'>Our Agents</Text>
             <GridAgend
                 isLoading={isLoading}
-                listAgent={listAgent}
+                listAgent={(listAgent) ? listAgent : []}
             />
-            <Button
-                disabled={isLoading}
-                variant='outline'
-                className="mx-auto mt-3 btn-wp-primary-icon"
-            >
-                Load More
-                <IconChevronRight />
-            </Button>
+            {
+                // (listAgent && listAgent.length !== 0) && (
+                //     <Button
+                //         disabled={isLoading}
+                //         variant='outline'
+                //         className="mx-auto mt-3 btn-wp-primary-icon"
+                //     >
+                //         Load More
+                //         <IconChevronRight />
+                //     </Button>
+                // )
+            }
         </Box>
     )
 }
