@@ -3,6 +3,8 @@ import { Avatar } from '@mantine/core';
 
 const AvatarAgent = (props) => {
     const { dataAgent } = props
+
+    console.log(dataAgent)
     return (
         <Avatar
             data-aos-once="true"
@@ -15,7 +17,7 @@ const AvatarAgent = (props) => {
             }}
             radius={90}
             size={170}
-            src={dataAgent.avatar}
+            src={dataAgent.avatarProfile}
         />
     )
 }

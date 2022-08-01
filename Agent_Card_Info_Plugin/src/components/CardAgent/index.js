@@ -38,6 +38,7 @@ const CardAgent = () => {
         variables,
         config: {
             onSuccess: (req) => {
+                // console.log('req', req)
                 setDataAgent(...req.dataAgent)
             }
         }
@@ -57,6 +58,8 @@ const CardAgent = () => {
             />
         )
     }
+
+    // console.log('dataAgent', dataAgent)
 
     return (
         <Box className={styles.containerCard}>
