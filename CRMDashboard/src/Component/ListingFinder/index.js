@@ -1,4 +1,4 @@
-import { Box, createStyles, Skeleton, SegmentedControl, Text } from "@mantine/core";
+import { Box, createStyles, Skeleton, SegmentedControl, Text, Select } from "@mantine/core";
 import { useMediaQuery } from '@mantine/hooks';
 
 import SpringDiv from "../SpringDiv";
@@ -51,7 +51,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
 });
 
-const ListingFinder = ({ arrayIdListings }) => {
+const ListingFinder = ({ arrayIdListings, useTagFeatured }) => {
 
   const { isSkeleton,
     allListings,
@@ -61,6 +61,8 @@ const ListingFinder = ({ arrayIdListings }) => {
     onChangeCategory,
     categorySelect,
     allNei,
+    neiSelect,
+    onChangeNei,
     refetchData } = useGetListingFinder(arrayIdListings);
 
   const { classes } = useStyles({ isSkeleton });
@@ -73,10 +75,11 @@ const ListingFinder = ({ arrayIdListings }) => {
         <SpringDiv delay={300} duration={400}>
           <Skeleton visible={isSkeleton} className={classes.filtersRow}>
             <Box className={classes.filtersRow}>
-              <Text className={classes.textSearch} >Search for properties: </Text>
+              <Text className={classes.textSearch} >Search for properties </Text>
               {
-                (allCategories.length && categorySelect.length) &&
+                (allCategories.length && categorySelect?.length) &&
                 <SegmentedControl
+                  disabled={isLoading}
                   fullWidth
                   orientation={matches ? 'vertical' : 'horizontal'}
                   value={categorySelect}
@@ -84,6 +87,13 @@ const ListingFinder = ({ arrayIdListings }) => {
                   data={allCategories}
                   transitionDuration={0}
                 />
+              }
+              {
+                (allNei.length && neiSelect?.length) &&
+                <Select
+                  placeholder="Neighborhood"
+                  value={neiSelect}
+                  onChange={(val) => onChangeNei(val)} data={allNei} />
               }
             </Box>
           </Skeleton>
@@ -100,6 +110,7 @@ const ListingFinder = ({ arrayIdListings }) => {
                 refetch={refetchData}
                 isLoading={isLoading}
                 isAddListing={true}
+                useTagFeatured={useTagFeatured}
               />
             </Box>
           </Skeleton>
@@ -112,6 +123,7 @@ const ListingFinder = ({ arrayIdListings }) => {
 
 ListingFinder.defaultProps = {
   arrayIdListings: [],
+  useTagFeatured: false
 };
 
 export default ListingFinder;

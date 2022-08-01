@@ -5,7 +5,7 @@ import ListingFinder from "../../ListingFinder";
 
 import { Home } from 'tabler-icons-react';
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   boxTitle: {
     display: "flex",
     flexDirection: "row",
@@ -81,7 +81,7 @@ const ModalAddListing = ({ isOpen, arrayIdListings, onClose, isLoading }) => {
         }
       })}
     >
-      <ListingFinder arrayIdListings={arrayIdListings}/>
+      {isOpen && <ListingFinder arrayIdListings={arrayIdListings} useTagFeatured={true}/> }
     </Modal>
   );
 };

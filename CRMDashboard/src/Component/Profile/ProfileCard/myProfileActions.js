@@ -47,7 +47,7 @@ const MyProfileActions = ({ isLoading, id, dataAgent, refetchData }) => {
 
   const onSubmitForm = (data) => {
     try {
-      const omitData = omit(dataAgent, ['avatar', 'id', 'roles']);
+      const omitData = omit(dataAgent, ['avatar', 'avatarProfile', 'id', 'roles']);
       const isLineBreak = endsWith(dataAgent?.content, '\n');
       if(isLineBreak) {
         omitData.content = omitData.content.substring(0, omitData.content.length-1);

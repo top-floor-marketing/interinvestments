@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
-import { Box, Card, createStyles, Avatar, Text } from '@mantine/core';
-import { MapPin } from "tabler-icons-react";
+import { Box, Card, createStyles, Avatar, Text, Badge } from '@mantine/core';
+import { MapPin, Check } from "tabler-icons-react";
 
 import { ShareListing, ViewLandingListing, IconDownloadPdf, IconRemove, IconAddListing } from '../ActionButtons';
 
@@ -49,6 +49,16 @@ const useStyles = createStyles((theme, _params) => {
     itemTitle: {
       fontWeight: "600 !important",
     },
+    badgeFeatured: {
+      '.mantine-Badge-rightSection': {
+        display: "flex !important",
+        flexDirection: "column !important",
+        '.icon-tabler': {
+          marginTop: "auto !important",
+          marginBottom: "auto !important"
+        }
+      }
+    },
     responsiveInfo: {
       display: "block",
       [`${theme.fn.smallerThan(650)}`]: {
@@ -75,7 +85,7 @@ const useStyles = createStyles((theme, _params) => {
 
 const ItemListingVirtual = (props) => {
 
-  const { width, idAgent, uri, isAddListing } = props;
+  const { width, idAgent, uri, isAddListing, useTagFeatured } = props;
 
   const { classes } = useStyles({ width });
 
@@ -99,12 +109,30 @@ const ItemListingVirtual = (props) => {
     return get(props, ["listingData", "newDevelopment", "livingArea"], "");
   }, [props]);
 
+  const isFeaturedListing = useCallback(() => {
+    return get(props, ["isFeatured"], false);
+  }, [props]);
+
   return (
     <Card className={classes.containerItemListing}>
       <Avatar radius="_40px" size="60px" src={getPhoto()} />
-      <Text className={classNames(classes.items, classes.itemTitle)}>
-        {getTitle()}
-      </Text>
+      <Box className={classNames(classes.items)}>
+        <Text className={classes.itemTitle}>{getTitle()}</Text>
+        {
+          (useTagFeatured)
+          &&
+          <Badge
+            className={classes.badgeFeatured}
+            color="success"
+            variant="filled"
+            sx={{ paddingRight: 3 }}
+            rightSection={<Check size={14} />}>
+            Featured
+          </Badge>
+        }
+
+      </Box>
+
       <Box className={classes.titleWithIcon}>
         <MapPin size={24} />
         <Text
@@ -135,6 +163,7 @@ const ItemListingVirtual = (props) => {
           (isAddListing)
           &&
           <IconAddListing
+            disabled={isFeaturedListing()}
             variant="filled"
             position="top-end"
             color="success"

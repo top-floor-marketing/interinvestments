@@ -31,7 +31,7 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
     />
 ));
 
-const VirtualAllListings = ({ name, data, isLoading, refetch, totalData, parentClassname, isAddListing }) => {
+const VirtualAllListings = ({ name, data, isLoading, refetch, totalData, parentClassname, isAddListing, useTagFeatured }) => {
 
     const { infoUser: { databaseId } } = useSelector((state) => state.user);
 
@@ -82,6 +82,7 @@ const VirtualAllListings = ({ name, data, isLoading, refetch, totalData, parentC
                                     height={style.height - GUTTER_SIZE}
                                     idAgent={databaseId}
                                     isAddListing={isAddListing}
+                                    useTagFeatured={useTagFeatured}
                                 />
                             </div>
                         }}
@@ -101,6 +102,7 @@ VirtualAllListings.defaultProps = {
     columnCount: 1,
     parentClassname: "",
     isAddListing: false,
+    useTagFeatured: false
 };
 
 VirtualAllListings.propTypes = {
@@ -112,6 +114,7 @@ VirtualAllListings.propTypes = {
     columnCount: PropTypes.number,
     parentClassname: PropTypes.string,
     isAddListing: PropTypes.bool,
+    useTagFeatured: PropTypes.bool,
 };
 
 export default VirtualAllListings;

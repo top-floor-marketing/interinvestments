@@ -71,37 +71,6 @@ const stylesProvider = () => {
                 }
             })
         },
-        Select: {
-            styles: (theme) => ({
-                input: {
-                    "&:focus": {
-                        borderColor: `${BORDER_FOCUS} !important`
-                    }
-                },
-                filledVariant: {
-                    border: BORDER_INPUT,
-                    backgroundColor: theme.colors.white[0],
-                    color: "#000",
-                    "&:disabled": {
-                        backgroundColor: theme.colors.gray[6],
-                    },
-                },
-                dropdown: {
-                    backgroundColor: theme.colors.white[0],
-                    border: BORDER_INPUT,
-                },
-                item: {
-                    backgroundColor: theme.colors.white[0],
-                },
-                hovered: {
-                    backgroundColor: theme.colors.primary[6],
-                    color: theme.colors.white[0]
-                },
-                selected: {
-                    backgroundColor: theme.colors.primary[0],
-                }
-            })
-        },
         Pagination: {
             styles: (theme) => ({
                 item: {
@@ -251,6 +220,34 @@ const stylesProvider = () => {
                 }
             }
         },
+        Select: {
+            styles: (theme, params) => { 
+                return {
+                    dropdown: {
+                        backgroundColor: "transparent",
+                        "&:disabled": {
+                            backgroundColor: theme.colors.gray[6],
+                        },
+                        zIndex: '9999 !important'
+                    },
+                    wrapper: {
+                        backgroundColor: "transparent",
+                        zIndex: '9999 !important'
+                    },
+                    item: {
+                        backgroundColor: "transparent",
+                        zIndex: '9999 !important'
+                    },
+                    input: {
+                        border: BORDER_INPUT,
+                        backgroundColor: "transparent",
+                        "&:focus": {
+                            borderColor: `${BORDER_FOCUS} !important`
+                        }
+                    }
+                }
+            }
+        },
         SegmentedControl : {
             styles: (theme, params) => {
                 return {
@@ -259,37 +256,24 @@ const stylesProvider = () => {
                         gap: theme.other.spacing.p2,
                         ".__mantine-ref-control": {
                             border: "0 !important"
-                        }
-
+                        },
+                        ".mantine-SegmentedControl-labelActive.mantine-SegmentedControl-disabled": {
+                            backgroundColor: `${theme.colors.dark[0]} !important`,
+                            color: `${theme.colors.white[0]} !important`,
+                        },
                     },
                     label: {
                         backgroundColor: theme.colors.gray[6]
                     },
                     labelActive: {
-                        backgroundColor: theme.colors.dark[6]
+                        backgroundColor: theme.colors.dark[6],
                     },
                     control: {
                         backgroundColor: "transparent",
-                      
                     },
                     controlActive: {
                         backgroundColor: "transparent",
-                    }
-                  /*   control: {
-                        backgroundColor: "transparent",
                     },
-                    label: {
-                        backgroundColor: theme.colors.gray[6]
-                    },
-                    input: {
-                        backgroundColor: theme.colors.gray[6]
-                    },
-                    controlActive: {
-                        backgroundColor: theme.colors.white[1]
-                    },
-                    active: {
-                        color: theme.colors.white[1]
-                    } */
                 }
                
             }}
