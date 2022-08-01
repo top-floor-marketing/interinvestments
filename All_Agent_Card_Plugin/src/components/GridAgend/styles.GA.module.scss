@@ -1,0 +1,23 @@
+@tailwind utilities;
+
+.ContainerGridAllAGent {
+    @apply my-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5;
+}
+
+.titleAgent {
+    font-style: normal;
+    font-weight: 300;
+    @apply font-outfit text-[24px] leading-[30px];
+}
+
+.subTitleAgent {
+    font-style: normal;
+    font-weight: 400;
+    @apply font-outfit text-[16px] leading-[26px];
+}
+
+.ButtonProfileAgent {
+    font-style: normal;
+    font-weight: 400;
+    @apply font-outfit transition duration-300 text-[14px] leading-[18px] bg-[#E5E5E5] hover:bg-[#aca8a8] text-black hover:text-white;
+}

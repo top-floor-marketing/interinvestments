@@ -1,0 +1,14 @@
+@tailwind utilities;
+
+.containerMain {
+    @apply w-full max-w-screen-sm md:max-w-screen-lg xl:max-w-screen-xl mx-auto py-20;
+    h3 {
+        font-style: normal;
+        font-weight: 400;
+        @apply text-center font-outfit text-[36px] leading-[45px];
+    }
+}
+
+.BoxAlertError {
+    @apply flex justify-center items-center my-20;
+}
