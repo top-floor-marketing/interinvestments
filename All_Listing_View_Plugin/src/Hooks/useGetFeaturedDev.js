@@ -20,12 +20,18 @@ const useGetFeaturedDev = () => {
         setDataNeighborhood,
         setDataMapApiKey,
         setDataListing,
-        setcategoy
+        setSearch, setneighborhood, setcategoy
     } = actionslices
     const { search, neighborhood, categoy } = useSelector((state) => state.filter)
     const { dataCategory, dataListing, pageInfoListing, isError, dataNei, mapApiKey } = useSelector((state) => state.statusQuery)
 
     const [perPage] = useState(15);
+
+    // get values url
+    const urlParams = new URLSearchParams(window.location.search);
+    const value_Neighborhood_URL = urlParams.get('nei')
+    const value_category_URL = urlParams.get('cat')
+    const value_search_URL = urlParams.get('search')
 
     // 1
     useQueryHelper({
@@ -38,8 +44,19 @@ const useGetFeaturedDev = () => {
             onSuccess: (req) => {
                 // set values category
                 dispatch(setDataCategory(req.listingCategories.nodes))
+
+                // set default value search
+                if (value_search_URL) {
+                    dispatch(setSearch(value_search_URL))
+                }
+
                 // defaut caregory
-                dispatch(setcategoy(`${req.listingCategories.nodes[0].databaseId}`))
+                if (value_category_URL) {
+                    dispatch(setcategoy(value_category_URL))
+                } else {
+                    dispatch(setcategoy(`${req.listingCategories.nodes[0].databaseId}`))
+                }
+
             },
             onError: () => {
                 // dispatch loading global false
@@ -59,6 +76,10 @@ const useGetFeaturedDev = () => {
             onSuccess: (req) => {
                 // set data nei
                 dispatch(setDataNeighborhood(req.neighborhoods.nodes))
+                // set default vaue
+                if (value_Neighborhood_URL) {
+                    dispatch(setneighborhood(value_Neighborhood_URL))
+                }
             },
             onError: () => {
                 // dispatch loading global false
@@ -68,6 +89,8 @@ const useGetFeaturedDev = () => {
             },
         }
     });
+
+
 
     // 3
     useQueryHelper({
