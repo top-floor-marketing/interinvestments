@@ -57,7 +57,9 @@ const CardListing = (props) => {
                                     </div>
                                 </Box>
                             </Box>
-                            <Divider my="sm" />
+                            {
+                                (index === data.length - 1) ? <Box className='mt-5' /> : <Divider my="sm" />
+                            }
                         </Box>
                     )
                 })

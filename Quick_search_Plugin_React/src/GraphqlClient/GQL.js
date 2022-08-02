@@ -36,6 +36,7 @@ export const ALL_LISTING = gql`
           ]},
         search: $search
       }
+      first: 5
     ) {
       nodes {
         databaseId
