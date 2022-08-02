@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import { Card } from '@mantine/core';
+import { Card, Button } from '@mantine/core';
+import { ChevronRight } from 'tabler-icons-react';
 // componet 
 import LoadingMenu from './LoadingMenu'
 import AlertError from '../AlertError'
@@ -40,6 +41,29 @@ const MenuQuickSearch = () => {
         }
     }, [searchListing, refetchListing, activeCategory, activeNeighborhoods])
 
+    const urlVaribles = () => {
+        const URL_ALL_LISTING = '/all-listings/'
+        let vars = [];
+        let finalVars = ''
+        if (searchListing) {
+            vars.push(`search=${searchListing}`)
+        }
+        if (activeNeighborhoods) {
+            vars.push(`nei=${activeNeighborhoods}`)
+        }
+        if (activeCategory) {
+            vars.push(`cat=${activeCategory}`)
+        }
+        if (vars.length) {
+            finalVars = vars.reduce((acc, val) => {
+                return (acc === '') ? val : ''.concat(acc).concat('&').concat(val)
+            }, '');
+            finalVars = URL_ALL_LISTING.concat('?').concat(finalVars);
+        }
+
+        return finalVars
+    }
+
     if ((focusCard)) {
         return (
             <div className={`z-1 ${styles.MenuQuickSearch}`}>
@@ -65,6 +89,15 @@ const MenuQuickSearch = () => {
                                 )
                             )
                     }
+                    <Button
+                        component='a'
+                        href={urlVaribles()}
+                        variant='outline'
+                        className="mx-auto mt-3 btn-wp-primary-icon"
+                    >
+                        view all result
+                        <ChevronRight />
+                    </Button>
                 </Card>
             </div>
         )
