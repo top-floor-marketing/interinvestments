@@ -71,6 +71,7 @@ const ListingFinder = ({ arrayIdListings, useTagFeatured }) => {
 
   return (
     <SpringDiv delay={200} duration={400} fullHeight>
+      <Text> ==== {JSON.stringify(isSkeleton)}</Text>
       <Box className={classes.container}>
         <SpringDiv delay={300} duration={400}>
           <Skeleton visible={isSkeleton} className={classes.filtersRow}>

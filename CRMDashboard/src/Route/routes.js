@@ -4,8 +4,6 @@ import { LayoutGrid, Home2, Users } from "tabler-icons-react";
 
 import AuthComponent  from '../Component/Auth';
 import ProfileComponent from '../Component/Profile';
-//import DashboardComponent  from '../Component/Dashboard';
-import PipelineComponent from '../Component/Pipeline';
 import LeadsComponent  from '../Component/Leads';
 
 import Listings from '../Component/ListingFinder';
