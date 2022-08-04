@@ -1,56 +1,15 @@
-import { Box, createStyles, Skeleton, SegmentedControl, Text, Select } from "@mantine/core";
-import { useMediaQuery } from '@mantine/hooks';
+import { WrapperAgentListing } from '../Wrappers';
+import ListingsView from './listingsView';
 
-import SpringDiv from "../SpringDiv";
+const ListingFinder = (props) => {
+  return (
+    <WrapperAgentListing>
+        <ListingsView />
+    </WrapperAgentListing>
+  )
+}
 
-import useGetListingFinder from "./useGetListingFinder";
-import VirtualAllListings from "./virtualAllListings";
-
-const useStyles = createStyles((theme, _params, getRef) => {
-  const { isSkeleton } = _params;
-  return {
-    container: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      gap: theme.other.spacing.p8,
-      height: "100%",
-      minHeight: (isSkeleton) ? '350px' : '400px'
-    },
-    filtersRow: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "row",
-      gap: theme.other.spacing.p4,
-      alignContent: "center",
-      [`${theme.fn.smallerThan("md")}`]: {
-        flexDirection: "column",
-      },
-      minHeight: (isSkeleton) ? '30px' : '20px'
-    },
-    textSearch: {
-      height: "auto",
-      alignSelf: "center",
-      fontWeight: 700,
-      fontSize: "14px"
-    },
-    listingRow: {
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      flexDirection: "column",
-      minHeight: (isSkeleton) ? '100px' : 'auto',
-    },
-    boxInfiniteLoader: {
-      width: "100%",
-      height: "100%",
-      minHeight: "250px",
-      maxHeight: "900px",
-    }
-  }
-
-});
-
+/*
 const ListingFinder = ({ arrayIdListings, useTagFeatured }) => {
 
   const { isSkeleton,
@@ -121,10 +80,6 @@ const ListingFinder = ({ arrayIdListings, useTagFeatured }) => {
     </SpringDiv>
   );
 };
-
-ListingFinder.defaultProps = {
-  arrayIdListings: [],
-  useTagFeatured: false
-};
+*/
 
 export default ListingFinder;

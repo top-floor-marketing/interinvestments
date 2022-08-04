@@ -1,5 +1,5 @@
 import WrapperAgentListing from "./WrapperAgentListing";
 
-return {
+export {
     WrapperAgentListing
 }

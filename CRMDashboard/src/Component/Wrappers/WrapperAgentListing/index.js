@@ -1,13 +1,32 @@
-import { useState } from 'react';
+import { useState, cloneElement, isValidElement, memo, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-const WrapperAgentListing = () => {
+import PropTypes from 'prop-types';
+
+const WrapperAgentListing = ({ children }) => {
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 10000)
+    }, [])
 
     return (
         <>
+            {
+                (isValidElement(children))
+                    ? cloneElement(children, { isLoading })
+                    : children
+            }
         </>
     )
 }
 
-export default React.memo(WrapperAgentListing);
+WrapperAgentListing.propTypes = {
+    children: PropTypes.node
+}
+
+export default memo(WrapperAgentListing);

@@ -119,7 +119,6 @@ const useMutationHelper = (props) => {
         const errorParse = JSON.parse(JSON.stringify(error, undefined, 2));
         isErrorResponse = get(errorParse, ["response", "errors", "0", "debugMessage"], null);
       }
-
       if (isErrorResponse.includes('invalid-jwt')) {
         try {
           const refreshResponse = await requestNewToken();
@@ -146,8 +145,6 @@ const useMutationHelper = (props) => {
           emptyLocalStorage()
         }
       }
-
-
     },
     {
       ...globalConfig,
