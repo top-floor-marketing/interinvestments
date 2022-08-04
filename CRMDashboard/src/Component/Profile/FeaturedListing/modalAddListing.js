@@ -72,7 +72,7 @@ const ModalAddListing = ({ isOpen, arrayIdListings, onClose, isLoading }) => {
         modal: {
           width: "90%",
           height: height-60,
-          maxHeight: "1200px",
+          maxHeight: "1500px",
           display: "flex",
           flexDirection: "column"
         },
@@ -81,7 +81,7 @@ const ModalAddListing = ({ isOpen, arrayIdListings, onClose, isLoading }) => {
         }
       })}
     >
-      {isOpen && <ListingFinder arrayIdListings={arrayIdListings} useTagFeatured={true}/> }
+      <ListingFinder arrayIdListings={arrayIdListings} useTagFeatured={true} />
     </Modal>
   );
 };

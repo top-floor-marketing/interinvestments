@@ -50,3 +50,11 @@ export const GET_USER_BY_ID = gql`
     }
   }
 `;
+
+export const GET_NEW_TOKEN =  gql`
+mutation refreshJwtAuthToken($input: RefreshJwtAuthTokenInput!) {
+  refreshJwtAuthToken(input: $input) {
+    authToken
+  }
+}
+`;

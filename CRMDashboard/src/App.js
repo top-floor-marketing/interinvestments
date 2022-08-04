@@ -8,7 +8,7 @@ import { ModalsProvider } from '@mantine/modals';
 
 import ThemeGlobalProvider from "./MatineProvider";
 
-import Main from "./Container";
+import Main from "./Container/MainView";
 const queryClient = new QueryClient();
 
 function App() {
