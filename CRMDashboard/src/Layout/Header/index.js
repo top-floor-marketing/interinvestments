@@ -13,11 +13,10 @@ import LogoInter from "../../Assets/logo-inter.svg";
 
 import { LogoutIcon } from "../../Component/ActionButtons";
 
-import { COLOR_SCHEME_DARK } from "../../Store/themeSlice";
+import { COLOR_SCHEME_DARK } from "../../GlobalStore/useActionsTheme";
 
-import { useDispatch } from "react-redux";
+import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 import { ROUTES_NAMES } from "../../Route/routes";
-import { setNavigation } from "../../Store/userSlice";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   headerContainer: {
@@ -75,7 +74,9 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 }));
 
 const HeaderDashboard = ({ opened, setOpened }) => {
-  const dispatch = useDispatch();
+
+  const { actions: { setRoute } } = useClientGlobalStore();
+
   const theme = useMantineTheme();
   const { classes } = useStyles();
   return (
@@ -93,7 +94,7 @@ const HeaderDashboard = ({ opened, setOpened }) => {
           <Box className={classes.logoContainer}>
             <Box
               className={classes.imageContainer}
-              onClick={() => dispatch(setNavigation(ROUTES_NAMES.HOME))}
+              onClick={() => setRoute(ROUTES_NAMES.HOME)}
             >
               <Image src={LogoInter} alt="Logo interinvestments" />
             </Box>

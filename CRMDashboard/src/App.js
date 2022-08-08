@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-import store from "./Store/store";
-import { Provider } from "react-redux";
+import StoreProvider from './GlobalStore/storeProvider';
 
 import { NotificationsProvider } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
@@ -13,7 +12,7 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <Provider store={store}>
+    <StoreProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeGlobalProvider>
           <NotificationsProvider autoClose={4000} limit={2} position="top-right" zIndex={9999}>
@@ -23,7 +22,7 @@ function App() {
           </NotificationsProvider>
         </ThemeGlobalProvider>
       </QueryClientProvider>
-    </Provider>
+    </StoreProvider>
   );
 }
 

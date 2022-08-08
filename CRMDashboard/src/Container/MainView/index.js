@@ -6,7 +6,7 @@ import RoutesContainer from "./routesContainer";
 
 const ContainerCRM = () => {
   const { loadingVerify } = useVerifyRoute();
-  return loadingVerify ? null : <RoutesContainer />;
+  return loadingVerify ? null : <RoutesContainer />; 
 };
 
 const memoContainerMain = React.memo(ContainerCRM);

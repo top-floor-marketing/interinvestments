@@ -1,7 +1,7 @@
 import { Box, createStyles } from "@mantine/core";
 import React from "react";
 
-import { useSelector } from "react-redux";
+import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 import { CRM_ROUTES, LAYOUT_NAMES } from "../../Route/routes";
 
 import filter from "lodash/filter";
@@ -22,20 +22,14 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     backgroundColor: theme.fn.rgba(theme.colors.gray[0], 0.6),
     justifyContent: "center",
     alignContent: "center",
-/*     ".mantine-Skeleton-visible": {
-      "&::before": {
-        backgroundColor: theme.fn.rgba(theme.colors.gray[9], 1),
-      },
-      "&::after": {
-        backgroundColor: theme.fn.rgba(theme.colors.gray[2], 0.7),
-      },
-    }, */
   },
 }));
 
 const RoutesContainer = () => {
   const { classes } = useStyles();
-  const { route: routeInStore } = useSelector((state) => state.user);
+
+  const { state: { user: { route: routeInStore, infoUser } } } = useClientGlobalStore();
+
   const routeActive = filter(CRM_ROUTES, (o) => {
     return o.name === routeInStore;
   });

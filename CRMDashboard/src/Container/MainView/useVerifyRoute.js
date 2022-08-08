@@ -1,13 +1,14 @@
 import { useState } from "react";
 
-import { useDispatch } from "react-redux";
-import { toggleLoadingFull, setInfoUser, setRoute } from "../../Store/userSlice";
+// global store 
+import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
+
 import { useLocalStorage } from "@mantine/hooks";
 
 import { useQueryHelper } from "../../GraphqlClient/useRequest";
 import { GET_USER_BY_ID } from "../../GraphqlClient/user.gql";
 
-import { DEFAULT_ROUTE, ROUTES_NAMES } from "../../Route/routes";
+import { DEFAULT_ROUTE } from "../../Route/routes";
 
 import { LOCAL_STORAGE } from "../../Utils/globalConstants";
 
@@ -15,24 +16,17 @@ import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 
 const useVerifyRoute = () => {
-  const [loadingVerify, setLoadingVerify] = useState(true);
-  const dispatch = useDispatch();
 
-  const [userIdLocalStorage, setIdLocalStorage] = useLocalStorage({
+  const { actions: { setLoadingFull, setInfoUser, setRoute, setLogout } } = useClientGlobalStore();
+
+  const [loadingVerify, setLoadingVerify] = useState(true);
+  const [userIdLocalStorage] = useLocalStorage({
     key: LOCAL_STORAGE.USER,
     defaultValue: null,
   });
-  const [routeInLocalStorage, setRouteInLocalStorage] = useLocalStorage({
+  const [routeInLocalStorage] = useLocalStorage({
     key: LOCAL_STORAGE.ROUTE,
     defaultValue: DEFAULT_ROUTE,
-  });
-  const [, setTokenLocal] = useLocalStorage({
-    key: LOCAL_STORAGE.TOKEN,
-    defaultValue: null,
-  });
-  const [, setRefreshTokenLocal] = useLocalStorage({
-    key: LOCAL_STORAGE.REFRESH,
-    defaultValue: null,
   });
 
   const isLoadingResponse = (data) => {
@@ -42,18 +36,6 @@ const useVerifyRoute = () => {
     return !!(hasUserName && hasId && hasRoles);
   };
 
-  const setNullStore = () => {
-    // localStorage set null
-    setRefreshTokenLocal(null);
-    setTokenLocal(null);
-    setRouteInLocalStorage(ROUTES_NAMES.AUTH);
-    setIdLocalStorage(null);
-
-    // userSlice store set null
-    dispatch(setInfoUser(null));
-    // set AUTH Route for render Login Component
-    dispatch(setRoute(ROUTES_NAMES.AUTH));
-  };
 
   const { isLoading, isFetching } = useQueryHelper({
     name: "get-user-by-id-verify",
@@ -64,19 +46,21 @@ const useVerifyRoute = () => {
     config: {
       onSuccess: (response) => {
         const isLoginUser = isLoadingResponse(response);
-        if (isLoginUser) {
-          dispatch(setInfoUser(get(response, ["user"])));
-          dispatch(setRoute(routeInLocalStorage));
-        } else {
-          setNullStore();
+        if (!isLoginUser) {
+          setLoadingVerify(false);
+          setLogout();
         }
-        dispatch(toggleLoadingFull(false));
+
+        setInfoUser(get(response, ["user"]));
+        setRoute(routeInLocalStorage);
+
+        setLoadingFull(false);
         setLoadingVerify(false);
+
       },
       onError: (e) => {
-        setNullStore();
-        dispatch(toggleLoadingFull(false));
         setLoadingVerify(false);
+        setLogout();
       },
     },
   });

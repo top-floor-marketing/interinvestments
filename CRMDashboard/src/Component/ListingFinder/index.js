@@ -1,7 +1,7 @@
 import { WrapperAgentListing } from '../Wrappers';
 import ListingsView from './listingsView';
 
-const ListingFinder = (props) => {
+const ListingFinder = () => {
   return (
     <WrapperAgentListing>
         <ListingsView />

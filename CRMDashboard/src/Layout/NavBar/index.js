@@ -10,12 +10,10 @@ import {
 
 import { ChevronRight } from "tabler-icons-react";
 
+import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 import { CRM_ROUTES, ROUTES_NAMES } from "../../Route/routes";
 
-import { useSelector, useDispatch } from "react-redux";
-import { setNavigation } from "../../Store/userSlice";
-
-import { getRouteActive } from "../../Store/utils";
+import { getRouteActive } from "../../GlobalStore/utils";
 
 import LogoInter from "../../Assets/logo-inter.svg";
 
@@ -24,8 +22,9 @@ import get from "lodash/get";
 import useStyles from "./useStyles";
 
 const NavBarDashboard = ({ opened }) => {
-  const { route: routeInStore, infoUser } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+
+  const { actions: { setRoute }, state: { user: { route: routeInStore, infoUser } } } = useClientGlobalStore();
+
   const { classes, cx } = useStyles();
 
   const routeActive = getRouteActive(routeInStore);
@@ -69,8 +68,8 @@ const NavBarDashboard = ({ opened }) => {
       return {
         className: getClassItemNav(name),
         onClick: () => {
-          if (name === LOGO_ITEM) dispatch(setNavigation(ROUTES_NAMES.HOME));
-          else dispatch(setNavigation(name));
+          if (name === LOGO_ITEM) setRoute(ROUTES_NAMES.HOME);
+          else setRoute(name);
         },
       };
     },
@@ -91,7 +90,7 @@ const NavBarDashboard = ({ opened }) => {
     avatarContainer: {
       className: classes.avatarContainer,
       onClick: () => {
-        dispatch(setNavigation(ROUTES_NAMES.PROFILE));
+        setRoute(ROUTES_NAMES.PROFILE);
       },
     },
     avatarFilter: {
@@ -101,7 +100,7 @@ const NavBarDashboard = ({ opened }) => {
       size: "lg",
       className: classes.chevron,
       onClick: () => {
-        dispatch(setNavigation(ROUTES_NAMES.PROFILE));
+      setRoute(ROUTES_NAMES.PROFILE);
       },
     },
   };

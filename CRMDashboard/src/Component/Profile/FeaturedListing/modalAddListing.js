@@ -81,7 +81,7 @@ const ModalAddListing = ({ isOpen, arrayIdListings, onClose, isLoading }) => {
         }
       })}
     >
-      <ListingFinder arrayIdListings={arrayIdListings} useTagFeatured={true} />
+      {(isOpen) && <ListingFinder />}
     </Modal>
   );
 };

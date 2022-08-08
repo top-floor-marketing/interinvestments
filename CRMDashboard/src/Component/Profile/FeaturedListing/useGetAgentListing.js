@@ -3,13 +3,13 @@ import { useQueryHelper } from "../../../GraphqlClient/useRequest";
 import { GET_AGENT_FEATURED_LISTING } from "../../../GraphqlClient/agentProfile.gql";
 
 // global Store
-import { useSelector } from "react-redux";
+import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore';
 
 import get from 'lodash/get';
 
 const useGetAgentListing = () => {
 
-    const { infoUser: { databaseId } } = useSelector((state) => state.user);
+    const { state: { user: { infoUser: { databaseId } } } } = useClientGlobalStore();
 
     const [listingAgent,setListingAgent] = useState([]);
     const [isSkeleton, setIsSkeleton] = useState(true);

@@ -4,7 +4,6 @@ import { LayoutGrid, Home2, Users } from "tabler-icons-react";
 
 import AuthComponent  from '../Component/Auth';
 import ProfileComponent from '../Component/Profile';
-import LeadsComponent  from '../Component/Leads';
 
 import Listings from '../Component/ListingFinder';
 
@@ -25,36 +24,12 @@ export const ROUTES_NAMES = {
 export const DEFAULT_ROUTE = ROUTES_NAMES.PROFILE;
 
 export const CRM_ROUTES = [
- /*  {
-    name: ROUTES_NAMES.PIPELINE,
-    label: "Pipeline",
-    layout: LAYOUT_NAMES.DASHBOARD,
-    component: () => (
-      <PipelineComponent />
-    ),
-    useInNavbar: false,
-    loginRequired: true,
-    icon: () => <Home2 size={25} strokeWidth={2} color={"white"} />,
-    roles: ["administrator"]
-  }, */
- /*  {
-    name: ROUTES_NAMES.LEADS,
-    label: "Leads",
-    layout: LAYOUT_NAMES.DASHBOARD,
-    component: () => (
-      <LeadsComponent />
-    ),
-    useInNavbar: false,
-    loginRequired: true,
-    icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
-    roles: ["administrator"]
-  }, */
   {
     name: ROUTES_NAMES.LEADS_DETAILS,
     label: "Leads",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <LeadsComponent />
+      <div>Leads detail</div>
     ),
     useInNavbar: false,
     loginRequired: true,
@@ -104,7 +79,7 @@ export const CRM_ROUTES = [
     label: "Leads",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <div >Leads</div>
+      <div>Leads</div>
     ),
     useInNavbar: true,
     loginRequired: true,

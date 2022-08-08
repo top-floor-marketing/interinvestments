@@ -62,7 +62,7 @@ const useQueryHelper = (props) => {
       try {
         return await client.request({ document: gql, variables, requestHeaders, signal });
       } catch (error) {
-        console.log('e query = ', error);
+        console.log(`query = ${name}`, error);
         const errorParse = JSON.parse(JSON.stringify(error, undefined, 2));
         isErrorResponse = get(errorParse, ["response", "errors", "0", "debugMessage"], null);
       }

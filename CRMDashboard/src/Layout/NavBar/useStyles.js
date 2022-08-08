@@ -1,5 +1,5 @@
 import { createStyles } from "@mantine/core";
-import { COLOR_SCHEME_DARK } from "../../Store/themeSlice";
+import { COLOR_SCHEME_DARK } from "../../GlobalStore/useActionsTheme";
 
 // Navbar createStyles
 export default createStyles((theme, _params, getRef) => ({

@@ -5,8 +5,7 @@ import Login from "./Login";
 import { useLocalStorage } from "@mantine/hooks";
 import { LOCAL_STORAGE } from "../../Utils/globalConstants";
 
-import { useSelector, useDispatch } from "react-redux";
-import { setInfoUser, setRoute } from "../../Store/userSlice";
+import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
 import { DEFAULT_ROUTE, ROUTES_NAMES } from "../../Route/routes";
 
@@ -14,8 +13,9 @@ import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 
 const AuthContainer = ({ isModal = false }) => {
-  const { route: routeInStore } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+
+  const { state: { user: { route: routeInStore } }, actions: { setLogout, setInfoUser, setRoute } } = useClientGlobalStore();
+
   const [, setIdLocalStorage] = useLocalStorage({
     key: LOCAL_STORAGE.USER,
     defaultValue: null,
@@ -40,19 +40,6 @@ const AuthContainer = ({ isModal = false }) => {
     return hasRoles && hasUserName && hasId;
   };
 
-  const setNullStore = () => {
-    // localStorage set null
-    setRefreshTokenLocal(null);
-    setTokenLocal(null);
-    setIdLocalStorage(null);
-    setRouteInLocalStorage(ROUTES_NAMES.AUTH);
-
-    // userSlice store set null
-    dispatch(setInfoUser(null));
-    // set AUTH Route for render Login Component
-    dispatch(setRoute(ROUTES_NAMES.AUTH));
-  };
-
   const onSuccessLogin = (response) => {
     const getToken = get(response, ["login", "authToken"]);
     const getRefresh = get(response, ["login", "refreshToken"]);
@@ -60,16 +47,16 @@ const AuthContainer = ({ isModal = false }) => {
     const isLogin = isLoginResponse(response);
 
     if (isLogin && getToken) {
-      dispatch(setInfoUser(getUser));
-        setRefreshTokenLocal(getRefresh);
-        setTokenLocal(getToken);
-        setIdLocalStorage(getUser.id);
-        if (routeInStore === ROUTES_NAMES.AUTH || !routeInStore) {
-          setRouteInLocalStorage(DEFAULT_ROUTE);
-          dispatch(setRoute(DEFAULT_ROUTE));
-        }
+      setInfoUser(getUser);
+      setRefreshTokenLocal(getRefresh);
+      setTokenLocal(getToken);
+      setIdLocalStorage(getUser.id);
+      if (routeInStore === ROUTES_NAMES.AUTH || !routeInStore) {
+        setRouteInLocalStorage(DEFAULT_ROUTE);
+        setRoute(DEFAULT_ROUTE);
+      }
     } else {
-      setNullStore();
+      setLogout();
     }
   };
 

@@ -3,8 +3,8 @@ import { Box, Overlay, createStyles } from "@mantine/core";
 import lottie from "lottie-web";
 import IntroLoading from "../../Lottie/IntroLoading.json";
 
-// redux
-import { useSelector } from "react-redux";
+// global Store
+import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   box: {
@@ -30,7 +30,9 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 }));
 
 const LoadingFull = ({ isLoadingLazy = false, idLazy }) => {
-  const { isLoadingFull } = useSelector((state) => state.user);
+
+  const { state: { user: { isLoadingFull } } } = useClientGlobalStore();
+
   const { classes } = useStyles({ isLoading: isLoadingFull || isLoadingLazy });
   const id = "wp-loading-full".concat(idLazy || "");
 

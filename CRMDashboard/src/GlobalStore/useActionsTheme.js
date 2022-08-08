@@ -1,12 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
-
 export const COLOR_SCHEME_DARK = "dark";
 export const COLOR_SCHEME_LIGHT = "light";
 // https://convertingcolors.com/hex-color-0C0C0C.html?search=Hex(0C0C0C)
 // https://10015.io/tools/color-shades-generator
-export const themeSlice = createSlice({
-  name: "theme",
-  initialState: {
+
+export const DEFAUL_STORE_THEME = {
     colorScheme: COLOR_SCHEME_DARK,
     fontFamily: "Outfit, Helvetica, Arial, Lucida, sans-serif",
     defaultRadius: "sm",
@@ -129,18 +126,4 @@ export const themeSlice = createSlice({
       ],
     },
     primaryColor: "primary",
-  },
-  reducers: {
-    toggleColorScheme: (state) => {
-      state.colorScheme =
-        state.colorScheme === COLOR_SCHEME_LIGHT
-          ? COLOR_SCHEME_DARK
-          : COLOR_SCHEME_LIGHT;
-    },
-  },
-});
-
-// Action creators are generated for each case reducer function
-export const { toggleColorScheme } = themeSlice.actions;
-
-export default themeSlice.reducer;
+  }

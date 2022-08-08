@@ -2,18 +2,17 @@ import { ActionIcon, Tooltip } from "@mantine/core";
 import { Logout } from 'tabler-icons-react';
 import PropTypes from 'prop-types';
 
-import { useDispatch } from "react-redux";
-import { setLogout } from "../../../Store/userSlice";
-
 import omit from 'lodash/omit';
+
+import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
 const LogoutIcon = (props) => {
 
-  const dispatch = useDispatch();
+  const { actions: { setLogout } } = useClientGlobalStore()
 
   return (
     <Tooltip multiline gutter={10} label={props.labelTooltip} withArrow className={props.className}>
-      <ActionIcon onClick={() => dispatch(setLogout())} {...omit(props, ['size', 'labelTooltip'])}><Logout size={props.size} /></ActionIcon>
+      <ActionIcon onClick={() => setLogout()}  {...omit(props, ['size', 'labelTooltip'])}><Logout size={props.size} /></ActionIcon>
     </Tooltip>
   );
 };

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useQueryHelper } from "../../GraphqlClient/useRequest";
 import { GET_LISTINGS_CATEGORY, GET_ALL_NEIGHBORHOODS, GET_ALL_LISTINGS } from "../../GraphqlClient/listings.gql";
 
 // global Store
-import { useSelector } from "react-redux";
+import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore';
 
 import get from 'lodash/get';
 import findIndex from 'lodash/findIndex';
@@ -12,7 +12,7 @@ import map from 'lodash/map';
 
 const useGetListingFinder = (arrayIdListings) => {
 
-  const { infoUser: { databaseId } } = useSelector((state) => state.user);
+  const { state: { user: { infoUser: { databaseId } } } } = useClientGlobalStore();
 
   const [allListings, setAllListings] = useState([]);
 

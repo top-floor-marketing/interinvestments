@@ -9,7 +9,7 @@ import { Box } from '@mantine/core';
 
 import ItemListingVirtual from "../ItemListingVirtual";
 
-import { useSelector } from "react-redux";
+import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore';
 
 import random from 'lodash/random';
 import get from 'lodash/get';
@@ -33,7 +33,7 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 
 const VirtualAllListings = ({ name, data, isLoading, refetch, totalData, parentClassname, isAddListing, useTagFeatured }) => {
 
-    const { infoUser: { databaseId } } = useSelector((state) => state.user);
+    const { state: { user: { infoUser: { databaseId } } } } = useClientGlobalStore();
 
     const idGrid = useId("_" + random(1, 1000) + "_" + name);
     const refParentBox = useRef(null);
