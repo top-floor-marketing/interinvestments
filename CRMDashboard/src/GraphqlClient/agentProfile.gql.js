@@ -2,7 +2,7 @@ import { gql } from "graphql-request";
 
 const AGENT_TYPE = 'AGENT';
 
-export const GET_AGENT_PROFILE_INFO= gql`
+export const GET_AGENT_PROFILE_INFO = gql`
 query GetAgentInfo($agentId: Int = 10) {
     dataAgent(
         agentType: ${AGENT_TYPE}, agenId: $agentId
@@ -78,7 +78,8 @@ mutation agentEditProfile(
   $linkedin: String,
   $phone: String,
   $position: String,
-  $twitter: String
+  $twitter: String,
+  $avatarProfile: Upload
 ) {
   agentEditProfile(
     input: {
@@ -92,7 +93,8 @@ mutation agentEditProfile(
       linkedin: $linkedin, 
       phone: $phone, 
       position: $position, 
-      twitter: $twitter
+      twitter: $twitter,
+      avatarProfile: $avatarProfile
     }
   ) {
     request_info

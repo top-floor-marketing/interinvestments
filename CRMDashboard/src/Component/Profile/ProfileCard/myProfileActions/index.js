@@ -1,44 +1,22 @@
 import { useState } from "react";
-import { Box, createStyles, Text } from "@mantine/core";
-
-import { ShareAgent, IconEditModal } from "../../ActionButtons";
-import { notificationError, notificationSuccess } from "../../Notifications";
-import ModalEditInfo from "./modalEditInfo";
-import ListingFinder from "../../ListingFinder";
-
-import { useMutationHelper } from "../../../GraphqlClient/useRequest";
-import { MUTATION_EDIT_AGENT_PROFILE } from "../../../GraphqlClient/agentProfile.gql";
-
 import PropTypes from 'prop-types';
-
+// mantine
+import { Box, Text } from "@mantine/core";
+// componets
+import { ShareAgent, IconEditModal } from "../../../ActionButtons";
+import { notificationError, notificationSuccess } from "../../../Notifications";
+import DrawerEditInfo from '../DrawerEditInfo'
+// import ModalEditInfo from "../modalEditInfo";
+// React query
+import { useMutationHelper } from "../../../../GraphqlClient/useRequest";
+import { MUTATION_EDIT_AGENT_PROFILE } from "../../../../GraphqlClient/agentProfile.gql";
+// utilities
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import endsWith from 'lodash/endsWith';
+// styles 
+import useStyles from './stylesProfileAction'
 
-const useStyles = createStyles((theme, _params, getRef) => ({
-  container: {
-    display: "flex",
-    flexDirection: "row",
-    width: "100%",
-    gap: theme.other.spacing.p3,
-    justifyContent: "space-between",
-    alignContent: "center"
-  },
-  titleCard: {
-    fontSize: "18px",
-    fontWeight: 700,
-  },
-  shareButton: {
-    marginLeft: "auto",
-    marginTop: "auto",
-    marginBottom: "auto",
-    borderRadius: "10px",
-  },
-  editButton: {
-    marginTop: "auto",
-    marginBottom: "auto"
-  }
-}));
 
 const MyProfileActions = ({ isLoading, id, dataAgent, refetchData }) => {
   const { classes } = useStyles();
@@ -47,12 +25,12 @@ const MyProfileActions = ({ isLoading, id, dataAgent, refetchData }) => {
 
   const onSubmitForm = (data) => {
     try {
-      const omitData = omit(dataAgent, ['avatar', 'avatarProfile', 'id', 'roles']);
+      const omitData = omit(dataAgent, ['avatarProfile', 'id', 'roles']);
       const isLineBreak = endsWith(dataAgent?.content, '\n');
-      if(isLineBreak) {
-        omitData.content = omitData.content.substring(0, omitData.content.length-1);
+      if (isLineBreak) {
+        omitData.content = omitData.content.substring(0, omitData.content.length - 1);
       }
-      if (isEqual(data,omitData)) {
+      if (isEqual(data, omitData)) {
         setIsOpen(false);
       } else {
         fetchEditAgent({
@@ -95,10 +73,15 @@ const MyProfileActions = ({ isLoading, id, dataAgent, refetchData }) => {
   return (
     <Box className={classes.container}>
       {
-        (dataAgent) && <ModalEditInfo isOpen={isOpen} isLoading={isLoading || isLoadingMutation}
-          onClose={() => setIsOpen(false)}
-          dataAgent={dataAgent}
-          onSubmit={onSubmitForm} />
+        (dataAgent) && (
+          <DrawerEditInfo
+            isOpen={isOpen}
+            isLoading={isLoading || isLoadingMutation}
+            onClose={() => setIsOpen(false)}
+            dataAgent={dataAgent}
+            onSubmit={onSubmitForm}
+          />
+        )
       }
       <Text className={classes.titleCard}>My profile</Text>
       <ShareAgent id={id} disabled={isLoading || isLoadingMutation} className={classes.shareButton} size={24} />
