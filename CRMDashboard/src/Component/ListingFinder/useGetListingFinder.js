@@ -12,7 +12,7 @@ import map from 'lodash/map';
 
 const useGetListingFinder = (arrayIdListings) => {
 
-  const { state: { user: { infoUser: { databaseId } } } } = useClientGlobalStore();
+  const { state: { user: { infoUser: { id } } } } = useClientGlobalStore();
 
   const [allListings, setAllListings] = useState([]);
 
@@ -38,7 +38,6 @@ const useGetListingFinder = (arrayIdListings) => {
       setTimeout(() => {
         refetch();
       }, 700)
-      
     }
   }
 
@@ -58,7 +57,7 @@ const useGetListingFinder = (arrayIdListings) => {
     const tempCategory = get(response, ["listingCategories", "nodes"], []);
     const categorySegment = map(tempCategory, (val) => {
       return {
-        value: "" + val.databaseId,
+        value: "" + val.id,
         label: val.name
       }
     });
@@ -72,7 +71,7 @@ const useGetListingFinder = (arrayIdListings) => {
     const tempNei = get(response, ["neighborhoods", "nodes"], []);
     const neiSelect = map(tempNei, (val) => {
       return {
-        value: "" + val.databaseId,
+        value: "" + val.id,
         label: val.name
       }
     });
@@ -88,11 +87,11 @@ const useGetListingFinder = (arrayIdListings) => {
     return tempFullData.map((val, index) => {
       return {
         ...val,
-        isFeatured: findIndex(arrayIdListings, (val2) => val.databaseId === val2) > -1
+        isFeatured: findIndex(arrayIdListings, (val2) => val.id === val2) > -1
       }
     })
     /* const filterListingsById = filter(tempFullData, (val) => {
-      return findIndex(arrayIdListings, (val2) => val.databaseId === val2) < 0;
+      return findIndex(arrayIdListings, (val2) => val.id === val2) < 0;
     })
     return filterListingsById; */
   }

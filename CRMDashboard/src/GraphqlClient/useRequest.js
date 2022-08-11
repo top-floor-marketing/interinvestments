@@ -18,6 +18,7 @@ const API_URL =
 const globalConfig = {
   refetchOnWindowFocus: false,
   retry: false,
+  retryOnMount: false
 };
 
 const emptyLocalStorage = () => {

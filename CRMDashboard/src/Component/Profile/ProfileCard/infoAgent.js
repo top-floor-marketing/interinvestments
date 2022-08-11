@@ -153,7 +153,7 @@ const InfoAgent = ({ dataAgent }) => {
                         <Avatar
                             radius="_40px"
                             size="xl"
-                            src={get(dataAgent, ["avatar"], "")}
+                            src={get(dataAgent, ["avatarProfile"], "")}
                         />
                     </Box>
                     <Box className={classes.agentName}>

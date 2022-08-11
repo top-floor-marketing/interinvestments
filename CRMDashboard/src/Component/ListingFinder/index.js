@@ -1,11 +1,15 @@
-import { WrapperAgentListing } from '../Wrappers';
-import ListingsView from './listingsView';
+import useGetListings from './hooks/useGetListings';
 
 const ListingFinder = () => {
+
+  const { isSkeleton, isError, allListings } = useGetListings();
+  
   return (
-    <WrapperAgentListing>
-        <ListingsView />
-    </WrapperAgentListing>
+    <div >
+      {
+        JSON.stringify(allListings)
+      }
+      </div>
   )
 }
 

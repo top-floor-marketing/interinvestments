@@ -3,8 +3,6 @@ import {DEFAULT_ROUTE, ROUTES_NAMES} from '../Route/routes';
 import { LOCAL_STORAGE } from '../Utils/globalConstants';
 import { STORE_USER_ACTIONS } from './storeReducer';
 
-import useClientGlobalStore from './useClientGlobalStore';
-
 export const DEFAULT_STORE_USER = {
     isLoadingFull: true,
     route: DEFAULT_ROUTE,
@@ -14,7 +12,7 @@ export const DEFAULT_STORE_USER = {
     listingFeaturedAgent: []
 }
 
-const useActionsUser = ({ state, dispatch }) => {
+const useActionsUser = (dispatch) => {
 
     const setLoadingFull = (val) => {
         dispatch({
@@ -28,16 +26,13 @@ const useActionsUser = ({ state, dispatch }) => {
         dispatch({
             type: STORE_USER_ACTIONS.ROUTE,
             payload: val
-        });
+        }); 
     }
 
     const setInfoUser = (val) => {
         dispatch({
             type: STORE_USER_ACTIONS.INFO_USER,
-            payload: {
-                ...state.user.infoUser,
-                ...val
-            }
+            payload: val
         });
     }
 

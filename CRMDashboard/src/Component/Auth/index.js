@@ -12,7 +12,7 @@ import { DEFAULT_ROUTE, ROUTES_NAMES } from "../../Route/routes";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 
-const AuthContainer = ({ isModal = false }) => {
+const AuthContainer = () => {
 
   const { state: { user: { route: routeInStore } }, actions: { setLogout, setInfoUser, setRoute } } = useClientGlobalStore();
 

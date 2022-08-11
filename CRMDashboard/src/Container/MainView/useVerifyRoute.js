@@ -7,6 +7,7 @@ import { useLocalStorage } from "@mantine/hooks";
 
 import { useQueryHelper } from "../../GraphqlClient/useRequest";
 import { GET_USER_BY_ID } from "../../GraphqlClient/user.gql";
+import { GET_AGENT_PROFILE_INFO } from "../../GraphqlClient/agentProfile.gql";
 
 import { DEFAULT_ROUTE } from "../../Route/routes";
 
@@ -17,9 +18,8 @@ import isEmpty from "lodash/isEmpty";
 
 const useVerifyRoute = () => {
 
-  const { actions: { setLoadingFull, setInfoUser, setRoute, setLogout } } = useClientGlobalStore();
+  const { state: { user: { isLoadingFull } }, actions: { setLoadingFull, setInfoUser, setRoute, setLogout } } = useClientGlobalStore();
 
-  const [loadingVerify, setLoadingVerify] = useState(true);
   const [userIdLocalStorage] = useLocalStorage({
     key: LOCAL_STORAGE.USER,
     defaultValue: null,
@@ -29,15 +29,14 @@ const useVerifyRoute = () => {
     defaultValue: DEFAULT_ROUTE,
   });
 
-  const isLoadingResponse = (data) => {
+  const getUserResponse = (data) => {
     const hasRoles = !isEmpty(get(data, ["user", "roles"]));
     const hasUserName = get(data, ["user", "username"]);
     const hasId = get(data, ["user", "id"]);
     return !!(hasUserName && hasId && hasRoles);
   };
 
-
-  const { isLoading, isFetching } = useQueryHelper({
+  const { data: dataUser } =useQueryHelper({
     name: "get-user-by-id-verify",
     gql: GET_USER_BY_ID,
     variables: {
@@ -45,28 +44,46 @@ const useVerifyRoute = () => {
     },
     config: {
       onSuccess: (response) => {
-        const isLoginUser = isLoadingResponse(response);
-        if (!isLoginUser) {
-          setLoadingVerify(false);
+        const isLoginUser = getUserResponse(response);
+        if (!isLoginUser)
           setLogout();
-        }
-
-        setInfoUser(get(response, ["user"]));
-        setRoute(routeInLocalStorage);
-
-        setLoadingFull(false);
-        setLoadingVerify(false);
-
+        
       },
-      onError: (e) => {
-        setLoadingVerify(false);
+      onError: (e) => { 
         setLogout();
       },
     },
   });
 
+  useQueryHelper({
+    name: "get-agent-verify-crm",
+    gql: GET_AGENT_PROFILE_INFO,
+    config: {
+      enabled: getUserResponse(dataUser),
+      onSuccess: (response) => {
+        const infoAgent = get(response, ["dataAgent", "0"], null);
+        if(!infoAgent)
+          setLogout();
+
+        setRoute(routeInLocalStorage);
+        setInfoUser(infoAgent);
+
+        setTimeout(() => {
+          setLoadingFull(false);
+        }, 700)
+        
+      },
+      onError: (e) => {
+        setLogout();
+      },
+    },
+    variables: {
+        agentId: get(dataUser, ["user", "databaseId"], null)
+    },
+});
+
   return {
-    loadingVerify: loadingVerify || isLoading || isFetching,
+    loadingVerify: isLoadingFull,
   };
 };
 

@@ -7,7 +7,7 @@ import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore';
 
 const useGetProfileInfo = () => {
 
-    const { state: { user: { infoUser: { databaseId } } } }= useClientGlobalStore();
+    const { state: { user: { infoUser: { id } } } }= useClientGlobalStore();
 
     const [dataAgent,setDataAgent] = useState(null);
     const [isSkeleton, setIsSkeleton] = useState(true);
@@ -28,15 +28,15 @@ const useGetProfileInfo = () => {
         config: {
           onSuccess: (response) => {
             setIsSkeleton(false);
-            setDataAgent(formatResponseData(response));
+            const data = formatResponseData(response);
+            setDataAgent(data);
           },
           onError: (e) => {
             setIsSkeleton(false);
-            console.log("e ", e);
           },
         },
         variables: {
-            agentId: databaseId
+            agentId: id
         },
     });
 

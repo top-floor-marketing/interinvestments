@@ -8,6 +8,8 @@ import {
   MediaQuery,
 } from "@mantine/core";
 
+import { useEffect } from "react";
+
 import { ChevronRight } from "tabler-icons-react";
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
@@ -31,7 +33,7 @@ const NavBarDashboard = ({ opened }) => {
 
   const LOGO_ITEM = "_logo_";
 
-  const avatarUrl = get(infoUser, ["avatar", "url"], null);
+  const avatarUrl = get(infoUser, ["avatarProfile"], null);
   const email = get(infoUser, ["email"], null);
   const fullName = get(infoUser, ["firstName"], "").concat(
     ` ${get(infoUser, ["lastName"], "")}`
@@ -100,7 +102,7 @@ const NavBarDashboard = ({ opened }) => {
       size: "lg",
       className: classes.chevron,
       onClick: () => {
-      setRoute(ROUTES_NAMES.PROFILE);
+        setRoute(ROUTES_NAMES.PROFILE);
       },
     },
   };

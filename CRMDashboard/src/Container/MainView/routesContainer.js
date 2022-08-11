@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { Box, createStyles } from "@mantine/core";
 import React from "react";
 
@@ -6,6 +7,7 @@ import { CRM_ROUTES, LAYOUT_NAMES } from "../../Route/routes";
 
 import filter from "lodash/filter";
 import isEmpty from "lodash/isEmpty";
+import get from 'lodash/get';
 
 // layouts
 import { DashboardLayout } from "../../Layout";
@@ -13,7 +15,7 @@ import { DashboardLayout } from "../../Layout";
 // components
 import NotFound404 from "../../Component/NotFound404";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   mainContainer: {
     width: "100%",
     display: "flex",
@@ -26,32 +28,26 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 }));
 
 const RoutesContainer = () => {
+
   const { classes } = useStyles();
 
-  const { state: { user: { route: routeInStore, infoUser } } } = useClientGlobalStore();
+  const { state: { user: { route: routeInStore } } } = useClientGlobalStore();
 
   const routeActive = filter(CRM_ROUTES, (o) => {
     return o.name === routeInStore;
   });
 
-  const RenderActive = ({ active }) => {
-    switch (active.layout) {
-      case LAYOUT_NAMES.DASHBOARD:
-        return <DashboardLayout>{active.component()}</DashboardLayout>;
-      case LAYOUT_NAMES.EMPTY:
-        return active.component();
-      default:
-        return active.component();
-    }
-  };
+  const activeRoute = useCallback(get(routeActive, ["0"], []), [routeInStore]);
 
   return (
     <Box className={classes.mainContainer}>
-      {isEmpty(routeActive) ? (
-        <NotFound404 />
-      ) : (
-        <RenderActive active={routeActive[0]} />
-      )}
+      {
+        (isEmpty(activeRoute))
+          ? <NotFound404 />
+          : (activeRoute.layout === LAYOUT_NAMES.DASHBOARD) ?
+            <DashboardLayout>{activeRoute.component()}</DashboardLayout>
+            : activeRoute.component()
+      }
     </Box>
   );
 };

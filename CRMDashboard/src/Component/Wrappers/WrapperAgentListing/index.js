@@ -1,4 +1,4 @@
-import { cloneElement, memo } from 'react';
+import { cloneElement, useEffect } from 'react';
 
 import { useQueryHelper } from '../../../GraphqlClient/useRequest';
 import { GET_LISTINGS_CATEGORY, GET_ALL_NEIGHBORHOODS } from '../../../GraphqlClient/listings.gql';
@@ -15,6 +15,12 @@ import map from 'lodash/map';
 const WrapperAgentListing = ({ children }) => {
 
     const { actions: { setListingCategories, setListingNei } } = useClientGlobalStore();
+
+    useEffect(() => {
+        return () => {
+            console.log("GGGGG")
+        }
+    },[])
 
     const getListingCategory = (response) => {
         const tempCategory = get(response, ["listingCategories", "nodes"], []);
@@ -75,4 +81,4 @@ WrapperAgentListing.propTypes = {
     children: PropTypes.node
 }
 
-export default memo(WrapperAgentListing);
+export default WrapperAgentListing;

@@ -8,9 +8,6 @@ export const LOGIN_WITH_JWT = gql`
       user {
         id
         username
-        avatar {
-          url
-        }
         email
         databaseId
         firstName
@@ -32,9 +29,6 @@ export const GET_USER_BY_ID = gql`
     user(id: $id) {
       databaseId
       email
-      avatar {
-        url
-      }
       firstName
       lastName
       name

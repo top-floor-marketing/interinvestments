@@ -11,7 +11,7 @@ export const STORE_USER_ACTIONS = {
     LISTING_FEATURED: 'set_listing_featured'
 }
 
-const StoreReducer = (state, action) => {
+const StoreReducer = (state = DEFAULT_STORE_USER, action) => {
 
     switch (action.type) {
         case STORE_USER_ACTIONS.IS_LOADING_FULL:
@@ -28,7 +28,7 @@ const StoreReducer = (state, action) => {
             return { ...state, user: { ...state.user, route: action.payload } }
 
         case STORE_USER_ACTIONS.INFO_USER:
-            return { ...state, user: { ...state.user, infoUser: action.payload } }
+            return { ...state, user: { ...state.user, infoUser: { ...state.user.infoUser, ...action.payload} } }
 
         case STORE_USER_ACTIONS.LOGOUT_USER:
             return { ...state, user: { ...DEFAULT_STORE_USER, isLoadingFull: false, route: ROUTES_NAMES.AUTH } }
@@ -42,8 +42,8 @@ const StoreReducer = (state, action) => {
         case STORE_USER_ACTIONS.LISTING_FEATURED:
             return { ...state, user: { ...state.user, listingFeaturedAgent: action.payload } }
 
-        default:
-            return state
+            default:
+                throw new Error();
     }
 
 }

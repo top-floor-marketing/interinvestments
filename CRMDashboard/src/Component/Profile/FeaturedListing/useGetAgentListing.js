@@ -9,7 +9,7 @@ import get from 'lodash/get';
 
 const useGetAgentListing = () => {
 
-    const { state: { user: { infoUser: { databaseId } } } } = useClientGlobalStore();
+    const { state: { user: { infoUser: { id } } } } = useClientGlobalStore();
 
     const [listingAgent,setListingAgent] = useState([]);
     const [isSkeleton, setIsSkeleton] = useState(true);
@@ -43,7 +43,7 @@ const useGetAgentListing = () => {
           },
         },
         variables: {
-            agentId: databaseId
+            agentId: id
         },
     });
 
@@ -54,7 +54,7 @@ const useGetAgentListing = () => {
         listingAgent,
         arrayIdListings,
         totalData: listingAgent ? listingAgent.length : 0, 
-        refetchData: ()=> {}//refetch,
+        refetchData: ()=> {}
     }
 }
 

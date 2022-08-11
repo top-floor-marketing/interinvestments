@@ -34,7 +34,7 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 
 const VirtualAgentListingScroll = ({ name, data, isLoading, refetch, totalData, parentClassname }) => {
 
-    const { state: { user: { infoUser: { databaseId } } } } = useClientGlobalStore();
+    const { state: { user: { infoUser: { id } } } } = useClientGlobalStore();
 
     const idGrid = useId("_" + random(1, 1000) + "_" + name);
     const refParentBox = useRef(null);
@@ -81,7 +81,7 @@ const VirtualAgentListingScroll = ({ name, data, isLoading, refetch, totalData, 
                                     {...data[rowIndex]}
                                     width={style.width}
                                     height={style.height - GUTTER_SIZE}
-                                    idAgent={databaseId}
+                                    idAgent={id}
                                 />
                             </div>
                         }}

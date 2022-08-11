@@ -4,8 +4,18 @@ import { IconPlus } from '@tabler/icons';
 
 import useGetAgentListing from "./useGetAgentListing";
 
-import ModalAddListing from "./modalAddListing";
 import VirtualAgentListingScroll from './virtualAgentListingScroll';
+
+/* modal: {
+  width: "90%",
+  height: height-60,
+  maxHeight: "1500px",
+  display: "flex",
+  flexDirection: "column"
+},
+body: {
+  height: "100%",
+} */
 
 const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
@@ -33,7 +43,7 @@ const FeaturedListing = () => {
 
   const { classes } = useStyles();
 
-  const { isSkeleton, isLoading, listingAgent, totalData, arrayIdListings, refetchData } = useGetAgentListing();
+  const { isSkeleton, isLoading, listingAgent, totalData, refetchData } = useGetAgentListing();
 
   const [isOpenModalAddListing, setIsOpenModalAddListing] = useState(false);
 
@@ -54,14 +64,6 @@ const FeaturedListing = () => {
           >
             Add featured listing
           </Button>
-          {!isSkeleton && (
-            <ModalAddListing
-              isOpen={isOpenModalAddListing}
-              isLoading={isLoading}
-              arrayIdListings={arrayIdListings}
-              onClose={onCloseModalAddListing}
-            />
-          )}
         </Group>
         <VirtualAgentListingScroll
           parentClassname={classes.boxInfiniteLoader}

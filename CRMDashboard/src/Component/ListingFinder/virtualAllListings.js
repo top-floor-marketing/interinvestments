@@ -33,7 +33,7 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 
 const VirtualAllListings = ({ name, data, isLoading, refetch, totalData, parentClassname, isAddListing, useTagFeatured }) => {
 
-    const { state: { user: { infoUser: { databaseId } } } } = useClientGlobalStore();
+    const { state: { user: { infoUser: { id } } } } = useClientGlobalStore();
 
     const idGrid = useId("_" + random(1, 1000) + "_" + name);
     const refParentBox = useRef(null);
@@ -80,7 +80,7 @@ const VirtualAllListings = ({ name, data, isLoading, refetch, totalData, parentC
                                     {...data[rowIndex]}
                                     width={style.width}
                                     height={style.height - GUTTER_SIZE}
-                                    idAgent={databaseId}
+                                    idAgent={id}
                                     isAddListing={isAddListing}
                                     useTagFeatured={useTagFeatured}
                                 />

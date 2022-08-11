@@ -3,10 +3,9 @@ import { useContext } from "react";
 import storeContext from "./storeContext";
 
 const useClientGlobalStore = () => {
-    const { state, actions } = useContext(storeContext);
+    const allStore = useContext(storeContext);
     return {
-        state, 
-        actions
+        ...allStore
     }
 }
 
