@@ -3,7 +3,7 @@ import DOMPurify from 'dompurify'
 import PropTypes from 'prop-types';
 
 import { Mail, Phone, BrandLinkedin, BrandFacebook, BrandInstagram, BrandTwitter } from 'tabler-icons-react';
-import { CustomIconTooltip } from "../../ActionButtons";
+import { CustomIconTooltip } from "../../../Component/ActionButtons";
 
 import get from 'lodash/get';
 import startsWith from 'lodash/startsWith';

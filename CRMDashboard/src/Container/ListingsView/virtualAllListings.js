@@ -7,15 +7,14 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { useId } from '@mantine/hooks';
 import { Box } from '@mantine/core';
 
-import ItemListingVirtual from "../../ItemListingVirtual";
+import ItemListingVirtual from "../../Component/ItemListingVirtual";
 
-// global Store
-import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
+import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore';
 
 import random from 'lodash/random';
 import get from 'lodash/get';
 
-import '../../../styles_crm_scroll.css';
+import '../../styles_crm_scroll.css';
 
 // 1.25rem === p5
 const GUTTER_SIZE = 16;
@@ -32,7 +31,7 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
     />
 ));
 
-const VirtualAgentListingScroll = ({ name, data, isLoading, refetch, totalData, parentClassname }) => {
+const VirtualAllListings = ({ name, data, isLoading, refetch, totalData, parentClassname, isAddListing, useTagFeatured }) => {
 
     const { state: { user: { infoUser: { id } } } } = useClientGlobalStore();
 
@@ -45,7 +44,7 @@ const VirtualAgentListingScroll = ({ name, data, isLoading, refetch, totalData, 
         if (refetch !== undefined && !isLoading) {
             const parentHeight = get(refParentBox, ["current", "clientHeight"], null);
             if (parentHeight + scrollTop === gridContainer) {
-                refetch();
+                    refetch();
             }
         }
     };
@@ -82,6 +81,8 @@ const VirtualAgentListingScroll = ({ name, data, isLoading, refetch, totalData, 
                                     width={style.width}
                                     height={style.height - GUTTER_SIZE}
                                     idAgent={id}
+                                    isAddListing={isAddListing}
+                                    useTagFeatured={useTagFeatured}
                                 />
                             </div>
                         }}
@@ -92,17 +93,19 @@ const VirtualAgentListingScroll = ({ name, data, isLoading, refetch, totalData, 
     )
 }
 
-VirtualAgentListingScroll.defaultProps = {
+VirtualAllListings.defaultProps = {
     name: "scroll",
     data: [],
     isLoading: false,
     refetch: null,
     totalData: 0,
     columnCount: 1,
-    parentClassname: ""
+    parentClassname: "",
+    isAddListing: false,
+    useTagFeatured: false
 };
 
-VirtualAgentListingScroll.propTypes = {
+VirtualAllListings.propTypes = {
     name: PropTypes.string,
     data: PropTypes.array,
     isLoading: PropTypes.bool,
@@ -110,6 +113,8 @@ VirtualAgentListingScroll.propTypes = {
     totalData: PropTypes.number,
     columnCount: PropTypes.number,
     parentClassname: PropTypes.string,
+    isAddListing: PropTypes.bool,
+    useTagFeatured: PropTypes.bool,
 };
 
-export default VirtualAgentListingScroll;
+export default VirtualAllListings;

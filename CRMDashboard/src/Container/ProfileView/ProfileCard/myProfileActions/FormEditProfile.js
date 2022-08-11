@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 // components
 import AvatarInput from './AvatarInput'
-import { notificationError } from "../../../Notifications";
+import { notificationError } from "../../../../Component/Notifications";
 // mantine
 import { Box, Text, Group, Button, ScrollArea, TextInput, FileInput } from "@mantine/core";
 import { useForm, joiResolver } from '@mantine/form';

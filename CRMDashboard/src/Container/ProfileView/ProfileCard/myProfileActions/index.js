@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 // mantine
 import { Box, Text } from "@mantine/core";
 // componets
-import { ShareAgent, IconEditModal } from "../../../ActionButtons";
-import { notificationError, notificationSuccess } from "../../../Notifications";
+import { ShareAgent, IconEditModal } from "../../../../Component/ActionButtons";
+import { notificationError, notificationSuccess } from "../../../../Component/Notifications";
 import DrawerEditInfo from '../DrawerEditInfo'
 // import ModalEditInfo from "../modalEditInfo";
 // React query

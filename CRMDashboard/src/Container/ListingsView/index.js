@@ -1,15 +1,13 @@
 import useGetListings from './hooks/useGetListings';
 
+import SkeletonListing from './skeletonListing';
+
 const ListingFinder = () => {
 
   const { isSkeleton, isError, allListings } = useGetListings();
   
   return (
-    <div >
-      {
-        JSON.stringify(allListings)
-      }
-      </div>
+    <SkeletonListing />
   )
 }
 

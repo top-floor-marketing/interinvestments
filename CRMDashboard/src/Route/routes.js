@@ -2,10 +2,9 @@ import React from "react";
 
 import { LayoutGrid, Home2, Users } from "tabler-icons-react";
 
-import AuthComponent  from '../Component/Auth';
-import ProfileComponent from '../Component/Profile';
-
-import Listings from '../Component/ListingFinder';
+import AuthComponent  from '../Container/AuthView';
+import ProfileComponent from '../Container/ProfileView';
+import Listings from '../Container/ListingsView';
 
 export const LAYOUT_NAMES = {
   EMPTY: "empty",
