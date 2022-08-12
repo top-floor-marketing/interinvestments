@@ -1,4 +1,4 @@
-import { Box, createStyles, Text, Skeleton, Group, Button } from "@mantine/core";
+import { Box, createStyles, Skeleton } from "@mantine/core";
 import SpringDiv from "../../Component/SpringDiv";
 
 const useStyles = createStyles((theme, _params) => ({

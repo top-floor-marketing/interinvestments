@@ -6,7 +6,7 @@ const ListingFinder = () => {
 
   const { isSkeleton, isError, allListings } = useGetListings();
   
-  return (
+  return ( 
     <SkeletonListing />
   )
 }
