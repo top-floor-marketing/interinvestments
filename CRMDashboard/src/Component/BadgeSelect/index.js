@@ -1,15 +1,15 @@
 import React from 'react'
 // mantine
-import { NativeSelect, createStyles, Text } from "@mantine/core";
+import { Select, createStyles, Text } from "@mantine/core";
 // icon
 import { ChevronDown } from 'tabler-icons-react';
 
 const useStyles = createStyles((theme, _params) => ({
     containerBadgeSelect: {
-        width: "100%",
+        width: "100%"
     },
     textInput: {
-        color: 'white',
+        color: theme.colors.white[0],
         fontSize: '18px',
         fontWeight: '400'
     },
@@ -31,7 +31,7 @@ const useStyles = createStyles((theme, _params) => ({
 const BadgeSelect = () => {
     const { classes } = useStyles();
     return (
-        <NativeSelect
+        <Select
             icon={
                 <Text
                     className={classes.textInput}
@@ -49,7 +49,7 @@ const BadgeSelect = () => {
                 icon: classes.iconSection
             }}
             data={['React', 'Vue', 'Angular', 'Svelte']}
-            placeholder="Pick one"
+            placeholder={null}
         />
     )
 }

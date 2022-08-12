@@ -1,13 +1,38 @@
-import useGetListings from './hooks/useGetListings';
+import { Box, createStyles } from "@mantine/core";
+import SpringDiv from "../../Component/SpringDiv";
 
+import useGetListings from './hooks/useGetListings';
 import SkeletonListing from './skeletonListing';
+import FilterOptions from './filterOptions';
+
+const useStyles = createStyles((theme, _params, getRef) => ({
+  container: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.other.spacing.p4,
+    minHeight: "400px",
+  },
+}));
 
 const ListingFinder = () => {
 
-  const { isSkeleton, isError, allListings } = useGetListings();
-  
-  return ( 
-    <SkeletonListing />
+  const { classes } = useStyles();
+
+  const { isSkeleton, isError, allListings, categorySelect, neiSelect } = useGetListings();
+  return (
+    (isSkeleton)
+      ?
+      <SkeletonListing />
+      :
+      <Box className={classes.container}>
+
+        <SpringDiv delay={100} duration={300} fullHeight>
+          <FilterOptions />
+        </SpringDiv>
+        <SpringDiv delay={300} duration={300} fullHeight>
+        </SpringDiv>
+      </Box>
   )
 }
 

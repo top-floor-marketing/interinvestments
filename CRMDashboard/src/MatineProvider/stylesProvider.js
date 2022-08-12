@@ -5,13 +5,6 @@ const BORDER_FOCUS = '#5398ff';
 
 const stylesProvider = () => {
     return {
-        Card: {
-            styles: (theme) => ({
-                root: {
-                    backgroundColor: theme.colors.white[0]
-                }
-            })
-        },
         TextInput: {
             styles: (theme) => ({
                 input: {
@@ -220,10 +213,15 @@ const stylesProvider = () => {
                 }
             }
         },
-        Select: {
-            styles: (theme, params) => { 
+     /*    Select: {
+            styles: (theme, params) => {
                 return {
+                    root: {
+                        position: "relative",
+                        zIndex: '9999 !important'
+                    },
                     dropdown: {
+                        border: BORDER_INPUT,
                         backgroundColor: "transparent",
                         "&:disabled": {
                             backgroundColor: theme.colors.gray[6],
@@ -247,8 +245,8 @@ const stylesProvider = () => {
                     }
                 }
             }
-        },
-        SegmentedControl : {
+        }, */
+        SegmentedControl: {
             styles: (theme, params) => {
                 return {
                     root: {
@@ -275,8 +273,60 @@ const stylesProvider = () => {
                         backgroundColor: "transparent",
                     },
                 }
-               
-            }}
+
+            }
+        },
+        Card: {
+            styles: (theme, params) => {
+                return {
+                    root: {
+                        backgroundColor: theme.colors.white[0],
+                        borderRadius: theme.radius.sm,
+                        boxShadow: theme.shadows.md,
+                        padding: theme.other.spacing.p4
+                    }
+                }
+             }
+        },
+        Paper: {
+            styles: (theme, params) => {
+                return {
+                    root: {
+                        backgroundColor: theme.colors.white[0],
+                        borderRadius: theme.radius.sm,
+                        boxShadow: theme.shadows.md,
+                        padding: theme.other.spacing.p4
+                    }
+                }
+             }
+        },
+        Select: {
+            styles: (theme, params) => {
+                return {
+                    input: {
+                        borderRadius: "10px",
+                        backgroundColor: theme.colors.white[0],
+                        border: BORDER_INPUT
+                    },
+                    dropdown: {
+                        backgroundColor: theme.colors.white[0],
+                        border: BORDER_INPUT
+                    },
+                    item: {
+                        backgroundColor: "transparent",
+                        borderRadius: "10px",
+                        '&[data-hovered]': {
+                            backgroundColor: theme.colors.primary[6],
+                            color: theme.colors.white[0],
+                        },
+                        '&:hover': {
+                            color: theme.colors.white[0],
+                            backgroundColor: theme.colors.primary[6],
+                        }, 
+                    }
+                }
+             }
+        }
     }
 }
 

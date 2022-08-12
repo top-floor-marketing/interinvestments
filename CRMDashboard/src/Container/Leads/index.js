@@ -1,6 +1,6 @@
 import React from 'react'
 // mantine
-import { Box, Card, Button } from "@mantine/core";
+import { Box, Button, Paper } from "@mantine/core";
 // components
 // import SkeletonLeads from "./SkeletonLeads";
 import BadgeSelect from '../../Component/BadgeSelect'
@@ -14,7 +14,7 @@ const Leads = () => {
     const { classes } = useStyles();
     return (
         <Box className={classes.containerMain}>
-            <Card className={classes.cardFilters}>
+            <Paper className={classes.cardFilters}>
                 <Box className={classes.containerInputSearch}>
                     <InputSearch />
                 </Box>
@@ -28,10 +28,10 @@ const Leads = () => {
                 >
                     Add Lead
                 </Button>
-            </Card>
-            <Card className={classes.cardLeads}>
+            </Paper>
+            <Paper className={classes.cardLeads}>
                 <p>sfasfasfas</p>
-            </Card>
+            </Paper>
         </Box>
     )
 }
