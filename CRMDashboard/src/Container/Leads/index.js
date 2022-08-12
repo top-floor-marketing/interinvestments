@@ -1,10 +1,11 @@
 import React from 'react'
 // mantine
-import { Box, Card } from "@mantine/core";
+import { Box, Card, Button } from "@mantine/core";
 // components
 // import SkeletonLeads from "./SkeletonLeads";
 import BadgeSelect from '../../Component/BadgeSelect'
 import InputSearch from '../../Component/InputSearch'
+import { Plus } from 'tabler-icons-react';
 
 // styles
 import useStyles from './GlobalStyles'
@@ -20,7 +21,13 @@ const Leads = () => {
                 <Box className={classes.containerBadge}>
                     <BadgeSelect />
                 </Box>
-                <p>button</p>
+                <Button
+                    color='dark'
+                    className={classes.ButtonAddLead}
+                    leftIcon={<Plus />}
+                >
+                    Add Lead
+                </Button>
             </Card>
             <Card className={classes.cardLeads}>
                 <p>sfasfasfas</p>

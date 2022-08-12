@@ -1,7 +1,7 @@
 // mantine
 import { createStyles } from "@mantine/core";
 
-const useStyles = createStyles((theme, _params) => ({
+const useStyles = createStyles((theme, _params, getRef) => ({
     containerMain: {
         width: "100%",
         height: '100%',
@@ -24,19 +24,42 @@ const useStyles = createStyles((theme, _params) => ({
     },
     cardFilters: {
         display: 'flex',
+        flexDirection: 'row',
         alignItems: 'center',
-        gap: theme.other.spacing.p4
+        gap: theme.other.spacing.p4,
+        [theme.fn.smallerThan('md')]: {
+            flexDirection: 'column',
+            height: '230px',
+            [`.${getRef('containerInputSearch')}`]: {
+                width: '100%'
+            },
+            [`.${getRef('ButtonAddLead')}`]: {
+                width: '100%',
+                marginLeft: 'none'
+            },
+            [`.${getRef('containerBadge')}`]: {
+                width: '100% !important'
+            }
+        },
+        [theme.fn.smallerThan('xl')]: {
+            [`.${getRef('containerBadge')}`]: {
+                width: '37%'
+            }
+        }
+    },
+    ButtonAddLead: {
+        ref: getRef('ButtonAddLead'),
+        marginLeft: 'auto'
     },
     containerInputSearch: {
+        ref: getRef('containerInputSearch'),
         width: '40%'
     },
     containerBadge: {
+        ref: getRef('containerBadge'),
         width: '25%',
         display: 'flex',
         justifyContent: 'start'
-    },
-    selectBadge: {
-        background: theme.colors.blue[4]
     },
     cardLeads: {
         height: '100%'

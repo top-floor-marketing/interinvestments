@@ -14,8 +14,8 @@ const useStyles = createStyles((theme, _params) => ({
         fontWeight: '400'
     },
     input: {
-        background: theme.colors.blue[4],
-        paddingLeft: '93px !important',
+        background: theme.colors.primary[4],
+        paddingLeft: '90px !important',
         border: 'none',
         fontWeight: '700 !important',
         textAling: 'left'
