@@ -5,6 +5,7 @@ import { Box, Button, Paper } from "@mantine/core";
 // import SkeletonLeads from "./SkeletonLeads";
 import BadgeSelect from '../../Component/BadgeSelect'
 import InputSearch from '../../Component/InputSearch'
+import { HoccDraewerAL } from '../../Component/DrawerAddLeads'
 import { Plus } from 'tabler-icons-react';
 
 // styles
@@ -21,13 +22,15 @@ const Leads = () => {
                 <Box className={classes.containerBadge}>
                     <BadgeSelect />
                 </Box>
-                <Button
-                    color='dark'
-                    className={classes.ButtonAddLead}
-                    leftIcon={<Plus />}
-                >
-                    Add Lead
-                </Button>
+                <HoccDraewerAL title='Add New Leads'>
+                    <Button
+                        color='dark'
+                        className={classes.ButtonAddLead}
+                        leftIcon={<Plus />}
+                    >
+                        Add Lead
+                    </Button>
+                </HoccDraewerAL>
             </Paper>
             <Paper className={classes.cardLeads}>
                 <p>sfasfasfas</p>

@@ -1,57 +1,45 @@
-import React from 'react'
+import React, { useRef } from 'react'
+// components
+import IconSelect from './IconSelect'
+import ChevronIcon from './ChevronIcon'
+// utils
+import PropTypes from 'prop-types';
 // mantine
-import { Select, createStyles, Text } from "@mantine/core";
-// icon
-import { ChevronDown } from 'tabler-icons-react';
+import { Select } from "@mantine/core";
+// styles
+import useStyles from './stylesBadgeS'
 
-const useStyles = createStyles((theme, _params) => ({
-    containerBadgeSelect: {
-        width: "100%"
-    },
-    textInput: {
-        color: theme.colors.white[0],
-        fontSize: '18px',
-        fontWeight: '400'
-    },
-    input: {
-        background: theme.colors.primary[4],
-        paddingLeft: '90px !important',
-        border: 'none',
-        fontWeight: '700 !important',
-        textAling: 'left'
-    },
-    iconSection: {
-        width: '40%',
-        display: 'flex',
-        paddingLeft: '10px !important',
-        justifyContent: 'flex-start'
-    }
-}));
-
-const BadgeSelect = () => {
+const BadgeSelect = ({ Icon, data }) => {
     const { classes } = useStyles();
+
+    const refSelect = useRef(null)
+
     return (
         <Select
-            icon={
-                <Text
-                    className={classes.textInput}
-                    component='span'
-                >
-                    Filters by:
-                </Text>
-            }
-            rightSection={
-                <ChevronDown color='white' size={14} />
-            }
+            icon={<Icon />}
+            ref={refSelect}
+            rightSection={<ChevronIcon refProps={refSelect} />}
             className={classes.containerBadgeSelect}
             classNames={{
                 input: `${classes.input} ${classes.textInput}`,
                 icon: classes.iconSection
             }}
-            data={['React', 'Vue', 'Angular', 'Svelte']}
+            data={data}
             placeholder={null}
         />
     )
 }
+
+
+// Specifies the default values for props:
+BadgeSelect.defaultProps = {
+    Icon: IconSelect,
+    data: ['React', 'Vue', 'Angular', 'Svelte']
+};
+
+BadgeSelect.propTypes = {
+    Icon: PropTypes.element,
+    data: PropTypes.array
+};
 
 export default BadgeSelect
