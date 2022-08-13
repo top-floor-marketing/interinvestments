@@ -1,4 +1,6 @@
 import React from 'react'
+// components
+import SteppsNewLeads from './SteppsNewLeads'
 // mantine devs
 import { Drawer, createStyles, Box, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -69,7 +71,7 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
 
     return (
         <Drawer {...Props.Drawer}>
-            <p>contend Drawer</p>
+            <SteppsNewLeads />
         </Drawer>
     )
 }
