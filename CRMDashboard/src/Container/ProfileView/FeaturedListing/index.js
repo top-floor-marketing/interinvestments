@@ -28,10 +28,17 @@ const useStyles = createStyles((theme, _params) => ({
     minHeight: "250px",
     maxHeight: "500px",
   },
-  modalListing: {
+  modalModal: {
+    height: "100%",
+    backgroundColor: theme.colors.gray[0],
+    padding: `${theme.other.spacing.p8} !important`,
     '.mantine-Modal-body': {
-      height: "100% !important"
+      height: "100% !important",
     }
+  },
+  bodyModal: {
+    height: "100%",
+    backgroundColor: theme.colors.gray[0]
   }
 }));
 
@@ -60,7 +67,14 @@ const FeaturedListing = () => {
           >
             Add featured listing
           </Button>
-          <Modal zIndex={200} className={classes.modalListing} onClose={() => onCloseModalAddListing()} centered closeOnEscape overflow="inside" closeOnClickOutside fullScreen opened={isOpenModalAddListing}>
+          <Modal 
+          classNames={{
+            body: classes.rootModal,
+            modal: classes.modalModal
+          }} 
+          zIndex={200} 
+          //className={classes.modalListing}
+           onClose={() => onCloseModalAddListing()} centered closeOnEscape overflow="inside" closeOnClickOutside fullScreen opened={isOpenModalAddListing}>
             <ListingView />
           </Modal>
         </Group>
