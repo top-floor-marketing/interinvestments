@@ -37,7 +37,10 @@ const VirtualAllListings = ({
     isLoading, 
     refetch, 
     totalData, 
-    parentClassname }) => {
+    parentClassname,
+    onConfirmAdd,
+    onConfirmRemove
+}) => {
 
     const { state: { user: { infoUser: { id } } } } = useClientGlobalStore();
 
@@ -87,6 +90,8 @@ const VirtualAllListings = ({
                                     width={style.width}
                                     height={style.height - GUTTER_SIZE}
                                     idAgent={id}
+                                    onConfirmAdd={onConfirmAdd}
+                                    onConfirmRemove={onConfirmRemove}
                                 />
                             </div>
                         }}

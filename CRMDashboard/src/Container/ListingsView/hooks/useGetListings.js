@@ -136,6 +136,15 @@ const useGetListings = () => {
     }, 500);
   }
 
+  const onConfirmAdd = (id) => {
+
+  }
+
+  
+  const onConfirmRemove = (id) => {
+    
+  }
+
   return {
     isSkeleton: isLoadingListing && (!categorySelect || !neiSelect || !isSuccesFeatured),
     isError: isErrorNei || isErrorCategory || isErrorFeatured || isErrorAllListings,
@@ -155,6 +164,8 @@ const useGetListings = () => {
     isLoading: isLoadingListing,
     totalData: allListings.length,
     refetchData: reFetchDataListing,
+    onConfirmAdd,
+    onConfirmRemove
   }
 
 }

@@ -45,7 +45,8 @@ const ListingFinder = () => {
 
   //const { state: { route } } = useClientGlobalStore();
 
-  const { isLoading, isSkeleton, allListings, categoryProps, neiProps, searchProps,  totalData, refetchData } = useGetListings();
+  const { isLoading, isSkeleton, allListings, categoryProps, neiProps, searchProps,  totalData, refetchData, onConfirmAdd,
+    onConfirmRemove } = useGetListings();
 
   return (
     (isSkeleton)
@@ -71,6 +72,8 @@ const ListingFinder = () => {
                   totalData={totalData}
                   refetch={refetchData}
                   isLoading={isLoading}
+                  onConfirmAdd={onConfirmAdd}
+                  onConfirmRemove={onConfirmRemove}
                 /> :
                 <div className={classes.noData}>
                   <Text component="h4">No data found</Text>

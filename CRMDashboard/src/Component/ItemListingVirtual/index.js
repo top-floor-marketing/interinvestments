@@ -86,7 +86,9 @@ const useStyles = createStyles((theme, _params) => {
 
 const ItemListingVirtual = (props) => {
 
-  const { width, idAgent, uri, isFeatured } = props;
+  const { width, idAgent, uri, isFeatured, onConfirmAdd, onConfirmRemove, databaseId } = props;
+
+  console.log(" props ", props)
 
   const { classes } = useStyles({ width });
 
@@ -120,8 +122,9 @@ const ItemListingVirtual = (props) => {
         </Text>
       ),
       labels: { confirm: 'Confirm', cancel: 'Cancel' },
+      confirmProps: { color: 'success' },
       onCancel: () => console.log('Cancel'),
-      onConfirm: () => console.log('Confirmed'),
+      onConfirm: () => onConfirmAdd(databaseId),
     });
   }
 
@@ -137,7 +140,7 @@ const ItemListingVirtual = (props) => {
       labels: { confirm: 'Remove', cancel: 'Cancel' },
       confirmProps: { color: 'error' },
       onCancel: () => console.log('Cancel'),
-      onConfirm: () => console.log('Confirmed'),
+      onConfirm: () => onConfirmRemove(databaseId),
     });
   }
 

@@ -66,11 +66,20 @@ const stylesProvider = () => {
             })
         },
         Button: {
-            styles: (theme) => ({
+            styles: (theme, params) => {
+                const _color = params?.color || 'dark';
+                return {
                 root: {
+                    backgroundColor: theme.colors[_color][6],
                     "&:disabled": {
                         backgroundColor: theme.colors.gray[6],
-                        opacity: "0.8 !important"
+                        opacity: "0.7 !important",
+                        "&:hover": {
+                            backgroundColor: theme.colors.gray[6],
+                        },
+                    },
+                    "&:hover": {
+                        backgroundColor: theme.colors[_color][9],
                     },
                 },
                 filled: {
@@ -78,7 +87,8 @@ const stylesProvider = () => {
                         backgroundColor: theme.fn.rgba(theme.colors.gray[6], 0.5),
                     },
                 }
-            })
+            }
+        }
         },
         Pagination: {
             styles: (theme) => ({
