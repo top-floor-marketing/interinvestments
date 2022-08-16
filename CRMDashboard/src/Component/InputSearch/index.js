@@ -9,9 +9,9 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     },
     input: {
         borderRadius: '0px',
-        borderTop: 'none',
-        borderLeft: 'none',
-        borderRight: 'none'
+        borderTop: 'none !important',
+        borderLeft: 'none !important',
+        borderRight: 'none !important'
     }
 }));
 
