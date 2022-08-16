@@ -139,6 +139,7 @@ const ItemListingVirtual = (props) => {
       confirmProps: { color: 'success' },
       onCancel: () => console.log('Cancel'),
       onConfirm: () => onConfirmAdd(databaseId),
+      zIndex: 9999
     });
   }
 
@@ -158,6 +159,7 @@ const ItemListingVirtual = (props) => {
       confirmProps: { color: 'error' },
       onCancel: () => console.log('Cancel'),
       onConfirm: () => onConfirmRemove(databaseId),
+      zIndex: 9999
     });
   }
 

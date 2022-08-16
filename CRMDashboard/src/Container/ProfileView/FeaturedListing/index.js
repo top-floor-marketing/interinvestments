@@ -1,21 +1,12 @@
 import { useState } from "react";
-import { Card, createStyles, Text, Skeleton, Group, Button } from "@mantine/core";
+import { Card, createStyles, Text, Skeleton, Group, Button,Modal } from "@mantine/core";
 import { IconPlus } from '@tabler/icons';
 
 import useGetAgentListing from "./useGetAgentListing";
 
 import VirtualAgentListingScroll from './virtualAgentListingScroll';
+import ListingView from '../../ListingsView';
 
-/* modal: {
-  width: "90%",
-  height: height-60,
-  maxHeight: "1500px",
-  display: "flex",
-  flexDirection: "column"
-},
-body: {
-  height: "100%",
-} */
 
 const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
@@ -36,6 +27,11 @@ const useStyles = createStyles((theme, _params) => ({
     height: "100%",
     minHeight: "250px",
     maxHeight: "500px",
+  },
+  modalListing: {
+    '.mantine-Modal-body': {
+      height: "100% !important"
+    }
   }
 }));
 
@@ -64,6 +60,9 @@ const FeaturedListing = () => {
           >
             Add featured listing
           </Button>
+          <Modal zIndex={200} className={classes.modalListing} onClose={() => onCloseModalAddListing()} centered closeOnEscape overflow="inside" closeOnClickOutside fullScreen opened={isOpenModalAddListing}>
+            <ListingView />
+          </Modal>
         </Group>
         <VirtualAgentListingScroll
           parentClassname={classes.boxInfiniteLoader}

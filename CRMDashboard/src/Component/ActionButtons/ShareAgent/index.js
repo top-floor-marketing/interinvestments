@@ -15,7 +15,7 @@ const ShareAgent = (props) => {
   const clipboard = useClipboard({ timeout: 2000 });
 
   const clipboardCopy = () => {
-    clipboard.copy(`${DOMAIN_URL}agent?id=${props.id}&shared=true`)
+    clipboard.copy(`${DOMAIN_URL}/agent?id=${props.id}&shared=true`)
   }
 
   return (

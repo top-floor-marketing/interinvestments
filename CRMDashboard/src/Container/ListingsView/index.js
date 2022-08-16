@@ -13,7 +13,7 @@ import VirtualAllListings from './virtualAllListings';
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
     width: "100%",
-    minHeight: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     gap: theme.other.spacing.p4,
@@ -46,8 +46,6 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const ListingFinder = () => {
 
   const { classes } = useStyles();
-
-  //const { state: { route } } = useClientGlobalStore();
 
   const { isLoading, isOverlay, isSkeleton, allListings, categoryProps, neiProps, searchProps,  totalData, refetchData, onConfirmAdd,
     onConfirmRemove } = useGetListings();

@@ -9,6 +9,7 @@ export const notificationSuccess = ({ id, title, color, icon }) => {
     disallowClose: true,
     title: title || "Success",
     color: color || 'success',
+    
     styles: (theme) => ({
       root: {
         width: "fit-content",
@@ -21,6 +22,9 @@ export const notificationSuccess = ({ id, title, color, icon }) => {
       description: { color: theme.colors.dark[1] },
     }),
     icon: icon || <Check />,
+    modalProps: {
+      zIndex: 9999
+    }
   });
 }
 
