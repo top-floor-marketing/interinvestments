@@ -86,7 +86,7 @@ const ModalQuickView = ({ onClose, idSingleListing }) => {
       priceMin: content.listingData?.newDevelopment?.priceMin || null,
       priceMax: content.listingData?.newDevelopment?.priceMax || null,
       views: content.listingData?.newDevelopment?.views || null,
-      livingArea: content.listingData?.newDevelopment?.livingArea || null
+      livingArea: content.listingData?.newDevelopment?.contentLivingArea?.livingArea || null
     }
     return (
       <ModalHOC {...allProps.modalHoc}>
