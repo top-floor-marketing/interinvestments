@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 // mantine
 import { Stepper, Box, createStyles, Group, Button } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+//  iconst
+import { FileInfo } from 'tabler-icons-react';
 // components
 import ContainerStep from './ContainerStep'
 import { LeadsInfo } from './Steps'
@@ -15,18 +17,25 @@ const useStyles = createStyles((theme, _params) => ({
         height: '80%',
         width: '100%',
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         gap: '24px',
-        // [`${theme.fn.smallerThan("md")}`]: {
-        //     flexDirection: 'column',
-        // },
+        [`${theme.fn.smallerThan("md")}`]: {
+            flexDirection: 'row',
+        },
         '.mantine-Stepper-content': {
             paddingTop: '0px',
             width: '100%'
         }
     },
     GroupControllers: {
-        height: '20%'
+        height: '20%',
+        'Button': {
+            backgroundColor: theme.colors.white[0],
+            '&:hover': {
+                backgroundColor: theme.colors.primary[9],
+                color: theme.colors.white
+            }
+        }
     }
 }));
 
@@ -43,7 +52,7 @@ const SteppsNewLeads = (_) => {
             className: classes.Stepper,
             active: activeStepper,
             onStepClick: setActiveStepper,
-            orientation: 'vertical'
+            breakpoint: 'md'
         },
         Step: {
             label: null,
@@ -54,7 +63,10 @@ const SteppsNewLeads = (_) => {
     return (
         <Box className={classes.StepperContainer}>
             <Stepper {...props.Stepper}>
-                <Stepper.Step {...props.Step}>
+                <Stepper.Step
+                    {...props.Step}
+                    icon={<FileInfo />}
+                >
                     <ContainerStep title='Leads info'>
                         <LeadsInfo />
                     </ContainerStep>
