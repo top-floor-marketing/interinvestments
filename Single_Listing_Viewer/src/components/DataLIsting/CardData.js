@@ -5,6 +5,8 @@ import { Box, Text } from '@mantine/core';
 import styles from './styles.dl.module.scss'
 // react-spring
 import { useSpring, animated } from 'react-spring';
+// utils
+import { numFormatter } from '../../utils'
 
 const CardData = (props) => {
     const {
@@ -12,13 +14,14 @@ const CardData = (props) => {
         type = 'text',
         durationAnimation = '2000',
         description = 'Lorem ipsum dolor sit amet, consectetuer adipiscing',
-        tag
     } = props
+
+    const newNumber = type === 'text' ? number : numFormatter(number)
 
     const propsSpring = useSpring(
         {
             delay: 600,
-            val: type === 'number' ? number : 0,
+            val: type === 'number' ? newNumber.number : 0,
             from: { val: 0 },
             config: { duration: 1200 }
         }
@@ -51,8 +54,8 @@ const CardData = (props) => {
                                 }
                             </animated.span>
                             {
-                                tag && (
-                                    tag
+                                newNumber.tag && (
+                                    newNumber.tag
                                 )
                             }
                         </Text>
