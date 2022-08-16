@@ -18,7 +18,7 @@ import '../../styles_crm_scroll.css';
 
 // 1.25rem === p5
 const GUTTER_SIZE = 16;
-const ROW_HEIGHT = 110;
+const ROW_HEIGHT = 90;
 
 const innerElementType = forwardRef(({ style, ...rest }, ref) => (
     <div
@@ -31,7 +31,16 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
     />
 ));
 
-const VirtualAllListings = ({ name, data, isLoading, refetch, totalData, parentClassname, isAddListing, useTagFeatured }) => {
+const VirtualAllListings = ({ 
+    name, 
+    data, 
+    isLoading, 
+    refetch, 
+    totalData, 
+    parentClassname,
+    onConfirmAdd,
+    onConfirmRemove
+}) => {
 
     const { state: { user: { infoUser: { id } } } } = useClientGlobalStore();
 
@@ -81,8 +90,8 @@ const VirtualAllListings = ({ name, data, isLoading, refetch, totalData, parentC
                                     width={style.width}
                                     height={style.height - GUTTER_SIZE}
                                     idAgent={id}
-                                    isAddListing={isAddListing}
-                                    useTagFeatured={useTagFeatured}
+                                    onConfirmAdd={onConfirmAdd}
+                                    onConfirmRemove={onConfirmRemove}
                                 />
                             </div>
                         }}

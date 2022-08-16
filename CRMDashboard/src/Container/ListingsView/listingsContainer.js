@@ -53,8 +53,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   }
 }));
 
-const FilterOptions = ({ categoryProps, searchProps, neiProps, isLoading }) => {
-
+const FilterOptions = ({ categoryProps, neiProps, isLoading }) => {
   const { classes } = useStyles();
 
   const { state: { user: { listingCategories, listingNei } } } = useClientGlobalStore();
@@ -83,8 +82,6 @@ const FilterOptions = ({ categoryProps, searchProps, neiProps, isLoading }) => {
       className={classes.inputSearch}  
       rightSection={<Search size={14} />}
       placeholder="Search"
-      value={searchProps.value}
-      onChange={searchProps.onChange}
       />
     </Paper>
   );

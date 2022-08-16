@@ -87,7 +87,11 @@ export const GET_ALL_LISTINGS = (category = null, neighborhood = null) => {
                 description
                 priceMin
                 priceMax
-                livingArea
+                contentLivingArea {
+                  livingArea
+                  priceMax
+                  priceMin
+                }
                 views
                 status
                 nameOfDevelopment

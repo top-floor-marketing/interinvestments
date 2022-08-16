@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { Box, Card, createStyles, Avatar, Text, Badge } from '@mantine/core';
+import { Box, Card, createStyles, Avatar, Text, Badge, Paper } from '@mantine/core';
 import { openConfirmModal } from '@mantine/modals';
 import { MapPin, Check } from "tabler-icons-react";
 
@@ -17,7 +17,7 @@ const useStyles = createStyles((theme, _params) => {
   return {
     containerItemListing: {
       width: "100%",
-      boxShadow: theme.shadows.md,
+      boxShadow: theme.shadows.lg,
       height: "100%",
       backgroundColor: theme.colors.gray[0],
       display: "flex",
@@ -81,12 +81,25 @@ const useStyles = createStyles((theme, _params) => {
         minWidth: "100px",
       },
     },
+    boxDialog: {
+      display: "flex",
+      flexDirection: "column",
+      gap: theme.other.spacing.p2,
+      width: "100%",
+      minHeight: "100px",
+      alignItems: "center",
+      'h4': {
+        textAlign: "text-center",
+        margin: 0,
+        width: "auto"
+      }
+    }
   };
 })
 
 const ItemListingVirtual = (props) => {
 
-  const { width, idAgent, uri, isAddListing, useTagFeatured } = props;
+  const { width, idAgent, uri, isFeatured, onConfirmAdd, onConfirmRemove, databaseId } = props;
 
   const { classes } = useStyles({ width });
 
@@ -107,25 +120,25 @@ const ItemListingVirtual = (props) => {
   }, [props]);
 
   const getLivingArea = useCallback(() => {
-    return get(props, ["listingData", "newDevelopment", "livingArea"], "");
-  }, [props]);
-
-  const isFeaturedListing = useCallback(() => {
-    return get(props, ["isFeatured"], false);
+    return get(props, ["listingData", "newDevelopment", "contentLivingArea", "livingArea"], "");
   }, [props]);
 
   const onClickAddListing = () => {
    openConfirmModal({
       title: 'Please confirm your action',
       children: (
-        <Text size="sm">
-          This action is so important that you are required to confirm it with a modal. Please click
-          one of these buttons to proceed.
-        </Text>
+        <Box className={classes.boxDialog}>
+           <Text component='h4' size="sm">
+            Are you sure you want to add this listing?
+           </Text>
+           <Avatar radius="_40px" size="60px" src={getPhoto()} />
+           <Text className={classes.itemTitle}>{getTitle()}</Text>
+        </Box>
       ),
-      labels: { confirm: 'Confirm', cancel: 'Cancel' },
+      labels: { confirm: 'Add', cancel: 'Cancel' },
+      confirmProps: { color: 'success' },
       onCancel: () => console.log('Cancel'),
-      onConfirm: () => console.log('Confirmed'),
+      onConfirm: () => onConfirmAdd(databaseId),
     });
   }
 
@@ -133,25 +146,28 @@ const ItemListingVirtual = (props) => {
     openConfirmModal({
       title: 'Please confirm your action',
       children: (
-        <Text size="sm">
-          This action is so important that you are required to confirm it with a modal. Please click
-          one of these buttons to proceed.
-        </Text>
+        <Box className={classes.boxDialog}>
+           <Text component='h4' size="sm">
+            Are you sure you want to remove this listing?
+           </Text>
+           <Avatar radius="_40px" size="60px" src={getPhoto()} />
+           <Text className={classes.itemTitle}>{getTitle()}</Text>
+        </Box>
       ),
-      labels: { confirm: 'Confirm', cancel: 'Cancel' },
+      labels: { confirm: 'Remove', cancel: 'Cancel' },
       confirmProps: { color: 'error' },
       onCancel: () => console.log('Cancel'),
-      onConfirm: () => console.log('Confirmed'),
+      onConfirm: () => onConfirmRemove(databaseId),
     });
   }
 
   return (
-    <Card className={classes.containerItemListing}>
+    <Paper className={classes.containerItemListing}>
       <Avatar radius="_40px" size="60px" src={getPhoto()} />
       <Box className={classNames(classes.items)}>
         <Text className={classes.itemTitle}>{getTitle()}</Text>
         {
-          (useTagFeatured)
+          (isFeatured)
           &&
           <Badge
             className={classes.badgeFeatured}
@@ -192,10 +208,9 @@ const ItemListingVirtual = (props) => {
       </Text>
       <Box className={classes.containerActions}>
         {
-          (isAddListing)
+          (!isFeatured)
           &&
           <IconAddListing
-            //disabled={isFeaturedListing()}
             variant="filled"
             position="top-end"
             color="success"
@@ -205,7 +220,6 @@ const ItemListingVirtual = (props) => {
             size={24}
           />
         }
-
         <ViewLandingListing
           variant="filled"
           labelTooltip="Open listing"
@@ -230,7 +244,7 @@ const ItemListingVirtual = (props) => {
           size={24}
         />
         {
-          (!isAddListing)
+          (isFeatured)
           &&
           <IconRemove
             variant="filled"
@@ -244,7 +258,7 @@ const ItemListingVirtual = (props) => {
         }
 
       </Box>
-    </Card>
+    </Paper>
   );
 }
 

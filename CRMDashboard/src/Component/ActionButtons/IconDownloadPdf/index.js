@@ -11,7 +11,7 @@ const IconDownloadPdf = (props) => {
       color={"dark"}
       placement={"center"}
       label={props.labelTooltip}
-      withArrow className={props.className}>
+      className={props.className}>
       <ActionIcon {...omit(props, ['labelTooltip', 'id'])}>
         <FileDownload size={props.size} />
       </ActionIcon>
