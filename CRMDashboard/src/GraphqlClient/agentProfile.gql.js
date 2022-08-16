@@ -104,3 +104,25 @@ mutation agentEditProfile(
   }
 }
 `;
+
+export const MUTATION_ADD_AGENT_LISTING =  gql`
+mutation agentEditProfile(
+  $id: Int!,
+  $listings: [Int]
+) {
+  agentEditProfile(input: { id: $id, listings: $listings, action: EDIT} ) {
+    request_info
+  }
+}
+`;
+
+export const MUTATION_DETELE_AGENT_LISTING = gql`
+mutation agentEditProfile(
+  $id: Int!,
+  $listings: [Int]
+) {
+  agentEditProfile(input: { id: $id, listings: $listings, action: DELETE} ) {
+    request_info
+  }
+}
+`;

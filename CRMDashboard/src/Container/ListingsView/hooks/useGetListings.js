@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useQueryHelper } from "../../../GraphqlClient/useRequest";
+import { useQueryHelper, useMutationHelper } from "../../../GraphqlClient/useRequest";
 import { GET_LISTINGS_CATEGORY, GET_ALL_NEIGHBORHOODS, GET_ALL_LISTINGS } from "../../../GraphqlClient/listings.gql";
-import { GET_AGENT_FEATURED_LISTING } from "../../../GraphqlClient/agentProfile.gql";
+import { GET_AGENT_FEATURED_LISTING, MUTATION_ADD_AGENT_LISTING, MUTATION_DETELE_AGENT_LISTING } from "../../../GraphqlClient/agentProfile.gql";
 
+import { notificationSuccess, notificationError } from "../../../Component/Notifications";
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
 import { getAllListings, getListingCategory, getListingNei, getArrayIdListings } from "./utils.service";
@@ -17,9 +18,13 @@ const useGetListings = () => {
   const { state: { user: { infoUser: { databaseId }, listingFeaturedAgent }}, actions: { setListingCategories, setListingNei, setListingFeaturedAgent } } = useClientGlobalStore();
 
   const [allListings, setAllListings] = useState([]);
+
+
   const [isLoadingListing, setIsLoadingListing] = useState(true);
+  const [isOverlay, setIsOverlay] = useState(false);
 
   const [cursorPaginator, setCursorPaginator] = useState("");
+  const [prevCursorPaginator, setPrevCursorPaginatr] = useState("");
 
   // filters values
   const [searchText, setSearchText] = useState('');
@@ -53,7 +58,7 @@ const useGetListings = () => {
     }
   });
 
-  const { isSuccess: isSuccesFeatured, isError: isErrorFeatured } = useQueryHelper({
+  const { isSuccess: isSuccesFeatured, isError: isErrorFeatured, refetch: refetchAllFeatured } = useQueryHelper({
     name: "get-agent-featured-listing-crm",
     gql: GET_AGENT_FEATURED_LISTING,
     config: {
@@ -76,12 +81,15 @@ const useGetListings = () => {
         const newData = getAllListings(response, oldData, listingFeaturedAgent);
         const { pageInfo } = response.listings;
         if (pageInfo.endCursor) {
+          setPrevCursorPaginatr(cursorPaginator);
           setCursorPaginator(pageInfo.endCursor);
         } else {
           setCursorPaginator("");
+          setPrevCursorPaginatr("");
         }
         setAllListings(newData);
         setIsLoadingListing(false);
+        setIsOverlay(false);
       },
       onError: (e) => {
         setAllListings([])
@@ -110,6 +118,55 @@ const useGetListings = () => {
     }
   }
 
+  // MUTATIONS
+  const { mutate: fetchAddNewListing } = useMutationHelper({
+    name: "add-agent-listing",
+    gql: MUTATION_ADD_AGENT_LISTING,
+    config: {
+      onSuccess: async () => {
+        await refetchAllFeatured();
+        await refetch();
+        notificationSuccess({
+          id: 'add-agent-listing',
+          title: "Listing added",
+          color: 'success'
+        });
+      },
+      onError: async () => {
+        await refetch();
+        notificationError({
+          id: 'add-agent-listing',
+          title: "Error",
+          color: 'secondary'
+        })
+      },
+    },
+  });
+  const { mutate: fetchRemoveListing } = useMutationHelper({
+    name: "remove-agent-listing",
+    gql: MUTATION_DETELE_AGENT_LISTING,
+    config: {
+      onSuccess: async () => {
+        await refetchAllFeatured();
+        await refetch();
+        notificationSuccess({
+          id: 'remove-agent-listing',
+          title: "Listing removed",
+          color: 'success'
+        });
+      },
+      onError: async () => {
+        await refetch();
+        notificationError({
+          id: 'remove-agent-listing',
+          title: "Error",
+          color: 'secondary'
+        })
+      },
+    },
+  });
+  // END MUTATIONS
+
   const onChangeCategory = (e) => {
     setIsLoadingListing(true);
     setCursorPaginator("");
@@ -137,12 +194,27 @@ const useGetListings = () => {
   }
 
   const onConfirmAdd = (id) => {
-
+    setIsOverlay(true);
+    setIsLoadingListing(true);
+    setCursorPaginator(prevCursorPaginator);
+    fetchAddNewListing({
+      variables: {
+        id: databaseId,
+        listings: [id]
+      }
+    })
   }
 
-  
   const onConfirmRemove = (id) => {
-    
+    setIsOverlay(true);
+    setIsLoadingListing(true);
+    setCursorPaginator(prevCursorPaginator);
+    fetchRemoveListing({
+      variables: {
+        id: databaseId,
+        listings: [id]
+      }
+    })
   }
 
   return {
@@ -162,6 +234,7 @@ const useGetListings = () => {
     },
     allListings,
     isLoading: isLoadingListing,
+    isOverlay,
     totalData: allListings.length,
     refetchData: reFetchDataListing,
     onConfirmAdd,

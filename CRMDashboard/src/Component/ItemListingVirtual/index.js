@@ -81,14 +81,25 @@ const useStyles = createStyles((theme, _params) => {
         minWidth: "100px",
       },
     },
+    boxDialog: {
+      display: "flex",
+      flexDirection: "column",
+      gap: theme.other.spacing.p2,
+      width: "100%",
+      minHeight: "100px",
+      alignItems: "center",
+      'h4': {
+        textAlign: "text-center",
+        margin: 0,
+        width: "auto"
+      }
+    }
   };
 })
 
 const ItemListingVirtual = (props) => {
 
   const { width, idAgent, uri, isFeatured, onConfirmAdd, onConfirmRemove, databaseId } = props;
-
-  console.log(" props ", props)
 
   const { classes } = useStyles({ width });
 
@@ -116,12 +127,15 @@ const ItemListingVirtual = (props) => {
    openConfirmModal({
       title: 'Please confirm your action',
       children: (
-        <Text size="sm">
-          This action is so important that you are required to confirm it with a modal. Please click
-          one of these buttons to proceed.
-        </Text>
+        <Box className={classes.boxDialog}>
+           <Text component='h4' size="sm">
+            Are you sure you want to add this listing?
+           </Text>
+           <Avatar radius="_40px" size="60px" src={getPhoto()} />
+           <Text className={classes.itemTitle}>{getTitle()}</Text>
+        </Box>
       ),
-      labels: { confirm: 'Confirm', cancel: 'Cancel' },
+      labels: { confirm: 'Add', cancel: 'Cancel' },
       confirmProps: { color: 'success' },
       onCancel: () => console.log('Cancel'),
       onConfirm: () => onConfirmAdd(databaseId),
@@ -132,10 +146,13 @@ const ItemListingVirtual = (props) => {
     openConfirmModal({
       title: 'Please confirm your action',
       children: (
-        <Text size="sm">
-          This action is so important that you are required to confirm it with a modal. Please click
-          one of these buttons to proceed.
-        </Text>
+        <Box className={classes.boxDialog}>
+           <Text component='h4' size="sm">
+            Are you sure you want to remove this listing?
+           </Text>
+           <Avatar radius="_40px" size="60px" src={getPhoto()} />
+           <Text className={classes.itemTitle}>{getTitle()}</Text>
+        </Box>
       ),
       labels: { confirm: 'Remove', cancel: 'Cancel' },
       confirmProps: { color: 'error' },
@@ -194,7 +211,6 @@ const ItemListingVirtual = (props) => {
           (!isFeatured)
           &&
           <IconAddListing
-            //disabled={isFeaturedListing()}
             variant="filled"
             position="top-end"
             color="success"

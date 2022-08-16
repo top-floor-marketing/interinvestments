@@ -1,4 +1,4 @@
-import { Box, createStyles, Paper, Text } from "@mantine/core";
+import { Box, createStyles, Paper, Text, LoadingOverlay } from "@mantine/core";
 import { DatabaseOff } from 'tabler-icons-react';
 import SpringDiv from "../../Component/SpringDiv";
 
@@ -17,6 +17,10 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     display: "flex",
     flexDirection: "column",
     gap: theme.other.spacing.p4,
+    position: "relative",
+    '.mantine-Overlay-root': {
+      borderRadius: "10px !important"
+    }
   },
   containerListings: {
     width: "100%",
@@ -45,7 +49,7 @@ const ListingFinder = () => {
 
   //const { state: { route } } = useClientGlobalStore();
 
-  const { isLoading, isSkeleton, allListings, categoryProps, neiProps, searchProps,  totalData, refetchData, onConfirmAdd,
+  const { isLoading, isOverlay, isSkeleton, allListings, categoryProps, neiProps, searchProps,  totalData, refetchData, onConfirmAdd,
     onConfirmRemove } = useGetListings();
 
   return (
@@ -54,6 +58,7 @@ const ListingFinder = () => {
       <SkeletonListing />
       :
       <Box className={classes.container}>
+        <LoadingOverlay overlayOpacity={0.2} visible={isOverlay} overlayBlur={1} />
         <SpringDiv delay={100} duration={300} >
           <FilterOptions 
           isLoading={isLoading}

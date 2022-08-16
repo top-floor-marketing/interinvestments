@@ -1,5 +1,6 @@
 import get from 'lodash/get';
 import map from 'lodash/map';
+import uniqBy from 'lodash/uniqBy';
 import findIndex from 'lodash/findIndex';
 
 export const getListingCategory = (response) => {
@@ -26,8 +27,9 @@ export const getListingNei = (response) => {
 
 export const getAllListings = (newResponse, oldResponse, arrayIdListings) => {
     const listingsResponse = get(newResponse, ["listings", "nodes"], []);
-    const tempFullData = [...listingsResponse, ...oldResponse];
-    return map(tempFullData, (val) => {
+    const tempFullData = [...listingsResponse, ...oldResponse, ...listingsResponse];
+    const filterUniques = uniqBy(tempFullData, 'databaseId');
+    return map(filterUniques, (val) => {
       return {
         ...val,
         isFeatured: findIndex(arrayIdListings, (val2) => val.databaseId === val2) > -1
