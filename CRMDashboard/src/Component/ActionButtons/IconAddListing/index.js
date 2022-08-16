@@ -10,7 +10,7 @@ const IconAddListing = (props) => {
       color={"dark"}
       position={props.position}
       label={props.labelTooltip}
-      withArrow className={props.className}>
+      className={props.className}>
       <ActionIcon {...omit(props, ['position', 'id', 'placementTooltip', 'labelTooltip'])}>
         <PlaylistAdd size={props.size} />
       </ActionIcon>

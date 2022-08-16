@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { Box, Card, createStyles, Avatar, Text, Badge } from '@mantine/core';
+import { Box, Card, createStyles, Avatar, Text, Badge, Paper } from '@mantine/core';
 import { openConfirmModal } from '@mantine/modals';
 import { MapPin, Check } from "tabler-icons-react";
 
@@ -17,7 +17,7 @@ const useStyles = createStyles((theme, _params) => {
   return {
     containerItemListing: {
       width: "100%",
-      boxShadow: theme.shadows.md,
+      boxShadow: theme.shadows.lg,
       height: "100%",
       backgroundColor: theme.colors.gray[0],
       display: "flex",
@@ -86,7 +86,7 @@ const useStyles = createStyles((theme, _params) => {
 
 const ItemListingVirtual = (props) => {
 
-  const { width, idAgent, uri, isAddListing, useTagFeatured } = props;
+  const { width, idAgent, uri, isFeatured } = props;
 
   const { classes } = useStyles({ width });
 
@@ -107,11 +107,7 @@ const ItemListingVirtual = (props) => {
   }, [props]);
 
   const getLivingArea = useCallback(() => {
-    return get(props, ["listingData", "newDevelopment", "livingArea"], "");
-  }, [props]);
-
-  const isFeaturedListing = useCallback(() => {
-    return get(props, ["isFeatured"], false);
+    return get(props, ["listingData", "newDevelopment", "contentLivingArea", "livingArea"], "");
   }, [props]);
 
   const onClickAddListing = () => {
@@ -138,7 +134,7 @@ const ItemListingVirtual = (props) => {
           one of these buttons to proceed.
         </Text>
       ),
-      labels: { confirm: 'Confirm', cancel: 'Cancel' },
+      labels: { confirm: 'Remove', cancel: 'Cancel' },
       confirmProps: { color: 'error' },
       onCancel: () => console.log('Cancel'),
       onConfirm: () => console.log('Confirmed'),
@@ -146,12 +142,12 @@ const ItemListingVirtual = (props) => {
   }
 
   return (
-    <Card className={classes.containerItemListing}>
+    <Paper className={classes.containerItemListing}>
       <Avatar radius="_40px" size="60px" src={getPhoto()} />
       <Box className={classNames(classes.items)}>
         <Text className={classes.itemTitle}>{getTitle()}</Text>
         {
-          (useTagFeatured)
+          (isFeatured)
           &&
           <Badge
             className={classes.badgeFeatured}
@@ -192,7 +188,7 @@ const ItemListingVirtual = (props) => {
       </Text>
       <Box className={classes.containerActions}>
         {
-          (isAddListing)
+          (!isFeatured)
           &&
           <IconAddListing
             //disabled={isFeaturedListing()}
@@ -205,7 +201,6 @@ const ItemListingVirtual = (props) => {
             size={24}
           />
         }
-
         <ViewLandingListing
           variant="filled"
           labelTooltip="Open listing"
@@ -230,7 +225,7 @@ const ItemListingVirtual = (props) => {
           size={24}
         />
         {
-          (!isAddListing)
+          (isFeatured)
           &&
           <IconRemove
             variant="filled"
@@ -244,7 +239,7 @@ const ItemListingVirtual = (props) => {
         }
 
       </Box>
-    </Card>
+    </Paper>
   );
 }
 

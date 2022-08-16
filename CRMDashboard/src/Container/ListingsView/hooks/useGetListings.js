@@ -14,13 +14,15 @@ const PER_PAGE = 8;
 
 const useGetListings = () => {
 
-  const { state: { user: { infoUser: { id }, listingFeaturedAgent }}, actions: { setListingCategories, setListingNei, setListingFeaturedAgent } } = useClientGlobalStore();
+  const { state: { user: { infoUser: { databaseId }, listingFeaturedAgent }}, actions: { setListingCategories, setListingNei, setListingFeaturedAgent } } = useClientGlobalStore();
 
   const [allListings, setAllListings] = useState([]);
   const [isLoadingListing, setIsLoadingListing] = useState(true);
 
   const [cursorPaginator, setCursorPaginator] = useState("");
 
+  // filters values
+  const [searchText, setSearchText] = useState('');
   const [categorySelect, setCategorySelect] = useState(null);
   const [neiSelect, setNeiSelect] = useState(null);
 
@@ -60,7 +62,7 @@ const useGetListings = () => {
       },
     },
     variables: {
-      agentId: id
+      agentId: databaseId
     },
   });
 
@@ -70,7 +72,8 @@ const useGetListings = () => {
     config: {
       enabled: !!(categorySelect && neiSelect && isSuccesFeatured),
       onSuccess: (response) => {
-        const newData = getAllListings(response, allListings, listingFeaturedAgent);
+        const oldData = isEmpty(cursorPaginator) ? [] : allListings;
+        const newData = getAllListings(response, oldData, listingFeaturedAgent);
         const { pageInfo } = response.listings;
         if (pageInfo.endCursor) {
           setCursorPaginator(pageInfo.endCursor);
@@ -89,7 +92,7 @@ const useGetListings = () => {
     variables: {
       perPage: PER_PAGE,
       after: cursorPaginator,
-      search: "",
+      search: searchText,
       NEIGHBORHOOD: !isEmpty(neiSelect) ? [neiSelect] : null,
       LISTINGCATEGORY: !isEmpty(categorySelect) ? [categorySelect] : null
     },
@@ -103,15 +106,51 @@ const useGetListings = () => {
       }
       setTimeout(() => {
         refetch();
-      }, 700)
+      }, 500);
     }
+  }
+
+  const onChangeCategory = (e) => {
+    setIsLoadingListing(true);
+    setCursorPaginator("");
+    setCategorySelect(e);
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  }
+
+  const onChangeNei = (e) => {
+    setIsLoadingListing(true);
+    setCursorPaginator("");
+    setNeiSelect(e);
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  }
+
+  const onChangeSearchText = (e) => {
+    setSearchText(e.currentTarget.value);
+    setCursorPaginator("");
+    setTimeout(() => {
+      refetch();
+    }, 500);
   }
 
   return {
     isSkeleton: isLoadingListing && (!categorySelect || !neiSelect || !isSuccesFeatured),
     isError: isErrorNei || isErrorCategory || isErrorFeatured || isErrorAllListings,
-    categorySelect,
-      neiSelect,
+    categoryProps: {
+      onChange: onChangeCategory,
+      value: categorySelect
+    }, 
+    neiProps: {
+      onChange: onChangeNei,
+      value: neiSelect
+    },
+    searchProps: {
+      onChange: onChangeSearchText,
+      value: searchText
+    },
     allListings,
     isLoading: isLoadingListing,
     totalData: allListings.length,

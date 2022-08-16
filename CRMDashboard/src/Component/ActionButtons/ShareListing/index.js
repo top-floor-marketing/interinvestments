@@ -24,7 +24,7 @@ const ShareListing = (props) => {
       color={clipboard.copied ? "success" : "dark"}
       placement={clipboard.copied ? "end" : "center"}
       label={(clipboard.copied) ? "Copied!" : props.labelTooltip}
-      withArrow className={props.className}>
+      className={props.className}>
       <ActionIcon {...omit(props, ['labelTooltip', 'id'])} onClick={() => clipboardCopy()}>
         <ArrowForwardUp size={props.size} />
       </ActionIcon>

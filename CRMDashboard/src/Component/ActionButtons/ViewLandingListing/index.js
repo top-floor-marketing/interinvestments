@@ -4,15 +4,9 @@ import PropTypes from 'prop-types';
 
 import omit from 'lodash/omit';
 
-const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
-const DOMAIN_URL =
-  ENVIROMENT === "production"
-    ? process.env.REACT_APP_DOMAIN_PROD
-    : process.env.REACT_APP_DOMAIN_DEV;
-
 const ViewLandingListing = (props) => {
 
-  const fullUrl = `${DOMAIN_URL}agent?id=${props.id}&shared=true`;
+  const fullUrl = `${props.uri}?id=${props.id}&shared=true`;
 
   return (
     <Tooltip multiline
@@ -20,7 +14,7 @@ const ViewLandingListing = (props) => {
       color={"dark"}
       placement={"center"}
       label={props.labelTooltip}
-      withArrow className={props.className}>
+      className={props.className}>
       <ActionIcon component="a" href={fullUrl} target="_blank" {...omit(props, ['labelTooltip', 'id'])}>
         <Eye size={props.size} />
       </ActionIcon>

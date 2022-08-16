@@ -1,15 +1,10 @@
-import { useState } from "react";
 
 // global store 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
-import { useLocalStorage } from "@mantine/hooks";
-
 import { useQueryHelper } from "../../GraphqlClient/useRequest";
 import { GET_USER_BY_ID } from "../../GraphqlClient/user.gql";
 import { GET_AGENT_PROFILE_INFO } from "../../GraphqlClient/agentProfile.gql";
-
-import { DEFAULT_ROUTE } from "../../Route/routes";
 
 import { LOCAL_STORAGE } from "../../Utils/globalConstants";
 
@@ -20,14 +15,8 @@ const useVerifyRoute = () => {
 
   const { state: { user: { isLoadingFull } }, actions: { setLoadingFull, setInfoUser, setRoute, setLogout } } = useClientGlobalStore();
 
-  const [userIdLocalStorage] = useLocalStorage({
-    key: LOCAL_STORAGE.USER,
-    defaultValue: null,
-  });
-  const [routeInLocalStorage] = useLocalStorage({
-    key: LOCAL_STORAGE.ROUTE,
-    defaultValue: DEFAULT_ROUTE,
-  });
+  const userIdLocalStorage = localStorage.getItem(LOCAL_STORAGE.USER);
+  const routeInLocalStorage = localStorage.getItem(LOCAL_STORAGE.ROUTE);
 
   const getUserResponse = (data) => {
     const hasRoles = !isEmpty(get(data, ["user", "roles"]));
@@ -36,22 +25,21 @@ const useVerifyRoute = () => {
     return !!(hasUserName && hasId && hasRoles);
   };
 
-  const { data: dataUser } =useQueryHelper({
-    name: "get-user-by-id-verify",
+  const { data: dataUser } = useQueryHelper({
+    name: "get-user-crm-verify",
     gql: GET_USER_BY_ID,
-    variables: {
-      id: userIdLocalStorage,
-    },
     config: {
       onSuccess: (response) => {
         const isLoginUser = getUserResponse(response);
         if (!isLoginUser)
           setLogout();
-        
       },
-      onError: (e) => { 
+      onError: (e) => {
         setLogout();
       },
+    },
+    variables: {
+      id: userIdLocalStorage,
     },
   });
 
@@ -62,7 +50,8 @@ const useVerifyRoute = () => {
       enabled: getUserResponse(dataUser),
       onSuccess: (response) => {
         const infoAgent = get(response, ["dataAgent", "0"], null);
-        if(!infoAgent)
+
+        if (!infoAgent)
           setLogout();
 
         setRoute(routeInLocalStorage);
@@ -71,16 +60,16 @@ const useVerifyRoute = () => {
         setTimeout(() => {
           setLoadingFull(false);
         }, 700)
-        
+
       },
       onError: (e) => {
         setLogout();
       },
     },
     variables: {
-        agentId: get(dataUser, ["user", "databaseId"], null)
+      agentId: get(dataUser, ["user", "databaseId"], null)
     },
-});
+  });
 
   return {
     loadingVerify: isLoadingFull,

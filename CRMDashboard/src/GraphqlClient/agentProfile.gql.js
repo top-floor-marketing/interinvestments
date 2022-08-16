@@ -8,6 +8,7 @@ query GetAgentInfo($agentId: Int = 10) {
         agentType: ${AGENT_TYPE}, agenId: $agentId
       ) {
         id
+        databaseId
         email
         firstName
         lastName
@@ -47,7 +48,11 @@ query GetAgentInfo($agentId: Int = 10) {
         newDevelopment {
           latitude
           longitude
-          livingArea
+          contentLivingArea {
+            livingArea
+            priceMax
+            priceMin
+          }
           views
           photos {
             altText
@@ -64,8 +69,6 @@ query GetAgentInfo($agentId: Int = 10) {
 `;
 
 // Mutations
-
-
 export const MUTATION_EDIT_AGENT_PROFILE = gql`
 mutation agentEditProfile(
   $content: String,

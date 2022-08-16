@@ -1,7 +1,22 @@
 // import { COLOR_SCHEME_DARK } from "../Store/themeSlice"
 
-const BORDER_INPUT = '1px solid #83837C';
-const BORDER_FOCUS = '#5398ff';
+export const BORDER_INPUT = '1px solid #83837C';
+export const BORDER_FOCUS = '1px solid #5398ff';
+
+export const INPUT_BORDER_BOTTOM = {
+    'input': {
+        border: "none !important",
+        borderRadius: "0 !important" ,
+        borderBottom: `${BORDER_INPUT} !important`,
+        animation: "ease-in-out",
+        '&:focus': {
+          borderBottom: `${BORDER_FOCUS} !important`,
+        },
+        '&:hover': {
+          borderBottom: `${BORDER_FOCUS} !important`,
+        }
+      }
+}
 
 const stylesProvider = () => {
     return {
@@ -13,6 +28,7 @@ const stylesProvider = () => {
                     color: "#000",
                     "&:disabled": {
                         backgroundColor: theme.colors.gray[6],
+                        borderRadius: "10px !important",
                     },
                     "&:focus": {
                         borderColor: `${BORDER_FOCUS} !important`
@@ -196,15 +212,16 @@ const stylesProvider = () => {
             styles: (theme, params) => {
                 return {
                     root: {
+                        
                     },
                     scrollbar: {
-                        backgroundColor: theme.colors.gray[0],
+                        backgroundColor: theme.colors.white[0],
                         "&:hover": {
                             backgroundColor: theme.colors.gray[0],
                         },
                     },
                     thumb: {
-                        backgroundColor: theme.colors.gray[9],
+                        backgroundColor: theme.colors.gray[6],
                         "&:hover": {
                             backgroundColor: `${theme.colors.gray[9]} !important`,
                             opacity: "1 !important"
@@ -213,39 +230,6 @@ const stylesProvider = () => {
                 }
             }
         },
-     /*    Select: {
-            styles: (theme, params) => {
-                return {
-                    root: {
-                        position: "relative",
-                        zIndex: '9999 !important'
-                    },
-                    dropdown: {
-                        border: BORDER_INPUT,
-                        backgroundColor: "transparent",
-                        "&:disabled": {
-                            backgroundColor: theme.colors.gray[6],
-                        },
-                        zIndex: '9999 !important'
-                    },
-                    wrapper: {
-                        backgroundColor: "transparent",
-                        zIndex: '9999 !important'
-                    },
-                    item: {
-                        backgroundColor: "transparent",
-                        zIndex: '9999 !important'
-                    },
-                    input: {
-                        border: BORDER_INPUT,
-                        backgroundColor: "transparent",
-                        "&:focus": {
-                            borderColor: `${BORDER_FOCUS} !important`
-                        }
-                    }
-                }
-            }
-        }, */
         SegmentedControl: {
             styles: (theme, params) => {
                 return {
@@ -306,11 +290,22 @@ const stylesProvider = () => {
                     input: {
                         borderRadius: "10px",
                         backgroundColor: theme.colors.white[0],
-                        border: BORDER_INPUT
+                        border: BORDER_INPUT,
+                        "&:disabled": {
+                            borderRadius: "10px !important",
+                            backgroundColor: theme.colors.gray[6],
+                        },
                     },
                     dropdown: {
                         backgroundColor: theme.colors.white[0],
-                        border: BORDER_INPUT
+                        border: BORDER_INPUT,
+                        '.mantine-ScrollArea-scrollbar': {
+                            borderRadius: "10px !important",
+                            height: "97% !important",
+                            marginTop: "auto !important",
+                            marginBottom: "auto !important",
+                            width: "10px !important"
+                        }
                     },
                     item: {
                         backgroundColor: "transparent",
