@@ -99,7 +99,7 @@ const useStyles = createStyles((theme, _params) => {
 
 const ItemListingVirtual = (props) => {
 
-  const { width, idAgent, uri, isFeatured, onConfirmAdd, onConfirmRemove, databaseId } = props;
+  const { usingAddAndRemove, width, idAgent, uri, isFeatured, onConfirmAdd, onConfirmRemove, databaseId } = props;
 
   const { classes } = useStyles({ width });
 
@@ -210,7 +210,7 @@ const ItemListingVirtual = (props) => {
       </Text>
       <Box className={classes.containerActions}>
         {
-          (!isFeatured)
+          (!isFeatured && usingAddAndRemove)
           &&
           <IconAddListing
             variant="filled"
@@ -246,7 +246,7 @@ const ItemListingVirtual = (props) => {
           size={24}
         />
         {
-          (isFeatured)
+          (isFeatured && usingAddAndRemove)
           &&
           <IconRemove
             variant="filled"

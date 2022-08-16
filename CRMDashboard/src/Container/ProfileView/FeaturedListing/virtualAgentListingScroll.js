@@ -82,6 +82,7 @@ const VirtualAgentListingScroll = ({ name, data, isLoading, refetch, totalData, 
                                     width={style.width}
                                     height={style.height - GUTTER_SIZE}
                                     idAgent={id}
+                                    usingAddAndRemove={false}
                                 />
                             </div>
                         }}

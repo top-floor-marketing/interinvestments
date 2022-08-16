@@ -43,7 +43,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   }
 }));
 
-const ListingFinder = () => {
+const ListingFinder = ({ usingAddAndRemove = true }) => {
 
   const { classes } = useStyles();
 
@@ -69,6 +69,7 @@ const ListingFinder = () => {
             {
               (totalData) ?
                 <VirtualAllListings
+                usingAddAndRemove={usingAddAndRemove}
                   parentClassname={classes.virtualAllListings}
                   name="all_listings"
                   data={allListings}

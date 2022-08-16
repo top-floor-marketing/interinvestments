@@ -39,7 +39,8 @@ const VirtualAllListings = ({
     totalData, 
     parentClassname,
     onConfirmAdd,
-    onConfirmRemove
+    onConfirmRemove,
+    usingAddAndRemove
 }) => {
 
     const { state: { user: { infoUser: { id } } } } = useClientGlobalStore();
@@ -92,6 +93,7 @@ const VirtualAllListings = ({
                                     idAgent={id}
                                     onConfirmAdd={onConfirmAdd}
                                     onConfirmRemove={onConfirmRemove}
+                                    usingAddAndRemove={usingAddAndRemove}
                                 />
                             </div>
                         }}
