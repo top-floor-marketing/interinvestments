@@ -294,6 +294,26 @@ const stylesProvider = () => {
                 }
              }
         },
+        Stepper: {
+            styles: (theme, params) => {
+                return {
+                    stepIcon: {
+                        backgroundColor: theme.colors.gray[3],
+                        borderColor: 'transparent',
+                        color: theme.colors.gray[9],
+                        borderRadius: theme.radius.lg,
+                        boxShadow: theme.shadows.md,
+                        '[data-progress]': {
+                            borderColor: `${theme.colors.primary[0]} !important`,
+                            color: 'color: #000 !important'
+                        }
+                    },
+                    separator: {
+                        backgroundColor: theme.colors.gray[6]
+                    }
+                }
+            }
+        },
         Select: {
             styles: (theme, params) => {
                 return {

@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 // mantine
 import { Stepper, Box, createStyles, Group, Button } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+// components
+import ContainerStep from './ContainerStep'
+import { LeadsInfo } from './Steps'
 
 const useStyles = createStyles((theme, _params) => ({
     StepperContainer: {
@@ -14,8 +17,12 @@ const useStyles = createStyles((theme, _params) => ({
         display: 'flex',
         flexDirection: 'row',
         gap: '24px',
-        [`${theme.fn.smallerThan("md")}`]: {
-            flexDirection: 'column',
+        // [`${theme.fn.smallerThan("md")}`]: {
+        //     flexDirection: 'column',
+        // },
+        '.mantine-Stepper-content': {
+            paddingTop: '0px',
+            width: '100%'
         }
     },
     GroupControllers: {
@@ -23,34 +30,49 @@ const useStyles = createStyles((theme, _params) => ({
     }
 }));
 
-const SteppsNewLeads = () => {
-    const [activeStepper, setActiveStepper] = useState(1);
+const SteppsNewLeads = (_) => {
+    const [activeStepper, setActiveStepper] = useState(0);
     const { classes } = useStyles();
     const matches = useMediaQuery('(min-width: 1024px)');
 
     const nextStep = () => setActiveStepper((current) => (current < 3 ? current + 1 : current));
     const prevStep = () => setActiveStepper((current) => (current > 0 ? current - 1 : current));
 
+    const props = {
+        Stepper: {
+            className: classes.Stepper,
+            active: activeStepper,
+            onStepClick: setActiveStepper,
+            orientation: 'vertical'
+        },
+        Step: {
+            label: null,
+            description: null
+        }
+    }
+
     return (
         <Box className={classes.StepperContainer}>
-            <Stepper
-                className={classes.Stepper}
-                active={activeStepper}
-                onStepClick={setActiveStepper}
-                orientation={(matches) ? 'vertical' : 'horizontal'}
-            // breakpoint="sm"
-            >
-                <Stepper.Step label="Step 1" description="Create an account" >
-                    <p>Step 1</p>
+            <Stepper {...props.Stepper}>
+                <Stepper.Step {...props.Step}>
+                    <ContainerStep title='Leads info'>
+                        <LeadsInfo />
+                    </ContainerStep>
                 </Stepper.Step>
-                <Stepper.Step label="Step 2" description="Verify email" >
-                    <p>Step 2</p>
+                <Stepper.Step {...props.Step}>
+                    <ContainerStep>
+                        <p>Step 2</p>
+                    </ContainerStep>
                 </Stepper.Step>
-                <Stepper.Step label="Step 3" description="Get full access" >
-                    <p>Step 3</p>
+                <Stepper.Step {...props.Step}>
+                    <ContainerStep>
+                        <p>Step 3</p>
+                    </ContainerStep>
                 </Stepper.Step>
                 <Stepper.Completed>
-                    <p>Completed, click back button to get to previous step</p>
+                    <ContainerStep>
+                        <p>Completed, click back button to get to previous step</p>
+                    </ContainerStep>
                 </Stepper.Completed>
             </Stepper>
             <Group

@@ -33,7 +33,7 @@ const Leads = () => {
                 </HoccDraewerAL>
             </Paper>
             <Paper className={classes.cardLeads}>
-                <p>sfasfasfas</p>
+                <p>list leads</p>
             </Paper>
         </Box>
     )
