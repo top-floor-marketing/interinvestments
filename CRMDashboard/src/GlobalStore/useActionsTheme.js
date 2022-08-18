@@ -62,6 +62,17 @@ export const DEFAUL_STORE_THEME = {
         "#0167ff",
         "#005fec",
       ],
+      info: [
+        "#FFE0FF",
+        "#FFE0FF",
+        "#FFE0FF",
+        "#FFE0FF",
+        "#FFC4FF",
+        "#F0A8FF",
+        "#D38DEE",
+        "#B773D2",
+        "#9B59B6"
+      ],
       secondary: [
         "#ffb839",
         "#ffb839",
