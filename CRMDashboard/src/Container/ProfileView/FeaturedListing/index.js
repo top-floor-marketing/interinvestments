@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, createStyles, Text, Skeleton, Group, Button,Modal } from "@mantine/core";
+import { Card, createStyles, Text, Skeleton, Group, Button,Modal, Box } from "@mantine/core";
 import { IconPlus } from '@tabler/icons';
 
 import useGetAgentListing from "./useGetAgentListing";
@@ -22,11 +22,13 @@ const useStyles = createStyles((theme, _params) => ({
     fontSize: "18px",
     fontWeight: 700,
   },
+  containerInfinite: {
+    width: "100%",
+    height: "100%",
+  },
   boxInfiniteLoader: {
     width: "100%",
     height: "100%",
-    minHeight: "250px",
-    maxHeight: "500px",
   },
   modalModal: {
     height: "100%",
@@ -72,20 +74,26 @@ const FeaturedListing = () => {
             body: classes.rootModal,
             modal: classes.modalModal
           }} 
-          zIndex={200} 
-          //className={classes.modalListing}
-           onClose={() => onCloseModalAddListing()} centered closeOnEscape overflow="inside" closeOnClickOutside fullScreen opened={isOpenModalAddListing}>
+            zIndex={200} 
+            onClose={() => onCloseModalAddListing()} centered
+            closeOnEscape 
+            overflow="inside" closeOnClickOutside fullScreen opened={isOpenModalAddListing}>
             <ListingView />
           </Modal>
         </Group>
-        <VirtualAgentListingScroll
+
+<Box className={classes.containerInfinite}>
+<VirtualAgentListingScroll
           parentClassname={classes.boxInfiniteLoader}
-          name="agent"
+          name="agent-listings"
           data={listingAgent}
           totalData={totalData}
           refetch={refetchData}
           isLoading={isLoading}
         />
+</Box>
+        
+
       </Card>
     </Skeleton>
   );
