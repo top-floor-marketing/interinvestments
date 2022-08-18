@@ -5,6 +5,7 @@ import useClientGlobalStore from "../GlobalStore/useClientGlobalStore";
 import LoadingFull from "../Component/LoadingFull";
 
 import stylesProvider from "./stylesProvider";
+import { ModalsProvider } from '@mantine/modals';
 
 import './overrideMantine.css';
 
@@ -22,8 +23,12 @@ const ThemeGlobalProvider = (props) => {
       withGlobalStyles
       withNormalizeCSS
     >
+      <ModalsProvider>
+      <>
       <LoadingFull />
       {props.children}
+      </>
+      </ModalsProvider>
     </MantineProvider>
   );
 };

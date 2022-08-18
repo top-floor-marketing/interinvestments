@@ -221,9 +221,6 @@ const stylesProvider = () => {
         ScrollArea: {
             styles: (theme, params) => {
                 return {
-                    root: {
-                        
-                    },
                     scrollbar: {
                         backgroundColor: theme.colors.white[0],
                         "&:hover": {

@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import StoreProvider from './GlobalStore/storeProvider';
 
 import { NotificationsProvider } from '@mantine/notifications';
-import { ModalsProvider } from '@mantine/modals';
 
 import ThemeGlobalProvider from "./MatineProvider";
 
@@ -16,9 +15,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ThemeGlobalProvider>
           <NotificationsProvider autoClose={4000} limit={2} position="top-right" zIndex={9999}>
-            <ModalsProvider>
-              <Main />
-            </ModalsProvider>
+              <Main />     
           </NotificationsProvider>
         </ThemeGlobalProvider>
       </QueryClientProvider>

@@ -163,7 +163,7 @@ const InfoAgent = ({ dataAgent }) => {
                 </Box>
                 <Box className={classes.aboutMeContainer}>
                     <Text transform="capitalize" component="h4">About me</Text>
-                    <Spoiler maxHeight={300} showLabel="Show more" hideLabel="Hide">
+                    <Spoiler maxHeight={200} showLabel="Show more" hideLabel="Hide">
                         <Box dangerouslySetInnerHTML={sanitizedContentData()} /> 
                     </Spoiler>
                 </Box>

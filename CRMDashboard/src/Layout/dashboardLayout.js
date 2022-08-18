@@ -26,9 +26,12 @@ const DashboardLayout = (props) => {
       navbar={<Navbar opened={opened} />}
       header={<Header opened={opened} setOpened={setOpened} />}
     >
-      <Box className={classes.boxContainer}>{props.children}</Box>
+      <Box className={classes.boxContainer}>
+      {props.children}
+      </Box>
+       
     </AppShell>
   );
 };
-
+//  {props.children}
 export default DashboardLayout;
