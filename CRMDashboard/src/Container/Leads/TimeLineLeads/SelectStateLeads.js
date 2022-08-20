@@ -1,15 +1,10 @@
 import React, { useState } from 'react'
+// components
+import SelectItem from './SelectItem'
 // mantine
-import { createStyles, Select, Group, Text, Box } from "@mantine/core";
-// icon
-import { UserExclamation, UserCheck, Building, FileCheck, ZoomExclamation } from 'tabler-icons-react';
-
-const useStyles = createStyles((theme, _params, getRef) => ({
-    inputSelect: {
-        paddingLeft: '40px !important'
-    }
-}));
-
+import { Select } from "@mantine/core";
+// styles
+import useStyles from './styles'
 
 const SelectStateLeads = () => {
     const [valueSelect, setvalueSelect] = useState(null)
@@ -42,29 +37,36 @@ const SelectStateLeads = () => {
         },
     ];
 
-    const SelectItem = ({ label, color, ...others }) => {
-        return (
-            <Box {...others}>
-                <Group noWrap>
-                    <Box>
-                        <Text size="sm">{label}</Text>
-                    </Box>
-                </Group>
-            </Box>
-        )
-    }
-
+   
 
     const onChangeSelect = (value) => {
         setvalueSelect(value)
     }
 
+    const colorSelect = () => {
+        switch (valueSelect) {
+            case 'not_contated':
+                return classes.selectError
+            case 'contated':
+                return classes.selectPrimary
+            case 'showing':
+                return classes.selectSecondary
+            case 'contract':
+                return classes.selectSuccess
+            case 'ask_referrals':
+                return classes.selectInfo
+            default:
+                return null
+        }
+    }
+
     return (
         <Select
-            value={valueSelect}
+            className={classes.select}
             classNames={{
-                input: classes.inputSelect
+                input: `${classes.inputSelect} ${colorSelect()}`
             }}
+            value={valueSelect}
             onChange={onChangeSelect}
             label={null}
             placeholder="Pick one"

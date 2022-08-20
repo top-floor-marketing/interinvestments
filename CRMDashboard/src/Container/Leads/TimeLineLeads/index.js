@@ -1,8 +1,11 @@
 import React from 'react'
+// component
+import ListInfoLeads from './ListInfoLeads'
 // mantine
-import { Box } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 // components
 import SelectStateLeads from './SelectStateLeads'
+import TimelineLeads from './TimelineLeads'
 
 // styles
 import useStyles from '../GlobalStyles'
@@ -12,11 +15,14 @@ const TimeLineLeads = () => {
     return (
         <Box className={classes.containerTimeLine}>
             <Box className={classes.contentInfoLeads}>
-                contact info
                 <SelectStateLeads />
+                <Box className={classes.containerContactInfo}>
+                    <Text className={classes.textContactInfo} component='p'>Contact info</Text>
+                </Box>
+                <ListInfoLeads />
             </Box>
             <Box className={classes.contentTimeLIne}>
-                time line
+                <TimelineLeads />
             </Box>
         </Box>
     )

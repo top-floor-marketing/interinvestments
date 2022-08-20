@@ -71,10 +71,21 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         gap: theme.other.spacing.p4
     },
     contentInfoLeads: {
-        width: '25%'
+        width: '25%',
+        padding: theme.other.spacing.p4
     },
     contentTimeLIne: {
-        width: '75%'
+        width: '75%',
+        height: "700px",
+        padding: theme.other.spacing.p4
+    },
+    textContactInfo: {
+        fontSize: '18px',
+        fontWeight: '600'
+    },
+    containerContactInfo: {
+        marginTop: '18px',
+        marginBottom: '18px'
     }
 }));
 
