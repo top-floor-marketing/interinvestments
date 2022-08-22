@@ -2,13 +2,14 @@ import React from 'react'
 // component
 import ListInfoLeads from './ListInfoLeads'
 // mantine
-import { Box, Text } from "@mantine/core";
+import { Box, Text, TextInput } from "@mantine/core";
 // components
 import SelectStateLeads from './SelectStateLeads'
 import TimelineLeads from './TimelineLeads'
 
 // styles
 import useStyles from '../GlobalStyles'
+import { MessageCircle } from 'tabler-icons-react';
 
 const TimeLineLeads = () => {
     const { classes } = useStyles();
@@ -23,7 +24,13 @@ const TimeLineLeads = () => {
             </Box>
             <Box className={classes.contentTimeLIne}>
                 <TimelineLeads />
+                <TextInput
+                    label={null}
+                    placeholder="Your email"
+                    rightSection={<MessageCircle />}
+                />
             </Box>
+
         </Box>
     )
 }

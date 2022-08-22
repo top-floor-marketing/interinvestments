@@ -76,7 +76,6 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     },
     contentTimeLIne: {
         width: '75%',
-        height: "700px",
         padding: theme.other.spacing.p4
     },
     textContactInfo: {

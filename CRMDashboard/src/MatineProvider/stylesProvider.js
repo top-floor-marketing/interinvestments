@@ -6,16 +6,16 @@ export const BORDER_FOCUS = '1px solid #5398ff';
 export const INPUT_BORDER_BOTTOM = {
     'input': {
         border: "none !important",
-        borderRadius: "0 !important" ,
+        borderRadius: "0 !important",
         borderBottom: `${BORDER_INPUT} !important`,
         animation: "ease-in-out",
         '&:focus': {
-          borderBottom: `${BORDER_FOCUS} !important`,
+            borderBottom: `${BORDER_FOCUS} !important`,
         },
         '&:hover': {
-          borderBottom: `${BORDER_FOCUS} !important`,
+            borderBottom: `${BORDER_FOCUS} !important`,
         }
-      }
+    }
 }
 
 const stylesProvider = () => {
@@ -69,26 +69,26 @@ const stylesProvider = () => {
             styles: (theme, params) => {
                 const _color = params?.color || 'dark';
                 return {
-                root: {
-                    backgroundColor: theme.colors[_color][6],
-                    "&:disabled": {
-                        backgroundColor: theme.colors.gray[6],
-                        opacity: "0.7 !important",
-                        "&:hover": {
+                    root: {
+                        backgroundColor: theme.colors[_color][6],
+                        "&:disabled": {
                             backgroundColor: theme.colors.gray[6],
+                            opacity: "0.7 !important",
+                            "&:hover": {
+                                backgroundColor: theme.colors.gray[6],
+                            },
+                        },
+                        "&:hover": {
+                            backgroundColor: theme.colors[_color][9],
                         },
                     },
-                    "&:hover": {
-                        backgroundColor: theme.colors[_color][9],
-                    },
-                },
-                filled: {
-                    "&::before": {
-                        backgroundColor: theme.fn.rgba(theme.colors.gray[6], 0.5),
-                    },
+                    filled: {
+                        "&::before": {
+                            backgroundColor: theme.fn.rgba(theme.colors.gray[6], 0.5),
+                        },
+                    }
                 }
             }
-        }
         },
         Pagination: {
             styles: (theme) => ({
@@ -277,7 +277,7 @@ const stylesProvider = () => {
                         padding: theme.other.spacing.p4
                     }
                 }
-             }
+            }
         },
         Paper: {
             styles: (theme, params) => {
@@ -289,7 +289,7 @@ const stylesProvider = () => {
                         padding: theme.other.spacing.p4
                     }
                 }
-             }
+            }
         },
         Stepper: {
             styles: (theme, params) => {
@@ -306,6 +306,23 @@ const stylesProvider = () => {
                     },
                     separator: {
                         backgroundColor: theme.colors.gray[6]
+                    }
+                }
+            }
+        },
+        Timeline: {
+            styles: (theme, params) => {
+                return {
+                    itemBullet: {
+                        '&[data-with-child]': {
+                            backgroundColor: theme.colors[params.color],
+                            border: '0px'
+                        }
+                    },
+                    item: {
+                        "&::before": {
+                            borderLeft: `2px solid ${theme.colors.gray[5]}`
+                        }
                     }
                 }
             }
@@ -343,10 +360,10 @@ const stylesProvider = () => {
                         '&:hover': {
                             color: theme.colors.white[0],
                             backgroundColor: theme.colors.primary[6],
-                        }, 
+                        },
                     }
                 }
-             }
+            }
         }
     }
 }
