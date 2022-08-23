@@ -2,23 +2,14 @@ import React from 'react'
 // components
 import SteppsNewLeads from './SteppsNewLeads'
 // mantine devs
-import { Drawer, createStyles, Box, Text } from '@mantine/core';
+import { Drawer, createStyles } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-// icons
-import { AddressBook } from 'tabler-icons-react';
 // utils
 import PropTypes from 'prop-types';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
     containerDrawer: {
         backgroundColor: theme.colors.white[0]
-    },
-    boxTitle: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        gap: theme.other.spacing.p2,
     },
     titleModal: {
         margin: "0px !important",
@@ -51,14 +42,6 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
     const Props = {
         Drawer: {
             opened: opened,
-            title: (
-                <Box className={classes.boxTitle}>
-                    <AddressBook size={20} />
-                    <Text component="h1" className={classes.titleModal}>
-                        {title}
-                    </Text>
-                </Box>
-            ),
             padding: "xl",
             size: (matches) ? '60%' : 'full',
             classNames: {
@@ -71,7 +54,7 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
 
     return (
         <Drawer {...Props.Drawer}>
-            <SteppsNewLeads />
+            <SteppsNewLeads title={title} />
         </Drawer>
     )
 }

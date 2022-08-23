@@ -6,7 +6,11 @@ const useStyles = createStyles((theme, _params) => ({
     containerMain: {
         height: '100%',
         width: '100%',
-        padding: '20px'
+        padding: '20px',
+        [`${theme.fn.smallerThan("md")}`]: {
+            paddingRight: '0px',
+            paddingLeft: '0px'
+        }
     },
     title: {
         color: theme.colors.dark[0],
@@ -21,7 +25,11 @@ const useStyles = createStyles((theme, _params) => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignContent: 'center'
+        alignContent: 'center',
+        [`${theme.fn.smallerThan("md")}`]: {
+            paddingRight: '0px',
+            paddingLeft: '0px'
+        }
     }
 }));
 
