@@ -20,16 +20,11 @@ const useStyles = createStyles((theme, _params) => ({
     },
     boxContendStep: {
         width: '100%',
-        padding: '20px',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignContent: 'center',
-        [`${theme.fn.smallerThan("md")}`]: {
-            paddingRight: '0px',
-            paddingLeft: '0px'
-        }
     }
 }));
 

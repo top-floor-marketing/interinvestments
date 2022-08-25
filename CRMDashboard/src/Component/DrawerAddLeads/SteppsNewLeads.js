@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 // mantine
-import { Stepper, Box, createStyles, Group, Button, Text } from '@mantine/core';
+import { Stepper, Box, createStyles, Group, Button, Text, Badge } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 //  icons
 import { FileInfo, AddressBook, User, Check } from 'tabler-icons-react';
@@ -14,6 +14,9 @@ const useStyles = createStyles((theme, _params) => {
             StepperContainer: {
                 height: '100%',
                 width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center'
             },
             Stepper: {
                 borderRadius: '50px',
@@ -21,9 +24,6 @@ const useStyles = createStyles((theme, _params) => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '24px',
-                // [`${theme.fn.smallerThan("md")}`]: {
-                //     flexDirection: 'row',
-                // },
                 '.mantine-Stepper-content': {
                     paddingTop: '0px',
                     width: '100%'
@@ -36,16 +36,17 @@ const useStyles = createStyles((theme, _params) => {
                 [`${theme.fn.smallerThan("sm")}`]: {
                     margin: '0px',
                     width: '100%'
-                    // '.mantine-Stepper-step': {
-                    //     flexDirection: 'column',
-                    //     gap: '5px',
-                    //     alignItems: 'start'
-                    // }
-                },
+                }
             },
             titleStep: {
                 fontWeight: 700,
                 color: theme.colors.gray[6]
+            },
+            containerDescriptionStep: {
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+                alignItems: 'start'
             },
             descriptionStep: {
                 fontWeight: 700,
@@ -82,13 +83,16 @@ const useStyles = createStyles((theme, _params) => {
                 justifyContent: "flex-start",
                 alignItems: "center",
                 gap: theme.other.spacing.p2,
+                top: '15%',
                 [`${theme.fn.smallerThan("sm")}`]: {
                     position: 'relative',
                     marginBottom: '10px'
-                },
+                }
             },
             GroupControllers: {
-                height: '20%',
+                alignContent: 'flex-end',
+                height: '100%',
+                marginBottom: '40px',
                 'Button': {
                     backgroundColor: theme.colors.white[0],
                     '&:hover': {
@@ -104,7 +108,6 @@ const useStyles = createStyles((theme, _params) => {
 const SteppsNewLeads = (_) => {
     const [activeStepper, setActiveStepper] = useState(0);
     const { classes } = useStyles({ color: 'secondary' });
-    const matches = useMediaQuery('(min-width: 1024px)');
 
     const nextStep = () => setActiveStepper((current) => (current < 3 ? current + 1 : current));
     const prevStep = () => setActiveStepper((current) => (current > 0 ? current - 1 : current));
@@ -133,7 +136,7 @@ const SteppsNewLeads = (_) => {
         <Box className={classes.StepperContainer}>
             <Box className={classes.boxTitle}>
                 <AddressBook size={20} />
-                <Text component="h1" className={classes.titleModal}>
+                <Text component="h1">
                     {_.title}
                 </Text>
             </Box>
@@ -155,7 +158,19 @@ const SteppsNewLeads = (_) => {
                     icon={<FileInfo size={34} color='white' />}
                     completedIcon={<Check size={34} color='white' />}
                     label={<Text component="span" className={classes.titleStep}>Step 2</Text>}
-                    description={<Text component="span" className={classes.descriptionStep}>Interested in</Text>}
+                    description={
+                        <Box className={classes.containerDescriptionStep}>
+                            <Text component="span" className={classes.descriptionStep}>Interested in</Text>
+                            <Badge
+                                style={{ color: 'black' }}
+                                color={'gray'}
+                                size="lg"
+                                radius="lg"
+                            >
+                                In progress
+                            </Badge>
+                        </Box>
+                    }
                 >
                     <ContainerStep>
                         <p>Step 2</p>
@@ -170,7 +185,7 @@ const SteppsNewLeads = (_) => {
             </Stepper>
             <Group
                 className={classes.GroupControllers}
-                position={(matches) ? 'apart' : 'center'}
+                position='center'
                 spacing="xl"
             >
                 <Button variant="outline" onClick={prevStep}>
