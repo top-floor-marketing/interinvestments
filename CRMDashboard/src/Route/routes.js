@@ -18,7 +18,8 @@ export const ROUTES_NAMES = {
   LEADS: "leads",
   LEADS_DETAILS: "leads/details",
   PROFILE: "profile",
-  LISTINGS: "listings"
+  LISTINGS: "listings",
+  TESTLEADS: 'testLeads'
 };
 
 export const DEFAULT_ROUTE = ROUTES_NAMES.PROFILE;
@@ -79,7 +80,7 @@ export const CRM_ROUTES = [
     label: "Leads",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <Leads />
+      <div>Leads</div>
     ),
     useInNavbar: true,
     loginRequired: true,
@@ -96,6 +97,18 @@ export const CRM_ROUTES = [
     useInNavbar: true,
     loginRequired: true,
     icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
+    roles: ["administrator"]
+  },
+  {
+    name: ROUTES_NAMES.TESTLEADS,
+    label: "Detail Leads",
+    layout: LAYOUT_NAMES.DASHBOARD,
+    component: () => (
+      <Leads />
+    ),
+    useInNavbar: true,
+    loginRequired: true,
+    icon: () => <Users size={25} strokeWidth={2} color={"white"} />,
     roles: ["administrator"]
   },
 ];
