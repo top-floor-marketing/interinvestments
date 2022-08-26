@@ -1,6 +1,7 @@
 import React from 'react'
 // mantine
-import { Box, createStyles, Text } from '@mantine/core';
+import { Box, createStyles, Text, ScrollArea } from '@mantine/core';
+import SpringDiv from '../SpringDiv'
 
 const useStyles = createStyles((theme, _params) => ({
     containerMain: {
@@ -25,23 +26,29 @@ const useStyles = createStyles((theme, _params) => ({
         flexDirection: 'column',
         justifyContent: 'center',
         alignContent: 'center',
-    }
+    },
+    contentStepper: {
+        height: '60vh',
+        paddingRight: '15px'
+    },
 }));
 
 const ContainerStep = ({ children, title = 'Lorem ipsum' }) => {
     const { classes } = useStyles();
     return (
-        <Box className={classes.containerMain}>
-            <Box className={classes.boxContendStep}>
-                <Text
-                    component='h3'
-                    className={classes.title}
-                >
-                    {title}
-                </Text>
-                {children}
-            </Box>
-        </Box>
+        <SpringDiv className={classes.containerMain} delay={200} duration={500} fullHeight>
+            <ScrollArea className={classes.contentStepper}>
+                <Box className={classes.boxContendStep}>
+                    <Text
+                        component='h3'
+                        className={classes.title}
+                    >
+                        {title}
+                    </Text>
+                    {children}
+                </Box>
+            </ScrollArea>
+        </SpringDiv>
     )
 }
 

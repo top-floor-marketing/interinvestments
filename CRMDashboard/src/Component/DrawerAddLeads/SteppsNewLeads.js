@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 // mantine
 import { Stepper, Box, createStyles, Group, Button, Text, Badge } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+// import { useMediaQuery } from '@mantine/hooks';
 //  icons
-import { FileInfo, AddressBook, User, Check } from 'tabler-icons-react';
+import { FileInfo, AddressBook, User, Check, X, ChevronLeft, ChevronRight } from 'tabler-icons-react';
+
 // components
 import ContainerStep from './ContainerStep'
 import { LeadsInfo } from './Steps'
@@ -100,6 +101,41 @@ const useStyles = createStyles((theme, _params) => {
                         color: theme.colors.white
                     }
                 }
+            },
+            CancelButton: {
+                backgroundColor: `${theme.colors.error[6]} !important`,
+                borderColor: `${theme.colors.error[6]} !important`,
+                color: theme.colors.white[0],
+                '&:hover': {
+                    backgroundColor: `${theme.colors.error[3]} !important`,
+                    borderColor: `${theme.colors.error[3]} !important`,
+                }
+            },
+            ButtonSteps: {
+                backgroundColor: `${theme.colors.black[0]} !important`,
+                borderColor: `${theme.colors.black[0]} !important`,
+                color: theme.colors.white[0],
+                '&:hover': {
+                    backgroundColor: `${theme.colors.gray[9]} !important`,
+                    color: `${theme.colors.black[0]} !important`,
+                    borderColor: `${theme.colors.gray[3]} !important`,
+                }
+            },
+            BadgeSteps: {
+                color: `${theme.colors.black[0]}`,
+                backgroundColor: `${theme.colors.gray[4]}`,
+                fontSize: '12px',
+                'span': {
+                    paddingLeft: '10px',
+                    paddingRight: '10px'
+                }
+            },
+            BadgeCompleted: {
+                fontSize: '12px',
+                'span': {
+                    paddingLeft: '10px',
+                    paddingRight: '10px'
+                }
             }
         }
     )
@@ -132,6 +168,17 @@ const SteppsNewLeads = (_) => {
         }
     }
 
+    const BadgeStepsLabel = (position) => {
+        if (activeStepper < position) {
+            return 'Pending'
+        }
+        if (activeStepper === position) {
+            return 'In Progress'
+        }
+        return 'Completed'
+    }
+
+
     return (
         <Box className={classes.StepperContainer}>
             <Box className={classes.boxTitle}>
@@ -146,7 +193,20 @@ const SteppsNewLeads = (_) => {
                     icon={<User size={34} color='white' />}
                     completedIcon={<Check size={34} color='white' />}
                     label={<Text component="span" className={classes.titleStep}>Step 1</Text>}
-                    description={<Text component="span" className={classes.descriptionStep}>Personal info</Text>}
+                    description={
+                        <Box className={classes.containerDescriptionStep}>
+                            <Text component="span" className={classes.descriptionStep}>Personal info</Text>
+                            <Badge
+                                className={`${activeStepper <= 0 ? classes.BadgeSteps : classes.BadgeCompleted}`}
+                                size="lg"
+                                radius="lg"
+                            >
+                                {
+                                    BadgeStepsLabel(0)
+                                }
+                            </Badge>
+                        </Box>
+                    }
                 >
                     <ContainerStep title='Leads info'>
                         <LeadsInfo />
@@ -162,12 +222,13 @@ const SteppsNewLeads = (_) => {
                         <Box className={classes.containerDescriptionStep}>
                             <Text component="span" className={classes.descriptionStep}>Interested in</Text>
                             <Badge
-                                style={{ color: 'black' }}
-                                color={'gray'}
+                                className={`${activeStepper <= 1 ? classes.BadgeSteps : classes.BadgeCompleted}`}
                                 size="lg"
                                 radius="lg"
                             >
-                                In progress
+                                {
+                                    BadgeStepsLabel(1)
+                                }
                             </Badge>
                         </Box>
                     }
@@ -188,14 +249,37 @@ const SteppsNewLeads = (_) => {
                 position='center'
                 spacing="xl"
             >
-                <Button variant="outline" onClick={prevStep}>
-                    Back
-                </Button>
-                <Button onClick={nextStep} variant="outline">
+                {
+                    (activeStepper === 0) ? (
+                        <Button
+                            leftIcon={<X />}
+                            className={classes.CancelButton}
+                            variant="outline"
+                            onClick={() => _.onClose()}
+                        >
+                            Cancel
+                        </Button>
+                    ) : (
+                        <Button
+                            leftIcon={<ChevronLeft />}
+                            className={classes.ButtonSteps}
+                            variant="outline"
+                            onClick={prevStep}
+                        >
+                            Back
+                        </Button>
+                    )
+                }
+                <Button
+                    rightIcon={<ChevronRight />}
+                    className={classes.ButtonSteps}
+                    onClick={nextStep}
+                    variant="outline"
+                >
                     Next step
                 </Button>
             </Group>
-        </Box>
+        </Box >
     )
 }
 

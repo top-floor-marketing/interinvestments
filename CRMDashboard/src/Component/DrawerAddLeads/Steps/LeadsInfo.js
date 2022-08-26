@@ -1,8 +1,18 @@
 import React from 'react'
 // mantine
-import { Box, createStyles, TextInput, Textarea, SegmentedControl, Select, Divider } from '@mantine/core';
+import {
+    Box,
+    createStyles,
+    TextInput,
+    Textarea,
+    SegmentedControl,
+    Select,
+    Divider,
+    NumberInput,
+    Text
+} from '@mantine/core';
 // icons
-import { User, Mail, Search, Note } from 'tabler-icons-react';
+import { User, Mail, Search, Note, Phone } from 'tabler-icons-react';
 
 const useStyles = createStyles((theme, _params) => ({
     containerMain: {
@@ -23,11 +33,29 @@ const useStyles = createStyles((theme, _params) => ({
         gridColumn: 'span 2 / span 2'
     },
     radioSegment: {
-        alignItems: 'end !important',
         '.mantine-SegmentedControl-active': {
             display: 'none'
         }
-    }
+    },
+    NumberInput: {
+        backgroundColor: theme.colors.white[0],
+        borderColor: theme.colors.gray[6]
+    },
+    controllNumberInput: {
+        backgroundColor: theme.colors.white[0],
+        borderColor: theme.colors.gray[6],
+        '&:hover': {
+            backgroundColor: `${theme.colors.primary[9]} !important`,
+            borderColor: theme.colors.primary[9],
+            color: theme.colors.white[0]
+        }
+    },
+    subTitle: {
+        color: theme.colors.dark[0],
+        fontSize: "16px",
+        lineHeight: "20px",
+        fontWeight: 700,
+    },
 }));
 
 const LeadsInfo = () => {
@@ -35,7 +63,7 @@ const LeadsInfo = () => {
     return (
         <Box className={classes.containerMain}>
             <SegmentedControl
-                className={`${classes.radioSegment} ${classes.input_2}`}
+                className={`${classes.input_2} ${classes.radioSegment}`}
                 size='sm'
                 data={[
                     { label: 'New leads', value: 'react' },
@@ -44,8 +72,8 @@ const LeadsInfo = () => {
             />
 
             <Select
-                label="Select cliente"
-                placeholder={null}
+                label={null}
+                placeholder="Select cliente"
                 searchable
                 nothingFound="No options"
                 rightSection={<Search size={24} />}
@@ -59,21 +87,60 @@ const LeadsInfo = () => {
             <Divider className={classes.inputFull} my="sm" />
             <TextInput
                 className={classes.input}
-                placeholder="Name leads"
+                placeholder={null}
                 label="Name leads"
                 icon={<User />}
             />
             <TextInput
                 className={classes.input}
-                placeholder="Email client"
+                placeholder={null}
                 label="Email client"
                 icon={<Mail />}
             />
+            <NumberInput
+                className={classes.input}
+                classNames={{
+                    input: classes.NumberInput,
+                    control: classes.controllNumberInput
+                }}
+                placeholder={null}
+                label="Phone Number"
+                icon={<Phone />}
+            />
             <Textarea
                 className={`${classes.input} ${classes.inputFull}`}
-                placeholder="your note leads..."
+                placeholder={null}
                 icon={<Note />}
                 label="Note"
+            />
+
+            <Text
+                component='h3'
+                className={`${classes.title} ${classes.inputFull}`}
+            >
+                optional info
+            </Text>
+            <TextInput
+                className={classes.input}
+                placeholder={null}
+                label="other name"
+                icon={<User />}
+            />
+            <TextInput
+                className={classes.input}
+                placeholder={null}
+                label="other Email"
+                icon={<Mail />}
+            />
+            <NumberInput
+                className={classes.input}
+                classNames={{
+                    input: classes.NumberInput,
+                    control: classes.controllNumberInput
+                }}
+                placeholder={null}
+                label="other Phone"
+                icon={<Phone />}
             />
         </Box>
     )

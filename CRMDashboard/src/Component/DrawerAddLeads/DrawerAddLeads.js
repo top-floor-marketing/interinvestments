@@ -54,7 +54,7 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
 
     return (
         <Drawer {...Props.Drawer}>
-            <SteppsNewLeads title={title} />
+            <SteppsNewLeads title={title} onClose={onCloseDrawer} />
         </Drawer>
     )
 }
