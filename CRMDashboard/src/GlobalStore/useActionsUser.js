@@ -1,7 +1,7 @@
 import {DEFAULT_ROUTE, ROUTES_NAMES} from '../Route/routes';
 
 import { LOCAL_STORAGE } from '../Utils/globalConstants';
-import { STORE_USER_ACTIONS } from './storeReducer';
+import { STORE_USER_ACTIONS } from './globalReducer';
 
 export const DEFAULT_STORE_USER = {
     isLoadingFull: true,

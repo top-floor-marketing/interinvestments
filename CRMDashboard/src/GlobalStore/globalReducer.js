@@ -1,5 +1,7 @@
 import { ROUTES_NAMES } from "../Route/routes"
 import { DEFAULT_STORE_USER } from "./useActionsUser"
+// lead 
+import { STORE_ADDLEAD_ACTIONS, DEFAULT_STORE_ADD_LEAD } from './useActionAddLead'
 
 export const STORE_USER_ACTIONS = {
     IS_LOADING_FULL: 'set_is_loading_full',
@@ -11,11 +13,12 @@ export const STORE_USER_ACTIONS = {
     LISTING_FEATURED: 'set_listing_featured'
 }
 
-const StoreReducer = (state = DEFAULT_STORE_USER, action) => {
+
+const StoreReducer = (state = { ...DEFAULT_STORE_USER, ...DEFAULT_STORE_ADD_LEAD }, action) => {
 
     switch (action.type) {
         case STORE_USER_ACTIONS.IS_LOADING_FULL:
-           
+
             return {
                 ...state,
                 user: {
@@ -28,7 +31,7 @@ const StoreReducer = (state = DEFAULT_STORE_USER, action) => {
             return { ...state, user: { ...state.user, route: action.payload } }
 
         case STORE_USER_ACTIONS.INFO_USER:
-            return { ...state, user: { ...state.user, infoUser: { ...state.user.infoUser, ...action.payload} } }
+            return { ...state, user: { ...state.user, infoUser: { ...state.user.infoUser, ...action.payload } } }
 
         case STORE_USER_ACTIONS.LOGOUT_USER:
             return { ...state, user: { ...DEFAULT_STORE_USER, isLoadingFull: false, route: ROUTES_NAMES.AUTH } }
@@ -42,8 +45,25 @@ const StoreReducer = (state = DEFAULT_STORE_USER, action) => {
         case STORE_USER_ACTIONS.LISTING_FEATURED:
             return { ...state, user: { ...state.user, listingFeaturedAgent: action.payload } }
 
-            default:
-                throw new Error();
+        case STORE_ADDLEAD_ACTIONS.RESET_ALL:
+            return {
+                ...state,
+                addLeads: {
+                    ...state.addLeads,
+                    stepperActive: 0
+                }
+            }
+        case STORE_ADDLEAD_ACTIONS.CHANGE_STEP:
+            return {
+                ...state,
+                addLeads: {
+                    ...state.addLeads,
+                    stepperActive: action.payload
+                }
+            }
+
+        default:
+            throw new Error();
     }
 
 }
