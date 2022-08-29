@@ -180,7 +180,6 @@ const ItemListingVirtual = (props) => {
             Featured
           </Badge>
         }
-
       </Box>
 
       <Box className={classes.titleWithIcon}>
@@ -188,7 +187,7 @@ const ItemListingVirtual = (props) => {
         <Text
           className={classNames(classes.items, classes.responsiveInfo)}
           lineClamp={3}
-          title={`${getNeighborhood()} neighborhood`}
+          title={`Neighborhood:\n${getNeighborhood()}`}
         >
           {getNeighborhood()}
         </Text>
@@ -197,14 +196,14 @@ const ItemListingVirtual = (props) => {
       <Text
         className={classNames(classes.items, classes.responsiveInfo)}
         lineClamp={2}
-        title={getViews()}
+        title={`Views:\n${getViews()}`}
       >
         {getViews()}
       </Text>
       <Text
         className={classNames(classes.items, classes.responsiveInfo)}
         lineClamp={2}
-        title={getLivingArea()}
+        title={`Living area:\n${getLivingArea()}`}
       >
         {getLivingArea()}
       </Text>

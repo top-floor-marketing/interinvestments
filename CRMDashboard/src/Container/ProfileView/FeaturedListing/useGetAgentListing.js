@@ -9,7 +9,9 @@ import get from 'lodash/get';
 
 const useGetAgentListing = () => {
 
-    const { state: { user: { infoUser: { databaseId } } } } = useClientGlobalStore();
+    const { state: { user: { infoUser: { databaseId , agentType } } },
+    actions: { setListingFeaturedAgent }
+  } = useClientGlobalStore();
 
     const [listingAgent,setListingAgent] = useState([]);
     const [isSkeleton, setIsSkeleton] = useState(true);
@@ -17,7 +19,12 @@ const useGetAgentListing = () => {
 
     const formatResponseData = (response) => {
       const listings = get(response, ["dataAgent", "0", "listings", "nodes"], []);
-      return listings;
+      return listings.map((val) => {
+        return {
+          ...val,
+          isFeatured: true
+        }
+      });
     }
 
     const getArrayIdListings = (listings) => {
@@ -35,15 +42,16 @@ const useGetAgentListing = () => {
             setIsSkeleton(false);
             const listings = formatResponseData(response);
             const idListings = getArrayIdListings(listings);
+            setListingFeaturedAgent(idListings);
             setListingAgent(listings);
-            setArrayIdListings(idListings);
           },
           onError: (e) => {
             setIsSkeleton(false);
           },
         },
         variables: {
-            agentId: databaseId
+            agentId: databaseId,
+            agentType
         },
     });
 
@@ -52,9 +60,8 @@ const useGetAgentListing = () => {
         isSkeleton,
         isLoading: isSkeleton || isLoadingQuery || isFetchingQuery,
         listingAgent,
-        arrayIdListings,
         totalData: listingAgent ? listingAgent.length : 0, 
-        refetchData: ()=> {}
+        refetchData: refetch
     }
 }
 

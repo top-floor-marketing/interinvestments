@@ -8,7 +8,8 @@ import SpringDiv from "../../Component/SpringDiv";
 import useGetListings from './hooks/useGetListings';
 import SkeletonListing from './skeletonListing';
 import FilterOptions from './filterOptions';
-import VirtualAllListings from './virtualAllListings';
+
+import VirtualListContainer from "../../Component/VirtualListContainer";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
@@ -68,17 +69,17 @@ const ListingFinder = ({ usingAddAndRemove = true }) => {
           <Paper className={classes.containerListings}>
             {
               (totalData) ?
-                <VirtualAllListings
+              <VirtualListContainer
                 usingAddAndRemove={usingAddAndRemove}
-                  parentClassname={classes.virtualAllListings}
-                  name="all_listings"
-                  data={allListings}
-                  totalData={totalData}
-                  refetch={refetchData}
-                  isLoading={isLoading}
-                  onConfirmAdd={onConfirmAdd}
-                  onConfirmRemove={onConfirmRemove}
-                /> :
+                parentClassname={classes.virtualAllListings}
+                name="all_listings"
+                data={allListings}
+                totalData={totalData}
+                refetch={refetchData}
+                isLoading={isLoading}
+                onConfirmAdd={onConfirmAdd}
+                onConfirmRemove={onConfirmRemove}
+              /> :
                 <div className={classes.noData}>
                   <Text component="h4">No data found</Text>
                   <DatabaseOff size={36} />
@@ -89,5 +90,17 @@ const ListingFinder = ({ usingAddAndRemove = true }) => {
       </Box>
   )
 }
+
+{/* <VirtualAllListings
+                usingAddAndRemove={usingAddAndRemove}
+                  parentClassname={classes.virtualAllListings}
+                  name="all_listings"
+                  data={allListings}
+                  totalData={totalData}
+                  refetch={refetchData}
+                  isLoading={isLoading}
+                  onConfirmAdd={onConfirmAdd}
+                  onConfirmRemove={onConfirmRemove}
+                /> */}
 
 export default ListingFinder;

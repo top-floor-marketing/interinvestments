@@ -1,4 +1,4 @@
-import { MantineProvider  } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 
 // global store
 import useClientGlobalStore from "../GlobalStore/useClientGlobalStore";
@@ -15,7 +15,7 @@ const ThemeGlobalProvider = (props) => {
     <MantineProvider
       theme={{
         ...themeStore,
-        components: { 
+        components: {
           ...stylesProvider()
         }
       }}
@@ -24,10 +24,10 @@ const ThemeGlobalProvider = (props) => {
       withNormalizeCSS
     >
       <ModalsProvider>
-      <>
-      <LoadingFull />
-      {props.children}
-      </>
+        <>
+          <LoadingFull />
+          {props.children}
+        </>
       </ModalsProvider>
     </MantineProvider>
   );

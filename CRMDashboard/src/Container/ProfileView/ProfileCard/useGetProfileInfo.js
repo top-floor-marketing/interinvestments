@@ -5,10 +5,12 @@ import { GET_AGENT_PROFILE_INFO } from "../../../GraphqlClient/agentProfile.gql"
 // global Store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore';
 
+import isEmpty from 'lodash/isEmpty';
+
 const useGetProfileInfo = () => {
 
     const { 
-      state: { user: { infoUser: { databaseId } } },
+      state: { user: { infoUser: { databaseId, agentType } } },
       actions:  { setInfoUser }
      }= useClientGlobalStore();
 
@@ -17,7 +19,7 @@ const useGetProfileInfo = () => {
 
     const formatResponseData = (nextData) => {
       const { dataAgent } = nextData;
-      if(dataAgent.length) {
+      if(!isEmpty(dataAgent)) {
         return {
           ...dataAgent[0]
         }
@@ -40,7 +42,8 @@ const useGetProfileInfo = () => {
           },
         },
         variables: {
-            agentId: databaseId
+            agentId: databaseId,
+            agentType
         },
     });
 

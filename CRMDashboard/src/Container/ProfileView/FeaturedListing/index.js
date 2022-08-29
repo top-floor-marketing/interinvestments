@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { Card, createStyles, Text, Skeleton, Group, Button,Modal, Box } from "@mantine/core";
+import { Card, createStyles, Text, Skeleton, Group, Button, Modal, Box } from "@mantine/core";
 import { IconPlus } from '@tabler/icons';
 
 import useGetAgentListing from "./useGetAgentListing";
 
-import VirtualAgentListingScroll from './virtualAgentListingScroll';
+import VirtualListContainer from "../../../Component/VirtualListContainer";
 import ListingView from '../../ListingsView';
-
 
 const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
     width: "100%",
-    minHeight: "200px",
+    minHeight: "250px",
     display: "flex",
     flexDirection: "column",
     boxShadow: theme.shadows.sm,
@@ -23,10 +22,6 @@ const useStyles = createStyles((theme, _params) => ({
     fontWeight: 700,
   },
   containerInfinite: {
-    width: "100%",
-    height: "100%",
-  },
-  boxInfiniteLoader: {
     width: "100%",
     height: "100%",
   },
@@ -67,33 +62,30 @@ const FeaturedListing = () => {
             leftIcon={<IconPlus size={12} />}
             onClick={() => setIsOpenModalAddListing(true)}
           >
-            Add featured listing
+            Manage featured listings
           </Button>
-          <Modal 
-          classNames={{
-            body: classes.rootModal,
-            modal: classes.modalModal
-          }} 
-            zIndex={200} 
+          <Modal
+            classNames={{
+              body: classes.rootModal,
+              modal: classes.modalModal
+            }}
+            zIndex={200}
             onClose={() => onCloseModalAddListing()} centered
-            closeOnEscape 
-            overflow="inside" closeOnClickOutside fullScreen opened={isOpenModalAddListing}>
+            closeOnEscape
+            overflow="inside" closeOnClickOutside opened={isOpenModalAddListing}>
             <ListingView />
           </Modal>
         </Group>
-
-<Box className={classes.containerInfinite}>
-<VirtualAgentListingScroll
-          parentClassname={classes.boxInfiniteLoader}
-          name="agent-listings"
-          data={listingAgent}
-          totalData={totalData}
-          refetch={refetchData}
-          isLoading={isLoading}
-        />
-</Box>
-        
-
+        <Box className={classes.containerInfinite}>
+         <VirtualListContainer
+            name="featured-listing"
+            data={listingAgent}
+            totalData={totalData}
+            refetch={refetchData}
+            isLoading={isLoading}
+            usingAddAndRemove={false}
+          />
+        </Box>
       </Card>
     </Skeleton>
   );

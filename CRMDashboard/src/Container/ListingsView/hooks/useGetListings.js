@@ -15,7 +15,7 @@ const PER_PAGE = 8;
 
 const useGetListings = () => {
 
-  const { state: { user: { infoUser: { databaseId }, listingFeaturedAgent }}, actions: { setListingCategories, setListingNei, setListingFeaturedAgent } } = useClientGlobalStore();
+  const { state: { user: { infoUser: { databaseId, agentType }, listingFeaturedAgent }}, actions: { setListingCategories, setListingNei, setListingFeaturedAgent } } = useClientGlobalStore();
 
   const [allListings, setAllListings] = useState([]);
 
@@ -67,7 +67,8 @@ const useGetListings = () => {
       },
     },
     variables: {
-      agentId: databaseId
+      agentId: databaseId,
+      agentType
     },
   });
 

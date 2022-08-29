@@ -70,21 +70,21 @@ const stylesProvider = () => {
                 const _color = params?.color || 'dark';
                 return {
                     root: {
-                        backgroundColor: theme.colors[_color][6],
+                        backgroundColor: theme.colors[_color][0],
                         "&:disabled": {
                             backgroundColor: theme.colors.gray[6],
                             opacity: "0.7 !important",
                             "&:hover": {
-                                backgroundColor: theme.colors.gray[6],
+                                backgroundColor: theme.colors.gray[8],
                             },
                         },
                         "&:hover": {
-                            backgroundColor: theme.colors[_color][9],
+                            backgroundColor: theme.colors[_color][5],
                         },
                     },
                     filled: {
                         "&::before": {
-                            backgroundColor: theme.fn.rgba(theme.colors.gray[6], 0.5),
+                            backgroundColor: theme.fn.rgba(theme.colors.gray[5], 0.5),
                         },
                     }
                 }
@@ -364,7 +364,22 @@ const stylesProvider = () => {
                     }
                 }
             }
+        },
+        Spoiler: {
+            styles: (theme, params) => { 
+                return {
+                    control: {
+                        fontSize: "14px",
+                        margin: "0px !important",
+                        color: theme.colors.primary[0],
+                        "&:hover": {
+                            color: theme.colors.primary[9],
+                        }
+                    }
+                }
+            }
         }
+
     }
 }
 

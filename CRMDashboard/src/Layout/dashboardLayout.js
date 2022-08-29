@@ -27,9 +27,8 @@ const DashboardLayout = (props) => {
       header={<Header opened={opened} setOpened={setOpened} />}
     >
       <Box className={classes.boxContainer}>
-      {props.children}
+        {props.children}
       </Box>
-       
     </AppShell>
   );
 };

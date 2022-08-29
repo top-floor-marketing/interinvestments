@@ -33,22 +33,19 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const Profile = () => {
   const { classes } = useStyles();
   return (
-    <SpringDiv delay={200} duration={400} fullHeight>
+    <SpringDiv delay={100} duration={200} fullHeight>
       <Box className={classes.container}>
-
-        <SpringDiv delay={300} duration={400}>
+        <SpringDiv delay={300} duration={300}>
           <Box className={classes.infoAndLeadsRow}>
             <ProfileCard />
             <RecentLeads />
           </Box>
         </SpringDiv>
-
-        <SpringDiv delay={600} duration={400} fullHeight>
+        <SpringDiv delay={600} duration={300} fullHeight>
           <Box className={classes.featuredListingRow}>
             <FeaturedListing />
           </Box>
         </SpringDiv>
-
       </Box>
     </SpringDiv>
   );
