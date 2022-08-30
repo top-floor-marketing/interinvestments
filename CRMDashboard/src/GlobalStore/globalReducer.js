@@ -58,7 +58,18 @@ const StoreReducer = (state = { ...DEFAULT_STORE_USER, ...DEFAULT_STORE_ADD_LEAD
                 ...state,
                 addLeads: {
                     ...state.addLeads,
+                    listingData: {},
+                    serviceData: {},
                     stepperActive: action.payload
+                }
+            }
+
+        case STORE_ADDLEAD_ACTIONS.CHANGE_TYPE_LEADS:
+            return {
+                ...state,
+                addLeads: {
+                    ...state.addLeads,
+                    typeLeads: action.payload
                 }
             }
 

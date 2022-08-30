@@ -2,10 +2,10 @@ import React from 'react'
 // mantine
 import { Stepper, Box, Group, Button, Text, Badge } from '@mantine/core';
 //  icons
-import { FileInfo, AddressBook, User, Check, X, ChevronLeft, ChevronRight } from 'tabler-icons-react';
+import { FileInfo, User, Check, X, ChevronLeft, ChevronRight } from 'tabler-icons-react';
 // components
 import ContainerStep from '../ContainerStep'
-import { LeadsInfo } from '../Steps'
+import { ListingLeadsInfo, TypeLeads, ServicesInfo } from '../Steps'
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
 // styles 
@@ -13,10 +13,20 @@ import useStyles from './styles'
 
 
 const SteppsNewLeads = (_) => {
-    const { state: { addLeads: { stepperActive } }, actions: { setstepperActive } } = useClientGlobalStore()
+    const {
+        state: {
+            addLeads: {
+                stepperActive,
+                typeLeads
+            }
+        },
+        actions: {
+            setstepperActive
+        }
+    } = useClientGlobalStore()
     const { classes } = useStyles({ color: 'secondary' });
 
-    const nextStep = () => setstepperActive(stepperActive < 2 ? stepperActive + 1 : stepperActive);
+    const nextStep = () => setstepperActive(stepperActive < 3 ? stepperActive + 1 : stepperActive);
     const prevStep = () => setstepperActive(stepperActive > 0 ? stepperActive - 1 : stepperActive);
 
     const props = {
@@ -25,7 +35,7 @@ const SteppsNewLeads = (_) => {
             iconSize: 52,
             size: "md",
             classNames: {
-                steps: classes.steps,
+                //  steps: classes.steps,
                 stepIcon: classes.icon,
                 stepWrapper: classes.stepsIcon
             },
@@ -59,12 +69,6 @@ const SteppsNewLeads = (_) => {
 
     return (
         <Box className={classes.StepperContainer}>
-            <Box className={classes.boxTitle}>
-                <AddressBook size={20} />
-                <Text component="h1">
-                    {_.title}
-                </Text>
-            </Box>
             <Stepper {...props.Stepper}>
                 <Stepper.Step
                     color={'secondary'}
@@ -73,7 +77,7 @@ const SteppsNewLeads = (_) => {
                     label={<Text component="span" className={classes.titleStep}>Step 1</Text>}
                     description={
                         <Box className={classes.containerDescriptionStep}>
-                            <Text component="span" className={classes.descriptionStep}>Personal info</Text>
+                            <Text component="span" className={classes.descriptionStep}>Select leads type</Text>
                             <Badge
                                 className={`${BadgeStepsLabel(0).classBadge}`}
                                 size="lg"
@@ -87,19 +91,19 @@ const SteppsNewLeads = (_) => {
                         </Box>
                     }
                 >
-                    <ContainerStep title='Leads info'>
-                        <LeadsInfo />
+                    <ContainerStep title={null}>
+                        <TypeLeads />
                     </ContainerStep>
                 </Stepper.Step>
 
                 <Stepper.Step
                     color={'secondary'}
-                    icon={<FileInfo size={34} color='white' />}
+                    icon={<User size={34} color='white' />}
                     completedIcon={<Check size={34} color='white' />}
                     label={<Text component="span" className={classes.titleStep}>Step 2</Text>}
                     description={
                         <Box className={classes.containerDescriptionStep}>
-                            <Text component="span" className={classes.descriptionStep}>Interested in</Text>
+                            <Text component="span" className={classes.descriptionStep}>Leads info</Text>
                             <Badge
                                 className={`${BadgeStepsLabel(1).classBadge}`}
                                 size="lg"
@@ -107,6 +111,37 @@ const SteppsNewLeads = (_) => {
                             >
                                 {
                                     BadgeStepsLabel(1).label
+                                }
+                            </Badge>
+                        </Box>
+                    }
+                >
+                    <ContainerStep title='Leads info'>
+                        {
+                            (typeLeads) === "LISTING" ? (
+                                <ListingLeadsInfo />
+                            ) : (
+                                <ServicesInfo />
+                            )
+                        }
+                    </ContainerStep>
+                </Stepper.Step>
+
+                <Stepper.Step
+                    color={'secondary'}
+                    icon={<FileInfo size={34} color='white' />}
+                    completedIcon={<Check size={34} color='white' />}
+                    label={<Text component="span" className={classes.titleStep}>Step 3</Text>}
+                    description={
+                        <Box className={classes.containerDescriptionStep}>
+                            <Text component="span" className={classes.descriptionStep}>Interested in</Text>
+                            <Badge
+                                className={`${BadgeStepsLabel(2).classBadge}`}
+                                size="lg"
+                                radius="lg"
+                            >
+                                {
+                                    BadgeStepsLabel(2).label
                                 }
                             </Badge>
                         </Box>

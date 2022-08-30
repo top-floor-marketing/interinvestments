@@ -1,4 +1,4 @@
-import {createStyles} from '@mantine/core'
+import { createStyles } from '@mantine/core'
 
 const useStyles = createStyles((theme, _params) => {
     return (
@@ -22,13 +22,8 @@ const useStyles = createStyles((theme, _params) => {
                 },
             },
             steps: {
-                width: '65%',
-                marginLeft: 'auto',
-                marginRight: '8px',
-                [`${theme.fn.smallerThan("sm")}`]: {
-                    margin: '0px',
-                    width: '100%'
-                }
+                overflow: 'auto',
+                width: '1010px'
             },
             titleStep: {
                 fontWeight: 700,
@@ -68,21 +63,8 @@ const useStyles = createStyles((theme, _params) => {
                     padding: '5px',
                 }
             },
-            boxTitle: {
-                position: 'absolute',
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                gap: theme.other.spacing.p2,
-                top: '15%',
-                [`${theme.fn.smallerThan("sm")}`]: {
-                    position: 'relative',
-                    marginBottom: '10px'
-                }
-            },
             GroupControllers: {
-                alignContent: 'flex-end',
+                alignContent: 'center',
                 height: '100%',
                 marginBottom: '40px',
                 'Button': {

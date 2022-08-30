@@ -1,3 +1,5 @@
-import LeadsInfo from './LeadsInfo'
+import ListingLeadsInfo from './LeadsInfo'
+import TypeLeads from './TypeLeads'
+import ServicesInfo from './ServicesInfo'
 
-export { LeadsInfo }
+export { ListingLeadsInfo, TypeLeads, ServicesInfo }
