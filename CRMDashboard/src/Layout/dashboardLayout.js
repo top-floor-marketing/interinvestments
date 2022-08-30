@@ -32,5 +32,5 @@ const DashboardLayout = (props) => {
     </AppShell>
   );
 };
-//  {props.children}
+
 export default DashboardLayout;

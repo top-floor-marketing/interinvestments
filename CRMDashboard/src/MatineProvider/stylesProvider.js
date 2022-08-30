@@ -379,6 +379,17 @@ const stylesProvider = () => {
                 }
             }
         },
+        Checkbox: {
+            styles: (theme, params) => { 
+                const _color = params?.color || 'secondary';
+                return {
+                    input: {
+                        backgroundColor: theme.colors[_color][0],
+                        border: `1px solid ${theme.colors[_color][0]}`,
+                    }
+                }
+            }
+        }
     }
 }
 

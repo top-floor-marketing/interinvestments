@@ -29,6 +29,7 @@ const useStyles = createStyles((theme, _params) => ({
   modal: {
     display: "flex",
     flexDirection: "column",
+    backgroundColor: theme.fn.rgba(theme.colors.gray[0], 1),
   },
   bodyModal: {
     display: "flex",
@@ -90,7 +91,7 @@ const FeaturedListing = () => {
               body: classes.bodyModal
             }}
             >
-              <ListingView />
+              <ListingView isCheck={true} />
           </Modal>
         </Group>
         <Box className={classes.containerInfinite}>

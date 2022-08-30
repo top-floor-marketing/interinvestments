@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FixedSizeGrid  as Grid  } from "react-window";
 
 import { useId, useElementSize } from '@mantine/hooks';
-import { Box } from '@mantine/core';
+import { Box, Checkbox  } from '@mantine/core';
 
 import ItemListingVirtual from "../ItemListingVirtual";
 
@@ -32,7 +32,7 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 
 const VirtualListContainer = (props) => {
 
-    const { usingAddAndRemove, onConfirmRemove, onConfirmAdd, data, isLoading, refetch, totalData } = props;
+    const { usingAddAndRemove, isCheck, onConfirmRemove, onConfirmAdd, data, isLoading, refetch, totalData } = props;
     const { ref: refParentBox, width: widthParent, height: heightParent } = useElementSize();
     const { state: { user: { infoUser: { id } } } } = useClientGlobalStore();
 
@@ -81,6 +81,7 @@ const VirtualListContainer = (props) => {
                             height={style.height - GUTTER_SIZE}
                             idAgent={id}
                             usingAddAndRemove={usingAddAndRemove}
+                            isCheck={isCheck}
                             onConfirmRemove={onConfirmRemove}
                             onConfirmAdd={onConfirmAdd}
                         />
@@ -97,7 +98,9 @@ VirtualListContainer.defaultProps = {
     refetch: null,
     totalData: 0,
     columnCount: 1,
-    parentClassname: ""
+    parentClassname: "",
+    isCheck: false,
+    usingAddAndRemove: true
 };
 
 VirtualListContainer.propTypes = {
@@ -109,7 +112,8 @@ VirtualListContainer.propTypes = {
     parentClassname: PropTypes.string,
     onConfirmAdd: PropTypes.func,
     onConfirmRemov: PropTypes.func,
-    usingAddAndRemove: PropTypes.bool
+    usingAddAndRemove: PropTypes.bool,
+    isCheck: PropTypes.bool
 };
 
 export default VirtualListContainer;

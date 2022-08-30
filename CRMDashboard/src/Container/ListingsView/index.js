@@ -2,8 +2,7 @@ import { Box, createStyles, Paper, Text, LoadingOverlay } from "@mantine/core";
 import { DatabaseOff } from 'tabler-icons-react';
 import SpringDiv from "../../Component/SpringDiv";
 
-//import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
-// import { ROUTES_NAMES } from "../../Route/routes";
+import PropTypes from 'prop-types'
 
 import useGetListings from './hooks/useGetListings';
 import SkeletonListing from './skeletonListing';
@@ -45,7 +44,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   }
 }));
 
-const ListingFinder = ({ usingAddAndRemove = true }) => {
+const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
 
   const { classes } = useStyles();
 
@@ -72,6 +71,7 @@ const ListingFinder = ({ usingAddAndRemove = true }) => {
               (totalData) ?
                 <VirtualListContainer
                   usingAddAndRemove={usingAddAndRemove}
+                  isCheck={isCheck}
                   data={allListings}
                   totalData={totalData}
                   refetch={refetchData}
@@ -89,5 +89,15 @@ const ListingFinder = ({ usingAddAndRemove = true }) => {
       </Box>
   )
 }
+
+ListingFinder.defaultProps = {
+  isCheck: false,
+  usingAddAndRemove: true
+}
+
+ListingFinder.propTypes = {
+  isCheck: PropTypes.bool,
+  usingAddAndRemove: PropTypes.bool
+};
 
 export default ListingFinder;

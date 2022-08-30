@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { Box, Card, createStyles, Avatar, Text, Badge, Paper } from '@mantine/core';
+import { Box, Checkbox, createStyles, Avatar, Text, Badge, Paper } from '@mantine/core';
 import { openConfirmModal } from '@mantine/modals';
 import { MapPin, Check } from "tabler-icons-react";
 
@@ -15,6 +15,13 @@ const useStyles = createStyles((theme, _params) => {
   const widthReserved = (width < 600) ? 250 : (width > 1200) ? 380 : 360;
   const infoWidth = Math.round((width - widthReserved) / 4);
   return {
+    container: {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      flexDirection: "row",
+      gap: theme.other.spacing.p4,
+    },
     containerItemListing: {
       width: "100%",
       boxShadow: theme.shadows.lg,
@@ -100,7 +107,7 @@ const useStyles = createStyles((theme, _params) => {
 
 const ItemListingVirtual = (props) => {
 
-  const { usingAddAndRemove, width, idAgent, uri, isFeatured, onConfirmAdd, onConfirmRemove, databaseId } = props;
+  const { usingAddAndRemove, isCheck, width, idAgent, uri, isFeatured, onConfirmAdd, onConfirmRemove, databaseId } = props;
 
   const { classes } = useStyles({ width });
 
@@ -125,15 +132,15 @@ const ItemListingVirtual = (props) => {
   }, [props]);
 
   const onClickAddListing = () => {
-   openConfirmModal({
+    openConfirmModal({
       title: null,
       children: (
         <Box className={classes.boxDialog}>
-           <Text component='h5' size="sm">
+          <Text component='h5' size="sm">
             Are you sure you want to add this listing?
-           </Text>
-           <Avatar radius="_40px" size="100px" src={getPhoto()} />
-           <Text component='h6' className={classes.itemTitle}>{getTitle()}</Text>
+          </Text>
+          <Avatar radius="_40px" size="100px" src={getPhoto()} />
+          <Text component='h6' className={classes.itemTitle}>{getTitle()}</Text>
         </Box>
       ),
       labels: { confirm: 'Add', cancel: 'Cancel' },
@@ -149,11 +156,11 @@ const ItemListingVirtual = (props) => {
       title: null,
       children: (
         <Box className={classes.boxDialog}>
-           <Text component='h4' size="sm">
+          <Text component='h4' size="sm">
             Are you sure you want to remove this listing?
-           </Text>
-           <Avatar radius="_40px" size="60px" src={getPhoto()} />
-           <Text className={classes.itemTitle}>{getTitle()}</Text>
+          </Text>
+          <Avatar radius="_40px" size="60px" src={getPhoto()} />
+          <Text className={classes.itemTitle}>{getTitle()}</Text>
         </Box>
       ),
       labels: { confirm: 'Remove', cancel: 'Cancel' },
@@ -164,103 +171,132 @@ const ItemListingVirtual = (props) => {
     });
   }
 
+  const onChangeCheckBox = (e) => {
+
+  }
+
   return (
-    <Paper className={classes.containerItemListing}>
-      <Avatar radius="_40px" size="60px" src={getPhoto()} />
-      <Box className={classNames(classes.items)}>
-        <Text className={classes.itemTitle}>{getTitle()}</Text>
-        {
-          (isFeatured)
-          &&
-          <Badge
-            className={classes.badgeFeatured}
-            color="success"
-            variant="filled"
-            sx={{ paddingRight: 3 }}
-            rightSection={<Check size={14} />}>
-            Featured
-          </Badge>
-        }
-      </Box>
+    <Box className={classes.container}>
+      {
+        (isCheck) && <Checkbox onChange={onChangeCheckBox} />
+      }
+      <Paper className={classes.containerItemListing}>
+        <Avatar radius="_40px" size="60px" src={getPhoto()} />
+        <Box className={classNames(classes.items)}>
+          <Text className={classes.itemTitle}>{getTitle()}</Text>
+          {
+            (isFeatured)
+            &&
+            <Badge
+              className={classes.badgeFeatured}
+              color="success"
+              variant="filled"
+              sx={{ paddingRight: 3 }}
+              rightSection={<Check size={14} />}>
+              Featured
+            </Badge>
+          }
+        </Box>
 
-      <Box className={classes.titleWithIcon}>
-        <MapPin size={24} />
-        <Text
-          className={classNames(classes.items, classes.responsiveInfo)}
-          lineClamp={3}
-          title={`Neighborhood:\n${getNeighborhood()}`}
-        >
-          {getNeighborhood()}
-        </Text>
-      </Box>
+        <Box className={classes.titleWithIcon}>
+          <MapPin size={24} />
+          <Text
+            className={classNames(classes.items, classes.responsiveInfo)}
+            lineClamp={3}
+            title={`Neighborhood:\n${getNeighborhood()}`}
+          >
+            {getNeighborhood()}
+          </Text>
+        </Box>
 
-      <Text
-        className={classNames(classes.items, classes.responsiveInfo)}
-        lineClamp={2}
-        title={`Views:\n${getViews()}`}
-      >
-        {getViews()}
-      </Text>
-      <Text
-        className={classNames(classes.items, classes.responsiveInfo)}
-        lineClamp={2}
-        title={`Living area:\n${getLivingArea()}`}
-      >
-        {getLivingArea()}
-      </Text>
-      <Box className={classes.containerActions}>
         {
-          (!isFeatured && usingAddAndRemove)
+          (!isCheck)
           &&
-          <IconAddListing
-            variant="filled"
-            position="top-end"
-            color="success"
-            id={idAgent}
-            radius="_40px"
-            onClick={onClickAddListing}
-            size={24}
-          />
+          <Text
+            className={classNames(classes.items, classes.responsiveInfo)}
+            lineClamp={2}
+            title={`Views:\n${getViews()}`}
+          >
+            {getViews()}
+          </Text>
         }
-        <ViewLandingListing
-          variant="filled"
-          labelTooltip="Open listing"
-          id={idAgent}
-          uri={uri}
-          radius="_40px"
-          size={24}
-        />
-        <ShareListing
-          variant="filled"
-          color="primary"
-          id={idAgent}
-          uri={uri}
-          radius="_40px"
-          size={24}
-        />
-        <IconDownloadPdf
-          variant="filled"
-          color="gray"
-          id={idAgent}
-          radius="_40px"
-          size={24}
-        />
+
         {
-          (isFeatured && usingAddAndRemove)
+          (!isCheck)
           &&
-          <IconRemove
+          <Text
+            className={classNames(classes.items, classes.responsiveInfo)}
+            lineClamp={2}
+            title={`Living area:\n${getLivingArea()}`}
+          >
+            {getLivingArea()}
+          </Text>
+        }
+
+        <Box className={classes.containerActions}>
+          {
+            (!isFeatured && usingAddAndRemove && !isCheck)
+            &&
+            <IconAddListing
+              variant="filled"
+              position="top-end"
+              color="success"
+              id={idAgent}
+              radius="_40px"
+              onClick={onClickAddListing}
+              size={24}
+            />
+          }
+
+          <ViewLandingListing
             variant="filled"
-            position="top-end"
-            color="error"
+            labelTooltip="Open listing"
             id={idAgent}
+            uri={uri}
             radius="_40px"
             size={24}
-            onClick={onClickRemoveListing}
           />
-        }
+          {
+            (!isCheck)
+            &&
+            <ShareListing
+              variant="filled"
+              color="primary"
+              id={idAgent}
+              uri={uri}
+              radius="_40px"
+              size={24}
+            />
+          }
+          {
+            (!isCheck)
+            &&
+            <IconDownloadPdf
+              variant="filled"
+              color="gray"
+              id={idAgent}
+              radius="_40px"
+              size={24}
+            />
+          }
 
-      </Box>
-    </Paper>
+          {
+            (isFeatured && usingAddAndRemove && !isCheck)
+            &&
+            <IconRemove
+              variant="filled"
+              position="top-end"
+              color="error"
+              id={idAgent}
+              radius="_40px"
+              size={24}
+              onClick={onClickRemoveListing}
+            />
+          }
+
+        </Box>
+      </Paper>
+    </Box>
   );
 }
 
