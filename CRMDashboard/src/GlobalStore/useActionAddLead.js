@@ -1,13 +1,14 @@
 export const STORE_ADDLEAD_ACTIONS = {
     RESET_ALL: 'set_reset_all',
     CHANGE_STEP: 'set_change_step',
-    CHANGE_TYPE_LEADS: 'set_change_type_leads'
+    CHANGE_TYPE_LEADS: 'set_change_type_leads',
+    SET_LISTING_DATA: 'set_listing_data'
 }
 
 export const DEFAULT_STORE_ADD_LEAD = {
     stepperActive: 0,
     typeLeads: 'LISTING',
-    listingData: {},
+    listingData: [],
     serviceData: {}
 }
 
@@ -34,10 +35,18 @@ const useActionsAddLead = (dispatch) => {
         });
     }
 
+    const setListingData = (val) => {
+        dispatch({
+            type: STORE_ADDLEAD_ACTIONS.SET_LISTING_DATA,
+            payload: val
+        });
+    }
+
     return {
         setAllField,
         setstepperActive,
-        setTypeLeads
+        setTypeLeads,
+        setListingData
     }
 }
 

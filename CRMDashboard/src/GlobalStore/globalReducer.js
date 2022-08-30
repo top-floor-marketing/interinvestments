@@ -1,5 +1,6 @@
-import { ROUTES_NAMES } from "../Route/routes"
-import { DEFAULT_STORE_USER } from "./useActionsUser"
+import { ROUTES_NAMES } from "../Route/routes";
+import { DEFAULT_STORE_USER } from "./useActionsUser";
+import { DEFAUL_STORE_THEME } from "./useActionsTheme";
 // lead 
 import { STORE_ADDLEAD_ACTIONS, DEFAULT_STORE_ADD_LEAD } from './useActionAddLead'
 
@@ -14,7 +15,7 @@ export const STORE_USER_ACTIONS = {
 }
 
 
-const StoreReducer = (state = { ...DEFAULT_STORE_USER, ...DEFAULT_STORE_ADD_LEAD }, action) => {
+const StoreReducer = (state = { theme: DEFAUL_STORE_THEME, user: DEFAULT_STORE_USER, addLeads: DEFAULT_STORE_ADD_LEAD }, action) => {
 
     switch (action.type) {
         case STORE_USER_ACTIONS.IS_LOADING_FULL:
@@ -48,18 +49,14 @@ const StoreReducer = (state = { ...DEFAULT_STORE_USER, ...DEFAULT_STORE_ADD_LEAD
         case STORE_ADDLEAD_ACTIONS.RESET_ALL:
             return {
                 ...state,
-                addLeads: {
-                    ...state.addLeads,
-                    stepperActive: 0
-                }
+                addLeads: DEFAULT_STORE_ADD_LEAD
             }
+
         case STORE_ADDLEAD_ACTIONS.CHANGE_STEP:
             return {
                 ...state,
                 addLeads: {
                     ...state.addLeads,
-                    listingData: {},
-                    serviceData: {},
                     stepperActive: action.payload
                 }
             }
@@ -72,7 +69,16 @@ const StoreReducer = (state = { ...DEFAULT_STORE_USER, ...DEFAULT_STORE_ADD_LEAD
                     typeLeads: action.payload
                 }
             }
-
+        
+        case STORE_ADDLEAD_ACTIONS.SET_LISTING_DATA: 
+            return {
+                ...state,
+                addLeads: {
+                    ...state.addLeads,
+                    listingData: action.payload
+                }
+            }
+            
         default:
             throw new Error();
     }
