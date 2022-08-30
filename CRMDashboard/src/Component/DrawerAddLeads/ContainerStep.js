@@ -39,12 +39,16 @@ const ContainerStep = ({ children, title = 'Lorem ipsum' }) => {
         <SpringDiv className={classes.containerMain} delay={200} duration={500} fullHeight>
             <ScrollArea className={classes.contentStepper}>
                 <Box className={classes.boxContendStep}>
-                    <Text
-                        component='h3'
-                        className={classes.title}
-                    >
-                        {title}
-                    </Text>
+                    {
+                        (title) && (
+                            <Text
+                                component='h3'
+                                className={classes.title}
+                            >
+                                {title}
+                            </Text>
+                        )
+                    }
                     {children}
                 </Box>
             </ScrollArea>

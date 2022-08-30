@@ -2,10 +2,12 @@ import React from 'react'
 // components
 import SteppsNewLeads from './SteppsNewLeads'
 // mantine devs
-import { Drawer, createStyles } from '@mantine/core';
+import { Drawer, createStyles, Box, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 // utils
 import PropTypes from 'prop-types';
+//  icons
+import { AddressBook } from 'tabler-icons-react';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
     containerDrawer: {
@@ -18,6 +20,18 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         fontSize: "18px",
         lineHeight: "20px",
         fontWeight: 700,
+    },
+    boxTitle: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        gap: theme.other.spacing.p2,
+        top: '15%',
+        [`${theme.fn.smallerThan("sm")}`]: {
+            position: 'relative',
+            marginBottom: '10px'
+        }
     },
     iconClose: {
         '.mantine-UnstyledButton-root': {
@@ -44,6 +58,14 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
             opened: opened,
             padding: "xl",
             size: (matches) ? '60%' : 'full',
+            title: (
+                <Box className={classes.boxTitle}>
+                    <AddressBook size={20} />
+                    <Text component="h1">
+                        {title}
+                    </Text>
+                </Box>
+            ),
             classNames: {
                 drawer: classes.containerDrawer,
                 header: classes.iconClose
@@ -53,7 +75,7 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
     }
 
     return (
-        <Drawer {...Props.Drawer}>
+        <Drawer  {...Props.Drawer}>
             <SteppsNewLeads title={title} onClose={onCloseDrawer} />
         </Drawer>
     )
