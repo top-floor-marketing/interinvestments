@@ -12,7 +12,6 @@ import ItemListingVirtual from "../ItemListingVirtual";
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
 import random from 'lodash/random';
-import get from 'lodash/get';
 
 import './styles_infinite.css';
 
@@ -58,7 +57,7 @@ const VirtualListContainer = (props) => {
                 className={`containerInfinite ${idGrid}`}
                 onScroll={onScroll}
                 columnCount={1}
-                columnWidth={widthParent - (GUTTER_SIZE/2)}
+                columnWidth={widthParent - (GUTTER_SIZE/1.5)}
                 height={heightParent}
                 innerElementType={innerElementType}
                 rowCount={totalData}

@@ -25,9 +25,9 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
   containerListings: {
     width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
-    height: "100%",
   },
   virtualAllListings: {
     width: "100%",
@@ -40,7 +40,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     display: "flex",
     flexDirection: "column",
     height: "100%",
-    alignItems: "center"
+    alignItems: "center",
+    padding: theme.other.spacing.p8
   }
 }));
 
@@ -48,7 +49,7 @@ const ListingFinder = ({ usingAddAndRemove = true }) => {
 
   const { classes } = useStyles();
 
-  const { isLoading, isOverlay, isSkeleton, allListings, categoryProps, neiProps, searchProps,  totalData, refetchData, onConfirmAdd,
+  const { isLoading, isOverlay, isSkeleton, allListings, categoryProps, neiProps, searchProps, totalData, refetchData, onConfirmAdd,
     onConfirmRemove } = useGetListings();
 
   return (
@@ -58,28 +59,26 @@ const ListingFinder = ({ usingAddAndRemove = true }) => {
       :
       <Box className={classes.container}>
         <LoadingOverlay overlayOpacity={0.2} visible={isOverlay} overlayBlur={1} />
-        <SpringDiv delay={100} duration={300} >
-          <FilterOptions 
-          isLoading={isLoading}
-          searchProps={searchProps}
-          categoryProps={categoryProps}
-          neiProps={neiProps} />
+        <SpringDiv delay={100} duration={300}>
+          <FilterOptions
+            isLoading={isLoading}
+            searchProps={searchProps}
+            categoryProps={categoryProps}
+            neiProps={neiProps} />
         </SpringDiv>
         <SpringDiv delay={300} duration={300} fullHeight>
           <Paper className={classes.containerListings}>
             {
               (totalData) ?
-              <VirtualListContainer
-                usingAddAndRemove={usingAddAndRemove}
-                parentClassname={classes.virtualAllListings}
-                name="all_listings"
-                data={allListings}
-                totalData={totalData}
-                refetch={refetchData}
-                isLoading={isLoading}
-                onConfirmAdd={onConfirmAdd}
-                onConfirmRemove={onConfirmRemove}
-              /> :
+                <VirtualListContainer
+                  usingAddAndRemove={usingAddAndRemove}
+                  data={allListings}
+                  totalData={totalData}
+                  refetch={refetchData}
+                  isLoading={isLoading}
+                  onConfirmAdd={onConfirmAdd}
+                  onConfirmRemove={onConfirmRemove}
+                /> :
                 <div className={classes.noData}>
                   <Text component="h4">No data found</Text>
                   <DatabaseOff size={36} />
@@ -90,17 +89,5 @@ const ListingFinder = ({ usingAddAndRemove = true }) => {
       </Box>
   )
 }
-
-{/* <VirtualAllListings
-                usingAddAndRemove={usingAddAndRemove}
-                  parentClassname={classes.virtualAllListings}
-                  name="all_listings"
-                  data={allListings}
-                  totalData={totalData}
-                  refetch={refetchData}
-                  isLoading={isLoading}
-                  onConfirmAdd={onConfirmAdd}
-                  onConfirmRemove={onConfirmRemove}
-                /> */}
 
 export default ListingFinder;

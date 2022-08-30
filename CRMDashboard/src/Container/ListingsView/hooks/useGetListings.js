@@ -19,7 +19,6 @@ const useGetListings = () => {
 
   const [allListings, setAllListings] = useState([]);
 
-
   const [isLoadingListing, setIsLoadingListing] = useState(true);
   const [isOverlay, setIsOverlay] = useState(false);
 

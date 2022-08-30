@@ -49,6 +49,7 @@ const useStyles = createStyles((theme, _params) => {
     },
     itemTitle: {
       fontWeight: "600 !important",
+      margin: "0px !important"
     },
     badgeFeatured: {
       '.mantine-Badge-rightSection': {
@@ -125,14 +126,14 @@ const ItemListingVirtual = (props) => {
 
   const onClickAddListing = () => {
    openConfirmModal({
-      title: 'Please confirm your action',
+      title: null,
       children: (
         <Box className={classes.boxDialog}>
-           <Text component='h4' size="sm">
+           <Text component='h5' size="sm">
             Are you sure you want to add this listing?
            </Text>
-           <Avatar radius="_40px" size="60px" src={getPhoto()} />
-           <Text className={classes.itemTitle}>{getTitle()}</Text>
+           <Avatar radius="_40px" size="100px" src={getPhoto()} />
+           <Text component='h6' className={classes.itemTitle}>{getTitle()}</Text>
         </Box>
       ),
       labels: { confirm: 'Add', cancel: 'Cancel' },
@@ -145,7 +146,7 @@ const ItemListingVirtual = (props) => {
 
   const onClickRemoveListing = () => {
     openConfirmModal({
-      title: 'Please confirm your action',
+      title: null,
       children: (
         <Box className={classes.boxDialog}>
            <Text component='h4' size="sm">

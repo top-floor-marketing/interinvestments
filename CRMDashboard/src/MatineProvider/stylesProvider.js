@@ -378,8 +378,7 @@ const stylesProvider = () => {
                     }
                 }
             }
-        }
-
+        },
     }
 }
 
