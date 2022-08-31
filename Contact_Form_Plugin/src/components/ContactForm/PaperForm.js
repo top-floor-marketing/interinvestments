@@ -18,6 +18,8 @@ const PaperForm = (props) => {
     const { isLoading, isDisabled, setIsErroForm, listingData } = props
     const [onSuccessAlert, setOnSuccessAlert] = useState(false)
 
+    const agentId = localStorage.getItem('lead-agent')
+
     const form = useForm({
         schema: joiResolver(FormSchema),
         initialValues: {
@@ -41,16 +43,31 @@ const PaperForm = (props) => {
     });
 
     const onSubmitForm = (valuesForm) => {
-        mutate_Lead_Listing({
-            variables: {
-                input: {
-                    "name": valuesForm.fullName,
-                    "email": valuesForm.email,
-                    "interested": valuesForm.messageContact,
-                    "listingId": listingData.databaseId.toString(),
-                }
-            },
-        });
+
+        if (agentId) {
+            mutate_Lead_Listing({
+                variables: {
+                    input: {
+                        "name": valuesForm.fullName,
+                        "email": valuesForm.email,
+                        "interested": valuesForm.messageContact,
+                        "listingId": listingData.databaseId.toString(),
+                        "agentId": `${agentId}`
+                    }
+                },
+            });
+        } else {
+            mutate_Lead_Listing({
+                variables: {
+                    input: {
+                        "name": valuesForm.fullName,
+                        "email": valuesForm.email,
+                        "interested": valuesForm.messageContact,
+                        "listingId": listingData.databaseId.toString(),
+                    }
+                },
+            });
+        }
     }
 
     return (

@@ -8,8 +8,6 @@ import {
   MediaQuery,
 } from "@mantine/core";
 
-import { useEffect } from "react";
-
 import { ChevronRight } from "tabler-icons-react";
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
