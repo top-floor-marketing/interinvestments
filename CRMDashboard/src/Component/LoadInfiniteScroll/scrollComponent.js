@@ -1,6 +1,6 @@
 import React, { forwardRef, useState } from "react";
 import { FixedSizeGrid as Grid } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
+// import AutoSizer from "react-virtualized-auto-sizer";
 
 import { Box } from '@mantine/core';
 
@@ -42,7 +42,12 @@ const ScrollComponent = ({ id, parentHeight, data, isLoading, refetch, totalData
         }
     };
 
-    return (
+    return(
+        <div>
+            d
+        </div>
+    )
+    /* return (
         <AutoSizer>
             {({ height, width }) => (
                 <Grid
@@ -75,7 +80,7 @@ const ScrollComponent = ({ id, parentHeight, data, isLoading, refetch, totalData
                 </Grid>
             )}
         </AutoSizer>
-    )
+    ) */
 }
 
 export default ScrollComponent;

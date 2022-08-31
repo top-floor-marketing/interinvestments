@@ -2,13 +2,13 @@ import { Box, createStyles, Paper, Text, LoadingOverlay } from "@mantine/core";
 import { DatabaseOff } from 'tabler-icons-react';
 import SpringDiv from "../../Component/SpringDiv";
 
-//import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
-// import { ROUTES_NAMES } from "../../Route/routes";
+import PropTypes from 'prop-types'
 
 import useGetListings from './hooks/useGetListings';
 import SkeletonListing from './skeletonListing';
 import FilterOptions from './filterOptions';
-import VirtualAllListings from './virtualAllListings';
+
+import VirtualListContainer from "../../Component/VirtualListContainer";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
@@ -24,9 +24,9 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
   containerListings: {
     width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
-    height: "100%",
   },
   virtualAllListings: {
     width: "100%",
@@ -39,15 +39,16 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     display: "flex",
     flexDirection: "column",
     height: "100%",
-    alignItems: "center"
+    alignItems: "center",
+    padding: theme.other.spacing.p8
   }
 }));
 
-const ListingFinder = ({ usingAddAndRemove = true }) => {
+const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
 
   const { classes } = useStyles();
 
-  const { isLoading, isOverlay, isSkeleton, allListings, categoryProps, neiProps, searchProps,  totalData, refetchData, onConfirmAdd,
+  const { isLoading, isOverlay, isSkeleton, allListings, categoryProps, neiProps, searchProps, totalData, refetchData, onConfirmAdd,
     onConfirmRemove } = useGetListings();
 
   return (
@@ -57,21 +58,21 @@ const ListingFinder = ({ usingAddAndRemove = true }) => {
       :
       <Box className={classes.container}>
         <LoadingOverlay overlayOpacity={0.2} visible={isOverlay} overlayBlur={1} />
-        <SpringDiv delay={100} duration={300} >
-          <FilterOptions 
-          isLoading={isLoading}
-          searchProps={searchProps}
-          categoryProps={categoryProps}
-          neiProps={neiProps} />
+        <SpringDiv delay={100} duration={300}>
+          <FilterOptions
+            isCheck={isCheck}
+            isLoading={isLoading}
+            searchProps={searchProps}
+            categoryProps={categoryProps}
+            neiProps={neiProps} />
         </SpringDiv>
         <SpringDiv delay={300} duration={300} fullHeight>
           <Paper className={classes.containerListings}>
             {
               (totalData) ?
-                <VirtualAllListings
-                usingAddAndRemove={usingAddAndRemove}
-                  parentClassname={classes.virtualAllListings}
-                  name="all_listings"
+                <VirtualListContainer
+                  usingAddAndRemove={usingAddAndRemove}
+                  isCheck={isCheck}
                   data={allListings}
                   totalData={totalData}
                   refetch={refetchData}
@@ -89,5 +90,15 @@ const ListingFinder = ({ usingAddAndRemove = true }) => {
       </Box>
   )
 }
+
+ListingFinder.defaultProps = {
+  isCheck: false,
+  usingAddAndRemove: true
+}
+
+ListingFinder.propTypes = {
+  isCheck: PropTypes.bool,
+  usingAddAndRemove: PropTypes.bool
+};
 
 export default ListingFinder;

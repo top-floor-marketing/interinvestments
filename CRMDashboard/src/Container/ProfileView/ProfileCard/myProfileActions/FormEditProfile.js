@@ -173,7 +173,7 @@ const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
                 </ScrollArea>
 
                 <Group position="right" mt="16px" pr="11px">
-                    <Button disabled={isLoading} loading={isLoading} type="submit">Save</Button>
+                    <Button color="secondary" disabled={isLoading} loading={isLoading} type="submit">Save</Button>
                 </Group>
             </form>
         </>

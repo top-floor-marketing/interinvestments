@@ -8,8 +8,6 @@ import {
   MediaQuery,
 } from "@mantine/core";
 
-import { useEffect } from "react";
-
 import { ChevronRight } from "tabler-icons-react";
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
@@ -53,7 +51,7 @@ const NavBarDashboard = ({ opened }) => {
     navbar: {
       hidden: !opened,
       hiddenBreakpoint: "lg",
-      width: { lg: 300 },
+      width: { lg: 280 },
       className: classes.navBarContainer,
     },
     boxContainer: {
@@ -65,6 +63,9 @@ const NavBarDashboard = ({ opened }) => {
     },
     perfilContainer: {
       className: classes.perfilContainer,
+      onClick: () => {
+        setRoute(ROUTES_NAMES.PROFILE);
+      },
     },
     itemNav: (name) => {
       return {
@@ -144,10 +145,10 @@ const NavBarDashboard = ({ opened }) => {
               <Box {..._allProps.avatarFilter} />
             </Box>
             <Box>
-              <Text style={{ fontSize: "16px" }} weight={700}>
+              <Text style={{ fontSize: "14px" }} weight={700} lineClamp={1} title={fullName}>
                 {fullName}
               </Text>
-              <Text style={{ fontSize: "12px" }} weight={400}>
+              <Text style={{ fontSize: "10px" }} weight={400} lineClamp={1} title={email}>
                 {email}
               </Text>
             </Box>

@@ -1,12 +1,17 @@
 import React from 'react'
 // mantine
-import { Box, createStyles, Text } from '@mantine/core';
+import { Box, createStyles, Text, ScrollArea } from '@mantine/core';
+import SpringDiv from '../SpringDiv'
 
 const useStyles = createStyles((theme, _params) => ({
     containerMain: {
         height: '100%',
         width: '100%',
-        padding: '20px'
+        padding: '20px',
+        [`${theme.fn.smallerThan("md")}`]: {
+            paddingRight: '0px',
+            paddingLeft: '0px'
+        }
     },
     title: {
         color: theme.colors.dark[0],
@@ -16,29 +21,38 @@ const useStyles = createStyles((theme, _params) => ({
     },
     boxContendStep: {
         width: '100%',
-        padding: '20px',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignContent: 'center'
-    }
+        alignContent: 'center',
+    },
+    contentStepper: {
+        height: '60vh',
+        paddingRight: '15px'
+    },
 }));
 
 const ContainerStep = ({ children, title = 'Lorem ipsum' }) => {
     const { classes } = useStyles();
     return (
-        <Box className={classes.containerMain}>
-            <Box className={classes.boxContendStep}>
-                <Text
-                    component='h3'
-                    className={classes.title}
-                >
-                    {title}
-                </Text>
-                {children}
-            </Box>
-        </Box>
+        <SpringDiv className={classes.containerMain} delay={200} duration={500} fullHeight>
+            <ScrollArea className={classes.contentStepper}>
+                <Box className={classes.boxContendStep}>
+                    {
+                        (title) && (
+                            <Text
+                                component='h3'
+                                className={classes.title}
+                            >
+                                {title}
+                            </Text>
+                        )
+                    }
+                    {children}
+                </Box>
+            </ScrollArea>
+        </SpringDiv>
     )
 }
 

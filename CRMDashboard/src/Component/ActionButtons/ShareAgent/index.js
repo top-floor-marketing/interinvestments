@@ -49,7 +49,6 @@ ShareAgent.propTypes = {
   size: PropTypes.number,
   labelTooltip: PropTypes.string,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  color: PropTypes.string
 };
 
 export default ShareAgent;

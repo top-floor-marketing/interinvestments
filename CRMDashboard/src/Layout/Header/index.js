@@ -45,7 +45,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     alignItems: "center",
     justifyContent: "start",
     height: "100%",
-    width: "300px",
+    width: "280px",
     borderRight:
       theme.colorScheme === COLOR_SCHEME_DARK
         ? `1px solid ${theme.colors.dark[9]}`
@@ -57,6 +57,9 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     "&:hover": {
       cursor: "pointer",
     },
+    '.mantine-Image-root': {
+      maxWidth: '250px !important',
+    }
   },
   imageContainer: {
     paddingLeft: theme.other.spacing.p4,

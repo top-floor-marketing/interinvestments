@@ -8,6 +8,8 @@ import { GET_AGENT_PROFILE_INFO } from "../../GraphqlClient/agentProfile.gql";
 
 import { LOCAL_STORAGE } from "../../Utils/globalConstants";
 
+import { getAgentTypeByRole } from "../../GlobalStore/useActionsUser";
+
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 
@@ -67,13 +69,15 @@ const useVerifyRoute = () => {
       },
     },
     variables: {
-      agentId: get(dataUser, ["user", "databaseId"], null)
+      agentId: get(dataUser, ["user", "databaseId"], null),
+      agentType: getAgentTypeByRole(get(dataUser, ["user"], {}))
     },
   });
 
   return {
     loadingVerify: isLoadingFull,
   };
+  
 };
 
 export default useVerifyRoute;

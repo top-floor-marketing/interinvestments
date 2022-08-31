@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { Card, createStyles, Text, Skeleton, Group, Button,Modal } from "@mantine/core";
+import { useState, useCallback } from "react";
+import { Card, createStyles, Text, Skeleton, Group, Button, Modal, Box } from "@mantine/core";
+import { useViewportSize } from '@mantine/hooks';
 import { IconPlus } from '@tabler/icons';
 
 import useGetAgentListing from "./useGetAgentListing";
 
-import VirtualAgentListingScroll from './virtualAgentListingScroll';
+import VirtualListContainer from "../../../Component/VirtualListContainer";
 import ListingView from '../../ListingsView';
-
 
 const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
     width: "100%",
-    minHeight: "200px",
+    minHeight: "250px",
     display: "flex",
     flexDirection: "column",
     boxShadow: theme.shadows.sm,
@@ -22,33 +22,43 @@ const useStyles = createStyles((theme, _params) => ({
     fontSize: "18px",
     fontWeight: 700,
   },
-  boxInfiniteLoader: {
+  containerInfinite: {
     width: "100%",
     height: "100%",
-    minHeight: "250px",
-    maxHeight: "500px",
   },
-  modalModal: {
-    height: "100%",
-    backgroundColor: theme.colors.gray[0],
-    padding: `${theme.other.spacing.p8} !important`,
-    '.mantine-Modal-body': {
-      height: "100% !important",
-    }
+  modal: {
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: theme.fn.rgba(theme.colors.gray[0], 1),
   },
   bodyModal: {
-    height: "100%",
-    backgroundColor: theme.colors.gray[0]
+    display: "flex",
+    flexDirection: "column",
+    height: "calc(80vh) !important",
+    [`${theme.fn.smallerThan(600)}`]: {
+      height: "600px !important",
+    },
+    [`${theme.fn.smallerThan(1400)}`]: {
+      height: "calc(70vh) !important",
+    }
   }
 }));
 
 const FeaturedListing = () => {
 
-  const { classes } = useStyles();
+  const { width } = useViewportSize();
+
+  const { classes } = useStyles({ width });
 
   const { isSkeleton, isLoading, listingAgent, totalData, refetchData } = useGetAgentListing();
 
   const [isOpenModalAddListing, setIsOpenModalAddListing] = useState(false);
+
+  const getSizeModal = useCallback(() => {
+    if(width>1000) return "80%";
+    if(width>800) return "90%";
+    return "95%"
+  },[width])
 
   const onCloseModalAddListing = () => {
     setIsOpenModalAddListing(false);
@@ -67,25 +77,33 @@ const FeaturedListing = () => {
           >
             Add featured listing
           </Button>
-          <Modal 
-          classNames={{
-            body: classes.rootModal,
-            modal: classes.modalModal
-          }} 
-          zIndex={200} 
-          //className={classes.modalListing}
-           onClose={() => onCloseModalAddListing()} centered closeOnEscape overflow="inside" closeOnClickOutside fullScreen opened={isOpenModalAddListing}>
-            <ListingView />
+          <Modal
+            zIndex={200}
+            onClose={() => onCloseModalAddListing()} 
+            centered
+            closeOnEscape
+            closeOnClickOutside 
+            opened={isOpenModalAddListing}
+            size={getSizeModal()}
+            overflow="inside"
+            classNames={{
+              modal: classes.modal,
+              body: classes.bodyModal
+            }}
+            >
+              <ListingView isCheck={true} />
           </Modal>
         </Group>
-        <VirtualAgentListingScroll
-          parentClassname={classes.boxInfiniteLoader}
-          name="agent"
-          data={listingAgent}
-          totalData={totalData}
-          refetch={refetchData}
-          isLoading={isLoading}
-        />
+        <Box className={classes.containerInfinite}>
+         <VirtualListContainer
+            name="featured-listing"
+            data={listingAgent}
+            totalData={totalData}
+            refetch={refetchData}
+            isLoading={isLoading}
+            usingAddAndRemove={false}
+          />
+        </Box>
       </Card>
     </Skeleton>
   );

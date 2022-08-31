@@ -1,3 +1,11 @@
+.parentContainerInfinite {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important; 
+  flex-direction: column !important;
+  min-height: 230px !important;
+}
+
 .containerInfinite > *  {
     scrollbar-width: thin !important;
     scrollbar-color: #a4a4a0 #eaeae9 !important;
@@ -5,7 +13,7 @@
 
 /* Works on Chrome, Edge, and Safari */
 .containerInfinite::-webkit-scrollbar {
-    width: 10px !important;
+    width: 8px !important;
 }
   
   .containerInfinite::-webkit-scrollbar-track {
