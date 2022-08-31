@@ -57,7 +57,7 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
         Drawer: {
             opened: opened,
             padding: "xl",
-            size: (matches) ? '60%' : 'full',
+            size: (matches) ? '70%' : 'full',
             title: (
                 <Box className={classes.boxTitle}>
                     <AddressBook size={20} />
