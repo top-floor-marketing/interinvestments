@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { Box, createStyles } from "@mantine/core";
 import React from "react";
 
@@ -33,24 +32,19 @@ const RoutesContainer = () => {
 
   const { state: { user: { route: routeInStore } } } = useClientGlobalStore();
 
-  const routeActive = filter(CRM_ROUTES, (o) => {
+  const routeActive = get(filter(CRM_ROUTES, (o) => {
     return o.name === routeInStore;
-  });
-
-  const activeRoute = useCallback(
-    () => get(routeActive, ["0"], []),
-    [routeActive]
-  );
+  }), ["0"], []);
 
   return (
     <Box className={classes.mainContainer}>
-      {
-        (isEmpty(activeRoute))
-          ? <NotFound404 />
-          : (activeRoute.layout === LAYOUT_NAMES.DASHBOARD) ?
-            <DashboardLayout>{activeRoute.component()}</DashboardLayout>
-            : activeRoute.component()
-      }
+      {isEmpty(routeActive) ? (
+        <NotFound404 />
+      ) : routeActive.layout === LAYOUT_NAMES.DASHBOARD ? (
+        <DashboardLayout>{routeActive.component()}</DashboardLayout>
+      ) : (
+        routeActive.component()
+      )}
     </Box>
   );
 };
