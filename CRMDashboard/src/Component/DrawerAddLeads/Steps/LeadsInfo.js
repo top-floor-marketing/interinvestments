@@ -4,14 +4,11 @@ import {
     Box,
     TextInput,
     Textarea,
-    SegmentedControl,
-    Select,
-    Divider,
     NumberInput,
     Text
 } from '@mantine/core';
 // icons
-import { User, Mail, Search, Note, Phone } from 'tabler-icons-react';
+import { User, Mail, Note, Phone } from 'tabler-icons-react';
 // styles
 import useStyles from './styles'
 
@@ -20,29 +17,6 @@ const LeadsInfo = () => {
     const { classes } = useStyles();
     return (
         <Box className={classes.containerMain}>
-            <SegmentedControl
-                className={`${classes.input_2} ${classes.radioSegment}`}
-                size='sm'
-                data={[
-                    { label: 'New leads', value: 'react' },
-                    { label: 'Assign leads to an existing client', value: 'ng' },
-                ]}
-            />
-
-            <Select
-                label={null}
-                placeholder="Select cliente"
-                searchable
-                nothingFound="No options"
-                rightSection={<Search size={24} />}
-                data={[
-                    { value: 'react', label: 'React' },
-                    { value: 'ng', label: 'Angular' },
-                    { value: 'svelte', label: 'Svelte' },
-                    { value: 'vue', label: 'Vue' },
-                ]}
-            />
-            <Divider className={classes.inputFull} my="sm" />
             <TextInput
                 className={classes.input}
                 placeholder={null}

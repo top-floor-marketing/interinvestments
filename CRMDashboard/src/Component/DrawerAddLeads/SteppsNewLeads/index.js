@@ -5,7 +5,7 @@ import { Stepper, Box, Group, Button, Text, Badge } from '@mantine/core';
 import { FileInfo, User, Check, X, ChevronLeft, ChevronRight } from 'tabler-icons-react';
 // components
 import ContainerStep from '../ContainerStep'
-import { ListingLeadsInfo, TypeLeads, ServicesInfo } from '../Steps'
+import { ListingLeadsInfo, TypeLeads, ServicesInfo, InterestedListing } from '../Steps'
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
 // styles 
@@ -147,8 +147,14 @@ const SteppsNewLeads = (_) => {
                         </Box>
                     }
                 >
-                    <ContainerStep>
-                        <p>Step 2</p>
+                    <ContainerStep title={null}>
+                        {
+                            (typeLeads) === "LISTING" ? (
+                                <InterestedListing />
+                            ) : (
+                                <p>fcsafsafasfd</p>
+                            )
+                        }
                     </ContainerStep>
                 </Stepper.Step>
 
