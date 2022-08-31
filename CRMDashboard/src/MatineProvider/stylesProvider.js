@@ -241,30 +241,37 @@ const stylesProvider = () => {
             styles: (theme, params) => {
                 return {
                     root: {
-                        backgroundColor: "transparent",
+                        backgroundColor:  'transparent',
                         gap: theme.other.spacing.p2,
                         ".__mantine-ref-control": {
                             border: "0 !important"
                         },
                         ".mantine-SegmentedControl-labelActive.mantine-SegmentedControl-disabled": {
-                            backgroundColor: `${theme.colors.dark[0]} !important`,
+                            backgroundColor: `${theme.colors.primary[9]} !important`,
                             color: `${theme.colors.white[0]} !important`,
                         },
                     },
                     label: {
-                        backgroundColor: theme.colors.gray[6]
+                        backgroundColor: theme.colors.gray[0],
+                        color: `${theme.colors.dark[0]} !important`,
+                        "&:hover": {
+                            backgroundColor: `${theme.colors.gray[5]} !important`,
+                        },
                     },
                     labelActive: {
-                        backgroundColor: theme.colors.dark[6],
+                        backgroundColor: theme.colors.primary[0],
+                        color: `${theme.colors.white[0]} !important`,
+                        "&:hover": {
+                            backgroundColor: `${theme.colors.primary[5]} !important`,
+                        },
                     },
                     control: {
-                        backgroundColor: "transparent",
+                        backgroundColor: "transparent !important",
                     },
                     controlActive: {
-                        backgroundColor: "transparent",
+                        backgroundColor: "transparent !important",
                     },
                 }
-
             }
         },
         Card: {
@@ -385,7 +392,7 @@ const stylesProvider = () => {
                 return {
                     input: {
                         backgroundColor: theme.colors[_color][0],
-                        border: `1px solid ${theme.colors[_color][0]}`,
+                        border: `1px solid ${theme.colors[_color][9]}`,
                     }
                 }
             }

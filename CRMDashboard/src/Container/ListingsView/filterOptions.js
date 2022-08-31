@@ -1,4 +1,6 @@
 import { Text, createStyles, Paper, Select, SegmentedControl, TextInput } from "@mantine/core";
+import { useElementSize } from '@mantine/hooks';
+
 import { BuildingCommunity, Search } from 'tabler-icons-react';
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
@@ -59,14 +61,20 @@ const FilterOptions = ({ categoryProps, searchProps, neiProps, isLoading }) => {
 
   const { state: { user: { listingCategories, listingNei } } } = useClientGlobalStore();
 
+  const { ref, width } = useElementSize();
+
   return (
-    <Paper className={classes.container}>
+    <Paper ref={ref} className={classes.container}>
       <Text className={classes.textFilter}>Filter:</Text>
       <SegmentedControl
-      disabled={isLoading}
+        disabled={isLoading}
         value={categoryProps.value}
         onChange={categoryProps.onChange}
-        data={listingCategories} fullWidth transitionDuration={0} />
+        data={listingCategories} 
+        fullWidth 
+        transitionDuration={0}
+        orientation={(width>450) ? 'horizontal' : 'vertical'}
+        />
       <Select value={neiProps.value}
         onChange={neiProps.onChange}
         data={listingNei}

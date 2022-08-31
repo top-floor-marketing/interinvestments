@@ -21,3 +21,28 @@ dark[0] = #1b1b1b
     background-color: #c2c2bf !important;
     border: 1px solid #c2c2bf !important;
 }
+
+.mantine-Modal-body {
+    scrollbar-width: thin !important;
+    scrollbar-color: #a4a4a0 #eaeae9 !important;
+}
+
+
+/* Works on Chrome, Edge, and Safari */
+.mantine-Modal-body::-webkit-scrollbar {
+    width: 8px !important;
+}
+  
+.mantine-Modal-body::-webkit-scrollbar-track {
+    background: #eaeae9 !important;
+  }
+  
+  .mantine-Modal-body::-webkit-scrollbar-thumb {
+    background-color: #a4a4a0 !important;
+    border-radius: 20px !important;
+    border: 2px solid #a4a4a0 !important;
+    -webkit-border-radius: 20px !important;
+    -moz-border-radius: 20px !important;
+    -ms-border-radius: 20px !important;
+    -o-border-radius: 20px !important;
+}

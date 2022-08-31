@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { Box, Checkbox, createStyles, Avatar, Text, Badge, Paper } from '@mantine/core';
 import { openConfirmModal } from '@mantine/modals';
@@ -6,14 +6,38 @@ import { MapPin, Check } from "tabler-icons-react";
 
 import { ShareListing, ViewLandingListing, IconDownloadPdf, IconRemove, IconAddListing } from '../ActionButtons';
 
+import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore';
+
 import classNames from 'classnames';
 
 import get from 'lodash/get';
+import filter from 'lodash/filter';
 
 const useStyles = createStyles((theme, _params) => {
-  const { width } = _params;
-  const widthReserved = (width < 600) ? 250 : (width > 1200) ? 380 : 360;
-  const infoWidth = Math.round((width - widthReserved) / 4);
+  const { width, _isCheckListing, usingCheck } = _params;
+
+  // avatar reserved 60px,
+  // gap reservered 16px
+  // padding reserved 32px l + r
+  // icon-actions 30px per icon
+  let usingViewsAndLiving = (width > 550);
+  let usingNei = (width>400);
+  let paddingReserved= 32;
+  let totalRows = 4;
+  let checkBoxReserved = (usingCheck) ? 32 : 0;
+  let avatarReserved = (!usingViewsAndLiving) ? 30 : 60;
+  let iconsReserved = (usingCheck) ? 38 : 128;
+
+  if(!usingViewsAndLiving || usingCheck)
+    totalRows = 2;
+  if(!usingNei)
+    totalRows = 1; 
+
+  let gapReserved = (totalRows+1) * 16;  
+ 
+  const widthReserved = avatarReserved + iconsReserved + gapReserved + checkBoxReserved + paddingReserved;
+  const infoWidth = Math.round((width - widthReserved) / totalRows);
+
   return {
     container: {
       width: "100%",
@@ -24,39 +48,36 @@ const useStyles = createStyles((theme, _params) => {
     },
     containerItemListing: {
       width: "100%",
-      boxShadow: theme.shadows.lg,
+      boxShadow: (_isCheckListing && usingCheck) ? theme.other.shadow.lgPrimary : theme.shadows.lg,
       height: "100%",
-      backgroundColor: theme.colors.gray[0],
+      backgroundColor: (_isCheckListing && usingCheck) ? theme.colors.gray[4] : theme.colors.gray[0],
       display: "flex",
       flexDirection: "row",
       justifyItems: "start",
       alignItems: "center",
       padding: theme.other.spacing.p4,
       gap: theme.other.spacing.p4,
-    },
-    avatarImageContainer: {
-      display: "flex",
-      flexDirection: "column",
-      alignContent: "center",
-      marginRight: "auto",
-      width: "60px",
-    },
-    titleWithIcon: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "row",
-      alignContent: "center",
-      gap: theme.other.spacing.p2,
+      cursor: (usingCheck) ? 'pointer' : ''
     },
     items: {
       minWidth: `${infoWidth}px`,
-      fontSize: "14px",
+      fontSize: (!usingViewsAndLiving) ? "12px" : '14px',
       fontWeight: 400,
       textAlign: "text-left",
+      wordWrap: (width<700) ? "break-word" : "normal"
+    },
+    neiItem: {
+      display: (!usingNei) ? 'none !important' : 'flex',
+      flexDirection: 'row',
+      alignItems: "center",
+    },
+    viewsAndLivingItem: {
+      display: (!usingViewsAndLiving) ? 'none !important' : 'flex',
     },
     itemTitle: {
       fontWeight: "600 !important",
-      margin: "0px !important"
+      margin: "0px !important",
+      fontSize: (!usingViewsAndLiving) ? "12px" : '14px',
     },
     badgeFeatured: {
       '.mantine-Badge-rightSection': {
@@ -66,17 +87,11 @@ const useStyles = createStyles((theme, _params) => {
           marginTop: "auto !important",
           marginBottom: "auto !important"
         }
-      }
-    },
-    responsiveInfo: {
-      display: "block",
-      [`${theme.fn.smallerThan(650)}`]: {
-        display: "none",
       },
+      fontSize: (width<700) ? "8px" : '12px',
     },
     containerActions: {
-      width: "100%",
-      minWidth: "130px",
+      flex: 1,
       height: "auto",
       display: "flex",
       marginLeft: "auto",
@@ -84,10 +99,6 @@ const useStyles = createStyles((theme, _params) => {
       justifyContent: "flex-end",
       alignContent: "center",
       gap: theme.other.spacing.p2,
-      paddingRight: theme.other.spacing.p2,
-      [`${theme.fn.smallerThan(650)}`]: {
-        minWidth: "100px",
-      },
     },
     boxDialog: {
       display: "flex",
@@ -107,9 +118,19 @@ const useStyles = createStyles((theme, _params) => {
 
 const ItemListingVirtual = (props) => {
 
-  const { usingAddAndRemove, isCheck, width, idAgent, uri, isFeatured, onConfirmAdd, onConfirmRemove, databaseId } = props;
+  const { usingAddAndRemove, isCheck: usingCheck, width, idAgent, uri, isFeatured, onConfirmAdd, onConfirmRemove, databaseId } = props;
 
-  const { classes } = useStyles({ width });
+  const { state: { addLeads: { listingData } },  actions: { setListingData } } = useClientGlobalStore();
+
+  const getIsCheckedListing = useCallback(() => {
+    return !!(filter(listingData, (val) => {
+      return val.databaseId === databaseId
+    }).length);
+  }, [listingData]);
+
+  const _isCheckListing = getIsCheckedListing();
+
+  const { classes } = useStyles({ width, _isCheckListing, usingCheck });
 
   const getPhoto = useCallback(() => {
     return get(props, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], "");
@@ -172,17 +193,31 @@ const ItemListingVirtual = (props) => {
   }
 
   const onChangeCheckBox = (e) => {
-
+    const currentChecked = e?.currentTarget?.checked || !_isCheckListing;
+    const removeId = filter(listingData, (val) => {
+      return val.databaseId !== databaseId
+    });
+    if(currentChecked) {
+      const newArrayListing = removeId.concat({ 
+        databaseId,
+        title: getTitle(),
+        photo: getPhoto(),
+        neighborhood: getNeighborhood()
+      });
+      setListingData(newArrayListing);
+    } else {
+      setListingData(removeId);
+    }
   }
 
   return (
     <Box className={classes.container}>
       {
-        (isCheck) && <Checkbox onChange={onChangeCheckBox} />
+        (usingCheck) && <Checkbox onChange={onChangeCheckBox} checked={_isCheckListing} />
       }
-      <Paper className={classes.containerItemListing}>
-        <Avatar radius="_40px" size="60px" src={getPhoto()} />
-        <Box className={classNames(classes.items)}>
+      <Paper className={classes.containerItemListing} onClick={() => onChangeCheckBox()}>
+        <Avatar radius="_40px" size={width<600 ? '30px': '60px'} src={getPhoto()} />
+        <Box className={classes.items}>
           <Text className={classes.itemTitle}>{getTitle()}</Text>
           {
             (isFeatured)
@@ -192,28 +227,25 @@ const ItemListingVirtual = (props) => {
               color="success"
               variant="filled"
               sx={{ paddingRight: 3 }}
-              rightSection={<Check size={14} />}>
+              rightSection={<Check size={(width<700) ? 10 : 14} />}>
               Featured
             </Badge>
           }
         </Box>
-
-        <Box className={classes.titleWithIcon}>
+        <Box className={classNames(classes.items,classes.neiItem)}>
           <MapPin size={24} />
           <Text
-            className={classNames(classes.items, classes.responsiveInfo)}
-            lineClamp={3}
+            lineClamp={2}
             title={`Neighborhood:\n${getNeighborhood()}`}
           >
             {getNeighborhood()}
           </Text>
         </Box>
-
         {
-          (!isCheck)
+          (!usingCheck)
           &&
           <Text
-            className={classNames(classes.items, classes.responsiveInfo)}
+            className={classNames(classes.items, classes.viewsAndLivingItem)}
             lineClamp={2}
             title={`Views:\n${getViews()}`}
           >
@@ -222,10 +254,10 @@ const ItemListingVirtual = (props) => {
         }
 
         {
-          (!isCheck)
+          (!usingCheck)
           &&
           <Text
-            className={classNames(classes.items, classes.responsiveInfo)}
+            className={classNames(classes.items, classes.viewsAndLivingItem)}
             lineClamp={2}
             title={`Living area:\n${getLivingArea()}`}
           >
@@ -235,7 +267,7 @@ const ItemListingVirtual = (props) => {
 
         <Box className={classes.containerActions}>
           {
-            (!isFeatured && usingAddAndRemove && !isCheck)
+            (!isFeatured && usingAddAndRemove && !usingCheck)
             &&
             <IconAddListing
               variant="filled"
@@ -257,7 +289,7 @@ const ItemListingVirtual = (props) => {
             size={24}
           />
           {
-            (!isCheck)
+            (!usingCheck)
             &&
             <ShareListing
               variant="filled"
@@ -269,7 +301,7 @@ const ItemListingVirtual = (props) => {
             />
           }
           {
-            (!isCheck)
+            (!usingCheck)
             &&
             <IconDownloadPdf
               variant="filled"
@@ -281,7 +313,7 @@ const ItemListingVirtual = (props) => {
           }
 
           {
-            (isFeatured && usingAddAndRemove && !isCheck)
+            (isFeatured && usingAddAndRemove && !usingCheck)
             &&
             <IconRemove
               variant="filled"

@@ -34,7 +34,7 @@ const useGetAgentListing = () => {
       }, []);
     }
 
-    const { isLoading: isLoadingQuery, isFetching: isFetchingQuery, isError, refetch } = useQueryHelper({
+    const { isLoading: isLoadingQuery, isFetching: isFetchingQuery, isError } = useQueryHelper({
         name: "get-agent-featured-listing-crm",
         gql: GET_AGENT_FEATURED_LISTING,
         config: {
@@ -61,7 +61,7 @@ const useGetAgentListing = () => {
         isLoading: isSkeleton || isLoadingQuery || isFetchingQuery,
         listingAgent,
         totalData: listingAgent ? listingAgent.length : 0, 
-        refetchData: refetch
+        refetchData: null
     }
 }
 
