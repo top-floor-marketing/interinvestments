@@ -1,11 +1,9 @@
 import { gql } from "graphql-request";
 
-const AGENT_TYPE = 'AGENT';
-
 export const GET_AGENT_PROFILE_INFO = gql`
-query GetAgentInfo($agentId: Int = 10) {
+query GetAgentInfo($agentId: Int = 10, $agentType: MasterEnum) {
     dataAgent(
-        agentType: ${AGENT_TYPE}, agenId: $agentId
+        agentType: $agentType, agenId: $agentId
       ) {
         id
         databaseId
@@ -26,9 +24,9 @@ query GetAgentInfo($agentId: Int = 10) {
 `;
 
 export const GET_AGENT_FEATURED_LISTING = gql`
-query GetAgentInfo($agentId: Int = 10) {
+query GetAgentInfo($agentId: Int = 10, $agentType: MasterEnum) {
     dataAgent(
-        agentType: ${AGENT_TYPE}, agenId: $agentId
+      agentType: $agentType, agenId: $agentId
       ) {
         listings {
           nodes {

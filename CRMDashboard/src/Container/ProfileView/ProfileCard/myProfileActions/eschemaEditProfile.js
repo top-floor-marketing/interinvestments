@@ -23,7 +23,7 @@ const schemaEditAgent = Joi.object({
     "string.empty": "Required",
     "any.required": "Required",
   }),
-  facebook: Joi.string().uri({
+  facebook: Joi.string().allow('').uri({
     scheme: [
       'https',
     ]
@@ -31,7 +31,7 @@ const schemaEditAgent = Joi.object({
     "string.uri": "Invalid url",
     "string.uriCustomScheme": "Invalid url",
   }),
-  instagram: Joi.string().uri({
+  instagram: Joi.string().allow('').uri({
     scheme: [
       'https',
     ]
@@ -39,7 +39,7 @@ const schemaEditAgent = Joi.object({
     "string.uri": "Invalid url",
     "string.uriCustomScheme": "Invalid url",
   }),
-  twitter: Joi.string().uri({
+  twitter: Joi.string().allow('').uri({
     scheme: [
       'https',
     ]
@@ -47,7 +47,7 @@ const schemaEditAgent = Joi.object({
     "string.uri": "Invalid url",
     "string.uriCustomScheme": "Invalid url",
   }),
-  linkedin: Joi.string().uri({
+  linkedin: Joi.string().allow('').uri({
     scheme: [
       'https',
     ]

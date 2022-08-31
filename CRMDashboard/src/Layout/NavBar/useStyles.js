@@ -74,6 +74,13 @@ export default createStyles((theme, _params, getRef) => ({
     marginTop: "auto",
     alignSelf: "flex-end",
     borderTop: `1px solid ${theme.colors.gray[2]}`,
+    "&:hover": {
+      cursor: "pointer",
+      [`&:hover .${getRef("avatarFilter")}`]: {
+        backgroundColor: theme.fn.rgba(theme.colors.white[1], 0.1),
+        display: "block",
+      },
+    },
   },
   chevron: {
     maxWidth: "40px",

@@ -1,7 +1,11 @@
 import {DEFAULT_ROUTE, ROUTES_NAMES} from '../Route/routes';
 
 import { LOCAL_STORAGE } from '../Utils/globalConstants';
-import { STORE_USER_ACTIONS } from './storeReducer';
+import { STORE_USER_ACTIONS } from './globalReducer';
+
+import get from 'lodash/get';
+import isString from 'lodash/isString';
+import toLower from 'lodash/toLower';
 
 export const DEFAULT_STORE_USER = {
     isLoadingFull: true,
@@ -10,6 +14,26 @@ export const DEFAULT_STORE_USER = {
     listingCategories: [],
     listingNei: [],
     listingFeaturedAgent: []
+}
+
+export const USER_ROLES = {
+    ADMIN: 'MASTER',
+    AGENT: 'AGENT',
+}
+
+export const getAgentTypeByRole = (val) => {
+    const _valTemp = JSON.parse(JSON.stringify(val));
+    /* 
+      Query UserById = roles: { nodes: array[] }
+      Query DataAgent = roles: String
+    */
+    let userRol = '';
+    if(isString(get(_valTemp, ["roles"], null))) {
+        userRol = toLower(get(_valTemp, ["roles"]), USER_ROLES.AGENT);
+    } else {
+        userRol = toLower(get(_valTemp, ["roles","nodes", "0", "displayName"], USER_ROLES.AGENT));
+    }
+    return (userRol === "administrator") ? USER_ROLES.ADMIN : USER_ROLES.AGENT;
 }
 
 const useActionsUser = (dispatch) => {
@@ -30,9 +54,13 @@ const useActionsUser = (dispatch) => {
     }
 
     const setInfoUser = (val) => {
+        const agentType = getAgentTypeByRole(val)
         dispatch({
             type: STORE_USER_ACTIONS.INFO_USER,
-            payload: val
+            payload: {
+                ...val,
+                agentType
+            }
         });
     }
 

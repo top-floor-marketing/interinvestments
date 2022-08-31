@@ -90,7 +90,7 @@ const FormLogin = (props) => {
             radius="sm"
             size="xl"
             compact
-            color="primary"
+            color="secondary"
             loading={isLoading}
             className={classes.buttonLogin}
           >
@@ -103,6 +103,7 @@ const FormLogin = (props) => {
         href="/wp-login.php?action=lostpassword"
         className={classes.buttonForgot}
         variant="subtle"
+        
       >
         Forgot your password?
       </UnstyledButton>

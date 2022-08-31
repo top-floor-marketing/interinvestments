@@ -4,6 +4,7 @@ import { Box, Button, Paper } from "@mantine/core";
 // components
 // import SkeletonLeads from "./SkeletonLeads";
 import BadgeSelect from '../../Component/BadgeSelect'
+import TimeLineLeads from './TimeLineLeads'
 import InputSearch from '../../Component/InputSearch'
 import { HoccDraewerAL } from '../../Component/DrawerAddLeads'
 import { Plus } from 'tabler-icons-react';
@@ -33,7 +34,7 @@ const Leads = () => {
                 </HoccDraewerAL>
             </Paper>
             <Paper className={classes.cardLeads}>
-                <p>list leads</p>
+                <TimeLineLeads />
             </Paper>
         </Box>
     )

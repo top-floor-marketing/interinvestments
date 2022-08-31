@@ -4,21 +4,14 @@ import SteppsNewLeads from './SteppsNewLeads'
 // mantine devs
 import { Drawer, createStyles, Box, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-// icons
-import { AddressBook } from 'tabler-icons-react';
 // utils
 import PropTypes from 'prop-types';
+//  icons
+import { AddressBook } from 'tabler-icons-react';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
     containerDrawer: {
         backgroundColor: theme.colors.white[0]
-    },
-    boxTitle: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        gap: theme.other.spacing.p2,
     },
     titleModal: {
         margin: "0px !important",
@@ -27,6 +20,18 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         fontSize: "18px",
         lineHeight: "20px",
         fontWeight: 700,
+    },
+    boxTitle: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        gap: theme.other.spacing.p2,
+        top: '15%',
+        [`${theme.fn.smallerThan("sm")}`]: {
+            position: 'relative',
+            marginBottom: '10px'
+        }
     },
     iconClose: {
         '.mantine-UnstyledButton-root': {
@@ -51,16 +56,16 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
     const Props = {
         Drawer: {
             opened: opened,
+            padding: "xl",
+            size: (matches) ? '70%' : 'full',
             title: (
                 <Box className={classes.boxTitle}>
                     <AddressBook size={20} />
-                    <Text component="h1" className={classes.titleModal}>
+                    <Text component="h1">
                         {title}
                     </Text>
                 </Box>
             ),
-            padding: "xl",
-            size: (matches) ? '60%' : 'full',
             classNames: {
                 drawer: classes.containerDrawer,
                 header: classes.iconClose
@@ -70,8 +75,8 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
     }
 
     return (
-        <Drawer {...Props.Drawer}>
-            <SteppsNewLeads />
+        <Drawer  {...Props.Drawer}>
+            <SteppsNewLeads title={title} onClose={onCloseDrawer} />
         </Drawer>
     )
 }

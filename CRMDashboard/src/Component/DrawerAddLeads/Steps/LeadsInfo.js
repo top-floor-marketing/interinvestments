@@ -1,25 +1,17 @@
 import React from 'react'
 // mantine
-import { Box, createStyles, TextInput, Textarea } from '@mantine/core';
+import {
+    Box,
+    TextInput,
+    Textarea,
+    NumberInput,
+    Text
+} from '@mantine/core';
 // icons
-import { User, Mail } from 'tabler-icons-react';
+import { User, Mail, Note, Phone } from 'tabler-icons-react';
+// styles
+import useStyles from './styles'
 
-const useStyles = createStyles((theme, _params) => ({
-    containerMain: {
-        display: "grid",
-        gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
-        [`@media (min-width: ${theme.breakpoints.md}px)`]: {
-            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-        },
-        gap: theme.other.spacing.p4
-    },
-    input: {
-        width: '100%'
-    },
-    inputFull: {
-        gridColumn: "1 / -1",
-    }
-}));
 
 const LeadsInfo = () => {
     const { classes } = useStyles();
@@ -27,20 +19,60 @@ const LeadsInfo = () => {
         <Box className={classes.containerMain}>
             <TextInput
                 className={classes.input}
-                placeholder="Name leads"
+                placeholder={null}
                 label="Name leads"
-                rightSection={<User />}
+                icon={<User />}
             />
             <TextInput
                 className={classes.input}
-                placeholder="Email client"
+                placeholder={null}
                 label="Email client"
-                rightSection={<Mail />}
+                icon={<Mail />}
+            />
+            <NumberInput
+                className={classes.input}
+                classNames={{
+                    input: classes.NumberInput,
+                    control: classes.controllNumberInput
+                }}
+                placeholder={null}
+                label="Phone Number"
+                icon={<Phone />}
             />
             <Textarea
                 className={`${classes.input} ${classes.inputFull}`}
-                placeholder="your note leads..."
+                placeholder={null}
+                icon={<Note />}
                 label="Note"
+            />
+
+            <Text
+                component='h3'
+                className={`${classes.title} ${classes.inputFull}`}
+            >
+                optional info
+            </Text>
+            <TextInput
+                className={classes.input}
+                placeholder={null}
+                label="other name"
+                icon={<User />}
+            />
+            <TextInput
+                className={classes.input}
+                placeholder={null}
+                label="other Email"
+                icon={<Mail />}
+            />
+            <NumberInput
+                className={classes.input}
+                classNames={{
+                    input: classes.NumberInput,
+                    control: classes.controllNumberInput
+                }}
+                placeholder={null}
+                label="other Phone"
+                icon={<Phone />}
             />
         </Box>
     )

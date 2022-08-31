@@ -63,6 +63,28 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     },
     cardLeads: {
         height: '100%'
+    },
+    containerTimeLine: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        gap: theme.other.spacing.p4
+    },
+    contentInfoLeads: {
+        width: '25%',
+        padding: theme.other.spacing.p4
+    },
+    contentTimeLIne: {
+        width: '75%',
+        padding: theme.other.spacing.p4
+    },
+    textContactInfo: {
+        fontSize: '18px',
+        fontWeight: '600'
+    },
+    containerContactInfo: {
+        marginTop: '18px',
+        marginBottom: '18px'
     }
 }));
 

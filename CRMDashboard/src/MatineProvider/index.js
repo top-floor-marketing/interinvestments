@@ -1,10 +1,11 @@
-import { MantineProvider  } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 
 // global store
 import useClientGlobalStore from "../GlobalStore/useClientGlobalStore";
 import LoadingFull from "../Component/LoadingFull";
 
 import stylesProvider from "./stylesProvider";
+import { ModalsProvider } from '@mantine/modals';
 
 import './overrideMantine.css';
 
@@ -14,7 +15,7 @@ const ThemeGlobalProvider = (props) => {
     <MantineProvider
       theme={{
         ...themeStore,
-        components: { 
+        components: {
           ...stylesProvider()
         }
       }}
@@ -22,8 +23,12 @@ const ThemeGlobalProvider = (props) => {
       withGlobalStyles
       withNormalizeCSS
     >
-      <LoadingFull />
-      {props.children}
+      <ModalsProvider>
+        <>
+          <LoadingFull />
+          {props.children}
+        </>
+      </ModalsProvider>
     </MantineProvider>
   );
 };
