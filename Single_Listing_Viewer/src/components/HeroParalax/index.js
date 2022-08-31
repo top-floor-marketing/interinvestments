@@ -4,6 +4,8 @@ import styles from "./styles.hp.module.scss";
 // mantine
 import { Box, Text, Button } from '@mantine/core';
 import { ChevronDown } from 'tabler-icons-react';
+// utils
+import { numFormatter } from '../../utils'
 
 const HeroParalax = (props) => {
     const { data } = props
@@ -27,7 +29,7 @@ const HeroParalax = (props) => {
                                 <>
                                     <br />
                                     <Text component='span'>
-                                        {data.neighborhoods[0].name} &nbsp;&nbsp; • &nbsp; ${data.priceMin} &nbsp;&nbsp; • &nbsp; ${data.priceMax}/mo
+                                        {data.neighborhoods[0].name} &nbsp;&nbsp; • ${numFormatter(data.priceMin).number + numFormatter(data.priceMin).tag} &nbsp;&nbsp; • ${numFormatter(data.priceMax).number + numFormatter(data.priceMax).tag}
                                     </Text>
                                 </>
                             )
