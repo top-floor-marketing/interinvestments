@@ -16,15 +16,16 @@ const CardAgent = () => {
     const [dataAgent, setDataAgent] = useState(null)
     const urlParams = new URLSearchParams(window.location.search);
     const agentId = urlParams.get('id')
+    const leadAgentId = localStorage.getItem('lead-agent')
 
     let variables = {
         agentType: "AGENT",
     }
 
-    if (agentId) {
+    if (agentId || leadAgentId) {
         variables = {
             agentType: "AGENT",
-            agenId: parseInt(agentId)
+            agenId: (leadAgentId) ? parseInt(leadAgentId) : parseInt(agentId)
         }
     } else {
         variables = {
