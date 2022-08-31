@@ -60,6 +60,7 @@ const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
         <LoadingOverlay overlayOpacity={0.2} visible={isOverlay} overlayBlur={1} />
         <SpringDiv delay={100} duration={300}>
           <FilterOptions
+            isCheck={isCheck}
             isLoading={isLoading}
             searchProps={searchProps}
             categoryProps={categoryProps}

@@ -43,21 +43,25 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
   selectNei: {
     ref: getRef('selectNei'),
-    minWidth: "200px",
-    maxWidth: "200px",
-    ...INPUT_BORDER_BOTTOM
+    width: (_params?.usingCheck) ? "150px" : "200px",
+    ...INPUT_BORDER_BOTTOM,
+    [`${theme.fn.largerThan(2100)}`]: { 
+      width: "250px !important"
+    }
   },
   inputSearch: {
     ref: getRef('inputSearch'),
-    minWidth: "200px",
-    maxWidth: "200px",
-    ...INPUT_BORDER_BOTTOM
+    width: (_params?.usingCheck) ? "150px" : "200px",
+    ...INPUT_BORDER_BOTTOM,
+    [`${theme.fn.largerThan(2100)}`]: { 
+      width: "250px !important"
+    }
   }
 }));
 
-const FilterOptions = ({ categoryProps, searchProps, neiProps, isLoading }) => {
+const FilterOptions = ({ categoryProps, searchProps, neiProps, isLoading, isCheck }) => {
 
-  const { classes } = useStyles();
+  const { classes } = useStyles({usingCheck: isCheck});
 
   const { state: { user: { listingCategories, listingNei } } } = useClientGlobalStore();
 
