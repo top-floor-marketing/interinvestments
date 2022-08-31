@@ -8,8 +8,9 @@ export const STORE_ADDLEAD_ACTIONS = {
 export const DEFAULT_STORE_ADD_LEAD = {
     stepperActive: 0,
     typeLeads: 'LISTING',
+    dataForm: {},
     listingData: [],
-    serviceData: {}
+    serviceData: []
 }
 
 const useActionsAddLead = (dispatch) => {
