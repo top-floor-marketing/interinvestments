@@ -15,7 +15,6 @@ const useGetAgentListing = () => {
 
     const [listingAgent,setListingAgent] = useState([]);
     const [isSkeleton, setIsSkeleton] = useState(true);
-    const [arrayIdListings, setArrayIdListings] = useState([]);
 
     const formatResponseData = (response) => {
       const listings = get(response, ["dataAgent", "0", "listings", "nodes"], []);

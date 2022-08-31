@@ -23,40 +23,51 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     [`${theme.fn.smallerThan("lg")}`]: {
       gap: theme.other.spacing.p2,
     },
-    [`${theme.fn.largerThan(1800)}`]: { 
-      [`.${getRef('selectNei')}`]: {
+    [`${theme.fn.largerThan(1800)}`]: {
+      [`.${getRef("selectNei")}`]: {
         minWidth: "250px",
         maxWidth: "250px",
       },
-      [`.${getRef('inputSearch')}`]: {
+      [`.${getRef("inputSearch")}`]: {
         minWidth: "250px",
         maxWidth: "250px",
-      }
-    }
+      },
+    },
   },
   textFilter: {
-    ref: getRef('textFilter'),
+    ref: getRef("textFilter"),
     fontWeight: 700,
     fontSize: "18px",
     minWidth: "50px",
-    height: "fit-content"
+    height: "fit-content",
   },
   selectNei: {
-    ref: getRef('selectNei'),
-    width: (_params?.usingCheck) ? "150px" : "200px",
+    ref: getRef("selectNei"),
+    width: _params?.usingCheck ? "150px" : "200px",
     ...INPUT_BORDER_BOTTOM,
-    [`${theme.fn.largerThan(2100)}`]: { 
-      width: "250px !important"
-    }
+    [`${theme.fn.largerThan(2100)}`]: {
+      width: "250px !important",
+    },
+    [`${theme.fn.smallerThan(600)}`]: {
+      width: "100%",
+    },
   },
   inputSearch: {
-    ref: getRef('inputSearch'),
-    width: (_params?.usingCheck) ? "150px" : "200px",
+    ref: getRef("inputSearch"),
+    width: _params?.usingCheck ? "150px" : "200px",
     ...INPUT_BORDER_BOTTOM,
-    [`${theme.fn.largerThan(2100)}`]: { 
-      width: "250px !important"
-    }
-  }
+    [`${theme.fn.largerThan(2100)}`]: {
+      width: "250px !important",
+    },
+    [`${theme.fn.smallerThan(600)}`]: {
+      width: "100%",
+    },
+  },
+  segmentedControl: {
+    [`${theme.fn.smallerThan(600)}`]: {
+      width: "100%",
+    },
+  },
 }));
 
 const FilterOptions = ({ categoryProps, searchProps, neiProps, isLoading, isCheck }) => {
@@ -74,12 +85,14 @@ const FilterOptions = ({ categoryProps, searchProps, neiProps, isLoading, isChec
         disabled={isLoading}
         value={categoryProps.value}
         onChange={categoryProps.onChange}
-        data={listingCategories} 
-        fullWidth 
+        data={listingCategories}
+        fullWidth
         transitionDuration={0}
-        orientation={(width>450) ? 'horizontal' : 'vertical'}
-        />
-      <Select value={neiProps.value}
+        orientation={width > 600 ? "horizontal" : "vertical"}
+        className={classes.segmentedControl}
+      />
+      <Select
+        value={neiProps.value}
         onChange={neiProps.onChange}
         data={listingNei}
         disabled={isLoading}
@@ -90,13 +103,13 @@ const FilterOptions = ({ categoryProps, searchProps, neiProps, isLoading, isChec
         icon={<BuildingCommunity size={14} />}
         className={classes.selectNei}
       />
-      <TextInput 
-      disabled={isLoading}
-      className={classes.inputSearch}  
-      rightSection={<Search size={14} />}
-      placeholder="Search"
-      value={searchProps.value}
-      onChange={searchProps.onChange}
+      <TextInput
+        disabled={isLoading}
+        className={classes.inputSearch}
+        rightSection={<Search size={14} />}
+        placeholder="Search"
+        value={searchProps.value}
+        onChange={searchProps.onChange}
       />
     </Paper>
   );

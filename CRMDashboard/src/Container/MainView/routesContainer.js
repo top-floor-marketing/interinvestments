@@ -37,7 +37,10 @@ const RoutesContainer = () => {
     return o.name === routeInStore;
   });
 
-  const activeRoute = useCallback(get(routeActive, ["0"], []), [routeInStore]);
+  const activeRoute = useCallback(
+    () => get(routeActive, ["0"], []),
+    [routeActive]
+  );
 
   return (
     <Box className={classes.mainContainer}>

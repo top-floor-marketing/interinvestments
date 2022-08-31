@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import { Box, Checkbox, createStyles, Avatar, Text, Badge, Paper } from '@mantine/core';
 import { openConfirmModal } from '@mantine/modals';
@@ -123,10 +123,10 @@ const ItemListingVirtual = (props) => {
   const { state: { addLeads: { listingData } },  actions: { setListingData } } = useClientGlobalStore();
 
   const getIsCheckedListing = useCallback(() => {
-    return !!(filter(listingData, (val) => {
-      return val.databaseId === databaseId
-    }).length);
-  }, [listingData]);
+    return !!filter(listingData, (val) => {
+      return val.databaseId === databaseId;
+    }).length;
+  }, [listingData, databaseId]);
 
   const _isCheckListing = getIsCheckedListing();
 

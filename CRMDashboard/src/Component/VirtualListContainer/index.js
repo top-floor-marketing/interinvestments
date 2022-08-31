@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FixedSizeGrid  as Grid  } from "react-window";
 
 import { useId, useElementSize } from '@mantine/hooks';
-import { Box, Checkbox  } from '@mantine/core';
+import { Box } from '@mantine/core';
 
 import ItemListingVirtual from "../ItemListingVirtual";
 

@@ -34,7 +34,6 @@ LogoutIcon.propTypes = {
   variant: PropTypes.oneOf(['transparent', 'hover', "default", "outline", "filled", "light"]),
   size: PropTypes.number,
   labelTooltip: PropTypes.string,
-  color: PropTypes.string,
 };
 
 export default LogoutIcon;

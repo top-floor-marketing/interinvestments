@@ -53,7 +53,6 @@ ShareListing.propTypes = {
   labelTooltip: PropTypes.string,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   uri: PropTypes.string,
-  color: PropTypes.string
 };
 
 export default ShareListing;
