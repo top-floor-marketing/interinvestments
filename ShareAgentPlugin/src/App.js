@@ -50,9 +50,9 @@ function App() {
 
     }
 
-    // if(idInLocal && !idInUrl) {
-    //   window.location.search += `id=${idInLocal}&shared=true`;
-    // }
+    if(idInLocal && !idInUrl) {
+      window.location.search += `id=${idInLocal}&shared=true`;
+    }
 
   }, []);
 
