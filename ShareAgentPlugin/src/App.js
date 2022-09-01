@@ -69,7 +69,12 @@ function App() {
       window.location.search += `${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`;
     }
 
-    const navMenu = document.querySelectorAll("#menu-primary-menu>.menu-item");
+    const navMenu = Array.from(document.querySelectorAll("#menu-primary-menu>.menu-item>a")).map((x) => 
+    {
+      console.log(x.href)
+      return x
+    }
+    );
 
     console.log("navMenu ", navMenu);
 
