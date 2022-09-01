@@ -51,14 +51,12 @@ function App() {
         window.location.replace(`/agent/?${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`);
       }
 
-     //const difference = dayjs(currentUtc).diff(expUtcInLocal, 'days');
-
     }
 
     const lasForceId = localStorage.getItem(LOCASTORAGE_ID_LAST_FORCE_ID);
     let differenceInMinute = dayjs(currentUtc).diff(lasForceId, 'minute');
 
-    if(isNaN(differenceInMinute)) {
+    if(isNaN(differenceInMinute) && !idInUrl) {
       differenceInMinute = 1;
     }
 
@@ -70,6 +68,10 @@ function App() {
       localStorage.setItem(LOCASTORAGE_ID_LAST_FORCE_ID, currentUtc);
       window.location.search += `${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`;
     }
+
+    const navMenu = document.querySelectorAll("#menu-primary-menu>.menu-item");
+
+    console.log("navMenu ", navMenu);
 
   }, []);
 
