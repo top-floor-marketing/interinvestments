@@ -1,8 +1,11 @@
 import React, { useState, cloneElement } from 'react'
 // components
 import DrawerAddLeads from './DrawerAddLeads'
+// global store
+import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore'
 
 const HoccDraewerAL = ({ children, title }) => {
+    const { actions: { setAllField } } = useClientGlobalStore()
     const [opened, setOpened] = useState(false);
 
     const onOpenDrawe = () => {
@@ -10,6 +13,7 @@ const HoccDraewerAL = ({ children, title }) => {
     }
 
     const onCloseDrawer = () => {
+        setAllField()
         setOpened(false)
     }
 

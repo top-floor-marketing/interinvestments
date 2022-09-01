@@ -69,6 +69,7 @@ const FormLogin = (props) => {
       <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
         <Box className={classes.formLogin}>
           <TextInput
+            required
             disabled={isLoading}
             className={classes.InputForm}
             icon={<At />}
@@ -77,6 +78,7 @@ const FormLogin = (props) => {
             {...form.getInputProps("username")}
           />
           <TextInput
+            required
             disabled={isLoading}
             type="password"
             className={classes.InputForm}
@@ -103,7 +105,7 @@ const FormLogin = (props) => {
         href="/wp-login.php?action=lostpassword"
         className={classes.buttonForgot}
         variant="subtle"
-        
+
       >
         Forgot your password?
       </UnstyledButton>

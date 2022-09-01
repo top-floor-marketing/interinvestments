@@ -43,6 +43,12 @@ const useStyles = createStyles((theme, _params) => ({
         lineHeight: "20px",
         fontWeight: 700,
     },
+    title: {
+        '.mantine-Text-root': {
+            fontSize: "18px !important",
+            fontWeight: 700,
+        }
+    },
     boxConatinerTypeLeads: {
         display: 'flex',
         flexDirection: 'column',
@@ -50,6 +56,16 @@ const useStyles = createStyles((theme, _params) => ({
         alignItems: 'center',
         width: '100%',
         height: '50vh'
+    },
+    containerFinalSteps: {
+        display: 'flex',
+        padding: '14px',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        'button': {
+            marginTop: '25px'
+        }
     }
 }));
 
