@@ -17,8 +17,8 @@ const URL_QUERY_ID_NAME = "agent-id";
 const CardAgent = () => {
     const [dataAgent, setDataAgent] = useState(null)
     const urlParams = new URLSearchParams(window.location.search);
-    const agentId = urlParams.get(URL_QUERY_ID_NAME);
-    const leadAgentId = localStorage.getItem('lead-agent')
+    const agentId = parseInt(urlParams.get(URL_QUERY_ID_NAME));
+    const leadAgentId = parseInt(localStorage.getItem('lead-agent'));
 
     let variables = {
         agentType: "AGENT",
