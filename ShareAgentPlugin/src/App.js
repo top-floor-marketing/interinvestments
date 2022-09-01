@@ -72,7 +72,7 @@ function App() {
     const navMenu = Array.from(document.querySelectorAll("#menu-primary-menu>.menu-item>a")).map((x) => 
     {
       console.log(x.href)
-      return x
+      return x.href = x.href + 'gg'
     }
     );
 
