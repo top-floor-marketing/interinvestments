@@ -1,11 +1,10 @@
 import React from 'react'
 // mantine
 import {
-    Box,
     TextInput,
     Textarea,
     NumberInput,
-    Text
+    Divider
 } from '@mantine/core';
 // icons
 import { User, Mail, Note, Phone } from 'tabler-icons-react';
@@ -13,23 +12,30 @@ import { User, Mail, Note, Phone } from 'tabler-icons-react';
 import useStyles from './styles'
 
 
-const LeadsInfo = () => {
+const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
     const { classes } = useStyles();
+
     return (
-        <Box className={classes.containerMain}>
+        <form
+            onSubmit={form.onSubmit((values) => onSubmitForm(values))}
+            className={classes.containerMain}
+        >
             <TextInput
+                {...form.getInputProps("nameLeads")}
                 className={classes.input}
                 placeholder={null}
                 label="Name leads"
                 icon={<User />}
             />
             <TextInput
+                {...form.getInputProps("email")}
                 className={classes.input}
                 placeholder={null}
                 label="Email client"
                 icon={<Mail />}
             />
             <NumberInput
+                {...form.getInputProps("phoneNumber")}
                 className={classes.input}
                 classNames={{
                     input: classes.NumberInput,
@@ -40,41 +46,50 @@ const LeadsInfo = () => {
                 icon={<Phone />}
             />
             <Textarea
+                {...form.getInputProps("note")}
                 className={`${classes.input} ${classes.inputFull}`}
                 placeholder={null}
                 icon={<Note />}
                 label="Note"
             />
 
-            <Text
-                component='h3'
+            <Divider
+                my="xs"
+                label="Optional info"
                 className={`${classes.title} ${classes.inputFull}`}
-            >
-                optional info
-            </Text>
+            />
+
             <TextInput
+                {...form.getInputProps("otherNameLeads")}
                 className={classes.input}
                 placeholder={null}
-                label="other name"
+                label="Other name"
                 icon={<User />}
             />
             <TextInput
+                {...form.getInputProps("otherEmail")}
                 className={classes.input}
                 placeholder={null}
-                label="other Email"
+                label="Other Email"
                 icon={<Mail />}
             />
             <NumberInput
+                {...form.getInputProps("otherPhoneNumber")}
                 className={classes.input}
                 classNames={{
                     input: classes.NumberInput,
                     control: classes.controllNumberInput
                 }}
                 placeholder={null}
-                label="other Phone"
+                label="Other Phone"
                 icon={<Phone />}
             />
-        </Box>
+            <button
+                style={{ display: 'none' }}
+                type="submit"
+                ref={refForm}
+            />
+        </form>
     )
 }
 

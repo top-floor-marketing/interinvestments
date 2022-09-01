@@ -10,12 +10,22 @@ import useStyles from './styles'
 
 const GroupFooter = (_) => {
     const { classes } = useStyles({ color: 'secondary' });
+    const { refForm, nextStep, onClose } = _
     const {
         state: { addLeads: { stepperActive } }, actions: { setstepperActive }
     } = useClientGlobalStore()
 
-    const nextStep = () => setstepperActive(stepperActive < 3 ? stepperActive + 1 : stepperActive);
+
     const prevStep = () => setstepperActive(stepperActive > 0 ? stepperActive - 1 : stepperActive);
+
+
+    const validateNextStep = () => {
+        if (stepperActive === 1) {
+            refForm.current.click()
+        } else {
+            nextStep()
+        }
+    }
 
     return (
         <Group
@@ -29,7 +39,7 @@ const GroupFooter = (_) => {
                         leftIcon={<X />}
                         className={classes.CancelButton}
                         variant="outline"
-                        onClick={() => _.onClose()}
+                        onClick={() => onClose()}
                     >
                         Cancel
                     </Button>
@@ -47,9 +57,10 @@ const GroupFooter = (_) => {
             {
                 stepperActive <= 2 && (
                     <Button
+                        type="submit"
                         rightIcon={<ChevronRight />}
                         className={classes.ButtonSteps}
-                        onClick={nextStep}
+                        onClick={() => validateNextStep()}
                         variant="outline"
                     >
                         Next step
