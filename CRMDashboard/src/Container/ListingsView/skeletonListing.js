@@ -33,7 +33,7 @@ const SkeletonListing = () => {
                 <Skeleton visible className={classes.containerFilter}>
                 </Skeleton>
             </SpringDiv>
-            <SpringDiv delay={400} duration={300} fullHeight>
+            <SpringDiv delay={200} duration={300} fullHeight>
                 <Skeleton visible className={classes.containerListing}>
                 </Skeleton>
             </SpringDiv>

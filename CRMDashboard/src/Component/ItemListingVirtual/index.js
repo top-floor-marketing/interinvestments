@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from "react";
 
 import { Box, Checkbox, createStyles, Avatar, Text, Badge, Paper } from '@mantine/core';
 import { openConfirmModal } from '@mantine/modals';
@@ -48,47 +48,53 @@ const useStyles = createStyles((theme, _params) => {
     },
     containerItemListing: {
       width: "100%",
-      boxShadow: (_isCheckListing && usingCheck) ? theme.other.shadow.lgPrimary : theme.shadows.lg,
+      boxShadow:
+        _isCheckListing && usingCheck
+          ? theme.other.shadow.lgPrimary
+          : theme.shadows.lg,
       height: "100%",
-      backgroundColor: (_isCheckListing && usingCheck) ? theme.colors.gray[4] : theme.colors.gray[0],
+      backgroundColor:
+        _isCheckListing && usingCheck
+          ? theme.colors.gray[4]
+          : theme.colors.gray[0],
       display: "flex",
       flexDirection: "row",
       justifyItems: "start",
       alignItems: "center",
       padding: theme.other.spacing.p4,
       gap: theme.other.spacing.p4,
-      cursor: (usingCheck) ? 'pointer' : ''
+      cursor: usingCheck ? "pointer" : "",
     },
     items: {
       minWidth: `${infoWidth}px`,
-      fontSize: (!usingViewsAndLiving) ? "12px" : '14px',
+      fontSize: !usingViewsAndLiving ? "12px" : "14px",
       fontWeight: 400,
       textAlign: "text-left",
-      wordWrap: (width<700) ? "break-word" : "normal"
+      wordWrap: width < 700 ? "break-word" : "normal",
     },
     neiItem: {
-      display: (!usingNei) ? 'none !important' : 'flex',
-      flexDirection: 'row',
+      display: !usingNei ? "none !important" : "flex",
+      flexDirection: "row",
       alignItems: "center",
     },
     viewsAndLivingItem: {
-      display: (!usingViewsAndLiving) ? 'none !important' : 'flex',
+      display: !usingViewsAndLiving ? "none !important" : "flex",
     },
     itemTitle: {
       fontWeight: "600 !important",
       margin: "0px !important",
-      fontSize: (!usingViewsAndLiving) ? "12px" : '14px',
+      fontSize: !usingViewsAndLiving ? "12px" : "14px",
     },
     badgeFeatured: {
-      '.mantine-Badge-rightSection': {
+      ".mantine-Badge-rightSection": {
         display: "flex !important",
         flexDirection: "column !important",
-        '.icon-tabler': {
+        ".icon-tabler": {
           marginTop: "auto !important",
-          marginBottom: "auto !important"
-        }
+          marginBottom: "auto !important",
+        },
       },
-      fontSize: (width<700) ? "8px" : '12px',
+      fontSize: width < 700 ? "8px" : "12px",
     },
     containerActions: {
       flex: 1,
@@ -103,16 +109,16 @@ const useStyles = createStyles((theme, _params) => {
     boxDialog: {
       display: "flex",
       flexDirection: "column",
-      gap: theme.other.spacing.p2,
+      gap: theme.other.spacing.p8,
       width: "100%",
       minHeight: "100px",
       alignItems: "center",
-      'h4': {
-        textAlign: "text-center",
-        margin: 0,
-        width: "auto"
-      }
-    }
+    },
+    boxDialogText: {
+      fontWeight: "600 !important",
+      margin: "0px !important",
+      fontSize: "16px",
+    },
   };
 })
 
@@ -157,18 +163,18 @@ const ItemListingVirtual = (props) => {
       title: null,
       children: (
         <Box className={classes.boxDialog}>
-          <Text component='h5' size="sm">
+          <Text className={classes.boxDialogText}>
             Are you sure you want to add this listing?
           </Text>
           <Avatar radius="_40px" size="100px" src={getPhoto()} />
-          <Text component='h6' className={classes.itemTitle}>{getTitle()}</Text>
+          <Text className={classes.boxDialogText}>{getTitle()}</Text>
         </Box>
       ),
-      labels: { confirm: 'Add', cancel: 'Cancel' },
-      confirmProps: { color: 'success' },
-      onCancel: () => console.log('Cancel'),
+      labels: { confirm: "Add", cancel: "Cancel" },
+      confirmProps: { color: "success" },
+      onCancel: () => console.log("Cancel"),
       onConfirm: () => onConfirmAdd(databaseId),
-      zIndex: 9999
+      zIndex: 9999,
     });
   }
 
@@ -177,18 +183,18 @@ const ItemListingVirtual = (props) => {
       title: null,
       children: (
         <Box className={classes.boxDialog}>
-          <Text component='h4' size="sm">
+          <Text className={classes.boxDialogText}>
             Are you sure you want to remove this listing?
           </Text>
           <Avatar radius="_40px" size="60px" src={getPhoto()} />
-          <Text className={classes.itemTitle}>{getTitle()}</Text>
+          <Text className={classes.boxDialogText}>{getTitle()}</Text>
         </Box>
       ),
-      labels: { confirm: 'Remove', cancel: 'Cancel' },
-      confirmProps: { color: 'error' },
-      onCancel: () => console.log('Cancel'),
+      labels: { confirm: "Remove", cancel: "Cancel" },
+      confirmProps: { color: "error" },
+      onCancel: () => console.log("Cancel"),
       onConfirm: () => onConfirmRemove(databaseId),
-      zIndex: 9999
+      zIndex: 9999,
     });
   }
 
@@ -212,38 +218,39 @@ const ItemListingVirtual = (props) => {
 
   return (
     <Box className={classes.container}>
-      {
-        (usingCheck) && <Checkbox onChange={onChangeCheckBox} checked={_isCheckListing} />
-      }
-      <Paper className={classes.containerItemListing} onClick={() => onChangeCheckBox()}>
-        <Avatar radius="_40px" size={width<600 ? '30px': '60px'} src={getPhoto()} />
+      {usingCheck && (
+        <Checkbox onChange={onChangeCheckBox} checked={_isCheckListing} />
+      )}
+      <Paper
+        className={classes.containerItemListing}
+        onClick={() => onChangeCheckBox()}
+      >
+        <Avatar
+          radius="_40px"
+          size={width < 600 ? "30px" : "60px"}
+          src={getPhoto()}
+        />
         <Box className={classes.items}>
           <Text className={classes.itemTitle}>{getTitle()}</Text>
-          {
-            (isFeatured)
-            &&
+          {isFeatured && (
             <Badge
               className={classes.badgeFeatured}
               color="success"
               variant="filled"
               sx={{ paddingRight: 3 }}
-              rightSection={<Check size={(width<700) ? 10 : 14} />}>
+              rightSection={<Check size={width < 700 ? 10 : 14} />}
+            >
               Featured
             </Badge>
-          }
+          )}
         </Box>
-        <Box className={classNames(classes.items,classes.neiItem)}>
+        <Box className={classNames(classes.items, classes.neiItem)}>
           <MapPin size={24} />
-          <Text
-            lineClamp={2}
-            title={`Neighborhood:\n${getNeighborhood()}`}
-          >
+          <Text lineClamp={2} title={`Neighborhood:\n${getNeighborhood()}`}>
             {getNeighborhood()}
           </Text>
         </Box>
-        {
-          (!usingCheck)
-          &&
+        {!usingCheck && (
           <Text
             className={classNames(classes.items, classes.viewsAndLivingItem)}
             lineClamp={2}
@@ -251,11 +258,9 @@ const ItemListingVirtual = (props) => {
           >
             {getViews()}
           </Text>
-        }
+        )}
 
-        {
-          (!usingCheck)
-          &&
+        {!usingCheck && (
           <Text
             className={classNames(classes.items, classes.viewsAndLivingItem)}
             lineClamp={2}
@@ -263,12 +268,10 @@ const ItemListingVirtual = (props) => {
           >
             {getLivingArea()}
           </Text>
-        }
+        )}
 
         <Box className={classes.containerActions}>
-          {
-            (!isFeatured && usingAddAndRemove && !usingCheck)
-            &&
+          {!isFeatured && usingAddAndRemove && !usingCheck && (
             <IconAddListing
               variant="filled"
               position="top-end"
@@ -278,17 +281,28 @@ const ItemListingVirtual = (props) => {
               onClick={onClickAddListing}
               size={24}
             />
-          }
+          )}
+          {isFeatured && usingAddAndRemove && !usingCheck && (
+            <IconRemove
+              variant="filled"
+              position="top-end"
+              color="error"
+              id={idAgent}
+              radius="_40px"
+              size={24}
+              onClick={onClickRemoveListing}
+            />
+          )}
 
           <ViewLandingListing
             variant="filled"
-            labelTooltip="Open listing"
+            labelTooltip="View listing"
             id={idAgent}
             uri={uri}
             radius="_40px"
             size={24}
           />
-          {
+          {/* {
             (!usingCheck)
             &&
             <ShareListing
@@ -299,8 +313,8 @@ const ItemListingVirtual = (props) => {
               radius="_40px"
               size={24}
             />
-          }
-          {
+          } */}
+          {/* {
             (!usingCheck)
             &&
             <IconDownloadPdf
@@ -310,22 +324,7 @@ const ItemListingVirtual = (props) => {
               radius="_40px"
               size={24}
             />
-          }
-
-          {
-            (isFeatured && usingAddAndRemove && !usingCheck)
-            &&
-            <IconRemove
-              variant="filled"
-              position="top-end"
-              color="error"
-              id={idAgent}
-              radius="_40px"
-              size={24}
-              onClick={onClickRemoveListing}
-            />
-          }
-
+          } */}
         </Box>
       </Paper>
     </Box>

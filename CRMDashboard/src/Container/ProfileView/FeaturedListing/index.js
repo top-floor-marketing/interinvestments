@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, createStyles, Text, Skeleton, Group, Button, Modal, Box } from "@mantine/core";
 import { useViewportSize } from '@mantine/hooks';
 import { IconPlus } from '@tabler/icons';
@@ -55,9 +55,10 @@ const FeaturedListing = () => {
   const [isOpenModalAddListing, setIsOpenModalAddListing] = useState(false);
 
   const getSizeModal = useCallback(() => {
-    if(width>1000) return "80%";
-    if(width>800) return "90%";
-    return "95%"
+    if(width>2000) return "80%";
+    if(width>900) return "85%";
+    if(width>800) return "95%";
+    return "97%"
   },[width])
 
   const onCloseModalAddListing = () => {
@@ -91,7 +92,7 @@ const FeaturedListing = () => {
               body: classes.bodyModal,
             }}
           >
-            <ListingView isCheck={true} />
+            <ListingView />
           </Modal>
         </Group>
         <Box className={classes.containerInfinite}>

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { ArrowForwardUp } from 'tabler-icons-react';
 import { useClipboard } from '@mantine/hooks';
@@ -15,7 +16,8 @@ const ShareListing = (props) => {
   const clipboard = useClipboard({ timeout: 2000 });
 
   const clipboardCopy = () => {
-    clipboard.copy(`${DOMAIN_URL}${props.uri}?id=${props.id}&shared=true`)
+    const removeSlash = props.uri.substring(1);
+    clipboard.copy(`${DOMAIN_URL}${removeSlash}?id=${props.id}&shared=true`);
   }
 
   return (

@@ -57,9 +57,9 @@ const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
   ) : (
     <Box className={classes.container}>
       <LoadingOverlay
-        overlayOpacity={0.2}
+        overlayOpacity={0.05}
         visible={isOverlay}
-        overlayBlur={1}
+        overlayBlur={0.05}
       />
       <SpringDiv delay={100} duration={300}>
         <FilterOptions
@@ -72,7 +72,7 @@ const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
       </SpringDiv>
       <SpringDiv delay={300} duration={300} fullHeight>
         <Paper className={classes.containerListings}>
-          {isLoading && (
+          {isLoading && !isOverlay && (
             <LoadingOverlay
               overlayOpacity={0.05}
               visible={isLoading}

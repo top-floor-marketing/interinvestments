@@ -1,9 +1,9 @@
 .mantine-Skeleton-root::before {
-    background-color: #b8b8b5 !important;
+    background-color: #d6d6d4 !important;
 }
 
 .mantine-Skeleton-root::after {
-    background-color: #a4a4a0 !important;
+    background-color: #c2c2bf !important;
 }
 /*
 gray[0] = #eaeae9
