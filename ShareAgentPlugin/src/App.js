@@ -69,14 +69,13 @@ function App() {
       window.location.search += `${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`;
     }
 
-    const navMenu = Array.from(document.querySelectorAll("#menu-primary-menu>.menu-item>a")).map((x) => 
-    {
-      console.log(x.href)
-      return x.href = x.href + 'gg'
+    if(idInLocal) {
+      Array.from(document.querySelectorAll("#menu-primary-menu>.menu-item>a")).map((x) => 
+      {
+        return x.href = x.href + `?${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`
+      }
+      );
     }
-    );
-
-    console.log("navMenu ", navMenu);
 
   }, []);
 
