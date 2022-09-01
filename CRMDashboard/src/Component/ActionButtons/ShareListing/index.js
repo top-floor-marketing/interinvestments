@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import omit from 'lodash/omit';
 
+const URL_QUERY_ID_NAME = "agent-id";
 const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
 const DOMAIN_URL =
   ENVIROMENT === "production"
@@ -17,7 +18,9 @@ const ShareListing = (props) => {
 
   const clipboardCopy = () => {
     const removeSlash = props.uri.substring(1);
-    clipboard.copy(`${DOMAIN_URL}${removeSlash}?id=${props.id}&shared=true`);
+    clipboard.copy(
+      `${DOMAIN_URL}${removeSlash}?${URL_QUERY_ID_NAME}=${props.id}&shared=true`
+    );
   }
 
   return (

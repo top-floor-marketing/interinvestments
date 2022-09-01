@@ -4,6 +4,7 @@ import { useClipboard } from '@mantine/hooks';
 import PropTypes from 'prop-types';
 
 import omit from 'lodash/omit';
+const URL_QUERY_ID_NAME = "agent-id";
 
 const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
 const DOMAIN_URL =
@@ -15,7 +16,9 @@ const ShareAgent = (props) => {
   const clipboard = useClipboard({ timeout: 2000 });
 
   const clipboardCopy = () => {
-    clipboard.copy(`${DOMAIN_URL}/agent?id=${props.id}&shared=true`)
+    clipboard.copy(
+      `${DOMAIN_URL}/agent?${URL_QUERY_ID_NAME}=${props.id}&shared=true`
+    );
   }
 
   return (

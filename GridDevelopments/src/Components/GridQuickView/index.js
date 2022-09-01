@@ -7,12 +7,24 @@ import CarouselMobile from "../CarouselMobile";
 
 import styles from "./styles_gd.module.scss";
 
+const URL_QUERY_ID_NAME = "agent-id";
+const ID_LOCALSTORAGE_NAME = "lead-agent";
+
 const GridQuickView = ({
   data,
   openModalQuickView,
   showOverlay,
   isMobileScreen,
 }) => {
+
+  const getAgentIdUrl = (uri) => {
+     const idInLocalStorage = localStorage.getItem(ID_LOCALSTORAGE_NAME);
+     if(idInLocalStorage) {
+      return `${uri}?${URL_QUERY_ID_NAME}={idInLocalStorage}&shared=true`;
+     }
+     return uri
+  }
+
   // @apply should not be used with the 'group' utility
   const allProps = {
     container: {
@@ -56,7 +68,7 @@ const GridQuickView = ({
         disabled: showOverlay,
         variant: "white",
         component: "a",
-        href: uri,
+        href: getAgentIdUrl(uri),
         className: styles.buttonRedirect,
       };
     },

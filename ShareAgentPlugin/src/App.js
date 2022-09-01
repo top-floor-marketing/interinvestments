@@ -8,6 +8,7 @@ import toLower from "lodash/toLower";
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
+const URL_QUERY_ID_NAME ='agent-id';
 const LOCASTORAGE_ID_NAME = 'lead-agent';
 const LOCASTORAGE_ID_DATE_EXP = 'lead-date-exp';
 
@@ -18,7 +19,7 @@ function App() {
   useEffect(() => {
     const currentUtc = dayjs().utc().format();
     const queryParams = new URLSearchParams(window.location.search);
-    const idInUrl = toInteger(queryParams.get('id'));
+    const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
     let idInLocal = toInteger(localStorage.getItem(LOCASTORAGE_ID_NAME));
 
     if (!idInUrl && !idInLocal) {
@@ -43,7 +44,7 @@ function App() {
       idInLocal = toInteger(localStorage.getItem(LOCASTORAGE_ID_NAME));
 
       if(idInLocal && findAgentsUrl) {
-        window.location.replace(`/agent/?id=${idInLocal}&shared=true`);
+        window.location.replace(`/agent/?${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`);
       }
 
      //const difference = dayjs(currentUtc).diff(expUtcInLocal, 'days');
@@ -51,7 +52,7 @@ function App() {
     }
 
     if(idInLocal && !idInUrl) {
-      window.location.search += `id=${idInLocal}&shared=true`;
+      window.location.search += `${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`;
     }
 
   }, []);

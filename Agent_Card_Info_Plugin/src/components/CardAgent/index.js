@@ -12,10 +12,12 @@ import { DATA_AGENT } from '../../GraphqlClient/GQL';
 // styles 
 import styles from './styles.ca.module.scss'
 
+const URL_QUERY_ID_NAME = "agent-id";
+
 const CardAgent = () => {
     const [dataAgent, setDataAgent] = useState(null)
     const urlParams = new URLSearchParams(window.location.search);
-    const agentId = urlParams.get('id')
+    const agentId = urlParams.get(URL_QUERY_ID_NAME);
     const leadAgentId = localStorage.getItem('lead-agent')
 
     let variables = {
@@ -39,7 +41,6 @@ const CardAgent = () => {
         variables,
         config: {
             onSuccess: (req) => {
-                // console.log('req', req)
                 setDataAgent(...req.dataAgent)
             }
         }

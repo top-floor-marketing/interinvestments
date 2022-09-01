@@ -11,6 +11,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const queryClient = new QueryClient();
 
+const URL_QUERY_ID_NAME = "agent-id";
+
 function App() {
 
   const [urlIdAgent, setUrlIdAgent] = useState(null);
@@ -18,7 +20,7 @@ function App() {
 
   const getUrlIdAgent = useCallback(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const idParams = urlParams.get('id');
+    const idParams = urlParams.get(URL_QUERY_ID_NAME);
     if(idParams) {
       setUrlIdAgent(idParams);
     }

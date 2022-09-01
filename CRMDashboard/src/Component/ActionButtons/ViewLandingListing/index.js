@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 
 import omit from 'lodash/omit';
 
+const URL_QUERY_ID_NAME = "agent-id";
+
 const ViewLandingListing = (props) => {
 
-  const fullUrl = `${props.uri}?id=${props.id}&shared=true`;
+  const fullUrl = `${props.uri}?${URL_QUERY_ID_NAME}=${props.id}&shared=true`;
 
   return (
     <Tooltip multiline
