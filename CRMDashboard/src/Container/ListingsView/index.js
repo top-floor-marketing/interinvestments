@@ -27,6 +27,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
+    position: "relative"
   },
   virtualAllListings: {
     width: "100%",
@@ -51,44 +52,54 @@ const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
   const { isLoading, isOverlay, isSkeleton, allListings, categoryProps, neiProps, searchProps, totalData, refetchData, onConfirmAdd,
     onConfirmRemove } = useGetListings();
 
-  return (
-    (isSkeleton)
-      ?
-      <SkeletonListing />
-      :
-      <Box className={classes.container}>
-        <LoadingOverlay overlayOpacity={0.2} visible={isOverlay} overlayBlur={1} />
-        <SpringDiv delay={100} duration={300}>
-          <FilterOptions
-            isCheck={isCheck}
-            isLoading={isLoading}
-            searchProps={searchProps}
-            categoryProps={categoryProps}
-            neiProps={neiProps} />
-        </SpringDiv>
-        <SpringDiv delay={300} duration={300} fullHeight>
-          <Paper className={classes.containerListings}>
-            {
-              (totalData) ?
-                <VirtualListContainer
-                  usingAddAndRemove={usingAddAndRemove}
-                  isCheck={isCheck}
-                  data={allListings}
-                  totalData={totalData}
-                  refetch={refetchData}
-                  isLoading={isLoading}
-                  onConfirmAdd={onConfirmAdd}
-                  onConfirmRemove={onConfirmRemove}
-                /> :
-                <div className={classes.noData}>
-                  <Text component="h4">No data found</Text>
-                  <DatabaseOff size={36} />
-                </div>
-            }
-          </Paper>
-        </SpringDiv>
-      </Box>
-  )
+  return isSkeleton ? (
+    <SkeletonListing />
+  ) : (
+    <Box className={classes.container}>
+      <LoadingOverlay
+        overlayOpacity={0.2}
+        visible={isOverlay}
+        overlayBlur={1}
+      />
+      <SpringDiv delay={100} duration={300}>
+        <FilterOptions
+          isCheck={isCheck}
+          isLoading={isLoading}
+          searchProps={searchProps}
+          categoryProps={categoryProps}
+          neiProps={neiProps}
+        />
+      </SpringDiv>
+      <SpringDiv delay={300} duration={300} fullHeight>
+        <Paper className={classes.containerListings}>
+          {isLoading && (
+            <LoadingOverlay
+              overlayOpacity={0.05}
+              visible={isLoading}
+              overlayBlur={0.05}
+            />
+          )}
+          {totalData ? (
+            <VirtualListContainer
+              usingAddAndRemove={usingAddAndRemove}
+              isCheck={isCheck}
+              data={allListings}
+              totalData={totalData}
+              refetch={refetchData}
+              isLoading={isLoading}
+              onConfirmAdd={onConfirmAdd}
+              onConfirmRemove={onConfirmRemove}
+            />
+          ) : (
+            <div className={classes.noData}>
+              <Text component="h4">No data found</Text>
+              <DatabaseOff size={36} />
+            </div>
+          )}
+        </Paper>
+      </SpringDiv>
+    </Box>
+  );
 }
 
 ListingFinder.defaultProps = {

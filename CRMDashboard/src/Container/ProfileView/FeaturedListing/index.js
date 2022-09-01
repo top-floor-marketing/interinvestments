@@ -79,30 +79,32 @@ const FeaturedListing = () => {
           </Button>
           <Modal
             zIndex={200}
-            onClose={() => onCloseModalAddListing()} 
+            onClose={() => onCloseModalAddListing()}
             centered
             closeOnEscape
-            closeOnClickOutside 
+            closeOnClickOutside
             opened={isOpenModalAddListing}
             size={getSizeModal()}
             overflow="inside"
             classNames={{
               modal: classes.modal,
-              body: classes.bodyModal
+              body: classes.bodyModal,
             }}
-            >
-              <ListingView isCheck={true} />
+          >
+            <ListingView isCheck={true} />
           </Modal>
         </Group>
         <Box className={classes.containerInfinite}>
-         <VirtualListContainer
-            name="featured-listing"
-            data={listingAgent}
-            totalData={totalData}
-            refetch={refetchData}
-            isLoading={isLoading}
-            usingAddAndRemove={false}
-          />
+          {!isSkeleton && (
+            <VirtualListContainer
+              name="featured-listing"
+              data={listingAgent}
+              totalData={totalData}
+              refetch={refetchData}
+              isLoading={isLoading}
+              usingAddAndRemove={false}
+            />
+          )}
         </Box>
       </Card>
     </Skeleton>

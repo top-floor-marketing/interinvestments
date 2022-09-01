@@ -38,14 +38,20 @@ const useGetAgentListing = () => {
         gql: GET_AGENT_FEATURED_LISTING,
         config: {
           onSuccess: (response) => {
-            setIsSkeleton(false);
+            
             const listings = formatResponseData(response);
             const idListings = getArrayIdListings(listings);
             setListingFeaturedAgent(idListings);
             setListingAgent(listings);
+
+            setTimeout(() => {
+              setIsSkeleton(false);
+            }, 500);
           },
           onError: (e) => {
-            setIsSkeleton(false);
+            setTimeout(() => {
+              setIsSkeleton(false);
+            }, 500);
           },
         },
         variables: {

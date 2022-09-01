@@ -25,7 +25,7 @@ const FormLogin = (props) => {
   const { onSuccessLogin } = props;
 
   const form = useForm({
-    schema: joiResolver(schema),
+    validate: joiResolver(schema),
     initialValues: {
       password: "",
       username: "",
