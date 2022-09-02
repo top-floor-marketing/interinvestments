@@ -68,9 +68,8 @@ function App() {
 
       if (idInLocal) {
         Array.from(document.querySelectorAll("#menu-primary-menu>.menu-item>a")).map((x) => {
-          const text = x.textContent || x.innerText;
-          console.log('text' , text);
-          return x.href = x.href + `?${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`
+          const text = toLower(x.textContent || x.innerText);
+          return x.href = (text !== "login") ? x.href + `?${URL_QUERY_ID_NAME}=${idInLocal}&shared=true` : x.href
         }
         );
       }
