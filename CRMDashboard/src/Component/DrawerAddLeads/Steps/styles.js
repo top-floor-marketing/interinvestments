@@ -55,17 +55,37 @@ const useStyles = createStyles((theme, _params) => ({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: '50vh'
+        height: '100%'
+    },
+    containerInterested: {
+        width: '100%',
+        height: '100%'
     },
     containerFinalSteps: {
         display: 'flex',
         padding: '14px',
+        flexDirection: 'row',
+        gap: '12px'
+    },
+    contedInterested: {
+        display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        gap: '12px',
+        width: '35%'
+    },
+    containerInfo: {
+        display: 'flex',
+        flexDirection: 'row',
         alignItems: 'center',
-        'button': {
-            marginTop: '25px'
-        }
+        gap: '12px'
+    },
+    tittleInterested: {
+        fontSize: '14px'
+    },
+    titleFinalStepIfo: {
+        margin: '0px',
+        color: theme.colors.secondary[6],
+        fontSize: '22px'
     }
 }));
 

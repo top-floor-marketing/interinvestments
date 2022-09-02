@@ -55,7 +55,7 @@ const GroupFooter = (_) => {
                 )
             }
             {
-                stepperActive <= 2 && (
+                stepperActive <= 1 ? (
                     <Button
                         type="submit"
                         rightIcon={<ChevronRight />}
@@ -64,6 +64,13 @@ const GroupFooter = (_) => {
                         variant="outline"
                     >
                         Next step
+                    </Button>
+                ) : (
+                    <Button
+                        variant="outline"
+                        className={classes.ButtonComplete}
+                    >
+                        Complete leads
                     </Button>
                 )
             }

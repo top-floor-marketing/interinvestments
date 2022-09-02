@@ -22,8 +22,12 @@ const useStyles = createStyles((theme, _params) => {
                 },
             },
             steps: {
-                overflow: 'auto',
-                width: '1010px'
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                width: '100%',
+                [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+                    width: '65%',
+                },
             },
             titleStep: {
                 fontWeight: 700,
@@ -92,6 +96,15 @@ const useStyles = createStyles((theme, _params) => {
                     backgroundColor: `${theme.colors.gray[9]} !important`,
                     color: `${theme.colors.black[0]} !important`,
                     borderColor: `${theme.colors.gray[3]} !important`,
+                }
+            },
+            ButtonComplete: {
+                backgroundColor: `${theme.colors.success[6]} !important`,
+                borderColor: `${theme.colors.success[6]} !important`,
+                color: theme.colors.white[0],
+                '&:hover': {
+                    backgroundColor: `${theme.colors.success[3]} !important`,
+                    borderColor: `${theme.colors.success[3]} !important`,
                 }
             },
             BadgeSteps: {

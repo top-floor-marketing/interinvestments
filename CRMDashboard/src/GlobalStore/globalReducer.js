@@ -69,8 +69,8 @@ const StoreReducer = (state = { theme: DEFAUL_STORE_THEME, user: DEFAULT_STORE_U
                     typeLeads: action.payload
                 }
             }
-        
-        case STORE_ADDLEAD_ACTIONS.SET_LISTING_DATA: 
+
+        case STORE_ADDLEAD_ACTIONS.SET_LISTING_DATA:
             return {
                 ...state,
                 addLeads: {
@@ -78,7 +78,16 @@ const StoreReducer = (state = { theme: DEFAUL_STORE_THEME, user: DEFAULT_STORE_U
                     listingData: action.payload
                 }
             }
-            
+
+        case STORE_ADDLEAD_ACTIONS.SET_DATA_FORM:
+            return {
+                ...state,
+                addLeads: {
+                    ...state.addLeads,
+                    dataForm: action.payload
+                }
+            }
+
         default:
             throw new Error();
     }

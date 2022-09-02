@@ -3,22 +3,24 @@ import React, { useRef } from 'react'
 import { Stepper, Box, Text } from '@mantine/core';
 import { useForm } from "@mantine/form";
 //  icons
-import { FileInfo, User, Check, BuildingCommunity } from 'tabler-icons-react';
+import { User, Check, BuildingCommunity } from 'tabler-icons-react';
 // components
 import ContainerStep from '../ContainerStep'
 import GroupFooter from './GroupFooter'
 import DescriptionSteps from './DescriptionSteps'
-import { ListingLeadsInfo, TypeLeads, InterestedListing, FinalStepp } from '../Steps'
+import { ListingLeadsInfo, TypeLeads, FinalStepp } from '../Steps'
 import { nameLeadsValidation, emailValidation, phoneNumberValidation, noteValidation } from '../Steps/ValidationForm'
-// import Schema from '../Steps/ShemaLeadForm'
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
 // styles 
 import useStyles from './styles'
 
 const SteppsNewLeads = (_) => {
-    const { state: { addLeads: { stepperActive, typeLeads } }, actions: { setstepperActive } } = useClientGlobalStore()
-    // const { state: { addLeads } } = useClientGlobalStore()
+    const {
+        state: { addLeads: { stepperActive } },
+        actions: { setstepperActive, setDataForm }
+    } = useClientGlobalStore()
+    const { state: { addLeads } } = useClientGlobalStore()
     const { classes } = useStyles({ color: 'secondary' });
     const refForm = useRef(null)
     const props = {
@@ -27,7 +29,7 @@ const SteppsNewLeads = (_) => {
             iconSize: 52,
             size: "md",
             classNames: {
-                //  steps: classes.steps,
+                steps: classes.steps,
                 stepIcon: classes.icon,
                 stepWrapper: classes.stepsIcon
             },
@@ -61,16 +63,14 @@ const SteppsNewLeads = (_) => {
         }),
     });
 
-    const nextStep = () => setstepperActive(stepperActive < 3 ? stepperActive + 1 : stepperActive);
+    const nextStep = () => setstepperActive(stepperActive < 2 ? stepperActive + 1 : stepperActive);
 
     const onSubmitForm = (valueForm) => {
         // dispach
-        console.log('onSubmitForm', valueForm)
+        setDataForm({ ...valueForm })
         nextStep()
     };
 
-
-    // console.log('addLeads Store', addLeads)
 
     return (
         <Box className={classes.StepperContainer}>
@@ -113,31 +113,8 @@ const SteppsNewLeads = (_) => {
                     </ContainerStep>
                 </Stepper.Step>
 
-                <Stepper.Step
-                    {...props.Step}
-                    icon={<FileInfo size={34} color='white' />}
-                    label={<Text component="span" className={classes.titleStep}>Step 3</Text>}
-                    description={
-                        <DescriptionSteps
-                            stepperActive={stepperActive}
-                            position={2}
-                            text='Interested in'
-                        />
-                    }
-                >
-                    <ContainerStep title={null}>
-                        {
-                            (typeLeads) === "LISTING" ? (
-                                <InterestedListing />
-                            ) : (
-                                <p>fcsafsafasfd</p>
-                            )
-                        }
-                    </ContainerStep>
-                </Stepper.Step>
-
                 <Stepper.Completed>
-                    <ContainerStep>
+                    <ContainerStep title={null}>
                         <FinalStepp />
                     </ContainerStep>
                 </Stepper.Completed>

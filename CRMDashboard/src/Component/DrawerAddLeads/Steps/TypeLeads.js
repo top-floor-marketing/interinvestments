@@ -1,4 +1,5 @@
 import React from 'react'
+import { InterestedListing, InterestedServices } from '../Steps'
 // mantine
 import { SegmentedControl, Box } from '@mantine/core';
 // styles 
@@ -11,7 +12,7 @@ const TypeLeads = () => {
   const { classes } = useStyles();
 
   const onChangeSegment = (valueSegment) => {
-    if(valueSegment === 'LISTING') {
+    if (valueSegment === 'LISTING') {
       // set valies services
 
       // set value type leads
@@ -25,18 +26,29 @@ const TypeLeads = () => {
   }
 
   return (
-    <Box className={classes.boxConatinerTypeLeads}>
-      <SegmentedControl
-        onChange={(value) => onChangeSegment(value)}
-        value={typeLeads}
-        className={classes.radioSegment}
-        size='xl'
-        data={[
-          { label: 'Listing', value: 'LISTING' },
-          { label: 'services', value: 'SERVICES' }
-        ]}
-      />
-    </Box>
+    <>
+      <Box className={classes.boxConatinerTypeLeads}>
+        <SegmentedControl
+          onChange={(value) => onChangeSegment(value)}
+          value={typeLeads}
+          className={classes.radioSegment}
+          size='md'
+          data={[
+            { label: 'Listing', value: 'LISTING' },
+            { label: 'services', value: 'SERVICES' }
+          ]}
+        />
+      </Box>
+      <Box className={classes.containerInterested}>
+        {
+          (typeLeads) === "LISTING" ? (
+            <InterestedListing />
+          ) : (
+            <InterestedServices />
+          )
+        }
+      </Box>
+    </>
   )
 }
 
