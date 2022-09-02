@@ -8,17 +8,17 @@
 
 .labelFrom {
     @apply text-left mb-3 lg:mb-7 uppercase text-[14px] lg:text-[16px] font-outfit;
-    font-weight: 600 !important;
+    font-weight: 400 !important;
 }
 
 .labelTitle {
     @apply text-left mb-3 lg:mb-7 text-[24px] lg:text-[36px] font-outfit break-words leading-[45px];
-    font-weight: 700 !important;
+    font-weight: 300 !important;
 }
 
 .description {
     @apply text-left max-h-[250px] overflow-auto mb-7 lg:mb-16 text-[16px] lg:text-[20px] font-outfit break-words leading-[25px];
-    font-weight: 600 !important;
+    font-weight: 300 !important;
 }
 
 .containerImage {
