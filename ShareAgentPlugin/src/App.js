@@ -9,9 +9,8 @@ import isNaN from 'lodash/isNaN';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
-const URL_QUERY_ID_NAME ='agent-id';
+const URL_QUERY_ID_NAME = 'agent-id';
 const LOCASTORAGE_ID_NAME = 'lead-agent';
-const LOCASTORAGE_ID_DATE_EXP = 'lead-date-exp';
 const LOCASTORAGE_ID_LAST_FORCE_ID = 'lead-date-force-id';
 
 dayjs.extend(utc);
@@ -19,62 +18,62 @@ dayjs.extend(utc);
 function App() {
 
   useEffect(() => {
-    const currentUtc = dayjs().utc().format();
 
     const queryParams = new URLSearchParams(window.location.search);
     const pathArray = window.location.pathname.split("/");
+
+    const findBlogUrl = !!findLast(
+      pathArray,
+      (val) => toLower(val) === "blog"
+    );
+
+    if (!findBlogUrl) {
       const findAgentsUrl = !!findLast(
         pathArray,
         (val) => toLower(val) === "agents"
       );
 
-    const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
-    let idInLocal = toInteger(localStorage.getItem(LOCASTORAGE_ID_NAME));
+      const currentUtc = dayjs().utc().format();
 
-    if (!idInUrl && !idInLocal) {
-      const forceExpire = dayjs(currentUtc).utc().subtract(1, "year").format();
-      localStorage.setItem(LOCASTORAGE_ID_NAME, null);
-      localStorage.setItem(LOCASTORAGE_ID_DATE_EXP, forceExpire);
-    } else {
-      
+      const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
+      let idInLocal = toInteger(localStorage.getItem(LOCASTORAGE_ID_NAME));
 
-      const add28Days = dayjs(currentUtc).utc().add(28, "day").format();
+      if (!idInUrl && !idInLocal) {
+        localStorage.setItem(LOCASTORAGE_ID_NAME, null);
+      } else {
 
-      if (!isEqual(idInUrl, idInLocal) && !!idInUrl) {
-        localStorage.setItem(LOCASTORAGE_ID_NAME, idInUrl);
-        localStorage.setItem(LOCASTORAGE_ID_DATE_EXP, add28Days);
+        if (!isEqual(idInUrl, idInLocal) && idInUrl) {
+          localStorage.setItem(LOCASTORAGE_ID_NAME, idInUrl);
+        }
+
+        idInLocal = toInteger(localStorage.getItem(LOCASTORAGE_ID_NAME));
+
+        if (idInLocal && findAgentsUrl) {
+          window.location.replace(`/agent/?${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`);
+        }
+
       }
 
-      idInLocal = toInteger(localStorage.getItem(LOCASTORAGE_ID_NAME));
+      const lasForceId = localStorage.getItem(LOCASTORAGE_ID_LAST_FORCE_ID);
+      let differenceInMinute = dayjs(currentUtc).diff(lasForceId, 'minute');
 
-      if(idInLocal && findAgentsUrl) {
-        window.location.replace(`/agent/?${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`);
+      if (isNaN(differenceInMinute) && !idInUrl) {
+        differenceInMinute = 1;
       }
 
-    }
-
-    const lasForceId = localStorage.getItem(LOCASTORAGE_ID_LAST_FORCE_ID);
-    let differenceInMinute = dayjs(currentUtc).diff(lasForceId, 'minute');
-
-    if(isNaN(differenceInMinute) && !idInUrl) {
-      differenceInMinute = 1;
-    }
-
-    console.log("lasForceId ", lasForceId)
-    console.log("currentUtc ", currentUtc)
-    console.log("differenceInMinute ", differenceInMinute)
-
-    if(idInLocal && !idInUrl && !findAgentsUrl && differenceInMinute>0) {
-      localStorage.setItem(LOCASTORAGE_ID_LAST_FORCE_ID, currentUtc);
-      window.location.search += `${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`;
-    }
-
-    if(idInLocal) {
-      Array.from(document.querySelectorAll("#menu-primary-menu>.menu-item>a")).map((x) => 
-      {
-        return x.href = x.href + `?${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`
+      if (idInLocal && !idInUrl && !findAgentsUrl && differenceInMinute > 0) {
+        localStorage.setItem(LOCASTORAGE_ID_LAST_FORCE_ID, currentUtc);
+        window.location.search += `${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`;
       }
-      );
+
+      if (idInLocal) {
+        Array.from(document.querySelectorAll("#menu-primary-menu>.menu-item>a")).map((x) => {
+          const text = x.textContent || x.innerText;
+          console.log('text' , text);
+          return x.href = x.href + `?${URL_QUERY_ID_NAME}=${idInLocal}&shared=true`
+        }
+        );
+      }
     }
 
   }, []);
