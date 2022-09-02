@@ -44,6 +44,7 @@ const MainContainer = ({ idAgent }) => {
       data,
       openModalQuickView,
       showOverlay,
+      idAgent
     },
     btnLoadMore: {
       onClick: () => fetchListListing(),

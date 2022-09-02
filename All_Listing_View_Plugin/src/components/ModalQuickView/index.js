@@ -14,6 +14,9 @@ import { GET_SINGLE_LISTING_GQL } from '../../GraphqlClient/GQL'
 // styles
 import styles from "./styles_alv.module.scss";
 
+const URL_QUERY_ID_NAME = "agent-id";
+const ID_LOCALSTORAGE_NAME = "lead-agent";
+
 const ModalQuickView = ({ onClose, idSingleListing }) => {
   const [content, setContent] = useState(null)
 
@@ -45,6 +48,9 @@ const ModalQuickView = ({ onClose, idSingleListing }) => {
     },
   });
 
+  const idInLocalStorage = parseInt(localStorage.getItem(ID_LOCALSTORAGE_NAME));
+  const finalUri = (idInLocalStorage && content?.uri) ? `${content.uri}?${URL_QUERY_ID_NAME}=${idInLocalStorage}&shared=true` : (content?.uri || "")
+
   const allProps = {
     modalHoc: {
       onClose,
@@ -53,7 +59,7 @@ const ModalQuickView = ({ onClose, idSingleListing }) => {
     buttonView: {
       variant: "white",
       component: "a",
-      href: content?.uri || "",
+      href: finalUri,
       className: "btn-wp-primary " + styles.buttonView,
     },
     buttonChangeCarousel: {

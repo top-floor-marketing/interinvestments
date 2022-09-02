@@ -14,8 +14,6 @@ import { DashboardLayout } from "../../Layout";
 // components
 import NotFound404 from "../../Component/NotFound404";
 
-import Profile from "../ProfileView";
-
 const useStyles = createStyles((theme, _params) => ({
   mainContainer: {
     width: "100%",

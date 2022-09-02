@@ -10,6 +10,7 @@ import {
 } from "../GraphqlClient/gql";
 
 const useGetFeaturedDevelopments = (idAgent) => {
+  console.log("idAgent ", idAgent)
   const [isFirtsFetch, setIsFirtsFetch] = useState(true);
   const [fullData, setFullData] = useState([]);
   const [tagId, setTagId] = useState(0);

@@ -21,6 +21,13 @@ import get from "lodash/get";
 
 import useStyles from "./useStyles";
 
+const URL_QUERY_ID_NAME = "agent-id";
+const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
+const DOMAIN_URL =
+  ENVIROMENT === "production"
+    ? process.env.REACT_APP_DOMAIN_PROD
+    : process.env.REACT_APP_DOMAIN_DEV;
+
 const NavBarDashboard = ({ opened }) => {
 
   const { actions: { setRoute }, state: { user: { route: routeInStore, infoUser } } } = useClientGlobalStore();
@@ -36,6 +43,7 @@ const NavBarDashboard = ({ opened }) => {
   const fullName = get(infoUser, ["firstName"], "").concat(
     ` ${get(infoUser, ["lastName"], "")}`
   );
+  const databaseId = get(infoUser, ["databaseId"], null);
   const getClassItemNav = (routeItem) => {
     return cx(classes.itemNav, {
       [classes.logoItemContainer]: routeItem === LOGO_ITEM,
@@ -68,10 +76,14 @@ const NavBarDashboard = ({ opened }) => {
       },
     },
     itemNav: (name) => {
+      let uriForLogo = '';
+      if(databaseId && name === LOGO_ITEM) {
+        uriForLogo = `${DOMAIN_URL}?${URL_QUERY_ID_NAME}=${databaseId}&shared=true`
+      }
       return {
         className: getClassItemNav(name),
         onClick: () => {
-          if (name === LOGO_ITEM) setRoute(ROUTES_NAMES.HOME);
+          if (uriForLogo !== '') window.open(uriForLogo, '_blank');
           else setRoute(name);
         },
       };

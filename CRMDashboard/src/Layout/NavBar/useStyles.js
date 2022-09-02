@@ -115,5 +115,10 @@ export default createStyles((theme, _params, getRef) => ({
   },
   logoItemContainer: {
     borderBottom: `1px solid ${theme.colors.gray[2]}`,
+    'img': {
+      maxWidth: "250px !important",
+      marginLeft: "auto !important",
+      marginRight: "auto !important"
+    }
   },
 }));

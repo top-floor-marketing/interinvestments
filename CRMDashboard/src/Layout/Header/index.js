@@ -16,7 +16,13 @@ import { LogoutIcon } from "../../Component/ActionButtons";
 import { COLOR_SCHEME_DARK } from "../../GlobalStore/useActionsTheme";
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
-import { ROUTES_NAMES } from "../../Route/routes";
+
+const URL_QUERY_ID_NAME = "agent-id";
+const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
+const DOMAIN_URL =
+  ENVIROMENT === "production"
+    ? process.env.REACT_APP_DOMAIN_PROD
+    : process.env.REACT_APP_DOMAIN_DEV;
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   headerContainer: {
@@ -41,6 +47,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     gap: theme.other.spacing.p4,
   },
   logoContainer: {
+    paddingLeft: theme.other.spacing.p4,
+    paddingRight: theme.other.spacing.p4,
     display: "flex",
     alignItems: "center",
     justifyContent: "start",
@@ -57,13 +65,11 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     "&:hover": {
       cursor: "pointer",
     },
-    '.mantine-Image-root': {
-      maxWidth: '250px !important',
+    'img': {
+      maxWidth: "250px !important",
+      marginLeft: "auto !important",
+      marginRight: "auto !important"
     }
-  },
-  imageContainer: {
-    paddingLeft: theme.other.spacing.p4,
-    paddingRight: theme.other.spacing.p4,
   },
   content: {
     display: "flex",
@@ -78,10 +84,19 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
 const HeaderDashboard = ({ opened, setOpened }) => {
 
-  const { actions: { setRoute } } = useClientGlobalStore();
+  const { state: { user: { infoUser: { databaseId } } } } = useClientGlobalStore();
 
   const theme = useMantineTheme();
   const { classes } = useStyles();
+
+  const urlLogo = () => {
+    let uriForLogo = '';
+    if(databaseId) {
+      uriForLogo = `${DOMAIN_URL}?${URL_QUERY_ID_NAME}=${databaseId}&shared=true`;
+      window.open(uriForLogo, '_blank');
+    }
+  }
+
   return (
     <Header className={classes.headerContainer} height={80}>
       <Box className={classes.boxContainer}>
@@ -94,13 +109,8 @@ const HeaderDashboard = ({ opened, setOpened }) => {
           />
         </MediaQuery>
         <MediaQuery smallerThan="lg" styles={{ display: "none" }}>
-          <Box className={classes.logoContainer}>
-            <Box
-              className={classes.imageContainer}
-              onClick={() => setRoute(ROUTES_NAMES.HOME)}
-            >
+          <Box className={classes.logoContainer} onClick={() => urlLogo()}>
               <Image src={LogoInter} alt="Logo interinvestments" />
-            </Box>
           </Box>
         </MediaQuery>
         <Box className={classes.content}>
