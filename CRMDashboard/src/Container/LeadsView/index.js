@@ -3,6 +3,8 @@ import { DatabaseOff } from "tabler-icons-react";
 import SpringDiv from "../../Component/SpringDiv";
 
 import SkeletonLeads from "./skeletonLeads";
+import FilterOptions from "./filterOptions";
+import useGetLeads from "./hooks/useGetLeads";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
@@ -42,7 +44,25 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const LeadsView = () => {
   const { classes } = useStyles();
 
-  return <SkeletonLeads />;
+  const { isSkeleton, isLoading,searchProps, isError, isOverlay } = useGetLeads();
+
+  return isSkeleton ? (
+    <SkeletonLeads />
+  ) : (
+    <Box className={classes.container}>
+      <LoadingOverlay
+        overlayOpacity={0.05}
+        visible={isOverlay}
+        overlayBlur={0.05}
+      />
+      <SpringDiv delay={100} duration={300}>
+        <FilterOptions
+          isLoading={isLoading}
+          searchProps={searchProps}
+        />
+      </SpringDiv>
+    </Box>
+  );
 };
 
 export default LeadsView;
