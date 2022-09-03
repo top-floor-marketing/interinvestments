@@ -55,17 +55,55 @@ const useStyles = createStyles((theme, _params) => ({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: '50vh'
+        height: '100%'
+    },
+    containerInterested: {
+        width: '100%',
+        height: '100%'
     },
     containerFinalSteps: {
         display: 'flex',
         padding: '14px',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        'button': {
-            marginTop: '25px'
+        gap: '12px',
+        [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+            flexDirection: 'row',
+        },
+    },
+    contedInterested: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px'
+    },
+    contendInfo: {
+        width: '100%',
+        [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+            width: '40%'
         }
+    },
+    containerInfo: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: '12px',
+    },
+    BadgeFinalStepp: {
+        '.mantine-Badge-leftSection': {
+            height: '16px'
+        }
+    },
+    linkPhone: {
+        '&:hover': {
+            color: `${theme.colors.primary[6]} !important`
+        }
+    },
+    tittleInterested: {
+        fontSize: '14px'
+    },
+    titleFinalStepIfo: {
+        margin: '0px',
+        color: theme.colors.secondary[6],
+        fontSize: '22px'
     }
 }));
 
