@@ -4,7 +4,8 @@ export const STORE_ADDLEAD_ACTIONS = {
     CHANGE_TYPE_LEADS: 'set_change_type_leads',
     SET_SERVICES_DATA: 'set_services_data',
     SET_LISTING_DATA: 'set_listing_data',
-    SET_DATA_FORM: 'set_data_form'
+    SET_DATA_FORM: 'set_data_form',
+    SET_TOTAL_SERVICES: 'set_total_services'
 }
 
 export const DEFAULT_STORE_ADD_LEAD = {
@@ -12,7 +13,8 @@ export const DEFAULT_STORE_ADD_LEAD = {
     typeLeads: 'LISTING',
     dataForm: {},
     listingData: [],
-    serviceData: []
+    serviceData: [],
+    totalServices: []
 }
 
 const useActionsAddLead = (dispatch) => {
@@ -59,10 +61,18 @@ const useActionsAddLead = (dispatch) => {
         });
     }
 
+    const setTotalServices = (listServices) => {
+        dispatch({
+            type: STORE_ADDLEAD_ACTIONS.SET_TOTAL_SERVICES,
+            payload: listServices
+        });
+    }
+
     return {
         setAllField,
         setstepperActive,
         setTypeLeads,
+        setTotalServices,
         setListingData,
         setDataForm,
         setServicesData

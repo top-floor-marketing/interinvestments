@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import SelectItem from './SelectItem'
 // mantine
 import { Select } from "@mantine/core";
+
 // styles
 import useStyles from './styles'
 
@@ -37,7 +38,7 @@ const SelectStateLeads = () => {
         },
     ];
 
-   
+
 
     const onChangeSelect = (value) => {
         setvalueSelect(value)

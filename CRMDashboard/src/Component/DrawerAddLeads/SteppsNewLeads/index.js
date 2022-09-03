@@ -3,12 +3,12 @@ import React, { useRef } from 'react'
 import { Stepper, Box, Text } from '@mantine/core';
 import { useForm } from "@mantine/form";
 //  icons
-import { User, Check, BuildingCommunity } from 'tabler-icons-react';
+import { User, Check, BuildingCommunity, Note } from 'tabler-icons-react';
 // components
 import ContainerStep from '../ContainerStep'
 import GroupFooter from './GroupFooter'
 import DescriptionSteps from './DescriptionSteps'
-import { ListingLeadsInfo, TypeLeads, FinalStepp } from '../Steps'
+import { ListingLeadsInfo, TypeLeads, FinalStepp, CommentLeads } from '../Steps'
 import { nameLeadsValidation, emailValidation, phoneNumberValidation } from '../Steps/ValidationForm'
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
@@ -63,7 +63,7 @@ const SteppsNewLeads = (_) => {
         }),
     });
 
-    const nextStep = () => setstepperActive(stepperActive < 2 ? stepperActive + 1 : stepperActive);
+    const nextStep = () => setstepperActive(stepperActive < 3 ? stepperActive + 1 : stepperActive);
 
     const onSubmitForm = (valueForm) => {
         // dispach
@@ -110,6 +110,23 @@ const SteppsNewLeads = (_) => {
                             form={form}
                             onSubmitForm={onSubmitForm}
                         />
+                    </ContainerStep>
+                </Stepper.Step>
+
+                <Stepper.Step
+                    {...props.Step}
+                    icon={<Note size={34} color='white' />}
+                    label={<Text component="span" className={classes.titleStep}>Step 3</Text>}
+                    description={
+                        <DescriptionSteps
+                            stepperActive={stepperActive}
+                            position={2}
+                            text='Leads info'
+                        />
+                    }
+                >
+                    <ContainerStep title='leads note'>
+                        <CommentLeads />
                     </ContainerStep>
                 </Stepper.Step>
 

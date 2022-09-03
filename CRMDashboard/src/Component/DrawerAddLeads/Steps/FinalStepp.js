@@ -13,7 +13,7 @@ const FinalStepp = () => {
     const { state: { addLeads } } = useClientGlobalStore()
     const { classes } = useStyles();
 
-    // console.log('addLeads Store', addLeads)
+   //  console.log('addLeads Store', addLeads)
 
     return (
         <Box className={classes.containerFinalSteps}>
@@ -136,10 +136,18 @@ const FinalStepp = () => {
                     Interested in
                 </Text>
                 {
-                    (addLeads.typeLeads) === "LISTING" && (
+                    (addLeads.typeLeads) === "LISTING" ? (
                         addLeads.listingData.map((value, key) => (
                             <CardAvatarDrawer
                                 type='LISTING'
+                                key={key}
+                                DataInterested={value}
+                            />
+                        ))
+                    ) : (
+                        addLeads.serviceData.map((value, key) => (
+                            <CardAvatarDrawer
+                                type='SERVICES'
                                 key={key}
                                 DataInterested={value}
                             />

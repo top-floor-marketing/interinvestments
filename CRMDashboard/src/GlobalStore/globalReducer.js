@@ -97,6 +97,15 @@ const StoreReducer = (state = { theme: DEFAUL_STORE_THEME, user: DEFAULT_STORE_U
                 }
             }
 
+        case STORE_ADDLEAD_ACTIONS.SET_TOTAL_SERVICES:
+            return {
+                ...state,
+                addLeads: {
+                    ...state.addLeads,
+                    totalServices: action.payload
+                }
+            }
+
         default:
             throw new Error();
     }

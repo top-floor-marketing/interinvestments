@@ -55,7 +55,7 @@ const GroupFooter = (_) => {
                 )
             }
             {
-                stepperActive <= 1 ? (
+                stepperActive <= 2 ? (
                     <Button
                         type="submit"
                         rightIcon={<ChevronRight />}

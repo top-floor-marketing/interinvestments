@@ -4,7 +4,7 @@ import ListInfoLeads from './ListInfoLeads'
 // mantine
 import { Box, Text, TextInput } from "@mantine/core";
 // components
-import SelectStateLeads from './SelectStateLeads'
+import SelectStateLeads from '../../../Component/SelectStateLeads'
 import TimelineLeads from './TimelineLeads'
 
 // styles

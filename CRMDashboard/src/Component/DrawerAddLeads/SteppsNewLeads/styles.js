@@ -26,7 +26,7 @@ const useStyles = createStyles((theme, _params) => {
                 marginRight: 'auto',
                 width: '100%',
                 [`@media (min-width: ${theme.breakpoints.md}px)`]: {
-                    width: '65%',
+                    width: '80%',
                 },
             },
             titleStep: {

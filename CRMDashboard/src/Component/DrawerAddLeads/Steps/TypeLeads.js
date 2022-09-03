@@ -14,8 +14,6 @@ const TypeLeads = () => {
 
   const onChangeSegment = (valueSegment) => {
     if (valueSegment === 'LISTING') {
-      // set valies services
-
       // set value type leads
       setTypeLeads(valueSegment)
     } else {

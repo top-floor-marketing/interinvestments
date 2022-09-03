@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // components
 import { Skeletong, SegmentMulti } from '../SegmentMulti'
 import AlertError from '../../AlertError'
@@ -33,7 +33,7 @@ const InterestedServices = () => {
         state: {
             addLeads: { serviceData }
         },
-        actions: { setServicesData }
+        actions: { setServicesData, setTotalServices }
     } = useClientGlobalStore()
     const { classes } = useStyles()
 
@@ -41,6 +41,27 @@ const InterestedServices = () => {
         name: 'GET_LEADS_SERVICES',
         gql: GET_LEADS_SERVICES
     });
+
+    useEffect(() => {
+        if (data) {
+            setTotalServices(data.servicesTypes.nodes.map(value => ({
+                label: value.name,
+                value: `${value.databaseId}`
+            })))
+        }
+    }, [data, setTotalServices])
+
+    const listServices = () => {
+        let newList = []
+        if (data) {
+            newList = data.servicesTypes.nodes.map(value => ({
+                label: value.name,
+                value: `${value.databaseId}`
+            }))
+        }
+        return newList
+    }
+
 
     if (isLoading) {
         return (
@@ -59,18 +80,6 @@ const InterestedServices = () => {
         )
     }
 
-    const listServices = () => {
-        const newList = []
-        if (data) {
-            data.servicesTypes.nodes.map(value => (
-                newList.push({
-                    label: value.name,
-                    value: `${value.databaseId}`
-                })
-            ))
-        }
-        return newList
-    }
 
     const onChangeSegment = (value) => {
         setServicesData(value)
