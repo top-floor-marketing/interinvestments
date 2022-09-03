@@ -9,7 +9,7 @@ import ContainerStep from '../ContainerStep'
 import GroupFooter from './GroupFooter'
 import DescriptionSteps from './DescriptionSteps'
 import { ListingLeadsInfo, TypeLeads, FinalStepp } from '../Steps'
-import { nameLeadsValidation, emailValidation, phoneNumberValidation, noteValidation } from '../Steps/ValidationForm'
+import { nameLeadsValidation, emailValidation, phoneNumberValidation } from '../Steps/ValidationForm'
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
 // styles 
@@ -20,7 +20,7 @@ const SteppsNewLeads = (_) => {
         state: { addLeads: { stepperActive } },
         actions: { setstepperActive, setDataForm }
     } = useClientGlobalStore()
-    const { state: { addLeads } } = useClientGlobalStore()
+    // const { state: { addLeads } } = useClientGlobalStore()
     const { classes } = useStyles({ color: 'secondary' });
     const refForm = useRef(null)
     const props = {
@@ -50,7 +50,7 @@ const SteppsNewLeads = (_) => {
             nameLeads: "",
             email: "",
             phoneNumber: null,
-            note: "",
+            // note: "",
             otherNameLeads: "",
             otherEmail: "",
             otherPhoneNumber: ""
@@ -59,7 +59,7 @@ const SteppsNewLeads = (_) => {
             nameLeads: nameLeadsValidation(values.nameLeads),
             email: emailValidation(values.email),
             phoneNumber: phoneNumberValidation(values.phoneNumber),
-            note: noteValidation(values.note),
+            // note: noteValidation(values.note),
         }),
     });
 

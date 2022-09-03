@@ -79,6 +79,15 @@ const StoreReducer = (state = { theme: DEFAUL_STORE_THEME, user: DEFAULT_STORE_U
                 }
             }
 
+        case STORE_ADDLEAD_ACTIONS.SET_SERVICES_DATA:
+            return {
+                ...state,
+                addLeads: {
+                    ...state.addLeads,
+                    serviceData: action.payload
+                }
+            }
+
         case STORE_ADDLEAD_ACTIONS.SET_DATA_FORM:
             return {
                 ...state,

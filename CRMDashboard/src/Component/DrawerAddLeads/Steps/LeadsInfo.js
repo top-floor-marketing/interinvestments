@@ -2,12 +2,11 @@ import React from 'react'
 // mantine
 import {
     TextInput,
-    Textarea,
     NumberInput,
     Divider
 } from '@mantine/core';
 // icons
-import { User, Mail, Note, Phone } from 'tabler-icons-react';
+import { User, Mail, Phone } from 'tabler-icons-react';
 // styles
 import useStyles from './styles'
 
@@ -45,13 +44,15 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
                 label="Phone Number"
                 icon={<Phone />}
             />
-            <Textarea
-                {...form.getInputProps("note")}
-                className={`${classes.input} ${classes.inputFull}`}
-                placeholder={null}
-                icon={<Note />}
-                label="Note"
-            />
+            {
+                // <Textarea
+                //     {...form.getInputProps("note")}
+                //     className={`${classes.input} ${classes.inputFull}`}
+                //     placeholder={null}
+                //     icon={<Note />}
+                //     label="Note"
+                // />
+            }
 
             <Divider
                 my="xs"

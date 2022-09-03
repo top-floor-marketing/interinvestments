@@ -1,11 +1,12 @@
 import React from 'react'
 import { InterestedListing, InterestedServices } from '../Steps'
 // mantine
-import { SegmentedControl, Box } from '@mantine/core';
+import { SegmentedControl, Box, Center } from '@mantine/core';
 // styles 
 import useStyles from './styles'
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
+import { MapPin, ListDetails } from 'tabler-icons-react';
 
 const TypeLeads = () => {
   const { state: { addLeads: { typeLeads } }, actions: { setTypeLeads, setListingData } } = useClientGlobalStore()
@@ -34,8 +35,24 @@ const TypeLeads = () => {
           className={classes.radioSegment}
           size='md'
           data={[
-            { label: 'Listing', value: 'LISTING' },
-            { label: 'services', value: 'SERVICES' }
+            {
+              label: (
+                <Center>
+                  <MapPin size={16} />
+                  <Box ml={10}>Listing</Box>
+                </Center>
+              ),
+              value: 'LISTING'
+            },
+            {
+              label:  (
+                <Center>
+                  <ListDetails size={16} />
+                  <Box ml={10}>Services</Box>
+                </Center>
+              ),
+              value: 'SERVICES'
+            }
           ]}
         />
       </Box>

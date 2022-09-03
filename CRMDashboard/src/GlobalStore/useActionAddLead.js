@@ -2,6 +2,7 @@ export const STORE_ADDLEAD_ACTIONS = {
     RESET_ALL: 'set_reset_all',
     CHANGE_STEP: 'set_change_step',
     CHANGE_TYPE_LEADS: 'set_change_type_leads',
+    SET_SERVICES_DATA: 'set_services_data',
     SET_LISTING_DATA: 'set_listing_data',
     SET_DATA_FORM: 'set_data_form'
 }
@@ -44,6 +45,13 @@ const useActionsAddLead = (dispatch) => {
         });
     }
 
+    const setServicesData = (val) => {
+        dispatch({
+            type: STORE_ADDLEAD_ACTIONS.SET_SERVICES_DATA,
+            payload: val
+        });
+    }
+
     const setDataForm = (vuesForm) => {
         dispatch({
             type: STORE_ADDLEAD_ACTIONS.SET_DATA_FORM,
@@ -56,7 +64,8 @@ const useActionsAddLead = (dispatch) => {
         setstepperActive,
         setTypeLeads,
         setListingData,
-        setDataForm
+        setDataForm,
+        setServicesData
     }
 }
 

@@ -64,20 +64,38 @@ const useStyles = createStyles((theme, _params) => ({
     containerFinalSteps: {
         display: 'flex',
         padding: '14px',
-        flexDirection: 'row',
-        gap: '12px'
+        flexDirection: 'column',
+        gap: '12px',
+        [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+            flexDirection: 'row',
+        },
     },
     contedInterested: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '12px',
-        width: '35%'
+        gap: '12px'
+    },
+    contendInfo: {
+        width: '100%',
+        [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+            width: '40%'
+        }
     },
     containerInfo: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        gap: '12px'
+        gap: '12px',
+    },
+    BadgeFinalStepp: {
+        '.mantine-Badge-leftSection': {
+            height: '16px'
+        }
+    },
+    linkPhone: {
+        '&:hover': {
+            color: `${theme.colors.primary[6]} !important`
+        }
     },
     tittleInterested: {
         fontSize: '14px'
