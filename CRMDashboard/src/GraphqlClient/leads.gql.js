@@ -2,17 +2,6 @@ import { gql } from "graphql-request";
 
 const ROLE_LEAD = 'LEAD';
 
-export const GET_LEADS_SERVICES = gql`
-  query servicesTypes {
-    servicesTypes {
-      nodes {
-        name,
-        databaseId
-      }
-    }
-  }
-`
-
 export const GET_LEADS_LIST = gql`
 query GetLeadList($perPage: Int!, $after: String) {
     users(
