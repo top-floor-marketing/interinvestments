@@ -1,13 +1,15 @@
 import React from 'react'
+// mantine dev
+import { RichTextEditor } from '@mantine/rte';
+import { Box, Text, createStyles } from '@mantine/core'
 // components
 import SelectStateLeads from '../../SelectStateLeads'
 
 const CommentLeads = () => {
   return (
-    <div>
-      commentLeads
+    <Box>
       <SelectStateLeads />
-    </div>
+    </Box>
   )
 }
 
