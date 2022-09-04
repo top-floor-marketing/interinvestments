@@ -1,74 +1,78 @@
-import React, { useState } from 'react'
+import React, { useCallback } from 'react';
 // components
 import SelectItem from './SelectItem'
 // mantine
 import { Select } from "@mantine/core";
+
+import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore';
 
 import PropTypes from "prop-types";
 
 // styles
 import useStyles from './styles';
 
-const DEFAULT_VALUE = '_default_';
+import findLast from 'lodash/findLast';
+import toLower from "lodash/toLower";
 
 const SelectStateLeads = ({ value, onChange }) => {
-    const { classes } = useStyles();
-    const data = [
-        {
-            label: 'Not Contated',
-            value: 'not_contated',
-            color: 'error',
-        },
-        {
-            label: 'Contated',
-            value: 'contated',
-            color: 'primary',
-        },
-        {
-            label: 'Showing',
-            value: 'showing',
-            color: 'secondary',
-        },
-        {
-            label: 'Contract',
-            value: 'contract',
-            color: 'success',
-        },
-        {
-            label: 'Ask Referrals',
-            value: 'ask_referrals',
-            color: 'info',
-        },
-    ];
 
-    const colorSelect = () => {
-        switch (value) {
-          case "not_contated":
-            return classes.selectError;
-          case "contated":
-            return classes.selectPrimary;
-          case "showing":
-            return classes.selectSecondary;
-          case "contract":
-            return classes.selectSuccess;
-          case "ask_referrals":
-            return classes.selectInfo;
-          default:
-            return null;
-        }
-    }
+    const { cx, classes } = useStyles();
 
+    const {
+      state: {
+        global: { statusUserLead: listStatus },
+      },
+    } = useClientGlobalStore();
+
+    const colorSelect = useCallback(() => {
+      const nameSelected = findLast(listStatus, (val) => val.value === value);
+      switch (toLower(nameSelected.label)) {
+        case "not contacted":
+          return classes.selectError;
+        case "contacted":
+          return classes.selectPrimary;
+        case "showing":
+          return classes.selectSecondary;
+        case "contract":
+          return classes.selectSuccess;
+        case "ask referrals":
+          return classes.selectInfo;
+        default:
+          return "";
+      }
+    }, [classes, listStatus, value]);
+
+    const getColorItem = useCallback((label) => {
+      switch (toLower(label)) {
+        case "not contacted":
+          return "error";
+        case "contacted":
+          return "primary";
+        case "showing":
+          return "secondary";
+        case "contract":
+          return "success";
+        case "ask referrals":
+          return "info";
+        default:
+          return "";
+      }
+    }, [])
+    
     return (
       <Select
         className={classes.select}
         classNames={{
-          input: `${classes.inputSelect} ${colorSelect()}`,
+          input: cx(classes.inputSelect, colorSelect()),
         }}
         value={value}
         onChange={onChange}
-        placeholder="Select a lead state"
-        itemComponent={SelectItem}
-        data={data}
+        placeholder="State of the lead"
+        itemComponent={(itemProps) => {
+          const colorItem = getColorItem(itemProps.label);
+          return <SelectItem {...itemProps} color={colorItem} />;
+        }}
+        data={listStatus}
         maxDropdownHeight={600}
       />
     );
@@ -76,12 +80,12 @@ const SelectStateLeads = ({ value, onChange }) => {
 
 // Specifies the default values for props:
 SelectStateLeads.defaultProps = {
-  value: DEFAULT_VALUE,
+  value: null,
   onChange: () => {}
 };
 
 SelectStateLeads.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.number,
   onChange: PropTypes.func,
 };
 

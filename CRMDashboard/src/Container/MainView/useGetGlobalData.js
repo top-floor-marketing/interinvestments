@@ -17,7 +17,9 @@ const useGetGlobalData = () => {
     gql: GET_STATUS_USER_LEADS,
     config: {
       onSuccess: (response) => {
-       setStatusUserLead(get(response, ["statuses", "nodes"], []));
+       const listStatus = get(response, ["statuses", "nodes"], []);
+       const dataForSelect = listStatus.map((val) => ({ value: val.databaseId, label: val.name }));
+       setStatusUserLead(dataForSelect);
       },
     },
   });

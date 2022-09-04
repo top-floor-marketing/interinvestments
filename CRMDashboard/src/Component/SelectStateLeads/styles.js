@@ -5,6 +5,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     dropdownSelect: {
         borderRadius: "10px",
         padding: '8px',
+        cursor: "pointer !important"
     },
     select: {
         '.mantine-Select-rightSection': {

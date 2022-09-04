@@ -1,15 +1,13 @@
+import { useState } from "react";
 import {
-  Text,
   createStyles,
   Paper,
-  Select,
-  SegmentedControl,
   TextInput,
 } from "@mantine/core";
-import { useElementSize } from "@mantine/hooks";
 
-import { BuildingCommunity, Search } from "tabler-icons-react";
-import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
+import SelectStateLeads from "../../Component/SelectStateLeads";
+
+import { Search } from "tabler-icons-react";
 
 import { INPUT_BORDER_BOTTOM } from "../../MatineProvider/stylesProvider";
 
@@ -39,6 +37,12 @@ const FilterOptions = ({
 }) => {
   const { classes } = useStyles();
 
+  const [valueStatus, setValueStatus] = useState(null);
+
+  const onChangeStatus = (e) => {
+    setValueStatus(e)
+  }
+
   return (
     <Paper className={classes.container}>
       <TextInput
@@ -49,6 +53,7 @@ const FilterOptions = ({
         value={searchProps.value}
         onChange={searchProps.onChange}
       />
+      <SelectStateLeads value={valueStatus} onChange={onChangeStatus} />
     </Paper>
   );
 };
