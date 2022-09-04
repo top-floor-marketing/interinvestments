@@ -33,15 +33,11 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
 const FilterOptions = ({
   searchProps,
+  selectStateProps,
   isLoading,
 }) => {
+
   const { classes } = useStyles();
-
-  const [valueStatus, setValueStatus] = useState(null);
-
-  const onChangeStatus = (e) => {
-    setValueStatus(e)
-  }
 
   return (
     <Paper className={classes.container}>
@@ -53,7 +49,7 @@ const FilterOptions = ({
         value={searchProps.value}
         onChange={searchProps.onChange}
       />
-      <SelectStateLeads value={valueStatus} onChange={onChangeStatus} />
+      <SelectStateLeads {...selectStateProps} disabled={isLoading} />
     </Paper>
   );
 };
