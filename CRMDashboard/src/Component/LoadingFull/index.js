@@ -31,7 +31,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
 const LoadingFull = ({ isLoadingLazy = false, idLazy }) => {
 
-  const { state: { user: { isLoadingFull } } } = useClientGlobalStore();
+  const { state: { global: { isLoadingFull } } } = useClientGlobalStore();
 
   const { classes } = useStyles({ isLoading: isLoadingFull || isLoadingLazy });
   const id = "wp-loading-full".concat(idLazy || "");

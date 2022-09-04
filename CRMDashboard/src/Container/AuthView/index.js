@@ -14,7 +14,7 @@ import isEmpty from "lodash/isEmpty";
 
 const AuthContainer = () => {
 
-  const { state: { user: { route: routeInStore } }, actions: { setLogout, setInfoUser, setRoute } } = useClientGlobalStore();
+  const { state: { global: { route: routeInStore } }, actions: { setLogout, setInfoUser, setRoute } } = useClientGlobalStore();
 
   const [, setIdLocalStorage] = useLocalStorage({
     key: LOCAL_STORAGE.USER,

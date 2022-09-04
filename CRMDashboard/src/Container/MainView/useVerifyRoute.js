@@ -15,7 +15,7 @@ import isEmpty from "lodash/isEmpty";
 
 const useVerifyRoute = () => {
 
-  const { state: { user: { isLoadingFull } }, actions: { setLoadingFull, setInfoUser, setRoute, setLogout } } = useClientGlobalStore();
+  const { state: { global: { isLoadingFull } }, actions: { setLoadingFull, setInfoUser, setRoute, setLogout } } = useClientGlobalStore();
 
   const userIdLocalStorage = localStorage.getItem(LOCAL_STORAGE.USER);
   const routeInLocalStorage = localStorage.getItem(LOCAL_STORAGE.ROUTE);

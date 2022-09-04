@@ -24,7 +24,7 @@ const useGetLeads = () => {
     },
   } = useClientGlobalStore();
 
-  const [allLeads, setAllLeads] = useState(null);
+  const [allLeads, setAllLeads] = useState([]);
   const [isOverlay, setIsOverlay] = useState(false);
   const [isLoadingListing, setIsLoadingListing] = useState(true);
 
@@ -35,7 +35,7 @@ const useGetLeads = () => {
      setSearchText(e.currentTarget.value);
    };
 
-  const { isLoading: isLoadingLeads, isError: isErrorLeads } = useQueryHelper({
+  const { isLoading: isLoadingLeads, isError: isErrorLeads, isFetched: isFechedLeads } = useQueryHelper({
     name: "get-leads_list_agent",
     gql: GET_LEADS_LIST_FOR_AGENT,
     config: {
@@ -50,7 +50,7 @@ const useGetLeads = () => {
   });
 
   return {
-    isSkeleton: isLoadingLeads || null,
+    isSkeleton: isLoadingLeads && !isFechedLeads,
     isLoading: isLoadingLeads || isOverlay,
     isOverlay,
     isError: isErrorLeads,
@@ -58,6 +58,8 @@ const useGetLeads = () => {
       onChange: onChangeSearchText,
       value: searchText,
     },
+    allLeads,
+    totalData: allLeads.length,
   };
 
 };

@@ -2,6 +2,8 @@ import { Box, createStyles } from "@mantine/core";
 import React from "react";
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
+import useGetGlobalData from "./useGetGlobalData";
+
 import { CRM_ROUTES, LAYOUT_NAMES } from "../../Route/routes";
 
 import filter from "lodash/filter";
@@ -30,7 +32,8 @@ const RoutesContainer = () => {
 
   const { classes } = useStyles();
 
-  const { state: { user: { route: routeInStore } } } = useClientGlobalStore();
+  const { state: { global: { route: routeInStore } } } = useClientGlobalStore();
+  useGetGlobalData();
 
   const routeActive = get(filter(CRM_ROUTES, (o) => {
     return o.name === routeInStore;

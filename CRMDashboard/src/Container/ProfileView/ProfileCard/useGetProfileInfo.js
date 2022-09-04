@@ -11,7 +11,7 @@ const useGetProfileInfo = () => {
 
     const { 
       state: { user: { infoUser: { databaseId, agentType } } },
-      actions:  { setInfoUser }
+      actions: { setInfoUser }
      }= useClientGlobalStore();
 
     const [dataAgent,setDataAgent] = useState(null);

@@ -4,11 +4,14 @@ import SelectItem from './SelectItem'
 // mantine
 import { Select } from "@mantine/core";
 
-// styles
-import useStyles from './styles'
+import PropTypes from "prop-types";
 
-const SelectStateLeads = () => {
-    const [valueSelect, setvalueSelect] = useState(null)
+// styles
+import useStyles from './styles';
+
+const DEFAULT_VALUE = '_default_';
+
+const SelectStateLeads = ({ value, onChange }) => {
     const { classes } = useStyles();
     const data = [
         {
@@ -38,45 +41,48 @@ const SelectStateLeads = () => {
         },
     ];
 
-
-
-    const onChangeSelect = (value) => {
-        setvalueSelect(value)
-    }
-
     const colorSelect = () => {
-        switch (valueSelect) {
-            case 'not_contated':
-                return classes.selectError
-            case 'contated':
-                return classes.selectPrimary
-            case 'showing':
-                return classes.selectSecondary
-            case 'contract':
-                return classes.selectSuccess
-            case 'ask_referrals':
-                return classes.selectInfo
-            default:
-                return null
+        switch (value) {
+          case "not_contated":
+            return classes.selectError;
+          case "contated":
+            return classes.selectPrimary;
+          case "showing":
+            return classes.selectSecondary;
+          case "contract":
+            return classes.selectSuccess;
+          case "ask_referrals":
+            return classes.selectInfo;
+          default:
+            return null;
         }
     }
 
     return (
-        <Select
-            className={classes.select}
-            classNames={{
-                input: `${classes.inputSelect} ${colorSelect()}`
-            }}
-            value={valueSelect}
-            onChange={onChangeSelect}
-            label={null}
-            placeholder="Pick one"
-            itemComponent={SelectItem}
-            data={data}
-            maxDropdownHeight={400}
-            nothingFound="Nobody here"
-        />
-    )
+      <Select
+        className={classes.select}
+        classNames={{
+          input: `${classes.inputSelect} ${colorSelect()}`,
+        }}
+        value={value}
+        onChange={onChange}
+        placeholder="Select a lead state"
+        itemComponent={SelectItem}
+        data={data}
+        maxDropdownHeight={600}
+      />
+    );
 }
+
+// Specifies the default values for props:
+SelectStateLeads.defaultProps = {
+  value: DEFAULT_VALUE,
+  onChange: () => {}
+};
+
+SelectStateLeads.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+};
 
 export default SelectStateLeads

@@ -1,11 +1,20 @@
 import {DEFAULT_ROUTE, ROUTES_NAMES} from '../Route/routes';
 
 import { LOCAL_STORAGE } from '../Utils/globalConstants';
-import { STORE_USER_ACTIONS } from './globalReducer';
 
 import get from 'lodash/get';
 import isString from 'lodash/isString';
 import toLower from 'lodash/toLower';
+
+export const STORE_USER_ACTIONS = {
+  IS_LOADING_FULL: "set_is_loading_full",
+  ROUTE: "set_route",
+  INFO_USER: "set_info_user",
+  LOGOUT_USER: "set_logout_user",
+  LISTING_CATEGORIES: "set_listing_categories",
+  LISTING_NEI: "set_listing_nei",
+  LISTING_FEATURED: "set_listing_featured",
+};
 
 export const DEFAULT_STORE_USER = {
     isLoadingFull: true,
@@ -38,21 +47,6 @@ export const getAgentTypeByRole = (val) => {
 
 const useActionsUser = (dispatch) => {
 
-    const setLoadingFull = (val) => {
-        dispatch({
-            type: STORE_USER_ACTIONS.IS_LOADING_FULL,
-            payload: val
-        });
-    }
-
-    const setRoute = (val) => {
-        localStorage.setItem(LOCAL_STORAGE.ROUTE, val);
-        dispatch({
-            type: STORE_USER_ACTIONS.ROUTE,
-            payload: val
-        }); 
-    }
-
     const setInfoUser = (val) => {
         const agentType = getAgentTypeByRole(val)
         dispatch({
@@ -70,8 +64,6 @@ const useActionsUser = (dispatch) => {
         localStorage.setItem(LOCAL_STORAGE.REFRESH, null);
         localStorage.setItem(LOCAL_STORAGE.USER, null);
         localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, null);
-
-        setRoute(ROUTES_NAMES.AUTH);
         localStorage.setItem(LOCAL_STORAGE.ROUTE, ROUTES_NAMES.AUTH);
 
         dispatch({
@@ -102,8 +94,6 @@ const useActionsUser = (dispatch) => {
     }
 
     return {
-        setLoadingFull,
-        setRoute,
         setInfoUser,
         setLogout,
         setListingCategories,

@@ -30,7 +30,13 @@ const DOMAIN_URL =
 
 const NavBarDashboard = ({ opened }) => {
 
-  const { actions: { setRoute }, state: { user: { route: routeInStore, infoUser } } } = useClientGlobalStore();
+  const {
+    actions: { setRoute },
+    state: {
+      user: { infoUser },
+      global: { route: routeInStore },
+    },
+  } = useClientGlobalStore();
 
   const { classes, cx } = useStyles();
 

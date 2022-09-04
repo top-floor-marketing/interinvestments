@@ -8,7 +8,7 @@ import useGetListings from './hooks/useGetListings';
 import SkeletonListing from './skeletonListing';
 import FilterOptions from './filterOptions';
 
-import VirtualListContainer from "../../Component/VirtualListContainer";
+import { ListingVirtual } from "../../Component/VirtualListContainer";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
@@ -80,7 +80,7 @@ const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
             />
           )}
           {totalData ? (
-            <VirtualListContainer
+            <ListingVirtual
               usingAddAndRemove={usingAddAndRemove}
               isCheck={isCheck}
               data={allListings}

@@ -4,6 +4,7 @@ import SpringDiv from "../../Component/SpringDiv";
 
 import SkeletonLeads from "./skeletonLeads";
 import FilterOptions from "./filterOptions";
+import { LeadsVirtual } from "../../Component/VirtualListContainer";
 import useGetLeads from "./hooks/useGetLeads";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -44,7 +45,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const LeadsView = () => {
   const { classes } = useStyles();
 
-  const { isSkeleton, isLoading,searchProps, isError, isOverlay } = useGetLeads();
+  const { isSkeleton, isLoading, searchProps, isOverlay, totalData, allLeads } =
+    useGetLeads();
 
   return isSkeleton ? (
     <SkeletonLeads />
@@ -56,11 +58,30 @@ const LeadsView = () => {
         overlayBlur={0.05}
       />
       <SpringDiv delay={100} duration={300}>
-        <FilterOptions
-          isLoading={isLoading}
-          searchProps={searchProps}
-        />
+        <FilterOptions isLoading={isLoading} searchProps={searchProps} />
       </SpringDiv>
+      <Paper className={classes.containerListings}>
+        {isLoading && !isOverlay && (
+          <LoadingOverlay
+            overlayOpacity={0.05}
+            visible={isLoading}
+            overlayBlur={0.05}
+          />
+        )}
+        {totalData ? (
+          <LeadsVirtual
+            data={allLeads}
+            totalData={totalData}
+            refetch={null}
+            isLoading={isLoading}
+          />
+        ) : (
+          <div className={classes.noData}>
+            <Text component="h4">No data found</Text>
+            <DatabaseOff size={36} />
+          </div>
+        )}
+      </Paper>
     </Box>
   );
 };

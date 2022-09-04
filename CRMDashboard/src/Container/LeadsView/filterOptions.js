@@ -23,54 +23,10 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     minHeight: "50px",
     alignItems: "center",
     flexWrap: "wrap",
-    [`${theme.fn.smallerThan("md")}`]: {
-      flexDirection: "column",
-      gap: theme.other.spacing.p2,
-    },
-    [`${theme.fn.smallerThan("lg")}`]: {
-      gap: theme.other.spacing.p2,
-    },
-    [`${theme.fn.largerThan(1800)}`]: {
-      [`.${getRef("selectNei")}`]: {
-        minWidth: "250px",
-        maxWidth: "250px",
-      },
-      [`.${getRef("inputSearch")}`]: {
-        minWidth: "250px",
-        maxWidth: "250px",
-      },
-    },
-  },
-  textFilter: {
-    ref: getRef("textFilter"),
-    fontWeight: 700,
-    fontSize: "18px",
-    minWidth: "50px",
-    height: "fit-content",
-  },
-  selectNei: {
-    ref: getRef("selectNei"),
-    width: _params?.usingCheck ? "150px" : "200px",
-    ...INPUT_BORDER_BOTTOM,
-    [`${theme.fn.largerThan(2100)}`]: {
-      width: "250px !important",
-    },
-    [`${theme.fn.smallerThan(600)}`]: {
-      width: "100%",
-    },
   },
   inputSearch: {
-    ref: getRef("inputSearch"),
-    width: _params?.usingCheck ? "150px" : "200px",
+    width: "250px !important",
     ...INPUT_BORDER_BOTTOM,
-    [`${theme.fn.largerThan(2100)}`]: {
-      width: "250px !important",
-    },
-    [`${theme.fn.smallerThan(600)}`]: {
-      width: "100%",
-    },
-  },
-  segmentedControl: {
     [`${theme.fn.smallerThan(600)}`]: {
       width: "100%",
     },

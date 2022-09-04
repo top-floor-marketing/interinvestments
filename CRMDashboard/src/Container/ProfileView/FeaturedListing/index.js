@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Card, createStyles, Text, Skeleton, Group, Button, Modal, Box } from "@mantine/core";
 import { useViewportSize } from '@mantine/hooks';
 import { IconPlus } from '@tabler/icons';
 
 import useGetAgentListing from "./useGetAgentListing";
 
-import VirtualListContainer from "../../../Component/VirtualListContainer";
+import { ListingVirtual } from "../../../Component/VirtualListContainer";
 import ListingView from '../../ListingsView';
 
 const useStyles = createStyles((theme, _params) => ({
@@ -97,7 +97,7 @@ const FeaturedListing = () => {
         </Group>
         <Box className={classes.containerInfinite}>
           {!isSkeleton && (
-            <VirtualListContainer
+            <ListingVirtual
               name="featured-listing"
               data={listingAgent}
               totalData={totalData}
