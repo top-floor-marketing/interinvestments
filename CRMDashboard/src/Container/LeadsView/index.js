@@ -45,23 +45,22 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const LeadsView = () => {
   const { classes } = useStyles();
 
-  const { isSkeleton, isLoading, searchProps, isOverlay, totalData, allLeads } =
+  const { isSkeleton, isLoading,selectStateProps, searchProps, totalData, allLeads } =
     useGetLeads();
 
   return isSkeleton ? (
     <SkeletonLeads />
   ) : (
     <Box className={classes.container}>
-      <LoadingOverlay
-        overlayOpacity={0.05}
-        visible={isOverlay}
-        overlayBlur={0.05}
-      />
       <SpringDiv delay={100} duration={300}>
-        <FilterOptions isLoading={isLoading} searchProps={searchProps} />
+        <FilterOptions
+          isLoading={isLoading}
+          searchProps={searchProps}
+          selectStateProps={selectStateProps}
+        />
       </SpringDiv>
       <Paper className={classes.containerListings}>
-        {isLoading && !isOverlay && (
+        {isLoading && (
           <LoadingOverlay
             overlayOpacity={0.05}
             visible={isLoading}
