@@ -93,7 +93,7 @@ SelectStateLeads.defaultProps = {
 SelectStateLeads.propTypes = {
   value: PropTypes.number,
   onChange: PropTypes.func,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 export default SelectStateLeads;
