@@ -13,6 +13,7 @@ import useStyles from './styles';
 
 import findLast from 'lodash/findLast';
 import toLower from "lodash/toLower";
+import get from 'lodash/get';
 
 const SelectStateLeads = ({ value, onChange }) => {
 
@@ -25,8 +26,8 @@ const SelectStateLeads = ({ value, onChange }) => {
     } = useClientGlobalStore();
 
     const colorSelect = useCallback(() => {
-      const nameSelected = findLast(listStatus, (val) => val.value === value);
-      switch (toLower(nameSelected.label)) {
+      const nameSelected = get(findLast(listStatus, (val) => val.value === value), ["label"], "");
+      switch (toLower(nameSelected)) {
         case "not contacted":
           return classes.selectError;
         case "contacted":
@@ -57,7 +58,7 @@ const SelectStateLeads = ({ value, onChange }) => {
         default:
           return "";
       }
-    }, [])
+    }, []);
     
     return (
       <Select
