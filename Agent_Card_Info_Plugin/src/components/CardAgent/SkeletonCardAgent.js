@@ -9,7 +9,7 @@ const SkeletonCardAgent = () => {
         <Box className={styles.containerCard}>
             <Box>
                 <Skeleton
-                    classNames={{
+                    className={{
                         root: 'mx-auto md:mx-0'
                     }}
                     height={170} circle

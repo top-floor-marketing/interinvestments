@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
 const DATA_AGENT = gql`
-  query dataAgent($agentType: MasterEnum!, $agenId: Int) {
-    dataAgent(agentType: $agentType, agenId: $agenId) {
+  query dataAgent($agentType: MasterEnum!, $agentId: Int) {
+    dataAgent(agentType: $agentType, agentId: $agentId) {
       id
       email
       firstName
@@ -18,6 +18,6 @@ const DATA_AGENT = gql`
       twitter
     }
   }
-`
+`;
 
 export { DATA_AGENT }
