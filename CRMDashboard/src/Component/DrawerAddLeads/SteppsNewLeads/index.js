@@ -104,7 +104,7 @@ const SteppsNewLeads = (_) => {
                         />
                     }
                 >
-                    <ContainerStep title='Leads info'>
+                    <ContainerStep title={null}>
                         <ListingLeadsInfo
                             refForm={refForm}
                             form={form}
@@ -125,7 +125,7 @@ const SteppsNewLeads = (_) => {
                         />
                     }
                 >
-                    <ContainerStep title='leads note'>
+                    <ContainerStep title={null}>
                         <CommentLeads />
                     </ContainerStep>
                 </Stepper.Step>
