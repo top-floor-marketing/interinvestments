@@ -27,7 +27,7 @@ const CardAgent = () => {
     if (agentId || leadAgentId) {
         variables = {
             agentType: "AGENT",
-            agenId: (leadAgentId) ? parseInt(leadAgentId) : parseInt(agentId)
+            agentId: (leadAgentId) ? parseInt(leadAgentId) : parseInt(agentId)
         }
     } else {
         variables = {
