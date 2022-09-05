@@ -30,7 +30,7 @@ const PaperForm = (props) => {
     });
 
     const { isLoading: isLoadingMutation, mutate: mutate_Lead_Listing } = useMutationHelper({
-        name: "login-with-jwt",
+        name: "lead-listing-mutation",
         gql: LEAD_LISTING_MUTATION,
         config: {
             onError: () => {
@@ -46,26 +46,26 @@ const PaperForm = (props) => {
 
         if (agentId) {
             mutate_Lead_Listing({
-                variables: {
-                    input: {
-                        "name": valuesForm.fullName,
-                        "email": valuesForm.email,
-                        "interested": valuesForm.messageContact,
-                        "listingId": listingData.databaseId.toString(),
-                        "agentId": `${agentId}`
-                    }
+              variables: {
+                input: {
+                  firstName: valuesForm.fullName,
+                  email: valuesForm.email,
+                  interested: valuesForm.messageContact,
+                  listingId: listingData.databaseId.toString(),
+                  agentId: `${agentId}`,
                 },
+              },
             });
         } else {
             mutate_Lead_Listing({
-                variables: {
-                    input: {
-                        "name": valuesForm.fullName,
-                        "email": valuesForm.email,
-                        "interested": valuesForm.messageContact,
-                        "listingId": listingData.databaseId.toString(),
-                    }
+              variables: {
+                input: {
+                  firstName: valuesForm.fullName,
+                  email: valuesForm.email,
+                  interested: valuesForm.messageContact,
+                  listingId: listingData.databaseId.toString(),
                 },
+              },
             });
         }
     }
