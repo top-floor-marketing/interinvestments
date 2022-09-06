@@ -3,13 +3,16 @@ import { createStyles } from "@mantine/core";
 
 import { INPUT_BORDER_BOTTOM } from "../../MatineProvider/stylesProvider";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   dropdownSelect: {
     borderRadius: "10px",
-    padding: "8px",
+    padding: theme.other.spacing.p4,
     cursor: "pointer !important",
   },
   select: {
+    flex: 1,
+    width: "100% !important",
+    minWidth: "150px !important",
     backgroundColor: "transparent !important",
     ".mantine-Select-rightSection": {
       svg: {

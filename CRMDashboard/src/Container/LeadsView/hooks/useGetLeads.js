@@ -1,19 +1,12 @@
 import { useState } from "react";
 import {
   useQueryHelper,
-  useMutationHelper,
 } from "../../../GraphqlClient/useRequest";
 import { GET_LEADS_LIST_FOR_AGENT } from "../../../GraphqlClient/leads.gql";
 
-import {
-  notificationSuccess,
-  notificationError,
-} from "../../../Component/Notifications";
-
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
-import isEmpty from "lodash/isEmpty";
-import get from "lodash/get";
+import { formatReponseLeads } from "./utils.service";
 
 const useGetLeads = () => {
   const {
@@ -34,11 +27,13 @@ const useGetLeads = () => {
    const onChangeSearchText = (e) => {
      setIsOverlay(true);
      setSearchText(e.currentTarget.value);
+     setIsOverlay(false);
    };
 
    const onChangeStateFilter = (e) => {
     setIsOverlay(true);
     setFilterState(e);
+    setIsOverlay(false);
    }
 
   const { isLoading: isLoadingLeads, isError: isErrorLeads, isFetched: isFechedLeads } = useQueryHelper({
@@ -46,9 +41,13 @@ const useGetLeads = () => {
     gql: GET_LEADS_LIST_FOR_AGENT,
     config: {
       onSuccess: (response) => {
-        console.log("Response ", response);
+        // statuses
+        console.log("ddd", formatReponseLeads(response));
         setIsOverlay(false);
       },
+      onerror: () => {
+        setIsOverlay(false);
+      }
     },
     variables: {
       agentId: databaseId,

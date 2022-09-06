@@ -49,7 +49,7 @@ const ListingVirtual = (props) => {
   const {
     state: {
       user: {
-        infoUser: { id },
+        infoUser: { databaseId },
       },
     },
   } = useClientGlobalStore();
@@ -100,7 +100,7 @@ const ListingVirtual = (props) => {
                 {...data[rowIndex]}
                 width={style.width}
                 height={style.height - GUTTER_SIZE}
-                idAgent={id}
+                idAgent={databaseId}
                 usingAddAndRemove={usingAddAndRemove}
                 isCheck={isCheck}
                 onConfirmRemove={onConfirmRemove}

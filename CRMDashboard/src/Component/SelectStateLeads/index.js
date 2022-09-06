@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 import SelectItem from "./SelectItem";
 // mantine
 import { Select } from "@mantine/core";
-
+import { UserSearch } from "tabler-icons-react";
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
 import PropTypes from "prop-types";
@@ -15,7 +15,13 @@ import findLast from "lodash/findLast";
 import toLower from "lodash/toLower";
 import get from "lodash/get";
 
-const SelectStateLeads = ({ value, onChange, disabled }) => {
+const SelectStateLeads = ({
+  value,
+  onChange,
+  disabled,
+  placeholder,
+  isFilter,
+}) => {
   const { cx, classes } = useStyles({ value });
 
   const {
@@ -71,7 +77,7 @@ const SelectStateLeads = ({ value, onChange, disabled }) => {
       }}
       value={value}
       onChange={onChange}
-      placeholder="State of the lead"
+      placeholder={placeholder}
       itemComponent={(itemProps) => {
         const colorItem = getColorItem(itemProps.label);
         return <SelectItem {...itemProps} color={colorItem} />;
@@ -79,6 +85,8 @@ const SelectStateLeads = ({ value, onChange, disabled }) => {
       data={listStatus}
       maxDropdownHeight={600}
       disabled={disabled}
+      searchable={false}
+      nothingFound="No options"
     />
   );
 };
@@ -88,12 +96,16 @@ SelectStateLeads.defaultProps = {
   value: null,
   onChange: () => {},
   disabled: false,
+  placeholder: "State of the lead",
+  isFilter: false,
 };
 
 SelectStateLeads.propTypes = {
   value: PropTypes.number,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
+  placeholder: PropTypes.string,
+  isFilter: PropTypes.bool
 };
 
 export default SelectStateLeads;

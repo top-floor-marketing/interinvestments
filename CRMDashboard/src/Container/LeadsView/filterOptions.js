@@ -1,9 +1,4 @@
-import { useState } from "react";
-import {
-  createStyles,
-  Paper,
-  TextInput,
-} from "@mantine/core";
+import { createStyles, Paper, TextInput, Box } from "@mantine/core";
 
 import SelectStateLeads from "../../Component/SelectStateLeads";
 
@@ -21,12 +16,21 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     minHeight: "50px",
     alignItems: "center",
     flexWrap: "wrap",
+    [`${theme.fn.smallerThan(700)}`]: {
+      flexDirection: "column",
+    },
   },
   inputSearch: {
     width: "250px !important",
     ...INPUT_BORDER_BOTTOM,
     [`${theme.fn.smallerThan(600)}`]: {
-      width: "100%",
+      width: "70% !important",
+    },
+  },
+  filterState: {
+    width: "250px !important",
+    [`${theme.fn.smallerThan(600)}`]: {
+      width: "70% !important",
     },
   },
 }));
@@ -49,7 +53,14 @@ const FilterOptions = ({
         value={searchProps.value}
         onChange={searchProps.onChange}
       />
-      <SelectStateLeads {...selectStateProps} disabled={isLoading} />
+      <Box className={classes.filterState}>
+        <SelectStateLeads
+          {...selectStateProps}
+          disabled={isLoading}
+          placeholder="Filter by status"
+          isFilter
+        />
+      </Box>
     </Paper>
   );
 };

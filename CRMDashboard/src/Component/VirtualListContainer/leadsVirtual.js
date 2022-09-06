@@ -6,11 +6,6 @@ import { FixedSizeGrid as Grid } from "react-window";
 import { useId, useElementSize } from "@mantine/hooks";
 import { Box } from "@mantine/core";
 
-import ItemListingVirtual from "../ItemListingVirtual";
-
-// global Store
-import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
-
 import random from "lodash/random";
 
 import "./styles_infinite.css";
@@ -32,27 +27,17 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 
 const LeadsVirtual = (props) => {
   const {
-    usingAddAndRemove,
-    isCheck,
-    onConfirmRemove,
-    onConfirmAdd,
     data,
     isLoading,
     refetch,
     totalData,
   } = props;
+
   const {
     ref: refParentBox,
     width: widthParent,
     height: heightParent,
   } = useElementSize();
-  const {
-    state: {
-      user: {
-        infoUser: { id },
-      },
-    },
-  } = useClientGlobalStore();
 
   const idGrid = `${useId()}_${random(100, 10000)}`;
 
@@ -96,7 +81,7 @@ const LeadsVirtual = (props) => {
                 height: style.height - GUTTER_SIZE,
               }}
             >
-              <ItemListingVirtual
+              {/* <ItemListingVirtual
                 {...data[rowIndex]}
                 width={style.width}
                 height={style.height - GUTTER_SIZE}
@@ -105,7 +90,7 @@ const LeadsVirtual = (props) => {
                 isCheck={isCheck}
                 onConfirmRemove={onConfirmRemove}
                 onConfirmAdd={onConfirmAdd}
-              />
+              /> */}
             </div>
           );
         }}
@@ -119,10 +104,6 @@ LeadsVirtual.defaultProps = {
   isLoading: false,
   refetch: null,
   totalData: 0,
-  columnCount: 1,
-  parentClassname: "",
-  isCheck: false,
-  usingAddAndRemove: true,
 };
 
 LeadsVirtual.propTypes = {
@@ -130,12 +111,6 @@ LeadsVirtual.propTypes = {
   isLoading: PropTypes.bool,
   refetch: PropTypes.func,
   totalData: PropTypes.number,
-  columnCount: PropTypes.number,
-  parentClassname: PropTypes.string,
-  onConfirmAdd: PropTypes.func,
-  onConfirmRemove: PropTypes.func,
-  usingAddAndRemove: PropTypes.bool,
-  isCheck: PropTypes.bool,
 };
 
 export default LeadsVirtual;

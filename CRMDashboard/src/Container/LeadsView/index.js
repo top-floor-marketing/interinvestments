@@ -45,7 +45,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const LeadsView = () => {
   const { classes } = useStyles();
 
-  const { isSkeleton, isLoading,selectStateProps, searchProps, totalData, allLeads } =
+  const { isSkeleton, isLoading, selectStateProps, searchProps, totalData, allLeads } =
     useGetLeads();
 
   return isSkeleton ? (

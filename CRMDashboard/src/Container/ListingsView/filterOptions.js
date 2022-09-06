@@ -49,7 +49,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       width: "250px !important",
     },
     [`${theme.fn.smallerThan(600)}`]: {
-      width: "100%",
+      width: "70% !important",
     },
   },
   inputSearch: {
@@ -60,12 +60,12 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       width: "250px !important",
     },
     [`${theme.fn.smallerThan(600)}`]: {
-      width: "100%",
+      width: "70% !important",
     },
   },
   segmentedControl: {
     [`${theme.fn.smallerThan(600)}`]: {
-      width: "100%",
+      width: "70% !important",
     },
   },
 }));
