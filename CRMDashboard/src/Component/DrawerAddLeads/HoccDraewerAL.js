@@ -4,7 +4,7 @@ import DrawerAddLeads from './DrawerAddLeads'
 // global store
 import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore'
 
-const HoccDraewerAL = ({ children, title }) => {
+const HoccDraewerAL = ({ children, title, onSuccessAddLeads }) => {
     const { actions: { setAllField } } = useClientGlobalStore()
     const [opened, setOpened] = useState(false);
 
@@ -20,6 +20,7 @@ const HoccDraewerAL = ({ children, title }) => {
     return (
         <>
             <DrawerAddLeads
+                onSuccessAddLeads={onSuccessAddLeads}
                 title={title}
                 opened={opened}
                 onClose={onCloseDrawer}

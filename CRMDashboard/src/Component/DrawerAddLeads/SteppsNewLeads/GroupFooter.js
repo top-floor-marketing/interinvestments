@@ -15,7 +15,7 @@ import { MUTATION_LEADS_ADD } from '../../../GraphqlClient/leads.gql';
 
 const GroupFooter = (_) => {
     const { classes } = useStyles({ color: 'secondary' });
-    const { refForm, nextStep, onClose } = _
+    const { refForm, nextStep, onClose, onSuccessAddLeads } = _
     // global store
     const { state: { addLeads, user }, actions: { setstepperActive, setLoadingLeads } } = useClientGlobalStore()
     const {
@@ -81,6 +81,8 @@ const GroupFooter = (_) => {
                 })
                 // onclouse
                 onClose()
+                // alert sucess
+                onSuccessAddLeads()
             },
         },
     });

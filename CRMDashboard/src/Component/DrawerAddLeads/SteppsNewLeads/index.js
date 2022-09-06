@@ -20,8 +20,9 @@ const SteppsNewLeads = (_) => {
         state: { addLeads: { stepperActive } },
         actions: { setstepperActive, setDataForm }
     } = useClientGlobalStore()
-    // const { state: { addLeads } } = useClientGlobalStore()
     const { classes } = useStyles({ color: 'secondary' });
+    const { onSuccessAddLeads, onClose } = _
+
     const refForm = useRef(null)
     const props = {
         Stepper: {
@@ -137,8 +138,9 @@ const SteppsNewLeads = (_) => {
                 </Stepper.Completed>
             </Stepper>
             <GroupFooter
+                onSuccessAddLeads={onSuccessAddLeads}
                 nextStep={nextStep}
-                onClose={_.onClose}
+                onClose={onClose}
                 refForm={refForm}
             />
         </Box>

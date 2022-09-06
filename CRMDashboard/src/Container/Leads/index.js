@@ -23,7 +23,10 @@ const Leads = () => {
                 <Box className={classes.containerBadge}>
                     <BadgeSelect />
                 </Box>
-                <HoccDraewerAL title='Add New Leads'>
+                <HoccDraewerAL
+                    title='Add New Leads'
+                    onSuccessAddLeads={() => alert('onSuccessAddLeads')}
+                >
                     <Button
                         color='dark'
                         className={classes.ButtonAddLead}

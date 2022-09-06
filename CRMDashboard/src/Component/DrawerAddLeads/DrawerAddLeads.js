@@ -51,7 +51,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     }
 }))
 
-const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
+const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title, onSuccessAddLeads }) => {
     const { state: { addLeads: { loading } } } = useClientGlobalStore()
     const { classes } = useStyles();
     const matches = useMediaQuery('(min-width: 1024px)');
@@ -82,7 +82,11 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
         <Drawer
             {...Props.Drawer}
         >
-            <SteppsNewLeads title={title} onClose={onCloseDrawer} />
+            <SteppsNewLeads
+                onSuccessAddLeads={onSuccessAddLeads}
+                title={title}
+                onClose={onCloseDrawer}
+            />
         </Drawer>
     )
 }
