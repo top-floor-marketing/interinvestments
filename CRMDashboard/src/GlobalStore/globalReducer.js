@@ -134,6 +134,34 @@ const StoreReducer = (
         },
       };
 
+    case STORE_ADDLEAD_ACTIONS.SET_STATE_LEADS:
+      return {
+        ...state,
+        addLeads: {
+          ...state.addLeads,
+          stateLeads: action.payload,
+        },
+      };
+
+    case STORE_ADDLEAD_ACTIONS.SET_NOTE_LEADS:
+      return {
+        ...state,
+        addLeads: {
+          ...state.addLeads,
+          noteLeads: action.payload,
+        },
+      };
+
+    case STORE_ADDLEAD_ACTIONS.SET_LOADING_LEADS:
+      return {
+        ...state,
+        addLeads: {
+          ...state.addLeads,
+          loading: action.payload,
+        },
+      };
+
+
     default:
       throw new Error();
   }

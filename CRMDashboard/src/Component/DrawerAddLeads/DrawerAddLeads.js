@@ -1,6 +1,8 @@
 import React from 'react'
 // components
 import SteppsNewLeads from './SteppsNewLeads'
+// global store
+import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore'
 // mantine devs
 import { Drawer, createStyles, Box, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -49,7 +51,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     }
 }))
 
-const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
+const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title, onSuccessAddLeads }) => {
+    const { state: { addLeads: { loading } } } = useClientGlobalStore()
     const { classes } = useStyles();
     const matches = useMediaQuery('(min-width: 1024px)');
 
@@ -70,13 +73,20 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title }) => {
                 drawer: classes.containerDrawer,
                 header: classes.iconClose
             },
-            onClose: () => onCloseDrawer()
+            closeOnClickOutside: !loading,
+            onClose: (loading) ? () => { } : () => onCloseDrawer()
         }
     }
 
     return (
-        <Drawer  {...Props.Drawer}>
-            <SteppsNewLeads title={title} onClose={onCloseDrawer} />
+        <Drawer
+            {...Props.Drawer}
+        >
+            <SteppsNewLeads
+                onSuccessAddLeads={onSuccessAddLeads}
+                title={title}
+                onClose={onCloseDrawer}
+            />
         </Drawer>
     )
 }

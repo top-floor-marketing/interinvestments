@@ -1,7 +1,13 @@
 import React from 'react'
 // mantine
 import { Text, Paper, createStyles, Avatar, Box } from '@mantine/core';
-import { ListDetails } from 'tabler-icons-react';
+import {
+    ListDetails,
+    FileDollar,
+    BuildingStore,
+    ChartInfographic,
+    BuildingWarehouse
+} from 'tabler-icons-react';
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
 
@@ -31,6 +37,34 @@ const CardAvatarDrawer = ({ DataInterested, type }) => {
     const { classes } = useStyles()
     const { photo, title, databaseId, neighborhood } = DataInterested
 
+
+    const typeIcon = (label) => {
+
+        const props = {
+            className: `${classes.avatar} ${classes.icon}`,
+            size: 60
+        }
+
+        switch (label) {
+            case "Buyers":
+                return <FileDollar {...props} size={42} />
+
+            case "Commercial":
+                return <BuildingStore {...props} size={42} />
+
+            case "Invest":
+                return <ChartInfographic {...props} size={42} />
+
+            case "Renters":
+                return <BuildingWarehouse {...props} size={42} />
+
+            default:
+                return <ListDetails {...props} size={42} />
+
+        }
+    }
+
+
     if (type === "LISTING") {
         return (
             <Paper className={classes.paper}>
@@ -52,10 +86,9 @@ const CardAvatarDrawer = ({ DataInterested, type }) => {
         return (
             <Paper className={classes.paper}>
                 <Box className={classes.paperBody}>
-                    <ListDetails
-                        className={`${classes.avatar} ${classes.icon}`}
-                        size={60}
-                    />
+                    {
+                        typeIcon(addLeads.totalServices.find((item) => (item.value === DataInterested)).label)
+                    }
                     <Box>
                         <Text component='h3'>
                             {

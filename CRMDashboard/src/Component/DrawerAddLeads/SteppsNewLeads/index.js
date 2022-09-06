@@ -9,7 +9,7 @@ import ContainerStep from '../ContainerStep'
 import GroupFooter from './GroupFooter'
 import DescriptionSteps from './DescriptionSteps'
 import { ListingLeadsInfo, TypeLeads, FinalStepp, CommentLeads } from '../Steps'
-import { nameLeadsValidation, emailValidation, phoneNumberValidation } from '../Steps/ValidationForm'
+import { firstNameValidation, emailValidation, phoneNumberValidation, lastNameValidation } from '../Steps/ValidationForm'
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
 // styles 
@@ -20,8 +20,9 @@ const SteppsNewLeads = (_) => {
         state: { addLeads: { stepperActive } },
         actions: { setstepperActive, setDataForm }
     } = useClientGlobalStore()
-    // const { state: { addLeads } } = useClientGlobalStore()
     const { classes } = useStyles({ color: 'secondary' });
+    const { onSuccessAddLeads, onClose } = _
+
     const refForm = useRef(null)
     const props = {
         Stepper: {
@@ -47,16 +48,16 @@ const SteppsNewLeads = (_) => {
         // schema: joiResolver(Schema),
         validateInputOnChange: true,
         initialValues: {
-            nameLeads: "",
+            firstName: "",
+            lastName: "",
             email: "",
             phoneNumber: null,
-            // note: "",
-            otherNameLeads: "",
             otherEmail: "",
             otherPhoneNumber: ""
         },
         validate: (values) => ({
-            nameLeads: nameLeadsValidation(values.nameLeads),
+            firstName: firstNameValidation(values.firstName),
+            lastName: lastNameValidation(values.lastName),
             email: emailValidation(values.email),
             phoneNumber: phoneNumberValidation(values.phoneNumber),
             // note: noteValidation(values.note),
@@ -104,7 +105,7 @@ const SteppsNewLeads = (_) => {
                         />
                     }
                 >
-                    <ContainerStep title='Leads info'>
+                    <ContainerStep title={null}>
                         <ListingLeadsInfo
                             refForm={refForm}
                             form={form}
@@ -121,11 +122,11 @@ const SteppsNewLeads = (_) => {
                         <DescriptionSteps
                             stepperActive={stepperActive}
                             position={2}
-                            text='Leads info'
+                            text='Overview'
                         />
                     }
                 >
-                    <ContainerStep title='leads note'>
+                    <ContainerStep title={null}>
                         <CommentLeads />
                     </ContainerStep>
                 </Stepper.Step>
@@ -137,8 +138,9 @@ const SteppsNewLeads = (_) => {
                 </Stepper.Completed>
             </Stepper>
             <GroupFooter
+                onSuccessAddLeads={onSuccessAddLeads}
                 nextStep={nextStep}
-                onClose={_.onClose}
+                onClose={onClose}
                 refForm={refForm}
             />
         </Box>
