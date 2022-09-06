@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { useState, forwardRef, cloneElement } from "react";
 import PropTypes from "prop-types";
 
 import { FixedSizeGrid as Grid } from "react-window";
@@ -26,13 +26,11 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
   />
 ));
 
-const LeadsVirtual = (props) => {
-  const {
-    data,
-    isLoading,
-    refetch,
-    totalData,
-  } = props;
+const PipelineColumnVirtual = (props) => {
+
+  const { refetch, totalData, data, children } = props;
+
+  console.log("data ", data)
 
   const {
     ref: refParentBox,
@@ -40,14 +38,14 @@ const LeadsVirtual = (props) => {
     height: heightParent,
   } = useElementSize();
 
-  const idGrid = `${useId()}_${random(100, 10000)}`;
+  const [idGrid] = useState(`${useId()}_${random(100, 10000)}`);
 
   const onScroll = (e) => {
     const { scrollTop } = e;
     const gridContainer =
       document.getElementsByClassName(idGrid)[0]?.firstChild?.clientHeight ||
       null;
-    if (gridContainer && refetch && !isLoading && heightParent) {
+    if (gridContainer && refetch && heightParent) {
       if (heightParent + scrollTop === gridContainer) {
         refetch();
       }
@@ -82,11 +80,7 @@ const LeadsVirtual = (props) => {
                 height: style.height - GUTTER_SIZE,
               }}
             >
-              <ItemLeadVirtual
-                {...data[rowIndex]}
-                width={style.width}
-                height={style.height - GUTTER_SIZE}
-              />
+              {cloneElement(children,  {...data[rowIndex]}, null)}
             </div>
           );
         }}
@@ -95,18 +89,23 @@ const LeadsVirtual = (props) => {
   );
 };
 
-LeadsVirtual.defaultProps = {
-  data: [],
-  isLoading: false,
-  refetch: null,
+PipelineColumnVirtual.defaultProps = {
   totalData: 0,
+  refetch: null,
+  data: [],
+  children: null,
+  color: "gray",
+  title: "null"
 };
 
-LeadsVirtual.propTypes = {
+PipelineColumnVirtual.propTypes = {
   data: PropTypes.array,
-  isLoading: PropTypes.bool,
   refetch: PropTypes.func,
   totalData: PropTypes.number,
+  children: PropTypes.element,
+  color: PropTypes.oneOf(["primary","secondary","error","success","info"]),
+  title: PropTypes.string
 };
 
-export default LeadsVirtual;
+export default PipelineColumnVirtual;
+                                                            

@@ -13,32 +13,28 @@ const formatReponseLeads = (response) => {
     const leadsList = get(response, ["dataAgent", "0", "statuses"], []);
     if (isEmpty(leadsList)) return [];
 
-    console.log("dayjs ", dayjs().format());
-    console.log("utc ", dayjs.utc().format());
     return map(leadsList, (val) => {
         const datesForStatus = map(get(val, ["status"], []), (val) => ({
           parseDate: dayjs(val.date),
           date: val.date,
           status: val.status,
         }));
-        console.log("datesForStatus ", datesForStatus);
         const finalStatus = reduce(
           datesForStatus,
           (result, value) => {
             if (isEmpty(result)) return { ...value }
-
-            console.log("result", result);
-            console.log("value", value);
-
             const isAfter = dayjs(value.date).isAfter(dayjs(result.date)); 
-
-            console.log("isAfter ", isAfter);
-            return {
+            if(isAfter) {
+              return {
                 ...value,
-            };
+              };
+            }
+            return {
+              ...result
+            }
           },
           {}
-        );    
+        );
         return {
           ...val,
           finalStatus: finalStatus,

@@ -7,6 +7,10 @@ import FilterOptions from "./filterOptions";
 import { LeadsVirtual } from "../../Component/VirtualListContainer";
 import useGetLeads from "./hooks/useGetLeads";
 
+import  { PipelineColumnVirtual } from "../../Component/VirtualListContainer";
+
+import TestItem from './testITem';
+
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
     width: "100%",
@@ -52,6 +56,33 @@ const LeadsView = () => {
     <SkeletonLeads />
   ) : (
     <Box className={classes.container}>
+      <Box
+        style={{
+          width: "150px",
+          height: "200px",
+        }}
+      >
+        <PipelineColumnVirtual
+          data={[
+            {
+              val: "gg",
+              index: 1,
+            },
+            {
+              val: "gg 2222",
+              index: 2,
+            },
+            {
+              val: "gg33333",
+              index: 3,
+            },
+          ]}
+          totalData={3}
+          color="primary"
+        >
+          <TestItem />
+        </PipelineColumnVirtual>
+      </Box>
       <SpringDiv delay={100} duration={300}>
         <FilterOptions
           isLoading={isLoading}

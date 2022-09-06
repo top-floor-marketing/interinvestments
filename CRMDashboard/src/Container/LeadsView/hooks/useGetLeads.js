@@ -42,7 +42,7 @@ const useGetLeads = () => {
     config: {
       onSuccess: (response) => {
         // statuses
-        console.log("ddd", formatReponseLeads(response));
+        setAllLeads(formatReponseLeads(response));
         setIsOverlay(false);
       },
       onerror: () => {
