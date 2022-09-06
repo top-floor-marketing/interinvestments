@@ -9,7 +9,7 @@ import ContainerStep from '../ContainerStep'
 import GroupFooter from './GroupFooter'
 import DescriptionSteps from './DescriptionSteps'
 import { ListingLeadsInfo, TypeLeads, FinalStepp, CommentLeads } from '../Steps'
-import { nameLeadsValidation, emailValidation, phoneNumberValidation } from '../Steps/ValidationForm'
+import { firstNameValidation, emailValidation, phoneNumberValidation, lastNameValidation } from '../Steps/ValidationForm'
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
 // styles 
@@ -47,16 +47,16 @@ const SteppsNewLeads = (_) => {
         // schema: joiResolver(Schema),
         validateInputOnChange: true,
         initialValues: {
-            nameLeads: "",
+            firstName: "",
+            lastName: "",
             email: "",
             phoneNumber: null,
-            // note: "",
-            otherNameLeads: "",
             otherEmail: "",
             otherPhoneNumber: ""
         },
         validate: (values) => ({
-            nameLeads: nameLeadsValidation(values.nameLeads),
+            firstName: firstNameValidation(values.firstName),
+            lastName: lastNameValidation(values.lastName),
             email: emailValidation(values.email),
             phoneNumber: phoneNumberValidation(values.phoneNumber),
             // note: noteValidation(values.note),
@@ -121,7 +121,7 @@ const SteppsNewLeads = (_) => {
                         <DescriptionSteps
                             stepperActive={stepperActive}
                             position={2}
-                            text='Leads info'
+                            text='Overview'
                         />
                     }
                 >

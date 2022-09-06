@@ -22,6 +22,7 @@ const useStyles = createStyles((theme, _params) => {
       },
       RichTextEditor: {
         '.ql-editor': {
+          minHeight: "30vh",
           'blockquote': {
             color: `${theme.colors.gray[9]} !important`,
             borderLeft: `4px solid ${theme.colors.primary[6]} !important`

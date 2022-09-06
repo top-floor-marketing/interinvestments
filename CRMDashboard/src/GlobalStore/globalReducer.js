@@ -152,6 +152,15 @@ const StoreReducer = (
         },
       };
 
+    case STORE_ADDLEAD_ACTIONS.SET_LOADING_LEADS:
+      return {
+        ...state,
+        addLeads: {
+          ...state.addLeads,
+          loading: action.payload,
+        },
+      };
+
 
     default:
       throw new Error();

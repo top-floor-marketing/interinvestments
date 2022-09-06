@@ -20,10 +20,17 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
             className={classes.containerMain}
         >
             <TextInput
-                {...form.getInputProps("nameLeads")}
+                {...form.getInputProps("firstName")}
                 className={classes.input}
                 placeholder={null}
-                label="Name leads"
+                label="First Name"
+                icon={<User />}
+            />
+            <TextInput
+                {...form.getInputProps("lastName")}
+                className={classes.input}
+                placeholder={null}
+                label="Last Name"
                 icon={<User />}
             />
             <TextInput
@@ -44,15 +51,6 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
                 label="Phone Number"
                 icon={<Phone />}
             />
-            {
-                // <Textarea
-                //     {...form.getInputProps("note")}
-                //     className={`${classes.input} ${classes.inputFull}`}
-                //     placeholder={null}
-                //     icon={<Note />}
-                //     label="Note"
-                // />
-            }
 
             <Divider
                 my="xs"
@@ -60,13 +58,6 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
                 className={`${classes.title} ${classes.inputFull}`}
             />
 
-            <TextInput
-                {...form.getInputProps("otherNameLeads")}
-                className={classes.input}
-                placeholder={null}
-                label="Other name"
-                icon={<User />}
-            />
             <TextInput
                 {...form.getInputProps("otherEmail")}
                 className={classes.input}

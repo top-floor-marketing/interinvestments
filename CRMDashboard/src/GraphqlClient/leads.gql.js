@@ -20,3 +20,13 @@ export const GET_LEADS_LIST_FOR_AGENT = gql`
     }
   }
 `;
+
+
+export const MUTATION_LEADS_ADD = gql`
+  mutation leadListingMutation($input: LeadListingMutationInput!) {
+    leadListingMutation(input: $input) {
+      clientMutationId
+      leadId
+    }
+  }
+`

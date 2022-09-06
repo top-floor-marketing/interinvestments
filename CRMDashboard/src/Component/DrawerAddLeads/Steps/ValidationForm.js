@@ -2,12 +2,20 @@
 // eslint-disable-next-line no-useless-escape
 const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 
-const nameLeadsValidation = (value) => {
+const firstNameValidation = (value) => {
     if (!value.length) {
-        return 'Name leads is required'
+        return 'Name clien is required'
     }
     return null
 }
+
+const lastNameValidation = (value) => {
+    if (!value.length) {
+        return 'last Name client is required'
+    }
+    return null
+}
+
 
 const emailValidation = (value) => {
     const validEmail = regexEmail.test(value)
@@ -50,7 +58,8 @@ const noteValidation = (value) => {
 
 
 export {
-    nameLeadsValidation,
+    firstNameValidation,
+    lastNameValidation,
     emailValidation,
     otherEmailValidation,
     noteValidation,

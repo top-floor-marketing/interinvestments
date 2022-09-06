@@ -1,7 +1,8 @@
 import React from 'react'
 // mantine
-import { Box, Text, Badge, Divider } from '@mantine/core';
+import { Box, Text, Badge, Divider, Tooltip } from '@mantine/core';
 import { MapPin, ListDetails } from 'tabler-icons-react';
+import { RichTextEditor } from '@mantine/rte';
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
 // styles 
@@ -10,10 +11,48 @@ import useStyles from './styles'
 import CardAvatarDrawer from '../InternalComponents/CardAvatarDrawer'
 
 const FinalStepp = () => {
-    const { state: { addLeads } } = useClientGlobalStore()
+    const { state } = useClientGlobalStore()
+    const { addLeads, global } = state
     const { classes } = useStyles();
 
-   //  console.log('addLeads Store', addLeads)
+    // console.log('addLeads', addLeads)
+
+    const statusUserLead = addLeads.stateLeads
+        ? global.statusUserLead.find((item) => (item.value === addLeads.stateLeads)).label
+        : 'Not Contacted'
+
+    const colorStatus = () => {
+
+        // console.log('statusUserLead', statusUserLead)
+
+        if (statusUserLead) {
+            switch (statusUserLead) {
+                case 'Ask Referrals':
+                    return 'grape'
+
+                case 'Contacted':
+                    return 'primary'
+
+                case 'Contract':
+                    return 'success'
+
+                case 'Not Contacted':
+                    return 'error'
+
+                case 'Showing':
+                    return 'secondary'
+
+                default:
+                    return 'primary'
+            }
+        } else {
+            return 'error'
+        }
+    }
+
+
+
+
 
     return (
         <Box className={classes.containerFinalSteps}>
@@ -31,6 +70,7 @@ const FinalStepp = () => {
                         </strong>
                     </Text>
                     <Badge
+                        style={{ width: '103px' }}
                         className={classes.BadgeFinalStepp}
                         size="lg"
                         leftSection={
@@ -42,13 +82,45 @@ const FinalStepp = () => {
                         {addLeads.typeLeads}
                     </Badge>
                 </Box>
+
                 <Box className={classes.containerInfo}>
                     <Text component='span'>
                         <strong>
-                            Name Leads:
+                            Status Leads:
                         </strong>
                     </Text>
-                    <Text component='span'>{addLeads.dataForm.nameLeads}</Text>
+                    <Tooltip
+                        position='right'
+                        withArrow
+                        label={statusUserLead}
+                    >
+                        <Badge
+                            style={{ width: '103px' }}
+                            size="lg"
+                            variant="outline"
+                            color={colorStatus()}
+                        >
+                            {statusUserLead}
+                        </Badge>
+                    </Tooltip>
+                </Box>
+
+                <Box className={classes.containerInfo}>
+                    <Text component='span'>
+                        <strong>
+                            First Name:
+                        </strong>
+                    </Text>
+                    <Text component='span'>{addLeads.dataForm.firstName}</Text>
+                </Box>
+
+                <Box className={classes.containerInfo}>
+                    <Text component='span'>
+                        <strong>
+                            Last Name:
+                        </strong>
+                    </Text>
+                    <Text component='span'>{addLeads.dataForm.lastName}</Text>
                 </Box>
 
                 <Box className={classes.containerInfo}>
@@ -75,18 +147,21 @@ const FinalStepp = () => {
                     </Text>
                 </Box>
 
-                {
-                    // <Box className={classes.containerInfo}>
-                    //     <Text component='span'>
-                    //         <strong>
-                    //             Note:
-                    //         </strong>
-                    //     </Text>
-                    //     <Spoiler maxHeight={70} showLabel="Show more" hideLabel="Hide">
-                    //         <Text component='span'>{addLeads.dataForm.note}</Text>
-                    //     </Spoiler>
-                    // </Box>
-                }
+                <Box
+                    style={{ flexDirection: 'column', alignItems: 'start' }}
+                    className={classes.containerInfo}
+                >
+                    <Text component='span'>
+                        <strong>
+                            Note Leads:
+                        </strong>
+                    </Text>
+                    <RichTextEditor
+                        style={{ width: '100%' }}
+                        value={addLeads.noteLeads}
+                        readOnly
+                    />
+                </Box>
 
                 <Divider
                     my="xs"

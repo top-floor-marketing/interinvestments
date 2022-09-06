@@ -1,6 +1,12 @@
 import React from 'react'
 import { createStyles, Text, Paper, Checkbox } from '@mantine/core';
-import { ListDetails } from 'tabler-icons-react';
+import {
+    ListDetails,
+    FileDollar,
+    BuildingStore,
+    ChartInfographic,
+    BuildingWarehouse
+} from 'tabler-icons-react';
 
 const useStyles = createStyles((theme) => {
     return ({
@@ -32,6 +38,28 @@ const useStyles = createStyles((theme) => {
 const PaperItem = ({ value, active, onChange: onChangeSegment }) => {
     const { classes } = useStyles()
 
+
+    const typeIcon = (label) => {
+        switch (label) {
+            case "Buyers":
+                return <FileDollar size={42} />
+
+            case "Commercial":
+                return <BuildingStore size={42} />
+
+            case "Invest":
+                return <ChartInfographic size={42} />
+
+            case "Renters":
+                return <BuildingWarehouse size={42} />
+
+            default:
+                return <ListDetails size={42} />
+
+        }
+    }
+
+
     return (
         <Paper
             onClick={() => onChangeSegment(value.value)}
@@ -39,7 +67,9 @@ const PaperItem = ({ value, active, onChange: onChangeSegment }) => {
             shadow="xs"
         >
             <Text component='h3'>{value.label}</Text>
-            <ListDetails size={42} />
+            {
+                typeIcon(value.label)
+            }
             <Checkbox
                 className={classes.Checkbox}
                 checked={active}
