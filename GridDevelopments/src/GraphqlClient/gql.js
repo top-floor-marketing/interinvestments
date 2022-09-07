@@ -113,7 +113,7 @@ const AGENT_TYPE = 'AGENT';
 export const GET_AGENT_FEATURED_LISTING = gql`
 query GetAgentInfo($agentId: Int = 10) {
     dataAgent(
-        agentType: ${AGENT_TYPE}, agenId: $agentId
+        agentType: ${AGENT_TYPE}, agentId: $agentId
       ) {
         listings {
           nodes {
