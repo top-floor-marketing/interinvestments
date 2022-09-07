@@ -7,6 +7,7 @@ import ProfileComponent from '../Container/ProfileView';
 import Listings from '../Container/ListingsView';
 import Leads from '../Container/Leads';
 import LeadsView from '../Container/LeadsView';
+import Pipeline from '../Container/PipelineView'
 
 export const LAYOUT_NAMES = {
   EMPTY: "empty",
@@ -69,7 +70,7 @@ export const CRM_ROUTES = [
     label: "Pipeline",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <div>Pipeline</div>
+      <Pipeline />
     ),
     useInNavbar: true,
     loginRequired: true,
