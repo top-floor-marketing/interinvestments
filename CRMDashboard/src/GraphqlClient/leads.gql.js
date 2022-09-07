@@ -7,14 +7,15 @@ export const GET_LEADS_LIST_FOR_AGENT = gql`
       lastName
       email
       statuses {
-        commentListing
-        commentService
         userLead {
           email
           lastName
           firstName
           id
         }
+        commentService
+        commentListing
+        currentStatus
         status {
           status
           date

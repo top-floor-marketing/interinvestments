@@ -2,10 +2,9 @@ import React, { useState, forwardRef, cloneElement } from "react";
 import PropTypes from "prop-types";
 
 import { FixedSizeGrid as Grid } from "react-window";
-import ItemLeadVirtual from "../ItemLeadVirtual";
 
 import { useId, useElementSize } from "@mantine/hooks";
-import { Box } from "@mantine/core";
+import { Box, Paper, createStyles, Text } from "@mantine/core";
 
 import random from "lodash/random";
 
@@ -13,7 +12,31 @@ import "./styles_infinite.css";
 
 // 1.25rem === p5
 const GUTTER_SIZE = 16;
-const ROW_HEIGHT = 110;
+const ROW_HEIGHT = 70;
+
+const useStyles = createStyles((theme, _params) => ({
+  container: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.other.spacing.p4,
+  },
+  paperStatus: {
+    width: "100%",
+    height: ROW_HEIGHT,
+    display: "flex",
+    flexDirection: "row",
+    fontSize: "18px",
+    fontWeight: 600,
+    gap: theme.other.spacing.p4,
+    padding: theme.other.spacing.p4,
+    borderTop: `10px ${theme.colors[_params["color"]][6]} solid`,
+    "&:hover": {
+      borderTop: `10px ${theme.colors[_params["color"]][8]} solid`,
+    },
+  },
+}));
 
 const innerElementType = forwardRef(({ style, ...rest }, ref) => (
   <div
@@ -28,9 +51,9 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 
 const PipelineColumnVirtual = (props) => {
 
-  const { refetch, totalData, data, children } = props;
+  const { refetch, totalData, data, children, title, color } = props;
 
-  console.log("data ", data)
+  const { classes } = useStyles({ color });
 
   const {
     ref: refParentBox,
@@ -55,36 +78,41 @@ const PipelineColumnVirtual = (props) => {
   // containerInfinite class for css-scrollbar styles
   // idGrid class for get clientHeight in scroll function
   return (
-    <Box ref={refParentBox} className="parentContainerInfinite">
-      <Grid
-        itemData={data}
-        className={`containerInfinite ${idGrid}`}
-        onScroll={onScroll}
-        columnCount={1}
-        columnWidth={widthParent - GUTTER_SIZE / 1.5}
-        height={heightParent}
-        innerElementType={innerElementType}
-        rowCount={totalData}
-        rowHeight={ROW_HEIGHT + GUTTER_SIZE}
-        width={widthParent}
-      >
-        {({ rowIndex, style }) => {
-          return (
-            <div
-              key={rowIndex}
-              style={{
-                ...style,
-                width: style.width,
-                maxWidth: "100%",
-                top: style.top,
-                height: style.height - GUTTER_SIZE,
-              }}
-            >
-              {cloneElement(children,  {...data[rowIndex]}, null)}
-            </div>
-          );
-        }}
-      </Grid>
+    <Box className={classes.container}>
+      <Paper className={classes.paperStatus}>
+        <Text>{title}</Text>
+      </Paper>
+      <Box ref={refParentBox} className="parentContainerInfinite">
+        <Grid
+          itemData={data}
+          className={`containerInfinite ${idGrid}`}
+          onScroll={onScroll}
+          columnCount={1}
+          columnWidth={widthParent - GUTTER_SIZE / 1.5}
+          height={heightParent}
+          innerElementType={innerElementType}
+          rowCount={totalData}
+          rowHeight={ROW_HEIGHT + GUTTER_SIZE}
+          width={widthParent}
+        >
+          {({ rowIndex, style }) => {
+            return (
+              <div
+                key={rowIndex}
+                style={{
+                  ...style,
+                  width: style.width,
+                  maxWidth: "100%",
+                  top: style.top,
+                  height: style.height - GUTTER_SIZE,
+                }}
+              >
+                {cloneElement(children, { ...data[rowIndex] }, null)}
+              </div>
+            );
+          }}
+        </Grid>
+      </Box>
     </Box>
   );
 };
@@ -94,8 +122,8 @@ PipelineColumnVirtual.defaultProps = {
   refetch: null,
   data: [],
   children: null,
-  color: "gray",
-  title: "null"
+  color: "primary",
+  title: "null",
 };
 
 PipelineColumnVirtual.propTypes = {
