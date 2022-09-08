@@ -3,7 +3,6 @@ import React, { useCallback } from "react";
 import SelectItem from "./SelectItem";
 // mantine
 import { Select } from "@mantine/core";
-import { UserSearch } from "tabler-icons-react";
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
 import PropTypes from "prop-types";

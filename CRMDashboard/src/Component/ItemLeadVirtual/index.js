@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 
 import {
   Box,
@@ -8,30 +8,39 @@ import {
   Text,
   Badge,
   Paper,
+  ActionIcon 
 } from "@mantine/core";
-import { openConfirmModal } from "@mantine/modals";
-import { MapPin, Check } from "tabler-icons-react";
+import { useElementSize } from "@mantine/hooks";
 
-import {
-  ShareListing,
-  ViewLandingListing,
-  IconDownloadPdf,
-  IconRemove,
-  IconAddListing,
-} from "../ActionButtons";
+import { Share } from "tabler-icons-react";
 
-import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
+import AvatarText from "../AvatarText";
 
 import ChipStatusLead from "./chipStatusLead";
 
-import classNames from "classnames";
-
 import get from "lodash/get";
 import concat from "lodash/concat";
-import head from "lodash/head";
-import capitalize from "lodash/capitalize";
 
 const useStyles = createStyles((theme, _params) => {
+
+  const { width } = _params;
+
+  // avatar reserved 60px,
+  // gap reservered 16px
+  // padding reserved 32px l + r
+  // icon-actions 30px per icon
+  // badge status reserved 170px
+  let paddingReserved = 32;
+  let totalRows = 2;
+  let avatarReserved = 60;
+  let iconsReserved = 38;
+  let badgeReserved = 170;
+
+  let gapReserved = (totalRows+2) * 16;  
+ 
+  const widthReserved = avatarReserved + iconsReserved + gapReserved + paddingReserved + badgeReserved;
+  const infoWidth = Math.round((width - widthReserved) / totalRows);
+
   return {
     containerItemListing: {
       width: "100%",
@@ -45,6 +54,9 @@ const useStyles = createStyles((theme, _params) => {
       padding: theme.other.spacing.p4,
       gap: theme.other.spacing.p8,
     },
+    itemsTextContainer: {
+      width: `${infoWidth}px`,
+    },
     text: {
       fontWeight: "600 !important",
       margin: "0px !important",
@@ -53,17 +65,25 @@ const useStyles = createStyles((theme, _params) => {
         textTransform: "uppercase",
       },
     },
+    actionIconContainer: {
+      width: '38px',
+      '.icon-tabler': {
+        color: `${theme.colors.dark[0]}`
+      }
+    }
   };
 });
 
 const ItemListingVirtual = (props) => {
-  const { classes } = useStyles();
+
+  const {
+    ref: refParentBox,
+    width: widthParent,
+  } = useElementSize();
+
+  const { cx,classes } = useStyles({width: widthParent});
 
   console.log("ItemListingVirtual", props);
-
-  const getStatusLead = useCallback(() => {
-    return get(props.userLead, ["finalStatus", "status"], "");
-  }, [props.userLead]);
 
   const getFirstNameUserLead = useCallback(() => {
     return get(props.userLead, ["firstName"], "");
@@ -74,10 +94,9 @@ const ItemListingVirtual = (props) => {
   }, [props.userLead]);
 
   return (
-    <Paper className={classes.containerItemListing}>
-      <Avatar radius="_40px" size={"40px"} color="primary">
-        {concat(head(getFirstNameUserLead()), head(getLastNameUserLead()))}
-      </Avatar>
+    <Paper ref={refParentBox} className={cx(classes.containerItemListing)}>
+      <AvatarText size={"60px"} firstName={getFirstNameUserLead()} lastName={getLastNameUserLead()}/>
+      <Box className={classes.itemsTextContainer}>
       <Text
         lineClamp={2}
         className={classes.text}
@@ -89,7 +108,23 @@ const ItemListingVirtual = (props) => {
       >
         {concat(getFirstNameUserLead(), " ", getLastNameUserLead())}
       </Text>
-      <ChipStatusLead status={getStatusLead()} />
+      </Box>
+      <Box className={classes.itemsTextContainer}>
+      <Text
+
+        lineClamp={2}
+        className={classes.text}
+        title={`Lead:\n${concat(
+          getFirstNameUserLead(),
+          " ",
+          getLastNameUserLead()
+        )}`}
+      >
+        {concat(getFirstNameUserLead(), " ", getLastNameUserLead())}
+      </Text>
+      </Box>
+      <ChipStatusLead status={props?.currentStatus} />
+      <ActionIcon className={classes.actionIconContainer} variant="transparent"><Share size={24} /></ActionIcon>
     </Paper>
   );
 };

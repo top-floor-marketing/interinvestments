@@ -2,16 +2,19 @@ import React from "react";
 
 import PropTypes from "prop-types";
 
-import { Chip, createStyles } from "@mantine/core";
+import { Badge , createStyles } from "@mantine/core";
 
 import toLower from 'lodash/toLower';
 
 const useStyles = createStyles((theme, _params) => {
   return {
+    badgeContainer: {
+      width: "160px !important",
+    }
   };
 });
 
-const ChipStatusLead = ({ status }) => {
+const BadgeStatusLead = ({ status }) => {
   const { classes } = useStyles();
 
   const getColorChip = () => {
@@ -32,18 +35,21 @@ const ChipStatusLead = ({ status }) => {
   }
 
   return (
-    <Chip variant="filled" radius="xs" color={getColorChip()}>
+    <Badge 
+    variant="filled" 
+    color={getColorChip()} 
+    className={classes.badgeContainer}>
       {status}
-    </Chip>
+    </Badge>
   );
 };
 
-ChipStatusLead.defaultProps = {
+BadgeStatusLead.defaultProps = {
   status: "",
 };
 
-ChipStatusLead.propTypes = {
+BadgeStatusLead.propTypes = {
   status: PropTypes.string,
 };
 
-export default React.memo(ChipStatusLead);
+export default React.memo(BadgeStatusLead);
