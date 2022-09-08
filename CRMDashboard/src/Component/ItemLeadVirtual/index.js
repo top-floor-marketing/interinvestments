@@ -8,18 +8,19 @@ import {
   Text,
   Badge,
   Paper,
-  ActionIcon 
+  ActionIcon
 } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 
-import { Share } from "tabler-icons-react";
+import { ArrowForwardUp, User, Mail } from "tabler-icons-react";
 
 import AvatarText from "../AvatarText";
+import { CustomIconTooltip } from '../ActionButtons';
 
 import ChipStatusLead from "./chipStatusLead";
 
 import get from "lodash/get";
-import concat from "lodash/concat";
+import capitalize from "lodash/capitalize";
 
 const useStyles = createStyles((theme, _params) => {
 
@@ -36,8 +37,8 @@ const useStyles = createStyles((theme, _params) => {
   let iconsReserved = 38;
   let badgeReserved = 170;
 
-  let gapReserved = (totalRows+2) * 16;  
- 
+  let gapReserved = (totalRows + 2) * 16;
+
   const widthReserved = avatarReserved + iconsReserved + gapReserved + paddingReserved + badgeReserved;
   const infoWidth = Math.round((width - widthReserved) / totalRows);
 
@@ -52,10 +53,17 @@ const useStyles = createStyles((theme, _params) => {
       justifyItems: "start",
       alignItems: "center",
       padding: theme.other.spacing.p4,
-      gap: theme.other.spacing.p8,
+      gap: theme.other.spacing.p4,
     },
     itemsTextContainer: {
+      display: "flex",
+      flexDirection: "row",
+      gap: theme.other.spacing.p2,
+      alignItems: "center",
       width: `${infoWidth}px`,
+      '.icon-tabler': {
+        color: `${theme.colors.dark[0]}`
+      }
     },
     text: {
       fontWeight: "600 !important",
@@ -65,12 +73,6 @@ const useStyles = createStyles((theme, _params) => {
         textTransform: "uppercase",
       },
     },
-    actionIconContainer: {
-      width: '38px',
-      '.icon-tabler': {
-        color: `${theme.colors.dark[0]}`
-      }
-    }
   };
 });
 
@@ -81,9 +83,7 @@ const ItemListingVirtual = (props) => {
     width: widthParent,
   } = useElementSize();
 
-  const { cx,classes } = useStyles({width: widthParent});
-
-  console.log("ItemListingVirtual", props);
+  const { cx, classes } = useStyles({ width: widthParent });
 
   const getFirstNameUserLead = useCallback(() => {
     return get(props.userLead, ["firstName"], "");
@@ -93,38 +93,42 @@ const ItemListingVirtual = (props) => {
     return get(props.userLead, ["lastName"], "");
   }, [props.userLead]);
 
+  const getEmailUserLead = useCallback(() => {
+    return get(props.userLead, ["email"], "");
+  }, [props.userLead]);
+
   return (
     <Paper ref={refParentBox} className={cx(classes.containerItemListing)}>
-      <AvatarText size={"60px"} firstName={getFirstNameUserLead()} lastName={getLastNameUserLead()}/>
+      <AvatarText size={"60px"} firstName={getFirstNameUserLead()} lastName={getLastNameUserLead()} />
       <Box className={classes.itemsTextContainer}>
-      <Text
-        lineClamp={2}
-        className={classes.text}
-        title={`Lead:\n${concat(
-          getFirstNameUserLead(),
-          " ",
-          getLastNameUserLead()
-        )}`}
-      >
-        {concat(getFirstNameUserLead(), " ", getLastNameUserLead())}
-      </Text>
+        <User
+          size={24}
+        />
+        <Text
+          component="span"
+          lineClamp={2}
+          className={classes.text}
+          title={`Lead name:\n${capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}`}
+        >
+          {capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}
+        </Text>
       </Box>
       <Box className={classes.itemsTextContainer}>
-      <Text
-
-        lineClamp={2}
-        className={classes.text}
-        title={`Lead:\n${concat(
-          getFirstNameUserLead(),
-          " ",
-          getLastNameUserLead()
-        )}`}
-      >
-        {concat(getFirstNameUserLead(), " ", getLastNameUserLead())}
-      </Text>
+        <Mail
+          size={24}
+        />
+        <Text
+          lineClamp={2}
+          className={classes.text}
+          title={`Lead email:\n${getEmailUserLead()}`}
+        >
+          {getEmailUserLead()}
+        </Text>
       </Box>
       <ChipStatusLead status={props?.currentStatus} />
-      <ActionIcon className={classes.actionIconContainer} variant="transparent"><Share size={24} /></ActionIcon>
+      <CustomIconTooltip size={24} labelTooltip="View lead details">
+        <ArrowForwardUp />
+      </CustomIconTooltip>
     </Paper>
   );
 };

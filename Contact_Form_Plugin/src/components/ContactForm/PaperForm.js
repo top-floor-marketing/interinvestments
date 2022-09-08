@@ -18,7 +18,7 @@ const PaperForm = (props) => {
     const { isLoading, isDisabled, setIsErroForm, listingData } = props
     const [onSuccessAlert, setOnSuccessAlert] = useState(false)
 
-    const agentId = localStorage.getItem('lead-agent')
+    const agentId = localStorage.getItem('lead-agent');
 
     const form = useForm({
         schema: joiResolver(FormSchema),
@@ -51,7 +51,7 @@ const PaperForm = (props) => {
                   firstName: valuesForm.fullName,
                   email: valuesForm.email,
                   interested: valuesForm.messageContact,
-                  listingId: listingData.databaseId.toString(),
+                  listingId: [parseInt(listingData.databaseId)],
                   agentId: `${agentId}`,
                 },
               },
@@ -63,7 +63,7 @@ const PaperForm = (props) => {
                   firstName: valuesForm.fullName,
                   email: valuesForm.email,
                   interested: valuesForm.messageContact,
-                  listingId: listingData.databaseId.toString(),
+                  listingId: [parseInt(listingData.databaseId)],
                 },
               },
             });

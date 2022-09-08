@@ -1,23 +1,29 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import PropTypes from "prop-types";
 
-import { Badge , createStyles } from "@mantine/core";
+import { Badge, createStyles } from "@mantine/core";
 
 import toLower from 'lodash/toLower';
 
 const useStyles = createStyles((theme, _params) => {
   return {
     badgeContainer: {
+      marginLeft: "auto !important",
       width: "160px !important",
+      display: "flex",
+      flexDirection: "column",
+      backgroundColor: theme.colors[_params.color][6],
+      '&:hover': {
+        backgroundColor: theme.colors[_params.color][8],
+      }
     }
   };
 });
 
 const BadgeStatusLead = ({ status }) => {
-  const { classes } = useStyles();
 
-  const getColorChip = () => {
+  const getColorChip = useCallback(() => {
     switch (toLower(status)) {
       case "not contacted":
         return "error";
@@ -30,15 +36,17 @@ const BadgeStatusLead = ({ status }) => {
       case "ask referrals":
         return "info";
       default:
-        return "";
+        return "gray";
     }
-  }
+  }, [status])
+
+  const { classes } = useStyles({ color: getColorChip() });
 
   return (
-    <Badge 
-    variant="filled" 
-    color={getColorChip()} 
-    className={classes.badgeContainer}>
+    <Badge
+      variant="filled"
+      title={`Lead status:\n${status}`}
+      className={classes.badgeContainer}>
       {status}
     </Badge>
   );

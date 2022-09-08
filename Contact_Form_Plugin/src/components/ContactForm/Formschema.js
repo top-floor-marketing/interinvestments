@@ -16,11 +16,13 @@ const schema = Joi.object({
         }),
     messageContact: Joi.string()
         .required()
-        .min(12)
+        .min(4)
+        .max(300)
         .messages({
             "any.required": "Please fill in the following field Message Contact",
             "string.empty": "empty",
-            "string.min": "Message Contact length must be at least 12 characters long"
+            "string.min": "Message Contact length must be at least 4 characters long",
+            "string.max": ""
         }),
 });
 
