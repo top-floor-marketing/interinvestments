@@ -88,7 +88,7 @@ const PipelineColumnVirtual = (props) => {
           className={`containerInfinite ${idGrid}`}
           onScroll={onScroll}
           columnCount={1}
-          columnWidth={widthParent - GUTTER_SIZE / 1.5}
+          columnWidth={widthParent}
           height={heightParent}
           innerElementType={innerElementType}
           rowCount={totalData}

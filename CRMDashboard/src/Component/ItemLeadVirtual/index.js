@@ -2,15 +2,15 @@ import React, { useCallback } from "react";
 
 import {
   Box,
-  Checkbox,
   createStyles,
-  Avatar,
   Text,
-  Badge,
   Paper,
-  ActionIcon
 } from "@mantine/core";
-import { useElementSize } from "@mantine/hooks";
+import { useElementSize, useMediaQuery } from "@mantine/hooks";
+
+import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
+import { ROUTES_NAMES } from "../../Route/routes";
+import { LOCAL_STORAGE } from "../../Utils/globalConstants";
 
 import { ArrowForwardUp, User, Mail } from "tabler-icons-react";
 
@@ -30,12 +30,12 @@ const useStyles = createStyles((theme, _params) => {
   // gap reservered 16px
   // padding reserved 32px l + r
   // icon-actions 30px per icon
-  // badge status reserved 170px
+  // badge status reserved 180px
   let paddingReserved = 32;
   let totalRows = 2;
   let avatarReserved = 60;
   let iconsReserved = 38;
-  let badgeReserved = 170;
+  let badgeReserved = 180;
 
   let gapReserved = (totalRows + 2) * 16;
 
@@ -63,16 +63,28 @@ const useStyles = createStyles((theme, _params) => {
       width: `${infoWidth}px`,
       '.icon-tabler': {
         color: `${theme.colors.dark[0]}`
+      },
+      [`${theme.fn.smallerThan(850)}`]: {
+        flexDirection: "column",
+        width: "100% !important",
+        flex: "1 !important"
       }
     },
     text: {
       fontWeight: "600 !important",
       margin: "0px !important",
       fontSize: "14px",
-      "div::first-letter": {
-        textTransform: "uppercase",
-      },
+      [`${theme.fn.smallerThan(850)}`]: {
+        fontSize: "12px",
+      }
     },
+    avatarText: {
+      '&:hover': {
+        backgroundColor: theme.colors.gray[8],
+        fontWeight: '700 !important',
+        cursor: "pointer !important"
+      }
+    }
   };
 });
 
@@ -82,6 +94,11 @@ const ItemListingVirtual = (props) => {
     ref: refParentBox,
     width: widthParent,
   } = useElementSize();
+  // setRoute(ROUTES_NAMES.AUTH);
+
+  const { actions: { setRoute } } = useClientGlobalStore();
+
+  const matches = useMediaQuery('(max-width: 850px)');
 
   const { cx, classes } = useStyles({ width: widthParent });
 
@@ -97,34 +114,73 @@ const ItemListingVirtual = (props) => {
     return get(props.userLead, ["email"], "");
   }, [props.userLead]);
 
+  const getIdLead = useCallback(() => {
+    return get(props.userLead, ["id"], null);
+  }, [props.userLead]);
+
+  const setLeadDetail = () => {
+    const idLead = getIdLead();
+    const idAgent = get(props, ["agentId"], null);
+    localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, JSON.stringify({ idLead, idAgent }));
+    setRoute(ROUTES_NAMES.LEADS_DETAILS);
+  }
+
   return (
     <Paper ref={refParentBox} className={cx(classes.containerItemListing)}>
-      <AvatarText size={"60px"} firstName={getFirstNameUserLead()} lastName={getLastNameUserLead()} />
-      <Box className={classes.itemsTextContainer}>
-        <User
-          size={24}
-        />
-        <Text
-          component="span"
-          lineClamp={2}
-          className={classes.text}
-          title={`Lead name:\n${capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}`}
-        >
-          {capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}
-        </Text>
-      </Box>
-      <Box className={classes.itemsTextContainer}>
-        <Mail
-          size={24}
-        />
-        <Text
-          lineClamp={2}
-          className={classes.text}
-          title={`Lead email:\n${getEmailUserLead()}`}
-        >
-          {getEmailUserLead()}
-        </Text>
-      </Box>
+      <AvatarText onClick={()=> setLeadDetail()} 
+      size={"60px"} 
+      firstName={getFirstNameUserLead()} 
+      lastName={getLastNameUserLead()}
+      className={classes.avatarText}
+       />
+      {
+        (matches) ? 
+           <Box className={classes.itemsTextContainer}>
+              <Text
+                component="span"
+                lineClamp={2}
+                className={classes.text}
+                title={`Lead name:\n${capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}`}
+              >
+                {capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}
+              </Text>
+              <Text
+                lineClamp={2}
+                className={classes.text}
+                title={`Lead email:\n${getEmailUserLead()}`}
+              >
+                {getEmailUserLead()}
+              </Text>
+            </Box>
+          :
+          <>
+            <Box className={classes.itemsTextContainer}>
+              <User
+                size={24}
+              />
+              <Text
+                component="span"
+                lineClamp={2}
+                className={classes.text}
+                title={`Lead name:\n${capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}`}
+              >
+                {capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}
+              </Text>
+            </Box>
+            <Box className={classes.itemsTextContainer}>
+              <Mail
+                size={24}
+              />
+              <Text
+                lineClamp={2}
+                className={classes.text}
+                title={`Lead email:\n${getEmailUserLead()}`}
+              >
+                {getEmailUserLead()}
+              </Text>
+            </Box>
+          </>
+      }
       <ChipStatusLead status={props?.currentStatus} />
       <CustomIconTooltip size={24} labelTooltip="View lead details">
         <ArrowForwardUp />

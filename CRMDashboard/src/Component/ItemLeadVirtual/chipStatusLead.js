@@ -10,12 +10,17 @@ const useStyles = createStyles((theme, _params) => {
   return {
     badgeContainer: {
       marginLeft: "auto !important",
-      width: "160px !important",
+      width: "180px !important",
       display: "flex",
+      fontSize: "14px",
       flexDirection: "column",
       backgroundColor: theme.colors[_params.color][6],
       '&:hover': {
         backgroundColor: theme.colors[_params.color][8],
+      },
+      [`${theme.fn.smallerThan(850)}`]: {
+        width: "120px !important",
+        fontSize: "10px",
       }
     }
   };

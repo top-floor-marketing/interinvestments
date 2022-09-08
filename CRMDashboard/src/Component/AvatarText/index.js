@@ -24,7 +24,7 @@ const useStyles = createStyles((theme, _params) => {
   });
 
 const AvatarText = (props) => {
-  const { color, className, firstName, lastName, size } = props;
+  const { color, className, firstName, lastName, size, title, onClick } = props;
   const { cx, classes } = useStyles({ color });
 
   const getText = useCallback(() => {
@@ -37,6 +37,8 @@ const AvatarText = (props) => {
 
   return (
     <Avatar 
+    onClick={() => onClick()}
+    title={title}
     radius="_40px"
     src={null}
     size={size}
@@ -54,7 +56,9 @@ AvatarText.defaultProps = {
     firstName: null,
     lastName: null,
     size: "30px",
-    className: ""
+    className: "",
+    title: null,
+    onClick: () => {}
 };
   
 AvatarText.propTypes = {
@@ -63,6 +67,8 @@ AvatarText.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     className: PropTypes.string,
+    title: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 export default React.memo(AvatarText);

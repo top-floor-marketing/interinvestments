@@ -6,6 +6,8 @@ export const GET_LEADS_LIST_FOR_AGENT = gql`
       firstName
       lastName
       email
+      id
+      databaseId
       statuses {
         userLead {
           email

@@ -21,7 +21,6 @@ export const ROUTES_NAMES = {
   LEADS_DETAILS: "leads/details",
   PROFILE: "profile",
   LISTINGS: "listings",
-  TESTLEADS: 'testLeads'
 };
 
 export const DEFAULT_ROUTE = ROUTES_NAMES.PROFILE;
@@ -36,7 +35,7 @@ export const CRM_ROUTES = [
     ),
     useInNavbar: false,
     loginRequired: true,
-    icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
+    icon: null,
     roles: ["administrator"]
   },
   {
@@ -99,18 +98,6 @@ export const CRM_ROUTES = [
     useInNavbar: true,
     loginRequired: true,
     icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
-    roles: ["administrator"]
-  },
-  {
-    name: ROUTES_NAMES.TESTLEADS,
-    label: "Detail Leads",
-    layout: LAYOUT_NAMES.DASHBOARD,
-    component: () => (
-      <Leads />
-    ),
-    useInNavbar: true,
-    loginRequired: true,
-    icon: () => <Users size={25} strokeWidth={2} color={"white"} />,
     roles: ["administrator"]
   },
 ];
