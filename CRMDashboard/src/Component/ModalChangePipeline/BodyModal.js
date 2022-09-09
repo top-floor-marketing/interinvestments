@@ -6,6 +6,8 @@ import { notificationError, notificationSuccess } from "../../Component/Notifica
 import { Box, Textarea, Group, Badge, Text, Button } from '@mantine/core';
 import { useMutationHelper } from "../../GraphqlClient/useRequest";
 import { COMMENTS_USER_LEAD } from "../../GraphqlClient/leads.gql";
+
+import ChipStatusLead from '../ItemLeadVirtual/chipStatusLead';
 import get from 'lodash/get'
 
 const BodyModal = ({ valueSelect, setvalueSelect, valueUserPipeline, onClose, refechPipeline }) => {
@@ -85,14 +87,8 @@ const BodyModal = ({ valueSelect, setvalueSelect, valueUserPipeline, onClose, re
             <Text color="primary" style={{ margin: '0px' }} component='h3'>Data Leads</Text>
             <Group grow>
                 <Text component='span'>Current state</Text>
-                <Badge
-                    style={{ width: '103px' }}
-                    size="lg"
-                    variant="outline"
-                    color={colorStatus(valueUserPipeline?.currentStatus.name)}
-                >
-                    {valueUserPipeline?.currentStatus.name}
-                </Badge>
+                <ChipStatusLead
+                status={valueUserPipeline?.currentStatus?.name} />
             </Group>
 
             <Group grow>

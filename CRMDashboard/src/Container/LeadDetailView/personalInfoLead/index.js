@@ -74,14 +74,19 @@ const PersonalInfoLead = () => {
                     </CustomIconTooltip>
                     <Text transform="capitalize" component="span">{get(dataLead, ["email"], "")}</Text>
                 </Box>
-                <Box className={classes.infoItem}>
+                {
+                    (!isEmpty(get(dataLead, ["phone"], "")))
+                    &&
+                    <Box className={classes.infoItem}>
                     <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataLead, ["phone"], "")}>
                         <Phone />
                     </CustomIconTooltip>
                     <Text transform="capitalize" component="span">{get(dataLead, ["phone"], "")}</Text>
                 </Box>
+                }
+               
                 {
-                    (!isEmpty(get(dataLead, ["otherPhone"], "")))
+                    (!isEmpty(get(dataLead, ["otherPhone","0"], "")))
                     &&
                     <Box className={classes.infoItem}>
                         <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataLead, ["otherPhone", "0"], "")}>
