@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useQueryHelper } from '../../../GraphqlClient/useRequest'
 import { PIPELINE } from '../../../GraphqlClient/pipeline.gql'
 
-const useGetPipelineLeads = ({ agentID }) => {
+const useGetPipelineLeads = ({agentID}) => {
     const [dataPipeline_NC, setDataPipeline_NC] = useState([])
     const [dataPipeline_CO, setDataPipeline_CO] = useState([])
     const [dataPipeline_ASK, setDataPipeline_ASK] = useState([])
@@ -32,8 +32,6 @@ const useGetPipelineLeads = ({ agentID }) => {
             },
         }
     });
-
-
 
     return {
         globalLoading,
