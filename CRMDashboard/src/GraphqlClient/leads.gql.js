@@ -37,3 +37,28 @@ export const MUTATION_LEADS_ADD = gql`
     }
   }
 `
+
+export const GET_INFO_LEAD_BY_AGENT = gql`
+query historyCommentLead($agentId: Int = 10, $userLeadId: Int = 10) {
+  historyCommentLead(agentId: $agentId, userLeadId: $userLeadId) {
+    id
+    firstName
+    phone
+    lastName
+    email
+    otherEmail
+    otherPhone
+    commentService
+    commentListing
+    currentStatus {
+      name
+      statusId
+    }
+    statuses {
+      comments
+      date
+      status
+    }
+  }
+}
+`

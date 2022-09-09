@@ -8,16 +8,18 @@ import toLower from 'lodash/toLower';
 
 const useStyles = createStyles((theme, _params) => {
   return {
+    colorBadge: {
+      backgroundColor: theme.colors[_params.color][6],
+      '&:hover': {
+        backgroundColor: theme.colors[_params.color][8],
+      },
+    },
     badgeContainer: {
       marginLeft: "auto !important",
       width: "180px !important",
       display: "flex",
       fontSize: "14px",
       flexDirection: "column",
-      backgroundColor: theme.colors[_params.color][6],
-      '&:hover': {
-        backgroundColor: theme.colors[_params.color][8],
-      },
       [`${theme.fn.smallerThan(700)}`]: {
         fontSize: "12px",
         marginLeft: "auto !important",
@@ -27,7 +29,7 @@ const useStyles = createStyles((theme, _params) => {
   };
 });
 
-const BadgeStatusLead = ({ status, onClick }) => {
+const BadgeStatusLead = ({ status, onClick, className }) => {
 
   const getColorChip = useCallback(() => {
     switch (toLower(status)) {
@@ -46,14 +48,14 @@ const BadgeStatusLead = ({ status, onClick }) => {
     }
   }, [status])
 
-  const { classes } = useStyles({ color: getColorChip() });
+  const { cx, classes } = useStyles({ color: getColorChip() });
 
   return (
     <Badge
       onClick={() => onClick()}
       variant="filled"
       title={`Lead status:\n${status}`}
-      className={classes.badgeContainer}>
+      className={cx(classes.colorBadge, className, { [classes.badgeContainer]: !className })}>
       {status}
     </Badge>
   );
@@ -61,12 +63,14 @@ const BadgeStatusLead = ({ status, onClick }) => {
 
 BadgeStatusLead.defaultProps = {
   status: "",
-  onClick: () => {}
+  onClick: () => {},
+  className: null
 };
 
 BadgeStatusLead.propTypes = {
   status: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  className: PropTypes.string
 };
 
 export default React.memo(BadgeStatusLead);

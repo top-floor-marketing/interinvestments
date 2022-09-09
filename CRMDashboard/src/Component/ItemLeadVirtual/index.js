@@ -182,7 +182,7 @@ const ItemListingVirtual = (props) => {
           </>
       }
 
-      <CustomIconTooltip size={24} labelTooltip="View lead details">
+      <CustomIconTooltip size={24} labelTooltip="View lead details" onClick={setLeadDetail}>
         <ArrowForwardUp />
       </CustomIconTooltip>
     </Paper>

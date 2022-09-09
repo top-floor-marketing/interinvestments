@@ -66,7 +66,7 @@ const CommentLeads = () => {
   return (
     <Box className={classes.containerLeadsInfo}>
       <Box className={classes.containerFilters}>
-        <Text component='h3'>Initial State Leads</Text>
+        <Text component='h3'>Initial Lead State</Text>
         <SelectStateLeads
           value={stateLeads}
           onChange={(idState) => setStateLeads(idState)}

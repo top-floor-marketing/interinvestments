@@ -67,7 +67,7 @@ const FilterOptions = ({
         <SelectStateLeads
           {...selectStateProps}
           disabled={isLoading}
-          placeholder="Filter by status"
+          placeholder="Filter by state"
           isFilter
         />
       </Box>
@@ -80,7 +80,7 @@ const FilterOptions = ({
             color="dark"
             leftIcon={<Plus size={12} />}
           >
-            Add featured listing
+            Add Lead
           </Button>
      </HoccDraewerAL>
 

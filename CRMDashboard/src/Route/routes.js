@@ -5,8 +5,8 @@ import { LayoutGrid, Home2, Users } from "tabler-icons-react";
 import AuthComponent from '../Container/AuthView';
 import ProfileComponent from '../Container/ProfileView';
 import Listings from '../Container/ListingsView';
-import Leads from '../Container/Leads';
 import LeadsView from '../Container/LeadsView';
+import LeadsDetailView from "../Container/LeadDetailView";
 import Pipeline from '../Container/PipelineView'
 
 export const LAYOUT_NAMES = {
@@ -31,7 +31,7 @@ export const CRM_ROUTES = [
     label: "Leads",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <div>Leads detail</div>
+      <LeadsDetailView />
     ),
     useInNavbar: false,
     loginRequired: true,

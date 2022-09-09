@@ -38,7 +38,6 @@ const Profile = () => {
         <SpringDiv delay={300} duration={300}>
           <Box className={classes.infoAndLeadsRow}>
             <ProfileCard />
-            <RecentLeads />
           </Box>
         </SpringDiv>
         <SpringDiv delay={600} duration={300} fullHeight>

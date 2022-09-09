@@ -88,7 +88,7 @@ const GroupFooter = (_) => {
     });
 
     const finalStepper = () => {
-        const { firstName, lastName, otherEmail, phoneNumber, otherPhoneNumber, email } = dataForm
+        const { firstName, lastName, otherEmail, phoneNumber, otherPhoneNumber, email } = dataForm;
         const leadsData = {
             agentId: `${idUser}`,
             firstName,
@@ -164,7 +164,7 @@ const GroupFooter = (_) => {
                         disabled={loading}
                         loading={loading}
                     >
-                        Complete leads
+                        Submit Lead
                     </Button>
                 )
             }

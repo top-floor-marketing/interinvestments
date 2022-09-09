@@ -8,6 +8,12 @@ const CustomIconTooltip = (props) => {
 
     const clipboard = useClipboard({ timeout: 2000 });
 
+    const onClickAction = () => {
+        if (props.onClick)
+            props.onClick()
+        clipboardCopy()
+    }
+
     const clipboardCopy = () => {
         clipboard.copy(`${props.labelTooltip}`)
     }
@@ -19,7 +25,7 @@ const CustomIconTooltip = (props) => {
             placement={clipboard.copied ? "end" : "center"}
             label={(clipboard.copied) ? "Copied!" : props.labelTooltip}
             className={props.className}>
-            <ActionIcon {...omit(props, ['labelTooltip', 'url'])} onClick={() => clipboardCopy()}>
+            <ActionIcon {...omit(props, ['labelTooltip', 'url'])} onClick={() => onClickAction()}>
                 {props.children}
             </ActionIcon>
         </Tooltip>
@@ -33,7 +39,8 @@ CustomIconTooltip.defaultProps = {
     url: "",
     labelTooltip: "No link found!",
     size: 16,
-    color: "dark"
+    color: "dark",
+    onClick: null
 };
 
 CustomIconTooltip.propTypes = {
@@ -42,7 +49,8 @@ CustomIconTooltip.propTypes = {
     url: PropTypes.string,
     size: PropTypes.number,
     color: PropTypes.string,
-    labelTooltip: PropTypes.string
+    labelTooltip: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 export default CustomIconTooltip;

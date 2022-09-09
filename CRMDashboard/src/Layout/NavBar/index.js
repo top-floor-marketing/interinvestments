@@ -57,7 +57,7 @@ const NavBarDashboard = ({ opened }) => {
   };
   const getClassIcon = (routeItem) => {
     return cx(classes.iconContainer, {
-      [classes.activeIcon]: routeItem === routeActive,
+      [classes.activeIcon]: routeItem === routeActive || (ROUTES_NAMES.LEADS_DETAILS === routeActive && routeItem === ROUTES_NAMES.LEADS),
     });
   };
 

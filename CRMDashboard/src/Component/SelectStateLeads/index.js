@@ -96,7 +96,7 @@ SelectStateLeads.defaultProps = {
   value: null,
   onChange: () => {},
   disabled: false,
-  placeholder: "State of the lead",
+  placeholder: "Lead State",
   isFilter: false,
 };
 

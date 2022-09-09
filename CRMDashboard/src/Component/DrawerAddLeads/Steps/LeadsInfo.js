@@ -40,7 +40,7 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
                 label="Email client"
                 icon={<Mail />}
             />
-            <NumberInput
+            <TextInput
                 {...form.getInputProps("phoneNumber")}
                 className={classes.input}
                 classNames={{
