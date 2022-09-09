@@ -1,10 +1,10 @@
 import React, { useState, useCallback, memo } from 'react'
 // mantine 
-import { Box, Text, createStyles, Modal } from '@mantine/core';
+import { Box, Text, createStyles, LoadingOverlay } from '@mantine/core';
 import { useElementSize } from '@mantine/hooks';
 // components
+import ModalChangePipeline from '../../Component/ModalChangePipeline'
 import PipelineItem from './PipelineItem'
-import BodyModal from './BodyModal'
 import { PipelineColumnVirtual } from '../../Component/VirtualListContainer';
 // hook
 import useGetPipelineLeads from './hook/useGetPipelineLeads';
@@ -83,12 +83,16 @@ const useStyles = createStyles((theme, _params) => {
             alignItems: "center",
             padding: theme.other.spacing.p8,
         },
+        LoadingOverlay: {
+            '.mantine-Overlay-root': {
+                backgroundColor: 'transparent'
+            }
+        }
     }
 });
 
 
 const Pipeline = () => {
-
     const {
         state: {
             user: {
@@ -106,88 +110,134 @@ const Pipeline = () => {
 
     const [openedMOdal, setOpenedModal] = useState(false);
     const [valueSelect, setvalueSelect] = useState(false);
+    const [valueUserPipeline, setValueUserPipeline] = useState(null)
     const { ref, width } = useElementSize();
     const { classes } = useStyles({ width });
 
-    const { data: dataNotContacted, refetch: reFetchNotContacted } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('Not Contacted') });
-    const { data: dataContacted, refetch: reFetchContacted } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('contacted') });
-    const { data: dataShowing, refetch: reFetchShowing } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('showing') });
-    const { data: dataContract, refetch: reFetchContract } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('contract') });
-    const { data: dataASk, refetch: reFetchAsk } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('ask referrals') });
+    const { data: dataNotContacted, refetch: reFetchNotContacted, isLoading: isLoadingNotContacted } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('Not Contacted') });
+    const { data: dataContacted, refetch: reFetchContacted, isLoading: isLoadingContacted } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('contacted') });
+    const { data: dataShowing, refetch: reFetchShowing, isLoading: isLoadingShowing } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('showing') });
+    const { data: dataContract, refetch: reFetchContract, isLoading: isLoadingContract } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('contract') });
+    const { data: dataASk, refetch: reFetchAsk, isLoading: isLoadingAsk } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('ask referrals') });
+
+
+    const refechPipeline = (prevState, newState) => {
+        if (getInfoState('Not Contacted') === prevState || getInfoState('Not Contacted') === newState)
+            reFetchNotContacted()
+        if (getInfoState('contacted') === prevState || getInfoState('contacted') === newState)
+            reFetchContacted()
+        if (getInfoState('showing') === prevState || getInfoState('showing') === newState)
+            reFetchShowing()
+        if (getInfoState('contract') === prevState || getInfoState('contract') === newState)
+            reFetchContract()
+        if (getInfoState('ask referrals') === prevState || getInfoState('ask referrals') === newState)
+            reFetchAsk()
+    }
 
     return (
-        <Box className={classes.container}>
-            <Modal
-                opened={openedMOdal}
-                onClose={() => setOpenedModal(false)}
-                title="Lorem ipsum dolor sit amet,"
-            >
-                <Box className={classes.modalBody}>
-                    <BodyModal valueSelect={valueSelect} setvalueSelect={setvalueSelect} />
+        <div style={{ width: '100%', position: 'relative' }}>
+            <LoadingOverlay
+                className={classes.LoadingOverlay}
+                visible={(
+                    isLoadingNotContacted ||
+                    isLoadingContacted ||
+                    isLoadingShowing ||
+                    isLoadingContract ||
+                    isLoadingAsk
+                ) || false}
+                overlayBlur={2}
+            />
+            <Box className={classes.container}>
+
+                <ModalChangePipeline
+                    refechPipeline={refechPipeline}
+                    valueUserPipeline={valueUserPipeline}
+                    setValueUserPipeline={setValueUserPipeline}
+                    openedMOdal={openedMOdal}
+                    setOpenedModal={setOpenedModal}
+                    valueSelect={valueSelect}
+                    setvalueSelect={setvalueSelect}
+                />
+
+                <Text className={classes.titlePipeline} component='h3'>Pipeline</Text>
+
+
+
+                <Box className={classes.containerPipeline} ref={ref}>
+                    <Box className={classes.containerColPipeline}>
+                        <PipelineColumnVirtual
+                            data={dataNotContacted}
+                            totalData={dataNotContacted.length}
+                            color='error'
+                            title='Not Contacted'
+                        >
+                            <PipelineItem
+                                setValueUserPipeline={setValueUserPipeline}
+                                onClick={() => setOpenedModal(true)}
+                            />
+                        </PipelineColumnVirtual>
+                    </Box>
+
+                    <Box className={classes.containerColPipeline}>
+                        <PipelineColumnVirtual
+                            data={dataContacted}
+                            totalData={dataContacted.length}
+                            color='primary'
+                            title='Contacted'
+                        >
+                            <PipelineItem
+                                setValueUserPipeline={setValueUserPipeline}
+                                onClick={() => setOpenedModal(true)}
+                            />
+                        </PipelineColumnVirtual>
+                    </Box>
+
+
+                    <Box className={classes.containerColPipeline}>
+                        <PipelineColumnVirtual
+                            data={dataASk}
+                            totalData={dataASk.length}
+                            color='info'
+                            title='Ask Referrals'
+                        >
+                            <PipelineItem
+                                setValueUserPipeline={setValueUserPipeline}
+                                onClick={() => setOpenedModal(true)}
+                            />
+                        </PipelineColumnVirtual>
+                    </Box>
+
+                    <Box className={classes.containerColPipeline}>
+                        <PipelineColumnVirtual
+                            data={dataContract}
+                            totalData={dataContract.length}
+                            color='success'
+                            title='Contract'
+                        >
+                            <PipelineItem
+                                setValueUserPipeline={setValueUserPipeline}
+                                onClick={() => setOpenedModal(true)}
+                            />
+                        </PipelineColumnVirtual>
+                    </Box>
+
+                    <Box className={classes.containerColPipeline}>
+                        <PipelineColumnVirtual
+                            data={dataShowing}
+                            totalData={dataShowing.length}
+                            color='secondary'
+                            title='Showing'
+                        >
+                            <PipelineItem
+                                setValueUserPipeline={setValueUserPipeline}
+                                onClick={() => setOpenedModal(true)}
+                            />
+                        </PipelineColumnVirtual>
+                    </Box>
+
                 </Box>
-            </Modal>
-
-            <Text className={classes.titlePipeline} component='h3'>Pipeline</Text>
-            <Box className={classes.containerPipeline} ref={ref}>
-
-                <Box className={classes.containerColPipeline}>
-                    <PipelineColumnVirtual
-                        data={dataNotContacted}
-                        totalData={dataNotContacted.length}
-                        color='error'
-                        title='Not Contacted'
-                    >
-                        <PipelineItem onClick={() => setOpenedModal(true)} />
-                    </PipelineColumnVirtual>
-                </Box>
-
-                <Box className={classes.containerColPipeline}>
-                    <PipelineColumnVirtual
-                        data={dataContacted}
-                        totalData={dataContacted.length}
-                        color='primary'
-                        title='Contacted'
-                    >
-                        <PipelineItem onClick={() => setOpenedModal(true)} />
-                    </PipelineColumnVirtual>
-                </Box>
-
-
-                <Box className={classes.containerColPipeline}>
-                    <PipelineColumnVirtual
-                        data={dataASk}
-                        totalData={dataASk.length}
-                        color='info'
-                        title='Ask Referrals'
-                    >
-                        <PipelineItem onClick={() => setOpenedModal(true)} />
-                    </PipelineColumnVirtual>
-                </Box>
-
-                <Box className={classes.containerColPipeline}>
-                    <PipelineColumnVirtual
-                        data={dataContract}
-                        totalData={dataContract.length}
-                        color='success'
-                        title='Contract'
-                    >
-                        <PipelineItem onClick={() => setOpenedModal(true)} />
-                    </PipelineColumnVirtual>
-                </Box>
-
-                <Box className={classes.containerColPipeline}>
-                    <PipelineColumnVirtual
-                        data={dataShowing}
-                        totalData={dataShowing.length}
-                        color='secondary'
-                        title='Showing'
-                    >
-                        <PipelineItem onClick={() => setOpenedModal(true)} />
-                    </PipelineColumnVirtual>
-                </Box>
-
             </Box>
-        </Box>
+        </div>
     )
 }
 
