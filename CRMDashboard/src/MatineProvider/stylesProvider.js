@@ -22,6 +22,12 @@ const stylesProvider = () => {
     return {
         TextInput: {
             styles: (theme) => ({
+                root: {
+                    '.mantine-Input-withIcon': {
+                        paddingLeft: '36px !important',
+                        paddingRight: '12px !important'
+                    }
+                },
                 input: {
                     border: BORDER_INPUT,
                     backgroundColor: theme.colors.white[0],
@@ -241,7 +247,7 @@ const stylesProvider = () => {
             styles: (theme, params) => {
                 return {
                     root: {
-                        backgroundColor:  'transparent',
+                        backgroundColor: 'transparent',
                         gap: theme.other.spacing.p2,
                         ".__mantine-ref-control": {
                             border: "0 !important"
@@ -373,7 +379,7 @@ const stylesProvider = () => {
             }
         },
         Spoiler: {
-            styles: (theme, params) => { 
+            styles: (theme, params) => {
                 return {
                     control: {
                         fontSize: "14px",
@@ -387,7 +393,7 @@ const stylesProvider = () => {
             }
         },
         Checkbox: {
-            styles: (theme, params) => { 
+            styles: (theme, params) => {
                 const _color = params?.color || 'secondary';
                 return {
                     input: {
