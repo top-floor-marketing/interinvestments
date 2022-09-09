@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from "prop-types";
-// components
-// import useModalPipeline from './useModalPipeline'
 // mantine
 import { Text, Paper, createStyles } from '@mantine/core';
 import { ActionIcon } from '@mantine/core';
 import { IconAdjustments } from '@tabler/icons';
-
+// components
 import AvatarText from '../../Component/AvatarText';
+// utils
+import omit from 'lodash/omit';
+
 
 const useStyles = createStyles((theme, _params) => {
     return {
@@ -44,11 +45,17 @@ const useStyles = createStyles((theme, _params) => {
 const PipelineItem = (props) => {
 
     const { classes } = useStyles()
-    const { firstName, lastName, onClick: onClickPaper } = props
+    const { firstName, lastName, onClick: onClickPaper, setValueUserPipeline } = props
 
     return (
-        <Paper onClick={() => onClickPaper()} className={classes.PaperPipeline}>
-             <AvatarText
+        <Paper
+            onClick={() => {
+                onClickPaper()
+                setValueUserPipeline({ ...omit(props, ['onClick', 'setValueUserPipeline', 'children']) })
+            }}
+            className={classes.PaperPipeline}
+        >
+            <AvatarText
                 size={"40px"}
                 firstName={firstName}
                 lastName={lastName}
@@ -61,7 +68,7 @@ const PipelineItem = (props) => {
             </ActionIcon>
         </Paper>
     );
-    
+
 }
 
 PipelineItem.defaultProps = {

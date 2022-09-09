@@ -28,6 +28,25 @@ export const GET_LEADS_LIST_FOR_AGENT = gql`
   }
 `;
 
+export const COMMENTS_USER_LEAD = gql`
+  mutation commentsUserLead(
+    $agentId: Int!
+    $comments: String!
+    $statusId: Int!
+    $userLeadId: Int!
+  ) {
+    commentsUserLead(
+      input: {
+        agentId: $agentId
+        statusId: $statusId
+        userLeadId: $userLeadId
+        comments: $comments
+      }
+    ) {
+      leadId
+    }
+  }
+`
 
 export const MUTATION_LEADS_ADD = gql`
   mutation leadListingMutation($input: LeadListingMutationInput!) {
