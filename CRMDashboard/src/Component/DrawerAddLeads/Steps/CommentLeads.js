@@ -26,6 +26,12 @@ const useStyles = createStyles((theme, _params) => {
           'blockquote': {
             color: `${theme.colors.gray[9]} !important`,
             borderLeft: `4px solid ${theme.colors.primary[6]} !important`
+          },
+          'ul li::marker': {
+            color: `${theme.colors.black[0]} !important`
+          },
+          'ul ol::marker': {
+            color: `${theme.colors.black[0]} !important`
           }
         }
       }
