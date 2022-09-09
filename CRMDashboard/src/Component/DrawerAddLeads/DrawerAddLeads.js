@@ -81,6 +81,7 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title, onSuccessAddLea
     return (
         <Drawer
             {...Props.Drawer}
+            id="drawerAddLead"
         >
             <SteppsNewLeads
                 onSuccessAddLeads={onSuccessAddLeads}

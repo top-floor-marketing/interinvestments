@@ -1,7 +1,7 @@
-import { Text, createStyles, Paper, Select, SegmentedControl, TextInput } from "@mantine/core";
+import { Text, createStyles, Paper, Select, SegmentedControl, TextInput, Button } from "@mantine/core";
 import { useElementSize } from '@mantine/hooks';
 
-import { BuildingCommunity, Search } from 'tabler-icons-react';
+import { BuildingCommunity, Search, IconPlus } from 'tabler-icons-react';
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
 import { INPUT_BORDER_BOTTOM } from "../../MatineProvider/stylesProvider";

@@ -42,7 +42,7 @@ const useStyles = createStyles((theme, _params) => ({
 const LeadsView = () => {
   const { classes } = useStyles();
 
-  const { isSkeleton, isLoading, selectStateProps, searchProps, totalData, allLeads } =
+  const { isSkeleton, isLoading, selectStateProps, searchProps, totalData, allLeads, refetch } =
     useGetLeads();
 
   return isSkeleton ? (
@@ -53,6 +53,7 @@ const LeadsView = () => {
         <FilterOptions
           isLoading={isLoading}
           searchProps={searchProps}
+          refetch={refetch}
           selectStateProps={selectStateProps}
         />
       </SpringDiv>

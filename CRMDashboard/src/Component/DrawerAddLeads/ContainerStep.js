@@ -11,7 +11,7 @@ const useStyles = createStyles((theme, _params) => ({
         [`${theme.fn.smallerThan("md")}`]: {
             paddingRight: '0px',
             paddingLeft: '0px'
-        }
+        },
     },
     title: {
         color: theme.colors.dark[0],
@@ -21,14 +21,17 @@ const useStyles = createStyles((theme, _params) => ({
     },
     boxContendStep: {
         width: '100%',
-        height: '100%',
+        height: '100% !important',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignContent: 'center',
     },
     contentStepper: {
-        height: '60vh',
+        height: '70vh',
+        [`${theme.fn.smallerThan("1200")}`]: {
+            height: '60vh',
+        },
         paddingRight: '15px'
     },
 }));

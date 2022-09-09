@@ -391,8 +391,8 @@ const stylesProvider = () => {
                 const _color = params?.color || 'secondary';
                 return {
                     input: {
-                        backgroundColor: theme.colors[_color][0],
-                        border: `1px solid ${theme.colors[_color][9]}`,
+                        backgroundColor: `${theme.colors[_color][0]} !important`,
+                        border: `1px solid ${theme.colors[_color][9]} !important`,
                     }
                 }
             }

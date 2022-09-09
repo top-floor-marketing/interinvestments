@@ -18,9 +18,10 @@ const useStyles = createStyles((theme, _params) => {
       '&:hover': {
         backgroundColor: theme.colors[_params.color][8],
       },
-      [`${theme.fn.smallerThan(850)}`]: {
-        width: "120px !important",
-        fontSize: "10px",
+      [`${theme.fn.smallerThan(700)}`]: {
+        fontSize: "12px",
+        marginLeft: "auto !important",
+        marginRight: "auto !important",
       }
     }
   };

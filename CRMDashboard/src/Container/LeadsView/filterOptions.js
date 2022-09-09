@@ -1,10 +1,12 @@
-import { createStyles, Paper, TextInput, Box } from "@mantine/core";
+import { createStyles, Paper, TextInput, Box, Button } from "@mantine/core";
 
 import SelectStateLeads from "../../Component/SelectStateLeads";
 
-import { Search } from "tabler-icons-react";
+import { Search, Plus } from "tabler-icons-react";
 
 import { INPUT_BORDER_BOTTOM } from "../../MatineProvider/stylesProvider";
+
+import { HoccDraewerAL } from "../../Component/DrawerAddLeads";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
@@ -33,12 +35,20 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       width: "70% !important",
     },
   },
+  buttonAdd: {
+    marginLeft: "auto !important",
+    [`${theme.fn.smallerThan(600)}`]: {
+      width: "70% !important",
+      marginLeft: "0 !important",
+    },
+  }
 }));
 
 const FilterOptions = ({
   searchProps,
   selectStateProps,
   isLoading,
+  refetch
 }) => {
 
   const { classes } = useStyles();
@@ -61,6 +71,19 @@ const FilterOptions = ({
           isFilter
         />
       </Box>
+      <HoccDraewerAL
+       title='Add New Leads'
+       onSuccessAddLeads={() => refetch()}
+     >
+      <Button
+           className={classes.buttonAdd}
+            color="dark"
+            leftIcon={<Plus size={12} />}
+          >
+            Add featured listing
+          </Button>
+     </HoccDraewerAL>
+
     </Paper>
   );
 };

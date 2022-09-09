@@ -46,7 +46,7 @@ const useGetLeads = () => {
     }, 300)
    }
 
-  const { isLoading: isLoadingLeads, isError: isErrorLeads, isSuccess: isSuccessLeads } = useQueryHelper({
+  const { isLoading: isLoadingLeads, isError: isErrorLeads, isSuccess: isSuccessLeads, refetch } = useQueryHelper({
     name: "get-leads_list_agent",
     gql: GET_LEADS_LIST_FOR_AGENT,
     config: {
@@ -78,6 +78,7 @@ const useGetLeads = () => {
     },
     allLeads: (searchText || filterState) ? leadsFiltered : allLeads,
     totalData: (searchText || filterState) ? leadsFiltered.length : allLeads.length,
+    refetch
   };
 
 };

@@ -64,21 +64,24 @@ const useStyles = createStyles((theme, _params) => {
       '.icon-tabler': {
         color: `${theme.colors.dark[0]}`
       },
-      [`${theme.fn.smallerThan(850)}`]: {
+      [`${theme.fn.smallerThan(700)}`]: {
         flexDirection: "column",
         width: "100% !important",
         flex: "1 !important"
-      }
+      },
     },
     text: {
       fontWeight: "600 !important",
       margin: "0px !important",
       fontSize: "14px",
-      [`${theme.fn.smallerThan(850)}`]: {
+      [`${theme.fn.smallerThan(700)}`]: {
         fontSize: "12px",
       }
     },
     avatarText: {
+      [`${theme.fn.smallerThan(700)}`]: {
+        display: 'none !important'
+      },
       '&:hover': {
         backgroundColor: theme.colors.gray[8],
         fontWeight: '700 !important',
@@ -95,7 +98,7 @@ const ItemListingVirtual = (props) => {
   const { actions: { setRoute } } = useClientGlobalStore();
 
   const { classes } = useStyles({ width: widthParent });
-  const matches = useMediaQuery('(max-width: 850px)');
+  const matches = useMediaQuery('(max-width: 700px)');
 
   const getFirstNameUserLead = useCallback(() => {
     return get(props.userLead, ["firstName"], "");
@@ -146,6 +149,7 @@ const ItemListingVirtual = (props) => {
             >
               {getEmailUserLead()}
             </Text>
+            <ChipStatusLead status={props?.currentStatus} onClick={setLeadDetail} />
           </Box>
           :
           <>
@@ -174,9 +178,10 @@ const ItemListingVirtual = (props) => {
                 {getEmailUserLead()}
               </Text>
             </Box>
+            <ChipStatusLead status={props?.currentStatus} onClick={setLeadDetail} />
           </>
       }
-      <ChipStatusLead status={props?.currentStatus} onClick={setLeadDetail} />
+
       <CustomIconTooltip size={24} labelTooltip="View lead details">
         <ArrowForwardUp />
       </CustomIconTooltip>
