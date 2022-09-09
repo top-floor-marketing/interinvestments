@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 // components
 // import useModalPipeline from './useModalPipeline'
 // mantine
-import { Text, Paper, createStyles, Avatar } from '@mantine/core';
+import { Text, Paper, createStyles } from '@mantine/core';
 import { ActionIcon } from '@mantine/core';
 import { IconAdjustments } from '@tabler/icons';
 
-
+import AvatarText from '../../Component/AvatarText';
 
 const useStyles = createStyles((theme, _params) => {
     return {
@@ -24,7 +24,8 @@ const useStyles = createStyles((theme, _params) => {
             paddingBottom: '0px'
         },
         nameUserLead: {
-            margin: '0px'
+            margin: '0px',
+            textAlign: 'left'
         },
         Avatar: {
             '.mantine-Avatar-placeholder': {
@@ -43,26 +44,24 @@ const useStyles = createStyles((theme, _params) => {
 const PipelineItem = (props) => {
 
     const { classes } = useStyles()
-    const { nameLeads, onClick: onClickPaper } = props
-
-    // console.log('PipelineItem_Props', props)
+    const { firstName, lastName, onClick: onClickPaper } = props
 
     return (
         <Paper onClick={() => onClickPaper()} className={classes.PaperPipeline}>
-            <Avatar
-                className={classes.Avatar}
-                size={30}
-            >
-                {`${nameLeads[0]}${nameLeads[1]}`}
-            </Avatar>
-            <Text className={classes.nameUserLead} component='p' lineClamp={1}>
-                {nameLeads}
+             <AvatarText
+                size={"40px"}
+                firstName={firstName}
+                lastName={lastName}
+            />
+            <Text className={classes.nameUserLead} component='p' lineClamp={1} title={`${firstName} ${lastName}`}>
+                {firstName}&nbsp;{lastName}
             </Text>
             <ActionIcon size="lg">
                 <IconAdjustments size={30} />
             </ActionIcon>
         </Paper>
-    )
+    );
+    
 }
 
 PipelineItem.defaultProps = {

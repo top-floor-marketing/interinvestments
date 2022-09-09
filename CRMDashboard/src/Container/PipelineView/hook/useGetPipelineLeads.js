@@ -1,48 +1,35 @@
 import { useState } from 'react'
 // react-query
 import { useQueryHelper } from '../../../GraphqlClient/useRequest'
-import { PIPELINE } from '../../../GraphqlClient/pipeline.gql'
+import { PIPELINE } from '../../../GraphqlClient/pipeline.gql';
 
-const useGetPipelineLeads = ({agentID}) => {
-    const [dataPipeline_NC, setDataPipeline_NC] = useState([])
-    const [dataPipeline_CO, setDataPipeline_CO] = useState([])
-    const [dataPipeline_ASK, setDataPipeline_ASK] = useState([])
-    const [dataPipeline_CON, setDataPipeline_CON] = useState([])
-    const [dataPipeline_SH, setDataPipeline_SH] = useState([])
-    const [globalLoading, setGlobalLoading] = useState(true)
-    const [isError, setisError] = useState(false)
+import get from 'lodash/get';
+import map from 'lodash/map';
 
+const useGetPipelineLeads = ({agentId, statusId}) => {
+    const [dataPipeline, setDataPipeline] = useState([])
 
-
-    // 1 "Ask Referrals"
-    useQueryHelper({
-        name: 'LISTINGS_CATEGORY_By_AllListingView',
+    const { data, isLoading, isError, refetch }  = useQueryHelper({
+        name: `PIPELINE_${agentId}_${statusId}`,
         gql: PIPELINE,
         variables: {
-            agentId: agentID,
-            statusId: 54
+            agentId: agentId,
+            statusId: statusId
         },
         config: {
-            onSuccess: (req) => {
-                // set values category
-                console.log('valuePipeline', req)
-            },
-            onError: () => {
-                setisError(true)
+            onSuccess: (response) => {
+                const getData = get(response, ["pipeline"], []);
+                const addAgentId = map(getData, (val) => ({...val, agentId}));
+                setDataPipeline(addAgentId);
             },
         }
     });
 
     return {
-        globalLoading,
+        isLoading,
         isError,
-        PipelineData: {
-            notContacted: dataPipeline_NC,
-            contacted: dataPipeline_CO,
-            askReferrals: dataPipeline_ASK,
-            contract: dataPipeline_CON,
-            showing: dataPipeline_SH
-        }
+        data: dataPipeline,
+        refetch
     }
 
 }

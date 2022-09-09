@@ -1,3 +1,4 @@
+import { useState } from 'react';
 // global store
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
@@ -12,6 +13,8 @@ const useGetGlobalData = () => {
     actions: { setStatusUserLead },
   } = useClientGlobalStore();
 
+  const [finishSetStatus, setFinishSetStatus] = useState(false);
+
   useQueryHelper({
     name: "get-status-user-leads",
     gql: GET_STATUS_USER_LEADS,
@@ -20,9 +23,16 @@ const useGetGlobalData = () => {
        const listStatus = get(response, ["statuses", "nodes"], []);
        const dataForSelect = listStatus.map((val) => ({ value: val.databaseId, label: val.name }));
        setStatusUserLead(dataForSelect);
+       setTimeout(() => {
+        setFinishSetStatus(true);
+       },200)
       },
     },
   });
+
+  return {
+    finishSetStatus
+  }
 };
 
 export default useGetGlobalData;

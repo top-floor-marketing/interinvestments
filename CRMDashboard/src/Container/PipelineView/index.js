@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, memo } from 'react'
 // mantine 
 import { Box, Text, createStyles, Modal } from '@mantine/core';
 import { useElementSize } from '@mantine/hooks';
@@ -7,8 +7,13 @@ import PipelineItem from './PipelineItem'
 import BodyModal from './BodyModal'
 import { PipelineColumnVirtual } from '../../Component/VirtualListContainer';
 // hook
-import useGetPipelineLeads from './hook/useGetPipelineLeads'
+import useGetPipelineLeads from './hook/useGetPipelineLeads';
 
+import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore';
+
+import filter from 'lodash/filter';
+import toLower from 'lodash/toLower';
+import get from 'lodash/get';
 
 const useStyles = createStyles((theme, _params) => {
 
@@ -56,11 +61,11 @@ const useStyles = createStyles((theme, _params) => {
             width: "100%",
             gap: theme.other.spacing.p4,
             flexDirection: "column",
-            height: '400px',
+            height: '700px',
             overflow: 'auto',
             [`@media (min-width: ${theme.breakpoints.md}px)`]: {
                 flexDirection: 'row',
-            }
+            },
         },
         modalBody: {
             display: "flex",
@@ -69,37 +74,49 @@ const useStyles = createStyles((theme, _params) => {
         },
         containerColPipeline: {
             ...validateWidthPipeline()
-        }
+        },
+        noData: {
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+            alignItems: "center",
+            padding: theme.other.spacing.p8,
+        },
     }
 });
 
 
 const Pipeline = () => {
+
+    const {
+        state: {
+            user: {
+                infoUser: { databaseId },
+            },
+            global: {
+                statusUserLead: listStatus,
+            },
+        },
+    } = useClientGlobalStore();
+
+    const getInfoState = useCallback((label) => {
+        return get(filter(listStatus, (val) => toLower(val.label) === toLower(label)), ["0", "value"], 0);
+    }, [listStatus]);
+
     const [openedMOdal, setOpenedModal] = useState(false);
     const [valueSelect, setvalueSelect] = useState(false);
     const { ref, width } = useElementSize();
-    const { classes } = useStyles({ width })
-    const valuesPipeline = useGetPipelineLeads({ agentID: 33 })
+    const { classes } = useStyles({ width });
 
-    const defaultData = [
-        {
-            state: 6,
-            nameLeads: 'Name 1'
-        },
-        {
-            state: 6,
-            nameLeads: 'Name 2'
-        },
-        {
-            state: 6,
-            nameLeads: 'Name 4'
-        }
-    ]
-
+    const { data: dataNotContacted, refetch: reFetchNotContacted } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('Not Contacted') });
+    const { data: dataContacted, refetch: reFetchContacted } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('contacted') });
+    const { data: dataShowing, refetch: reFetchShowing } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('showing') });
+    const { data: dataContract, refetch: reFetchContract } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('contract') });
+    const { data: dataASk, refetch: reFetchAsk } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('ask referrals') });
 
     return (
         <Box className={classes.container}>
-
             <Modal
                 opened={openedMOdal}
                 onClose={() => setOpenedModal(false)}
@@ -115,8 +132,8 @@ const Pipeline = () => {
 
                 <Box className={classes.containerColPipeline}>
                     <PipelineColumnVirtual
-                        data={defaultData}
-                        totalData={defaultData.length}
+                        data={dataNotContacted}
+                        totalData={dataNotContacted.length}
                         color='error'
                         title='Not Contacted'
                     >
@@ -126,8 +143,8 @@ const Pipeline = () => {
 
                 <Box className={classes.containerColPipeline}>
                     <PipelineColumnVirtual
-                        data={defaultData}
-                        totalData={defaultData.length}
+                        data={dataContacted}
+                        totalData={dataContacted.length}
                         color='primary'
                         title='Contacted'
                     >
@@ -138,8 +155,8 @@ const Pipeline = () => {
 
                 <Box className={classes.containerColPipeline}>
                     <PipelineColumnVirtual
-                        data={defaultData}
-                        totalData={defaultData.length}
+                        data={dataASk}
+                        totalData={dataASk.length}
                         color='info'
                         title='Ask Referrals'
                     >
@@ -149,8 +166,8 @@ const Pipeline = () => {
 
                 <Box className={classes.containerColPipeline}>
                     <PipelineColumnVirtual
-                        data={defaultData}
-                        totalData={defaultData.length}
+                        data={dataContract}
+                        totalData={dataContract.length}
                         color='success'
                         title='Contract'
                     >
@@ -160,8 +177,8 @@ const Pipeline = () => {
 
                 <Box className={classes.containerColPipeline}>
                     <PipelineColumnVirtual
-                        data={defaultData}
-                        totalData={defaultData.length}
+                        data={dataShowing}
+                        totalData={dataShowing.length}
                         color='secondary'
                         title='Showing'
                     >
@@ -174,4 +191,4 @@ const Pipeline = () => {
     )
 }
 
-export default Pipeline
+export default memo(Pipeline)

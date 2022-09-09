@@ -5,6 +5,7 @@ import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 import useGetGlobalData from "./useGetGlobalData";
 
 import { CRM_ROUTES, LAYOUT_NAMES } from "../../Route/routes";
+import LoadingFull from "../../Component/LoadingFull";
 
 import filter from "lodash/filter";
 import isEmpty from "lodash/isEmpty";
@@ -33,11 +34,15 @@ const RoutesContainer = () => {
   const { classes } = useStyles();
 
   const { state: { global: { route: routeInStore } } } = useClientGlobalStore();
-  useGetGlobalData();
+  const { finishSetStatus } = useGetGlobalData();
 
   const routeActive = get(filter(CRM_ROUTES, (o) => {
     return o.name === routeInStore;
   }), ["0"], []);
+
+  if(!finishSetStatus) {
+    return <LoadingFull isLoadingLazy idLazy="finishSetStatus" />
+  }
 
   return (
     <Box className={classes.mainContainer}>

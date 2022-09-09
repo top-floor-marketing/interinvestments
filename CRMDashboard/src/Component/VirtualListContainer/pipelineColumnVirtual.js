@@ -2,6 +2,7 @@ import React, { useState, forwardRef, cloneElement, memo } from "react";
 import PropTypes from "prop-types";
 
 import { FixedSizeGrid as Grid } from "react-window";
+// import { DatabaseOff } from 'tabler-icons-react';
 
 import { useId, useElementSize } from "@mantine/hooks";
 import { Box, Paper, createStyles, Text } from "@mantine/core";
@@ -35,6 +36,14 @@ const useStyles = createStyles((theme, _params) => ({
     "&:hover": {
       borderTop: `10px ${theme.colors[_params["color"]][8]} solid`,
     },
+  },
+  noData: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    alignItems: "center",
+    padding: theme.other.spacing.p8,
   },
 }));
 
@@ -131,9 +140,8 @@ PipelineColumnVirtual.propTypes = {
   refetch: PropTypes.func,
   totalData: PropTypes.number,
   children: PropTypes.element,
-  color: PropTypes.oneOf(["primary","secondary","error","success","info"]),
+  color: PropTypes.oneOf(["primary", "secondary", "error", "success", "info"]),
   title: PropTypes.string
 };
 
 export default memo(PipelineColumnVirtual);
-                                                            
