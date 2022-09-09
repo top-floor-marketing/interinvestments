@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import { Box, createStyles, Paper, Text, LoadingOverlay } from "@mantine/core";
 import { DatabaseOff } from "tabler-icons-react";
 import SpringDiv from "../../Component/SpringDiv";
@@ -7,7 +8,7 @@ import FilterOptions from "./filterOptions";
 import { LeadsVirtual } from "../../Component/VirtualListContainer";
 import useGetLeads from "./hooks/useGetLeads";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   container: {
     width: "100%",
     height: "100%",
@@ -20,6 +21,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
+    position: "relative"
   },
   virtualAllListings: {
     width: "100%",
@@ -54,7 +56,7 @@ const LeadsView = () => {
           selectStateProps={selectStateProps}
         />
       </SpringDiv>
-      <SpringDiv delay={100} duration={300} fullHeight>
+      <SpringDiv delay={300} duration={300} fullHeight>
         <Paper className={classes.containerListings}>
           {isLoading && (
             <LoadingOverlay
@@ -63,7 +65,7 @@ const LeadsView = () => {
               overlayBlur={0.05}
             />
           )}
-          {totalData ? (
+         {totalData && !isSkeleton ? (
             <LeadsVirtual
               data={allLeads}
               totalData={totalData}
@@ -75,11 +77,11 @@ const LeadsView = () => {
               <Text component="h4">No data found</Text>
               <DatabaseOff size={36} />
             </div>
-          )}
+          )} 
         </Paper>
       </SpringDiv>
     </Box>
   );
 };
 
-export default LeadsView;
+export default memo(LeadsView);

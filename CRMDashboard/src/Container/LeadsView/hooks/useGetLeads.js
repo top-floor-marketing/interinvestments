@@ -6,7 +6,7 @@ import { GET_LEADS_LIST_FOR_AGENT } from "../../../GraphqlClient/leads.gql";
 
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
-import { formatReponseLeads } from "./utils.service";
+import { formatReponseLeads, filterByState, filterByText } from "./utils.service";
 
 const useGetLeads = () => {
   const {
@@ -14,10 +14,14 @@ const useGetLeads = () => {
       user: {
         infoUser: { databaseId, agentType },
       },
+      global: {
+        statusUserLead
+      }
     },
   } = useClientGlobalStore();
 
   const [allLeads, setAllLeads] = useState([]);
+  const [leadsFiltered, setLeadsFiltered] = useState([]);
   const [isOverlay, setIsOverlay] = useState(true);
 
   // filters values
@@ -27,21 +31,26 @@ const useGetLeads = () => {
    const onChangeSearchText = (e) => {
      setIsOverlay(true);
      setSearchText(e.currentTarget.value);
+     const dataOtherFilter = (filterState) ? filterByState(filterState, allLeads, statusUserLead) : allLeads;
+     setLeadsFiltered(filterByText(e.currentTarget.value, dataOtherFilter));
      setIsOverlay(false);
    };
 
    const onChangeStateFilter = (e) => {
     setIsOverlay(true);
     setFilterState(e);
-    setIsOverlay(false);
+    const dataOtherFilter = (searchText) ? filterByText(searchText, allLeads) : allLeads;
+    setLeadsFiltered(filterByState(e, dataOtherFilter, statusUserLead));
+    setTimeout(()=> {
+      setIsOverlay(false);
+    }, 300)
    }
 
-  const { isLoading: isLoadingLeads, isError: isErrorLeads, isFetched: isFechedLeads } = useQueryHelper({
+  const { isLoading: isLoadingLeads, isError: isErrorLeads, isSuccess: isSuccessLeads } = useQueryHelper({
     name: "get-leads_list_agent",
     gql: GET_LEADS_LIST_FOR_AGENT,
     config: {
       onSuccess: (response) => {
-        // statuses
         setAllLeads(formatReponseLeads(response));
         setIsOverlay(false);
       },
@@ -56,19 +65,19 @@ const useGetLeads = () => {
   });
 
   return {
-    isSkeleton: isLoadingLeads && !isFechedLeads && isOverlay,
+    isSkeleton: isLoadingLeads && isOverlay && !isSuccessLeads,
     isLoading: isLoadingLeads || isOverlay,
     isError: isErrorLeads,
     searchProps: {
-      onChange: onChangeSearchText,
+      onChange: (e) => onChangeSearchText(e),
       value: searchText,
     },
     selectStateProps: {
-      onChange: onChangeStateFilter,
+      onChange: (e) => onChangeStateFilter(e),
       value: filterState,
     },
-    allLeads,
-    totalData: allLeads.length,
+    allLeads: (searchText || filterState) ? leadsFiltered : allLeads,
+    totalData: (searchText || filterState) ? leadsFiltered.length : allLeads.length,
   };
 
 };

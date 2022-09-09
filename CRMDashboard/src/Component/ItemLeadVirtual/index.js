@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import {
   Box,
@@ -90,17 +90,12 @@ const useStyles = createStyles((theme, _params) => {
 
 const ItemListingVirtual = (props) => {
 
-  const {
-    ref: refParentBox,
-    width: widthParent,
-  } = useElementSize();
-  // setRoute(ROUTES_NAMES.AUTH);
+  const { width: widthParent } = props;
 
   const { actions: { setRoute } } = useClientGlobalStore();
 
+  const { classes } = useStyles({ width: widthParent });
   const matches = useMediaQuery('(max-width: 850px)');
-
-  const { cx, classes } = useStyles({ width: widthParent });
 
   const getFirstNameUserLead = useCallback(() => {
     return get(props.userLead, ["firstName"], "");
@@ -126,32 +121,32 @@ const ItemListingVirtual = (props) => {
   }
 
   return (
-    <Paper ref={refParentBox} className={cx(classes.containerItemListing)}>
-      <AvatarText onClick={()=> setLeadDetail()} 
-      size={"60px"} 
-      firstName={getFirstNameUserLead()} 
-      lastName={getLastNameUserLead()}
-      className={classes.avatarText}
-       />
+    <Paper className={classes.containerItemListing}>
+      <AvatarText onClick={() => setLeadDetail()}
+        size={"60px"}
+        firstName={getFirstNameUserLead()}
+        lastName={getLastNameUserLead()}
+        className={classes.avatarText}
+      />
       {
-        (matches) ? 
-           <Box className={classes.itemsTextContainer}>
-              <Text
-                component="span"
-                lineClamp={2}
-                className={classes.text}
-                title={`Lead name:\n${capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}`}
-              >
-                {capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}
-              </Text>
-              <Text
-                lineClamp={2}
-                className={classes.text}
-                title={`Lead email:\n${getEmailUserLead()}`}
-              >
-                {getEmailUserLead()}
-              </Text>
-            </Box>
+        (matches) ?
+          <Box className={classes.itemsTextContainer}>
+            <Text
+              component="span"
+              lineClamp={2}
+              className={classes.text}
+              title={`Lead name:\n${capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}`}
+            >
+              {capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}
+            </Text>
+            <Text
+              lineClamp={2}
+              className={classes.text}
+              title={`Lead email:\n${getEmailUserLead()}`}
+            >
+              {getEmailUserLead()}
+            </Text>
+          </Box>
           :
           <>
             <Box className={classes.itemsTextContainer}>
@@ -181,7 +176,7 @@ const ItemListingVirtual = (props) => {
             </Box>
           </>
       }
-      <ChipStatusLead status={props?.currentStatus} />
+      <ChipStatusLead status={props?.currentStatus} onClick={setLeadDetail} />
       <CustomIconTooltip size={24} labelTooltip="View lead details">
         <ArrowForwardUp />
       </CustomIconTooltip>
@@ -189,4 +184,4 @@ const ItemListingVirtual = (props) => {
   );
 };
 
-export default React.memo(ItemListingVirtual);
+export default ItemListingVirtual;

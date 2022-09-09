@@ -26,7 +26,7 @@ const useStyles = createStyles((theme, _params) => {
   };
 });
 
-const BadgeStatusLead = ({ status }) => {
+const BadgeStatusLead = ({ status, onClick }) => {
 
   const getColorChip = useCallback(() => {
     switch (toLower(status)) {
@@ -49,6 +49,7 @@ const BadgeStatusLead = ({ status }) => {
 
   return (
     <Badge
+      onClick={() => onClick()}
       variant="filled"
       title={`Lead status:\n${status}`}
       className={classes.badgeContainer}>
@@ -59,10 +60,12 @@ const BadgeStatusLead = ({ status }) => {
 
 BadgeStatusLead.defaultProps = {
   status: "",
+  onClick: () => {}
 };
 
 BadgeStatusLead.propTypes = {
   status: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 export default React.memo(BadgeStatusLead);

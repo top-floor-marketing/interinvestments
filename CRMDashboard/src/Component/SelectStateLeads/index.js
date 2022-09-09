@@ -85,6 +85,7 @@ const SelectStateLeads = ({
       maxDropdownHeight={600}
       disabled={disabled}
       searchable={false}
+      clearable 
       nothingFound="No options"
     />
   );

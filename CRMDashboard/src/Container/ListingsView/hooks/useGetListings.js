@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQueryHelper, useMutationHelper } from "../../../GraphqlClient/useRequest";
 import { GET_LISTINGS_CATEGORY, GET_ALL_NEIGHBORHOODS, GET_ALL_LISTINGS } from "../../../GraphqlClient/listings.gql";
 import { GET_AGENT_FEATURED_LISTING, MUTATION_ADD_AGENT_LISTING, MUTATION_DETELE_AGENT_LISTING } from "../../../GraphqlClient/agentProfile.gql";
@@ -114,7 +114,7 @@ const useGetListings = () => {
       }
       setTimeout(() => {
         refetch();
-      }, 500);
+      }, 200);
     }
   }
 
@@ -173,7 +173,7 @@ const useGetListings = () => {
     setCategorySelect(e);
     setTimeout(() => {
       refetch();
-    }, 500);
+    }, 200);
   }
 
   const onChangeNei = (e) => {
@@ -182,7 +182,7 @@ const useGetListings = () => {
     setNeiSelect(e);
     setTimeout(() => {
       refetch();
-    }, 500);
+    }, 200);
   }
 
   const onChangeSearchText = (e) => {
@@ -190,7 +190,7 @@ const useGetListings = () => {
     setCursorPaginator("");
     setTimeout(() => {
       refetch();
-    }, 500);
+    }, 200);
   }
 
   const onConfirmAdd = (id) => {

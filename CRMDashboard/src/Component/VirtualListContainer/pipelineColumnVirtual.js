@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, cloneElement } from "react";
+import React, { useState, forwardRef, cloneElement, memo } from "react";
 import PropTypes from "prop-types";
 
 import { FixedSizeGrid as Grid } from "react-window";
@@ -135,5 +135,5 @@ PipelineColumnVirtual.propTypes = {
   title: PropTypes.string
 };
 
-export default PipelineColumnVirtual;
+export default memo(PipelineColumnVirtual);
                                                             

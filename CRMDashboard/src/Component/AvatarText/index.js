@@ -9,6 +9,7 @@ import get from "lodash/get";
 import head from "lodash/head";
 import upperCase from "lodash/upperCase";
 import words from "lodash/words";
+import trim from "lodash/trim";
 
 const useStyles = createStyles((theme, _params) => {
     return {
@@ -29,10 +30,8 @@ const AvatarText = (props) => {
 
   const getText = useCallback(() => {
     if(!firstName && !lastName) return "";
-    const wordsFistName = words(firstName);
-    const wordsLastName = words(lastName);
-    if(!wordsLastName.length) return upperCase(`${head(get(wordsFistName, ["0"], "")),head(get(wordsFistName, ["1"], ""))}`);
-    return upperCase(`${head(get(wordsFistName, ["0"], ""))}${head(get(wordsLastName, ["0"], ""))}`);
+    if(!lastName.length) return upperCase(`${get(firstName, ["0"], "")}${get(firstName, ["1"], "")}`);
+    return upperCase(`${get(firstName, ["0"], "")}${get(lastName, ["0"], "")}`);
   },[firstName, lastName]);
 
   return (

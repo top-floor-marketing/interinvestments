@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState, memo } from "react";
 import PropTypes from "prop-types";
 
 import { FixedSizeGrid as Grid } from "react-window";
@@ -54,7 +54,7 @@ const ListingVirtual = (props) => {
     },
   } = useClientGlobalStore();
 
-  const idGrid = `${useId()}_${random(100, 10000)}`;
+  const [idGrid] = useState(`${useId()}_${random(100, 10000)}`);
 
   const onScroll = (e) => {
     const { scrollTop } = e;
@@ -71,7 +71,7 @@ const ListingVirtual = (props) => {
   // containerInfinite class for css-scrollbar styles
   // idGrid class for get clientHeight in scroll function
   return (
-    <Box ref={refParentBox} className="parentContainerInfinite">
+    <Box id={idGrid} ref={refParentBox} className="parentContainerInfinite">
       <Grid
         itemData={data}
         className={`containerInfinite ${idGrid}`}
@@ -138,4 +138,4 @@ ListingVirtual.propTypes = {
   isCheck: PropTypes.bool,
 };
 
-export default ListingVirtual;
+export default memo(ListingVirtual);
