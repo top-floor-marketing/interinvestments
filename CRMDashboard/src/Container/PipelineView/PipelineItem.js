@@ -63,8 +63,8 @@ const PipelineItem = (props) => {
             <Text className={classes.nameUserLead} component='p' lineClamp={1} title={`${firstName} ${lastName}`}>
                 {firstName}&nbsp;{lastName}
             </Text>
-            <ActionIcon size="lg">
-                <IconAdjustments size={30} />
+            <ActionIcon size="lg" color="dark">
+                <IconAdjustments size={24} />
             </ActionIcon>
         </Paper>
     );

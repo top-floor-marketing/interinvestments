@@ -13,13 +13,14 @@ import useStyles from "./styles";
 import findLast from "lodash/findLast";
 import toLower from "lodash/toLower";
 import get from "lodash/get";
+import filter from 'lodash/filter';
 
 const SelectStateLeads = ({
   value,
   onChange,
   disabled,
   placeholder,
-  isFilter,
+  disabledList
 }) => {
   const { cx, classes } = useStyles({ value });
 
@@ -68,6 +69,11 @@ const SelectStateLeads = ({
     }
   }, []);
 
+  const getFinalItems = useCallback(() => {
+    if(!disabledList.length) return listStatus;
+    return filter(listStatus, (val) => val.value !== disabledList[0]);
+  },[listStatus, disabledList]);
+
   return (
     <Select
       className={classes.select}
@@ -81,7 +87,7 @@ const SelectStateLeads = ({
         const colorItem = getColorItem(itemProps.label);
         return <SelectItem {...itemProps} color={colorItem} />;
       }}
-      data={listStatus}
+      data={getFinalItems()}
       maxDropdownHeight={600}
       disabled={disabled}
       searchable={false}
@@ -98,6 +104,7 @@ SelectStateLeads.defaultProps = {
   disabled: false,
   placeholder: "Lead State",
   isFilter: false,
+  disabledList: []
 };
 
 SelectStateLeads.propTypes = {
@@ -105,7 +112,8 @@ SelectStateLeads.propTypes = {
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
-  isFilter: PropTypes.bool
+  isFilter: PropTypes.bool,
+  disabledList: PropTypes.array
 };
 
 export default SelectStateLeads;

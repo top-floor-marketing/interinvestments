@@ -1,6 +1,6 @@
 import { Box, Paper, createStyles, Skeleton, Text } from "@mantine/core";
 import { Mail, User, c, Phone } from "tabler-icons-react";
-import useGetPersonalInfoLead from "./useGetPersonalInfoLead";
+import useGetPersonalInfoLead from "../hooks/useGetPersonalInfoLead";
 
 import ChipStatusLead from "../../../Component/ItemLeadVirtual/chipStatusLead";
 
@@ -48,12 +48,8 @@ const useStyles = createStyles((theme, _params) => ({
     },
 }));
 
-const PersonalInfoLead = () => {
+const PersonalInfoLead = ({ isLoading, refetch, isSkeleton, dataLead }) => {
     const { classes } = useStyles();
-
-    const { isLoading, refetch, isSkeleton, dataLead } = useGetPersonalInfoLead();
-
-    console.log("dataLead ", dataLead);
 
     return (
         <Skeleton visible={isSkeleton} className={classes.cardContainer}>
@@ -78,15 +74,15 @@ const PersonalInfoLead = () => {
                     (!isEmpty(get(dataLead, ["phone"], "")))
                     &&
                     <Box className={classes.infoItem}>
-                    <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataLead, ["phone"], "")}>
-                        <Phone />
-                    </CustomIconTooltip>
-                    <Text transform="capitalize" component="span">{get(dataLead, ["phone"], "")}</Text>
-                </Box>
+                        <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataLead, ["phone"], "")}>
+                            <Phone />
+                        </CustomIconTooltip>
+                        <Text transform="capitalize" component="span">{get(dataLead, ["phone"], "")}</Text>
+                    </Box>
                 }
-               
+
                 {
-                    (!isEmpty(get(dataLead, ["otherPhone","0"], "")))
+                    (!isEmpty(get(dataLead, ["otherPhone", "0"], "")))
                     &&
                     <Box className={classes.infoItem}>
                         <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataLead, ["otherPhone", "0"], "")}>

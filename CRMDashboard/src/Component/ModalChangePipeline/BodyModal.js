@@ -1,42 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 // componen
 import SelectStateLeads from '../SelectStateLeads'
 import { notificationError, notificationSuccess } from "../../Component/Notifications";
 // mantine dev
-import { Box, Textarea, Group, Badge, Text, Button } from '@mantine/core';
+import { Box, Textarea, Group, SimpleGrid, Text, Button, createStyles } from '@mantine/core';
 import { useMutationHelper } from "../../GraphqlClient/useRequest";
 import { COMMENTS_USER_LEAD } from "../../GraphqlClient/leads.gql";
 
+import { Mail, User } from 'tabler-icons-react';
+
 import ChipStatusLead from '../ItemLeadVirtual/chipStatusLead';
-import get from 'lodash/get'
+import get from 'lodash/get';
+import isEqual from 'lodash/isEqual';
+
+const useStyles = createStyles((theme) => ({
+    container: {
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: theme.other.spacing.p4
+    },
+    changeGrid: {
+        marginTop: theme.other.spacing.p8,
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: theme.other.spacing.p4,
+        '.mantine-Text-root': {
+            margin: "0px !important"
+        }
+    },
+    selectContainer: {
+        maxWidth: '350px !important'
+    },
+    badgeStatus: {
+        width: "auto",
+        marginRight: "auto",
+        padding: theme.other.spacing.p4,
+        borderRadius: "10px"
+    },
+}));
 
 const BodyModal = ({ valueSelect, setvalueSelect, valueUserPipeline, onClose, refechPipeline }) => {
 
-    const colorStatus = (statusUserLead) => {
-        if (statusUserLead) {
-            switch (statusUserLead) {
-                case 'Ask Referrals':
-                    return 'grape'
-
-                case 'Contacted':
-                    return 'primary'
-
-                case 'Contract':
-                    return 'success'
-
-                case 'Not Contacted':
-                    return 'error'
-
-                case 'Showing':
-                    return 'secondary'
-
-                default:
-                    return 'primary'
-            }
-        } else {
-            return 'error'
-        }
-    }
+    const { classes } = useStyles();
+    const [commentValue, setCommentValue] = useState("");
 
     const { mutate: comment_user_lead, isLoading } = useMutationHelper({
         name: "comment_user_lead",
@@ -47,72 +56,90 @@ const BodyModal = ({ valueSelect, setvalueSelect, valueUserPipeline, onClose, re
                 notificationError({
                     id: 'add-leads-error',
                     position: 'top-right',
-                    title: "Error change state lead",
-                    color: 'secondary',
+                    title: "Server error",
+                    color: 'error',
                 })
-                // onclouse
                 onClose()
             },
             onSuccess: () => {
                 notificationSuccess({
                     id: 'add-leads-error',
                     position: 'top-right',
-                    title: "new state leads",
-                    color: 'secondary',
+                    title: "Success to change lead state",
+                    color: 'success',
                 })
                 refechPipeline(get(valueUserPipeline, ['currentStatus', 'statusId'], 0), valueSelect)
-                // onclouse
                 onClose()
             },
         },
     });
 
-
-
     const changeStateLead = () => {
-        const { agentId, comments, id } = valueUserPipeline
-        comment_user_lead({
-            variables: {
-                agentId,
-                statusId: valueSelect,
-                userLeadId: id,
-                comments
-            },
-        });
+        const { agentId, id } = valueUserPipeline;
+
+        if (!valueSelect) onClose();
+
+        const idCurrentState = get(valueUserPipeline, ["currentStatus", "statusId"], null);
+
+        if (!isEqual(idCurrentState, valueSelect))
+            comment_user_lead({
+                variables: {
+                    agentId,
+                    statusId: valueSelect,
+                    userLeadId: id,
+                    comments: commentValue || ""
+                },
+            });
+        else
+            onClose();
     }
 
-
     return (
-        <>
-            <Text color="primary" style={{ margin: '0px' }} component='h3'>Data Leads</Text>
-            <Group grow>
-                <Text component='span'>Current state</Text>
-                <ChipStatusLead
-                status={valueUserPipeline?.currentStatus?.name} />
-            </Group>
+        <Box className={classes.container}>
+            <SimpleGrid cols={1} spacing="1rem">
+                <Group >
+                    <ChipStatusLead
+                      className={classes.badgeStatus}
+                        status={valueUserPipeline?.currentStatus?.name} />
+                </Group>
 
-            <Group grow>
-                <Text component='span'>Lead</Text>
-                <Text component='span'>{valueUserPipeline?.firstName} {valueUserPipeline?.lastName}</Text>
-            </Group>
+                <Group spacing="1rem">
+                    <User
+                        size={24}
+                    />
+                    <Text component='span'>{valueUserPipeline?.firstName} {valueUserPipeline?.lastName}</Text>
+                </Group>
 
-            <Text color="primary" style={{ margin: '0px' }} component='h3'>Change lead state</Text>
-            <Box>
-                <Text component='span'>New State</Text>
-                <SelectStateLeads
-                    disabled={isLoading}
-                    placeholder='Select new state'
-                    value={valueSelect}
-                    onChange={(idState) => setvalueSelect(idState)}
-                />
-            </Box>
-            <Box>
-                <Text component='span'>Comment</Text>
+                <Group spacing="1rem">
+                    <Mail
+                        size={24}
+                    />
+                    <Text component='span'>{valueUserPipeline?.email}</Text>
+                </Group>
+            </SimpleGrid>
+
+            <SimpleGrid spacing="1rem" className={classes.changeGrid}>
+                <Text color="dark" component='h3'>Change lead state:</Text>
+                <Box className={classes.selectContainer}>
+                    <SelectStateLeads
+                        disabledList={[get(valueUserPipeline, ["currentStatus", "statusId"], null)]}
+                        disabled={isLoading}
+                        placeholder='Select new lead state'
+                        value={valueSelect}
+                        onChange={(idState) => setvalueSelect(idState)}
+                    />
+                </Box>
+
                 <Textarea
-                    placeholder="Your Comment"
+                    placeholder="Comment"
                     label={null}
+                    autosize
+                    minRows={4}
+                    maxRows={8}
+                    value={commentValue}
+                     onChange={(event) => setCommentValue(event.currentTarget.value)}
                 />
-            </Box>
+            </SimpleGrid>
 
             <Group position='center'>
                 <Button
@@ -130,7 +157,7 @@ const BodyModal = ({ valueSelect, setvalueSelect, valueUserPipeline, onClose, re
                     Submit
                 </Button>
             </Group>
-        </>
+        </Box>
     )
 }
 

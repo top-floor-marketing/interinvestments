@@ -192,13 +192,12 @@ const Pipeline = () => {
                         </PipelineColumnVirtual>
                     </Box>
 
-
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={dataASk}
-                            totalData={dataASk.length}
-                            color='info'
-                            title='Ask Referrals'
+                            data={dataShowing}
+                            totalData={dataShowing.length}
+                            color='secondary'
+                            title='Showing'
                         >
                             <PipelineItem
                                 setValueUserPipeline={setValueUserPipeline}
@@ -206,6 +205,9 @@ const Pipeline = () => {
                             />
                         </PipelineColumnVirtual>
                     </Box>
+
+
+
 
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
@@ -223,10 +225,10 @@ const Pipeline = () => {
 
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={dataShowing}
-                            totalData={dataShowing.length}
-                            color='secondary'
-                            title='Showing'
+                            data={dataASk}
+                            totalData={dataASk.length}
+                            color='info'
+                            title='Ask Referrals'
                         >
                             <PipelineItem
                                 setValueUserPipeline={setValueUserPipeline}

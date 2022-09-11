@@ -9,6 +9,7 @@ import isNaN from 'lodash/isNaN';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
+const URL_SHARED_FLAG = 'shared';
 const URL_QUERY_ID_NAME = 'agent-id';
 const LOCASTORAGE_ID_NAME = 'lead-agent';
 const LOCASTORAGE_ID_LAST_FORCE_ID = 'lead-date-force-id';
@@ -22,6 +23,11 @@ function App() {
     const queryParams = new URLSearchParams(window.location.search);
     const pathArray = window.location.pathname.split("/");
 
+    const currentUtc = dayjs().utc().format();
+    const isShared = queryParams.get(URL_SHARED_FLAG);
+    const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
+    let idInLocal = toInteger(localStorage.getItem(LOCASTORAGE_ID_NAME));
+
     const findBlogUrl = !!findLast(
       pathArray,
       (val) => toLower(val) === "blog"
@@ -32,11 +38,6 @@ function App() {
         pathArray,
         (val) => toLower(val) === "agents"
       );
-
-      const currentUtc = dayjs().utc().format();
-
-      const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
-      let idInLocal = toInteger(localStorage.getItem(LOCASTORAGE_ID_NAME));
 
       if (!idInUrl && !idInLocal) {
         localStorage.setItem(LOCASTORAGE_ID_NAME, null);

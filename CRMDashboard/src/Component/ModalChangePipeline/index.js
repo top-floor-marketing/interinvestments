@@ -38,8 +38,8 @@ const ModalChangePipeline = (props) => {
 
     return (
         <Modal
-            withCloseButton={false}
-            size='lg'
+            withCloseButton={true}
+            size='xl'
             opened={openedMOdal}
             onClose={() => destroyModal()}
             title={null}

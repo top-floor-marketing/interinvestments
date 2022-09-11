@@ -5,6 +5,8 @@ import { LOCAL_STORAGE } from "../../Utils/globalConstants";
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
+import useGetPersonalInfoLead from "./hooks/useGetPersonalInfoLead";
+
 import PersonalInfoLead from "./personalInfoLead";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -41,6 +43,8 @@ const LeadsDetailView = () => {
 
     const { actions: { setRoute } } = useClientGlobalStore();
 
+    const { dataLead, isLoading, isSkeleton } = useGetPersonalInfoLead();
+
     const routeBreadCrumbs = () => {
         localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, null);
         setRoute(ROUTES_NAMES.LEADS);
@@ -64,7 +68,7 @@ const LeadsDetailView = () => {
                 <Breadcrumbs>{items}</Breadcrumbs>
                 <SpringDiv delay={300} duration={300}>
                     <Box className={classes.rowInfoAndTimeLine}>
-                        <PersonalInfoLead />
+                        <PersonalInfoLead dataLead={dataLead} isLoading={isLoading} isSkeleton={isSkeleton} />
                     </Box>
                 </SpringDiv>
             </Box>
