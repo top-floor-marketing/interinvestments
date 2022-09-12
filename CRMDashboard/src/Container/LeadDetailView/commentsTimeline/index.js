@@ -19,7 +19,6 @@ const useStyles = createStyles((theme, _params) => ({
         boxShadow: theme.shadows.sm,
         gap: theme.other.spacing.p4,
         width: "70%",
-        gap: theme.other.spacing.p4,
         [`${theme.fn.smallerThan(700)}`]: {
             width: "100%",
         },

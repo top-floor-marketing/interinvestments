@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 
 import {
   Box,
@@ -122,11 +122,11 @@ const ItemListingVirtual = (props) => {
   }, [props.userLead]);
 
   const getPhone = useCallback(() => {
-    return get(props.userLead, ["phone"], "202-555-0149");
+    return get(props.userLead, ["phone"], null);
   }, [props.userLead]);
 
   const getOtherPhone = useCallback(() => {
-    return get(props.userLead, ["otherPhone", "0"], "202-555-0100");
+    return get(props.userLead, ["otherPhones", "0"], null);
   }, [props.userLead]);
 
   const setLeadDetail = () => {

@@ -75,19 +75,24 @@ const PersonalInfoLead = ({ isSkeleton, dataLead }) => {
                             <Phone />
                         </CustomIconTooltip>
                         <Text transform="capitalize"  size="14px" component="span">{get(dataLead, ["phone"], "")}</Text>
-                        <IconOpenWhatsApp labelTooltip={`Send message to: ${get(dataLead, ["phone"], "")}`} />
+                        <IconOpenWhatsApp
+                        phoneNumber={get(dataLead, ["phone", "0"], "")}
+                        labelTooltip={`Send message to: ${get(dataLead, ["phone"], "")}`} />
                     </Box>
                 }
 
                 {
-                    (!isEmpty(get(dataLead, ["otherPhone", "0"], "")))
+                    (!isEmpty(get(dataLead, ["otherPhones", "0"], "")))
                     &&
                     <Box className={classes.infoItem}>
-                        <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataLead, ["otherPhone", "0"], "")}>
+                        <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataLead, ["otherPhones", "0"], "")}>
                             <Phone />
                         </CustomIconTooltip>
-                        <Text transform="capitalize"  size="14px" component="span">{get(dataLead, ["otherPhone", "0"], "")}</Text>
-                        <IconOpenWhatsApp labelTooltip={`Send message to: ${get(dataLead, ["otherPhone", "0"], "")}`}  />
+                        <Text transform="capitalize"  size="14px" component="span">{get(dataLead, ["otherPhones", "0"], "")}</Text>
+                        <IconOpenWhatsApp 
+                        labelTooltip={`Send message to: ${get(dataLead, ["otherPhones", "0"], "")}`}
+                        phoneNumber={get(dataLead, ["otherPhones", "0"], "")}
+                        />
                     </Box>
                 }
             </Paper>

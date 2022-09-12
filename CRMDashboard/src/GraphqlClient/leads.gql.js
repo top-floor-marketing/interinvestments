@@ -14,6 +14,8 @@ export const GET_LEADS_LIST_FOR_AGENT = gql`
           lastName
           firstName
           id
+          phone
+        otherPhones
         }
         commentService
         commentListing
@@ -63,7 +65,7 @@ query historyCommentLead($agentId: Int = 10, $userLeadId: Int = 10) {
     id
     firstName
     phone
-    otherPhone
+    otherPhones
     lastName
     email
     otherEmail
