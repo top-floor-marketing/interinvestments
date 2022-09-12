@@ -46,7 +46,7 @@ IconOpenWhatsApp.defaultProps = {
   className: "",
   variant: "hover",
   size: 20,
-  labelTooltip: "Logout",
+  labelTooltip: "Send Whatsapp message",
   phoneNumber: null,
   otherPhoneNumber: null
 };

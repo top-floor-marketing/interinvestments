@@ -7,7 +7,7 @@ import { GET_INFO_LEAD_BY_AGENT } from "../../../GraphqlClient/leads.gql";
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
 import { LOCAL_STORAGE } from "../../../Utils/globalConstants";
-import { get, omit } from "lodash";
+import { get, omit, filter, isEmpty, findLast } from "lodash";
 
 const useGetPersonalInfoLead = () => {
   const {
@@ -24,6 +24,14 @@ const useGetPersonalInfoLead = () => {
   const [allComments, setAllComments] = useState([]);
   const [isOverlay, setIsOverlay] = useState(true);
 
+  const getColorForTimeLine = (idStatus) => {
+    const timeline = findLast(statusUserLead, (val) => parseInt(val.value) === parseInt(idStatus));
+    return {
+      color: get(timeline, ["color"], ""),
+      status: get(timeline, ["label"], ""),
+    }
+  }
+
   const { isLoading, isSuccess, refetch, isFetched } = useQueryHelper({
     name: "get-info_lead_by_agent",
     gql: GET_INFO_LEAD_BY_AGENT,
@@ -31,7 +39,17 @@ const useGetPersonalInfoLead = () => {
       onSuccess: (response) => {
         const getInfoLead = get(response, ["historyCommentLead","0"], null)
         setDataLead(omit(getInfoLead, ["statuses"]));
-        setAllComments(get(getInfoLead, ["statuses"], []));
+        const commentState = filter(get(getInfoLead, ["statuses"], []), (val) => !isEmpty(val?.comments)).map((val, index) => {
+          let timeLine = getColorForTimeLine(val?.status);
+          return {
+            ...val,
+            timeline: {
+              color: timeLine.color,
+              status: timeLine.status
+            }
+          }
+        });
+        setAllComments(commentState);
       },
       onerror: () => {
         setIsOverlay(false);

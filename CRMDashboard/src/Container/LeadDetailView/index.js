@@ -8,6 +8,7 @@ import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 import useGetPersonalInfoLead from "./hooks/useGetPersonalInfoLead";
 
 import PersonalInfoLead from "./personalInfoLead";
+import CommentsTimeline from './commentsTimeline';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
     container: {
@@ -22,6 +23,10 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         display: "flex",
         flexDirection: "row",
         gap: theme.other.spacing.p4,
+        height: "450px",
+        [`${theme.fn.smallerThan(700)}`]: {
+            flexDirection: "column",
+        },
     },
     textBreadCrum: {
         fontSize: "16px !important",
@@ -43,7 +48,7 @@ const LeadsDetailView = () => {
 
     const { actions: { setRoute } } = useClientGlobalStore();
 
-    const { dataLead, isLoading, isSkeleton } = useGetPersonalInfoLead();
+    const { dataLead, isLoading, isSkeleton, allComments } = useGetPersonalInfoLead();
 
     const routeBreadCrumbs = () => {
         localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, null);
@@ -68,7 +73,8 @@ const LeadsDetailView = () => {
                 <Breadcrumbs>{items}</Breadcrumbs>
                 <SpringDiv delay={300} duration={300}>
                     <Box className={classes.rowInfoAndTimeLine}>
-                        <PersonalInfoLead dataLead={dataLead} isLoading={isLoading} isSkeleton={isSkeleton} />
+                        <PersonalInfoLead dataLead={dataLead} isSkeleton={isSkeleton} />
+                        <CommentsTimeline dataLead={dataLead} allComments={allComments} isLoading={isLoading} isSkeleton={isSkeleton}/>
                     </Box>
                 </SpringDiv>
             </Box>

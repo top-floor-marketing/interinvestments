@@ -1,6 +1,7 @@
 import { Box, Paper, createStyles, Skeleton, Text } from "@mantine/core";
-import { Mail, User, c, Phone } from "tabler-icons-react";
-import useGetPersonalInfoLead from "../hooks/useGetPersonalInfoLead";
+import { Mail, User, Phone } from "tabler-icons-react";
+
+import { IconOpenWhatsApp } from '../../../Component/ActionButtons';
 
 import ChipStatusLead from "../../../Component/ItemLeadVirtual/chipStatusLead";
 
@@ -11,11 +12,10 @@ import isEmpty from "lodash/isEmpty";
 
 const useStyles = createStyles((theme, _params) => ({
     cardContainer: {
+        height: "100%",
         display: "flex",
         flexDirection: "column",
-        minHeight: "300px",
         boxShadow: theme.shadows.sm,
-        gap: theme.other.spacing.p4,
         width: "30%",
         gap: theme.other.spacing.p4,
         [`${theme.fn.smallerThan(700)}`]: {
@@ -33,7 +33,7 @@ const useStyles = createStyles((theme, _params) => ({
     },
     textTitle: {
         fontSize: "16px",
-        fontWeight: 500,
+        fontWeight: 600,
         margin: "0px !important",
     },
     infoItem: {
@@ -41,34 +41,31 @@ const useStyles = createStyles((theme, _params) => ({
         flexDirection: "row",
         gap: theme.other.spacing.p4,
         alignItems: "center",
-        'span': {
-            fontSize: "12px",
-            margin: "0px !important",
-        }
+        justifyItems: "center",
     },
 }));
 
-const PersonalInfoLead = ({ isLoading, refetch, isSkeleton, dataLead }) => {
+const PersonalInfoLead = ({ isSkeleton, dataLead }) => {
     const { classes } = useStyles();
 
     return (
         <Skeleton visible={isSkeleton} className={classes.cardContainer}>
             <Paper className={classes.cardContainer}>
+                <Text transform="capitalize" size="16px" className={classes.textTitle}>Contact info</Text>
                 <ChipStatusLead className={classes.badgeStatus} status={get(dataLead, ["currentStatus", "name"], "")} />
-                <Text transform="capitalize" className={classes.textTitle}>Contact info</Text>
-                <Box className={classes.infoItem}>
+               <Box className={classes.infoItem}>
                     <CustomIconTooltip size={24} color="secondary"
                         labelTooltip={`${get(dataLead, ["firstName"], "")} ${get(dataLead, ["lastName"], "")}`}
                     >
                         <User />
                     </CustomIconTooltip>
-                    <Text transform="capitalize" component="span">{`${get(dataLead, ["firstName"], "")} ${get(dataLead, ["lastName"], "")}`}</Text>
+                    <Text transform="capitalize" size="14px" component="span">{`${get(dataLead, ["firstName"], "")} ${get(dataLead, ["lastName"], "")}`}</Text>
                 </Box>
                 <Box className={classes.infoItem}>
                     <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataLead, ["email"], "")}>
                         <Mail />
                     </CustomIconTooltip>
-                    <Text transform="capitalize" component="span">{get(dataLead, ["email"], "")}</Text>
+                    <Text transform="capitalize" size="14px" component="span">{get(dataLead, ["email"], "")}</Text>
                 </Box>
                 {
                     (!isEmpty(get(dataLead, ["phone"], "")))
@@ -77,7 +74,8 @@ const PersonalInfoLead = ({ isLoading, refetch, isSkeleton, dataLead }) => {
                         <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataLead, ["phone"], "")}>
                             <Phone />
                         </CustomIconTooltip>
-                        <Text transform="capitalize" component="span">{get(dataLead, ["phone"], "")}</Text>
+                        <Text transform="capitalize"  size="14px" component="span">{get(dataLead, ["phone"], "")}</Text>
+                        <IconOpenWhatsApp labelTooltip={`Send message to: ${get(dataLead, ["phone"], "")}`} />
                     </Box>
                 }
 
@@ -88,7 +86,8 @@ const PersonalInfoLead = ({ isLoading, refetch, isSkeleton, dataLead }) => {
                         <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataLead, ["otherPhone", "0"], "")}>
                             <Phone />
                         </CustomIconTooltip>
-                        <Text transform="capitalize" component="span">{get(dataLead, ["otherPhone", "0"], "")}</Text>
+                        <Text transform="capitalize"  size="14px" component="span">{get(dataLead, ["otherPhone", "0"], "")}</Text>
+                        <IconOpenWhatsApp labelTooltip={`Send message to: ${get(dataLead, ["otherPhone", "0"], "")}`}  />
                     </Box>
                 }
             </Paper>

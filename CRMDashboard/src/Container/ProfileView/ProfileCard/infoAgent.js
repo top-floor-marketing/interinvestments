@@ -52,7 +52,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         },
         'h4': {
             fontSize: "16px",
-            fontWeight: 500,
+            fontWeight: 600,
             margin: "0px !important",
         },
         '.mantine-ThemeIcon-root': {
@@ -65,7 +65,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         flexDirection: "row",
         gap: theme.other.spacing.p4,
         'span': {
-            fontSize: "12px",
+            fontSize: "14px",
             margin: "0px !important",
         }
     },
@@ -121,11 +121,11 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         gap: theme.other.spacing.p4,
         'h4': {
             fontSize: "16px",
-            fontWeight: 500,
+            fontWeight: 600,
             margin: "0px !important",
         },
         'span, strong, p': {
-            textTransform: "capitalize",
+            fontSize: '14px !important',
             margin: "0px !important",
         }
     }
