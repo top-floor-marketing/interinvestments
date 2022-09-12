@@ -49,3 +49,7 @@
         @apply font-outfit;
     }
 }
+
+.linkFloorPlans {
+    @apply transition duration-[350ms] hover:text-[#FFB839] cursor-pointer font-outfit;
+}
