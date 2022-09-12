@@ -6,7 +6,7 @@ import {
   Text,
   Paper,
 } from "@mantine/core";
-import { useElementSize, useMediaQuery } from "@mantine/hooks";
+import { useMediaQuery } from "@mantine/hooks";
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 import { ROUTES_NAMES } from "../../Route/routes";
@@ -15,7 +15,7 @@ import { LOCAL_STORAGE } from "../../Utils/globalConstants";
 import { ArrowForwardUp, User, Mail } from "tabler-icons-react";
 
 import AvatarText from "../AvatarText";
-import { CustomIconTooltip } from '../ActionButtons';
+import { CustomIconTooltip, IconOpenWhatsApp } from '../ActionButtons';
 
 import ChipStatusLead from "./chipStatusLead";
 
@@ -34,7 +34,7 @@ const useStyles = createStyles((theme, _params) => {
   let paddingReserved = 32;
   let totalRows = 2;
   let avatarReserved = 60;
-  let iconsReserved = 38;
+  let iconsReserved = 60;
   let badgeReserved = 180;
 
   let gapReserved = (totalRows + 2) * 16;
@@ -87,6 +87,11 @@ const useStyles = createStyles((theme, _params) => {
         fontWeight: '700 !important',
         cursor: "pointer !important"
       }
+    },
+    containerIcons: {
+      gap: theme.other.spacing.p2,
+      display: "flex",
+      flexDirection: "row",
     }
   };
 });
@@ -114,6 +119,14 @@ const ItemListingVirtual = (props) => {
 
   const getIdLead = useCallback(() => {
     return get(props.userLead, ["id"], null);
+  }, [props.userLead]);
+
+  const getPhone = useCallback(() => {
+    return get(props.userLead, ["phone"], "202-555-0149");
+  }, [props.userLead]);
+
+  const getOtherPhone = useCallback(() => {
+    return get(props.userLead, ["otherPhone", "0"], "202-555-0100");
   }, [props.userLead]);
 
   const setLeadDetail = () => {
@@ -181,10 +194,16 @@ const ItemListingVirtual = (props) => {
             <ChipStatusLead status={props?.currentStatus} onClick={setLeadDetail} />
           </>
       }
+      <Box className={classes.containerIcons}>
+        <IconOpenWhatsApp size={24} 
+          labelTooltip="Send Whatsapp message"
+          phoneNumber={getPhone()}
+          otherPhoneNumber={getOtherPhone()} />
+        <CustomIconTooltip size={24} labelTooltip="View lead details" onClick={setLeadDetail}>
+          <ArrowForwardUp />
+        </CustomIconTooltip>
+      </Box>
 
-      <CustomIconTooltip size={24} labelTooltip="View lead details" onClick={setLeadDetail}>
-        <ArrowForwardUp />
-      </CustomIconTooltip>
     </Paper>
   );
 };

@@ -63,10 +63,10 @@ query historyCommentLead($agentId: Int = 10, $userLeadId: Int = 10) {
     id
     firstName
     phone
+    otherPhone
     lastName
     email
     otherEmail
-    otherPhone
     commentService
     commentListing
     currentStatus {

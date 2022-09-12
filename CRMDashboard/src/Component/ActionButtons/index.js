@@ -7,6 +7,7 @@ import ViewLandingListing from "./ViewLandingListing";
 import IconDownloadPdf from "./IconDownloadPdf";
 import IconRemove from "./IconRemove";
 import IconAddListing from "./IconAddListing";
+import IconOpenWhatsApp from './IconOpenWhatsApp';
 
 export {
     LogoutIcon,
@@ -17,5 +18,6 @@ export {
     CustomIconTooltip,
     IconDownloadPdf,
     IconRemove,
-    IconAddListing
+    IconAddListing,
+    IconOpenWhatsApp
 }

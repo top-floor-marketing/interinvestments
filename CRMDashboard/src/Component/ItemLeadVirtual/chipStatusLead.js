@@ -54,7 +54,7 @@ const BadgeStatusLead = ({ status, onClick, className }) => {
     <Badge
       onClick={() => onClick()}
       variant="filled"
-      title={`Lead status:\n${status}`}
+      title={`Lead state:\n${status}`}
       className={cx(classes.colorBadge, className, { [classes.badgeContainer]: !className })}>
       {status}
     </Badge>
