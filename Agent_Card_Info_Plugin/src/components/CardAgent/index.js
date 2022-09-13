@@ -18,16 +18,16 @@ const CardAgent = () => {
     const [dataAgent, setDataAgent] = useState(null)
     const urlParams = new URLSearchParams(window.location.search);
     const agentId = parseInt(urlParams.get(URL_QUERY_ID_NAME));
-    const leadAgentId = parseInt(localStorage.getItem('lead-agent'));
+    // const leadAgentId = parseInt(localStorage.getItem('lead-agent'));
 
     let variables = {
         agentType: "AGENT",
     }
 
-    if (agentId || leadAgentId) {
+    if (agentId) {
         variables = {
             agentType: "AGENT",
-            agentId: (leadAgentId) ? parseInt(leadAgentId) : parseInt(agentId)
+            agentId
         }
     } else {
         variables = {
@@ -60,8 +60,6 @@ const CardAgent = () => {
             />
         )
     }
-
-    // console.log('dataAgent', dataAgent)
 
     return (
         <Box className={styles.containerCard}>
