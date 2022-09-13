@@ -14,32 +14,48 @@ const CollapseListing = (props) => {
 
     const SpecsData = () => {
         const newArray = []
-        // Array({ ...data.address }).map((value) => (
-        //     newArray.push(
-        //         {
-        //             title: 'Address Line 1',
-        //             value: value.addressLine1
-        //         },
-        //         {
-        //             title: 'address 2',
-        //             value: value.address2
-        //         },
-        //         {
-        //             title: 'city',
-        //             value: value.city
-        //         },
-        //         {
-        //             title: 'state',
-        //             value: value.state
-        //         },
-        //         {
-        //             title: 'zip',
-        //             value: value.zip
-        //         }
-        //     )
-        // ))
+        Array({ ...data.specs }).map((value) => (
+            newArray.push(
+                {
+                    title: 'Bath',
+                    value: value.bath
+                },
+                {
+                    title: 'Bedrooms',
+                    value: value.bedrooms
+                },
+                {
+                    title: 'Sqft',
+                    value: value.sqft
+                },
+            )
+        ))
+        return newArray
+    }
 
-        
+
+    const finishesData = () => {
+        const newArray = []
+        Array({ ...data.specs }).map((value) => (
+            newArray.push(
+                {
+                    title: 'Appliances',
+                    value: value.appliances
+                },
+                {
+                    title: 'Bathrooms',
+                    value: value.bathrooms
+                },
+                {
+                    title: 'Flooring',
+                    value: value.flooring
+                },
+                {
+                    title: 'kitchenCabinets',
+                    value: value.kitchenCabinets
+                },
+            )
+        ))
         return newArray
     }
 
@@ -103,20 +119,29 @@ const CollapseListing = (props) => {
                 />
             </CollapseContainer>
             <CollapseContainer
-                delayAnimatio='500'
-                title='Floorplans'
+                delayAnimatio='200'
+                title='Finishes'
                 index='02'
             >
                 <ContendCollapse
+                    data={finishesData()}
+                />
+            </CollapseContainer>
+            <CollapseContainer
+                delayAnimatio='500'
+                title='Floorplans'
+                index='03'
+            >
+                <ContendCollapse
                     typeComponentValue='link'
-                    description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis a at earum repellat delectus voluptate, optio aliquid, nihil totam sint mollitia inventore aperiam accusantium tempora, esse sit nam dignissimos exercitationem?'
+                    // description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis a at earum repellat delectus voluptate, optio aliquid, nihil totam sint mollitia inventore aperiam accusantium tempora, esse sit nam dignissimos exercitationem?'
                     data={floorplansData()}
                 />
             </CollapseContainer>
             <CollapseContainer
                 delayAnimatio='800'
                 title='Team'
-                index='03'
+                index='04'
             >
                 <ContendCollapse
                     data={TeamData()}
@@ -125,7 +150,7 @@ const CollapseListing = (props) => {
             <CollapseContainer
                 delayAnimatio='1100'
                 title='Downloads'
-                index='04'
+                index='05'
             >
                 <ButtonProgress />
             </CollapseContainer>

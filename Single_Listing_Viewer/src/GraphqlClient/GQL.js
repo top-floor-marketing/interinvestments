@@ -6,15 +6,6 @@ export const LISTINGS_BY_SLOG = gql`
       nodes {
         uri
         databaseId
-        address {
-          address {
-            city
-            addressLine1
-            address2
-            state
-            zip
-          }
-        }
         title
         slug
         neighborhoods {
