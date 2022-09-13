@@ -14,7 +14,7 @@ import styles from './styles.cf.module.scss'
 import { useMutationHelper } from '../../GraphqlClient/useRequest';
 import { LEAD_LISTING_MUTATION } from '../../GraphqlClient/GQL';
 
-const URL_SHARED_FLAG = 'shared';
+// const URL_SHARED_FLAG = 'shared';
 const URL_QUERY_ID_NAME = 'agent-id';
 
 const PaperForm = (props) => {
@@ -23,7 +23,7 @@ const PaperForm = (props) => {
 
     const queryParams = new URLSearchParams(window.location.search);
 
-    const isShared = (queryParams.get(URL_SHARED_FLAG)?.toLowerCase() === 'true');
+    // const isShared = (queryParams.get(URL_SHARED_FLAG)?.toLowerCase() === 'true');
     const idInUrl = parseInt(queryParams.get(URL_QUERY_ID_NAME));
 
     const form = useForm({
@@ -48,39 +48,25 @@ const PaperForm = (props) => {
                 setOnSuccessAlert(true);
                 setTimeout(() => {
                     setOnSuccessAlert(false);
-                },[10000]);
+                }, [10000]);
             },
         },
     });
 
     const onSubmitForm = (valuesForm) => {
-
-        if (isShared && idInUrl) {
-            mutate_Lead_Listing({
-              variables: {
+        mutate_Lead_Listing({
+            variables: {
                 input: {
-                  firstName: valuesForm.fullName,
-                  email: valuesForm.email,
-                  phone: valuesForm.phone,
-                  interested: valuesForm.messageContact,
-                  listingId: (listingData) ? [parseInt(listingData?.databaseId)] : [],
-                  agentId: `${idInUrl}`,
+                    firstName: valuesForm.fullName,
+                    email: valuesForm.email,
+                    phone: valuesForm.phone,
+                    interested: valuesForm.messageContact,
+                    listingId: listingData ? [parseInt(listingData?.databaseId)] : [],
+                    agentId: idInUrl ? `${idInUrl}` : null,
+                    idStatusUserLead: listingData ? null : props?.idAskLeadStatus
                 },
-              },
-            });
-        } else {
-            mutate_Lead_Listing({
-              variables: {
-                input: {
-                  firstName: valuesForm.fullName,
-                  email: valuesForm.email,
-                  phone: valuesForm.phone,
-                  interested: valuesForm.messageContact,
-                  listingId: (listingData) ? [parseInt(listingData?.databaseId)] : [],
-                },
-              },
-            });
-        }
+            },
+        });
     }
 
     return (
@@ -103,9 +89,17 @@ const PaperForm = (props) => {
                 ) : (
                     <>
                         <Text component='h4' className={styles.titlePaper}>Let’s get in touch:</Text>
-                        <Text component='p' className={styles.descriptionForm}>
-                            Complete this form to get additional information on <span className='text-[#ffb839]'>{listingData?.title || 'this property' }.</span>
-                        </Text>
+                        {
+                            (listingData)
+                                ?
+                                <Text component='p' className={styles.descriptionForm}>
+                                    Complete this form to get additional information on <span className='text-[#ffb839]'>{listingData?.title || 'this property'}.</span>
+                                </Text>
+                                :
+                                <Text component='p' className={styles.descriptionForm}>
+                                    Using the form below, please provide as much detailed information as possible.
+                                </Text>
+                        }
                         <AlertErrorForm errorForm={form.errors} />
                         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
                             <Box className={styles.containerBoxInput}>
@@ -121,7 +115,7 @@ const PaperForm = (props) => {
                                     placeholder='Email'
                                     propsForm={{ ...form.getInputProps("email") }}
                                 />
-                                  <InputForm
+                                <InputForm
                                     isLoading={isLoading || isLoadingMutation}
                                     isDisabled={isLoading || isDisabled || isLoadingMutation}
                                     placeholder='Phone number'

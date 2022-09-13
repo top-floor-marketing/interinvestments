@@ -7,16 +7,36 @@ import { Box, Text } from '@mantine/core';
 import styles from './styles.cf.module.scss'
 // react-query
 import { useQueryHelper } from '../../GraphqlClient/useRequest';
-import { LISTINGS_BY_SLOG_FORM } from '../../GraphqlClient/GQL';
+import { LISTINGS_BY_SLOG_FORM, GET_STATUS_USER_LEADS } from '../../GraphqlClient/GQL';
+
+import findLast from 'lodash/findLast';
+import toLower from 'lodash/toLower';
+import get from 'lodash/get';
+
+const ASK_REFERRALS = 'Ask Referrals';
 
 const ContactForm = () => {
-    const [listingData, setListingData] = useState(null)
-    const [isErrorForm, setIsErrorForm] = useState(false)
+    const [listingData, setListingData] = useState(null);
+    const [isErrorForm, setIsErrorForm] = useState(false);
+    const [idAskLeadStatus, setIdAskLeadStatus] = useState(null);
 
-    const uri = window.location.pathname
-    const slugLIsting = uri.split('/')[uri.split('/').length - 2]
+    const uri = window.location.pathname;
+    const slugLIsting = uri.split('/')[uri.split('/').length - 2];
 
-    const { isLoading, error } = useQueryHelper({
+    const { isLoading: isLoadingState } = useQueryHelper({
+        name: 'STATE_FOR_LEAD',
+        gql: GET_STATUS_USER_LEADS,
+        config: {
+            onSuccess: (response) => {
+                const findAsk = findLast(get(response, ["statuses", "nodes"], []), (val) => {
+                    return toLower(val?.name) === toLower(ASK_REFERRALS)
+                });
+                setIdAskLeadStatus(get(findAsk, ["databaseId"]))
+            }
+        }
+    });
+
+    const { isFetching, error } = useQueryHelper({
         name: 'LISTINGS_BY_SLOG',
         gql: LISTINGS_BY_SLOG_FORM,
         variables: {
@@ -62,9 +82,10 @@ const ContactForm = () => {
         <Box className={styles.containerForm}>
             <Box className={styles.PaperFondo} />
             <PaperForm
+                idAskLeadStatus={idAskLeadStatus}
                 setIsErroForm={setIsErrorForm}
                 listingData={listingData}
-                isLoading={isLoading}
+                isLoading={isFetching || isLoadingState}
             />
         </Box>
     )

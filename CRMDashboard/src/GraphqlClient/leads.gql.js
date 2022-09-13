@@ -15,7 +15,7 @@ export const GET_LEADS_LIST_FOR_AGENT = gql`
           firstName
           id
           phone
-        otherPhones
+          otherPhones
         }
         commentService
         commentListing
