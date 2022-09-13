@@ -14,17 +14,24 @@ import styles from './styles.cf.module.scss'
 import { useMutationHelper } from '../../GraphqlClient/useRequest';
 import { LEAD_LISTING_MUTATION } from '../../GraphqlClient/GQL';
 
+const URL_SHARED_FLAG = 'shared';
+const URL_QUERY_ID_NAME = 'agent-id';
+
 const PaperForm = (props) => {
     const { isLoading, isDisabled, setIsErroForm, listingData } = props
     const [onSuccessAlert, setOnSuccessAlert] = useState(false)
 
-    const agentId = localStorage.getItem('lead-agent');
+    const queryParams = new URLSearchParams(window.location.search);
+
+    const isShared = (queryParams.get(URL_SHARED_FLAG)?.toLowerCase() === 'true');
+    const idInUrl = parseInt(queryParams.get(URL_QUERY_ID_NAME));
 
     const form = useForm({
-        schema: joiResolver(FormSchema),
+        validate: joiResolver(FormSchema),
         initialValues: {
             fullName: '',
             email: '',
+            phone: '',
             messageContact: '',
         },
     });
@@ -37,22 +44,27 @@ const PaperForm = (props) => {
                 setIsErroForm(true);
             },
             onSuccess: () => {
-                setOnSuccessAlert(true)
+                form.reset();
+                setOnSuccessAlert(true);
+                setTimeout(() => {
+                    setOnSuccessAlert(false);
+                },[10000]);
             },
         },
     });
 
     const onSubmitForm = (valuesForm) => {
 
-        if (agentId) {
+        if (isShared && idInUrl) {
             mutate_Lead_Listing({
               variables: {
                 input: {
                   firstName: valuesForm.fullName,
                   email: valuesForm.email,
+                  phone: valuesForm.phone,
                   interested: valuesForm.messageContact,
-                  listingId: [parseInt(listingData.databaseId)],
-                  agentId: `${agentId}`,
+                  listingId: (listingData) ? [parseInt(listingData?.databaseId)] : [],
+                  agentId: `${idInUrl}`,
                 },
               },
             });
@@ -62,8 +74,9 @@ const PaperForm = (props) => {
                 input: {
                   firstName: valuesForm.fullName,
                   email: valuesForm.email,
+                  phone: valuesForm.phone,
                   interested: valuesForm.messageContact,
-                  listingId: [parseInt(listingData.databaseId)],
+                  listingId: (listingData) ? [parseInt(listingData?.databaseId)] : [],
                 },
               },
             });
@@ -82,7 +95,8 @@ const PaperForm = (props) => {
                         <Text component='h4' className={styles.titlePaper}>Let’s get in touch:</Text>
                         <Box className='flex justify-center w-full h-full mt-12'>
                             <Text component='p' className={styles.descriptionForm}>
-                                Thank you for submitting a request for information, one of our agents will be in contact with you shortly
+                                Thank you for submitting a request for information
+                                one of our agents will be in contact with you shortly
                             </Text>
                         </Box>
                     </>
@@ -90,7 +104,7 @@ const PaperForm = (props) => {
                     <>
                         <Text component='h4' className={styles.titlePaper}>Let’s get in touch:</Text>
                         <Text component='p' className={styles.descriptionForm}>
-                            Using the form below, please provide as much detailed information as possible.
+                            Complete this form to get additional information on <span className='text-[#ffb839]'>{listingData?.title || 'this property' }.</span>
                         </Text>
                         <AlertErrorForm errorForm={form.errors} />
                         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
@@ -107,10 +121,16 @@ const PaperForm = (props) => {
                                     placeholder='Email'
                                     propsForm={{ ...form.getInputProps("email") }}
                                 />
+                                  <InputForm
+                                    isLoading={isLoading || isLoadingMutation}
+                                    isDisabled={isLoading || isDisabled || isLoadingMutation}
+                                    placeholder='Phone number'
+                                    propsForm={{ ...form.getInputProps("phone") }}
+                                />
                                 <InputForm
                                     isLoading={isLoading || isLoadingMutation}
                                     isDisabled={isLoading || isDisabled || isLoadingMutation}
-                                    placeholder='What are you interested in?'
+                                    placeholder='Comments'
                                     propsForm={{ ...form.getInputProps("messageContact") }}
                                 />
                                 <Box className={styles.containerbutton}>

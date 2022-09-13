@@ -2,9 +2,9 @@
 
 .containerMain {
     background-image: url("./assets/fondoForm.jpg") !important;
-    @apply w-full mx-auto py-20 h-full bg-center bg-cover bg-no-repeat overflow-auto;
+    @apply w-full flex flex-col items-center justify-center mx-auto py-20 min-h-[700px] h-[100vh] max-h-[950px] bg-center bg-cover bg-no-repeat overflow-auto;
 }
 
 .containerForm {
-    @apply w-full flex flex-col lg:flex-row justify-between items-center gap-5 px-10 md:px-24;
+    @apply w-full flex flex-col lg:flex-row justify-between items-center gap-5 px-4 md:px-20;
 }

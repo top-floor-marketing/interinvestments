@@ -11,11 +11,10 @@ import { LISTINGS_BY_SLOG_FORM } from '../../GraphqlClient/GQL';
 
 const ContactForm = () => {
     const [listingData, setListingData] = useState(null)
-    const [isErroForm, setIsErroForm] = useState(false)
+    const [isErrorForm, setIsErrorForm] = useState(false)
 
     const uri = window.location.pathname
     const slugLIsting = uri.split('/')[uri.split('/').length - 2]
-
 
     const { isLoading, error } = useQueryHelper({
         name: 'LISTINGS_BY_SLOG',
@@ -24,6 +23,7 @@ const ContactForm = () => {
             "title": slugLIsting.replace(/-/g, ' ')
         },
         config: {
+            enabled: !!(slugLIsting),
             onSuccess: (req) => {
                 setListingData(...req.listings.nodes)
             }
@@ -31,7 +31,7 @@ const ContactForm = () => {
     });
 
 
-    if (error || isErroForm) {
+    if (error || isErrorForm) {
         return (
             <Box
                 className={styles.containerForm}
@@ -62,7 +62,7 @@ const ContactForm = () => {
         <Box className={styles.containerForm}>
             <Box className={styles.PaperFondo} />
             <PaperForm
-                setIsErroForm={setIsErroForm}
+                setIsErroForm={setIsErrorForm}
                 listingData={listingData}
                 isLoading={isLoading}
             />
