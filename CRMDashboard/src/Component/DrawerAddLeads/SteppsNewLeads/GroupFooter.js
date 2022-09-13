@@ -33,7 +33,7 @@ const GroupFooter = (_) => {
     const prevStep = () => setstepperActive(stepperActive > 0 ? stepperActive - 1 : stepperActive);
 
     const validateNextStep = () => {
-        if (stepperActive === 0) {
+        if (stepperActive === 1) {
             if (!serviceData.length && !listingData.length) {
                 return notificationError({
                     id: 'edit-agent-profile',
@@ -47,7 +47,7 @@ const GroupFooter = (_) => {
             }
         }
 
-        if (stepperActive === 1) {
+        if (stepperActive === 0) {
             return refForm.current.click()
         } else {
             return nextStep()
@@ -63,9 +63,8 @@ const GroupFooter = (_) => {
                 notificationError({
                     id: 'add-leads-error',
                     position: 'top-right',
-                    title: "Error",
+                    title: "Error add leads",
                     color: 'secondary',
-                    message: 'Error add leads'
                 })
                 // onclouse
                 onClose()
@@ -75,9 +74,8 @@ const GroupFooter = (_) => {
                 notificationSuccess({
                     id: 'add-leads-error',
                     position: 'top-right',
-                    title: "sucess",
-                    color: 'secondary',
-                    message: 'aggregate leads successful'
+                    title: "aggregate leads successful",
+                    color: 'secondary'
                 })
                 // onclouse
                 onClose()

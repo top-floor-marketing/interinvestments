@@ -76,22 +76,6 @@ const SteppsNewLeads = (_) => {
     return (
         <Box className={classes.StepperContainer}>
             <Stepper {...props.Stepper}>
-                <Stepper.Step
-                    {...props.Step}
-                    icon={<BuildingCommunity size={34} color='white' />}
-                    label={<Text component="span" className={classes.titleStep}>Step 1</Text>}
-                    description={
-                        <DescriptionSteps
-                            stepperActive={stepperActive}
-                            position={0}
-                            text='Select leads type'
-                        />
-                    }
-                >
-                    <ContainerStep title={null}>
-                        <TypeLeads />
-                    </ContainerStep>
-                </Stepper.Step>
 
                 <Stepper.Step
                     {...props.Step}
@@ -100,7 +84,7 @@ const SteppsNewLeads = (_) => {
                     description={
                         <DescriptionSteps
                             stepperActive={stepperActive}
-                            position={1}
+                            position={0}
                             text='Leads info'
                         />
                     }
@@ -111,6 +95,24 @@ const SteppsNewLeads = (_) => {
                             form={form}
                             onSubmitForm={onSubmitForm}
                         />
+                    </ContainerStep>
+                </Stepper.Step>
+
+
+                <Stepper.Step
+                    {...props.Step}
+                    icon={<BuildingCommunity size={34} color='white' />}
+                    label={<Text component="span" className={classes.titleStep}>Step 1</Text>}
+                    description={
+                        <DescriptionSteps
+                            stepperActive={stepperActive}
+                            position={1}
+                            text='Select leads type'
+                        />
+                    }
+                >
+                    <ContainerStep title={null}>
+                        <TypeLeads />
                     </ContainerStep>
                 </Stepper.Step>
 

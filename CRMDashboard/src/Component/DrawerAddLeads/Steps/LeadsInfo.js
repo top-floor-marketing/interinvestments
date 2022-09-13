@@ -1,10 +1,6 @@
 import React from 'react'
 // mantine
-import {
-    TextInput,
-    NumberInput,
-    Divider
-} from '@mantine/core';
+import { TextInput, Divider } from '@mantine/core';
 // icons
 import { User, Mail, Phone } from 'tabler-icons-react';
 // styles
@@ -65,7 +61,7 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
                 label="Other Email"
                 icon={<Mail />}
             />
-            <NumberInput
+            <TextInput
                 {...form.getInputProps("otherPhoneNumber")}
                 className={classes.input}
                 classNames={{
