@@ -6,15 +6,6 @@ export const LISTINGS_BY_SLOG = gql`
       nodes {
         uri
         databaseId
-        address {
-          address {
-            city
-            addressLine1
-            address2
-            state
-            zip
-          }
-        }
         title
         slug
         neighborhoods {
@@ -52,6 +43,19 @@ export const LISTINGS_BY_SLOG = gql`
             }
             priceMax
             priceMin
+            specs {
+              bath
+              bedrooms
+              fieldGroupName
+              sqft
+            }
+            finishes {
+              appliances
+              bathrooms
+              fieldGroupName
+              flooring
+              kitchenCabinets
+            }
           }
         }
         listingCategories {
@@ -61,24 +65,17 @@ export const LISTINGS_BY_SLOG = gql`
         }
         floorplans {
           floorplans {
-            photos {
-              altText
-              fileSize
-              sourceUrl
+            allPdf {
+              pdf {
+                mediaItemUrl
+                title
+              }
             }
-            fieldGroupName
-            den
-            floorplanAcSqft
-            floorplanNBaths
-            floorplanNBeds
-            floorplanNHbaths
-            floorplanTotalSqft
-            name
           }
         }
       }
     }
-  }
+}
 `
 
 

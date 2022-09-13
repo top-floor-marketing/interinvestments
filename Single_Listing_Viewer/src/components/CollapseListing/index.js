@@ -11,67 +11,63 @@ import styles from './styles.cl.module.scss'
 
 const CollapseListing = (props) => {
     const { data } = props
-    
-    const addressData = () => {
+
+    const SpecsData = () => {
         const newArray = []
-        Array({ ...data.address }).map((value) => (
+        Array({ ...data.specs }).map((value) => (
             newArray.push(
                 {
-                    title: 'Address Line 1',
-                    value: value.addressLine1
+                    title: 'Bath',
+                    value: value.bath
                 },
                 {
-                    title: 'address 2',
-                    value: value.address2
+                    title: 'Bedrooms',
+                    value: value.bedrooms
                 },
                 {
-                    title: 'city',
-                    value: value.city
+                    title: 'Sqft',
+                    value: value.sqft
+                },
+            )
+        ))
+        return newArray
+    }
+
+
+    const finishesData = () => {
+        const newArray = []
+        Array({ ...data.specs }).map((value) => (
+            newArray.push(
+                {
+                    title: 'Appliances',
+                    value: value.appliances
                 },
                 {
-                    title: 'state',
-                    value: value.state
+                    title: 'Bathrooms',
+                    value: value.bathrooms
                 },
                 {
-                    title: 'zip',
-                    value: value.zip
-                }
+                    title: 'Flooring',
+                    value: value.flooring
+                },
+                {
+                    title: 'kitchenCabinets',
+                    value: value.kitchenCabinets
+                },
             )
         ))
         return newArray
     }
 
     const floorplansData = () => {
-        const newArray = []
-        Array({ ...data.floorplans }).map((value) => (
-            newArray.push(
+        return data.floorplans.allPdf.map((value) => {
+            return (
                 {
-                    title: 'Group Name',
-                    value: value.fieldGroupName
-                },
-                {
-                    title: 'Floorplan beds',
-                    value: value.floorplanNBeds
-                },
-                {
-                    title: 'Floorplan ac sqft',
-                    value: value.floorplanAcSqft
-                },
-                {
-                    title: 'Floorplan hbaths',
-                    value: value.floorplanNHbaths
-                },
-                {
-                    title: 'Floorplan baths',
-                    value: value.floorplanNBaths
-                },
-                {
-                    title: 'Floorplan total sqft',
-                    value: value.floorplanTotalSqft
+                    title: value.pdf.title,
+                    value: value.pdf.mediaItemUrl
                 }
             )
-        ))
-        return newArray
+        })
     }
 
     const TeamData = () => {
@@ -115,26 +111,37 @@ const CollapseListing = (props) => {
             />
             <CollapseContainer
                 delayAnimatio='200'
-                title='Address'
+                title='Specs'
                 index='01'
             >
                 <ContendCollapse
-                    data={addressData()}
+                    data={SpecsData()}
+                />
+            </CollapseContainer>
+            <CollapseContainer
+                delayAnimatio='200'
+                title='Finishes'
+                index='02'
+            >
+                <ContendCollapse
+                    data={finishesData()}
                 />
             </CollapseContainer>
             <CollapseContainer
                 delayAnimatio='500'
                 title='Floorplans'
-                index='02'
+                index='03'
             >
                 <ContendCollapse
+                    typeComponentValue='link'
+                    // description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis a at earum repellat delectus voluptate, optio aliquid, nihil totam sint mollitia inventore aperiam accusantium tempora, esse sit nam dignissimos exercitationem?'
                     data={floorplansData()}
                 />
             </CollapseContainer>
             <CollapseContainer
                 delayAnimatio='800'
                 title='Team'
-                index='03'
+                index='04'
             >
                 <ContendCollapse
                     data={TeamData()}
@@ -143,7 +150,7 @@ const CollapseListing = (props) => {
             <CollapseContainer
                 delayAnimatio='1100'
                 title='Downloads'
-                index='04'
+                index='05'
             >
                 <ButtonProgress />
             </CollapseContainer>
