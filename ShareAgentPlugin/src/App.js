@@ -46,8 +46,9 @@ function App() {
               if(!isAgentsUrl) {
                 x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
               } else {
-                x.href = `/agent/?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
-                x["innerText"] = (isAgentUser) ? 'My Bio' : 'My Agent';
+                // x.href = `/agent/?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
+                x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
+                x["innerText"] = (isAgentUser) ? 'My Bio' : x["innerText"];
               }
             });
           }
@@ -59,8 +60,9 @@ function App() {
               if(!isAgentsUrl) { 
                 x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
               } else {
-                x.href = `/agent/?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
-                x["innerText"] = (isAgentUser) ? 'My Bio' : 'My Agent';
+                // x.href = `/agent/?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
+                x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
+                x["innerText"] = (isAgentUser) ? 'My Bio' : x["innerText"];
               }
             });
           }
