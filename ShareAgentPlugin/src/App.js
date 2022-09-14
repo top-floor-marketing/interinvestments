@@ -4,6 +4,7 @@ import isEqual from 'lodash/isEqual';
 import toInteger from 'lodash/toInteger';
 import toLower from "lodash/toLower";
 import isEmpty from 'lodash/isEmpty';
+import findLast from 'lodash/findLast';
 
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -31,18 +32,28 @@ function App() {
     let tokenCrm = localStorage.getItem(TOKEN_CRM);
     let userCrm = localStorage.getItem(USER_CRM);
 
-    // const isAgentUser = (tokenCrm && userCrm);
+    const isAgentUser = (tokenCrm && userCrm);
     const isValidUrl = (isShared && idInUrl);
 
     try {
-      if (isShared && idInUrl) {
+      if (isValidUrl) {
         setTimeout(() => {
           const arrayMenu = document.querySelectorAll("#menu-primary-menu>.menu-item>a");
           if(!isEmpty(arrayMenu)) {
+            const agentsItem = findLast(arrayMenu, (val) => toLower(val.innerText) === 'agents');
+            console.log("agentsItem ", agentsItem)
             arrayMenu.forEach((x) => {
               const text = toLower(x.textContent || x.innerText);
-              x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
-              x["innerText"] = (text === "agents" && isValidUrl) ? 'My Bio' : x["innerText"];
+              const isAgentsUrl = (text === "agents");
+              if(!isAgentsUrl) {
+                x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
+              }
+              x["innerText"] = (isAgentUser) ? 'My Bio' : 'My Agent';
+
+
+              //                x["innerText"] = (text === "agents" && isValidUrl && isAgentUser) ? 'My Bio' : x["innerText"];
+
+              
             });
           }
           const arrayFooter = document.querySelectorAll(".footerFlex>a");
@@ -50,7 +61,7 @@ function App() {
             arrayFooter.forEach((x) => {
               const text = toLower(x.textContent || x.innerText);
               x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
-              x["innerText"] = (text === "agents" && isValidUrl) ? 'My Bio' : x["innerText"];
+              x["innerText"] = (text === "agents" && isValidUrl && isAgentUser) ? 'My Bio' : x["innerText"];
             });
           }
         }, 1000)
