@@ -40,23 +40,28 @@ function App() {
         setTimeout(() => {
           const arrayMenu = document.querySelectorAll("#menu-primary-menu>.menu-item>a");
           if(!isEmpty(arrayMenu)) {
-            const agentsItem = findLast(arrayMenu, (val) => toLower(val.innerText) === 'agents');
-            console.log("agentsItem ", agentsItem)
             arrayMenu.forEach((x) => {
               const text = toLower(x.textContent || x.innerText);
               const isAgentsUrl = (text === "agents");
               if(!isAgentsUrl) {
                 x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
+              } else {
+                x.href = `/agent/?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
+                x["innerText"] = (isAgentUser) ? 'My Bio' : 'My Agent';
               }
-              x["innerText"] = (isAgentUser) ? 'My Bio' : 'My Agent';
             });
           }
           const arrayFooter = document.querySelectorAll(".footerFlex>a");
           if(!isEmpty(arrayMenu)) { 
             arrayFooter.forEach((x) => {
               const text = toLower(x.textContent || x.innerText);
-              x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
-              x["innerText"] = (text === "agents" && isValidUrl && isAgentUser) ? 'My Bio' : x["innerText"];
+              const isAgentsUrl = (text === "agents");
+              if(!isAgentsUrl) { 
+                x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
+              } else {
+                x.href = `/agent/?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
+                x["innerText"] = (isAgentUser) ? 'My Bio' : 'My Agent';
+              }
             });
           }
         }, 1000)
