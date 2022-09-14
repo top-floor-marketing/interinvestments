@@ -49,11 +49,6 @@ function App() {
                 x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
               }
               x["innerText"] = (isAgentUser) ? 'My Bio' : 'My Agent';
-
-
-              //                x["innerText"] = (text === "agents" && isValidUrl && isAgentUser) ? 'My Bio' : x["innerText"];
-
-              
             });
           }
           const arrayFooter = document.querySelectorAll(".footerFlex>a");
