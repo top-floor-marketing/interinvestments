@@ -7,7 +7,10 @@ import { Box, Divider } from '@mantine/core';
 //componen
 import CollapseContainer from './CollapseContainer'
 // css
-import styles from './styles.cl.module.scss'
+import styles from './styles.cl.module.scss';
+
+import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
 
 const CollapseListing = (props) => {
     const { data } = props
@@ -60,14 +63,15 @@ const CollapseListing = (props) => {
     }
 
     const floorplansData = () => {
-        return data.floorplans.allPdf.map((value) => {
+        const allPdf = get(data, ["floorplans", "allPdf"], [])
+        return isEmpty(allPdf) ? [] : allPdf.map((value) => {
             return (
                 {
                     title: value.pdf.title,
                     value: value.pdf.mediaItemUrl
                 }
             )
-        })
+        }) ;
     }
 
     const TeamData = () => {
