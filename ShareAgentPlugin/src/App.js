@@ -24,7 +24,7 @@ function App() {
     // const pathArray = window.location.pathname.split("/");
 
     const currentUtc = dayjs().utc().format();
-    const isShared = (queryParams.get(URL_SHARED_FLAG).toLowerCase() === 'true');
+    const isShared = (toLower(queryParams.get(URL_SHARED_FLAG)) === 'true');
     const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
     let idInLocal = toInteger(localStorage.getItem(LOCASTORAGE_ID_NAME));
     let tokenCrm = localStorage.getItem(TOKEN_CRM);
