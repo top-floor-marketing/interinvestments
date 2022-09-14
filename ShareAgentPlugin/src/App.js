@@ -34,7 +34,7 @@ function App() {
     const isValidUrl = (isShared && idInUrl);
 
     if (isShared && idInUrl) {
-      Array.from(document.querySelectorAll("#menu-primary-menu>.menu-item>a")).forEach((x) => {
+      document.querySelectorAll("#menu-primary-menu>.menu-item>a").forEach((x) => {
         const text = toLower(x.textContent || x.innerText);
         console.log("text ", text);
         x.ref = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
