@@ -4,6 +4,9 @@ import { Box, Divider, Text, Group } from '@mantine/core';
 import { Download } from 'tabler-icons-react';
 // css
 import styles from './styles.cl.module.scss'
+// utilst
+import isArray from 'lodash/isArray';
+
 
 const ContendCollapse = (props) => {
     const defaultContend = [
@@ -25,63 +28,55 @@ const ContendCollapse = (props) => {
         }
     ]
 
-    const { data = defaultContend, description, typeComponentValue } = props
+    const { data = defaultContend } = props
 
     return (
         <Box className={styles.gridContendCollapse}>
             <Box />
             <Box className={styles.containerConted}>
                 {
-                    (description) && (
-                        <>
-                            <Box>
-                                <Box className={styles.boxContend}>
-                                    <Text component='span'>
-                                        <strong>Description</strong>
-                                    </Text>
-                                    <Text
-                                        title={description}
-                                        lineClamp={3}
-                                        component='p'
-                                    >
-                                        {description}
-                                    </Text>
-                                </Box>
-                            </Box>
-                            <Divider my="sm" />
-                        </>
-                    )
-                }
-
-                {
                     data.map((value, index) => (
                         <Box key={index}>
                             <Box className={styles.boxContend}>
                                 {
                                     (value.value) && (
-                                        <>
-                                            <Text component='span'>
-                                                <strong>{value.title}</strong>
-                                            </Text>
-                                            {
-                                                (typeComponentValue) === 'link' ? (
-                                                    <Group spacing="xs" style={{ alignItems: 'center' }} className={styles.linkFloorPlans}>
-                                                        <Text
-                                                            style={{ lineHeight: '17px' }}
-                                                            target="_blank"
-                                                            href={value.value}
-                                                            download={`${value.title}`}
-                                                            component='a'
-                                                        >
-                                                            {value.value ? "Link pdf" : 'n/a'}
-                                                        </Text>
-                                                        <Download size={16} />
-                                                    </Group>
-                                                ) : (
-                                                    <Text component='p'>{value.value ? value.value : 'n/a'}</Text>
-                                                )
-                                            }
-                                        </>
+                                        isArray(value.value) ? (
+                                            <>
+                                                <Text component='span'>
+                                                    <strong>{value.title}</strong>
+                                                </Text>
+                                                <Box className={styles.containerFloorplasPdf}>
+                                                    {
+                                                        value.value.map((itemPdf, index) => (
+                                                            <Group
+                                                                key={`${itemPdf.pdf.title}_${index}`}
+                                                                spacing="xs"
+                                                                style={{ alignItems: 'center' }}
+                                                                className={styles.linkFloorPlans}
+                                                            >
+                                                                <Download size={16} />
+                                                                <Text
+                                                                    style={{ lineHeight: '17px' }}
+                                                                    target="_blank"
+                                                                    href={itemPdf.pdf.mediaItemUrl}
+                                                                    download={`${itemPdf.pdf.title}`}
+                                                                    component='a'
+                                                                >
+                                                                    {itemPdf.pdf.title}
+                                                                </Text>
+                                                            </Group>
+                                                        ))
+                                                    }
+                                                </Box>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Text component='span'>
+                                                    <strong>{value.title}</strong>
+                                                </Text>
+                                                <Text component='p'>{value.value}</Text>
+                                            </>
+                                        )
                                     )
                                 }
                             </Box>
