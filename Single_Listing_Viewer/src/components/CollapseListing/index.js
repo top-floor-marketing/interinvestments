@@ -20,12 +20,12 @@ const CollapseListing = (props) => {
         Array({ ...data.specs }).map((value) => (
             newArray.push(
                 {
-                    title: 'Bedrooms',
-                    value: value.bedrooms
+                    title: 'Bath',
+                    value: value.bath
                 },
                 {
-                    title: 'Bathrooms',
-                    value: value.bath
+                    title: 'Bedrooms',
+                    value: value.bedrooms
                 },
                 {
                     title: 'Sqft',
@@ -67,11 +67,14 @@ const CollapseListing = (props) => {
         return isEmpty(allPdf) ? [] : allPdf.map((value) => {
             return (
                 {
-                    title: value.pdf.title,
-                    value: value.pdf.mediaItemUrl
+                    title: value.title,
+                    value: [...get(value, ["itemPdf",], [])]
                 }
             )
         });
+
+
+
     }
 
     const TeamData = () => {
@@ -131,17 +134,20 @@ const CollapseListing = (props) => {
                     data={finishesData()}
                 />
             </CollapseContainer>
-            <CollapseContainer
-                delayAnimatio='500'
-                title='Floorplans'
-                index='03'
-            >
-                <ContendCollapse
-                    typeComponentValue='link'
-                    // description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis a at earum repellat delectus voluptate, optio aliquid, nihil totam sint mollitia inventore aperiam accusantium tempora, esse sit nam dignissimos exercitationem?'
-                    data={floorplansData()}
-                />
-            </CollapseContainer>
+
+            {
+
+                <CollapseContainer
+                    delayAnimatio='500'
+                    title='Floorplans'
+                    index='03'
+                >
+                    <ContendCollapse
+                        data={floorplansData()}
+                    />
+                </CollapseContainer>
+            }
+
             <CollapseContainer
                 delayAnimatio='800'
                 title='Team'

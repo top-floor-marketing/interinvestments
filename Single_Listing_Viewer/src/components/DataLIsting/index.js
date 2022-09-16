@@ -37,7 +37,7 @@ const DataLIsting = (props) => {
                             description='Price Max'
                         />
                         <CardData
-                            number={data.totalUnits ? parseInt(data.totalUnits) : 'n/a'}
+                            number={data.totalUnits ? parseInt(data.totalUnits) : null}
                             type={data.totalUnits ? 'number' : 'text'}
                             description='Total Units'
                         />
