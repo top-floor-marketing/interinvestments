@@ -33,53 +33,63 @@ const ContendCollapse = (props) => {
             <Box className={styles.containerConted}>
                 {
                     (description) && (
-                        <Box>
-                            <Box className={styles.boxContend}>
-                                <Text component='span'>
-                                    <strong>Description</strong>
-                                </Text>
-                                <Text
-                                    title={description}
-                                    lineClamp={3}
-                                    component='p'
-                                >
-                                    {description}
-                                </Text>
+                        <>
+                            <Box>
+                                <Box className={styles.boxContend}>
+                                    <Text component='span'>
+                                        <strong>Description</strong>
+                                    </Text>
+                                    <Text
+                                        title={description}
+                                        lineClamp={3}
+                                        component='p'
+                                    >
+                                        {description}
+                                    </Text>
+                                </Box>
                             </Box>
-                        </Box>
+                            <Divider my="sm" />
+                        </>
                     )
                 }
 
-                <Divider my="sm" />
                 {
                     data.map((value, index) => (
                         <Box key={index}>
                             <Box className={styles.boxContend}>
-                                <Text component='span'>
-                                    <strong>{value.title}</strong>
-                                </Text>
                                 {
-                                    typeComponentValue === 'link' ? (
-                                        <Group spacing="xs" style={{ alignItems: 'center' }} className={styles.linkFloorPlans}>
-                                            <Text
-                                                style={{ lineHeight: '17px' }}
-                                                target="_blank"
-                                                href={value.value}
-                                                download={`${value.title}`}
-                                                component='a'
-                                            >
-                                                {value.value ? "Link pdf" : 'n/a'}
+                                    (value.value) && (
+                                        <>
+                                            <Text component='span'>
+                                                <strong>{value.title}</strong>
                                             </Text>
-                                            <Download size={16} />
-                                        </Group>
-                                    ) : (
-                                        <Text component='p'>{value.value ? value.value : 'n/a'}</Text>
+                                            {
+                                                (typeComponentValue) === 'link' ? (
+                                                    <Group spacing="xs" style={{ alignItems: 'center' }} className={styles.linkFloorPlans}>
+                                                        <Text
+                                                            style={{ lineHeight: '17px' }}
+                                                            target="_blank"
+                                                            href={value.value}
+                                                            download={`${value.title}`}
+                                                            component='a'
+                                                        >
+                                                            {value.value ? "Link pdf" : 'n/a'}
+                                                        </Text>
+                                                        <Download size={16} />
+                                                    </Group>
+                                                ) : (
+                                                    <Text component='p'>{value.value ? value.value : 'n/a'}</Text>
+                                                )
+                                            }
+                                        </>
                                     )
                                 }
                             </Box>
                             {
-                                (index < data.length - 1) && (
-                                    <Divider my="sm" />
+                                (value.value) && (
+                                    (index < data.length - 1) && (
+                                        <Divider my="sm" />
+                                    )
                                 )
                             }
                         </Box>
