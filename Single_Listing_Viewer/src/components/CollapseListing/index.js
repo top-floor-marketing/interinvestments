@@ -20,12 +20,12 @@ const CollapseListing = (props) => {
         Array({ ...data.specs }).map((value) => (
             newArray.push(
                 {
-                    title: 'Bath',
-                    value: value.bath
-                },
-                {
                     title: 'Bedrooms',
                     value: value.bedrooms
+                },
+                {
+                    title: 'Bathrooms',
+                    value: value.bath
                 },
                 {
                     title: 'Sqft',
@@ -39,7 +39,7 @@ const CollapseListing = (props) => {
 
     const finishesData = () => {
         const newArray = []
-        Array({ ...data.specs }).map((value) => (
+        Array({ ...data.finishes }).map((value) => (
             newArray.push(
                 {
                     title: 'Appliances',
@@ -71,7 +71,7 @@ const CollapseListing = (props) => {
                     value: value.pdf.mediaItemUrl
                 }
             )
-        }) ;
+        });
     }
 
     const TeamData = () => {
