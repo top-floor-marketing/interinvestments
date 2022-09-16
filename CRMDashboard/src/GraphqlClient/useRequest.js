@@ -8,6 +8,7 @@ import { LOCAL_STORAGE } from "../Utils/globalConstants";
 
 import isNull from "lodash/isNull";
 import get from 'lodash/get';
+import { isEmpty } from 'lodash';
 
 const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
 const API_URL =
@@ -65,9 +66,14 @@ const useQueryHelper = (props) => {
       } catch (error) {
         console.log(`query = ${name}`, error);
         const errorParse = JSON.parse(JSON.stringify(error, undefined, 2));
+        console.log("error ", error)
+        console.log("errorParse ", errorParse)
         isErrorResponse = get(errorParse, ["response", "errors", "0", "debugMessage"], null);
       }
-      if (isErrorResponse.includes('invalid-jwt')) {
+      if(isEmpty(isErrorResponse)) {
+        throw('error => ');
+      }
+      if (isErrorResponse?.includes('invalid-jwt')) {
         try {
           const refreshResponse = await requestNewToken();
           if (refreshResponse) {
@@ -88,6 +94,7 @@ const useQueryHelper = (props) => {
           emptyLocalStorage()
         }
       }
+      throw('not response');
     },
     {
       ...globalConfig,
