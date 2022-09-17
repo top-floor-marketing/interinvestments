@@ -7,15 +7,24 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   containerLogin: {
     margin: "auto",
     height: "auto",
+    padding: "0 !important",
+    display: "flex",
+    minHeight: "450px",
     [`@media (max-width: 1000px)`]: {
-      width: "80%",
+      width: "85%",
     },
     [`@media (min-width: 1001px) and (max-width: 1500px)`]: {
-      width: "65%",
+      width: "70%",
     },
     [`@media (min-width: 1501px)`]: {
-      width: "50%",
+      width: "55%",
     },
+  },
+  logo: {
+    cursor: 'pointer',
+     "&:hover": {
+      transform: "scale(1.005)"
+    }
   },
   contentLogin: {
     display: "grid",
@@ -29,13 +38,26 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    gap: theme.other.spacing.p8,
-    padding: theme.other.spacing.p12,
-    marginTop: theme.other.spacing.p4,
-    marginBottom: theme.other.spacing.p4,
+    gap: theme.other.spacing.p12,
+    padding: theme.other.spacing.p8,
+    width: "100% !important",
+    maxWidth: "400px !important",
+    justifySelf: "center",
+    alignSelf: "center",
     [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
-      padding: theme.other.spacing.p8,
+      padding: theme.other.spacing.p6,
     },
+  },
+  groupBackHome: {
+    cursor: 'pointer',
+    alignSelf: "flex-start",
+    justifyItems: "center",
+    gap: theme.other.spacing.p2,
+    'span': {
+       "&:hover": {
+        color: theme.colors.primary[6]
+      }
+    }
   },
   titleForm: {
     textAlign: "center",
@@ -72,7 +94,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   buttonForgot: {
     color: "black",
     [`&:hover`]: {
-      color: theme.colors.primary[2],
+      color: theme.colors.primary[6],
     },
   },
   imageLogin: {

@@ -1,6 +1,5 @@
 .CarouselLogin_wp>.carousel.carousel-slider {
     height: 100% !important;
-
 }
 
 .CarouselLogin_wp {
@@ -9,6 +8,8 @@
 
 .CarouselLogin_wp>.carousel.carousel-slider>.slider-wrapper {
     height: 100% !important;
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
 }
 
 .CarouselLogin_wp>.carousel.carousel-slider>.slider-wrapper>.slider {

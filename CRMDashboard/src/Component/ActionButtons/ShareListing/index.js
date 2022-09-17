@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { ArrowForwardUp } from 'tabler-icons-react';
 import { useClipboard } from '@mantine/hooks';
@@ -43,7 +42,7 @@ ShareListing.defaultProps = {
   className: "",
   variant: "hover",
   size: 20,
-  labelTooltip: "Share listing",
+  labelTooltip: "Share property",
   id: null,
   uri: null,
   color: "dark"

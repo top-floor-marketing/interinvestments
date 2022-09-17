@@ -164,7 +164,7 @@ const ItemListingVirtual = (props) => {
       children: (
         <Box className={classes.boxDialog}>
           <Text className={classes.boxDialogText}>
-            Are you sure you want to add this listing?
+            Are you sure you want to add this property?
           </Text>
           <Avatar radius="_40px" size="100px" src={getPhoto()} />
           <Text className={classes.boxDialogText}>{getTitle()}</Text>
@@ -184,7 +184,7 @@ const ItemListingVirtual = (props) => {
       children: (
         <Box className={classes.boxDialog}>
           <Text className={classes.boxDialogText}>
-            Are you sure you want to remove this listing?
+            Are you sure you want to remove this property?
           </Text>
           <Avatar radius="_40px" size="60px" src={getPhoto()} />
           <Text className={classes.boxDialogText}>{getTitle()}</Text>
@@ -296,12 +296,24 @@ const ItemListingVirtual = (props) => {
 
           <ViewLandingListing
             variant="filled"
-            labelTooltip="View listing"
+            labelTooltip="View property"
             id={idAgent}
             uri={uri}
             radius="_40px"
             size={24}
           />
+          {
+            (!usingCheck)
+            &&
+             <ShareListing
+              variant="filled"
+              color="primary"
+              id={idAgent}
+              uri={uri}
+              radius="_40px"
+              size={24}
+            />
+          }
           {/* {
             (!usingCheck)
             &&

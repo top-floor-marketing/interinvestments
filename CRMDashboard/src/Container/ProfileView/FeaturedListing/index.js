@@ -69,14 +69,14 @@ const FeaturedListing = () => {
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Card className={classes.cardContainer}>
         <Group position="apart">
-          <Text className={classes.titleCard}>Featured listings</Text>
+          <Text className={classes.titleCard}>Featured properties</Text>
           <Button
             color="dark"
             disabled={isLoading || isOpenModalAddListing}
             leftIcon={<IconPlus size={12} />}
             onClick={() => setIsOpenModalAddListing(true)}
           >
-            Add featured listing
+            Add featured property
           </Button>
           <Modal
             zIndex={200}

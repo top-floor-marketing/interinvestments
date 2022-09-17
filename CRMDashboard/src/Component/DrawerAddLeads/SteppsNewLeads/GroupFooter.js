@@ -40,7 +40,7 @@ const GroupFooter = (_) => {
                     position: 'top-right',
                     title: "Error",
                     color: 'secondary',
-                    message: 'Select Listing or Services'
+                    message: 'Select Property or Service'
                 })
             } else {
                 return nextStep()
