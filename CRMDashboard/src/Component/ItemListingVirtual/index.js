@@ -1,12 +1,14 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 
 import { Box, Checkbox, createStyles, Avatar, Text, Badge, Paper } from '@mantine/core';
 import { openConfirmModal } from '@mantine/modals';
 import { MapPin, Check } from "tabler-icons-react";
 
-import { ShareListing, ViewLandingListing, IconDownloadPdf, IconRemove, IconAddListing } from '../ActionButtons';
+import { ViewLandingListing, IconRemove, IconAddListing } from '../ActionButtons';
 
 import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore';
+
+import PdfListener from "../PdfListener";
 
 import classNames from 'classnames';
 
@@ -216,6 +218,12 @@ const ItemListingVirtual = (props) => {
     }
   }
 
+  /* useEffect(() => {
+    return () => {
+      console.log("listing ")
+    }
+  },[]) */
+
   return (
     <Box className={classes.container}>
       {usingCheck && (
@@ -233,7 +241,8 @@ const ItemListingVirtual = (props) => {
         <Box className={classes.items}>
           <Text className={classes.itemTitle}>{getTitle()}</Text>
           {isFeatured && (
-            <Badge
+            <PdfListener>
+<Badge
               className={classes.badgeFeatured}
               color="success"
               variant="filled"
@@ -242,6 +251,8 @@ const ItemListingVirtual = (props) => {
             >
               Featured
             </Badge>
+            </PdfListener>
+            
           )}
         </Box>
         <Box className={classNames(classes.items, classes.neiItem)}>
@@ -302,18 +313,7 @@ const ItemListingVirtual = (props) => {
             radius="_40px"
             size={24}
           />
-          {
-            (!usingCheck)
-            &&
-             <ShareListing
-              variant="filled"
-              color="primary"
-              id={idAgent}
-              uri={uri}
-              radius="_40px"
-              size={24}
-            />
-          }
+
           {/* {
             (!usingCheck)
             &&
