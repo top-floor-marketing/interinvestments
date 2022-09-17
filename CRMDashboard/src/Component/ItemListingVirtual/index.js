@@ -6,6 +6,7 @@ import { MapPin, Check } from "tabler-icons-react";
 
 import { ShareListing, ViewLandingListing, IconDownloadPdf, IconRemove, IconAddListing } from '../ActionButtons';
 
+import PdfPlugin from "../../PdfPlugin";
 import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore';
 
 import classNames from 'classnames';
@@ -302,6 +303,8 @@ const ItemListingVirtual = (props) => {
             radius="_40px"
             size={24}
           />
+
+          <PdfPlugin />
           {/* {
             (!usingCheck)
             &&
