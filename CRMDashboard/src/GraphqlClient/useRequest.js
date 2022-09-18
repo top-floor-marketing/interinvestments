@@ -71,7 +71,7 @@ const useQueryHelper = (props) => {
         isErrorResponse = get(errorParse, ["response", "errors", "0", "debugMessage"], null);
       }
       if(isEmpty(isErrorResponse)) {
-        throw('error => ');
+        throw new Error("error => ");
       }
       if (isErrorResponse?.includes('invalid-jwt')) {
         try {
@@ -94,7 +94,7 @@ const useQueryHelper = (props) => {
           emptyLocalStorage()
         }
       }
-      throw('not response');
+      throw new Error("not response");
     },
     {
       ...globalConfig,
