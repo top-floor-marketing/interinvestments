@@ -9,8 +9,8 @@ function App() {
   const [isMounted, setIsMounted] = useState(false);
   const [isRenderBuilder, setIsRenderBuilder] = useState(false);
 
-  const renderBuilder = useCallback((val) => {
-    console.log("renderBuilder ", val);
+  const renderBuilder = useCallback(({ detail }) => {
+    console.log("renderBuilder ", detail);
     setIsRenderBuilder(true);
   }, []);
 
