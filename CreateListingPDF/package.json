@@ -1,0 +1,43 @@
+{
+  "name": "create_listing_pdf_plugin_react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@react-pdf/renderer": "3.0.0",
+    "dayjs": "1.11.4",
+    "dotenv": "16.0.1",
+    "lodash": "4.17.21",
+    "prop-types": "15.8.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-scripts": "5.0.0",
+    "rewire": "6.0.0"
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "prod": "node ./scripts.js && npm run postbuild",
+    "postbuild": "node ./postScripts.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "10.4.2",
+    "postcss": "8.4.6",
+    "sass": "1.51.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

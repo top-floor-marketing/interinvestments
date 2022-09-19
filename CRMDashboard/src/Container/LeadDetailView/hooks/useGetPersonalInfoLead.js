@@ -7,7 +7,7 @@ import { GET_INFO_LEAD_BY_AGENT } from "../../../GraphqlClient/leads.gql";
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
 import { LOCAL_STORAGE } from "../../../Utils/globalConstants";
-import { get, omit, filter, isEmpty, findLast } from "lodash";
+import { get, omit, filter, findLast, isNull } from "lodash";
 
 const useGetPersonalInfoLead = () => {
   const {
@@ -39,15 +39,18 @@ const useGetPersonalInfoLead = () => {
       onSuccess: (response) => {
         const getInfoLead = get(response, ["historyCommentLead","0"], null)
         setDataLead(omit(getInfoLead, ["statuses"]));
-        const commentState = filter(get(getInfoLead, ["statuses"], []), (val) => !isEmpty(val?.comments)).map((val, index) => {
+        const commentState = filter(
+          get(getInfoLead, ["statuses"], []),
+          (val) => !isNull(val?.comments)
+        ).map((val) => {
           let timeLine = getColorForTimeLine(val?.status);
           return {
             ...val,
             timeline: {
               color: timeLine.color,
-              status: timeLine.status
-            }
-          }
+              status: timeLine.status,
+            },
+          };
         });
         setAllComments(commentState);
       },

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo } from 'react';
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { ArrowForwardUp } from 'tabler-icons-react';
 import { useClipboard } from '@mantine/hooks';
@@ -17,13 +17,13 @@ const ShareListing = (props) => {
   const clipboard = useClipboard({ timeout: 2000 });
 
   const clipboardCopy = () => {
-    const removeSlash = props.uri.substring(1);
+    const removeSlash = JSON.parse(JSON.stringify(props.uri.substring(1)));
     clipboard.copy(
       `${DOMAIN_URL}${removeSlash}?${URL_QUERY_ID_NAME}=${props.id}&shared=true`
     );
   }
 
-  return (
+ return (
     <Tooltip multiline
       position="top"
       color={clipboard.copied ? "success" : "dark"}
@@ -34,7 +34,7 @@ const ShareListing = (props) => {
         <ArrowForwardUp size={props.size} />
       </ActionIcon>
     </Tooltip>
-  );
+  ); 
 };
 
 // Specifies the default values for props:
@@ -43,7 +43,7 @@ ShareListing.defaultProps = {
   className: "",
   variant: "hover",
   size: 20,
-  labelTooltip: "Share listing",
+  labelTooltip: "Share property",
   id: null,
   uri: null,
   color: "dark"
@@ -60,4 +60,4 @@ ShareListing.propTypes = {
   uri: PropTypes.string,
 };
 
-export default ShareListing;
+export default memo(ShareListing);

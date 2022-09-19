@@ -24,7 +24,7 @@ IconRemove.defaultProps = {
   className: "",
   variant: "hover",
   size: 20,
-  labelTooltip: "Remove featured listing",
+  labelTooltip: "Remove featured property",
   id: null,
   color: "dark",
   position: "",

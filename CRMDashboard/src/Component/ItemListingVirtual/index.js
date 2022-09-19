@@ -1,12 +1,14 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 
 import { Box, Checkbox, createStyles, Avatar, Text, Badge, Paper } from '@mantine/core';
 import { openConfirmModal } from '@mantine/modals';
 import { MapPin, Check } from "tabler-icons-react";
 
-import { ShareListing, ViewLandingListing, IconDownloadPdf, IconRemove, IconAddListing } from '../ActionButtons';
+import { ViewLandingListing, IconRemove, IconAddListing } from '../ActionButtons';
 
 import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore';
+
+import PdfListener from "../PdfListener";
 
 import classNames from 'classnames';
 
@@ -164,7 +166,7 @@ const ItemListingVirtual = (props) => {
       children: (
         <Box className={classes.boxDialog}>
           <Text className={classes.boxDialogText}>
-            Are you sure you want to add this listing?
+            Are you sure you want to add this property?
           </Text>
           <Avatar radius="_40px" size="100px" src={getPhoto()} />
           <Text className={classes.boxDialogText}>{getTitle()}</Text>
@@ -184,7 +186,7 @@ const ItemListingVirtual = (props) => {
       children: (
         <Box className={classes.boxDialog}>
           <Text className={classes.boxDialogText}>
-            Are you sure you want to remove this listing?
+            Are you sure you want to remove this property?
           </Text>
           <Avatar radius="_40px" size="60px" src={getPhoto()} />
           <Text className={classes.boxDialogText}>{getTitle()}</Text>
@@ -216,6 +218,12 @@ const ItemListingVirtual = (props) => {
     }
   }
 
+  /* useEffect(() => {
+    return () => {
+      console.log("listing ")
+    }
+  },[]) */
+
   return (
     <Box className={classes.container}>
       {usingCheck && (
@@ -233,7 +241,8 @@ const ItemListingVirtual = (props) => {
         <Box className={classes.items}>
           <Text className={classes.itemTitle}>{getTitle()}</Text>
           {isFeatured && (
-            <Badge
+            <PdfListener>
+<Badge
               className={classes.badgeFeatured}
               color="success"
               variant="filled"
@@ -242,6 +251,8 @@ const ItemListingVirtual = (props) => {
             >
               Featured
             </Badge>
+            </PdfListener>
+            
           )}
         </Box>
         <Box className={classNames(classes.items, classes.neiItem)}>
@@ -296,12 +307,13 @@ const ItemListingVirtual = (props) => {
 
           <ViewLandingListing
             variant="filled"
-            labelTooltip="View listing"
+            labelTooltip="View property"
             id={idAgent}
             uri={uri}
             radius="_40px"
             size={24}
           />
+
           {/* {
             (!usingCheck)
             &&

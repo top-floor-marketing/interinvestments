@@ -1,8 +1,12 @@
 import React from 'react'
 // mantine
-import { Box, Divider, Text } from '@mantine/core';
+import { Box, Divider, Text, Group } from '@mantine/core';
+import { Download } from 'tabler-icons-react';
 // css
 import styles from './styles.cl.module.scss'
+// utilst
+import isArray from 'lodash/isArray';
+
 
 const ContendCollapse = (props) => {
     const defaultContend = [
@@ -28,21 +32,59 @@ const ContendCollapse = (props) => {
 
     return (
         <Box className={styles.gridContendCollapse}>
-            <div />
+            <Box />
             <Box className={styles.containerConted}>
-                <Divider my="sm" />
                 {
                     data.map((value, index) => (
                         <Box key={index}>
                             <Box className={styles.boxContend}>
-                                <Text component='span'>
-                                    <strong>{value.title}</strong>
-                                </Text>
-                                <Text component='p'>{value.value ? value.value : 'n/a'}</Text>
+                                {
+                                    (value.value) && (
+                                        isArray(value.value) ? (
+                                            <>
+                                                <Text component='span'>
+                                                    <strong>{value.title}</strong>
+                                                </Text>
+                                                <Box className={styles.containerFloorplasPdf}>
+                                                    {
+                                                        value.value.map((itemPdf, index) => (
+                                                            <Group
+                                                                key={`${itemPdf.pdf.title}_${index}`}
+                                                                spacing="xs"
+                                                                style={{ alignItems: 'center' }}
+                                                                className={styles.linkFloorPlans}
+                                                            >
+                                                                <Download size={16} />
+                                                                <Text
+                                                                    style={{ lineHeight: '17px' }}
+                                                                    target="_blank"
+                                                                    href={itemPdf.pdf.mediaItemUrl}
+                                                                    download={`${itemPdf.pdf.title}`}
+                                                                    component='a'
+                                                                >
+                                                                    {itemPdf.pdf.title}
+                                                                </Text>
+                                                            </Group>
+                                                        ))
+                                                    }
+                                                </Box>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Text component='span'>
+                                                    <strong>{value.title}</strong>
+                                                </Text>
+                                                <Text component='p'>{value.value}</Text>
+                                            </>
+                                        )
+                                    )
+                                }
                             </Box>
                             {
-                                (index < data.length - 1) && (
-                                    <Divider my="sm" />
+                                (value.value) && (
+                                    (index < data.length - 1) && (
+                                        <Divider my="sm" />
+                                    )
                                 )
                             }
                         </Box>

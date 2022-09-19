@@ -14,9 +14,6 @@ const globalConfig = {
 };
 
 const graphQLClient = new GraphQLClient(API_URL, {
-  /* headers: {
-    Authorization: `Bearer `,
-  }, */
 });
 
 const useQueryHelper = (props) => {

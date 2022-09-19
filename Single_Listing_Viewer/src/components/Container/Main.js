@@ -15,6 +15,7 @@ const Main = () => {
     const [optionTheme, setOptionTheme] = useState(null)
 
     // console.log('valueListing', valueListing)
+
     return (
         <ListingWrapper
             valueListing={valueListing}
@@ -45,7 +46,9 @@ const Main = () => {
             />
             <CollapseListing
                 data={{
-                    address: valueListing?.address.address,
+                    specs: valueListing?.listingData.newDevelopment.specs,
+                    finishes: valueListing?.listingData.newDevelopment.finishes,
+                    // address: valueListing?.address.address,
                     floorplans: valueListing?.floorplans.floorplans,
                     team: valueListing?.team.team,
                 }}

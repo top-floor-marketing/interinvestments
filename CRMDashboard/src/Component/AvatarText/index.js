@@ -6,10 +6,7 @@ import {
 import PropTypes from "prop-types";
 
 import get from "lodash/get";
-import head from "lodash/head";
 import upperCase from "lodash/upperCase";
-import words from "lodash/words";
-import trim from "lodash/trim";
 
 const useStyles = createStyles((theme, _params) => {
     return {

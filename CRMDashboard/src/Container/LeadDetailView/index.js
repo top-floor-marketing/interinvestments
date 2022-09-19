@@ -9,8 +9,9 @@ import useGetPersonalInfoLead from "./hooks/useGetPersonalInfoLead";
 
 import PersonalInfoLead from "./personalInfoLead";
 import CommentsTimeline from './commentsTimeline';
+import LeadInterested from './leadInterested';
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
     container: {
         width: "100%",
         display: "flex",
@@ -48,7 +49,8 @@ const LeadsDetailView = () => {
 
     const { actions: { setRoute } } = useClientGlobalStore();
 
-    const { dataLead, isLoading, isSkeleton, allComments } = useGetPersonalInfoLead();
+    const { dataLead, isLoading, isSkeleton, allComments, refetch } =
+      useGetPersonalInfoLead();
 
     const routeBreadCrumbs = () => {
         localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, null);
@@ -68,17 +70,26 @@ const LeadsDetailView = () => {
     ));
 
     return (
-        <SpringDiv delay={100} duration={200} fullHeight>
-            <Box className={classes.container}>
-                <Breadcrumbs>{items}</Breadcrumbs>
-                <SpringDiv delay={300} duration={300}>
-                    <Box className={classes.rowInfoAndTimeLine}>
-                        <PersonalInfoLead dataLead={dataLead} isSkeleton={isSkeleton} />
-                        <CommentsTimeline dataLead={dataLead} allComments={allComments} isLoading={isLoading} isSkeleton={isSkeleton}/>
-                    </Box>
-                </SpringDiv>
+      <SpringDiv delay={100} duration={200} fullHeight>
+        <Box className={classes.container}>
+          <Breadcrumbs>{items}</Breadcrumbs>
+          <SpringDiv delay={300} duration={300}>
+            <Box className={classes.rowInfoAndTimeLine}>
+              <PersonalInfoLead dataLead={dataLead} isSkeleton={isSkeleton} />
+              <CommentsTimeline
+                dataLead={dataLead}
+                allComments={allComments}
+                isLoading={isLoading}
+                isSkeleton={isSkeleton}
+                refetch={refetch}
+              />
             </Box>
-        </SpringDiv>
+          </SpringDiv>
+          <SpringDiv delay={400} duration={300} fullHeight>
+            <LeadInterested />
+          </SpringDiv>
+        </Box>
+      </SpringDiv>
     );
 };
 

@@ -1,83 +1,83 @@
 import { gql } from "graphql-request";
 
 export const LISTINGS_BY_SLOG = gql`
-  query listingsBySlog($title: String!) {
-    listings(where: {title: $title}, first: 1) {
-      nodes {
-        uri
-        databaseId
-        address {
-          address {
-            city
-            addressLine1
-            address2
-            state
-            zip
+    query listingsBySlog($title: String!) {
+      listings(where: {title: $title}, first: 1) {
+        nodes {
+          uri
+          databaseId
+          title
+          slug
+          neighborhoods {
+            nodes {
+              databaseId
+              name
+            }
           }
-        }
-        title
-        slug
-        neighborhoods {
-          nodes {
-            databaseId
-            name
-          }
-        }
-        team {
           team {
-            arquitect
-            fieldGroupName
-            interiorDesigner
-            landscapeArchitect
-            paymentStructure
-          }
-        }
-        listingData {
-          newDevelopment {
-            status
-            latitude
-            longitude
-            totalUnits
-            estimatedDateOfCompletion
-            description
-            video {
-              altText
-              mediaItemUrl
-              title
+            team {
+              arquitect
+              fieldGroupName
+              interiorDesigner
+              landscapeArchitect
+              paymentStructure
             }
-            photos {
-              fileSize
-              sourceUrl
-              altText
+          }
+          listingData {
+            newDevelopment {
+              status
+              latitude
+              longitude
+              totalUnits
+              estimatedDateOfCompletion
+              description
+              video {
+                altText
+                mediaItemUrl
+                title
+              }
+              photos {
+                fileSize
+                sourceUrl
+                altText
+              }
+              priceMax
+              priceMin
+              specs {
+                bath
+                bedrooms
+                fieldGroupName
+                sqft
+              }
+              finishes {
+                appliances
+                bathrooms
+                fieldGroupName
+                flooring
+                kitchenCabinets
+              }
             }
-            priceMax
-            priceMin
           }
-        }
-        listingCategories {
-          nodes {
-            slug
+          listingCategories {
+            nodes {
+              slug
+            }
           }
-        }
-        floorplans {
           floorplans {
-            photos {
-              altText
-              fileSize
-              sourceUrl
+            floorplans {
+              allPdf {
+                title
+                itemPdf {
+                  pdf {
+                    title
+                    mediaItemUrl
+                  }
+                }
+              }
             }
-            fieldGroupName
-            den
-            floorplanAcSqft
-            floorplanNBaths
-            floorplanNBeds
-            floorplanNHbaths
-            floorplanTotalSqft
-            name
           }
         }
       }
-    }
   }
 `
 

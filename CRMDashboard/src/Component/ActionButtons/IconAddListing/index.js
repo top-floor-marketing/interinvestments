@@ -24,7 +24,7 @@ IconAddListing.defaultProps = {
   className: "",
   variant: "hover",
   size: 20,
-  labelTooltip: "Add to featured listing",
+  labelTooltip: "Add to featured property",
   id: null,
   color: "dark",
   position: "",

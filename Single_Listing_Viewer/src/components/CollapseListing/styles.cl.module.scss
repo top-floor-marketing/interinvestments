@@ -49,3 +49,11 @@
         @apply font-outfit;
     }
 }
+
+.containerFloorplasPdf {
+    @apply flex flex-col gap-3;
+}
+
+.linkFloorPlans {
+    @apply transition duration-[350ms] hover:text-[#FFB839] cursor-pointer font-outfit;
+}

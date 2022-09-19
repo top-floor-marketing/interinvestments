@@ -63,12 +63,16 @@ const CardData = (props) => {
                 }
 
             </Box>
-            <Text
-                className={styles.descriptionCard}
-                component='span'
-            >
-                {description}
-            </Text>
+            {
+                (number) && (
+                    <Text
+                        className={styles.descriptionCard}
+                        component='span'
+                    >
+                        {description}
+                    </Text>
+                )
+            }
         </Box>
     )
 }

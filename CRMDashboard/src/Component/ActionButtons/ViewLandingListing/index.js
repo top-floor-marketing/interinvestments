@@ -30,7 +30,7 @@ ViewLandingListing.defaultProps = {
   className: "",
   variant: "hover",
   size: 20,
-  labelTooltip: "Visit listing",
+  labelTooltip: "View property",
   id: null,
   color: "dark"
 };

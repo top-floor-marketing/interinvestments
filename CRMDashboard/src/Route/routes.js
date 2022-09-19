@@ -20,7 +20,7 @@ export const ROUTES_NAMES = {
   LEADS: "leads",
   LEADS_DETAILS: "leads/details",
   PROFILE: "profile",
-  LISTINGS: "listings",
+  LISTINGS: "properties",
 };
 
 export const DEFAULT_ROUTE = ROUTES_NAMES.PROFILE;
@@ -90,7 +90,7 @@ export const CRM_ROUTES = [
   },
   {
     name: ROUTES_NAMES.LISTINGS,
-    label: "Listings",
+    label: "Properties",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
       <Listings />
