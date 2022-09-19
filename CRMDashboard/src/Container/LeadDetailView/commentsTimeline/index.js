@@ -14,8 +14,20 @@ import { getHotkeyHandler } from "@mantine/hooks";
 
 import { AdjustmentsAlt, MessageDots, Send } from "tabler-icons-react";
 
+// react-query
+import { useMutationHelper } from "../../../GraphqlClient/useRequest";
+import { SET_NEW_COMMENT_LEAD } from "../../../GraphqlClient/leads.gql";
+
+import {
+  notificationSuccess,
+  notificationError,
+} from "../../../Component/Notifications";
+
+import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
+
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
+import trim from "lodash/trim";
 
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -54,7 +66,7 @@ const useStyles = createStyles((theme, _params) => ({
   },
   iconSend: {
     ".icon-tabler": {
-      cursor: 'pointer !important',
+      cursor: "pointer !important",
       color: `${theme.colors.primary[6]} !important`,
       "&:hover": {
         color: `${theme.colors.primary[8]} !important`,
@@ -63,12 +75,18 @@ const useStyles = createStyles((theme, _params) => ({
   },
 }));
 
-const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments }) => {
+const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetch: refetchDataListing }) => {
   const { classes } = useStyles();
 
-  const [valueComment, setValueComment] = useState(
-      ""
-  );
+  const [valueComment, setValueComment] = useState("");
+
+  const {
+    state: {
+      user: {
+        infoUser: { databaseId },
+      },
+    },
+  } = useClientGlobalStore();
 
   const getTimeDiff = (time) => {
     if (isEmpty(time)) return null;
@@ -81,13 +99,50 @@ const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments }) => {
   };
 
   const saveComment = () => {
-    console.log("saveComment ", valueComment);
-  }
+    const comment = trim(valueComment);
+    if (comment.length > 1) {
+      const inputMutate = {
+        agentId: databaseId,
+        comments: comment,
+        statusId: get(dataLead, ["currentStatus", "statusId"], 0),
+        userLeadId: get(dataLead, ["id"], 0),
+      };
+      fetchAddNewComment({ variables: { input: inputMutate }});
+    }
+  };
+
+  // MUTATIONS
+  const { mutate: fetchAddNewComment, isLoading: isLoadingAddNewComment } = useMutationHelper({
+    name: "add-comment-lead",
+    gql: SET_NEW_COMMENT_LEAD,
+    config: {
+      onSuccess: async () => {
+        setValueComment("");
+        refetchDataListing();
+        notificationSuccess({
+          id: "add-comment-lead",
+          title: "Comment added",
+          color: "success",
+        });
+      },
+      onError: async () => {
+        refetchDataListing();
+        notificationError({
+          id: "add-comment-lead",
+          title: "Server error",
+          color: "error",
+        });
+      },
+    },
+  });
 
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Paper className={classes.cardContainer}>
-        <Box className={classes.timeLine} component={ScrollArea}>
+        <Box
+          className={classes.timeLine}
+          component={ScrollArea}
+        >
           {allComments.length ? (
             <Timeline active={allComments.length} bulletSize={24} lineWidth={3}>
               {allComments.map((val, index) => (
@@ -134,7 +189,7 @@ const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments }) => {
         <Textarea
           placeholder="Add comment"
           minRows={1}
-          disabled={isSkeleton || isLoading}
+          disabled={isSkeleton || isLoading || isLoadingAddNewComment}
           maxRows={3}
           className={classes.iconSend}
           rightSection={<Send size={24} onClick={() => saveComment()} />}

@@ -9,9 +9,9 @@ export const notificationSuccess = ({ id, title, color, icon }) => {
     disallowClose: true,
     title: title || "Success",
     color: color || 'success',
-    
     styles: (theme) => ({
       root: {
+        zIndex: 9999,
         width: "fit-content",
         marginLeft: "auto",
         backgroundColor: theme.colors.dark[6],
@@ -22,9 +22,6 @@ export const notificationSuccess = ({ id, title, color, icon }) => {
       description: { color: theme.colors.dark[1] },
     }),
     icon: icon || <Check />,
-    modalProps: {
-      zIndex: 9999
-    }
   });
 }
 
@@ -37,6 +34,7 @@ export const notificationError = ({ id, title, color, icon, message }) => {
     color: color || 'secondary',
     styles: (theme) => ({
       root: {
+        zIndex: 9999,
         width: "fit-content",
         marginLeft: "auto",
         backgroundColor: theme.colors.error[6],

@@ -14,7 +14,7 @@ function App() {
     <StoreProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeGlobalProvider>
-          <NotificationsProvider autoClose={3000} limit={2} position="top-right" zIndex={9999}>
+          <NotificationsProvider autoClose={5000} limit={3} position="top-right" zIndex={9999}>
               <Main />     
           </NotificationsProvider>
         </ThemeGlobalProvider>

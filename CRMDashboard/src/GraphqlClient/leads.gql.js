@@ -83,3 +83,74 @@ query historyCommentLead($agentId: Int = 10, $userLeadId: Int = 10) {
   }
 }
 `
+
+export const SET_NEW_COMMENT_LEAD = gql`
+  mutation commentsUserLead($input: CommentsUserLeadInput!) {
+    commentsUserLead(input: $input) {
+      leadId
+    }
+  }
+`;
+
+export const GET_LEAD_INTERESTED = gql`
+  query LeadsforLead($agentId: Int = 10, $leadByAgentId: Int = 10) {
+    dataAgent(
+      agentType: LEAD
+      agentId: $agentId
+      leadByAgentId: $leadByAgentId
+    ) {
+      leads {
+        nodes {
+          title
+          leads {
+            relationshipWithListing {
+              ... on Listing {
+                listingId
+                title
+                databaseId
+                uri
+                listingData {
+                  newDevelopment {
+                    photos {
+                      altText
+                      description
+                      sourceUrl
+                      title
+                    }
+                    contentLivingArea {
+                      livingArea
+                      priceMax
+                      priceMin
+                    }
+                    livingArea
+                    views
+                  }
+                }
+                title
+                neighborhoods {
+                  nodes {
+                    description
+                    databaseId
+                    name
+                  }
+                }
+                featuredImage {
+                  node {
+                    sourceUrl
+                    uri
+                  }
+                }
+              }
+            }
+            relationshipService {
+              ... on IRService {
+                title
+                date
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;

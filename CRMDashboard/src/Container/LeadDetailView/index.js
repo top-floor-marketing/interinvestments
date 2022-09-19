@@ -9,8 +9,9 @@ import useGetPersonalInfoLead from "./hooks/useGetPersonalInfoLead";
 
 import PersonalInfoLead from "./personalInfoLead";
 import CommentsTimeline from './commentsTimeline';
+import LeadInterested from './leadInterested';
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
     container: {
         width: "100%",
         display: "flex",
@@ -83,6 +84,9 @@ const LeadsDetailView = () => {
                 refetch={refetch}
               />
             </Box>
+          </SpringDiv>
+          <SpringDiv delay={400} duration={300} fullHeight>
+            <LeadInterested />
           </SpringDiv>
         </Box>
       </SpringDiv>
