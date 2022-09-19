@@ -1,15 +1,31 @@
 import React from 'react'
 // mantine
-import { Box, Text, Select, Group, createStyles, Loader } from '@mantine/core';
+import {
+  Box,
+  Text,
+  Select,
+  Group,
+  createStyles,
+  Loader,
+  Divider,
+} from "@mantine/core";
 import { User, Mail } from 'tabler-icons-react';
 // ustils
-import filterlodash from 'lodash/filter'
+import filterlodash from 'lodash/filter';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
-    textdropdown: {
-        marginTop: '5px',
-        marginBottom: '5px'
+  textdropdown: {
+    marginTop: "5px",
+    marginBottom: "5px",
+  },
+  selectLead: {
+    ".mantine-ActionIcon-root": {
+      color: theme.colors.dark[0],
+      "&:hover": {
+        color: theme.colors.dark[8],
+      },
     },
+  },
 }));
 
 const SelectUserLead = ({ value, data, isLoading, isError, onChange: onChangeSelect }) => {
@@ -51,25 +67,29 @@ const SelectUserLead = ({ value, data, isLoading, isError, onChange: onChangeSel
 
 
     return (
+      <>
         <Select
-            clearable
-            value={value}
-            disabled={isLoading || isError}
-            label="Select user exist"
-            placeholder="Serach user"
-            onChange={(value) => filterUserLeads(value)}
-            itemComponent={SelectItem}
-            data={formatData()}
-            rightSection={isLoading ? <Loader size={14} /> : null}
-            searchable
-            maxDropdownHeight={400}
-            nothingFound="Nobody here"
-            filter={(value, item) =>
-                item.label.toLowerCase().includes(value.toLowerCase().trim()) ||
-                item.email.toLowerCase().includes(value.toLowerCase().trim())
-            }
+          className={classes.selectLead}
+          clearable
+          value={value}
+          disabled={isLoading || isError}
+          label="Select a existing lead"
+          placeholder="Search lead"
+          onChange={(value) => filterUserLeads(value)}
+          itemComponent={SelectItem}
+          data={formatData()}
+          rightSection={isLoading ? <Loader size={14} /> : null}
+          searchable
+          maxDropdownHeight={400}
+          nothingFound="Nobody here"
+          filter={(value, item) =>
+            item.label.toLowerCase().includes(value.toLowerCase().trim()) ||
+            item.email.toLowerCase().includes(value.toLowerCase().trim())
+          }
         />
-    )
+        <Divider my="sm" />
+      </>
+    );
 }
 
 
