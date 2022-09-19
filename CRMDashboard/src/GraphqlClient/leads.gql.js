@@ -15,7 +15,7 @@ export const GET_LEADS_LIST_FOR_AGENT = gql`
           firstName
           id
           phone
-        otherPhones
+          otherPhones
         }
         commentService
         commentListing
@@ -41,7 +41,7 @@ export const GET_USER_LEADS_FOR_WIZARD = gql`
           id
           phone
           otherPhones
-          otherEmail
+          otherEmails
         }
       }
     }

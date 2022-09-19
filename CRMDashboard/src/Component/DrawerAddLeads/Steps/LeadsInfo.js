@@ -48,13 +48,13 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
 
     const onchangeSelectUserLeads = (user) => {
         console.log('onchangeSelectUserLeads', user)
-        const { firstName, lastName, email, phone, otherPhones, otherEmail } = user
+        const { firstName, lastName, email, phone, otherPhones, otherEmails } = user
         form.setValues({
             firstName,
             lastName,
             email,
             phoneNumber: phone,
-            otherEmail: otherEmail[0],
+            otherEmail: otherEmails[0],
             otherPhoneNumber: otherPhones
         })
     }
