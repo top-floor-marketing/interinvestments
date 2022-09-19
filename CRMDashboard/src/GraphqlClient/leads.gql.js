@@ -30,6 +30,24 @@ export const GET_LEADS_LIST_FOR_AGENT = gql`
   }
 `;
 
+export const GET_USER_LEADS_FOR_WIZARD = gql`
+  query dataAgentLeadsForWizard($agentId: Int!, $agentType: MasterEnum!) {
+    dataAgent(agentId: $agentId, agentType: $agentType) {
+      statuses {
+        userLead {
+          email
+          lastName
+          firstName
+          id
+          phone
+          otherPhones
+          otherEmails
+        }
+      }
+    }
+  }
+`
+
 export const COMMENTS_USER_LEAD = gql`
   mutation commentsUserLead(
     $agentId: Int!

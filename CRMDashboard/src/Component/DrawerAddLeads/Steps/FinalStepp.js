@@ -172,15 +172,6 @@ const FinalStepp = () => {
                 <Box className={classes.containerInfo}>
                     <Text component='span'>
                         <strong>
-                            Other Name:
-                        </strong>
-                    </Text>
-                    <Text component='span'>{addLeads.dataForm.otherNameLeads || 'N/A'}</Text>
-                </Box>
-
-                <Box className={classes.containerInfo}>
-                    <Text component='span'>
-                        <strong>
                             Other Email:
                         </strong>
                     </Text>
