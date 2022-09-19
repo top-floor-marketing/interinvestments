@@ -9,9 +9,10 @@ function App() {
   const [isMounted, setIsMounted] = useState(false);
   const [isRenderBuilder, setIsRenderBuilder] = useState(false);
 
-  const renderBuilder = useCallback(() => {
+  const renderBuilder = useCallback((val) => {
+    console.log("renderBuilder ", val);
     setIsRenderBuilder(true);
-  }, [])
+  }, []);
 
   useEffect(() => {
     if(!isMounted) {
