@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import { showNotification } from "@mantine/notifications";
 
 
-function PdfBuilder() {
-  console.log("PdfBuilder ");  
-  return null;
+const PdfBuilder = (props) => {
+
+  console.log("PdfBuilder ", props);
+
+  return (
+    <></>
+  );
 }
 
 export default PdfBuilder;
