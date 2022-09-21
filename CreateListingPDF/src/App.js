@@ -29,6 +29,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    console.log("PDF PLUGIN");
     if (!isMounted) {
       setIsMounted(true);
     } else {
