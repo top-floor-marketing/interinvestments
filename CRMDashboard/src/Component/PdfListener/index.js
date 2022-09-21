@@ -2,13 +2,11 @@ import { triggerPdfListing } from "./eventsListener";
 import { Box } from "@mantine/core";
 import PropTypes from 'prop-types';
 
-import random from 'lodash/random';
-
 const PdfListener = ({ children, idListing, idAgent }) => {
     const clickForTrigger = () => {
         const data = {
-            idListing: `${random(100, 25000)}`,
-            idAgent: `${random(100, 25000)}`,
+            idListing: idListing || 338,
+            idAgent: idAgent || 30,
         }
         triggerPdfListing(data);
     }
