@@ -3,7 +3,9 @@ import { useEffect, useState, useCallback } from 'react';
 import { addListener, removeListener } from './eventListener';
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { NotificationsProvider } from "@mantine/notifications";
+
+import { MantineProvider } from '@mantine/core';
+import { NavigationProgress, stopNavigationProgress } from '@mantine/nprogress';
 
 import PdfBuilder from './PdfBuilder';
 
@@ -11,10 +13,11 @@ const queryClient = new QueryClient();
 
 function App() {
   const [isMounted, setIsMounted] = useState(false);
-  const [dataForPdf, setDataForPdf] = useState(false);
+  const [dataForPdf, setDataForPdf] = useState(null);
   const [isRenderBuilder, setIsRenderBuilder] = useState(false);
 
   const closeRenderBuilder = () => {
+    setDataForPdf(null);
     setIsRenderBuilder(false);
   };
 
@@ -31,6 +34,7 @@ function App() {
       addListener(renderBuilder);
     }
     return () => {
+      stopNavigationProgress();
       removeListener(renderBuilder);
     };
   }, [isMounted, renderBuilder]);
@@ -40,13 +44,10 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <NotificationsProvider
-        position="bottom-center"
-        zIndex={9999}
-        autoClose={false}
-      >
+      <MantineProvider>
+        <NavigationProgress />
         <>
-          <div
+          {/* <div
             style={{
               width: "100%",
               height: "50px",
@@ -68,12 +69,12 @@ function App() {
             >
               Create PDF
             </button>
-          </div>
+          </div> */}
           {isRenderBuilder && (
             <PdfBuilder {...dataForPdf} onClose={closeRenderBuilder} />
           )}
         </>
-      </NotificationsProvider>
+      </MantineProvider>
     </QueryClientProvider>
   );
 

@@ -4,6 +4,11 @@ import { useQueryHelper } from '../GraphqlClient/useRequest';
 import { GET_LISTING_FOR_PDF } from '../GraphqlClient/listing.gql';
 import { GET_AGENT_PROFILE_INFO, AGENT_ROLES } from '../GraphqlClient/agent.gql';
 
+import {
+    incrementNavigationProgress,
+    stopNavigationProgress,
+} from '@mantine/nprogress';
+
 import get from 'lodash/get';
 
 const useGetListingInfo = ({ idListing, idAgent }) => {
@@ -33,7 +38,11 @@ const useGetListingInfo = ({ idListing, idAgent }) => {
                         ...infoForPdf,
                         listing: get(response, ["listings", "nodes", "0"], null)
                     });
+                    incrementNavigationProgress(15);
                 },
+                onError: () => {
+                    stopNavigationProgress();
+                }
             },
             variables: {
                 id: idListing
@@ -52,7 +61,11 @@ const useGetListingInfo = ({ idListing, idAgent }) => {
                         ...infoForPdf,
                         agent: get(response, ["dataAgent", "0"], null)
                     });
+                    incrementNavigationProgress(15);
                 },
+                onError: () => {
+                    stopNavigationProgress();
+                }
             },
             variables: getVariablesForAgent()
         }
