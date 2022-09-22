@@ -2,7 +2,7 @@ import React from 'react'
 // css
 import styles from './styles.dl.module.scss'
 // mantine
-import { Box, Text } from '@mantine/core';
+import { Box, Text, Spoiler } from '@mantine/core';
 
 const DescriptionListing = (props) => {
   const { data } = props
@@ -23,13 +23,15 @@ const DescriptionListing = (props) => {
         >
           {data.status}
         </Text>
-        <Box
-          dangerouslySetInnerHTML={descriptionHTMLDangerous()}
-          data-aos-once="true"
-          data-aos-duration='2000'
-          data-aos="fade-up"
-          className={styles.textDescription}
-        />
+        <Spoiler maxHeight={520} showLabel="Show more" hideLabel="Hide">
+          <Box
+            dangerouslySetInnerHTML={descriptionHTMLDangerous()}
+            data-aos-once="true"
+            data-aos-duration='2000'
+            data-aos="fade-up"
+            className={styles.textDescription}
+          />
+        </Spoiler>
       </Box>
     </Box>
   )

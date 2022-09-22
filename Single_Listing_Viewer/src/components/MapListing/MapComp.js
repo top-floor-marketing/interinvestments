@@ -45,7 +45,8 @@ const MapComp = (props) => {
                         uri={dataListing.uri}
                         title={dataListing.title}
                         subTitle={dataListing.neighborhoods[0]?.name}
-                        price={`$${dataListing.priceMin} - $${dataListing.priceMax}`}
+                        priceMin={dataListing.priceMin}
+                        priceMax={dataListing.priceMax}
                         lat={parseFloat(latitude)}
                         lng={parseFloat(longitude)}
                         urlImagen={dataListing.photos[0]?.sourceUrl}
@@ -57,5 +58,3 @@ const MapComp = (props) => {
 }
 
 export default MapComp
-// api key google maps
-/// AIzaSyBzy7z6wmop9ROv42s6-Rt244ZHJjOIdV0

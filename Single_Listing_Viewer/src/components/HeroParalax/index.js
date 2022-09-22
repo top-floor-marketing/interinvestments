@@ -25,14 +25,14 @@ const HeroParalax = (props) => {
                     >
                         {data.title}
                         {
-                            data.neighborhoods.length && (
+                            data.neighborhoods.length ? (
                                 <>
                                     <br />
                                     <Text component='span'>
                                         {data.neighborhoods[0].name} &nbsp;&nbsp; • ${numFormatter(data.priceMin).number + numFormatter(data.priceMin).tag} &nbsp;&nbsp; • ${numFormatter(data.priceMax).number + numFormatter(data.priceMax).tag}
                                     </Text>
                                 </>
-                            )
+                            ) : null
                         }
                     </Text>
                     <Text component='span' className={styles.icon}>

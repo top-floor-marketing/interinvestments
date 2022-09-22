@@ -6,11 +6,18 @@ import { useMediaQuery } from '@mantine/hooks';
 import imagePin from '../../assets/PinMap.svg'
 // styles 
 import style from './styles.ml.module.scss'
+// utils
+import { numFormatter } from '../../utils'
 
 const Marker = (props) => {
-    const { lat, lng, title, subTitle, price, urlImagen, uri, opened = true } = props
+    const { lat, lng, title, subTitle, price, priceMin, priceMax, urlImagen, uri, opened = true } = props
     const refImagen = useRef(null);
     const matches = useMediaQuery('(min-width: 1024px)');
+
+    const priceListing = {
+        priceMin: numFormatter(priceMin),
+        priceMax: numFormatter(priceMax)
+    }
 
     if (lat && lng) {
         return (
@@ -75,8 +82,8 @@ const Marker = (props) => {
                                     }
                                     {
                                         price && (
-                                            <Text title={`Price ${price}`} component='span' lineClamp={1}>
-                                                Price {price}
+                                            <Text title={`Price $${priceListing.priceMin.number}${priceListing.priceMin.tag} - $${priceListing.priceMax.number}${priceListing.priceMax.tag}`} component='span' lineClamp={1}>
+                                                Price {`$${priceListing.priceMin.number}${priceListing.priceMin.tag} - $${priceListing.priceMax.number}${priceListing.priceMax.tag}`}
                                             </Text>
                                         )
                                     }
