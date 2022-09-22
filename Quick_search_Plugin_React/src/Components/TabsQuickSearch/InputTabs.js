@@ -18,7 +18,7 @@ const InputTabs = (props) => {
                 input: styles.InputTabsMantine,
             }}
             rightSection={<Search />}
-            placeholder="condo name, or zip code"
+            placeholder="Condo name, or zip code"
         />
     )
 }

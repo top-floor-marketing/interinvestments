@@ -2,7 +2,8 @@ import React from 'react'
 //mantine
 import { Divider, Box, Text } from '@mantine/core';
 import { DatabaseOff } from 'tabler-icons-react';
-
+// utils
+import FormaterNumber from '../../utils/FormaterNumber'
 //css
 import styles from './styles.mqs.module.scss'
 
@@ -52,7 +53,7 @@ const CardListing = (props) => {
                                         <span
                                             className={`font-light ${styles.decriptionListing}`}
                                         >
-                                            {`Price $ ${newDevelopment.priceMin}m`} - {`$ ${newDevelopment.priceMax}m`}
+                                            {`Price $ ${FormaterNumber(newDevelopment.priceMin).number}${FormaterNumber(newDevelopment.priceMin).tag}`} - {`$ ${FormaterNumber(newDevelopment.priceMax).number}${FormaterNumber(newDevelopment.priceMax).tag}`}
                                         </span>
                                     </div>
                                 </Box>
