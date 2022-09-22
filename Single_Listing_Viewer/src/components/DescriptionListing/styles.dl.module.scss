@@ -17,4 +17,7 @@
 .textDescription {
     font-weight: 400;
     @apply mt-4 font-outfit text-[26px] md:text-[36px] leading-[40px] md:leading-[45px] overflow-auto;
+    p {
+        @apply my-4;
+    }
 }
