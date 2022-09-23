@@ -9,7 +9,6 @@ import {
 import useGetListingInfo from "./useGetListingInfo";
 import CreatePdf from "./createPdf";
 
-// https://react-pdf.org/advanced#using-the-usepdf-hook
 const PdfBuilder = ({ idListing , idAgent, idElement = null, onClose }) => {
 
   const { data, error, isLoading } = useGetListingInfo({ idListing , idAgent });
