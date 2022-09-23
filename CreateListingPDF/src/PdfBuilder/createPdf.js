@@ -13,7 +13,7 @@ import {
 
 const ID_LINK_DOWNLOAD_PDF = 'ID_LINK_DOWNLOAD_PDF';
 
-const DocumentPage = ({ listing, agent, onClose }) => {
+const CreatePdf = ({ listing, agent, onClose }) => {
   const [{ loading, error, url}] = usePDF({ document: <PdfDocument listing={listing} agent={agent} /> });
 
   const titleListing = get(listing, ["title"], 'Interinvestments');
@@ -44,4 +44,4 @@ const DocumentPage = ({ listing, agent, onClose }) => {
   );
 }
 
-export default memo(DocumentPage);
+export default memo(CreatePdf);

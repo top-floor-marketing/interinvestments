@@ -5,15 +5,14 @@ import LogoInter from '../../Assets/img/logo-inter.png';
 import get from 'lodash/get';
 
 import FooterDinamic from './footerDinamic';
+import HeaderDinamic from './headerDinamic';
 
-import { numFormatter } from './utils';
+import { numFormatter, FONT_FAMILY, INTERINVESTMENT } from './utils';
 
-const FONT_FAMILY = 'Outfit';
-const INTERINVESTMENT = 'Interinvestments';
+const PageOne = ({ listing, agent }) => {
 
-const PageOne = ({ listing }) => {
-
-    console.log("listing ", listing)
+    console.log("listing ", listing);
+    console.log("agent ", agent);
 
     const getFeaturedImage = () => {
         return 'https://i.postimg.cc/Wzhqpy9b/Cipriani-Residences-Miami-Restaurant.jpg';
@@ -131,7 +130,6 @@ const PageOne = ({ listing }) => {
                     </View>
                 </View>
             </View>
-            <FooterDinamic />
         </Page>
     )
 }

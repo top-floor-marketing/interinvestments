@@ -7,12 +7,12 @@ import words from 'lodash/words';
 
 // pages
 import PageOne from './pageOne';
+import PageTwo from './pageTwo';
 
-const FONT_FAMILY = 'Outfit';
-const INTERINVESTMENT = 'Interinvestments';
+import { FONT_FAMILY, INTERINVESTMENT } from './utils';
 
 // Register font
-Font.register({ family: FONT_FAMILY, fontStyle: "normal", fontWeight: "normal", src: OutfitFont   });
+Font.register({ family: FONT_FAMILY, fontStyle: "normal", fontWeight: "normal", src: OutfitFont });
 
 const PdfDocument = ({ listing, agent }) => {
     console.log("listing ", listing)
@@ -33,7 +33,8 @@ const PdfDocument = ({ listing, agent }) => {
 
     return (
         <Document {...DOCUMENT_METADATA}>
-            <PageOne listing={listing} />
+            <PageOne listing={listing} agent={agent} />
+            <PageTwo listing={listing} agent={agent} />
         </Document>
     )
 }

@@ -1,3 +1,6 @@
+import get from 'lodash/get';
+import toLower from 'lodash/toLower';
+
 const numFormatter = (num) => {
     const temp = parseInt(num);
     if (temp > 999 && temp < 1000000) {
@@ -22,11 +25,32 @@ const removeHttp = (url) => {
     const http = 'http://';
     return url.slice(http.length);
   }
-
   return url;
 }
 
+const addParamsToUrl = (url, agent) => {
+    const URL_SHARED_FLAG = 'shared';
+    const URL_QUERY_ID_NAME = 'agent-id';
+    const USER_ROLES = {
+        ADMIN: "administrator",
+        AGENT: 'listing agent',
+    }
+    const idAgent = parseInt(get(agent, ["databaseId"], null));
+    const rol = toLower(get(agent, ["roles"], USER_ROLES.ADMIN));
+    return (!idAgent || rol === USER_ROLES.ADMIN) 
+    ? url
+    : `${url}?${URL_QUERY_ID_NAME}=${idAgent}&${URL_SHARED_FLAG}=true`;
+}
+
+const FONT_FAMILY = 'Outfit';
+const INTERINVESTMENT = 'Interinvestments';
+const DOMAIN_PROD = process.env.REACT_APP_DOMAIN_PROD;
+
 export {
     numFormatter,
-    removeHttp
+    removeHttp,
+    addParamsToUrl,
+    FONT_FAMILY,
+    INTERINVESTMENT,
+    DOMAIN_PROD
 }

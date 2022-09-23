@@ -1,24 +1,15 @@
-import { Page, Text, Link, View, StyleSheet, Image } from '@react-pdf/renderer';
+import { Text, Link, View, StyleSheet } from '@react-pdf/renderer';
 
-import LogoInter from '../../Assets/img/logo-inter.png';
+import { removeHttp, addParamsToUrl, FONT_FAMILY, DOMAIN_PROD } from './utils';
 
-import get from 'lodash/get';
-
-import { removeHttp } from './utils';
-
-const FONT_FAMILY = 'Outfit';
-const INTERINVESTMENT = 'Interinvestments';
-const DOMAIN_PROD = process.env.REACT_APP_DOMAIN_PROD;
-
-const FooterDinamic = ({ listing }) => {
-
-    console.log("listing ", listing);
+const FooterDinamic = ({ agent }) => {
 
     const LINK_DOMAIN = {
-            fontSize: "10px",
+            textTransform: 'capitalize',
+            fontSize: "8px",
             fontWeight: 300,
             fontFamily: FONT_FAMILY,
-            color: '#FFFFFF',
+            color: '#34495e',
             textDecoration: 'none'
     }
 
@@ -40,7 +31,9 @@ const FooterDinamic = ({ listing }) => {
 
     return (
         <View style={styles.footerDinamic}>
-            <Link style={styles.linkDomain} src={DOMAIN_PROD}><Text>{removeHttp(DOMAIN_PROD)}</Text></Link>
+            <Link style={styles.linkDomain} src={addParamsToUrl(DOMAIN_PROD, agent)}>
+                <Text>{removeHttp(DOMAIN_PROD)}</Text>
+            </Link>
         </View>
     ) 
 }
