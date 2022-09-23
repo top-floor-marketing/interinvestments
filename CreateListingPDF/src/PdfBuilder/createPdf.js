@@ -1,5 +1,7 @@
 import { useEffect, memo, useCallback } from 'react';
-import { usePDF, Document, Page } from '@react-pdf/renderer';
+import { usePDF } from '@react-pdf/renderer';
+
+import PdfDocument  from './PdfDocument';
 
 import get from 'lodash/get';
 
@@ -8,23 +10,13 @@ import {
     stopNavigationProgress,
 } from '@mantine/nprogress';
 
-const ListingPdf = (
-  <Document>
-    <Page>
-
-    </Page>
-  </Document>
-);
 
 const ID_LINK_DOWNLOAD_PDF = 'ID_LINK_DOWNLOAD_PDF';
 
-const DocumentPage = ({ listing, agent, onClose }) => {
-  const [{ loading, error, url}, updateInstance] = usePDF({ document: ListingPdf });
+const CreatePdf = ({ listing, agent, onClose }) => {
+  const [{ loading, error, url}] = usePDF({ document: <PdfDocument listing={listing} agent={agent} /> });
 
-  console.log('listing ', listing);
-  console.log('agent ', agent);
-
-  const titleListing = get(listing, ["title"], 'Interinvestment');
+  const titleListing = get(listing, ["title"], 'Interinvestments');
 
   const forceDownload = useCallback(() => {
       const getElement = document.getElementById(ID_LINK_DOWNLOAD_PDF);
@@ -52,4 +44,4 @@ const DocumentPage = ({ listing, agent, onClose }) => {
   );
 }
 
-export default memo(DocumentPage);
+export default memo(CreatePdf);

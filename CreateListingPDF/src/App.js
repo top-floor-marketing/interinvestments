@@ -29,7 +29,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("PDF PLUGIN");
     if (!isMounted) {
       setIsMounted(true);
     } else {
@@ -43,13 +42,13 @@ function App() {
 
   // Hydration SSR for plugin in Wordpress
   if (!isMounted) return null;
-
+  // 338 2570
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider>
-        <NavigationProgress />
+        <NavigationProgress size='10px' zIndex={9999} color={"#ffb839"} />
         <>
-          {/* <div
+         <div
             style={{
               width: "100%",
               height: "50px",
@@ -71,7 +70,7 @@ function App() {
             >
               Create PDF
             </button>
-          </div> */}
+          </div>
           {isRenderBuilder && (
             <PdfBuilder {...dataForPdf} onClose={closeRenderBuilder} />
           )}

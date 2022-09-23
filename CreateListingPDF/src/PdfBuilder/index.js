@@ -7,9 +7,8 @@ import {
 } from '@mantine/nprogress';
 
 import useGetListingInfo from "./useGetListingInfo";
-import DocumentPage from "./documentPage";
+import CreatePdf from "./createPdf";
 
-// https://react-pdf.org/advanced#using-the-usepdf-hook
 const PdfBuilder = ({ idListing , idAgent, idElement = null, onClose }) => {
 
   const { data, error, isLoading } = useGetListingInfo({ idListing , idAgent });
@@ -40,7 +39,7 @@ const PdfBuilder = ({ idListing , idAgent, idElement = null, onClose }) => {
   }, [idElement, error, onClose]);
 
   return (
-    (error || isLoading) ? null : <DocumentPage {...data} onClose={onClose} />
+    (error || isLoading) ? null : <CreatePdf {...data} onClose={onClose} />
   );
 }
 
