@@ -25,6 +25,7 @@ const Main = () => {
             <HeroParalax
                 data={{
                     ...valueListing?.listingData.newDevelopment,
+                    featuredImage: valueListing?.featuredImage,
                     title: valueListing?.title,
                     neighborhoods: valueListing?.neighborhoods.nodes
                 }}

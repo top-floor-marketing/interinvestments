@@ -5,6 +5,12 @@ export const LISTINGS_BY_SLOG = gql`
       listings(where: {title: $title}, first: 1) {
         nodes {
           uri
+          featuredImage {
+            node{
+              altText
+              sourceUrl
+            }
+          }
           databaseId
           title
           slug

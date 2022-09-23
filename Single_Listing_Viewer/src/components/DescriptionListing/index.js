@@ -5,6 +5,8 @@ import styles from './styles.dl.module.scss'
 import { Box, Text, Spoiler } from '@mantine/core';
 
 const DescriptionListing = (props) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const show_more = urlParams.get('showmore')
   const { data } = props
 
   const descriptionHTMLDangerous = () => {
@@ -23,8 +25,14 @@ const DescriptionListing = (props) => {
         >
           {data.status}
         </Text>
-        <Spoiler maxHeight={520} showLabel="Show more" hideLabel="Hide">
+        <Spoiler
+          initialState={show_more || false}
+          maxHeight={520}
+          showLabel="Show more"
+          hideLabel="Hide"
+        >
           <Box
+            id='status_show_more'
             dangerouslySetInnerHTML={descriptionHTMLDangerous()}
             data-aos-once="true"
             data-aos-duration='2000'
