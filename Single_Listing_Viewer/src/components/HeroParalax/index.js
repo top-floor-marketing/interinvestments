@@ -15,10 +15,7 @@ const HeroParalax = (props) => {
 
     const gerUrlImagenParax = () => {
         let url = get(data, ["featuredImage", "node", "sourceUrl"], null);
-
-        if (!url) {
-            url = get(data, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], null);
-        }
+        if (!url) url = get(data, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], null);
         return url;
     }
 
