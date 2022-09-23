@@ -1,4 +1,4 @@
-import { Document, Font, Page, Text  } from '@react-pdf/renderer';
+import { Document, Font} from '@react-pdf/renderer';
 
 import OutfitFont from '../../Assets/outfit-cdnfonts/OutfitRegular.ttf';
 
@@ -15,8 +15,6 @@ import { FONT_FAMILY, INTERINVESTMENT } from './utils';
 Font.register({ family: FONT_FAMILY, fontStyle: "normal", fontWeight: "normal", src: OutfitFont });
 
 const PdfDocument = ({ listing, agent }) => {
-    console.log("listing ", listing)
-    console.log("agent ", agent)
 
     const DOCUMENT_METADATA = {
         title: get(listing, ["title"], INTERINVESTMENT),

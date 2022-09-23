@@ -29,6 +29,7 @@ export const GET_LISTING_FOR_PDF = gql`
             priceMin
             priceMax
             nameOfDevelopment
+            status
           }
         }
         title

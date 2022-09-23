@@ -135,9 +135,9 @@ const stylesProvider = () => {
                         color: (_variant === "filled") ? filledColor : theme.colors[_color][0],
                         backgroundColor: (_variant === "filled") ? filledBackground : "transparent",
                         "&:hover": {
-                            backgroundColor: (_variant === "filled") ? theme.colors[_color][9] : "transparent",
+                            backgroundColor: (_variant === "filled") ? theme.colors[_color][6] : "transparent",
                             color: (_variant === "filled") ? theme.colors.white[1] : theme.colors[_color][6],
-                            transform: "scale(1.1)"
+                            transform: "scale(1.15)"
                         },
                         "&:disabled": {
                             backgroundColor: "transparent",
@@ -146,9 +146,9 @@ const stylesProvider = () => {
                         },
                         ".icon-tabler-logout": {
                             "&:hover": {
-                                color: theme.colors.error[0],
+                                color: theme.colors.error[6],
                             },
-                        }
+                        },
                     },
                 }
             }

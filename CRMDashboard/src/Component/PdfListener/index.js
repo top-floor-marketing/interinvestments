@@ -2,11 +2,14 @@ import { triggerPdfListing } from "./eventsListener";
 import { Box } from "@mantine/core";
 import PropTypes from 'prop-types';
 
-const PdfListener = ({ children, idListing, idAgent }) => {
+const PdfListener = ({ children, idListing, idAgent, idElement }) => {
+    // idListing: int, idAgent: int, idElement: string
+    // CreateListingPDF plugin
     const clickForTrigger = () => {
         const data = {
-            idListing: idListing || 338,
-            idAgent: idAgent || 30,
+            idListing,
+            idAgent,
+            idElement
         }
         triggerPdfListing(data);
     }

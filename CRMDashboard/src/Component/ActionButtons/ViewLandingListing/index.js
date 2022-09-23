@@ -8,7 +8,7 @@ const URL_QUERY_ID_NAME = "agent-id";
 
 const ViewLandingListing = (props) => {
 
-  const fullUrl = `${props.uri}?${URL_QUERY_ID_NAME}=${props.id}&shared=true`;
+  const fullUrl = `${props.uri}?${URL_QUERY_ID_NAME}=${props.idAgent}&shared=true`;
 
   return (
     <Tooltip multiline
@@ -17,7 +17,7 @@ const ViewLandingListing = (props) => {
       placement={"center"}
       label={props.labelTooltip}
       className={props.className}>
-      <ActionIcon component="a" href={fullUrl} target="_blank" {...omit(props, ['labelTooltip', 'id'])}>
+      <ActionIcon component="a" href={fullUrl} target="_blank" {...omit(props, ['labelTooltip', 'idAgent'])}>
         <Eye size={props.size} />
       </ActionIcon>
     </Tooltip>
@@ -31,7 +31,7 @@ ViewLandingListing.defaultProps = {
   variant: "hover",
   size: 20,
   labelTooltip: "View property",
-  id: null,
+  idAgent: null,
   color: "dark"
 };
 
@@ -42,7 +42,7 @@ ViewLandingListing.propTypes = {
   variant: PropTypes.oneOf(['transparent', 'hover', "default", "outline", "filled", "light"]),
   size: PropTypes.number,
   labelTooltip: PropTypes.string,
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  idAgent: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export default ViewLandingListing;

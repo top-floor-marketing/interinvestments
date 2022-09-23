@@ -11,9 +11,6 @@ import { numFormatter, FONT_FAMILY, INTERINVESTMENT } from './utils';
 
 const PageOne = ({ listing, agent }) => {
 
-    console.log("listing ", listing);
-    console.log("agent ", agent);
-
     const getFeaturedImage = () => {
         return 'https://i.postimg.cc/Wzhqpy9b/Cipriani-Residences-Miami-Restaurant.jpg';
         /* let url = get(listing, ["featuredImage", "node", "sourceUrl"], null);
@@ -23,8 +20,11 @@ const PageOne = ({ listing, agent }) => {
 
     const styles = StyleSheet.create({
         page: {
+            display: 'flex',
             flexDirection: 'column',
             backgroundColor: 'white',
+            width: '100%',
+            height: '100%',
         },
         containerImage: {
             width: '100%',

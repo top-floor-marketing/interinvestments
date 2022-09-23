@@ -46,12 +46,14 @@ const HeaderDinamic = ({ listing, agent }) => {
         }
     });
 
+    const urlListing = get(listing, ["uri"], null);
+
     return (
         <View style={styles.headerDinamic}>
-            <Link style={styles.imageLogo} src={addParamsToUrl(DOMAIN_PROD, agent)}>
+            <Link style={styles.imageLogo} src={addParamsToUrl(DOMAIN_PROD, agent, urlListing)}>
                 <Image src={LogoInterBlack} />
             </Link>
-            <Link wrap style={styles.linkTitle} src={addParamsToUrl(DOMAIN_PROD, agent)}>
+            <Link wrap style={styles.linkTitle} src={addParamsToUrl(DOMAIN_PROD, agent, urlListing)}>
                 <Text>
                     {
                         `${get(listing, ["title"], '')}`
