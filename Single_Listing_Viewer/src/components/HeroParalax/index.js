@@ -6,14 +6,24 @@ import { Box, Text, Button } from '@mantine/core';
 import { ChevronDown } from 'tabler-icons-react';
 // utils
 import { numFormatter } from '../../utils'
+import get from 'lodash/get'
 
 const HeroParalax = (props) => {
     const { data } = props
+
+    // console.log("HeroParalax", data)
+
+    const gerUrlImagenParax = () => {
+        let url = get(data, ["featuredImage", "node", "sourceUrl"], null);
+        if (!url) url = get(data, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], null);
+        return url;
+    }
+
     return (
         <Box className='relative w-full h-full'>
             <Box style={{ zIndex: 1 }} className={`${styles.ParallaxCroma}`} />
             <Box
-                style={{ backgroundImage: `url(${data.photos[0].sourceUrl})` }}
+                style={{ backgroundImage: `url(${gerUrlImagenParax()})` }}
                 className={styles.BoxImagenParalax}
             >
                 <div style={{ zIndex: 1 }} className={styles.containerParalax}>
