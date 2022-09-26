@@ -24,6 +24,8 @@ export const GET_LISTING_FOR_PDF = gql`
               sourceUrl
               title
             }
+            estimatedDateOfCompletion
+            totalUnits
             livingArea
             views
             priceMin

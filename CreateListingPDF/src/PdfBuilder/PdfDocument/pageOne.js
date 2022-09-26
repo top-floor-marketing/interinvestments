@@ -4,18 +4,15 @@ import LogoInter from '../../Assets/img/logo-inter.png';
 
 import get from 'lodash/get';
 
-import FooterDinamic from './footerDinamic';
-import HeaderDinamic from './headerDinamic';
-
-import { numFormatter, FONT_FAMILY, INTERINVESTMENT } from './utils';
+import { FONT_FAMILY, INTERINVESTMENT } from './utils';
 
 const PageOne = ({ listing, agent }) => {
 
     const getFeaturedImage = () => {
-        return 'https://i.postimg.cc/Wzhqpy9b/Cipriani-Residences-Miami-Restaurant.jpg';
-        /* let url = get(listing, ["featuredImage", "node", "sourceUrl"], null);
+        //return 'https://i.postimg.cc/Wzhqpy9b/Cipriani-Residences-Miami-Restaurant.jpg';
+        let url = get(listing, ["featuredImage", "node", "sourceUrl"], null);
         if(!url) url = get(listing, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], null);
-        return url; */
+        return url;
     }
 
     const styles = StyleSheet.create({
@@ -119,14 +116,14 @@ const PageOne = ({ listing, agent }) => {
                         <Text style={(get(listing, ["neighborhoods", "nodes", "0", "name"], 'Neighborhood').length > 30) ? { ...styles.textSubtitle, ...styles.textNei } : { ...styles.textSubtitle }}>
                             {get(listing, ["neighborhoods", "nodes", "0", "name"], 'Neighborhood')}
                         </Text>
-                        <Text style={styles.pointDivider}>.</Text>
+                       {/*  <Text style={styles.pointDivider}>.</Text>
                         <Text style={styles.textSubtitle}>
                             {numFormatter(get(listing, ["listingData", "newDevelopment", "priceMin"], 0))}
                         </Text>
                         <Text style={styles.pointDivider}>.</Text>
                         <Text style={styles.textSubtitle}>
                             {numFormatter(get(listing, ["listingData", "newDevelopment", "priceMax"], 0))}
-                        </Text>
+                        </Text> */}
                     </View>
                 </View>
             </View>

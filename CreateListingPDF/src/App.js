@@ -42,13 +42,13 @@ function App() {
 
   // Hydration SSR for plugin in Wordpress
   if (!isMounted) return null;
-  // 338 2570
+  // 338 2570 328
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider>
         <NavigationProgress size='10px' zIndex={9999} color={"#ffb839"} />
         <>
-        {/*  <div
+      {/*   <div
             style={{
               width: "100%",
               height: "50px",
@@ -61,7 +61,7 @@ function App() {
               onClick={() =>
                 renderBuilder({
                   detail: {
-                    idListing: 2570,
+                    idListing: 328,
                     idAgent: 30,
                     idElement: "btnTest"
                   },
