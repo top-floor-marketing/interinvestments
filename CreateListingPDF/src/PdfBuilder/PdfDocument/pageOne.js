@@ -9,7 +9,7 @@ import { FONT_FAMILY, INTERINVESTMENT } from './utils';
 const PageOne = ({ listing, agent }) => {
 
     const getFeaturedImage = () => {
-        //return 'https://i.postimg.cc/Wzhqpy9b/Cipriani-Residences-Miami-Restaurant.jpg';
+        // return 'https://i.postimg.cc/Wzhqpy9b/Cipriani-Residences-Miami-Restaurant.jpg';
         let url = get(listing, ["featuredImage", "node", "sourceUrl"], null);
         if(!url) url = get(listing, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], null);
         return url;

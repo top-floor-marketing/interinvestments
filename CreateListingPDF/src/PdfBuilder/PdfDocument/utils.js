@@ -60,7 +60,7 @@ const PADDING_FOR_PAGES = {
     flexDirection: 'column',
     width: '100%',
     height: '100%',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#f5f6fa',
     paddingTop: '22px',
     paddingBottom: '22px',
     paddingRight: "2%",

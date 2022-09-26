@@ -16,18 +16,9 @@ dayjs.extend(customParseFormat);
 
 const PageTwo = ({ listing, agent }) => {
 
-    /* console.log("---------------")
-    console.log("PageTwo")
-    console.log("listing ", listing);
-    console.log("agent ", agent);
-    console.log("---------------") */
-
     const description = removeTags(get(listing, ["listingData", "newDevelopment", "description"], ""));
     const status = removeTags(get(listing, ["listingData", "newDevelopment", "status"], ""));
 
-    console.log("listing ", listing);
-    /* estimatedDateOfCompletion
-            totalUnits */
     const styles = StyleSheet.create({
         page: {
             display: 'flex',

@@ -8,6 +8,7 @@ import words from 'lodash/words';
 // pages
 import PageOne from './pageOne';
 import PageTwo from './pageTwo';
+import PageThree from './pageThree';
 
 import { FONT_FAMILY, INTERINVESTMENT } from './utils';
 
@@ -33,6 +34,7 @@ const PdfDocument = ({ listing, agent }) => {
         <Document {...DOCUMENT_METADATA}>
             <PageOne listing={listing} agent={agent} />
             <PageTwo listing={listing} agent={agent} />
+            <PageThree listing={listing} agent={agent} />
         </Document>
     )
 }
