@@ -9,6 +9,7 @@ import words from 'lodash/words';
 import PageOne from './pageOne';
 import PageTwo from './pageTwo';
 import PageThree from './pageThree';
+import PageFour from './pageFour';
 
 import { FONT_FAMILY, INTERINVESTMENT } from './utils';
 
@@ -32,9 +33,19 @@ const PdfDocument = ({ listing, agent }) => {
 
     return (
         <Document {...DOCUMENT_METADATA}>
-            <PageOne listing={listing} agent={agent} />
+          {/*   <PageOne listing={listing} agent={agent} />
             <PageTwo listing={listing} agent={agent} />
-            <PageThree listing={listing} agent={agent} />
+            */}
+           {/*  {
+                (get(listing, ["listingData", "newDevelopment", "photos"], null))
+                &&
+                <PageThree listing={listing} agent={agent} />
+            } */}
+            {
+                (get(listing, ["listingData", "newDevelopment", "specs"], null))
+                &&
+                <PageFour  listing={listing} agent={agent} />
+            }
         </Document>
     )
 }

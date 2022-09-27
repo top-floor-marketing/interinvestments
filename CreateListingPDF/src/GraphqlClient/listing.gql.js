@@ -24,6 +24,19 @@ export const GET_LISTING_FOR_PDF = gql`
               sourceUrl
               title
             }
+            finishes {
+              appliances
+              bathrooms
+              fieldGroupName
+              flooring
+              kitchenCabinets
+            }
+            specs {
+              bath
+              bedrooms
+              fieldGroupName
+              sqft
+            }
             estimatedDateOfCompletion
             totalUnits
             livingArea
