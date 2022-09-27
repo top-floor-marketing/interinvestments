@@ -14,8 +14,6 @@ const Main = () => {
     const [valueListing, setValueListing] = useState(null)
     const [optionTheme, setOptionTheme] = useState(null)
 
-    // console.log('valueListing', valueListing)
-
     return (
         <ListingWrapper
             valueListing={valueListing}

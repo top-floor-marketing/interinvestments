@@ -13,9 +13,9 @@ const HeroParalax = (props) => {
 
     // console.log("HeroParalax", data)
 
-    const gerUrlImagenParax = () => {
+    const getBackgroundImage = () => {
         let url = get(data, ["featuredImage", "node", "sourceUrl"], null);
-        if (!url) url = get(data, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], null);
+        if (!url) url = get(data, ["photos", "0", "sourceUrl"], null);
         return url;
     }
 
@@ -23,7 +23,7 @@ const HeroParalax = (props) => {
         <Box className='relative w-full h-full'>
             <Box style={{ zIndex: 1 }} className={`${styles.ParallaxCroma}`} />
             <Box
-                style={{ backgroundImage: `url(${gerUrlImagenParax()})` }}
+                style={{ backgroundImage: `url(${getBackgroundImage()})` }}
                 className={styles.BoxImagenParalax}
             >
                 <div style={{ zIndex: 1 }} className={styles.containerParalax}>

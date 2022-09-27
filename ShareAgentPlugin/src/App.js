@@ -4,7 +4,6 @@ import isEqual from 'lodash/isEqual';
 import toInteger from 'lodash/toInteger';
 import toLower from "lodash/toLower";
 import isEmpty from 'lodash/isEmpty';
-import findLast from 'lodash/findLast';
 
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
