@@ -111,7 +111,7 @@ const PageTwo = ({ listing, agent }) => {
     const urlListing = get(listing, ["uri"], null);
     const isMaxExceed = (get(listing, ["listingData", "newDevelopment", "description"], "").length > 800)
     const estDate = dayjs(get(listing, ["listingData", "newDevelopment", "estimatedDateOfCompletion"], ""), ["DD-MM-YY"]).format("MM.YYYY");
-        
+
     return (
         <Page size="A4" style={styles.page} orientation={"landscape"}>
             <View style={styles.containerPageTwo}>
@@ -126,15 +126,15 @@ const PageTwo = ({ listing, agent }) => {
                         <Link style={styles.linkMore} src={addParamsToUrl(DOMAIN_PROD, agent, urlListing)}><Text>View More</Text></Link>
                     }
                 </View>
-  
+
             </View>
             <View style={styles.viewPrice}>
-                <Image style={styles.imageRectangle} src={RectanglePageTwo} alt={INTERINVESTMENT} />       
+                <Image style={styles.imageRectangle} src={RectanglePageTwo} alt={INTERINVESTMENT} />
                 <View style={styles.contentPrice}>
 
                     <View style={styles.itemPrice}>
-                      <Text style={styles.priceBigValue}>{estDate}</Text>
-                      <Text style={styles.priceTextLabel}>Est. Date of Completion</Text>
+                        <Text style={styles.priceBigValue}>{estDate}</Text>
+                        <Text style={styles.priceTextLabel}>Est. Date of Completion</Text>
                     </View>
 
                     <View style={styles.itemPrice}>
@@ -144,17 +144,19 @@ const PageTwo = ({ listing, agent }) => {
                     </View>
 
                     <View style={styles.itemPrice}>
-                    <Text style={styles.priceBigValue}>
+                        <Text style={styles.priceBigValue}>
                             ${numFormatter(get(listing, ["listingData", "newDevelopment", "priceMax"], ""))}</Text>
-                    <Text style={styles.priceTextLabel}>Price Max</Text>
+                        <Text style={styles.priceTextLabel}>Price Max</Text>
                     </View>
-                     
-                    <View style={styles.itemPrice}>
-                    <Text style={styles.priceBigValue}>
-                            {numFormatter(get(listing, ["listingData", "newDevelopment", "totalUnits"], ""))}</Text>
-                    <Text style={styles.priceTextLabel}>Total Units</Text>
-                    </View>
-
+                    {
+                        numFormatter(get(listing, ["listingData", "newDevelopment", "totalUnits"], null))
+                        &&
+                        <View style={styles.itemPrice}>
+                            <Text style={styles.priceBigValue}>
+                                {numFormatter(get(listing, ["listingData", "newDevelopment", "totalUnits"], ""))}</Text>
+                            <Text style={styles.priceTextLabel}>Total Units</Text>
+                        </View>
+                    }
                 </View>
             </View>
             <HeaderDinamic listing={listing} agent={agent} />

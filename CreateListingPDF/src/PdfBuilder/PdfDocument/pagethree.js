@@ -7,12 +7,8 @@ import HeaderDinamic from './headerDinamic';
 
 import { INTERINVESTMENT, PADDING_FOR_PAGES } from './utils';
 
-const pageThree = ({ listing, agent }) => {
+const PageThree = ({ listing, agent }) => {
 
-    console.log("listing ", listing);
-
-    /* estimatedDateOfCompletion
-            totalUnits */
     const styles = StyleSheet.create({
         page: {
             display: 'flex',
@@ -100,4 +96,4 @@ const pageThree = ({ listing, agent }) => {
     return null
 }
 
-export default pageThree;
+export default PageThree;
