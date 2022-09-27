@@ -90,8 +90,6 @@ const useGetFeaturedDev = () => {
         }
     });
 
-
-
     // 3
     useQueryHelper({
         name: 'ACF_OPTIONS_GlOBAL_OPTIONS_By_AllListingView',

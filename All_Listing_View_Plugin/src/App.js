@@ -20,11 +20,9 @@ function App() {
   }, []);
   return (
     <Provider store={store}>
-      <div className='App'>
         <QueryClientProvider client={queryClient}>
           <Main />
         </QueryClientProvider>
-      </div>
     </Provider>
   )
 }

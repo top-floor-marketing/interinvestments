@@ -40,7 +40,7 @@ const FiltersListings = () => {
                     input: '!pr-[45px] !pl-[14px]'
                 }}
                 rightSection={<Search size={21} />}
-                placeholder="conde name, or zip code"
+                placeholder="Filter by name, condo or zip code"
                 radius="xl"
                 size="md"
             />
@@ -53,7 +53,7 @@ const FiltersListings = () => {
                     dispatch(setEmptyData())
                 }}
                 className={styles.inputsearch}
-                placeholder="select Neighborhood"
+                placeholder="Select Neighborhood"
                 radius="xl"
                 clearable
                 size="md"

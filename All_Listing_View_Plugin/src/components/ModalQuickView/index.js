@@ -11,11 +11,15 @@ import ModalHOC from "./ModalHOC";
 // react-query
 import { useQueryHelper } from '../../GraphqlClient/useRequest';
 import { GET_SINGLE_LISTING_GQL } from '../../GraphqlClient/GQL'
+
+//lodash
+import toInteger from 'lodash/toInteger';
+
 // styles
 import styles from "./styles_alv.module.scss";
 
 const URL_QUERY_ID_NAME = "agent-id";
-const ID_LOCALSTORAGE_NAME = "lead-agent";
+// const ID_LOCALSTORAGE_NAME = "lead-agent";
 
 const ModalQuickView = ({ onClose, idSingleListing }) => {
   const [content, setContent] = useState(null)
@@ -48,8 +52,9 @@ const ModalQuickView = ({ onClose, idSingleListing }) => {
     },
   });
 
-  const idInLocalStorage = parseInt(localStorage.getItem(ID_LOCALSTORAGE_NAME));
-  const finalUri = (idInLocalStorage && content?.uri) ? `${content.uri}?${URL_QUERY_ID_NAME}=${idInLocalStorage}&shared=true` : (content?.uri || "")
+  const queryParams = new URLSearchParams(window.location.search);
+  const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
+  const finalUri = (idInUrl) ? `${content?.uri||""}?${URL_QUERY_ID_NAME}=${idInUrl}&shared=true` : (content?.uri || "")
 
   const allProps = {
     modalHoc: {

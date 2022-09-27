@@ -15,7 +15,6 @@ const GridQuickView = ({
   openModalQuickView = (id) => { console.log('ModalId', id) },
   showOverlay = false,
   isMobileScreen = false,
-  index
 }) => {
   // @apply should not be used with the 'group' utility
   const allProps = {
@@ -64,9 +63,10 @@ const GridQuickView = ({
     },
   };
 
+  console.log("data ", data)
+
   return (
     <Paper
-      key={index}
       {...allProps.paperItem}
     >
       {isMobileScreen ? (

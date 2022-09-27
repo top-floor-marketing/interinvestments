@@ -20,8 +20,6 @@ const useQueryHelper = (props) => {
   return useQuery(
     [name],
     async ({ signal }) => {
-     // const data = await graphQLClient.request(gql, variables);
-     // const data = await graphQLClient.request(gql, variables,signal);
      const data = client.request({ document: gql, variables, signal });
      return data;
     },

@@ -8,27 +8,18 @@ const SkeletonFilters = () => {
     return (
         <Box className={styles.ContainerFilters}>
             <Skeleton
-                classNames={{
-                    root: 'mb-0'
-                }}
                 className={styles.inputsearch}
                 height={42}
                 circle
                 mb="xl"
             />
             <Skeleton
-                classNames={{
-                    root: 'mb-0'
-                }}
                 className={styles.inputsearch}
                 height={42}
                 circle
                 mb="xl"
             />
             <Skeleton
-                classNames={{
-                    root: 'mb-0'
-                }}
                 className={styles.inputsearch}
                 height={42}
                 circle

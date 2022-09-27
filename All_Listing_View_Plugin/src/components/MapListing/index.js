@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 //mantine
-import { Box, Overlay } from '@mantine/core';
+import { Box, LoadingOverlay } from '@mantine/core';
 // components
 import Marker from './Marker'
 // map
@@ -17,7 +17,7 @@ const MapListing = (props) => {
         lng: -80.191788
     })
     const { isLoading } = props
-    const { mapApiKey, dataListing } = useSelector((state) => state.statusQuery)
+    const { mapApiKey, dataListing } = useSelector((state) => state.statusQuery);
 
     useEffect(() => {
         if (dataListing.length) {
@@ -31,17 +31,17 @@ const MapListing = (props) => {
 
     return (
         <Box className='relative w-full h-full'>
-            {
-                (isLoading) && (
-                    <Overlay
+                    <LoadingOverlay
+                        loaderProps={{ size: 'sm', color: '#FFB839', variant: 'bars' }}
+                        visible={isLoading}
                         className={style.overlayMapListing}
-                        opacity={0}
-                        color="#000"
                         zIndex={100}
+                        overlayOpacity={0.2}
+                        overlayColor="#f5f6fa"
+                        transitionDuration={500}
+                        overlayBlur={0.5}
                     />
-                )
-            }
-            <GoogleMapReact
+         {/*  <GoogleMapReact
                 options={{
                     styles: stylesmaps
                 }}
@@ -67,8 +67,7 @@ const MapListing = (props) => {
                     })
                 }
 
-            </GoogleMapReact>
-
+            </GoogleMapReact> */}
         </Box>
     )
 }

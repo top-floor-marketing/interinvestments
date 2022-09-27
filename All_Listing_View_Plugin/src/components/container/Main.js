@@ -75,8 +75,12 @@ const Main = () => {
                                 >
                                     <LoadingOverlay
                                         className={style.overlayGridListing}
+                                        loaderProps={{ size: 'sm', color: '#FFB839', variant: 'bars' }}
                                         visible={loadingListing}
-                                    //  overlayBlur={2}
+                                        overlayOpacity={0.2}
+                                        overlayColor="#c5c5c5"
+                                        transitionDuration={500}
+                                        overlayBlur={0.5}
                                     />
                                     <GridListing
                                         openModalQuickView={onOpenModal}
@@ -90,7 +94,7 @@ const Main = () => {
                                 </Box>
                             )
                         }
-                        <Box className={style.containerMap}>
+                       <Box className={style.containerMap}>
                             {
                                 (isSkeleton) ? (
                                     <LoaderMaps />
