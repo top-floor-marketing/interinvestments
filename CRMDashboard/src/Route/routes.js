@@ -1,13 +1,19 @@
 import React from "react";
 
-import { LayoutGrid, Home2, Users } from "tabler-icons-react";
+import { LayoutGrid, Home2, Users, Briefcase } from "tabler-icons-react";
 
 import AuthComponent from '../Container/AuthView';
 import ProfileComponent from '../Container/ProfileView';
 import Listings from '../Container/ListingsView';
 import LeadsView from '../Container/LeadsView';
 import LeadsDetailView from "../Container/LeadDetailView";
-import Pipeline from '../Container/PipelineView'
+import Pipeline from '../Container/PipelineView';
+import AgentsView from "../Container/AgentsView";
+
+const USER_ROLES = {
+  ADMIN: 'MASTER',
+  AGENT: 'AGENT',
+}
 
 export const LAYOUT_NAMES = {
   EMPTY: "empty",
@@ -16,6 +22,7 @@ export const LAYOUT_NAMES = {
 
 export const ROUTES_NAMES = {
   AUTH: "auth",
+  AGENTS: "agents",
   PIPELINE: "pipeline",
   LEADS: "leads",
   LEADS_DETAILS: "leads/details",
@@ -23,21 +30,9 @@ export const ROUTES_NAMES = {
   LISTINGS: "properties",
 };
 
-export const DEFAULT_ROUTE = ROUTES_NAMES.PROFILE;
+export const DEFAULT_ROUTE = ROUTES_NAMES.PIPELINE;
 
 export const CRM_ROUTES = [
-  {
-    name: ROUTES_NAMES.LEADS_DETAILS,
-    label: "Leads",
-    layout: LAYOUT_NAMES.DASHBOARD,
-    component: () => (
-      <LeadsDetailView />
-    ),
-    useInNavbar: false,
-    loginRequired: true,
-    icon: null,
-    roles: ["administrator"]
-  },
   {
     name: ROUTES_NAMES.AUTH,
     label: null,
@@ -48,7 +43,31 @@ export const CRM_ROUTES = [
     useInNavbar: false,
     loginRequired: false,
     icon: null,
-    roles: ["administrator"]
+    roles: []
+  },
+  {
+    name: ROUTES_NAMES.LEADS_DETAILS,
+    label: "Leads",
+    layout: LAYOUT_NAMES.DASHBOARD,
+    component: () => (
+      <LeadsDetailView />
+    ),
+    useInNavbar: false,
+    loginRequired: true,
+    icon: null,
+    roles: []
+  },
+  {
+    name: ROUTES_NAMES.AGENTS,
+    label: "Agents",
+    layout: LAYOUT_NAMES.DASHBOARD,
+    component: () => (
+      <AgentsView />
+    ),
+    useInNavbar: true,
+    loginRequired: true,
+    icon: () => <Briefcase size={25} strokeWidth={2} color={"white"} />,
+    roles: [USER_ROLES.ADMIN]
   },
   {
     name: ROUTES_NAMES.PROFILE,
@@ -60,10 +79,8 @@ export const CRM_ROUTES = [
     useInNavbar: false,
     loginRequired: true,
     icon: null,
-    roles: ["administrator"]
+    roles: []
   },
-
-  // test
   {
     name: ROUTES_NAMES.PIPELINE,
     label: "Pipeline",
@@ -74,7 +91,7 @@ export const CRM_ROUTES = [
     useInNavbar: true,
     loginRequired: true,
     icon: () => <Home2 size={25} strokeWidth={2} color={"white"} />,
-    roles: ["administrator"]
+    roles: []
   },
   {
     name: ROUTES_NAMES.LEADS,
@@ -86,7 +103,7 @@ export const CRM_ROUTES = [
     useInNavbar: true,
     loginRequired: true,
     icon: () => <Users size={25} strokeWidth={2} color={"white"} />,
-    roles: ["administrator"]
+    roles: []
   },
   {
     name: ROUTES_NAMES.LISTINGS,
@@ -98,6 +115,6 @@ export const CRM_ROUTES = [
     useInNavbar: true,
     loginRequired: true,
     icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
-    roles: ["administrator"]
+    roles: []
   },
 ];

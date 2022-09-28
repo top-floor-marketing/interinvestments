@@ -1,13 +1,13 @@
 import React from "react";
 
-import useVerifyRoute from "./useVerifyRoute";
+import useVerifyUserIsLogin from "./useVerifyUserIsLogin";
 
 import LoadingFull from "../../Component/LoadingFull";
 
 import RoutesContainer from "./routesContainer";
 
 const ContainerCRM = () => {
-  const { loadingVerify } = useVerifyRoute();
+  const { loadingVerify } = useVerifyUserIsLogin();
   return loadingVerify ? (
     <LoadingFull isLoadingLazy idLazy="ContainerCRM" />
   ) : (

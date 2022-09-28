@@ -33,15 +33,17 @@ const RoutesContainer = () => {
 
   const { classes } = useStyles();
 
-  const { state: { global: { route: routeInStore } } } = useClientGlobalStore();
+  const { state: { global: { route: routeInStore }, user } } = useClientGlobalStore();
   const { finishSetStatus } = useGetGlobalData();
+
+  const agentType = get(user, ["infoUser", "agentType"], null);
 
   useEffect(() => {
     const element = document.querySelector("#wpadminbar");
     if(element) {
       element.style.display = 'none';
     }
-  },[])
+  },[]);
 
   const routeActive = get(filter(CRM_ROUTES, (o) => {
     return o.name === routeInStore;
@@ -51,9 +53,11 @@ const RoutesContainer = () => {
     return <LoadingFull isLoadingLazy idLazy="finishSetStatus" />
   }
 
+  const viewValid = (routeActive.roles.length === 0 || routeActive.roles.includes(agentType));
+
   return (
     <Box className={classes.mainContainer}>
-      {isEmpty(routeActive) ? (
+      {isEmpty(routeActive) || !viewValid ? (
         <NotFound404 />
       ) : routeActive.layout === LAYOUT_NAMES.DASHBOARD ? (
         <DashboardLayout>{routeActive.component()}</DashboardLayout>
