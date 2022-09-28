@@ -23,7 +23,7 @@ function App() {
 
   const renderBuilder = useCallback(({ detail }) => {
     // idListing: int, idAgent: int, idElement: string
-    // console.log("renderBuilder ", detail);
+    console.log("renderBuilder ", detail);
     setDataForPdf(detail);
     setIsRenderBuilder(true);
   }, []);
