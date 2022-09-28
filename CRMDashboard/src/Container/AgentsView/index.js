@@ -2,6 +2,11 @@ import {memo} from 'react';
 import { Box, createStyles, Paper } from "@mantine/core";
 import SpringDiv from "../../Component/SpringDiv";
 
+import SkeletonAgents from './skeletonAgents';
+import GridAgents from './gridAgents';
+
+import useGetAllAgents from './hooks/useGetAllAgents';
+
 const useStyles = createStyles((theme, _params) => ({
   container: {
     width: "100%",
@@ -15,7 +20,7 @@ const useStyles = createStyles((theme, _params) => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    position: "relative"
+    position: "relative",
   },
   virtualAllListings: {
     width: "100%",
@@ -36,14 +41,18 @@ const useStyles = createStyles((theme, _params) => ({
 const AgentsView = () => {
   const { classes } = useStyles();
 
-  return (
+  const { isLoading, isSkeleton } = useGetAllAgents();
+
+  return isSkeleton ? (
+    <SkeletonAgents />
+  ) : (
     <Box className={classes.container}>
       <SpringDiv delay={100} duration={300}>
-        
       </SpringDiv>
       <SpringDiv delay={300} duration={300} fullHeight>
-        <Paper className={classes.containerListings}>
-        </Paper>
+        <Box className={classes.containerListings}>
+            <GridAgents />
+        </Box>
       </SpringDiv>
     </Box>
   );
