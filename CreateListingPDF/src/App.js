@@ -29,6 +29,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    console.log("CREATE PDF");
     if (!isMounted) {
       setIsMounted(true);
     } else {
