@@ -24,6 +24,7 @@ const ButtonProgress = ({ idListing }) => {
             idListing: idListing || null,
             idAgent: idInUrl || null
         }
+        console.log("details ", details)
         triggerPdfListing(details);
     }
 
