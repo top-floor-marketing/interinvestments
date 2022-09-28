@@ -15,7 +15,7 @@
 }
 
 .containerMap {
-    @apply w-full h-inherit lg:h-full lg:w-[60%];
+    @apply w-full h-inherit lg:h-full lg:w-[45%] 2xl:w-[60%];
 }
 
 .containerGridInfinite {
@@ -23,7 +23,7 @@
 }
 
 .sectionGridListing {
-    @apply w-full h-auto my-5 lg:w-2/5 relative;
+    @apply w-full h-auto my-5 lg:w-[55%] 2xl:w-[40%] relative;
 }
 
 .overlayGridListing {
