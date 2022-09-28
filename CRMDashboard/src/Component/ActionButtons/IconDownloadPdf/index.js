@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { FileDownload } from 'tabler-icons-react';
 import PropTypes from 'prop-types';
@@ -8,6 +9,12 @@ import omit from 'lodash/omit';
 
 const IconDownloadPdf = (props) => {
   const idElement = `pdf_${props.idListing}`;
+  const [disableRender, setDisableRender] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setDisableRender(false);
+    }, 1500);
+  }, [])
   return (
     <PdfListener idAgent={props.idAgent} idListing={props.idListing}  idElement={idElement}>
       <Tooltip multiline
@@ -17,7 +24,7 @@ const IconDownloadPdf = (props) => {
         label={props.labelTooltip}
         className={props.className}>
 
-        <ActionIcon id={idElement} {...omit(props, ['labelTooltip', 'idListing', 'idAgent'])}>
+        <ActionIcon id={idElement} {...omit(props, ['labelTooltip', 'idListing', 'idAgent'])} disabled={disableRender} >
           <FileDownload size={props.size} />
         </ActionIcon>
 

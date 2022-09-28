@@ -1,5 +1,5 @@
 import { Box, createStyles } from "@mantine/core";
-import React from "react";
+import React, { useEffect } from "react";
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 import useGetGlobalData from "./useGetGlobalData";
@@ -35,6 +35,13 @@ const RoutesContainer = () => {
 
   const { state: { global: { route: routeInStore } } } = useClientGlobalStore();
   const { finishSetStatus } = useGetGlobalData();
+
+  useEffect(() => {
+    const element = document.querySelector("#wpadminbar");
+    if(element) {
+      element.style.display = 'none';
+    }
+  },[])
 
   const routeActive = get(filter(CRM_ROUTES, (o) => {
     return o.name === routeInStore;

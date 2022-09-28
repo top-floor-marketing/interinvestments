@@ -5,9 +5,11 @@ import get from 'lodash/get';
 import FooterDinamic from './footerDinamic';
 import HeaderDinamic from './headerDinamic';
 
-import { FONT_FAMILY, INTERINVESTMENT, PADDING_FOR_PAGES } from './utils';
+import { FONT_FAMILY, PADDING_FOR_PAGES } from './utils';
 
-const PageFour = ({ listing, agent }) => {
+const PageFive = ({ listing, agent }) => {
+
+    console.log("PageFive ", listing)
 
     const styles = StyleSheet.create({
         page: {
@@ -16,10 +18,10 @@ const PageFour = ({ listing, agent }) => {
             width: '100%',
             height: '100%',
         },
-        containerPageFour: {
+        containerPageFive: {
             ...PADDING_FOR_PAGES,
         },
-        infoPageFour: {
+        infoPageFive: {
             display: 'flex',
             flexDirection: 'row',
             width: '90%',
@@ -69,9 +71,10 @@ const PageFour = ({ listing, agent }) => {
     });
 
     const specs = {
-        bath: parseInt(get(listing, ["listingData", "newDevelopment", "specs", "bath"], null)),
-        bedrooms: parseInt(get(listing, ["listingData", "newDevelopment", "specs", "bedrooms"], null)),
-        sqft: get(listing, ["listingData", "newDevelopment", "specs", "sqft"], null)
+        bath: parseInt(get(listing, ["listingData", "newDevelopment", "finishes", "bathrooms"], null)),
+        appliances: get(listing, ["listingData", "newDevelopment", "finishes", "appliances"], null),
+        kitchenCabinets: get(listing, ["listingData", "newDevelopment", "finishes", "kitchenCabinets"], null),
+        flooring: parseInt(get(listing, ["listingData", "newDevelopment", "finishes", "flooring"], null)),
     }
 
     return (
@@ -79,17 +82,17 @@ const PageFour = ({ listing, agent }) => {
             size="A4"
             style={styles.page}
             orientation={"landscape"}>
-            <View style={styles.containerPageFour}>
-                <View style={styles.infoPageFour}>
-                    <Text style={styles.textNumber}>01</Text>
+            <View style={styles.containerPageFive}>
+                <View style={styles.infoPageFive}>
+                    <Text style={styles.textNumber}>02</Text>
                     <View style={styles.dataContainer}>
-                        <Text style={styles.textTitle}>Specs</Text>
+                        <Text style={styles.textTitle}>Finishes</Text>
                         {
                             (specs.bath)
                             &&
                             <View style={styles.rowData}>
                                 <Text style={styles.textRowDataTitle}>
-                                    Bath
+                                    Bathrooms
                                 </Text>
                                 <Text style={styles.textRowDataInfo}>
                                     {specs.bath}
@@ -97,26 +100,38 @@ const PageFour = ({ listing, agent }) => {
                             </View>
                         }
                         {
-                            (specs.bedrooms)
+                            (specs.flooring)
                             &&
                             <View style={styles.rowData}>
-                                <Text  style={styles.textRowDataTitle}>
-                                    Bedrooms
+                                <Text style={styles.textRowDataTitle}>
+                                    Flooring
                                 </Text>
                                 <Text style={styles.textRowDataInfo}>
-                                    {specs.bedrooms}
+                                    {specs.flooring}
                                 </Text>
                             </View>
                         }
                         {
-                            (specs.sqft)
+                            (specs.kitchenCabinets)
                             &&
                             <View style={styles.rowData}>
-                                <Text  style={styles.textRowDataTitle}>
-                                    Sqft
+                                <Text style={styles.textRowDataTitle}>
+                                Kitchen Cabinets
                                 </Text>
                                 <Text style={styles.textRowDataInfo}>
-                                    {specs.sqft}
+                                    {specs.kitchenCabinets}
+                                </Text>
+                            </View>
+                        }
+                         {
+                            (specs.appliances)
+                            &&
+                            <View style={styles.rowData}>
+                                <Text style={styles.textRowDataTitle}>
+                                Appliances
+                                </Text>
+                                <Text style={styles.textRowDataInfo}>
+                                    {specs.appliances}
                                 </Text>
                             </View>
                         }
@@ -129,4 +144,4 @@ const PageFour = ({ listing, agent }) => {
     )
 }
 
-export default PageFour;
+export default PageFive;
