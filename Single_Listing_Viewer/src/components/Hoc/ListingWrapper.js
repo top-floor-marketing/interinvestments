@@ -53,7 +53,6 @@ const ListingWrapper = (props) => {
         },
         config: {
             onSuccess: (req) => {
-                console.log("req ", req)
                 setValueListing(...req.listings.nodes)
             }
         }
