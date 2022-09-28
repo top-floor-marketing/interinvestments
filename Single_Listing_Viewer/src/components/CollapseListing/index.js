@@ -10,7 +10,6 @@ import CollapseContainer from './CollapseContainer'
 import styles from './styles.cl.module.scss';
 
 import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
 
 const CollapseListing = (props) => {
     const { data } = props
@@ -64,17 +63,14 @@ const CollapseListing = (props) => {
 
     const floorplansData = () => {
         const allPdf = get(data, ["floorplans", "allPdf"], [])
-        return isEmpty(allPdf) ? [] : allPdf.map((value) => {
+        return allPdf.map((value) => {
             return (
                 {
                     title: value.title,
-                    value: [...get(value, ["itemPdf",], [])]
+                    value: get(value, ["itemPdf",], [])
                 }
             )
         });
-
-
-
     }
 
     const TeamData = () => {
@@ -135,18 +131,15 @@ const CollapseListing = (props) => {
                 />
             </CollapseContainer>
 
-            {
-
-                <CollapseContainer
-                    delayAnimatio='500'
-                    title='Floorplans'
-                    index='03'
-                >
-                    <ContendCollapse
-                        data={floorplansData()}
-                    />
-                </CollapseContainer>
-            }
+            <CollapseContainer
+                delayAnimatio='500'
+                title='Floorplans'
+                index='03'
+            >
+                <ContendCollapse
+                    data={floorplansData()}
+                />
+            </CollapseContainer>
 
             <CollapseContainer
                 delayAnimatio='800'

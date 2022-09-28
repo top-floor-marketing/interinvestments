@@ -45,10 +45,10 @@ const Main = () => {
             />
             <CollapseListing
                 data={{
-                    specs: valueListing?.listingData.newDevelopment.specs,
-                    finishes: valueListing?.listingData.newDevelopment.finishes,
+                    specs: valueListing?.listingData?.newDevelopment.specs,
+                    finishes: valueListing?.listingData?.newDevelopment.finishes,
                     // address: valueListing?.address.address,
-                    floorplans: valueListing?.floorplans.floorplans,
+                    floorplans: valueListing?.floorplans?.floorplans,
                     team: valueListing?.team.team,
                 }}
             />

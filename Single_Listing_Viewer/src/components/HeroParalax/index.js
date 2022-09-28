@@ -11,8 +11,6 @@ import get from 'lodash/get'
 const HeroParalax = (props) => {
     const { data } = props
 
-    // console.log("HeroParalax", data)
-
     const getBackgroundImage = () => {
         let url = get(data, ["featuredImage", "node", "sourceUrl"], null);
         if (!url) url = get(data, ["photos", "0", "sourceUrl"], null);
