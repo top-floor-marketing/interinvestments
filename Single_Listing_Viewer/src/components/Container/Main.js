@@ -8,9 +8,11 @@ import CollapseListing from '../CollapseListing'
 import MapListing from '../MapListing'
 import VideoListing from '../VideoListing'
 // Hoc
-import ListingWrapper from '../Hoc/ListingWrapper'
+import ListingWrapper from '../Hoc/ListingWrapper';
+import get from 'lodash/get';
 
 const Main = () => {
+    
     const [valueListing, setValueListing] = useState(null)
     const [optionTheme, setOptionTheme] = useState(null)
 
@@ -44,6 +46,7 @@ const Main = () => {
                 }}
             />
             <CollapseListing
+                idListing={get(valueListing, ["databaseId"], null)}
                 data={{
                     specs: valueListing?.listingData?.newDevelopment.specs,
                     finishes: valueListing?.listingData?.newDevelopment.finishes,

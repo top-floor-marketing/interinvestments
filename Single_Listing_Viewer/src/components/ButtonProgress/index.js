@@ -1,48 +1,50 @@
 import React from 'react'
 // mantine
-import { Progress, Box, Button } from '@mantine/core';
+import { Box, Button } from '@mantine/core';
 import { FileDownload } from 'tabler-icons-react';
-// Hooks
-import useCouter from '../../Hook/useCouter'
+
+import { triggerPdfListing } from './listenerPDF.js';
+
+import toInteger from 'lodash/toInteger';
 
 // styles
-import stylesGlobal from '../../styles.global.module.scss'
+import stylesGlobal from '../../styles.global.module.scss';
 
-const ButtonProgress = () => {
-    const { counterState, isActivate, activateCounter } = useCouter()
+const URL_QUERY_ID_NAME = 'agent-id';
+
+const ButtonProgress = ({ idListing }) => {
+
+    const idElementButtonPdf = 'idElementButtonPdf';
 
     const createPDFListing = () => {
-        activateCounter()
+        const queryParams = new URLSearchParams(window.location.search);
+        const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
+        const details = {
+            idElement: idElementButtonPdf,
+            idListing: idListing || null,
+            idAgent: idInUrl || null
+        }
+        triggerPdfListing(details);
     }
 
     return (
-        <Box className={stylesGlobal.genericLisFlex}>
-            <Box>
+        <Box className={stylesGlobal.genericLisFlex} 
+                data-aos-once="true"
+                data-aos-delay='700'
+                data-aos-duration='1000'
+                data-aos="fade-right"
+        >
                 <Button
+                    id={idElementButtonPdf}
                     onClick={() => createPDFListing()}
                     className={stylesGlobal.buttonAll}
                     radius="lg"
                     size="lg"
-                    disabled={isActivate}
                     rightIcon={<FileDownload />}
                     uppercase
                 >
-                    create PDF
+                    Download PDF Property
                 </Button>
-            </Box>
-            {
-                (isActivate) && (
-                    <Box className='w-full max-w-[450px]'>
-                        <Progress
-                            value={counterState}
-                            color="dark"
-                            radius="xs"
-                            size="xs"
-                        />
-                    </Box>
-                )
-            }
-
         </Box>
     )
 }

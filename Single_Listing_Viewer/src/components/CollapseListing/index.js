@@ -12,7 +12,7 @@ import styles from './styles.cl.module.scss';
 import get from 'lodash/get';
 
 const CollapseListing = (props) => {
-    const { data } = props
+    const { data, idListing } = props
 
     const SpecsData = () => {
         const newArray = []
@@ -132,7 +132,7 @@ const CollapseListing = (props) => {
             </CollapseContainer>
 
             <CollapseContainer
-                delayAnimatio='500'
+                delayAnimatio='300'
                 title='Floorplans'
                 index='03'
             >
@@ -142,7 +142,7 @@ const CollapseListing = (props) => {
             </CollapseContainer>
 
             <CollapseContainer
-                delayAnimatio='800'
+                delayAnimatio='400'
                 title='Team'
                 index='04'
             >
@@ -151,11 +151,12 @@ const CollapseListing = (props) => {
                 />
             </CollapseContainer>
             <CollapseContainer
-                delayAnimatio='1100'
+                delayAnimatio='500'
                 title='Downloads'
                 index='05'
+                defaultOpen={true}
             >
-                <ButtonProgress />
+                <ButtonProgress idListing={idListing} />
             </CollapseContainer>
         </Box>
     )

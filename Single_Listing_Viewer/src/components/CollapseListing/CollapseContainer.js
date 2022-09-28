@@ -12,20 +12,23 @@ const defaultChildren = (
 )
 
 const CollapseContainer = (props) => {
-    const [opened, setOpen] = useState(false)
+    
     const {
         title = 'text title',
         children = defaultChildren,
         delayAnimatio = '300',
-        index = '01'
-    } = props
+        index = '01',
+        defaultOpen = false
+    } = props;
+
+    const [opened, setOpen] = useState(defaultOpen)
 
     return (
         <>
             <Box
                 data-aos-once="true"
                 data-aos-delay={delayAnimatio}
-                data-aos-duration='2000'
+                data-aos-duration='1000'
                 data-aos="fade-right"
                 className={styles.container}>
                 <Text component='span' className={styles.textIndex}>{index}</Text>
