@@ -23,7 +23,7 @@ function App() {
 
   const renderBuilder = useCallback(({ detail }) => {
     // idListing: int, idAgent: int, idElement: string
-    console.log("renderBuilder ", renderBuilder);
+    // console.log("renderBuilder ", detail);
     setDataForPdf(detail);
     setIsRenderBuilder(true);
   }, []);
@@ -79,9 +79,6 @@ function App() {
     </QueryClientProvider>
   );
 
-  // return isRenderBuilder ? (
-  //   <PdfBuilder {...dataForPdf} onClose={closeRenderBuilder} />
-  // ) : null;
 }
 
 export default App;

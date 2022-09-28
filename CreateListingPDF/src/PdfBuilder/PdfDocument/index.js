@@ -11,6 +11,7 @@ import PageTwo from './pageTwo';
 import PageThree from './pageThree';
 import PageFour from './pageFour';
 import PageFive from './pageFive';
+import PageAgentProfile from './pageAgentProfile';
 
 import { FONT_FAMILY, INTERINVESTMENT } from './utils';
 
@@ -51,6 +52,7 @@ const PdfDocument = ({ listing, agent }) => {
                 &&
                 <PageFive listing={listing} agent={agent} />
             }
+            <PageAgentProfile listing={listing} agent={agent} />
         </Document>
     )
 }
