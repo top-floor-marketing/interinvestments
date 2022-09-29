@@ -19,10 +19,7 @@ const useGetAgentListing = ({ idAgent = null }) => {
   const [isSkeleton, setIsSkeleton] = useState(true);
 
   const useOfficeFeatured = (!idAgent && agentType === USER_ROLES_CRM.ADMIN);
-
-  console.log("idAgent ", idAgent)
-  console.log("useOfficeFeatured ", useOfficeFeatured)
-
+  
   const formatResponseDataAdmin = (response) => {
     const listings = get(response, ["listings", "nodes"], []);
     return listings.map((val) => {
