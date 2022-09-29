@@ -44,6 +44,7 @@ const NavBarDashboard = ({ opened }) => {
 
   const LOGO_ITEM = "_logo_";
 
+  const agentType = get(infoUser, ["agentType"], null);
   const avatarUrl = get(infoUser, ["avatarProfile"], null);
   const email = get(infoUser, ["email"], null);
   const fullName = get(infoUser, ["firstName"], "").concat(
@@ -126,6 +127,8 @@ const NavBarDashboard = ({ opened }) => {
     },
   };
 
+  const routesByRole = CRM_ROUTES.filter((val) => val.useInNavbar && (val.roles.length === 0 || val.roles.includes(agentType)));
+
   return (
     <Navbar {..._allProps.navbar}>
       <Box {..._allProps.boxContainer}>
@@ -139,8 +142,7 @@ const NavBarDashboard = ({ opened }) => {
               />
             </Box>
           </MediaQuery>
-          {CRM_ROUTES.map((val, index) => {
-            if (val.useInNavbar)
+          {routesByRole.map((val, index) => {
               return (
                 <Box {..._allProps.itemNav(val.name)} key={index}>
                   {routeActive === val.name && (
@@ -150,7 +152,6 @@ const NavBarDashboard = ({ opened }) => {
                   <Text style={{ fontSize: "18px" }}>{val.label}</Text>
                 </Box>
               );
-            return null;
           })}
         </Navbar.Section>
         <Navbar.Section>

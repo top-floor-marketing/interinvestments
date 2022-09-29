@@ -64,6 +64,22 @@ query GetAgentInfo($agentId: Int = 10, $agentType: MasterEnum) {
   }
 `;
 
+// Admin Query 
+export const ADMIN_GET_ALL_AGENTS = gql`
+query GetAgentInfo {
+    dataAgent(agentId: null, agentType: AGENT) {
+      id
+      databaseId
+      email
+      firstName
+      lastName
+      phone
+      position
+      avatarProfile
+    }
+  }
+`;
+
 // Mutations
 export const MUTATION_EDIT_AGENT_PROFILE = gql`
 mutation agentEditProfile(

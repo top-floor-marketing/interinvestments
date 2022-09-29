@@ -13,7 +13,7 @@ import { getAgentTypeByRole } from "../../GlobalStore/useActionsUser";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 
-const useVerifyRoute = () => {
+const useVerifyUserIsLogin = () => {
 
   const { state: { global: { isLoadingFull } }, actions: { setLoadingFull, setInfoUser, setRoute, setLogout } } = useClientGlobalStore();
 
@@ -56,12 +56,14 @@ const useVerifyRoute = () => {
         if (!infoAgent)
           setLogout();
 
-        setRoute(routeInLocalStorage);
-        setInfoUser(infoAgent);
+        else {
+          setRoute(routeInLocalStorage);
+          setInfoUser(infoAgent);
 
-        setTimeout(() => {
-          setLoadingFull(false);
-        }, 700)
+          setTimeout(() => {
+            setLoadingFull(false);
+          }, 700)
+        }
 
       },
       onError: (e) => {
@@ -77,7 +79,7 @@ const useVerifyRoute = () => {
   return {
     loadingVerify: isLoadingFull,
   };
-  
+
 };
 
-export default useVerifyRoute;
+export default useVerifyUserIsLogin;
