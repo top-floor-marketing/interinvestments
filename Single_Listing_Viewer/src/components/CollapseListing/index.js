@@ -1,6 +1,7 @@
 import React from 'react'
 // components
 import ContendCollapse from './ContendCollapse'
+import TableContendCollapse from './TableContendCollapse';
 import ButtonProgress from '../ButtonProgress'
 // mantine
 import { Box, Divider } from '@mantine/core';
@@ -35,7 +36,6 @@ const CollapseListing = (props) => {
         return newArray
     }
 
-
     const finishesData = () => {
         const newArray = []
         Array({ ...data.finishes }).map((value) => (
@@ -62,14 +62,9 @@ const CollapseListing = (props) => {
     }
 
     const floorplansData = () => {
-        const allPdf = get(data, ["floorplans", "allPdf"], [])
+        const allPdf = get(data, ["floorplans"], [])
         return allPdf.map((value) => {
-            return (
-                {
-                    title: value.title,
-                    value: get(value, ["itemPdf",], [])
-                }
-            )
+            return ({ ...value.floorplans })
         });
     }
 
@@ -136,7 +131,29 @@ const CollapseListing = (props) => {
                 title='Floorplans'
                 index='03'
             >
-                <ContendCollapse
+                <TableContendCollapse
+                    columns={[
+                        {
+                            title: 'Name',
+                            dataIndex: 'name',
+                        },
+                        {
+                            title: 'Pdf File',
+                            dataIndex: 'pdf',
+                        },
+                        {
+                            title: 'Bed/Bath',
+                            dataIndex: 'bedbath',
+                        },
+                        {
+                            title: 'AC Sqft',
+                            dataIndex: 'acSqft',
+                        },
+                        {
+                            title: 'Total Sqft',
+                            dataIndex: 'totalSqft',
+                        }
+                    ]}
                     data={floorplansData()}
                 />
             </CollapseContainer>

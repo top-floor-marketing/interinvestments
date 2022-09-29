@@ -12,9 +12,11 @@ import ListingWrapper from '../Hoc/ListingWrapper';
 import get from 'lodash/get';
 
 const Main = () => {
-    
+
     const [valueListing, setValueListing] = useState(null)
     const [optionTheme, setOptionTheme] = useState(null)
+
+    // console.log('valueListing', valueListing)
 
     return (
         <ListingWrapper
@@ -51,7 +53,7 @@ const Main = () => {
                     specs: valueListing?.listingData?.newDevelopment.specs,
                     finishes: valueListing?.listingData?.newDevelopment.finishes,
                     // address: valueListing?.address.address,
-                    floorplans: valueListing?.floorplans?.floorplans,
+                    floorplans: valueListing?.floorplans?.allFloorplans,
                     team: valueListing?.team.team,
                 }}
             />

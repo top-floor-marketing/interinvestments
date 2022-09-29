@@ -33,7 +33,7 @@
 }
 
 .gridContendCollapse {
-    @apply grid grid-cols-3 gap-4;
+    @apply grid grid-cols-2 gap-4 pl-2 lg:pl-[25%];
 }
 
 .containerConted {
@@ -54,6 +54,14 @@
     @apply flex flex-col gap-3;
 }
 
+.containerTable {
+    @apply w-full max-w-lg lg:max-w-full overflow-auto;
+}
+
+.textTable {
+    @apply font-outfit text-[17px];
+}
+
 .linkFloorPlans {
-    @apply transition duration-[350ms] hover:text-[#FFB839] cursor-pointer font-outfit;
+    @apply transition duration-[350ms] text-[#0069c2] hover:text-[#13548c] cursor-pointer font-outfit;
 }
