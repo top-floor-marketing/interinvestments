@@ -74,6 +74,7 @@ const GridAgents = ({ data }) => {
             modal: classes.modal,
             body: classes.bodyModal,
           }}
+          overflow="inside"
         >
           <ProfileView idAgent={openModal.idAgent} />
         </Modal>

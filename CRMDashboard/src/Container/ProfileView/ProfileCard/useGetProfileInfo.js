@@ -40,7 +40,9 @@ const useGetProfileInfo = ({ idAgent }) => {
             setIsSkeleton(false);
             const data = formatResponseData(response);
             setDataAgent(data);
-            setInfoUser(data);
+            // idAgent prop is for component in a modal
+            if(!idAgent)
+              setInfoUser(data);
           },
           onError: (e) => {
             setIsSkeleton(false);

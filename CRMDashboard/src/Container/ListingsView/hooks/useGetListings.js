@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQueryHelper, useMutationHelper } from "../../../GraphqlClient/useRequest";
 import { GET_LISTINGS_CATEGORY, GET_ALL_NEIGHBORHOODS, GET_ALL_LISTINGS } from "../../../GraphqlClient/listings.gql";
 import { GET_AGENT_FEATURED_LISTING, MUTATION_ADD_AGENT_LISTING, MUTATION_DETELE_AGENT_LISTING } from "../../../GraphqlClient/agentProfile.gql";
@@ -128,7 +128,7 @@ const useGetListings = () => {
         await refetch();
         notificationSuccess({
           id: 'add-agent-listing',
-          title: "Listing added",
+          title: "Featured property added",
           color: 'success'
         });
       },
@@ -151,7 +151,7 @@ const useGetListings = () => {
         await refetch();
         notificationSuccess({
           id: 'remove-agent-listing',
-          title: "Listing removed",
+          title: "Featured property removed",
           color: 'success'
         });
       },

@@ -4,9 +4,12 @@ import { useViewportSize } from '@mantine/hooks';
 import { IconPlus } from '@tabler/icons';
 
 import useGetAgentListing from "./useGetAgentListing";
+import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
 import { ListingVirtual } from "../../../Component/VirtualListContainer";
 import ListingView from '../../ListingsView';
+
+import { USER_ROLES_CRM } from "../../../GlobalStore/utils";
 
 const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
@@ -44,22 +47,26 @@ const useStyles = createStyles((theme, _params) => ({
   }
 }));
 
-const FeaturedListing = () => {
+const FeaturedListing = ({ idAgent = null }) => {
+
+  const {
+    state: { user: { infoUser: { agentType } } },
+  } = useClientGlobalStore();
 
   const { width } = useViewportSize();
 
   const { classes } = useStyles({ width });
 
-  const { isSkeleton, isLoading, listingAgent, totalData, refetchData } = useGetAgentListing();
+  const { isSkeleton, isLoading, listingAgent, totalData, refetchData } = useGetAgentListing({idAgent});
 
   const [isOpenModalAddListing, setIsOpenModalAddListing] = useState(false);
 
   const getSizeModal = useCallback(() => {
-    if(width>2000) return "80%";
-    if(width>900) return "85%";
-    if(width>800) return "95%";
+    if (width > 2000) return "80%";
+    if (width > 900) return "85%";
+    if (width > 800) return "95%";
     return "97%"
-  },[width])
+  }, [width])
 
   const onCloseModalAddListing = () => {
     setIsOpenModalAddListing(false);
@@ -68,33 +75,49 @@ const FeaturedListing = () => {
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Card className={classes.cardContainer}>
+
         <Group position="apart">
-          <Text className={classes.titleCard}>Featured properties</Text>
-          <Button
-            color="dark"
-            disabled={isLoading || isOpenModalAddListing}
-            leftIcon={<IconPlus size={12} />}
-            onClick={() => setIsOpenModalAddListing(true)}
-          >
-            Add featured property
-          </Button>
-          <Modal
-            zIndex={200}
-            onClose={() => onCloseModalAddListing()}
-            centered
-            closeOnEscape
-            closeOnClickOutside={false}
-            opened={isOpenModalAddListing}
-            size={getSizeModal()}
-            overflow="inside"
-            classNames={{
-              modal: classes.modal,
-              body: classes.bodyModal,
-            }}
-          >
-            <ListingView />
-          </Modal>
+          <Text className={classes.titleCard}>
+            {
+              (idAgent || agentType === USER_ROLES_CRM.AGENT)
+              ? 
+              'Featured properties'
+              :
+              'Interinvestments featured properties'
+            }
+          </Text>
+          {
+            (!idAgent && agentType === USER_ROLES_CRM.AGENT)
+            &&
+            <>
+              <Button
+                color="dark"
+                disabled={isLoading || isOpenModalAddListing}
+                leftIcon={<IconPlus size={12} />}
+                onClick={() => setIsOpenModalAddListing(true)}
+              >
+                Add featured property
+              </Button>
+              <Modal
+                zIndex={200}
+                onClose={() => onCloseModalAddListing()}
+                centered
+                closeOnEscape
+                closeOnClickOutside={false}
+                opened={isOpenModalAddListing}
+                size={getSizeModal()}
+                overflow="inside"
+                classNames={{
+                  modal: classes.modal,
+                  body: classes.bodyModal,
+                }}
+              >
+                <ListingView />
+              </Modal>
+            </>
+          }
         </Group>
+
         <Box className={classes.containerInfinite}>
           {!isSkeleton && (
             <ListingVirtual

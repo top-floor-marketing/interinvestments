@@ -64,6 +64,69 @@ query GetAgentInfo($agentId: Int = 10, $agentType: MasterEnum) {
   }
 `;
 
+const TAG_NAME = 'Featured Developments';
+export const GET_TAG_FEATURED_DEVELOPMENTS = gql`
+query getTag {
+  tags(where: { nameLike: "${TAG_NAME}" } ) {
+    nodes {
+      databaseId
+      name
+    }
+  }
+}
+`;
+
+export const GET_LISTING_FEATURED_DEVELOPMENTS_OFFICE =  gql`
+query getListings($tagId: String) {
+  listings(
+    where: { tagId: $tagId }, 
+    first: 25
+    after: "") {
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+    nodes {
+      databaseId
+      date
+      title
+      uri
+      neighborhoods {
+        nodes {
+          description
+          databaseId
+          name
+        }
+      }
+      featuredImage {
+        node {
+          sourceUrl
+          uri
+        }
+      }
+      listingData {
+        newDevelopment {
+          photos {
+            altText
+            databaseId
+            mimeType
+            sourceUrl
+          }
+          contentLivingArea {
+            livingArea
+            priceMax
+            priceMin
+          }
+          views
+        }
+      }
+    }
+  }
+}
+`;
+
 // Admin Query 
 export const ADMIN_GET_ALL_AGENTS = gql`
 query GetAgentInfo {
