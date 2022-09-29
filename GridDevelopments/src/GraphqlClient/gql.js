@@ -1,6 +1,6 @@
 import { gql } from "graphql-request";
 
-const TAG_NAME = 'Featured Developments'; //31
+const TAG_NAME = 'Featured Developments';
 
 export const GET_TAG_FEATURED_DEVELOPMENTS = gql`
 query getTag {

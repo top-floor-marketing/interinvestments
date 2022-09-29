@@ -330,17 +330,7 @@ const ItemListingVirtual = (props) => {
               size={24}
             />
           } */}
-          {/* {
-            (!usingCheck)
-            &&
-            <IconDownloadPdf
-              variant="filled"
-              color="gray"
-              id={idAgent}
-              radius="_40px"
-              size={24}
-            />
-          } */}
+          
         </Box>
       </Paper>
     </Box>

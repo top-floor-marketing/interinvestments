@@ -29,18 +29,22 @@ const useStyles = createStyles((theme, _params) => ({
 const ProfileCard = ({ idAgent }) => {
   const { classes } = useStyles();
 
-  const { isLoading, dataAgent, isSkeleton, refetchData } = useGetProfileInfo({idAgent});
+  const { isLoading, dataAgent, isSkeleton, refetchData } = useGetProfileInfo({ idAgent });
 
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Card className={classes.cardContainer}>
         <Box className={classes.boxContainer}>
-          <MyProfileActions
-            dataAgent={dataAgent}
-            id={get(dataAgent, ["id"], null)}
-            isLoading={isLoading}
-            refetchData={refetchData}
-          />
+          {
+            (!idAgent)
+            &&
+            <MyProfileActions
+              dataAgent={dataAgent}
+              id={get(dataAgent, ["id"], null)}
+              isLoading={isLoading}
+              refetchData={refetchData}
+            />
+          }
           <InfoAgent dataAgent={dataAgent} />
         </Box>
       </Card>

@@ -3,7 +3,7 @@ import { Box } from "@mantine/core";
 import PropTypes from 'prop-types';
 
 const PdfListener = ({ children, idListing, idAgent, idElement }) => {
-    // idListing: int, idAgent: int, idElement: string
+    // idListing: int, idAgent: int, idElement: string, agentType: string
     // CreateListingPDF plugin
     const clickForTrigger = () => {
         const data = {

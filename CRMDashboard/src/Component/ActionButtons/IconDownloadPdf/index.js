@@ -5,18 +5,26 @@ import PropTypes from 'prop-types';
 
 import PdfListener from "../../PdfListener";
 
+import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore';
+
 import omit from 'lodash/omit';
 
+import { USER_ROLES_CRM } from '../../../GlobalStore/utils';
+
 const IconDownloadPdf = (props) => {
+
+  const { state: { user: { infoUser: { agentType } } } } = useClientGlobalStore();
+
   const idElement = `pdf_${props.idListing}`;
   const [disableRender, setDisableRender] = useState(true);
   useEffect(() => {
     setTimeout(() => {
       setDisableRender(false);
-    }, 1500);
-  }, [])
+    }, 1000);
+  }, []);
+
   return (
-    <PdfListener idAgent={props.idAgent} idListing={props.idListing}  idElement={idElement}>
+    <PdfListener idAgent={agentType === USER_ROLES_CRM.ADMIN ? null : props.idAgent} idListing={props.idListing}  idElement={idElement} >
       <Tooltip multiline
         position="top"
         color={"dark"}
