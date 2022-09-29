@@ -62,15 +62,17 @@ const Main = () => {
                     ...valueListing?.listingData.newDevelopment,
                 }}
             />
-            <MapListing
-                data={{
-                    ...valueListing?.listingData.newDevelopment,
-                    uri: valueListing?.uri,
-                    title: valueListing?.title,
-                    neighborhoods: valueListing?.neighborhoods.nodes
-                }}
-                optionTheme={optionTheme}
-            />
+            {
+                //    <MapListing
+                //     data={{
+                //         ...valueListing?.listingData.newDevelopment,
+                //         uri: valueListing?.uri,
+                //         title: valueListing?.title,
+                //         neighborhoods: valueListing?.neighborhoods.nodes
+                //     }}
+                //     optionTheme={optionTheme}
+                // />
+            }
         </ListingWrapper>
     )
 }
