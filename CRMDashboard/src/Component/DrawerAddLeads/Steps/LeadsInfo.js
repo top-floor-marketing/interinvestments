@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 // components
 import SelectUserLead from '../../../Component/SelectUserLead'
+import SelectAgent from './SelectAgent'
 // mantine
 import { TextInput, Divider, Box } from '@mantine/core';
 // icons
@@ -15,7 +16,6 @@ import get from 'lodash/get'
 // global store
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
-
 const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
     const [dataSelectUserLeads, setDataselectUserLeads] = useState([])
 
@@ -26,6 +26,7 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
                 infoUser: { databaseId, agentType },
             }
         },
+        actions: { setIdAgent }
     } = useClientGlobalStore();
 
 
@@ -47,7 +48,6 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
     });
 
     const onchangeSelectUserLeads = (user) => {
-        console.log('onchangeSelectUserLeads', user)
         const { firstName, lastName, email, phone, otherPhones, otherEmails } = user
         form.setValues({
             firstName,
@@ -59,18 +59,27 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
         })
     }
 
+    console.log("agentType", agentType)
 
 
     return (
         <>
-            <Box style={{ marginBottom: '1rem', marginTop: '1rem', width: '32%' }}>
+            <Box
+                style={{ marginTop: '1rem', marginBottom: '1rem' }}
+                className={classes.containerMain}
+            >
                 <SelectUserLead
+                    labelSelect="Select a existing lead"
                     isLoading={isLoading}
                     isError={isError}
-                    //value={valueSelectUserLead?.id}
                     data={dataSelectUserLeads}
                     onChange={(val) => onchangeSelectUserLeads(val)}
                 />
+                {
+                    agentType === "MASTER" ? (
+                        <SelectAgent />
+                    ) : null
+                }
             </Box>
             <form
                 onSubmit={form.onSubmit((values) => onSubmitForm(values))}

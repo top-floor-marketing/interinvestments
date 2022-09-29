@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 // mantine
-import { Stepper, Box, Text } from '@mantine/core';
+import { Stepper, Box, Text, ScrollArea } from '@mantine/core';
 import { useForm } from "@mantine/form";
 //  icons
 import { User, Check, BuildingCommunity, Note } from 'tabler-icons-react';
@@ -74,7 +74,7 @@ const SteppsNewLeads = (_) => {
 
 
     return (
-        <Box className={classes.StepperContainer}>
+        <ScrollArea style={{ height: '90vh' }} id='StepperContainer' className={classes.StepperContainer}>
             <Stepper {...props.Stepper}>
 
                 <Stepper.Step
@@ -145,7 +145,7 @@ const SteppsNewLeads = (_) => {
                 onClose={onClose}
                 refForm={refForm}
             />
-        </Box>
+        </ScrollArea>
     )
 }
 

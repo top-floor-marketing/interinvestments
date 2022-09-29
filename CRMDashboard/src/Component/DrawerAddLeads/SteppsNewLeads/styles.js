@@ -4,6 +4,7 @@ const useStyles = createStyles((theme, _params) => {
     return (
         {
             StepperContainer: {
+                overflow: 'auto',
                 height: '100%',
                 width: '100%',
                 display: 'flex',
@@ -70,7 +71,7 @@ const useStyles = createStyles((theme, _params) => {
             GroupControllers: {
                 alignContent: 'center',
                 height: '100%',
-                marginBottom: '40px',
+                paddingBottom: '25px',
                 'Button': {
                     backgroundColor: theme.colors.white[0],
                     '&:hover': {

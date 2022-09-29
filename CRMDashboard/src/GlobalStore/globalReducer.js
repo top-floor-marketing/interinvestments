@@ -74,6 +74,8 @@ const StoreReducer = (
         user: { ...state.user, listingFeaturedAgent: action.payload },
       };
 
+    // STORE_ADDLEAD_ACTIONS
+
     case STORE_ADDLEAD_ACTIONS.RESET_ALL:
       return {
         ...state,
@@ -88,6 +90,16 @@ const StoreReducer = (
           stepperActive: action.payload,
         },
       };
+
+    case STORE_ADDLEAD_ACTIONS.SET_IDAGENT:
+      return {
+        ...state,
+        addLeads: {
+          ...state.addLeads,
+          idAgent: action.payload,
+        },
+      };
+
 
     case STORE_ADDLEAD_ACTIONS.CHANGE_TYPE_LEADS:
       return {
