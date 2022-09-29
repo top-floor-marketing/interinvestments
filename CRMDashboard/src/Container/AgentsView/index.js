@@ -1,7 +1,7 @@
-import {memo} from 'react';
-import { Box, createStyles, Paper } from "@mantine/core";
+import { memo } from 'react';
+import { Box, createStyles, Text, LoadingOverlay, Paper } from "@mantine/core";
 import SpringDiv from "../../Component/SpringDiv";
-
+import { DatabaseOff } from "tabler-icons-react";
 import SkeletonAgents from './skeletonAgents';
 import GridAgents from './gridAgents';
 
@@ -32,7 +32,7 @@ const useStyles = createStyles((theme, _params) => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    height: "100%",
+    height: "200px",
     alignItems: "center",
     padding: theme.other.spacing.p8,
   },
@@ -41,7 +41,7 @@ const useStyles = createStyles((theme, _params) => ({
 const AgentsView = () => {
   const { classes } = useStyles();
 
-  const { isLoading, isSkeleton } = useGetAllAgents();
+  const { isLoading, isSkeleton, allAgents, totalData } = useGetAllAgents();
 
   return isSkeleton ? (
     <SkeletonAgents />
@@ -51,7 +51,23 @@ const AgentsView = () => {
       </SpringDiv>
       <SpringDiv delay={300} duration={300} fullHeight>
         <Box className={classes.containerListings}>
-            <GridAgents />
+          {isLoading && (
+            <LoadingOverlay
+              overlayOpacity={0.05}
+              visible={isLoading}
+              overlayBlur={0.05}
+            />
+          )}
+          {totalData && !isSkeleton ? (
+            <GridAgents
+              data={allAgents}
+            />
+          ) : (
+            <Paper className={classes.noData}>
+              <Text component="h4">No data found</Text>
+              <DatabaseOff size={36} />
+            </Paper>
+          )}
         </Box>
       </SpringDiv>
     </Box>

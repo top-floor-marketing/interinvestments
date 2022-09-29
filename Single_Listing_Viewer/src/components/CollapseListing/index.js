@@ -62,7 +62,7 @@ const CollapseListing = (props) => {
     }
 
     const floorplansData = () => {
-        const allPdf = get(data, ["floorplans"], [])
+        const allPdf = get(data, ["floorplans"], []) || []
         return allPdf.map((value) => {
             return ({ ...value.floorplans })
         });

@@ -1,5 +1,7 @@
 import {memo} from 'react';
-import { Box, createStyles, Paper } from "@mantine/core";
+import { Box, createStyles } from "@mantine/core";
+
+import CardAgent from './cardAgent';
 
 const useStyles = createStyles((theme, _params) => ({
   container: {
@@ -20,19 +22,20 @@ const useStyles = createStyles((theme, _params) => ({
     [theme.fn.largerThan(1900)]: {
         gridTemplateColumns: "repeat(5, 1fr)",
     },
-    gridAutoRows: "minmax(200px, auto)"
+    gridAutoRows: "minmax(150px, 300px)"
   },
-  paperContainer: {
-    minHeight: "100px"
-  }
 }));
 
-const GridAgents = () => {
+const GridAgents = ({ data }) => {
   const { classes } = useStyles();
 
   return (
     <Box className={classes.container}>
-        
+      {
+        data.map((val, index) => (
+            <CardAgent key={index} {...val} />
+        ))
+      }
     </Box>
   )
 };

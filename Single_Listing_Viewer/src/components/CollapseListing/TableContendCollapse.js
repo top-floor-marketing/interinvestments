@@ -5,8 +5,6 @@ import { Box, Table, Text } from '@mantine/core';
 import styles from './styles.cl.module.scss'
 
 const TableContendCollapse = ({ data, columns }) => {
-    console.log("data", data)
-
     const rows = data.map((element, index) => (
         <tr key={index}>
             <td className='w-[110px]'>

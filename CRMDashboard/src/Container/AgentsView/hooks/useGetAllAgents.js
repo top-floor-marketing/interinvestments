@@ -4,16 +4,9 @@ import {
 } from "../../../GraphqlClient/useRequest";
 import { ADMIN_GET_ALL_AGENTS } from "../../../GraphqlClient/agentProfile.gql";
 
-import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
+import get from 'lodash/get';
 
 const useGetAllAgents = () => {
-  const {
-    state: {
-      user: {
-        infoUser: { databaseId, agentType },
-      },
-    },
-  } = useClientGlobalStore();
 
   const [allAgents, setAllAgents] = useState([]);
   const [agentsFiltered, setAgentsFiltered] = useState([]);
@@ -34,11 +27,12 @@ const useGetAllAgents = () => {
     gql: ADMIN_GET_ALL_AGENTS,
     config: {
       onSuccess: (response) => {
-        console.log('response ', response);
-        //setAllLeads(formatReponseLeads(response));
+        setAllAgents(get(response, ["dataAgent"], []));
         setIsOverlay(false);
       },
       onerror: () => {
+        setAllAgents([]);
+        setAgentsFiltered([]);
         setIsOverlay(false);
       }
     },
@@ -48,24 +42,14 @@ const useGetAllAgents = () => {
     isSkeleton: isLoadingAgents && isOverlay && !isSuccessAgents,
     isLoading: isLoadingAgents || isOverlay,
     isError: isErrorAgents,
-  }
-
-/*   return {
-    isSkeleton: isLoadingLeads && isOverlay && !isSuccessLeads,
-    isLoading: isLoadingLeads || isOverlay,
-    isError: isErrorLeads,
     searchProps: {
       onChange: (e) => onChangeSearchText(e),
       value: searchText,
     },
-    selectStateProps: {
-      onChange: (e) => onChangeStateFilter(e),
-      value: filterState,
-    },
-    allLeads: (searchText || filterState) ? leadsFiltered : allLeads,
-    totalData: (searchText || filterState) ? leadsFiltered.length : allLeads.length,
+    allAgents: (searchText) ? agentsFiltered : allAgents,
+    totalData: (searchText) ? agentsFiltered.length : allAgents.length,
     refetch
-  }; */
+  }
 
 };
 
