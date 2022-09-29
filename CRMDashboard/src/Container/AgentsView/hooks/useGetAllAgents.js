@@ -4,6 +4,7 @@ import {
 } from "../../../GraphqlClient/useRequest";
 import { ADMIN_GET_ALL_AGENTS } from "../../../GraphqlClient/agentProfile.gql";
 
+import { orderAgentByName } from "./utils.service";
 import get from 'lodash/get';
 
 const useGetAllAgents = () => {
@@ -27,7 +28,7 @@ const useGetAllAgents = () => {
     gql: ADMIN_GET_ALL_AGENTS,
     config: {
       onSuccess: (response) => {
-        setAllAgents(get(response, ["dataAgent"], []));
+        setAllAgents(orderAgentByName(get(response, ["dataAgent"], [])));
         setIsOverlay(false);
       },
       onerror: () => {

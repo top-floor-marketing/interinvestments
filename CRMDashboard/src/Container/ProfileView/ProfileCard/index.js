@@ -26,10 +26,10 @@ const useStyles = createStyles((theme, _params) => ({
   },
 }));
 
-const ProfileCard = () => {
+const ProfileCard = ({ idAgent }) => {
   const { classes } = useStyles();
 
-  const { isLoading, dataAgent, isSkeleton, refetchData } = useGetProfileInfo();
+  const { isLoading, dataAgent, isSkeleton, refetchData } = useGetProfileInfo({idAgent});
 
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>

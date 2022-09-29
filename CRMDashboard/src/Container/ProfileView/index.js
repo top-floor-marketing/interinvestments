@@ -2,7 +2,6 @@ import { Box, createStyles } from "@mantine/core";
 import SpringDiv from "../../Component/SpringDiv";
 // components
 import ProfileCard from "./ProfileCard";
-import RecentLeads from "./RecentLeads";
 import FeaturedListing from "./FeaturedListing";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -29,20 +28,20 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     flexDirection: "column"
   }
 }));
-
-const Profile = () => {
+// idAgent pass prop to reusable this component for admin-user
+const Profile = ({ idAgent = null }) => {
   const { classes } = useStyles();
   return (
     <SpringDiv delay={100} duration={200} fullHeight>
       <Box className={classes.container}>
         <SpringDiv delay={300} duration={300}>
           <Box className={classes.infoAndLeadsRow}>
-            <ProfileCard />
+            <ProfileCard idAgent={idAgent} />
           </Box>
         </SpringDiv>
         <SpringDiv delay={600} duration={300} fullHeight>
           <Box className={classes.featuredListingRow}>
-            <FeaturedListing />
+            <FeaturedListing idAgent={idAgent} />
           </Box>
         </SpringDiv>
       </Box>

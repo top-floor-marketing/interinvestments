@@ -83,7 +83,7 @@ const FeaturedListing = () => {
             onClose={() => onCloseModalAddListing()}
             centered
             closeOnEscape
-            closeOnClickOutside
+            closeOnClickOutside={false}
             opened={isOpenModalAddListing}
             size={getSizeModal()}
             overflow="inside"

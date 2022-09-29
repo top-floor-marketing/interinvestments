@@ -7,12 +7,17 @@ import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore';
 
 import isEmpty from 'lodash/isEmpty';
 
-const useGetProfileInfo = () => {
+const USER_ROLES = {
+  ADMIN: 'MASTER',
+  AGENT: 'AGENT',
+}
+
+const useGetProfileInfo = ({ idAgent }) => {
 
     const { 
       state: { user: { infoUser: { databaseId, agentType } } },
       actions: { setInfoUser }
-     }= useClientGlobalStore();
+    }= useClientGlobalStore();
 
     const [dataAgent,setDataAgent] = useState(null);
     const [isSkeleton, setIsSkeleton] = useState(true);
@@ -42,8 +47,8 @@ const useGetProfileInfo = () => {
           },
         },
         variables: {
-            agentId: databaseId,
-            agentType
+            agentId: idAgent || databaseId,
+            agentType: idAgent ? USER_ROLES.AGENT : agentType
         },
     });
 
