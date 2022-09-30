@@ -10,10 +10,7 @@ import LeadsDetailView from "../Container/LeadDetailView";
 import Pipeline from '../Container/PipelineView';
 import AgentsView from "../Container/AgentsView";
 
-const USER_ROLES = {
-  ADMIN: 'MASTER',
-  AGENT: 'AGENT',
-}
+import { USER_ROLES_CRM } from "../GlobalStore/utils";
 
 export const LAYOUT_NAMES = {
   EMPTY: "empty",
@@ -30,7 +27,7 @@ export const ROUTES_NAMES = {
   LISTINGS: "properties",
 };
 
-export const DEFAULT_ROUTE = ROUTES_NAMES.PIPELINE;
+export const DEFAULT_ROUTE = ''+ROUTES_NAMES.PIPELINE;
 
 export const CRM_ROUTES = [
   {
@@ -67,7 +64,7 @@ export const CRM_ROUTES = [
     useInNavbar: true,
     loginRequired: true,
     icon: () => <Briefcase size={25} strokeWidth={2} color={"white"} />,
-    roles: [USER_ROLES.ADMIN]
+    roles: [USER_ROLES_CRM.ADMIN]
   },
   {
     name: ROUTES_NAMES.PROFILE,

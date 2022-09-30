@@ -64,6 +64,8 @@ const LeadsView = () => {
               overlayOpacity={0.05}
               visible={isLoading}
               overlayBlur={0.05}
+              overlayColor="#eaeae9"
+              loaderProps={{ size: 'sm', color: '#ffb839', variant: 'bars' }}
             />
           )}
          {totalData && !isSkeleton ? (

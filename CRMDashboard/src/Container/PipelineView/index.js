@@ -83,11 +83,6 @@ const useStyles = createStyles((theme, _params) => {
             alignItems: "center",
             padding: theme.other.spacing.p8,
         },
-        LoadingOverlay: {
-            '.mantine-Overlay-root': {
-                backgroundColor: 'transparent'
-            }
-        }
     }
 });
 
@@ -137,7 +132,6 @@ const Pipeline = () => {
     return (
         <div style={{ width: '100%', position: 'relative' }}>
             <LoadingOverlay
-                className={classes.LoadingOverlay}
                 visible={(
                     isLoadingNotContacted ||
                     isLoadingContacted ||
@@ -145,7 +139,10 @@ const Pipeline = () => {
                     isLoadingContract ||
                     isLoadingAsk
                 ) || false}
-                overlayBlur={2}
+                overlayBlur={0.5}
+                overlayOpacity={0.2}
+                overlayColor="#eaeae9"
+                loaderProps={{ size: 'sm', color: '#ffb839', variant: 'bars' }}
             />
             <Box className={classes.container}>
 

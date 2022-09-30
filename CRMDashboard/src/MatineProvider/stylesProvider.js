@@ -1,4 +1,3 @@
-// import { COLOR_SCHEME_DARK } from "../Store/themeSlice"
 
 export const BORDER_INPUT = '1px solid #83837C';
 export const BORDER_FOCUS = '1px solid #5398ff';

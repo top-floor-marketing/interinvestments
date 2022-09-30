@@ -3,9 +3,8 @@ import React from "react";
 import FormLogin from "./FormLogin";
 import CarouselLogin from "./CarouselLogin";
 // mantine
-import { Paper, Box, Image, ActionIcon, Group, Text } from "@mantine/core";
+import { Paper, Box, Image, Group, Text } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { Home2 } from "tabler-icons-react";
 
 // styles
 import useStyles from "./stylesLogin";

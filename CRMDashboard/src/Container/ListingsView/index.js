@@ -60,6 +60,8 @@ const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
         overlayOpacity={0.05}
         visible={isOverlay}
         overlayBlur={0.05}
+        overlayColor="#eaeae9"
+        loaderProps={{ size: 'sm', color: '#ffb839', variant: 'bars' }}
       />
       <SpringDiv delay={100} duration={300}>
         <FilterOptions
@@ -77,6 +79,8 @@ const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
               overlayOpacity={0.05}
               visible={isLoading}
               overlayBlur={0.05}
+              overlayColor="#eaeae9"
+              loaderProps={{ size: 'sm', color: '#ffb839', variant: 'bars' }}
             />
           )}
           {totalData ? (
