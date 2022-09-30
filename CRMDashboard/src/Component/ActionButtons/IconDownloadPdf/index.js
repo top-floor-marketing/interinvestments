@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { FileDownload } from 'tabler-icons-react';
 import PropTypes from 'prop-types';
@@ -16,12 +15,6 @@ const IconDownloadPdf = (props) => {
   const { state: { user: { infoUser: { agentType } } } } = useClientGlobalStore();
 
   const idElement = `pdf_${props.idListing}`;
-  const [disableRender, setDisableRender] = useState(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setDisableRender(false);
-    }, 1000);
-  }, []);
 
   return (
     <PdfListener idAgent={agentType === USER_ROLES_CRM.ADMIN ? null : props.idAgent} idListing={props.idListing}  idElement={idElement} >
@@ -32,7 +25,7 @@ const IconDownloadPdf = (props) => {
         label={props.labelTooltip}
         className={props.className}>
 
-        <ActionIcon id={idElement} {...omit(props, ['labelTooltip', 'idListing', 'idAgent'])} disabled={disableRender} >
+        <ActionIcon id={idElement} {...omit(props, ['labelTooltip', 'idListing', 'idAgent'])} >
           <FileDownload size={props.size} />
         </ActionIcon>
 

@@ -1,8 +1,8 @@
-import { Box, createStyles, Text, Avatar, Spoiler  } from "@mantine/core";
+import { Box, createStyles, Text, Avatar, Spoiler } from "@mantine/core";
 import DOMPurify from 'dompurify'
 import PropTypes from 'prop-types';
 
-import { Mail, Phone, BrandLinkedin, BrandFacebook, BrandInstagram, BrandTwitter } from 'tabler-icons-react';
+import { Mail, Phone, BrandLinkedin, BrandFacebook, BrandInstagram, BrandTwitter, BrandTiktok, BrandYoutube } from 'tabler-icons-react';
 import { CustomIconTooltip } from "../../../Component/ActionButtons";
 
 import get from 'lodash/get';
@@ -142,7 +142,9 @@ const InfoAgent = ({ dataAgent }) => {
         facebook: get(dataAgent, ["facebook"], ""),
         instagram: get(dataAgent, ["instagram"], ""),
         twitter: get(dataAgent, ["twitter"], ""),
-        linkedin: get(dataAgent, ["linkedin"], "")
+        linkedin: get(dataAgent, ["linkedin"], ""),
+        tiktok: get(dataAgent, ["tiktok"], ""),
+        youtube: get(dataAgent, ["youtube"], ""),
     }
 
     return (
@@ -163,8 +165,8 @@ const InfoAgent = ({ dataAgent }) => {
                 </Box>
                 <Box className={classes.aboutMeContainer}>
                     <Text transform="capitalize" component="h4">About me</Text>
-                    <Spoiler maxHeight={80} showLabel="Show more" hideLabel="Hide">
-                       <Box dangerouslySetInnerHTML={sanitizedContentData()} />
+                    <Spoiler maxHeight={120} showLabel="Show more" hideLabel="Hide">
+                        <Box dangerouslySetInnerHTML={sanitizedContentData()} />
                     </Spoiler>
                 </Box>
             </Box>
@@ -210,6 +212,20 @@ const InfoAgent = ({ dataAgent }) => {
                         (startsWith(socialMedia.linkedin, "https")) &&
                         <CustomIconTooltip size={24} color="secondary" labelTooltip={socialMedia.linkedin}>
                             <BrandLinkedin />
+                        </CustomIconTooltip>
+                    }
+
+                    {
+                        (startsWith(socialMedia.tiktok, "https")) &&
+                        <CustomIconTooltip size={24} color="secondary" labelTooltip={socialMedia.tiktok}>
+                            <BrandTiktok />
+                        </CustomIconTooltip>
+                    }
+
+                    {
+                        (startsWith(socialMedia.youtube, "https")) &&
+                        <CustomIconTooltip size={24} color="secondary" labelTooltip={socialMedia.youtube}>
+                            <BrandYoutube />
                         </CustomIconTooltip>
                     }
 

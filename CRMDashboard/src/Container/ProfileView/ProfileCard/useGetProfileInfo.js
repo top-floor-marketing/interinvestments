@@ -7,10 +7,7 @@ import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore';
 
 import isEmpty from 'lodash/isEmpty';
 
-const USER_ROLES = {
-  ADMIN: 'MASTER',
-  AGENT: 'AGENT',
-}
+import { USER_ROLES_CRM } from '../../../GlobalStore/utils';
 
 const useGetProfileInfo = ({ idAgent }) => {
 
@@ -50,7 +47,7 @@ const useGetProfileInfo = ({ idAgent }) => {
         },
         variables: {
             agentId: idAgent || databaseId,
-            agentType: idAgent ? USER_ROLES.AGENT : agentType
+            agentType: idAgent ? USER_ROLES_CRM.AGENT : agentType
         },
     });
 

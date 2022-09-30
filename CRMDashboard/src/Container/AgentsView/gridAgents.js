@@ -52,9 +52,8 @@ const GridAgents = ({ data }) => {
   const { width } = useViewportSize();
 
   const getSizeModal = useCallback(() => {
-    if(width>2000) return "80%";
-    if(width>900) return "85%";
-    if(width>800) return "95%";
+    if(width>2000) return "85%";
+    if(width>900) return "90%";
     return "97%"
   },[width])
 

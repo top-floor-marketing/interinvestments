@@ -16,6 +16,8 @@ export const GET_AGENT_PROFILE_INFO = gql`
       instagram
       twitter
       linkedin
+      tiktok
+      youtube
       avatarProfile
     }
   }

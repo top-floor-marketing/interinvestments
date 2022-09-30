@@ -2,6 +2,8 @@ import {DEFAULT_ROUTE, ROUTES_NAMES} from '../Route/routes';
 
 import { LOCAL_STORAGE } from '../Utils/globalConstants';
 
+import { USER_ROLES_CRM } from './utils';
+
 import get from 'lodash/get';
 import isString from 'lodash/isString';
 import toLower from 'lodash/toLower';
@@ -25,11 +27,6 @@ export const DEFAULT_STORE_USER = {
     listingFeaturedAgent: []
 }
 
-export const USER_ROLES = {
-    ADMIN: 'MASTER',
-    AGENT: 'AGENT',
-}
-
 export const getAgentTypeByRole = (val) => {
     const _valTemp = JSON.parse(JSON.stringify(val));
     /* 
@@ -38,11 +35,11 @@ export const getAgentTypeByRole = (val) => {
     */
     let userRol = '';
     if(isString(get(_valTemp, ["roles"], null))) {
-        userRol = toLower(get(_valTemp, ["roles"]), USER_ROLES.AGENT);
+        userRol = toLower(get(_valTemp, ["roles"]), USER_ROLES_CRM.AGENT);
     } else {
-        userRol = toLower(get(_valTemp, ["roles","nodes", "0", "displayName"], USER_ROLES.AGENT));
+        userRol = toLower(get(_valTemp, ["roles","nodes", "0", "displayName"], USER_ROLES_CRM.AGENT));
     }
-    return (userRol === "administrator") ? USER_ROLES.ADMIN : USER_ROLES.AGENT;
+    return (userRol === "administrator") ? USER_ROLES_CRM.ADMIN : USER_ROLES_CRM.AGENT;
 }
 
 const useActionsUser = (dispatch) => {

@@ -25,11 +25,22 @@ const useStyles = createStyles((theme, _params) => {
         marginLeft: "auto !important",
         marginRight: "auto !important",
       }
+    },
+    shortBadge: {
+      marginLeft: "auto !important",
+      width: "100px !important",
+      display: "flex",
+      fontSize: "10px",
+      flexDirection: "column",
+      [`${theme.fn.smallerThan(700)}`]: {
+        marginLeft: "auto !important",
+        marginRight: "auto !important",
+      }
     }
   };
 });
 
-const BadgeStatusLead = ({ status, onClick, className }) => {
+const BadgeStatusLead = ({ status, onClick, className, isShort }) => {
 
   const getColorChip = useCallback(() => {
     switch (toLower(status)) {
@@ -55,7 +66,7 @@ const BadgeStatusLead = ({ status, onClick, className }) => {
       onClick={() => onClick()}
       variant="filled"
       title={`Lead state:\n${status}`}
-      className={cx(classes.colorBadge, className, { [classes.badgeContainer]: !className })}>
+      className={cx(classes.colorBadge, className, { [classes.badgeContainer]: !className && !isShort, [classes.shortBadge]: isShort })}>
       {status}
     </Badge>
   );
@@ -64,13 +75,15 @@ const BadgeStatusLead = ({ status, onClick, className }) => {
 BadgeStatusLead.defaultProps = {
   status: "",
   onClick: () => {},
-  className: null
+  className: null,
+  isShort: false
 };
 
 BadgeStatusLead.propTypes = {
   status: PropTypes.string,
   onClick: PropTypes.func,
-  className: PropTypes.string
+  className: PropTypes.string,
+  isShort: PropTypes.bool
 };
 
 export default React.memo(BadgeStatusLead);

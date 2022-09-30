@@ -1,40 +1,57 @@
-import { Box, Card, createStyles, Skeleton } from "@mantine/core";
+import { Box, Paper, createStyles, Skeleton } from "@mantine/core";
 
 import useGetProfileInfo from "./useGetProfileInfo";
 
 import MyProfileActions from "./myProfileActions";
 import InfoAgent from "./infoAgent";
+import LeadsAgent from "./leadsAgent";
 
 import get from 'lodash/get';
 
 const useStyles = createStyles((theme, _params) => ({
-  cardContainer: {
+  container: {
+    display: "flex",
+    flexDirection: "row",
     width: "100%",
     minHeight: "200px",
     boxShadow: theme.shadows.sm,
     height: "100%",
-    [`${theme.fn.smallerThan("md")}`]: {
-      width: "100%",
+    gap: theme.other.spacing.p4,
+    [theme.fn.smallerThan(700)]: {
+      flexDirection: "column",
     }
   },
-  boxContainer: {
+  boxInfoAgent: {
     display: "flex",
     flexDirection: "column",
-    width: "100%",
+    width: (_params?.idAgent) ? "50%" : "100%",
+    [theme.fn.smallerThan(700)]: {
+      width: "100%",
+    },
     height: "100%",
     gap: theme.other.spacing.p4
   },
+  boxLeadsAgent: {
+    display: "flex",
+    flexDirection: "column",
+    width: "50%",
+    [theme.fn.smallerThan(700)]: {
+      width: "100%",
+    },
+    height: "100%",
+  }
 }));
 
-const ProfileCard = ({ idAgent }) => {
-  const { classes } = useStyles();
+const ProfileCard = ({ idAgent = null }) => {
+
+  const { classes } = useStyles({ idAgent });
 
   const { isLoading, dataAgent, isSkeleton, refetchData } = useGetProfileInfo({ idAgent });
 
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
-      <Card className={classes.cardContainer}>
-        <Box className={classes.boxContainer}>
+      <Box className={classes.container}>
+        <Paper className={classes.boxInfoAgent}>
           {
             (!idAgent)
             &&
@@ -46,8 +63,15 @@ const ProfileCard = ({ idAgent }) => {
             />
           }
           <InfoAgent dataAgent={dataAgent} />
-        </Box>
-      </Card>
+        </Paper>
+        {
+          (idAgent)
+          &&
+          <Paper className={classes.boxLeadsAgent}>
+            <LeadsAgent idAgent={idAgent} />
+          </Paper>
+        }
+      </Box>
     </Skeleton>
   );
 };

@@ -32,6 +32,8 @@ const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
             firstName: get(dataAgent, ["firstName"], ""),
             lastName: get(dataAgent, ["lastName"], ""),
             phone: get(dataAgent, ["phone"], ""),
+            tiktok: get(dataAgent, ["tiktok"], ""),
+            youtube: get(dataAgent, ["youtube"], ""),
         },
     });
 
@@ -167,6 +169,20 @@ const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
                             label="Linkedin"
                             placeholder="Linkedin profile"
                             {...form.getInputProps('linkedin')}
+                        />
+
+                        <TextInput
+                            disabled={isLoading}
+                            label="Youtube"
+                            placeholder="Youtube channel"
+                            {...form.getInputProps('youtube')}
+                        />
+
+                        <TextInput
+                            disabled={isLoading}
+                            label="TikTok"
+                            placeholder="TikTok profile"
+                            {...form.getInputProps('tiktok')}
                         />
 
                     </Box>
