@@ -24,18 +24,18 @@ import capitalize from "lodash/capitalize";
 
 const useStyles = createStyles((theme, _params) => {
 
-  const { width } = _params;
+  const { width, isShortLead } = _params;
 
   // avatar reserved 60px,
   // gap reservered 16px
   // padding reserved 32px l + r
   // icon-actions 30px per icon
   // badge status reserved 180px
-  let paddingReserved = 32;
+  let paddingReserved = isShortLead ? 24 : 32;
   let totalRows = 2;
-  let avatarReserved = 60;
-  let iconsReserved = 60;
-  let badgeReserved = 180;
+  let avatarReserved = isShortLead ? 40 : 60;
+  let iconsReserved = isShortLead ? 0 : 60;
+  let badgeReserved = isShortLead ? 100 :180;
 
   let gapReserved = (totalRows + 2) * 16;
 
@@ -71,9 +71,9 @@ const useStyles = createStyles((theme, _params) => {
       },
     },
     text: {
-      fontWeight: "600 !important",
+      fontWeight: isShortLead ? "300 !important" : "600 !important",
       margin: "0px !important",
-      fontSize: "14px",
+      fontSize: isShortLead ? "12px": "14px",
       [`${theme.fn.smallerThan(700)}`]: {
         fontSize: "12px",
       }
@@ -98,11 +98,11 @@ const useStyles = createStyles((theme, _params) => {
 
 const ItemListingVirtual = (props) => {
 
-  const { width: widthParent } = props;
+  const { width: widthParent, isShortLead } = props;
 
   const { actions: { setRoute } } = useClientGlobalStore();
 
-  const { classes } = useStyles({ width: widthParent });
+  const { classes } = useStyles({ width: widthParent, isShortLead });
   const matches = useMediaQuery('(max-width: 700px)');
 
   const getFirstNameUserLead = useCallback(() => {
@@ -139,7 +139,7 @@ const ItemListingVirtual = (props) => {
   return (
     <Paper className={classes.containerItemListing}>
       <AvatarText onClick={() => setLeadDetail()}
-        size={"60px"}
+        size={isShortLead ? "40px" : "60px"}
         firstName={getFirstNameUserLead()}
         lastName={getLastNameUserLead()}
         className={classes.avatarText}
@@ -162,7 +162,7 @@ const ItemListingVirtual = (props) => {
             >
               {getEmailUserLead()}
             </Text>
-            <ChipStatusLead status={props?.currentStatus} onClick={setLeadDetail} />
+            <ChipStatusLead isShort={isShortLead} status={props?.currentStatus} onClick={setLeadDetail} />
           </Box>
           :
           <>
@@ -191,10 +191,14 @@ const ItemListingVirtual = (props) => {
                 {getEmailUserLead()}
               </Text>
             </Box>
-            <ChipStatusLead status={props?.currentStatus} onClick={setLeadDetail} />
+            <ChipStatusLead isShort={isShortLead} status={props?.currentStatus} onClick={setLeadDetail} />
           </>
       }
-      <Box className={classes.containerIcons}>
+
+      {
+        (!isShortLead)
+        && 
+        <Box className={classes.containerIcons}>
         <IconOpenWhatsApp size={24} 
           labelTooltip="Send Whatsapp message"
           phoneNumber={getPhone()}
@@ -203,6 +207,8 @@ const ItemListingVirtual = (props) => {
           <ArrowForwardUp />
         </CustomIconTooltip>
       </Box>
+      }
+      
 
     </Paper>
   );

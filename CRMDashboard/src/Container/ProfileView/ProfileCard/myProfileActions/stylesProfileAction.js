@@ -42,8 +42,14 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         paddingRight: "5px !important",
         width: "100%",
         display: "grid",
-        // height: '80%',
-        maxHeight: "76vh",
+        //height: '100%',
+        maxHeight: "75vh",
+        [theme.fn.smallerThan(750)]: {
+            maxHeight: "70vh",
+        },
+        [theme.fn.largerThan(1400)]: {
+            maxHeight: "85vh",
+        },
         gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
         gap: theme.other.spacing.p4,
         marginBottom: theme.other.spacing.p4,

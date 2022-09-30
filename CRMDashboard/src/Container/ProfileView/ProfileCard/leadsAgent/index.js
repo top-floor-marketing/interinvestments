@@ -1,9 +1,10 @@
-import { Box, createStyles, Text, ScrollArea, Skeleton, Paper } from "@mantine/core";
+import { Box, createStyles, Text, ScrollArea, Skeleton } from "@mantine/core";
 import { useQueryHelper } from "../../../../GraphqlClient/useRequest";
 import { GET_LEADS_LIST_FOR_AGENT } from "../../../../GraphqlClient/leads.gql";
 import get from 'lodash/get';
-import map from 'lodash/map';
 import { USER_ROLES_CRM } from "../../../../GlobalStore/utils";
+
+import { LeadsVirtual } from '../../../../Component/VirtualListContainer';
 
 const useStyles = createStyles((theme, _params) => ({
     container: {
@@ -54,15 +55,13 @@ const LeadsAgent = ({ idAgent = null }) => {
                 <Text transform="capitalize" component="h4">Leads</Text>
                 <Box component={ScrollArea} className={classes.leadsScroll}>
                     <Box className={classes.leadsContainer}>
-                        {
-                            map(get(data, ["dataAgent", "0", "statuses"], [])).map((val, index) => {
-                                return (
-                                    <Paper key={index} className={classes.itemLead}>
-                                        {index}
-                                    </Paper>
-                                )
-                            })
-                        }
+                        <LeadsVirtual
+                                  data={get(data, ["dataAgent", "0", "statuses"], [])}
+                                  totalData={get(data, ["dataAgent", "0", "statuses"], []).length}
+                                  refetch={null}
+                                  isLoading={isLoading}
+                                  isShortLead
+                        />
                     </Box>
                 </Box>
             </Box>

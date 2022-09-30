@@ -24,7 +24,7 @@ const useStyles = createStyles((theme, _params) => ({
   boxInfoAgent: {
     display: "flex",
     flexDirection: "column",
-    width: (_params?.idAgent) ? "60%" : "100%",
+    width: (_params?.idAgent) ? "50%" : "100%",
     [theme.fn.smallerThan(700)]: {
       width: "100%",
     },
@@ -34,7 +34,7 @@ const useStyles = createStyles((theme, _params) => ({
   boxLeadsAgent: {
     display: "flex",
     flexDirection: "column",
-    width: "40%",
+    width: "50%",
     [theme.fn.smallerThan(700)]: {
       width: "100%",
     },

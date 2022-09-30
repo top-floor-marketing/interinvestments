@@ -54,6 +54,22 @@ const schemaEditAgent = Joi.object({
   }).messages({
     "string.uri": "Invalid url",
     "string.uriCustomScheme": "Invalid url",
+  }),
+  tiktok: Joi.string().allow('').uri({
+    scheme: [
+      'https',
+    ]
+  }).messages({
+    "string.uri": "Invalid url",
+    "string.uriCustomScheme": "Invalid url",
+  }),
+  youtube: Joi.string().allow('').uri({
+    scheme: [
+      'https',
+    ]
+  }).messages({
+    "string.uri": "Invalid url",
+    "string.uriCustomScheme": "Invalid url",
   })
 });
 

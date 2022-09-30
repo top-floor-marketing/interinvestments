@@ -32,6 +32,7 @@ const LeadsVirtual = (props) => {
     isLoading,
     refetch,
     totalData,
+    isShortLead
   } = props;
 
   const {
@@ -86,6 +87,7 @@ const LeadsVirtual = (props) => {
                 {...data[rowIndex]}
                 width={style.width}
                 height={style.height - GUTTER_SIZE}
+                isShortLead={isShortLead}
               />
             </div>
           );
@@ -100,6 +102,7 @@ LeadsVirtual.defaultProps = {
   isLoading: false,
   refetch: null,
   totalData: 0,
+  isShortLead: false
 };
 
 LeadsVirtual.propTypes = {
@@ -107,6 +110,7 @@ LeadsVirtual.propTypes = {
   isLoading: PropTypes.bool,
   refetch: PropTypes.func,
   totalData: PropTypes.number,
+  isShortLead: PropTypes.bool
 };
 
 export default memo(LeadsVirtual);
