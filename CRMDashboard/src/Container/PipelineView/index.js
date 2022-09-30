@@ -56,6 +56,7 @@ const useStyles = createStyles((theme, _params) => {
             position: "relative"
         },
         titlePipeline: {
+            margin: 0,
             fontSize: '24px',
             fontWeight: '12px'
         },
@@ -182,8 +183,8 @@ const Pipeline = () => {
                 <Box className={classes.containerPipeline} ref={ref}>
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={dataNotContacted}
-                            totalData={dataNotContacted.length}
+                            data={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? [] : dataNotContacted}
+                            totalData={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? 0 : dataNotContacted.length}
                             color='error'
                             title='Not Contacted'
                         >
@@ -197,8 +198,8 @@ const Pipeline = () => {
 
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={dataContacted}
-                            totalData={dataContacted.length}
+                            data={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? [] : dataContacted}
+                            totalData={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? 0 : dataContacted.length}
                             color='primary'
                             title='Contacted'
                         >
@@ -212,8 +213,8 @@ const Pipeline = () => {
 
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={dataShowing}
-                            totalData={dataShowing.length}
+                            data={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? [] : dataShowing}
+                            totalData={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? 0 : dataShowing.length}
                             color='secondary'
                             title='Showing'
                         >
@@ -227,8 +228,8 @@ const Pipeline = () => {
 
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={dataContract}
-                            totalData={dataContract.length}
+                            data={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? [] : dataContract}
+                            totalData={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? 0 : dataContract.length}
                             color='success'
                             title='Contract'
                         >
@@ -242,8 +243,8 @@ const Pipeline = () => {
 
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={dataASk}
-                            totalData={dataASk.length}
+                            data={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? [] : dataASk}
+                            totalData={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? 0 : dataASk.length}
                             color='info'
                             title='Ask Referrals'
                         >
