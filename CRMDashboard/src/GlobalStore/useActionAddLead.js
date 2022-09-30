@@ -9,7 +9,7 @@ export const STORE_ADDLEAD_ACTIONS = {
     SET_STATE_LEADS: 'set_state_leads',
     SET_NOTE_LEADS: 'set_note_leads',
     SET_LOADING_LEADS: 'set_loading_leads',
-    SET_IDAGENT: 'set_id_agent'
+    SET_SELEGTED_AGENT: 'set_selegted_AGENT'
 }
 
 export const DEFAULT_STORE_ADD_LEAD = {
@@ -22,7 +22,7 @@ export const DEFAULT_STORE_ADD_LEAD = {
     totalServices: [],
     stateLeads: null,
     noteLeads: null,
-    idAgent: null
+    selectedAgent: {}
 }
 
 const useActionsAddLead = (dispatch) => {
@@ -34,10 +34,10 @@ const useActionsAddLead = (dispatch) => {
         });
     }
 
-    const setIdAgent = (idAgent) => {
+    const setSelectedAgent = (Agent) => {
         dispatch({
-            type: STORE_ADDLEAD_ACTIONS.SET_IDAGENT,
-            payload: idAgent
+            type: STORE_ADDLEAD_ACTIONS.SET_SELEGTED_AGENT,
+            payload: Agent
         });
     }
 
@@ -106,7 +106,7 @@ const useActionsAddLead = (dispatch) => {
 
     return {
         setAllField,
-        setIdAgent,
+        setSelectedAgent,
         setLoadingLeads,
         setstepperActive,
         setTypeLeads,

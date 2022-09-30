@@ -91,12 +91,12 @@ const StoreReducer = (
         },
       };
 
-    case STORE_ADDLEAD_ACTIONS.SET_IDAGENT:
+    case STORE_ADDLEAD_ACTIONS.SET_SELEGTED_AGENT:
       return {
         ...state,
         addLeads: {
           ...state.addLeads,
-          idAgent: action.payload,
+          selectedAgent: action.payload,
         },
       };
 

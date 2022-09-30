@@ -12,14 +12,13 @@ import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
 const SelectAgent = () => {
     const [dataSelectAgentLeads, setDataselectAgentLeads] = useState([])
-    const { actions: { setIdAgent } } = useClientGlobalStore();
+    const { state: { addLeads: { selectedAgent } }, actions: { setSelectedAgent } } = useClientGlobalStore();
 
     const { isLoading, isError } = useQueryHelper({
-        name: "admin-get-all-agents",
+        name: "admin-get-all-agents-for-wizard",
         gql: ADMIN_GET_ALL_AGENTS,
         config: {
             onSuccess: (response) => {
-                // console.log('response', orderAgentByName(get(response, ["dataAgent"], [])))
                 setDataselectAgentLeads(orderAgentByName(get(response, ["dataAgent"], [])));
             },
             onerror: () => {
@@ -28,13 +27,17 @@ const SelectAgent = () => {
         },
     });
 
-
     const onchangeSelectAgentLeads = (userSelegted) => {
-        console.log('userSelegted', userSelegted)
+        setSelectedAgent(userSelegted)
     }
+
+    // console.log('selectedAgent', selectedAgent)
 
     return (
         <SelectUserLead
+            value={get(selectedAgent, ['id'], null)}
+            labelSelect="Select an Agent"
+            placeholder='Agent Name...'
             typeDropdow='Avatar'
             isLoading={isLoading}
             isError={isError}

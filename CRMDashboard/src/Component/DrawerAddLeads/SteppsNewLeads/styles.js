@@ -3,13 +3,18 @@ import { createStyles } from '@mantine/core'
 const useStyles = createStyles((theme, _params) => {
     return (
         {
+            containerDrawer: {
+                display: 'flex',
+                gap: '24px',
+                flexDirection: 'column'
+            },
             StepperContainer: {
-                overflow: 'auto',
                 height: '100%',
                 width: '100%',
+                padding: "0",
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center'
+                justifyContent: 'center',
             },
             Stepper: {
                 borderRadius: '50px',

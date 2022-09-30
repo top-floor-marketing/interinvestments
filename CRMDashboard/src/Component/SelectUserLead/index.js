@@ -1,75 +1,26 @@
+import PropTypes from "prop-types"
 import React from 'react'
+// components
+import SelectItem from './SelectItem';
 // mantine
-import {
-  Box,
-  Text,
-  Select,
-  Group,
-  createStyles,
-  Loader,
-  Divider,
-  Avatar
-} from "@mantine/core";
-import { User, Mail } from 'tabler-icons-react';
+import { Select, Loader } from "@mantine/core";
 // ustils
 import filterlodash from 'lodash/filter';
+// styles
+import useStyles from './styles'
 
-const useStyles = createStyles((theme, _params, getRef) => ({
-  textdropdown: {
-    marginTop: "5px",
-    marginBottom: "5px",
-  },
-  selectLead: {
-    ".mantine-ActionIcon-root": {
-      color: theme.colors.dark[0],
-      "&:hover": {
-        color: theme.colors.dark[8],
-      },
-    },
-  },
-}));
-
-const SelectUserLead = ({ labelSelect = 'label Select', typeDropdow = 'icon', value, data, isLoading, isError, onChange: onChangeSelect }) => {
+const SelectUserLead = (props) => {
+  const {
+    labelSelect,
+    typeDropdow,
+    value,
+    data,
+    isLoading,
+    isError,
+    placeholder,
+    onChange: onChangeSelect,
+  } = props
   const { classes } = useStyles();
-
-  const SelectItem = (props) => {
-    const { label, email, ...others } = props
-
-    console.log('props', props)
-    
-    if (typeDropdow === "Avatar") {
-      return (
-        <Box {...others}>
-          <Group spacing="sm">
-            <User />
-            <Box>
-              <Text className={classes.textdropdown} component='h3'>{label}</Text>
-              <Text size="xs">
-                {email}
-              </Text>
-            </Box>
-          </Group>
-
-        </Box>
-      )
-    }
-
-    return (
-      <Box {...others}>
-        <Group spacing="sm">
-          <User />
-          <Text className={classes.textdropdown} component='h3'>{label}</Text>
-        </Group>
-        <Group spacing="sm">
-          <Mail />
-          <Text size="xs">
-            {email}
-          </Text>
-        </Group>
-      </Box>
-    )
-  }
-
 
   const formatData = () => {
     const newData = data.map(item => {
@@ -86,35 +37,50 @@ const SelectUserLead = ({ labelSelect = 'label Select', typeDropdow = 'icon', va
     onChangeSelect(filterlodash(data, { id: idValue })[0])
   }
 
-
   return (
-    <Box>
-      <Select
-        className={classes.selectLead}
-        clearable
-        value={value}
-        disabled={isLoading || isError}
-        label={labelSelect}
-        placeholder="Search lead"
-        onChange={(value) => filterUserLeads(value)}
-        itemComponent={SelectItem}
-        data={formatData()}
-        rightSection={isLoading ? <Loader size={14} /> : null}
-        searchable
-        maxDropdownHeight={250}
-        nothingFound="Nobody here"
-        filter={(value, item) =>
-          item.label.toLowerCase().includes(value.toLowerCase().trim()) ||
-          item.email.toLowerCase().includes(value.toLowerCase().trim())
-        }
-      />
-      <Divider my="sm" />
-    </Box>
+    <Select
+      className={classes.selectLead}
+      clearable
+      value={value}
+      disabled={isLoading || isError}
+      label={labelSelect}
+      placeholder={placeholder}
+      onChange={(value) => filterUserLeads(value)}
+      itemComponent={(props) => <SelectItem {...props} typeDropdow={typeDropdow} />}
+      data={formatData()}
+      rightSection={isLoading ? <Loader size={14} /> : null}
+      searchable
+      maxDropdownHeight={250}
+      nothingFound="Nobody here"
+      filter={(value, item) =>
+        item.label.toLowerCase().includes(value.toLowerCase().trim()) ||
+        item.email.toLowerCase().includes(value.toLowerCase().trim())
+      }
+    />
   );
 }
 
+SelectUserLead.defaultProps = {
+  data: [],
+  isError: false,
+  isLoading: false,
+  labelSelect: 'Label select',
+  onChange: PropTypes.func,
+  typeDropdow: 'icon',
+  placeholder: 'placeholder select'
+  // value: {}
+}
 
 
-
+SelectUserLead.propTypes = {
+  data: PropTypes.array,
+  isError: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  labelSelect: PropTypes.bool,
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  typeDropdow: PropTypes.oneOf(['icon', 'Avatar']),
+  value: PropTypes.object
+}
 
 export default SelectUserLead

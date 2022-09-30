@@ -12,8 +12,13 @@ import PropTypes from 'prop-types';
 import { AddressBook } from 'tabler-icons-react';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
+    root: {
+        '.mantine-Paper-root.mantine-Drawer-drawer': {
+            padding: 0,
+        }
+    },
     containerDrawer: {
-        backgroundColor: theme.colors.white[0]
+        backgroundColor: theme.colors.white[0],
     },
     titleModal: {
         margin: "0px !important",
@@ -36,6 +41,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         }
     },
     iconClose: {
+        padding: '14px',
         '.mantine-UnstyledButton-root': {
             width: '24px',
             height: 'auto',
@@ -48,7 +54,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
                 color: theme.colors.gray[8]
             }
         }
-    }
+    },
 }))
 
 const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title, onSuccessAddLeads }) => {
@@ -70,6 +76,7 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title, onSuccessAddLea
                 </Box>
             ),
             classNames: {
+                root: classes.root,
                 drawer: classes.containerDrawer,
                 header: classes.iconClose
             },
