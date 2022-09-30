@@ -4,6 +4,8 @@ import { Box, Table, Text } from '@mantine/core';
 // css
 import styles from './styles.cl.module.scss'
 
+import get from 'lodash/get';
+
 const TableContendCollapse = ({ data, columns }) => {
     const rows = data.map((element, index) => (
         <tr key={index}>
@@ -11,15 +13,19 @@ const TableContendCollapse = ({ data, columns }) => {
                 {element.name}
             </td>
             <td className='w-[250px]'>
-                <Text
-                    className={styles.linkFloorPlans}
-                    target="_blank"
-                    href={element.pdf.mediaItemUrl}
-                    download={`${element.pdf.title}`}
-                    component='a'
-                >
-                    {`${element.pdf.title}.pdf`}
-                </Text>
+                {
+                    (get(element, ["pdf", "mediaItemUrl"], null))
+                    &&
+                    <Text
+                        className={styles.linkFloorPlans}
+                        target="_blank"
+                        href={get(element, ["pdf", "mediaItemUrl"], null)}
+                        download={`${get(element, ["pdf", "title"], null)}`}
+                        component='a'
+                    >
+                        {`${get(element, ["pdf", "title"], null)}.pdf`}
+                    </Text>
+                }
             </td>
             <td>{element.bedbath}{(element.den) ? '+Den' : ''}</td>
             <td>{element.acSqft}</td>

@@ -29,7 +29,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("CREATE PDF");
     if (!isMounted) {
       setIsMounted(true);
     } else {
@@ -49,7 +48,7 @@ function App() {
       <MantineProvider>
         <NavigationProgress size='10px' zIndex={9999} color={"#ffb839"} />
         <>
-       {/*  <div
+          <div
             style={{
               width: "100%",
               height: "50px",
@@ -71,7 +70,7 @@ function App() {
             >
               Create PDF
             </button>
-          </div> */}
+          </div>
           {isRenderBuilder && (
             <PdfBuilder {...dataForPdf} onClose={closeRenderBuilder} />
           )}

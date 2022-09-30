@@ -7,6 +7,8 @@ import styles from './styles.cl.module.scss'
 // utilst
 import isArray from 'lodash/isArray';
 
+import get from 'lodash/get';
+
 
 const ContendCollapse = (props) => {
     const defaultContend = [
@@ -45,29 +47,40 @@ const ContendCollapse = (props) => {
                                                 <Text component='span'>
                                                     <strong>{value.title}</strong>
                                                 </Text>
-                                                <Box className={styles.containerFloorplasPdf}>
-                                                    {
-                                                        value.value.map((itemPdf, index) => (
-                                                            <Group
-                                                                key={`${itemPdf.pdf.title}_${index}`}
-                                                                spacing="xs"
-                                                                style={{ alignItems: 'center' }}
-                                                                className={styles.linkFloorPlans}
-                                                            >
-                                                                <Download size={16} />
-                                                                <Text
-                                                                    style={{ lineHeight: '17px' }}
-                                                                    target="_blank"
-                                                                    href={itemPdf.pdf.mediaItemUrl}
-                                                                    download={`${itemPdf.pdf.title}`}
-                                                                    component='a'
+                                                {
+                                                    (get(value.value, ["pdf"], null))
+                                                    &&
+                                                    <Box className={styles.containerFloorplasPdf}>
+                                                        {
+                                                            value.value.map((itemPdf, index) => (
+                                                                <Group
+                                                                    key={`${itemPdf.pdf.title}_${index}`}
+                                                                    spacing="xs"
+                                                                    style={{ alignItems: 'center' }}
+                                                                    className={styles.linkFloorPlans}
                                                                 >
-                                                                    {itemPdf.pdf.title}
-                                                                </Text>
-                                                            </Group>
-                                                        ))
-                                                    }
-                                                </Box>
+                                                                    {
+                                                                        (get(itemPdf, ["pdf", "mediaItemUrl"], null))
+                                                                        &&
+                                                                        <>
+                                                                            <Download size={16} />
+                                                                            <Text
+                                                                                style={{ lineHeight: '17px' }}
+                                                                                target="_blank"
+                                                                                href={itemPdf?.pdf?.mediaItemUrl}
+                                                                                download={`${itemPdf?.pdf?.title}`}
+                                                                                component='a'
+                                                                            >
+                                                                                {itemPdf.pdf.title}
+                                                                            </Text>
+                                                                        </>
+                                                                    }
+                                                                </Group>
+                                                            ))
+                                                        }
+                                                    </Box>
+                                                }
+
                                             </>
                                         ) : (
                                             <>
