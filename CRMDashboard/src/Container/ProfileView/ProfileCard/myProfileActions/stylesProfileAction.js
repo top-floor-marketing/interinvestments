@@ -82,7 +82,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
             display: 'block'
         }
     },
-    inputAvatar:{
+    inputAvatar: {
         display: 'none',
     },
     overlayLabel: {

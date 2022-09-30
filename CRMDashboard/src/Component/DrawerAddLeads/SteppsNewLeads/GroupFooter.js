@@ -12,6 +12,10 @@ import useStyles from './styles'
 // react-query
 import { useMutationHelper } from '../../../GraphqlClient/useRequest';
 import { MUTATION_LEADS_ADD } from '../../../GraphqlClient/leads.gql';
+// utis
+import { USER_ROLES_CRM } from '../../../GlobalStore/utils'
+
+import isEmpty from 'lodash/isEmpty'
 
 const GroupFooter = (_) => {
     const { classes } = useStyles({ color: 'secondary' });
@@ -28,7 +32,7 @@ const GroupFooter = (_) => {
         typeLeads,
         loading
     } = addLeads
-    const { id: idUser } = user.infoUser
+    const { id: idUser, agentType } = user.infoUser
 
     const prevStep = () => setstepperActive(stepperActive > 0 ? stepperActive - 1 : stepperActive);
 
@@ -88,7 +92,7 @@ const GroupFooter = (_) => {
     const finalStepper = () => {
         const { firstName, lastName, otherEmail, phoneNumber, otherPhoneNumber, email } = dataForm;
         const leadsData = {
-            agentId: `${idUser}`,
+            agentId: `${(agentType === USER_ROLES_CRM.ADMIN && addLeads.selectedAgent) ? addLeads.selectedAgent.databaseId : idUser}`,
             firstName,
             email,
             lastName,
@@ -103,15 +107,18 @@ const GroupFooter = (_) => {
             commentService: (typeLeads === "SERVICES") ? noteLeads : "",
             comments: "",
         }
-        // console.log("leadsData", leadsData)
+
         mutatio_leads_add({
             variables: {
                 input: { ...leadsData },
             },
         });
+        // console.log('leadsData', leadsData)
         setLoadingLeads(true)
     }
 
+    // console.log("addLeadsData", addLeads.selectedAgent    )
+    // console.log("addLeads", (isEmpty(addLeads.selectedAgen)))
 
     return (
         <Group

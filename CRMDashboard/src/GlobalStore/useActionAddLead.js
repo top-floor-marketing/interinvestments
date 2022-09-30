@@ -8,7 +8,8 @@ export const STORE_ADDLEAD_ACTIONS = {
     SET_TOTAL_SERVICES: 'set_total_services',
     SET_STATE_LEADS: 'set_state_leads',
     SET_NOTE_LEADS: 'set_note_leads',
-    SET_LOADING_LEADS: 'set_loading_leads'
+    SET_LOADING_LEADS: 'set_loading_leads',
+    SET_SELEGTED_AGENT: 'set_selegted_AGENT'
 }
 
 export const DEFAULT_STORE_ADD_LEAD = {
@@ -20,7 +21,8 @@ export const DEFAULT_STORE_ADD_LEAD = {
     serviceData: [],
     totalServices: [],
     stateLeads: null,
-    noteLeads: null
+    noteLeads: null,
+    selectedAgent: {}
 }
 
 const useActionsAddLead = (dispatch) => {
@@ -29,6 +31,13 @@ const useActionsAddLead = (dispatch) => {
         dispatch({
             type: STORE_ADDLEAD_ACTIONS.RESET_ALL,
             payload: null
+        });
+    }
+
+    const setSelectedAgent = (Agent) => {
+        dispatch({
+            type: STORE_ADDLEAD_ACTIONS.SET_SELEGTED_AGENT,
+            payload: Agent
         });
     }
 
@@ -97,6 +106,7 @@ const useActionsAddLead = (dispatch) => {
 
     return {
         setAllField,
+        setSelectedAgent,
         setLoadingLeads,
         setstepperActive,
         setTypeLeads,

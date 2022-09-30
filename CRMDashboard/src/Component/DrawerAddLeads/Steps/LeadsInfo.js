@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 // components
 import SelectUserLead from '../../../Component/SelectUserLead'
+import SelectAgent from './SelectAgent'
 // mantine
 import { TextInput, Divider, Box } from '@mantine/core';
 // icons
@@ -12,22 +13,19 @@ import { useQueryHelper } from "../../../GraphqlClient/useRequest";
 import { GET_USER_LEADS_FOR_WIZARD } from "../../../GraphqlClient/leads.gql";
 //  utils
 import get from 'lodash/get'
+import { USER_ROLES_CRM } from '../../../GlobalStore/utils'
 // global store
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
-
 
 const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
     const [dataSelectUserLeads, setDataselectUserLeads] = useState([])
 
     const { classes } = useStyles();
-    const {
-        state: {
-            user: {
-                infoUser: { databaseId, agentType },
-            }
-        },
-    } = useClientGlobalStore();
+    // global store
+    const { state } = useClientGlobalStore();
+    const { user: { infoUser: { databaseId, agentType } } } = state
 
+    // console.log('addLeads', addLeads)
 
     const { isLoading, isError } = useQueryHelper({
         name: "get-user-leads-for-wizard",
@@ -47,7 +45,6 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
     });
 
     const onchangeSelectUserLeads = (user) => {
-        console.log('onchangeSelectUserLeads', user)
         const { firstName, lastName, email, phone, otherPhones, otherEmails } = user
         form.setValues({
             firstName,
@@ -60,18 +57,27 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
     }
 
 
-
     return (
         <>
-            <Box style={{ marginBottom: '1rem', marginTop: '1rem', width: '32%' }}>
+            <Box
+                style={{ marginTop: '1rem', marginBottom: '1rem' }}
+                className={classes.containerMain}
+            >
                 <SelectUserLead
+                    labelSelect="Select a existing lead"
+                    placeholder='lead Name...'
                     isLoading={isLoading}
                     isError={isError}
-                    //value={valueSelectUserLead?.id}
                     data={dataSelectUserLeads}
                     onChange={(val) => onchangeSelectUserLeads(val)}
                 />
+                {
+                    agentType === USER_ROLES_CRM.ADMIN ? (
+                        <SelectAgent  />
+                    ) : null
+                }
             </Box>
+            <Divider my="sm" />
             <form
                 onSubmit={form.onSubmit((values) => onSubmitForm(values))}
                 className={classes.containerMain}

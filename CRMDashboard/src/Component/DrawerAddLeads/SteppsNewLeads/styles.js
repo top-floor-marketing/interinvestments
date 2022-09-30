@@ -3,12 +3,18 @@ import { createStyles } from '@mantine/core'
 const useStyles = createStyles((theme, _params) => {
     return (
         {
+            containerDrawer: {
+                display: 'flex',
+                gap: '24px',
+                flexDirection: 'column'
+            },
             StepperContainer: {
                 height: '100%',
                 width: '100%',
+                padding: "0",
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center'
+                justifyContent: 'center',
             },
             Stepper: {
                 borderRadius: '50px',
@@ -70,7 +76,7 @@ const useStyles = createStyles((theme, _params) => {
             GroupControllers: {
                 alignContent: 'center',
                 height: '100%',
-                marginBottom: '40px',
+                paddingBottom: '25px',
                 'Button': {
                     backgroundColor: theme.colors.white[0],
                     '&:hover': {

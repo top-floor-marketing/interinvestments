@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 // mantine
-import { Stepper, Box, Text } from '@mantine/core';
+import { Stepper, Box, Text, ScrollArea } from '@mantine/core';
 import { useForm } from "@mantine/form";
 //  icons
 import { User, Check, BuildingCommunity, Note } from 'tabler-icons-react';
@@ -74,71 +74,72 @@ const SteppsNewLeads = (_) => {
 
 
     return (
-        <Box className={classes.StepperContainer}>
-            <Stepper {...props.Stepper}>
+        <Box className={classes.containerDrawer}>
+            <ScrollArea style={{ height: "75vh" }}>
+                <Stepper {...props.Stepper}>
+                    <Stepper.Step
+                        {...props.Step}
+                        icon={<User size={34} color='white' />}
+                        label={<Text component="span" className={classes.titleStep}>Step 2</Text>}
+                        description={
+                            <DescriptionSteps
+                                stepperActive={stepperActive}
+                                position={0}
+                                text='Leads info'
+                            />
+                        }
+                    >
+                        <ContainerStep title={null}>
+                            <ListingLeadsInfo
+                                refForm={refForm}
+                                form={form}
+                                onSubmitForm={onSubmitForm}
+                            />
+                        </ContainerStep>
+                    </Stepper.Step>
 
-                <Stepper.Step
-                    {...props.Step}
-                    icon={<User size={34} color='white' />}
-                    label={<Text component="span" className={classes.titleStep}>Step 2</Text>}
-                    description={
-                        <DescriptionSteps
-                            stepperActive={stepperActive}
-                            position={0}
-                            text='Leads info'
-                        />
-                    }
-                >
-                    <ContainerStep title={null}>
-                        <ListingLeadsInfo
-                            refForm={refForm}
-                            form={form}
-                            onSubmitForm={onSubmitForm}
-                        />
-                    </ContainerStep>
-                </Stepper.Step>
 
+                    <Stepper.Step
+                        {...props.Step}
+                        icon={<BuildingCommunity size={34} color='white' />}
+                        label={<Text component="span" className={classes.titleStep}>Step 1</Text>}
+                        description={
+                            <DescriptionSteps
+                                stepperActive={stepperActive}
+                                position={1}
+                                text='Select leads type'
+                            />
+                        }
+                    >
+                        <ContainerStep title={null}>
+                            <TypeLeads />
+                        </ContainerStep>
+                    </Stepper.Step>
 
-                <Stepper.Step
-                    {...props.Step}
-                    icon={<BuildingCommunity size={34} color='white' />}
-                    label={<Text component="span" className={classes.titleStep}>Step 1</Text>}
-                    description={
-                        <DescriptionSteps
-                            stepperActive={stepperActive}
-                            position={1}
-                            text='Select leads type'
-                        />
-                    }
-                >
-                    <ContainerStep title={null}>
-                        <TypeLeads />
-                    </ContainerStep>
-                </Stepper.Step>
+                    <Stepper.Step
+                        {...props.Step}
+                        icon={<Note size={34} color='white' />}
+                        label={<Text component="span" className={classes.titleStep}>Step 3</Text>}
+                        description={
+                            <DescriptionSteps
+                                stepperActive={stepperActive}
+                                position={2}
+                                text='Overview'
+                            />
+                        }
+                    >
+                        <ContainerStep title={null}>
+                            <CommentLeads />
+                        </ContainerStep>
+                    </Stepper.Step>
 
-                <Stepper.Step
-                    {...props.Step}
-                    icon={<Note size={34} color='white' />}
-                    label={<Text component="span" className={classes.titleStep}>Step 3</Text>}
-                    description={
-                        <DescriptionSteps
-                            stepperActive={stepperActive}
-                            position={2}
-                            text='Overview'
-                        />
-                    }
-                >
-                    <ContainerStep title={null}>
-                        <CommentLeads />
-                    </ContainerStep>
-                </Stepper.Step>
-
-                <Stepper.Completed>
-                    <ContainerStep title={null}>
-                        <FinalStepp />
-                    </ContainerStep>
-                </Stepper.Completed>
-            </Stepper>
+                    <Stepper.Completed>
+                        <ContainerStep title={null}>
+                            <FinalStepp />
+                        </ContainerStep>
+                    </Stepper.Completed>
+                </Stepper>
+            </ScrollArea>
             <GroupFooter
                 onSuccessAddLeads={onSuccessAddLeads}
                 nextStep={nextStep}
