@@ -9,7 +9,7 @@ import map from 'lodash/map';
 const useGetPipelineLeads = ({agentId, statusId}) => {
     const [dataPipeline, setDataPipeline] = useState([])
 
-    const { data, isLoading, isError, refetch }  = useQueryHelper({
+    const { isLoading, isError, refetch }  = useQueryHelper({
         name: `PIPELINE_${agentId}_${statusId}`,
         gql: PIPELINE,
         variables: {
@@ -17,6 +17,7 @@ const useGetPipelineLeads = ({agentId, statusId}) => {
             statusId: statusId
         },
         config: {
+            enabled: !!(agentId),
             onSuccess: (response) => {
                 const getData = get(response, ["pipeline"], []);
                 const addAgentId = map(getData, (val) => ({...val, agentId}));
@@ -26,7 +27,7 @@ const useGetPipelineLeads = ({agentId, statusId}) => {
     });
 
     return {
-        isLoading,
+        isLoading: (agentId === null) ? false : isLoading,
         isError,
         data: dataPipeline,
         refetch

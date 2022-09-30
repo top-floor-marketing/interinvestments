@@ -9,7 +9,6 @@ import AvatarText from '../../Component/AvatarText';
 // utils
 import omit from 'lodash/omit';
 
-
 const useStyles = createStyles((theme, _params) => {
     return {
         PaperPipeline: {
@@ -63,9 +62,13 @@ const PipelineItem = (props) => {
             <Text className={classes.nameUserLead} component='p' lineClamp={1} title={`${firstName} ${lastName}`}>
                 {firstName}&nbsp;{lastName}
             </Text>
-            <ActionIcon size="lg" color="dark">
-                <IconAdjustments size={24} />
-            </ActionIcon>
+            {
+                (props.enabled)
+                &&
+                <ActionIcon size="lg" color="dark">
+                    <IconAdjustments size={24} />
+                </ActionIcon>
+            }
         </Paper>
     );
 
@@ -74,13 +77,15 @@ const PipelineItem = (props) => {
 PipelineItem.defaultProps = {
     state: 6,
     onClick: () => { },
-    nameLeads: 'Use it to create cards'
+    nameLeads: 'Use it to create cards',
+    enabled: true
 }
 
 PipelineItem.propTypes = {
     state: PropTypes.number || null,
     nameLeads: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    enabled: PropTypes.bool
 };
 
 export default PipelineItem

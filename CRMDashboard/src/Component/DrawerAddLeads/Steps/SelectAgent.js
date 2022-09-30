@@ -10,7 +10,7 @@ import { orderAgentByName } from '../../../Container/AgentsView/hooks/utils.serv
 // global store
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
-const SelectAgent = () => {
+const SelectAgent = ({ cssClass = null, useLabel = true, localOnChange = null, localValue = null }) => {
     const [dataSelectAgentLeads, setDataselectAgentLeads] = useState([])
     const { state: { addLeads: { selectedAgent } }, actions: { setSelectedAgent } } = useClientGlobalStore();
 
@@ -27,22 +27,25 @@ const SelectAgent = () => {
         },
     });
 
-    const onchangeSelectAgentLeads = (userSelegted) => {
-        setSelectedAgent(userSelegted)
+    const onchangeSelectAgentLeads = (agent) => {
+        if (localOnChange) {
+            localOnChange(agent);
+        } else {
+            setSelectedAgent(agent)
+        }
     }
-
-    // console.log('selectedAgent', selectedAgent)
 
     return (
         <SelectUserLead
-            value={get(selectedAgent, ['id'], null)}
-            labelSelect="Select an Agent"
-            placeholder='Agent Name...'
+            value={get(localValue, ['id'], null) || get(selectedAgent, ['id'], null)}
+            labelSelect={useLabel ? "Select an Agent" : null}
+            placeholder='Agent Name'
             typeDropdow='Avatar'
             isLoading={isLoading}
             isError={isError}
             data={dataSelectAgentLeads}
             onChange={(val) => onchangeSelectAgentLeads(val)}
+            cssClass={cssClass}
         />
     )
 }

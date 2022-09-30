@@ -10,6 +10,9 @@ import { PipelineColumnVirtual } from '../../Component/VirtualListContainer';
 import useGetPipelineLeads from './hook/useGetPipelineLeads';
 
 import useClientGlobalStore from '../../GlobalStore/useClientGlobalStore';
+import PaperFilterAgent from './paperFilterAgent';
+
+import { USER_ROLES_CRM } from '../../GlobalStore/utils';
 
 import filter from 'lodash/filter';
 import toLower from 'lodash/toLower';
@@ -91,7 +94,7 @@ const Pipeline = () => {
     const {
         state: {
             user: {
-                infoUser: { databaseId },
+                infoUser: { databaseId, agentType },
             },
             global: {
                 statusUserLead: listStatus,
@@ -103,18 +106,25 @@ const Pipeline = () => {
         return get(filter(listStatus, (val) => toLower(val.label) === toLower(label)), ["0", "value"], 0);
     }, [listStatus]);
 
+    const [idAgentForAdmin, setIdAgentForAdmin] = useState(null);
     const [openedMOdal, setOpenedModal] = useState(false);
     const [valueSelect, setvalueSelect] = useState(false);
     const [valueUserPipeline, setValueUserPipeline] = useState(null)
     const { ref, width } = useElementSize();
     const { classes } = useStyles({ width });
 
-    const { data: dataNotContacted, refetch: reFetchNotContacted, isLoading: isLoadingNotContacted } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('Not Contacted') });
-    const { data: dataContacted, refetch: reFetchContacted, isLoading: isLoadingContacted } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('contacted') });
-    const { data: dataShowing, refetch: reFetchShowing, isLoading: isLoadingShowing } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('showing') });
-    const { data: dataContract, refetch: reFetchContract, isLoading: isLoadingContract } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('contract') });
-    const { data: dataASk, refetch: reFetchAsk, isLoading: isLoadingAsk } = useGetPipelineLeads({ agentId: databaseId, statusId: getInfoState('ask referrals') });
+    const getIdForPipeline = () => {
+        if(agentType === USER_ROLES_CRM.ADMIN) {
+            return get(idAgentForAdmin, ["id"], null);
+        }
+        return databaseId;
+    }
 
+    const { data: dataNotContacted, refetch: reFetchNotContacted, isLoading: isLoadingNotContacted } = useGetPipelineLeads({ agentId: getIdForPipeline(), statusId: getInfoState('Not Contacted') });
+    const { data: dataContacted, refetch: reFetchContacted, isLoading: isLoadingContacted } = useGetPipelineLeads({ agentId: getIdForPipeline(), statusId: getInfoState('contacted') });
+    const { data: dataShowing, refetch: reFetchShowing, isLoading: isLoadingShowing } = useGetPipelineLeads({ agentId: getIdForPipeline(), statusId: getInfoState('showing') });
+    const { data: dataContract, refetch: reFetchContract, isLoading: isLoadingContract } = useGetPipelineLeads({ agentId: getIdForPipeline(), statusId: getInfoState('contract') });
+    const { data: dataASk, refetch: reFetchAsk, isLoading: isLoadingAsk } = useGetPipelineLeads({ agentId: getIdForPipeline(), statusId: getInfoState('ask referrals') });
 
     const refechPipeline = (prevState, newState) => {
         if (getInfoState('Not Contacted') === prevState || getInfoState('Not Contacted') === newState)
@@ -140,25 +150,34 @@ const Pipeline = () => {
                     isLoadingAsk
                 ) || false}
                 overlayBlur={0.5}
-                overlayOpacity={0.2}
+                overlayOpacity={0.4}
                 overlayColor="#eaeae9"
                 loaderProps={{ size: 'sm', color: '#ffb839', variant: 'bars' }}
             />
+            <ModalChangePipeline
+                refechPipeline={refechPipeline}
+                valueUserPipeline={valueUserPipeline}
+                setValueUserPipeline={setValueUserPipeline}
+                openedMOdal={openedMOdal}
+                setOpenedModal={setOpenedModal}
+                valueSelect={valueSelect}
+                setvalueSelect={setvalueSelect}
+            />
             <Box className={classes.container}>
 
-                <ModalChangePipeline
-                    refechPipeline={refechPipeline}
-                    valueUserPipeline={valueUserPipeline}
-                    setValueUserPipeline={setValueUserPipeline}
-                    openedMOdal={openedMOdal}
-                    setOpenedModal={setOpenedModal}
-                    valueSelect={valueSelect}
-                    setvalueSelect={setvalueSelect}
-                />
+                {
+                    (agentType === USER_ROLES_CRM.ADMIN)
+                    && <PaperFilterAgent idAgent={idAgentForAdmin} setIdAgent={setIdAgentForAdmin} />
+                }
 
-                <Text className={classes.titlePipeline} component='h3'>Pipeline</Text>
-
-
+               
+                <Text className={classes.titlePipeline} component='h3'>
+                    Pipeline
+                    {
+                       (agentType === USER_ROLES_CRM.ADMIN)
+                       && ": ".concat(get(idAgentForAdmin, ["firstName"], "").concat(" ").concat(get(idAgentForAdmin, ["lastName"], "")))
+                    }
+                </Text>
 
                 <Box className={classes.containerPipeline} ref={ref}>
                     <Box className={classes.containerColPipeline}>
@@ -171,6 +190,7 @@ const Pipeline = () => {
                             <PipelineItem
                                 setValueUserPipeline={setValueUserPipeline}
                                 onClick={() => setOpenedModal(true)}
+                                enabled={agentType !== USER_ROLES_CRM.ADMIN}
                             />
                         </PipelineColumnVirtual>
                     </Box>
@@ -185,6 +205,7 @@ const Pipeline = () => {
                             <PipelineItem
                                 setValueUserPipeline={setValueUserPipeline}
                                 onClick={() => setOpenedModal(true)}
+                                enabled={agentType !== USER_ROLES_CRM.ADMIN}
                             />
                         </PipelineColumnVirtual>
                     </Box>
@@ -199,12 +220,10 @@ const Pipeline = () => {
                             <PipelineItem
                                 setValueUserPipeline={setValueUserPipeline}
                                 onClick={() => setOpenedModal(true)}
+                                enabled={agentType !== USER_ROLES_CRM.ADMIN}
                             />
                         </PipelineColumnVirtual>
                     </Box>
-
-
-
 
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
@@ -216,6 +235,7 @@ const Pipeline = () => {
                             <PipelineItem
                                 setValueUserPipeline={setValueUserPipeline}
                                 onClick={() => setOpenedModal(true)}
+                                enabled={agentType !== USER_ROLES_CRM.ADMIN}
                             />
                         </PipelineColumnVirtual>
                     </Box>
@@ -230,6 +250,7 @@ const Pipeline = () => {
                             <PipelineItem
                                 setValueUserPipeline={setValueUserPipeline}
                                 onClick={() => setOpenedModal(true)}
+                                enabled={agentType !== USER_ROLES_CRM.ADMIN}
                             />
                         </PipelineColumnVirtual>
                     </Box>

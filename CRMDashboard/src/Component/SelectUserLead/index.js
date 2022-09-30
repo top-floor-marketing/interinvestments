@@ -7,7 +7,9 @@ import { Select, Loader } from "@mantine/core";
 // ustils
 import filterlodash from 'lodash/filter';
 // styles
-import useStyles from './styles'
+import useStyles from './styles';
+
+import omit from 'lodash/omit';
 
 const SelectUserLead = (props) => {
   const {
@@ -19,8 +21,10 @@ const SelectUserLead = (props) => {
     isError,
     placeholder,
     onChange: onChangeSelect,
+    cssClass
   } = props
-  const { classes } = useStyles();
+
+  const { cx, classes } = useStyles();
 
   const formatData = () => {
     const newData = data.map(item => {
@@ -39,18 +43,18 @@ const SelectUserLead = (props) => {
 
   return (
     <Select
-      className={classes.selectLead}
+      className={cx(classes.selectLead, { [cssClass]: cssClass})}
       clearable
       value={value}
       disabled={isLoading || isError}
       label={labelSelect}
       placeholder={placeholder}
       onChange={(value) => filterUserLeads(value)}
-      itemComponent={(props) => <SelectItem {...props} typeDropdow={typeDropdow} />}
+      itemComponent={(props) => <SelectItem {...omit(props, ["lastName", "firstName", "databaseId"])} typeDropdow={typeDropdow} />}
       data={formatData()}
       rightSection={isLoading ? <Loader size={14} /> : null}
       searchable
-      maxDropdownHeight={250}
+      maxDropdownHeight={280}
       nothingFound="Nobody here"
       filter={(value, item) =>
         item.label.toLowerCase().includes(value.toLowerCase().trim()) ||
@@ -64,11 +68,12 @@ SelectUserLead.defaultProps = {
   data: [],
   isError: false,
   isLoading: false,
-  labelSelect: 'Label select',
+  labelSelect: false,
   onChange: PropTypes.func,
   typeDropdow: 'icon',
-  placeholder: 'placeholder select'
-  // value: {}
+  placeholder: 'placeholder select',
+  className: null,
+  value: null
 }
 
 
@@ -80,7 +85,8 @@ SelectUserLead.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   typeDropdow: PropTypes.oneOf(['icon', 'Avatar']),
-  value: PropTypes.object
+  value: PropTypes.number,
+  className: PropTypes.string
 }
 
 export default SelectUserLead
