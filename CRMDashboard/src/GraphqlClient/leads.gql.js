@@ -17,8 +17,6 @@ export const GET_LEADS_LIST_FOR_AGENT = gql`
           phone
           otherPhones
         }
-        commentService
-        commentListing
         currentStatus
         status {
           status
