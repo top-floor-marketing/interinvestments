@@ -1,6 +1,6 @@
 import React from 'react'
 // mantine
-import { Button } from '@mantine/core';
+import { Button, Text } from '@mantine/core';
 // css
 import styles from './styles.tqs.module.scss'
 
@@ -15,7 +15,13 @@ const ButtonTabs = (props) => {
             variant="outline"
             onClick={() => onChageActive(id)}
             className={`${styles.ButtonTabs} ${(activeButton) ? styles.ButtonTabsActive : styles.ButtonTabsDiable}`}>
-            {text}
+            <Text
+                title={text}
+                lineClamp={1}
+                component='span'
+            >
+                {text}
+            </Text>
         </Button>
     )
 }
