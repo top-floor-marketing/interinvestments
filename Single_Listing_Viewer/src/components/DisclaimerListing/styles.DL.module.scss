@@ -1,0 +1,17 @@
+.containerDisclaimerListing {
+    @apply flex flex-col px-12 xl:px-0 my-20 md:my-28 max-w-screen-lg w-full mx-auto h-full;
+}
+
+.titleDisclaimer {
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    @apply mb-2 md:mb-7 font-[400] leading-[20px] font-outfit text-[12px] md:text-[16px];
+}
+
+.textDisclainer {
+    font-weight: 400;
+    @apply mt-4 font-outfit text-[18px] md:text-[24px] leading-[30px] md:leading-[35px] overflow-auto;
+    p {
+        @apply my-4;
+    }
+}
