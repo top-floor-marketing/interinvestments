@@ -1,8 +1,11 @@
 import React from 'react'
+import DOMPurify from 'dompurify'
 // css
 import styles from './styles.dl.module.scss'
 // mantine
 import { Box, Text, Spoiler } from '@mantine/core';
+// utils
+import get from 'lodash/get'
 
 const DescriptionListing = (props) => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -10,7 +13,7 @@ const DescriptionListing = (props) => {
   const { data } = props
 
   const descriptionHTMLDangerous = () => {
-    return { __html: data.description }
+    return { __html: DOMPurify.sanitize(get(data, ['description'], '<p />')) }
   }
 
   return (

@@ -5,7 +5,8 @@ import DescriptionListing from '../DescriptionListing';
 import DataLIsting from '../DataLIsting'
 import CarucelListing from '../CarucelListing'
 import CollapseListing from '../CollapseListing'
-import MapListing from '../MapListing'
+import DisclaimerListing from '../DisclaimerListing'
+// import MapListing from '../MapListing'
 import VideoListing from '../VideoListing'
 // Hoc
 import ListingWrapper from '../Hoc/ListingWrapper';
@@ -62,6 +63,11 @@ const Main = () => {
                     ...valueListing?.listingData.newDevelopment,
                 }}
             />
+
+            <DisclaimerListing
+                data={optionTheme}
+            />
+
             {
                 //    <MapListing
                 //     data={{

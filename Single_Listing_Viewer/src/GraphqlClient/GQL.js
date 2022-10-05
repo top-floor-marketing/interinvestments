@@ -96,6 +96,7 @@ export const ACF_OPTIONS_GlOBAL_OPTIONS = gql`
     acfOptionsGlobalOptions {
       optionPage {
         mapApiKey
+        propertyDisclaimer
       }
     }
   }
