@@ -11,6 +11,7 @@ import PageTwo from './pageTwo';
 import PageThree from './pageThree';
 import PageFour from './pageFour';
 import PageFive from './pageFive';
+import PageSix from './pageSix';
 import PageAgentProfile from './pageAgentProfile';
 
 import { FONT_FAMILY, INTERINVESTMENT } from './utils';
@@ -35,23 +36,28 @@ const PdfDocument = ({ listing, agent }) => {
 
     return (
         <Document {...DOCUMENT_METADATA}>
-            <PageOne listing={listing} agent={agent} />
-            <PageTwo listing={listing} agent={agent} />
-            {
+           {/*  <PageOne listing={listing} agent={agent} />
+            <PageTwo listing={listing} agent={agent} /> */}
+           {/*  {
                 (get(listing, ["listingData", "newDevelopment", "photos"], null))
                 &&
                 <PageThree listing={listing} agent={agent} />
-            }
-            {
+            } */}
+           {
                 (get(listing, ["listingData", "newDevelopment", "specs"], null))
                 &&
                 <PageFour listing={listing} agent={agent} />
-            }
+            } 
             {
-                (get(listing, ["listingData", "newDevelopment", "finishes"], null))
+                (get(listing, ["floorplans", "allFloorplans"], null))
                 &&
                 <PageFive listing={listing} agent={agent} />
             }
+           {/*  {
+                (get(listing, ["listingData", "newDevelopment", "finishes"], null))
+                &&
+                <PageSix listing={listing} agent={agent} />
+            } */}
             <PageAgentProfile listing={listing} agent={agent} />
         </Document>
     )

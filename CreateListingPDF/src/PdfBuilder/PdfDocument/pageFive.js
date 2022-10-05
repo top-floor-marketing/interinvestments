@@ -9,7 +9,7 @@ import { FONT_FAMILY, PADDING_FOR_PAGES } from './utils';
 
 const PageFive = ({ listing, agent }) => {
 
-    console.log("PageFive ", listing)
+    console.log("listing ", listing)
 
     const styles = StyleSheet.create({
         page: {
@@ -19,20 +19,28 @@ const PageFive = ({ listing, agent }) => {
             height: '100%',
         },
         containerPageFive: {
-            ...PADDING_FOR_PAGES,
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            height: '100%',
+            backgroundColor: '#f5f6fa',
+            paddingTop: '22px',
+            paddingBottom: '22px',
+            paddingRight: "2%",
+            paddingLeft: "2%",
         },
         infoPageFive: {
             display: 'flex',
             flexDirection: 'row',
             width: '90%',
-            height: '90%',
-            margin: "auto",
+          	paddingTop: '22px',
+            marginLeft: "auto",
+            marginRight: "auto",
         },
         textNumber: {
             fontWeight: 300,
             color: "#fab005",
             fontSize: "20px",
-            fontFamily: FONT_FAMILY,
             width: "30%",
         },
         dataContainer: {
@@ -45,29 +53,37 @@ const PageFive = ({ listing, agent }) => {
         textTitle: {
             fontWeight: 600,
             fontSize: "48px",
-            fontFamily: FONT_FAMILY,
             marginBottom: "32px"
         },
-        rowData: {
+        table: {
+            display: 'flex',
+            flexDirection: 'column',
+            marginLeft: "auto",
+            width: '85%',
+            heigth: "100%",
+         	paddingRight: "5%",
+        },
+        width28: {
+          width: "28%",
+        },
+        width14: {
+          width: "14.5%",
+        },
+        thRow: {
             display: 'flex',
             flexDirection: 'row',
-            width: "100%",
-            borderTop: '0.5px solid #34495e',
-            paddingTop: '16px',
-            paddingBottom: '16px',
+            width: '100%',
+            paddingTop: '8px',
+            paddingBottom: '8px',
+            marginTop: '8px',
+          	marginBottom: '8px',
+            borderBottom: '0.5px solid #34495e',
         },
-        textRowDataTitle: {
-            fontWeight: 200,
-            fontSize: "18px",
-            fontFamily: FONT_FAMILY,
-            width: "50%",
+        textTable: {
+            fontSize: "14px",
+            paddingRight: "8px",
             paddingLeft: "8px",
-            paddingRight: "8px"
         },
-        textRowDataInfo: {
-            fontWeight: 'normal',
-            fontSize: "16px",
-        }
     });
 
     const specs = {
@@ -86,57 +102,18 @@ const PageFive = ({ listing, agent }) => {
                 <View style={styles.infoPageFive}>
                     <Text style={styles.textNumber}>02</Text>
                     <View style={styles.dataContainer}>
-                        <Text style={styles.textTitle}>Finishes</Text>
-                        {
-                            (specs.bath)
-                            &&
-                            <View style={styles.rowData}>
-                                <Text style={styles.textRowDataTitle}>
-                                    Bathrooms
-                                </Text>
-                                <Text style={styles.textRowDataInfo}>
-                                    {specs.bath}
-                                </Text>
-                            </View>
-                        }
-                        {
-                            (specs.flooring)
-                            &&
-                            <View style={styles.rowData}>
-                                <Text style={styles.textRowDataTitle}>
-                                    Flooring
-                                </Text>
-                                <Text style={styles.textRowDataInfo}>
-                                    {specs.flooring}
-                                </Text>
-                            </View>
-                        }
-                        {
-                            (specs.kitchenCabinets)
-                            &&
-                            <View style={styles.rowData}>
-                                <Text style={styles.textRowDataTitle}>
-                                Kitchen Cabinets
-                                </Text>
-                                <Text style={styles.textRowDataInfo}>
-                                    {specs.kitchenCabinets}
-                                </Text>
-                            </View>
-                        }
-                         {
-                            (specs.appliances)
-                            &&
-                            <View style={styles.rowData}>
-                                <Text style={styles.textRowDataTitle}>
-                                Appliances
-                                </Text>
-                                <Text style={styles.textRowDataInfo}>
-                                    {specs.appliances}
-                                </Text>
-                            </View>
-                        }
+                        <Text style={styles.textTitle}>Floorplans</Text>
                     </View>
                 </View>
+                    <View style={styles.table}>
+                        <View style={styles.thRow}>
+                            <Text style={{ ...styles.width28, ...styles.textTable }}>Name</Text>
+                            <Text style={{ ...styles.width28, ...styles.textTable }}>Pdf File</Text>
+                            <Text style={{ ...styles.width14, ...styles.textTable }}>Bed/Bath</Text>
+                            <Text style={{ ...styles.width14, ...styles.textTable }}>AC Sqft</Text>
+                            <Text style={{ ...styles.width14, ...styles.textTable }}>Total Sqft</Text>
+                        </View>
+                    </View>
             </View>
             <HeaderDinamic listing={listing} agent={agent} />
             <FooterDinamic listing={listing} agent={agent} />

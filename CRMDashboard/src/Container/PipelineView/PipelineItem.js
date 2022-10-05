@@ -53,7 +53,6 @@ const PipelineItem = (props) => {
                     onClickPaper()
                     setValueUserPipeline({ ...omit(props, ['onClick', 'setValueUserPipeline', 'children']) })
                 }
-                  
             }}
             className={classes.PaperPipeline}
         >
