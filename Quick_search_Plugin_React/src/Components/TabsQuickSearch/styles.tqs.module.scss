@@ -24,19 +24,19 @@
 }
 
 .ButtonTabs {
-    @apply font-outfit text-left pl-[12px] transition duration-500 border-t-0 border-l-0 border-r-0 rounded-none;
+    @apply font-outfit text-left pl-[12px] transition duration-500 rounded-none;
 }
 
 .ButtonTabsActive {
-    @apply text-neutral border-neutral;
+    @apply font-bold text-neutral border-neutral border-t-0 border-l-0 border-r-0;
 }
 
 .ButtonTabsDiable {
-    @apply font-outfit text-disableColor border-disableColor;
+    @apply font-normal font-outfit text-disableColor border-none;
 }
 
 .ButtonTabslabel {
-    @apply w-full text-base font-normal font-outfit;
+    @apply w-full text-base font-outfit;
 }
 
 .InputTabsMantine {
