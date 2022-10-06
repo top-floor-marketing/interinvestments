@@ -1,11 +1,11 @@
 
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ContainerComponts from './Components/ContainerComponts'
 // store
 import ProviderStore from './Store/ProviderStore';
 // react-query
-//import { ReactQueryDevtools } from 'react-query/devtools'
-const queryClient = new QueryClient()
+
+const queryClient = new QueryClient();
 
 function App() {
 
@@ -14,9 +14,6 @@ function App() {
       <ProviderStore>
         <ContainerComponts />
       </ProviderStore>
-      {
-        //  <ReactQueryDevtools />
-      }
     </QueryClientProvider>
   )
 }
