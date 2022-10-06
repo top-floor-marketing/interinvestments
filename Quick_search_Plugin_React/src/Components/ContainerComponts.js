@@ -22,6 +22,7 @@ const ContainerComponts = (props) => {
             const boxContainer = document.querySelector(PLUGIN_ID_NAME);
             console.log("boxContainer", boxContainer)
             console.log("offset", boxContainer?.parentNode?.offsetTop )
+            console.log("y", y)
             if (y > (boxContainer?.parentNode?.offsetTop + containerRef?.current?.clientHeight) && focusMenu && boxContainer) {
                 setFocusMenu(false)
             }
