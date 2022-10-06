@@ -20,7 +20,7 @@ const MenuQuickSearch = () => {
             searchListing,
             activeCategory,
             activeNeighborhoods,
-            focusCard
+            focusMenu
         },
     } = useStore();
 
@@ -64,7 +64,7 @@ const MenuQuickSearch = () => {
         return finalVars
     }
 
-    if ((focusCard)) {
+    if ((focusMenu)) {
         return (
             <div className={`z-1 ${styles.MenuQuickSearch}`}>
                 <Card

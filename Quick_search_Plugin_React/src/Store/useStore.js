@@ -4,7 +4,7 @@ import { StoreContext } from './ProviderStore';
 import useCategories from "./dispatch/useCategories";
 import useSearchListing from './dispatch/useSearchListing'
 
-const useStore = () => {
+const useStore = (props) => {
 
     const { state, dispatch } = useContext(StoreContext);
 

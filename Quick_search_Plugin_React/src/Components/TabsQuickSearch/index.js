@@ -35,9 +35,9 @@ const TapsQuickSearch = () => {
         setCategories,
         setActiveCategory,
         setSearchListing,
-        setFocusCard,
         setNeighborhoods,
-        setactiveNeighborhoods
+        setactiveNeighborhoods,
+        setFocusMenu
     } = useStore();
 
     const { isLoading, isError, data } = useQueryHelper({
@@ -91,6 +91,7 @@ const TapsQuickSearch = () => {
                     (matches) ? (
                         listCategories.map((val, index) =>
                             <ButtonTabs
+                                onClick={() => setFocusMenu(true)}
                                 key={index}
                                 id={val.databaseId.toString()}
                                 onChageActive={setActiveCategory}
@@ -100,6 +101,7 @@ const TapsQuickSearch = () => {
                         )
                     ) : (
                         <SelectTabs
+                            onClick={() => setFocusMenu(true)}
                             placeholder='Select category'
                             onChange={setActiveCategory}
                             value={activeCategory}
@@ -109,6 +111,7 @@ const TapsQuickSearch = () => {
                     )
                 }
                 <SelectTabs
+                    onClick={() => setFocusMenu(true)}
                     value={activeNeighborhoods}
                     data={listNeighborhoods}
                     onChange={setactiveNeighborhoods}
@@ -116,8 +119,11 @@ const TapsQuickSearch = () => {
                     className={`${styles.SelectTabsNeighborhoods}`}
                 />
                 <InputTabs
-                    onFocusChange={(value) => setFocusCard(value)}
-                    onChange={setSearchListing}
+                    // onFocusChange={(value) => setFocusCard(value)}
+                    onChange={(value) => {
+                        setSearchListing(value)
+                        setFocusMenu(true)
+                    }}
                     value={searchListing}
                     className={`${styles.InputTabs}`}
                 />

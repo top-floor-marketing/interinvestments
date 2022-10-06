@@ -6,7 +6,7 @@ import { ChevronDown } from 'tabler-icons-react';
 import styles from './styles.tqs.module.scss'
 
 const SelectTabs = (props) => {
-    const { type, data = [], value, onChange, placeholder = '' } = props
+    const { type, data = [], value, onChange, placeholder = '', onClick: onClickComponet } = props
 
     const refSelect = useRef(null)
 
@@ -24,7 +24,10 @@ const SelectTabs = (props) => {
     return (
         <Select
             value={value}
-            onChange={(value) => (onChange) && onChange(value)}
+            onChange={(value) => {
+                onChange(value)
+                onClickComponet()
+            }}
             className={`${(type === 'SelectTabsCategory') ? styles.SelectTabsCategory : styles.SelectTabsNeighborhoods}`}
             classNames={{
                 input: `${styles.categorySelect}`,
