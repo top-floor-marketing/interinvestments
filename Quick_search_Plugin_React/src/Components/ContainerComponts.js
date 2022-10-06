@@ -17,6 +17,7 @@ const ContainerComponts = (props) => {
 
     useEffect(() => {
         if (y > (containerRef?.current?.offsetTop + containerRef?.current?.clientHeight + 100) && focusMenu) {
+            console.log('setFocusMenu : false')
             setFocusMenu(false)
         }
     }, [y, focusMenu, setFocusMenu])
@@ -28,6 +29,10 @@ const ContainerComponts = (props) => {
             }
         }],
     ]);
+
+    console.log('useWindowScroll_Y : ', y)
+
+    console.log('containerRef', containerRef?.current?.offsetTop + containerRef?.current?.clientHeight + 100)
 
     return (
         <Box ref={containerRef}>
