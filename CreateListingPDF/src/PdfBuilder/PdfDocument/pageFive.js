@@ -1,4 +1,4 @@
-import { Page, View, StyleSheet, Text } from '@react-pdf/renderer';
+import { Page, View, StyleSheet, Text, Link } from '@react-pdf/renderer';
 
 import get from 'lodash/get';
 
@@ -19,21 +19,13 @@ const PageFive = ({ listing, agent }) => {
             height: '100%',
         },
         containerPageFive: {
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            height: '100%',
-            backgroundColor: '#f5f6fa',
-            paddingTop: '22px',
-            paddingBottom: '22px',
-            paddingRight: "2%",
-            paddingLeft: "2%",
+            ...PADDING_FOR_PAGES
         },
         infoPageFive: {
             display: 'flex',
             flexDirection: 'row',
             width: '90%',
-          	paddingTop: '22px',
+            paddingTop: '22px',
             marginLeft: "auto",
             marginRight: "auto",
         },
@@ -42,6 +34,7 @@ const PageFive = ({ listing, agent }) => {
             color: "#fab005",
             fontSize: "20px",
             width: "30%",
+            fontFamily: FONT_FAMILY
         },
         dataContainer: {
             display: 'flex',
@@ -53,21 +46,24 @@ const PageFive = ({ listing, agent }) => {
         textTitle: {
             fontWeight: 600,
             fontSize: "48px",
-            marginBottom: "32px"
+            marginBottom: "32px",
+            fontFamily: FONT_FAMILY
         },
         table: {
             display: 'flex',
             flexDirection: 'column',
             marginLeft: "auto",
-            width: '85%',
+            width: '90%',
             heigth: "100%",
-         	paddingRight: "5%",
+            paddingRight: "5%",
         },
         width28: {
-          width: "28%",
+            width: "28%",
+            fontFamily: FONT_FAMILY
         },
         width14: {
-          width: "14.5%",
+            width: "14.5%",
+            fontFamily: FONT_FAMILY
         },
         thRow: {
             display: 'flex',
@@ -76,7 +72,10 @@ const PageFive = ({ listing, agent }) => {
             paddingTop: '8px',
             paddingBottom: '8px',
             marginTop: '8px',
-          	marginBottom: '8px',
+            marginBottom: '8px',
+
+        },
+        borderTh: {
             borderBottom: '0.5px solid #34495e',
         },
         textTable: {
@@ -84,6 +83,16 @@ const PageFive = ({ listing, agent }) => {
             paddingRight: "8px",
             paddingLeft: "8px",
         },
+        linkPdf: {
+            textTransform: 'capitalize',
+            fontWeight: 300,
+            color: '#34495e',
+        },
+        textInfo: {
+            fontSize: "12px",
+            paddingRight: "8px",
+            paddingLeft: "8px",
+        }
     });
 
     const specs = {
@@ -105,15 +114,35 @@ const PageFive = ({ listing, agent }) => {
                         <Text style={styles.textTitle}>Floorplans</Text>
                     </View>
                 </View>
-                    <View style={styles.table}>
-                        <View style={styles.thRow}>
-                            <Text style={{ ...styles.width28, ...styles.textTable }}>Name</Text>
-                            <Text style={{ ...styles.width28, ...styles.textTable }}>Pdf File</Text>
-                            <Text style={{ ...styles.width14, ...styles.textTable }}>Bed/Bath</Text>
-                            <Text style={{ ...styles.width14, ...styles.textTable }}>AC Sqft</Text>
-                            <Text style={{ ...styles.width14, ...styles.textTable }}>Total Sqft</Text>
-                        </View>
+                <View style={styles.table}>
+                    <View style={{ ...styles.thRow, ...styles.borderTh }}>
+                        <Text style={{ ...styles.width28, ...styles.textTable }}>Name</Text>
+                        <Text style={{ ...styles.width28, ...styles.textTable }}>Pdf File</Text>
+                        <Text style={{ ...styles.width14, ...styles.textTable }}>Bed/Bath</Text>
+                        <Text style={{ ...styles.width14, ...styles.textTable }}>AC Sqft</Text>
+                        <Text style={{ ...styles.width14, ...styles.textTable }}>Total Sqft</Text>
                     </View>
+
+                    <View style={styles.thRow}>
+                        <Text style={{ ...styles.width28, ...styles.textInfo }}>
+                            Cipriani - 7th Floor Amenities
+                        </Text>
+                        <Link style={{ ...styles.width28, ...styles.textInfo, ...styles.linkPdf }}
+                            src={"https://www.africau.edu/images/default/sample.pdf"}>
+                            <Text>Cipriani - 7th Floor Amenities.pdf</Text>
+                        </Link>
+                        <Text style={{ ...styles.width14, ...styles.textInfo }}>
+                            3/2 + Den
+                        </Text>
+                        <Text style={{ ...styles.width14, ...styles.textInfo }}>
+                            1,606
+                        </Text>
+                        <Text style={{ ...styles.width14, ...styles.textInfo }}>
+                            2,216
+                        </Text>
+                    </View>
+
+                </View>
             </View>
             <HeaderDinamic listing={listing} agent={agent} />
             <FooterDinamic listing={listing} agent={agent} />
