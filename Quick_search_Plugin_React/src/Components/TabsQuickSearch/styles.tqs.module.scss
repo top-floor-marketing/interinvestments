@@ -36,7 +36,7 @@
 }
 
 .ButtonTabslabel {
-    @apply w-full text-base font-outfit;
+    @apply hover:text-warning w-full text-base font-outfit;
 }
 
 .InputTabsMantine {
