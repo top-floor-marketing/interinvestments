@@ -36,28 +36,28 @@ const PdfDocument = ({ listing, agent }) => {
 
     return (
         <Document {...DOCUMENT_METADATA}>
-           {/*  <PageOne listing={listing} agent={agent} />
-            <PageTwo listing={listing} agent={agent} /> */}
-           {/*  {
+            <PageOne listing={listing} agent={agent} />
+            <PageTwo listing={listing} agent={agent} />
+            {
                 (get(listing, ["listingData", "newDevelopment", "photos"], null))
                 &&
                 <PageThree listing={listing} agent={agent} />
-            } */}
-           {
+            }
+            {
                 (get(listing, ["listingData", "newDevelopment", "specs"], null))
                 &&
                 <PageFour listing={listing} agent={agent} />
-            } 
+            }
             {
                 (get(listing, ["floorplans", "allFloorplans"], null))
                 &&
                 <PageFive listing={listing} agent={agent} />
             }
-           {/*  {
+            {
                 (get(listing, ["listingData", "newDevelopment", "finishes"], null))
                 &&
                 <PageSix listing={listing} agent={agent} />
-            } */}
+            }
             <PageAgentProfile listing={listing} agent={agent} />
         </Document>
     )

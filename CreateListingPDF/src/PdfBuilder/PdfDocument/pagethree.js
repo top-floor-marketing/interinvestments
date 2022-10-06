@@ -47,7 +47,7 @@ const PageThree = ({ listing, agent }) => {
 
     const paginationInfo = arrayPages.map((val, index) => {
         return photosList.slice(index * 4, (index * 4) + 4);
-    })
+    });
 
     if (photosList.length > 0)
         return (
@@ -76,7 +76,6 @@ const PageThree = ({ listing, agent }) => {
                                                     <Image
                                                         style={styles.photo}
                                                         key={`${index}_${photoIndex}`}
-                                                        //src={"https://i.postimg.cc/Dwhr1whW/World-of-Warcraft-Alliance-logo-video-games-127155.jpg"}
                                                         src={get(photoVal, ["sourceUrl"], "")}
                                                         alt={INTERINVESTMENT}
                                                     />

@@ -11,7 +11,7 @@ import {
 
 import get from 'lodash/get';
 
-const useGetListingInfo = ({ idListing, idAgent }) => {
+const useGetListingInfo = ({ idListing = null, idAgent = null }) => {
 
     const [infoForPdf, setInfoForPdf] = useState({ listing: null, agent: null });
 
@@ -59,7 +59,10 @@ const useGetListingInfo = ({ idListing, idAgent }) => {
                 onSuccess: (response) => {
                     setInfoForPdf({
                         ...infoForPdf,
-                        agent: get(response, ["dataAgent", "0"], null)
+                        agent: {
+                            isNormalAgent: parseInt(idAgent) > 0,
+                            ...get(response, ["dataAgent", "0"], null)
+                        }
                     });
                     incrementNavigationProgress(15);
                 },

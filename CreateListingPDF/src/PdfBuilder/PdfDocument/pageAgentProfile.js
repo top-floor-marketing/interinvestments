@@ -4,6 +4,9 @@ import TwitterIcon from '../../Assets/img/twitter-icon.png';
 import FacebookIcon from '../../Assets/img/facebook-icon.png';
 import InstagramIcon from '../../Assets/img/instagram-icon.png';
 import LinkedinIcon from '../../Assets/img/linkedin-icon.png';
+import YoutubeIcon from '../../Assets/img/youtube-icon.png';
+import TiktokIcon from '../../Assets/img/tiktok-icon.png';
+import RumbleIcon from '../../Assets/img/rumble-icon.png';
 
 import get from 'lodash/get';
 
@@ -100,7 +103,13 @@ const PageAgentProfile = ({ listing, agent }) => {
         <Page size="A4" style={styles.page} orientation={"landscape"}>
             <View style={styles.containerProfileAgent}>
                 <View style={styles.infoPageAgent}>
-                    <Text style={styles.textAgent}>AGENT</Text>
+                    <Text style={styles.textAgent}>
+                        {
+                            get(agent, ["isNormalAgent"], true)
+                            ? "AGENT"
+                            : "OFFICE"
+                        }
+                    </Text>
                     <View style={styles.dataContainer}>
                         <Text style={styles.textAgentName}>
                             {
@@ -154,6 +163,27 @@ const PageAgentProfile = ({ listing, agent }) => {
                                 &&
                                 <Link src={get(agent, ["linkedin"], null)}>
                                     <Image src={LinkedinIcon} style={styles.logoImg} alt={INTERINVESTMENT} />
+                                </Link>
+                            }
+                            {
+                                (get(agent, ["youtube"], null))
+                                &&
+                                <Link src={get(agent, ["youtube"], null)}>
+                                    <Image src={YoutubeIcon} style={styles.logoImg} alt={INTERINVESTMENT} />
+                                </Link>
+                            }
+                            {
+                                (get(agent, ["tiktok"], null))
+                                &&
+                                <Link src={get(agent, ["tiktok"], null)}>
+                                    <Image src={TiktokIcon} style={styles.logoImg} alt={INTERINVESTMENT} />
+                                </Link>
+                            }
+                            {
+                                (get(agent, ["rumble"], null))
+                                &&
+                                <Link src={get(agent, ["rumble"], null)}>
+                                    <Image src={RumbleIcon} style={styles.logoImg} alt={INTERINVESTMENT} />
                                 </Link>
                             }
                         </View>

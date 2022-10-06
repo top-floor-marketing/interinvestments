@@ -16,37 +16,21 @@ const PageSix = ({ listing, agent }) => {
             width: '100%',
             height: '100%',
         },
-  textTh: {
-    fontSize: "16px",
-    minWidth: "16%",
-    paddingRight: "8px",
-    paddingLeft: "8px",
-  },
-  textNameTh: {
-    width: "25%"
-  },
         containerPageFive: {
-            display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#f5f6fa',
-    paddingTop: '22px',
-    paddingBottom: '22px',
-    paddingRight: "2%",
-    paddingLeft: "2%",
+            ...PADDING_FOR_PAGES,
         },
         infoPageFive: {
             display: 'flex',
             flexDirection: 'row',
             width: '90%',
-            marginLeft: "auto",
-            marginRight: "auto",
+            height: '90%',
+            margin: "auto",
         },
         textNumber: {
             fontWeight: 300,
             color: "#fab005",
             fontSize: "20px",
+            fontFamily: FONT_FAMILY,
             width: "30%",
         },
         dataContainer: {
@@ -59,29 +43,28 @@ const PageSix = ({ listing, agent }) => {
         textTitle: {
             fontWeight: 600,
             fontSize: "48px",
+            fontFamily: FONT_FAMILY,
             marginBottom: "32px"
         },
-        tableContainer: {
-            marginLeft: "auto",
-            marginRight: "auto",
-            width: "90%",
-            heigth: "100%"
-        },
-
-  table: {
-     display: 'flex',
-            flexDirection: 'column',
-            marginLeft: "auto",
-            width: '100%',
-            heigth: "100%",
-  },
-        thRow: {
+        rowData: {
             display: 'flex',
             flexDirection: 'row',
-            width: '100%',
+            width: "100%",
+            borderTop: '0.5px solid #34495e',
             paddingTop: '16px',
             paddingBottom: '16px',
-            borderBottom: '0.5px solid #34495e',
+        },
+        textRowDataTitle: {
+            fontWeight: 200,
+            fontSize: "18px",
+            fontFamily: FONT_FAMILY,
+            width: "50%",
+            paddingLeft: "8px",
+            paddingRight: "8px"
+        },
+        textRowDataInfo: {
+            fontWeight: 'normal',
+            fontSize: "16px",
         }
     });
 
@@ -97,9 +80,9 @@ const PageSix = ({ listing, agent }) => {
             size="A4"
             style={styles.page}
             orientation={"landscape"}>
-            <View style={styles.containerPageSix}>
-                <View style={styles.infoPageSix}>
-                    <Text style={styles.textNumber}>02</Text>
+             <View style={styles.containerPageFive}>
+                <View style={styles.infoPageFive}>
+                    <Text style={styles.textNumber}>03</Text>
                     <View style={styles.dataContainer}>
                         <Text style={styles.textTitle}>Finishes</Text>
                         {

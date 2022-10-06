@@ -9,8 +9,6 @@ import { FONT_FAMILY, PADDING_FOR_PAGES } from './utils';
 
 const PageFive = ({ listing, agent }) => {
 
-    console.log("listing ", listing)
-
     const styles = StyleSheet.create({
         page: {
             display: 'flex',
@@ -73,7 +71,6 @@ const PageFive = ({ listing, agent }) => {
             paddingBottom: '8px',
             marginTop: '8px',
             marginBottom: '8px',
-
         },
         borderTh: {
             borderBottom: '0.5px solid #34495e',
@@ -89,64 +86,94 @@ const PageFive = ({ listing, agent }) => {
             color: '#34495e',
         },
         textInfo: {
-            fontSize: "12px",
+            fontSize: "11px",
             paddingRight: "8px",
             paddingLeft: "8px",
         }
     });
 
-    const specs = {
-        bath: parseInt(get(listing, ["listingData", "newDevelopment", "finishes", "bathrooms"], null)),
-        appliances: get(listing, ["listingData", "newDevelopment", "finishes", "appliances"], null),
-        kitchenCabinets: get(listing, ["listingData", "newDevelopment", "finishes", "kitchenCabinets"], null),
-        flooring: parseInt(get(listing, ["listingData", "newDevelopment", "finishes", "flooring"], null)),
-    }
+    const photosList = get(listing, ["floorplans", "allFloorplans"], []).slice(0, 21);
+    const arrayPages = new Array(Math.ceil(photosList.length / 7)).fill(0);
+
+    const paginationInfo = arrayPages.map((val, index) => {
+        return photosList.slice(index * 7, (index * 7) + 7);
+    });
 
     return (
-        <Page
-            size="A4"
-            style={styles.page}
-            orientation={"landscape"}>
-            <View style={styles.containerPageFive}>
-                <View style={styles.infoPageFive}>
-                    <Text style={styles.textNumber}>02</Text>
-                    <View style={styles.dataContainer}>
-                        <Text style={styles.textTitle}>Floorplans</Text>
+        paginationInfo.map((val, index) => (
+            <Page
+                key={index}
+                size="A4"
+                style={styles.page}
+                orientation={"landscape"}>
+                <View style={styles.containerPageFive}>
+                    <View style={styles.infoPageFive}>
+                        <Text style={styles.textNumber}>02</Text>
+                        <View style={styles.dataContainer}>
+                            <Text style={styles.textTitle}>Floorplans</Text>
+                        </View>
+                    </View>
+                    <View style={styles.table}>
+                        <View style={{ ...styles.thRow, ...styles.borderTh }}>
+                            <Text style={{ ...styles.width28, ...styles.textTable }}>Name</Text>
+                            <Text style={{ ...styles.width28, ...styles.textTable }}>Pdf File</Text>
+                            <Text style={{ ...styles.width14, ...styles.textTable }}>Bed/Bath</Text>
+                            <Text style={{ ...styles.width14, ...styles.textTable }}>AC Sqft</Text>
+                            <Text style={{ ...styles.width14, ...styles.textTable }}>Total Sqft</Text>
+                        </View>
+                        
+                        {
+                            val.map((valFloor, indexFloor) => (
+                                <View key={indexFloor} style={styles.thRow}>
+                                    <Text style={{ ...styles.width28, ...styles.textInfo }}>
+                                        {
+                                            get(valFloor, ["floorplans", "name"], "")
+                                        }
+                                    </Text>
+                                    {
+                                        (get(valFloor, ["floorplans", "pdf", "mediaItemUrl"], null))
+                                            ?
+                                            <Link style={{ ...styles.width28, ...styles.textInfo, ...styles.linkPdf }}
+                                                src={get(valFloor, ["floorplans", "pdf", "mediaItemUrl"], "")}>
+                                                <Text>
+                                                    {
+                                                        get(valFloor, ["floorplans", "pdf", "title"], "")
+                                                    }
+                                                </Text>
+                                            </Link>
+                                            : <Text style={{ ...styles.width28, ...styles.textInfo, ...styles.linkPdf }}>
+                                                N/A
+                                            </Text>
+                                    }
+                                    <Text style={{ ...styles.width14, ...styles.textInfo }}>
+                                        {
+                                            get(valFloor, ["floorplans", "bedbath"], "-")
+                                        }
+                                        {
+                                            get(valFloor, ["floorplans", "den"], false)
+                                            && " + Den"
+                                        }
+                                    </Text>
+                                    <Text style={{ ...styles.width14, ...styles.textInfo }}>
+                                        {
+                                            get(valFloor, ["floorplans", "acSqft"], "-")
+                                        }
+                                    </Text>
+                                    <Text style={{ ...styles.width14, ...styles.textInfo }}>
+                                        {
+                                            get(valFloor, ["floorplans", "totalSqft"], "-")
+                                        }
+                                    </Text>
+                                </View>
+                            ))
+                        }
+
                     </View>
                 </View>
-                <View style={styles.table}>
-                    <View style={{ ...styles.thRow, ...styles.borderTh }}>
-                        <Text style={{ ...styles.width28, ...styles.textTable }}>Name</Text>
-                        <Text style={{ ...styles.width28, ...styles.textTable }}>Pdf File</Text>
-                        <Text style={{ ...styles.width14, ...styles.textTable }}>Bed/Bath</Text>
-                        <Text style={{ ...styles.width14, ...styles.textTable }}>AC Sqft</Text>
-                        <Text style={{ ...styles.width14, ...styles.textTable }}>Total Sqft</Text>
-                    </View>
-
-                    <View style={styles.thRow}>
-                        <Text style={{ ...styles.width28, ...styles.textInfo }}>
-                            Cipriani - 7th Floor Amenities
-                        </Text>
-                        <Link style={{ ...styles.width28, ...styles.textInfo, ...styles.linkPdf }}
-                            src={"https://www.africau.edu/images/default/sample.pdf"}>
-                            <Text>Cipriani - 7th Floor Amenities.pdf</Text>
-                        </Link>
-                        <Text style={{ ...styles.width14, ...styles.textInfo }}>
-                            3/2 + Den
-                        </Text>
-                        <Text style={{ ...styles.width14, ...styles.textInfo }}>
-                            1,606
-                        </Text>
-                        <Text style={{ ...styles.width14, ...styles.textInfo }}>
-                            2,216
-                        </Text>
-                    </View>
-
-                </View>
-            </View>
-            <HeaderDinamic listing={listing} agent={agent} />
-            <FooterDinamic listing={listing} agent={agent} />
-        </Page>
+                <HeaderDinamic listing={listing} agent={agent} />
+                <FooterDinamic listing={listing} agent={agent} />
+            </Page>
+        ))
     )
 }
 
