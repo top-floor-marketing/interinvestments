@@ -32,6 +32,7 @@ const ContainerComponts = (props) => {
 
     console.log('useWindowScroll_Y : ', y)
 
+    console.log('PositionComponen_Curren : ', containerRef?.current)
     console.log('PositionComponen_offsetTop : ', containerRef?.current?.offsetTop)
     console.log('PositionComponen_clientHeight : ', containerRef?.current?.clientHeight)
 
