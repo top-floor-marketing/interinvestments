@@ -20,6 +20,7 @@ const ContainerComponts = (props) => {
     useEffect(() => {
         if (focusMenu) {
             const boxContainer = document.querySelector(PLUGIN_ID_NAME);
+            console.log("boxContainer", boxContainer)
             if (y > (boxContainer?.parentNode?.offsetTop + containerRef?.current?.clientHeight) && focusMenu && boxContainer) {
                 setFocusMenu(false)
             }
