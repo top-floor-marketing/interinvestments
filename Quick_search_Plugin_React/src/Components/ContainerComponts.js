@@ -9,6 +9,8 @@ import useStore from '../Store/useStore';
 // utils
 import { useWindowScroll, useHotkeys } from '@mantine/hooks';
 
+const PLUGIN_ID_NAME = "#Quick_search";
+
 const ContainerComponts = (props) => {
     const containerRef = useRef(null);
     const [{ y }] = useWindowScroll();
@@ -17,8 +19,8 @@ const ContainerComponts = (props) => {
 
     useEffect(() => {
         if (focusMenu) {
-            const boxContainer = document.querySelector("#boxContainerSearch");
-            if (y > (boxContainer?.parentNode?.offsetTop + containerRef?.current?.clientHeight) && focusMenu) {
+            const boxContainer = document.querySelector(PLUGIN_ID_NAME);
+            if (y > (boxContainer?.parentNode?.offsetTop + containerRef?.current?.clientHeight) && focusMenu && boxContainer) {
                 setFocusMenu(false)
             }
         }
