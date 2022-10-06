@@ -40,13 +40,9 @@ const ContainerComponts = (props) => {
     console.log('screen.height', height)
 
     return (
-        <Box style={{ height: '4000px', overflow: "auto", paddingTop: '300px' }}>
-            <Box style={{ position: 'relative' }}>
-                <Box ref={containerRef}>
-                    <QuickSearch />
-                    <MenuQuickSearch />
-                </Box>
-            </Box>
+        <Box ref={containerRef}>
+            <QuickSearch />
+            <MenuQuickSearch />
         </Box>
     )
 }
