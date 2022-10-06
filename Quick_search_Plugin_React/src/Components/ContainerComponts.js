@@ -8,19 +8,21 @@ import MenuQuickSearch from '../Components/MenuQuickSearch'
 import useStore from '../Store/useStore';
 // utils
 import { useWindowScroll, useHotkeys } from '@mantine/hooks';
+import useWindowDimensions from '../hook/useWindowDimensions.'
 
 const ContainerComponts = (props) => {
+    const { height } = useWindowDimensions();
     const containerRef = useRef(null);
     const [{ y }] = useWindowScroll();
     const { state: { focusMenu }, setFocusMenu } = useStore();
 
 
     useEffect(() => {
-        if (y > (containerRef?.current?.offsetTop + containerRef?.current?.clientHeight + 100) && focusMenu) {
+        if (y > (height + containerRef?.current?.clientHeight) && focusMenu) {
             console.log('setFocusMenu : false')
             setFocusMenu(false)
         }
-    }, [y, focusMenu, setFocusMenu])
+    }, [y, focusMenu, setFocusMenu, height])
 
     useHotkeys([
         ['Escape', () => {
@@ -31,19 +33,25 @@ const ContainerComponts = (props) => {
     ]);
 
     console.log('useWindowScroll_Y : ', y)
-
     console.log('PositionComponen_Curren : ', containerRef?.current)
     console.log('PositionComponen_offsetTop : ', containerRef?.current?.offsetTop)
     console.log('PositionComponen_clientHeight : ', containerRef?.current?.clientHeight)
-
     console.log('PositionComponen_Y : ', containerRef?.current?.offsetTop + containerRef?.current?.clientHeight + 100)
+    console.log('screen.height', height)
 
     return (
-        <Box ref={containerRef}>
-            <QuickSearch />
-            <MenuQuickSearch />
+        <Box style={{ height: '4000px', overflow: "auto", paddingTop: '300px' }}>
+            <Box style={{ position: 'relative' }}>
+                <Box ref={containerRef}>
+                    <QuickSearch />
+                    <MenuQuickSearch />
+                </Box>
+            </Box>
         </Box>
     )
 }
+
+
+
 
 export default ContainerComponts
