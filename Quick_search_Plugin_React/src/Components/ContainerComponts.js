@@ -32,7 +32,10 @@ const ContainerComponts = (props) => {
 
     console.log('useWindowScroll_Y : ', y)
 
-    console.log('containerRef', containerRef?.current?.offsetTop + containerRef?.current?.clientHeight + 100)
+    console.log('PositionComponen_offsetTop : ', containerRef?.current?.offsetTop)
+    console.log('PositionComponen_clientHeight : ', containerRef?.current?.clientHeight)
+
+    console.log('PositionComponen_Y : ', containerRef?.current?.offsetTop + containerRef?.current?.clientHeight + 100)
 
     return (
         <Box ref={containerRef}>
