@@ -8,6 +8,14 @@ export const USER_ROLES_CRM = {
   AGENT: 'AGENT',
 }
 
+export const PIPELINE_STATUS = {
+  NOT_CONTACTED: "not contacted",
+  CONTACTED: "contacted",
+  SHOWING: "showing",
+  CONTRACT: "contract",
+  ASK_REFERRALS: "ask referrals"
+}
+
 export const getRouteActive = (routeName) => {
   return get(
     filter(CRM_ROUTES, (o) => {

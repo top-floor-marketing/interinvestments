@@ -1,4 +1,4 @@
-import { createStyles, Paper, TextInput, Box, Button } from "@mantine/core";
+import { createStyles, Paper, TextInput, Box, Button, Text } from "@mantine/core";
 
 import SelectStateLeads from "../../Component/SelectStateLeads";
 
@@ -41,7 +41,14 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       width: "70% !important",
       marginLeft: "0 !important",
     },
-  }
+  },
+  textFilter: {
+    ref: getRef("textFilter"),
+    fontWeight: 700,
+    fontSize: "18px",
+    minWidth: "50px",
+    height: "fit-content",
+  },
 }));
 
 const FilterOptions = ({
@@ -55,6 +62,7 @@ const FilterOptions = ({
 
   return (
     <Paper className={classes.container}>
+       <Text className={classes.textFilter}>Filter:</Text>
       <TextInput
         disabled={isLoading}
         className={classes.inputSearch}
@@ -67,7 +75,7 @@ const FilterOptions = ({
         <SelectStateLeads
           {...selectStateProps}
           disabled={isLoading}
-          placeholder="Filter by state"
+          placeholder="Status"
           isFilter
         />
       </Box>

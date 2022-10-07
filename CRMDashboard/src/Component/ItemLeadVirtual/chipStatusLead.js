@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 
 import { Badge, createStyles } from "@mantine/core";
 
+import { PIPELINE_STATUS } from "../../GlobalStore/utils";
+
 import toLower from 'lodash/toLower';
 
 const useStyles = createStyles((theme, _params) => {
@@ -44,20 +46,20 @@ const BadgeStatusLead = ({ status, onClick, className, isShort }) => {
 
   const getColorChip = useCallback(() => {
     switch (toLower(status)) {
-      case "not contacted":
+      case PIPELINE_STATUS.NOT_CONTACTED:
         return "error";
-      case "contacted":
+      case PIPELINE_STATUS.CONTACTED:
         return "primary";
-      case "showing":
+      case PIPELINE_STATUS.SHOWING:
         return "secondary";
-      case "contract":
+      case PIPELINE_STATUS.CONTRACT:
         return "success";
-      case "ask referrals":
+      case PIPELINE_STATUS.ASK_REFERRALS:
         return "info";
       default:
         return "gray";
     }
-  }, [status])
+  }, [status]);
 
   const { cx, classes } = useStyles({ color: getColorChip() });
 

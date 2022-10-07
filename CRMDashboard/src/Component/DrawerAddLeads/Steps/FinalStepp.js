@@ -10,15 +10,15 @@ import useStyles from './styles'
 // components
 import CardAvatarDrawer from '../InternalComponents/CardAvatarDrawer'
 // utils
-import { USER_ROLES_CRM } from '../../../GlobalStore/utils'
-import isEmpty from 'lodash/isEmpty'
+import { USER_ROLES_CRM, PIPELINE_STATUS } from '../../../GlobalStore/utils'
+
+import isEmpty from 'lodash/isEmpty';
+import toLower from 'lodash/toLower';
 
 const FinalStepp = () => {
     const { state } = useClientGlobalStore()
     const { user: { infoUser: { agentType } }, addLeads, global } = state
     const { classes } = useStyles();
-
-    //console.log('addLeads', addLeads)
 
     const statusUserLead = addLeads.stateLeads
         ? global.statusUserLead.find((item) => (item.value === addLeads.stateLeads)).label
@@ -26,20 +26,20 @@ const FinalStepp = () => {
 
     const colorStatus = () => {
         if (statusUserLead) {
-            switch (statusUserLead) {
-                case 'Ask Referrals':
+            switch (toLower(statusUserLead)) {
+                case PIPELINE_STATUS.ASK_REFERRALS:
                     return 'grape'
 
-                case 'Contacted':
+                case PIPELINE_STATUS.CONTACTED:
                     return 'primary'
 
-                case 'Contract':
+                case PIPELINE_STATUS.CONTRACT:
                     return 'success'
 
-                case 'Not Contacted':
+                case PIPELINE_STATUS.NOT_CONTACTED:
                     return 'error'
 
-                case 'Showing':
+                case PIPELINE_STATUS.SHOWING:
                     return 'secondary'
 
                 default:

@@ -5,6 +5,8 @@ import SelectItem from "./SelectItem";
 import { Select } from "@mantine/core";
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
+import { PIPELINE_STATUS } from "../../GlobalStore/utils";
+
 import PropTypes from "prop-types";
 
 // styles
@@ -37,15 +39,15 @@ const SelectStateLeads = ({
       ""
     );
     switch (toLower(nameSelected)) {
-      case "not contacted":
+      case PIPELINE_STATUS.NOT_CONTACTED:
         return classes.selectError;
-      case "contacted":
+      case PIPELINE_STATUS.CONTACTED:
         return classes.selectPrimary;
-      case "showing":
+      case PIPELINE_STATUS.SHOWING:
         return classes.selectSecondary;
-      case "contract":
+      case PIPELINE_STATUS.CONTRACT:
         return classes.selectSuccess;
-      case "ask referrals":
+      case PIPELINE_STATUS.ASK_REFERRALS:
         return classes.selectInfo;
       default:
         return classes.placeholder;
@@ -54,15 +56,15 @@ const SelectStateLeads = ({
 
   const getColorItem = useCallback((label) => {
     switch (toLower(label)) {
-      case "not contacted":
+      case PIPELINE_STATUS.NOT_CONTACTED:
         return "error";
-      case "contacted":
+      case PIPELINE_STATUS.CONTACTED:
         return "primary";
-      case "showing":
+      case PIPELINE_STATUS.SHOWING:
         return "secondary";
-      case "contract":
+      case PIPELINE_STATUS.CONTRACT:
         return "success";
-      case "ask referrals":
+      case PIPELINE_STATUS.ASK_REFERRALS:
         return "info";
       default:
         return "";

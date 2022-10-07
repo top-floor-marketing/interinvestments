@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import { memo } from 'react';
 import { Box, createStyles, Paper, Text, LoadingOverlay } from "@mantine/core";
 import { DatabaseOff } from "tabler-icons-react";
 import SpringDiv from "../../Component/SpringDiv";
@@ -68,7 +68,7 @@ const LeadsView = () => {
               loaderProps={{ size: 'sm', color: '#ffb839', variant: 'bars' }}
             />
           )}
-         {totalData && !isSkeleton ? (
+          {totalData && !isSkeleton ? (
             <LeadsVirtual
               data={allLeads}
               totalData={totalData}
@@ -80,7 +80,7 @@ const LeadsView = () => {
               <Text component="h4">No data found</Text>
               <DatabaseOff size={36} />
             </div>
-          )} 
+          )}
         </Paper>
       </SpringDiv>
     </Box>

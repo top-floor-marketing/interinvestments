@@ -17,19 +17,22 @@ const useGetPipelineLeads = ({agentId, statusId}) => {
             statusId: statusId
         },
         config: {
-            enabled: !!(agentId),
+            enabled: (agentId > 0),
             onSuccess: (response) => {
                 const getData = get(response, ["pipeline"], []);
                 const addAgentId = map(getData, (val) => ({...val, agentId}));
                 setDataPipeline(addAgentId);
             },
+            onError: () => {
+                setDataPipeline([]);
+            }
         }
     });
 
     return {
         isLoading: (agentId === null) ? false : isLoading,
         isError,
-        data: dataPipeline,
+        data: agentId > 0 ? dataPipeline : [],
         refetch
     }
 

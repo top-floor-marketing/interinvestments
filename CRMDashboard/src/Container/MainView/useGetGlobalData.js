@@ -6,6 +6,8 @@ import { useQueryHelper } from "../../GraphqlClient/useRequest";
 
 import { GET_STATUS_USER_LEADS } from "../../GraphqlClient/userLeads.gql";
 
+import { PIPELINE_STATUS } from '../../GlobalStore/utils';
+
 import get from "lodash/get";
 import findLast from 'lodash/findLast';
 import toLower from 'lodash/toLower';
@@ -19,15 +21,15 @@ const useGetGlobalData = () => {
 
   const getColorItem = useCallback((label) => {
     switch (toLower(label)) {
-      case "not contacted":
+      case PIPELINE_STATUS.NOT_CONTACTED:
         return "error";
-      case "contacted":
+      case PIPELINE_STATUS.CONTACTED:
         return "primary";
-      case "showing":
+      case PIPELINE_STATUS.SHOWING:
         return "secondary";
-      case "contract":
+      case PIPELINE_STATUS.CONTRACT:
         return "success";
-      case "ask referrals":
+      case PIPELINE_STATUS.ASK_REFERRALS:
         return "info";
       default:
         return "";
@@ -42,7 +44,7 @@ const useGetGlobalData = () => {
         const listStatus = get(response, ["statuses", "nodes"], []);
         const dataForSelect = listStatus.map((val) => ({ value: val.databaseId, label: val.name }));
 
-        const arrayState = ["not contacted", "contacted", "showing", "contract", "ask referrals"];
+        const arrayState = [PIPELINE_STATUS.NOT_CONTACTED, PIPELINE_STATUS.CONTACTED, PIPELINE_STATUS.SHOWING, PIPELINE_STATUS.CONTRACT, PIPELINE_STATUS.ASK_REFERRALS];
 
         const dataOrder = arrayState.map((val) => {
           const findByLabel = findLast(dataForSelect, (i) => (toLower(i.label) === toLower(val)))
@@ -55,7 +57,8 @@ const useGetGlobalData = () => {
         setStatusUserLead(dataOrder);
         setTimeout(() => {
           setFinishSetStatus(true);
-        }, 200)
+        }, 200);
+        
       },
     },
   });
