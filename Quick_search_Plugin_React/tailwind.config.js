@@ -13,7 +13,7 @@ module.exports = {
       success: "#36D399",
       warning: "#FBBD23",
       error: "#F87272",
-      disableColor: '#aba6a6'
+      disableColor: '#8A8484'
     },
     extend: {
       boxShadow: {

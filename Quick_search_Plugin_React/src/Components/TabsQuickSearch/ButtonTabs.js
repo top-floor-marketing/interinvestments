@@ -5,7 +5,7 @@ import { Button, Text } from '@mantine/core';
 import styles from './styles.tqs.module.scss'
 
 const ButtonTabs = (props) => {
-    const { text = 'Settings', active: activeButton, onChageActive, id } = props
+    const { text = 'Settings', active: activeButton, onChageActive, id, onClick: onClickComponet } = props
 
     return (
         <Button
@@ -13,7 +13,10 @@ const ButtonTabs = (props) => {
                 label: styles.ButtonTabslabel
             }}
             variant="outline"
-            onClick={() => onChageActive(id)}
+            onClick={() => {
+                onClickComponet()
+                onChageActive(id)
+            }}
             className={`${styles.ButtonTabs} ${(activeButton) ? styles.ButtonTabsActive : styles.ButtonTabsDiable}`}>
             <Text
                 title={text}

@@ -1,6 +1,6 @@
 import React from 'react'
 // mantine
-import { Card } from '@mantine/core';
+import { Paper } from '@mantine/core';
 // componest
 import TabsQuickSearch from '../TabsQuickSearch'
 // css
@@ -8,7 +8,7 @@ import styles from './styles.qs.module.scss'
 
 const QuickSearch = () => {
   return (
-    <Card
+    <Paper
       radius={10}
       className={styles.cardQuickSearch}
     >
@@ -24,7 +24,7 @@ const QuickSearch = () => {
           <TabsQuickSearch />
         </div>
       </div>
-    </Card>
+    </Paper>
   )
 }
 
