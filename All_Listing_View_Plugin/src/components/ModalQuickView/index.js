@@ -13,18 +13,26 @@ import { useQueryHelper } from '../../GraphqlClient/useRequest';
 import { GET_SINGLE_LISTING_GQL } from '../../GraphqlClient/GQL'
 
 //lodash
-import toInteger from 'lodash/toInteger';
+import toInteger from "lodash/toInteger";
+import toLower from "lodash/toLower";
 
 // styles
 import styles from "./styles_alv.module.scss";
 
-const URL_QUERY_ID_NAME = "agent-id";
-// const ID_LOCALSTORAGE_NAME = "lead-agent";
+const URL_SHARED_FLAG = 'shared';
+const URL_QUERY_ID_NAME = 'agent-id';
 
 const ModalQuickView = ({ onClose, idSingleListing }) => {
   const [content, setContent] = useState(null)
 
   const childRef = useRef(null);
+
+  const getUriWithAgentId = (uri) => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const isShared = (toLower(queryParams.get(URL_SHARED_FLAG)) === 'true');
+    const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
+    return (isShared && idInUrl) ? `${uri}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : uri
+  }
 
   // Get Specific Listing
   const { isLoading, isFetching } = useQueryHelper({
@@ -39,6 +47,7 @@ const ModalQuickView = ({ onClose, idSingleListing }) => {
           content = {
             photos: findListing.listingData?.newDevelopment?.photos || [],
             ...findListing,
+            uri:  getUriWithAgentId(findListing?.uri)
           };
         }
         setContent(content)
@@ -52,10 +61,6 @@ const ModalQuickView = ({ onClose, idSingleListing }) => {
     },
   });
 
-  const queryParams = new URLSearchParams(window.location.search);
-  const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
-  const finalUri = (idInUrl) ? `${content?.uri||""}?${URL_QUERY_ID_NAME}=${idInUrl}&shared=true` : (content?.uri || "")
-
   const allProps = {
     modalHoc: {
       onClose,
@@ -64,7 +69,7 @@ const ModalQuickView = ({ onClose, idSingleListing }) => {
     buttonView: {
       variant: "white",
       component: "a",
-      href: finalUri,
+      href: content?.uri,
       className: "btn-wp-primary " + styles.buttonView,
     },
     buttonChangeCarousel: {
@@ -130,6 +135,10 @@ const ModalQuickView = ({ onClose, idSingleListing }) => {
                 <label className={styles.labelContentValue}>{contentData.views}</label>
               </>
             }
+            <Box className={styles.disclaimer}>
+              <Divider size="0px" color="dark" className="my-5" />
+              <label>Prices, Terms and Availability are subject to changes without notice. Square footage is believed to be accurate, but may be revised.</label>
+            </Box>
           </Box>
         </Box>
         <Box className={styles.containerBottomRow}>

@@ -7,8 +7,14 @@ import { LISTINGS_CATEGORY, ALL_NEIGHBORHOODS, ACF_OPTIONS_GlOBAL_OPTIONS, ALL_L
 import { useSelector, useDispatch } from 'react-redux'
 import { actionslices } from '../components/store'
 
+import toInteger from "lodash/toInteger";
+import toLower from "lodash/toLower";
+
 import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
+
+const URL_SHARED_FLAG = 'shared';
+const URL_QUERY_ID_NAME = 'agent-id';
 
 const useGetFeaturedDev = () => {
     // redux vales
@@ -26,6 +32,13 @@ const useGetFeaturedDev = () => {
     const { dataCategory, dataListing, pageInfoListing, isError, dataNei, mapApiKey } = useSelector((state) => state.statusQuery)
 
     const [perPage] = useState(15);
+
+    const getUriWithAgentId = (uri) => {
+        const queryParams = new URLSearchParams(window.location.search);
+        const isShared = (toLower(queryParams.get(URL_SHARED_FLAG)) === 'true');
+        const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
+        return (isShared && idInUrl) ? `${uri}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : uri
+    }
 
     // get values url
     const urlParams = new URLSearchParams(window.location.search);
@@ -149,7 +162,18 @@ const useGetFeaturedDev = () => {
             enabled: !isEmpty(mapApiKey),
             onSuccess: (req) => {
                 // set data acf opcion
-                dispatch(setDataListing({ data: { ...req.listings } }))
+                const newListingNodes = {
+                    ...req?.listings,
+                    nodes: req?.listings?.nodes?.map((val) => {
+                        return {
+                            ...val,
+                            uri: getUriWithAgentId(val.uri)
+                        }
+                    }) || []
+                };
+                dispatch(setDataListing({ data: { 
+                    ...newListingNodes
+                 } }))
                 // dispatch loading global false
                 dispatch(setIsLoading(false))
             },

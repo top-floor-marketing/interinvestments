@@ -31,13 +31,13 @@ const ModalQuickView = ({ data, onClose }) => {
   };
 
   const prevSlider = () => {
-    if(childRef.current) {
+    if (childRef.current) {
       childRef.current.prev();
     }
   }
 
   const nextSlider = () => {
-    if(childRef.current) {
+    if (childRef.current) {
       childRef.current.next();
     }
   }
@@ -72,7 +72,7 @@ const ModalQuickView = ({ data, onClose }) => {
               <label className={styles.labelContentValue}>{contentData.livingArea}</label>
             </>
           }
-           {
+          {
             (contentData.views) &&
             <>
               <Divider size="xs" color="dark" className="my-5" />
@@ -81,29 +81,27 @@ const ModalQuickView = ({ data, onClose }) => {
             </>
           }
           <Box className={styles.disclaimer}>
-          <Divider size="0px" color="dark" className="my-5" />
-          <label>Prices, Terms and Availability are subject to changes without notice. Square footage is believed to be accurate, but may be revised.</label>
-
+            <Divider size="0px" color="dark" className="my-5" />
+            <label>Prices, Terms and Availability are subject to changes without notice. Square footage is believed to be accurate, but may be revised.</label>
           </Box>
-        
         </div>
       </div>
       <div className={styles.containerBottomRow}>
         <div className={styles.nameOfDevelopmentContainer}>
           <div className={styles.nameRowDevelopment}>
-          <label className={styles.labelTitle}>{content.title}</label>
-          <label className={styles.labelNameOfDevelopment}>
-            {
-              content.neighborhoods?.nodes.length ? content.neighborhoods?.nodes[0]?.name || '' : ''
-            }
-          </label>
+            <label className={styles.labelTitle}>{content.title}</label>
+            <label className={styles.labelNameOfDevelopment}>
+              {
+                content.neighborhoods?.nodes.length ? content.neighborhoods?.nodes[0]?.name || '' : ''
+              }
+            </label>
           </div>
           <div className={styles.externalButtonsDevelopment}>
             <Button {...allProps.buttonChangeCarousel} onClick={() => prevSlider()}>
-              <ChevronLeft size={24} color="#000" className={"group-hover:stroke-[#FFB839]"}/>
+              <ChevronLeft size={24} color="#000" className={"group-hover:stroke-[#FFB839]"} />
             </Button>
             <Button {...allProps.buttonChangeCarousel} onClick={() => nextSlider()}>
-              <ChevronRight className={"group-hover:stroke-[#FFB839]"}  size={24} color="#000" />
+              <ChevronRight className={"group-hover:stroke-[#FFB839]"} size={24} color="#000" />
             </Button>
           </div>
         </div>

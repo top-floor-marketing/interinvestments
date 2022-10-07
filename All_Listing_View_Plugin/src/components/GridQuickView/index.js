@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Text, Box, Paper } from "@mantine/core";
+import { Button, Text, Box, Paper, Tooltip } from "@mantine/core";
 import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
@@ -63,8 +63,6 @@ const GridQuickView = ({
     },
   };
 
-  console.log("data ", data)
-
   return (
     <Paper
       {...allProps.paperItem}
@@ -87,9 +85,12 @@ const GridQuickView = ({
               <Text {...allProps.textTitle}>{data.title}</Text>
               <Text {...allProps.textSubTitle}>{data.subTitle}</Text>
             </Box>
-            <Button {...allProps.buttonRedirect(data.uri)}>
-              <ChevronRight size={18} color="#FFB839" />
-            </Button>
+            <Tooltip label="View Full Property">
+              <Button {...allProps.buttonRedirect(data.uri)}>
+                <ChevronRight size={18} color="#FFB839" />
+              </Button>
+            </Tooltip>
+
           </>
         ) : (
           <>
@@ -99,9 +100,11 @@ const GridQuickView = ({
               <Button {...allProps.buttonQuickView(data.id)}>
                 Quick View
               </Button>
-              <Button {...allProps.buttonRedirect(data.uri)}>
-                <ChevronRight size={24} color="#FFB839" />
-              </Button>
+              <Tooltip label="View Full Property">
+                <Button {...allProps.buttonRedirect(data.uri)}>
+                  <ChevronRight size={24} color="#FFB839" />
+                </Button>
+              </Tooltip>
             </Box>
           </>
         )}
