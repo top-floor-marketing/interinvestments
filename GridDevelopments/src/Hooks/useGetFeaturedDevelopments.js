@@ -39,7 +39,9 @@ const useGetFeaturedDevelopments = (idAgent) => {
     const queryParams = new URLSearchParams(window.location.search);
     const isShared = (toLower(queryParams.get(URL_SHARED_FLAG)) === 'true');
     const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
-    return (isShared && idInUrl) ? `${DOMAIN_URL}/${uri}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : uri
+    const fullUri = (isShared && idInUrl) ? `${DOMAIN_URL}/${uri}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : uri
+    console.log("fullUri")
+    return fullUri;
   }
 
   const fullDataGenerator = (prevData, nextData) => {
