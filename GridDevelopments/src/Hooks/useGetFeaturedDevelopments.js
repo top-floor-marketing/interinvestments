@@ -12,12 +12,6 @@ import {
 import toInteger from "lodash/toInteger";
 import toLower from "lodash/toLower";
 
-const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
-const DOMAIN_URL =
-  ENVIROMENT === "production"
-    ? process.env.REACT_APP_DOMAIN_PROD
-    : process.env.REACT_APP_DOMAIN_DEV;
-
 const URL_SHARED_FLAG = 'shared';
 const URL_QUERY_ID_NAME = 'agent-id';
 
@@ -39,11 +33,7 @@ const useGetFeaturedDevelopments = (idAgent) => {
     const queryParams = new URLSearchParams(window.location.search);
     const isShared = (toLower(queryParams.get(URL_SHARED_FLAG)) === 'true');
     const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
-    const fullUri = (isShared && idInUrl) ? `${DOMAIN_URL}/${uri}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : uri
-    console.log("fullUri", fullUri)
-    console.log("uri", uri)
-    console.log("--------")
-    return fullUri;
+    return (isShared && idInUrl) ? `${uri}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : uri
   }
 
   const fullDataGenerator = (prevData, nextData) => {

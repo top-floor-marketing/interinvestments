@@ -66,6 +66,13 @@ font-outfit ml-auto rounded-full border-solid border-black h-[40px] w-[40px] lg:
 .labelContentValue {
     @apply capitalize font-outfit text-[16px];
 }
+
+.disclaimer {
+    @apply mt-auto;
+    label {
+        @apply text-gray-800 font-outfit text-[12px] leading-[1px];
+    }
+}
 // modal HOC
 .modal {
     @apply p-0 max-w-[95%] w-4/5 lg:w-5/6 3xl:w-[75%]  bg-transparent;

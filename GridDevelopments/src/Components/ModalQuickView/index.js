@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useRef } from "react";
-import { Button, Divider } from "@mantine/core";
+import { Button, Divider, Box } from "@mantine/core";
 import { ChevronRight, ChevronLeft } from "tabler-icons-react";
 
 import ModalHOC from "./ModalHOC";
@@ -80,6 +80,12 @@ const ModalQuickView = ({ data, onClose }) => {
               <label className={styles.labelContentValue}>{contentData.views}</label>
             </>
           }
+          <Box className={styles.disclaimer}>
+          <Divider size="0px" color="dark" className="my-5" />
+          <label>Prices, Terms and Availability are subject to changes without notice. Square footage is believed to be accurate, but may be revised.</label>
+
+          </Box>
+        
         </div>
       </div>
       <div className={styles.containerBottomRow}>
