@@ -25,14 +25,13 @@ function App() {
   const getUrlIdAgent = useCallback(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const idParams = parseInt(urlParams.get(URL_QUERY_ID_NAME));
-    const idInLocalStorage = parseInt(localStorage.getItem(ID_LOCALSTORAGE_NAME));
     const pathArray = window.location.pathname.split("/");
     const findAgentsUrl = !!findLast(
       pathArray,
       (val) => toLower(val) === "agent" || toLower(val) === "agents"
     );
     if(findAgentsUrl) {
-      setUrlIdAgent(idParams || idInLocalStorage);
+      setUrlIdAgent(idParams);
     }
     setVerifyUrl(true);
   },[setUrlIdAgent, setVerifyUrl])

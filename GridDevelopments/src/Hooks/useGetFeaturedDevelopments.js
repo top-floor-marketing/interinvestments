@@ -12,10 +12,17 @@ import {
 import toInteger from "lodash/toInteger";
 import toLower from "lodash/toLower";
 
+const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
+const DOMAIN_URL =
+  ENVIROMENT === "production"
+    ? process.env.REACT_APP_DOMAIN_PROD
+    : process.env.REACT_APP_DOMAIN_DEV;
+
 const URL_SHARED_FLAG = 'shared';
 const URL_QUERY_ID_NAME = 'agent-id';
 
 const useGetFeaturedDevelopments = (idAgent) => {
+
   const [isFirtsFetch, setIsFirtsFetch] = useState(true);
   const [fullData, setFullData] = useState([]);
   const [tagId, setTagId] = useState(0);
@@ -28,17 +35,22 @@ const useGetFeaturedDevelopments = (idAgent) => {
   });
   const [showOverlay, setShowOverlay] = useState(false);
 
-  const fullDataGenerator = (prevData, nextData) => {
+  const getUriWithAgentId = (uri) => {
     const queryParams = new URLSearchParams(window.location.search);
     const isShared = (toLower(queryParams.get(URL_SHARED_FLAG)) === 'true');
     const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
+    return (isShared && idInUrl) ? `${DOMAIN_URL}/${uri}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : uri
+  }
+
+  const fullDataGenerator = (prevData, nextData) => {
+    
     let nextData_ = nextData.map((val) => {
       return {
         title: val.title,
         subTitle: val.neighborhoods?.nodes.length ? val.neighborhoods?.nodes[0]?.name || '' : '',
         id: val.databaseId,
         photos: val.listingData?.newDevelopment?.photos || [],
-        uri: (isShared && idInUrl) ? `${val?.uri}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : val?.uri
+        uri: getUriWithAgentId(val?.uri)
       };
     });
     return [...prevData, ...nextData_];
@@ -138,14 +150,10 @@ const useGetFeaturedDevelopments = (idAgent) => {
         if (listings.nodes.length > 0) {
           const findListing = listings.nodes[0];
 
-          const queryParams = new URLSearchParams(window.location.search);
-          const isShared = (toLower(queryParams.get(URL_SHARED_FLAG)) === 'true');
-          const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
-
           content = {
             photos: findListing.listingData?.newDevelopment?.photos || [],
             ...findListing,
-            uri: (isShared && idInUrl) ? `${findListing?.uri}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : findListing?.uri
+            uri:  getUriWithAgentId(findListing?.uri)
           };
 
         }
