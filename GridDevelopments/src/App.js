@@ -41,7 +41,7 @@ function App() {
     AOS.init({
       once: true
     });
-    getUrlIdAgent()
+    getUrlIdAgent();
   }, [getUrlIdAgent]);
   return (
     <QueryClientProvider client={queryClient}>

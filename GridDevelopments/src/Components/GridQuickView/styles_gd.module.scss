@@ -5,7 +5,7 @@
 
 .paperItem {
     @apply relative flex flex-col min-h-[300px] max-h-[320px] w-full rounded-[10px] max-w-[400px] mx-auto;
-    box-shadow: 3px 7px 16px 1px rgba(0,0,0,0.6) !important;
+    box-shadow: 1px 4px 9px 2px rgba(0,0,0,0.4) !important;
 }
 
 .imgCover {

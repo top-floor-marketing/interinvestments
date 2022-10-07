@@ -9,7 +9,6 @@ import ModalQuickView from "../Components/ModalQuickView";
 
 import useGetFeaturedDevelopments from '../Hooks/useGetFeaturedDevelopments';
 import OverlayLoading from "../Components/OverlayLoading";
-import { ChevronRight } from "tabler-icons-react";
 
 import styles from "./styles_gd.module.scss";
 

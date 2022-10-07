@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Paper, Text } from "@mantine/core";
+import { Button, Paper, Text, Tooltip } from "@mantine/core";
 import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
@@ -21,10 +21,10 @@ const GridQuickView = ({
 
   const getAgentIdUrl = (uri) => {
     const idInLocalStorage = parseInt(localStorage.getItem(ID_LOCALSTORAGE_NAME));
-     if(idAgent || idInLocalStorage) {
+    if (idAgent || idInLocalStorage) {
       return `${uri}?${URL_QUERY_ID_NAME}=${idAgent || idInLocalStorage}&shared=true`;
-     }
-     return uri
+    }
+    return uri
   }
 
   // @apply should not be used with the 'group' utility
@@ -122,9 +122,11 @@ const GridQuickView = ({
                     <Text {...allProps.textTitle}>{val.title}</Text>
                     <Text {...allProps.textSubTitle}>{val.subTitle}</Text>
                   </div>
-                  <Button {...allProps.buttonRedirect(val.uri)}>
-                    <ChevronRight size={18} color="#FFB839" />
-                  </Button>
+                  <Tooltip label="View Full Property">
+                    <Button {...allProps.buttonRedirect(val.uri)}>
+                      <ChevronRight size={18} color="#FFB839" />
+                    </Button>
+                  </Tooltip>
                 </>
               ) : (
                 <>
@@ -134,9 +136,11 @@ const GridQuickView = ({
                     <Button {...allProps.buttonQuickView(val.id)}>
                       Quick View
                     </Button>
-                    <Button {...allProps.buttonRedirect(val.uri)}>
-                      <ChevronRight size={24} color="#FFB839" />
-                    </Button>
+                    <Tooltip label="View Full Property">
+                      <Button {...allProps.buttonRedirect(val.uri)}>
+                        <ChevronRight size={24} color="#FFB839" />
+                      </Button>
+                    </Tooltip>
                   </div>
                 </>
               )}

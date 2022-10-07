@@ -1,5 +1,6 @@
 .container {
     @apply w-full min-h-[400px] bg-white mx-auto max-w-[1280px] py-10 flex flex-col gap-5 px-5 lg:px-0;
+    z-index: -1 !important;
 }
 
 .textFeatured {
