@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from "prop-types";
 // mantine
-import { Text, Paper, createStyles } from '@mantine/core';
-import { ActionIcon } from '@mantine/core';
+import { Text, Paper, createStyles, Box } from '@mantine/core';
+import { CustomIconTooltip } from '../../Component/ActionButtons';
 import { IconAdjustments } from '@tabler/icons';
 // components
 import AvatarText from '../../Component/AvatarText';
 // utils
 import omit from 'lodash/omit';
 
-const useStyles = createStyles((theme, _params) => {
+const useStyles = createStyles((theme, _params, getRef) => {
     return {
         PaperPipeline: {
             width: "100%",
@@ -18,38 +18,56 @@ const useStyles = createStyles((theme, _params) => {
             display: "flex",
             flexDirection: "row",
             gap: theme.other.spacing.p2,
-            justifyContent: 'space-between',
             alignItems: 'center',
-            paddingTop: '0px',
-            paddingBottom: '0px'
+            paddingTop: theme.other.spacing.p2,
+            paddingBottom: theme.other.spacing.p2,
+            cursor: _params?.enabled ? "pointer": "initial",
+            '&:hover': {
+                [`.${getRef("nameUserLead")}`]: { 
+                    fontWeight: "600"
+                },
+                [`.${getRef("customIconTooltip")}`]: { 
+                    backgroundColor: 'transparent',
+                    color: theme.colors.dark[9],
+                    transform: "scale(1.15)"
+                }, 
+            }
         },
         nameUserLead: {
+            ref: getRef("nameUserLead"),
+            wordBreak: "break-word",
             margin: '0px',
             textAlign: 'left'
-        },
-        Avatar: {
-            '.mantine-Avatar-placeholder': {
-                color: theme.colors.gray[6]
-            },
-            borderRadius: '30px'
         },
         modalBody: {
             display: "flex",
             flexDirection: 'column',
             gap: theme.other.spacing.p4,
+        },
+        boxDivider: {
+            marginLeft: "auto",
+            paddingLeft: theme.other.spacing.p1,
+            paddingRight: theme.other.spacing.p1,
+            borderLeft: `0.5px solid ${theme.colors.gray[5]}`,
+            height: "100%"
+        },
+        customIconTooltip: {
+            ref: getRef("customIconTooltip"),
+            marginLeft: "auto"
         }
     }
 });
 
 const PipelineItem = (props) => {
 
-    const { classes } = useStyles()
-    const { firstName, lastName, onClick: onClickPaper, setValueUserPipeline } = props
+    const { enabled, firstName, lastName, agentAvatar, agentFullName, onClick: onClickPaper, setValueUserPipeline } = props
+
+    const { classes } = useStyles({ enabled })
 
     return (
         <Paper
             onClick={() => {
-                if (props.enabled) {
+                if (enabled) {
                     onClickPaper()
                     setValueUserPipeline({ ...omit(props, ['onClick', 'setValueUserPipeline', 'children']) })
                 }
@@ -57,19 +75,37 @@ const PipelineItem = (props) => {
             className={classes.PaperPipeline}
         >
             <AvatarText
-                size={"40px"}
+                className={classes.avatarText}
+                size={"30px"}
                 firstName={firstName}
                 lastName={lastName}
+                src={null}
             />
-            <Text className={classes.nameUserLead} component='p' lineClamp={1} title={`${firstName} ${lastName}`}>
+            <Text className={classes.nameUserLead}
+             component='span' 
+             lineClamp={2} title={`Lead: ${firstName} ${lastName}`}>
                 {firstName}&nbsp;{lastName}
             </Text>
             {
-                (props.enabled)
+                (!enabled && agentAvatar && agentFullName)
                 &&
-                <ActionIcon size="lg" color="dark">
-                    <IconAdjustments size={24} />
-                </ActionIcon>
+                <>
+                    <Box className={classes.boxDivider} />
+                    <AvatarText
+                        size={"30px"}
+                        firstName={agentFullName}
+                        lastName={null}
+                        src={agentAvatar}
+                        tooltipLabel={`Agent: ${agentFullName}`}
+                    />
+                </>
+            }
+            {
+                (enabled)
+                &&
+                <CustomIconTooltip className={classes.customIconTooltip} size={24} color="dark" labelTooltip="Edit Lead Status">
+                    <IconAdjustments />
+                </CustomIconTooltip>
             }
         </Paper>
     );

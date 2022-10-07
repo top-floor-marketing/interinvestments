@@ -125,18 +125,18 @@ const Pipeline = () => {
     }
 
     // all pipeline for admin
-    const { data: dataAllPipeline } = useGetAdminPipeline({ agentType });
+    const { data: dataAllPipeline, isLoading: isLoadingAll } = useGetAdminPipeline({ agentType });
 
     const { data: dataNotContacted, refetch: reFetchNotContacted, isLoading: isLoadingNotContacted } = 
-    useGetPipelineLeads({ agentId: getIdForPipeline(), statusId: getInfoState(PIPELINE_STATUS.NOT_CONTACTED) });
+    useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.NOT_CONTACTED) });
     const { data: dataContacted, refetch: reFetchContacted, isLoading: isLoadingContacted } = 
-    useGetPipelineLeads({ agentId: getIdForPipeline(), statusId: getInfoState(PIPELINE_STATUS.CONTACTED) });
+    useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.CONTACTED) });
     const { data: dataShowing, refetch: reFetchShowing, isLoading: isLoadingShowing } = 
-    useGetPipelineLeads({ agentId: getIdForPipeline(), statusId: getInfoState(PIPELINE_STATUS.SHOWING) });
+    useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.SHOWING) });
     const { data: dataContract, refetch: reFetchContract, isLoading: isLoadingContract } = 
-    useGetPipelineLeads({ agentId: getIdForPipeline(), statusId: getInfoState(PIPELINE_STATUS.CONTRACT) });
+    useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.CONTRACT) });
     const { data: dataASk, refetch: reFetchAsk, isLoading: isLoadingAsk } = 
-    useGetPipelineLeads({ agentId: getIdForPipeline(), statusId: getInfoState(PIPELINE_STATUS.ASK_REFERRALS) });
+    useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.ASK_REFERRALS) });
 
     const refechPipeline = (prevState, newState) => {
         if (getInfoState(PIPELINE_STATUS.NOT_CONTACTED) === prevState || getInfoState(PIPELINE_STATUS.NOT_CONTACTED) === newState)
@@ -151,6 +151,8 @@ const Pipeline = () => {
             reFetchAsk()
     }
 
+    const USING_FULL_PIPELINE = (agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin);
+
     return (
         <div style={{ width: '100%', position: 'relative' }}>
             <LoadingOverlay
@@ -160,7 +162,8 @@ const Pipeline = () => {
                     isLoadingShowing ||
                     isLoadingContract ||
                     isLoadingAsk
-                ) || false}
+                    || isLoadingAll
+                )}
                 overlayBlur={0.5}
                 overlayOpacity={0.4}
                 overlayColor="#eaeae9"
@@ -185,17 +188,13 @@ const Pipeline = () => {
             
                 <Text className={classes.titlePipeline} component='h3'>
                     Pipeline
-                    {
-                       (agentType === USER_ROLES_CRM.ADMIN)
-                       && ": ".concat(get(idAgentForAdmin, ["firstName"], "").concat(" ").concat(get(idAgentForAdmin, ["lastName"], "")))
-                    }
                 </Text>
 
                 <Box className={classes.containerPipeline} ref={ref}>
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? [] : dataNotContacted}
-                            totalData={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? 0 : dataNotContacted.length}
+                            data={USING_FULL_PIPELINE ? dataAllPipeline.dataNotContacted : dataNotContacted}
+                            totalData={USING_FULL_PIPELINE ? dataAllPipeline.dataNotContacted.length : dataNotContacted.length}
                             color='error'
                             title='Not Contacted'
                         >
@@ -209,8 +208,8 @@ const Pipeline = () => {
 
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? [] : dataContacted}
-                            totalData={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? 0 : dataContacted.length}
+                            data={USING_FULL_PIPELINE ? dataAllPipeline.dataContacted : dataContacted}
+                            totalData={USING_FULL_PIPELINE ? dataAllPipeline.dataContacted.length : dataContacted.length}
                             color='primary'
                             title='Contacted'
                         >
@@ -224,8 +223,8 @@ const Pipeline = () => {
 
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? [] : dataShowing}
-                            totalData={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? 0 : dataShowing.length}
+                            data={USING_FULL_PIPELINE ? dataAllPipeline.dataShowing : dataShowing}
+                            totalData={USING_FULL_PIPELINE ? dataAllPipeline.dataShowing.length : dataShowing.length}
                             color='secondary'
                             title='Showing'
                         >
@@ -239,8 +238,8 @@ const Pipeline = () => {
 
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? [] : dataContract}
-                            totalData={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? 0 : dataContract.length}
+                            data={USING_FULL_PIPELINE ? dataAllPipeline.dataContract : dataContract}
+                            totalData={USING_FULL_PIPELINE ? dataAllPipeline.dataContract.length : dataContract.length}
                             color='success'
                             title='Contract'
                         >
@@ -254,8 +253,8 @@ const Pipeline = () => {
 
                     <Box className={classes.containerColPipeline}>
                         <PipelineColumnVirtual
-                            data={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? [] : dataASk}
-                            totalData={(agentType === USER_ROLES_CRM.ADMIN && !idAgentForAdmin) ? 0 : dataASk.length}
+                            data={USING_FULL_PIPELINE ? dataAllPipeline.dataASk : dataASk}
+                            totalData={USING_FULL_PIPELINE ? dataAllPipeline.dataASk.length : dataASk.length}
                             color='info'
                             title='Ask Referrals'
                         >

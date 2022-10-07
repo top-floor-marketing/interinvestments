@@ -96,7 +96,7 @@ const BodyModal = ({ valueSelect, setvalueSelect, valueUserPipeline, onClose, re
 
     return (
         <Box className={classes.container}>
-            <SimpleGrid cols={1} spacing="1rem">
+            <SimpleGrid cols={1}>
                 <Group >
                     <ChipStatusLead
                       className={classes.badgeStatus}
