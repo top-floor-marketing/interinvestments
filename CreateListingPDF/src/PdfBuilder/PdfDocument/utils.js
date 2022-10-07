@@ -38,8 +38,6 @@ const addParamsToUrl = (domainSite, agent, urlListing = '') => {
     }
     const idAgent = parseInt(get(agent, ["databaseId"], null));
     const rol = toLower(get(agent, ["roles"], USER_ROLES.ADMIN));
-    console.log("idAgent ", idAgent);
-    console.log("rol ", rol);
     return (!idAgent || rol === USER_ROLES.ADMIN)
         ? `${domainSite}${urlListing}`
         : `${domainSite}${urlListing}?${URL_QUERY_ID_NAME}=${idAgent}&${URL_SHARED_FLAG}=true`;
