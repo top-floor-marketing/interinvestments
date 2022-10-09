@@ -36,6 +36,7 @@ const useGetAdminPipeline = ({ agentType }) => {
         name: `ALL_LEADS_PIPELINE`,
         gql: ALL_LEADS_PIPELINE,
         config: {
+            cacheTime: 5 * 60 * 2000, // 2 minutes
             enabled: (agentType === USER_ROLES_CRM.ADMIN),
             onSuccess: (response) => {
 

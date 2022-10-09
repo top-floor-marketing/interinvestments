@@ -32,7 +32,8 @@ const LeadsVirtual = (props) => {
     isLoading,
     refetch,
     totalData,
-    isShortLead
+    isShortLead,
+    isAdminLeadView
   } = props;
 
   const {
@@ -68,7 +69,7 @@ const LeadsVirtual = (props) => {
         height={heightParent}
         innerElementType={innerElementType}
         rowCount={totalData}
-        rowHeight={ROW_HEIGHT + GUTTER_SIZE}
+        rowHeight={ROW_HEIGHT + (isAdminLeadView ? 30 : 0) + GUTTER_SIZE}
         width={widthParent}
       >
         {({ rowIndex, style }) => {
@@ -88,6 +89,7 @@ const LeadsVirtual = (props) => {
                 width={style.width}
                 height={style.height - GUTTER_SIZE}
                 isShortLead={isShortLead}
+                isAdminLeadView={isAdminLeadView}
               />
             </div>
           );
@@ -102,7 +104,8 @@ LeadsVirtual.defaultProps = {
   isLoading: false,
   refetch: null,
   totalData: 0,
-  isShortLead: false
+  isShortLead: false,
+  isAdminLeadView: false
 };
 
 LeadsVirtual.propTypes = {
@@ -110,7 +113,8 @@ LeadsVirtual.propTypes = {
   isLoading: PropTypes.bool,
   refetch: PropTypes.func,
   totalData: PropTypes.number,
-  isShortLead: PropTypes.bool
+  isShortLead: PropTypes.bool,
+  isAdminLeadView: PropTypes.bool
 };
 
 export default memo(LeadsVirtual);

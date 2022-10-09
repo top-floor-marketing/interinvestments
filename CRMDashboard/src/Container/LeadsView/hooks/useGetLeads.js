@@ -3,10 +3,13 @@ import {
   useQueryHelper,
 } from "../../../GraphqlClient/useRequest";
 import { GET_LEADS_LIST_FOR_AGENT } from "../../../GraphqlClient/leads.gql";
+import { ALL_LEADS_PIPELINE } from "../../../GraphqlClient/pipeline.gql";
 
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
-import { formatReponseLeads, filterByState, filterByText } from "./utils.service";
+import { formatReponseSingleAgentLeads, formatResponseFullAgents, filterByState, filterByText } from "./utils.service";
+
+import { USER_ROLES_CRM } from "../../../GlobalStore/utils";
 
 const useGetLeads = () => {
   const {
@@ -28,30 +31,34 @@ const useGetLeads = () => {
   const [searchText, setSearchText] = useState("");
   const [filterState, setFilterState] = useState(null);
 
-   const onChangeSearchText = (e) => {
-     setIsOverlay(true);
-     setSearchText(e.currentTarget.value);
-     const dataOtherFilter = (filterState) ? filterByState(filterState, allLeads, statusUserLead) : allLeads;
-     setLeadsFiltered(filterByText(e.currentTarget.value, dataOtherFilter));
-     setIsOverlay(false);
-   };
+  const onChangeSearchText = (e) => {
+    setIsOverlay(true);
+    setSearchText(e.currentTarget.value);
+    const dataOtherFilter = (filterState) ? filterByState(filterState, allLeads, statusUserLead) : allLeads;
+    setLeadsFiltered(filterByText(e.currentTarget.value, dataOtherFilter));
+    setIsOverlay(false);
+  };
 
-   const onChangeStateFilter = (e) => {
+  const onChangeStateFilter = (e) => {
     setIsOverlay(true);
     setFilterState(e);
     const dataOtherFilter = (searchText) ? filterByText(searchText, allLeads) : allLeads;
     setLeadsFiltered(filterByState(e, dataOtherFilter, statusUserLead));
-    setTimeout(()=> {
+    setTimeout(() => {
       setIsOverlay(false);
     }, 300)
-   }
+  }
 
   const { isLoading: isLoadingLeads, isError: isErrorLeads, isSuccess: isSuccessLeads, refetch } = useQueryHelper({
-    name: "get-leads_list_agent",
-    gql: GET_LEADS_LIST_FOR_AGENT,
+    name: "get_leads_list_agent",
+    gql: agentType === USER_ROLES_CRM.ADMIN ? ALL_LEADS_PIPELINE : GET_LEADS_LIST_FOR_AGENT,
     config: {
       onSuccess: (response) => {
-        setAllLeads(formatReponseLeads(response));
+        if (agentType === USER_ROLES_CRM.ADMIN)
+          setAllLeads(formatResponseFullAgents(response));
+        else
+          setAllLeads(formatReponseSingleAgentLeads(response));
+
         setIsOverlay(false);
       },
       onerror: () => {
@@ -78,7 +85,8 @@ const useGetLeads = () => {
     },
     allLeads: (searchText || filterState) ? leadsFiltered : allLeads,
     totalData: (searchText || filterState) ? leadsFiltered.length : allLeads.length,
-    refetch
+    refetch,
+    isAdminLeadView: (agentType === USER_ROLES_CRM.ADMIN)
   };
 
 };

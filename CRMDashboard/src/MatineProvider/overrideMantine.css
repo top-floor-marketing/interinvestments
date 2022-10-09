@@ -5,6 +5,11 @@
 .mantine-Skeleton-root::after {
     background-color: #c2c2bf !important;
 }
+
+.mantine-ScrollArea-viewport > div {
+    height: 100% !important;
+}
+
 /*
 gray[0] = #eaeae9
 gray[6] = #c2c2bf

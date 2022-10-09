@@ -238,7 +238,12 @@ const stylesProvider = () => {
                             backgroundColor: `${theme.colors.gray[9]} !important`,
                             opacity: "1 !important"
                         },
-                    }
+                    },
+                    /* viewport: {
+                        '&:first-child': {
+                            height: "100% !important",
+                        }
+                    } */
                 }
             }
         },

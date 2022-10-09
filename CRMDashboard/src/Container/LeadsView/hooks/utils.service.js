@@ -4,52 +4,49 @@ import map from 'lodash/map';
 import filter from 'lodash/filter';
 import toLower from "lodash/toLower";
 import includes from 'lodash/includes';
-/* 
-import filter from "lodash/filter";
-import reduce from "lodash/reduce";
+import forEach from 'lodash/forEach';
 
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-dayjs.extend(utc); */
-
-const formatReponseLeads = (response) => {
+const formatReponseSingleAgentLeads = (response) => {
     if (!response || isEmpty(response)) return [];
     const leadsList = get(response, ["dataAgent", "0", "statuses"], []);
     if (isEmpty(leadsList)) return [];
     const agentId =  get(response, ["dataAgent", "0", "databaseId"], []);
-    return map(leadsList, (val) => {
+    const fullData = map(leadsList, (val) => {
       return {
         ...val,
         agentId
       }
     });
-   /*  return map(leadsList, (val) => {
-        const datesForStatus = map(get(val, ["status"], []), (val) => ({
-          parseDate: dayjs(val.date),
-          date: val.date,
-          status: val.status,
-        }));
-        const finalStatus = reduce(
-          datesForStatus,
-          (result, value) => {
-            if (isEmpty(result)) return { ...value }
-            const isAfter = dayjs(value.date).isAfter(dayjs(result.date)); 
-            if(isAfter) {
-              return {
-                ...value,
-              };
-            }
-            return {
-              ...result
-            }
-          },
-          {}
-        );
-        return {
-          ...val,
-          finalStatus: finalStatus,
-        };
-    }); */
+    return fullData;
+}
+
+const formatResponseFullAgents = (response) => {
+  if (!response || isEmpty(response)) return [];
+  const leadsList = get(response, ["dataAgent"], []);
+  if (isEmpty(leadsList)) return [];
+  const fullData = [];
+
+  forEach(leadsList, (valUserLead) => {
+
+    let newLead = {
+      userLead: get(valUserLead, ["statuses", "0", "userLead"], {}),
+      allAgentsStatus: []
+    }
+
+    forEach(get(valUserLead, ["statuses"], []), (valStatusLead) => {
+     
+      newLead.allAgentsStatus.push({
+        currentStatus: get(valStatusLead, ["currentStatus"], {}),
+        agentId: get(valStatusLead, ["agent", "databaseId"], null),
+        ...get(valStatusLead, ["agent"], {}),
+      });
+
+    });
+
+    fullData.push(newLead);
+  })
+
+  return fullData;
 }
 
 const filterByState = (value, data, statusUserLead) => {
@@ -72,4 +69,4 @@ const filterByText = (value, data) => {
 }
 
 
-export { formatReponseLeads, filterByState, filterByText };
+export { formatReponseSingleAgentLeads, formatResponseFullAgents, filterByState, filterByText };

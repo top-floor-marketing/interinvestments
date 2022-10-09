@@ -18,12 +18,12 @@ const useStyles = createStyles((theme, _params) => {
     },
     badgeContainer: {
       marginLeft: "auto !important",
-      width: "180px !important",
+      width: "150px !important",
       display: "flex",
-      fontSize: "14px",
+      fontSize: "12px",
       flexDirection: "column",
       [`${theme.fn.smallerThan(700)}`]: {
-        fontSize: "12px",
+        fontSize: "10px",
         marginLeft: "auto !important",
         marginRight: "auto !important",
       }

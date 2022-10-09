@@ -42,7 +42,7 @@ const useStyles = createStyles((theme, _params) => ({
 const LeadsView = () => {
   const { classes } = useStyles();
 
-  const { isSkeleton, isLoading, selectStateProps, searchProps, totalData, allLeads, refetch } =
+  const { isSkeleton, isAdminLeadView,  isLoading, selectStateProps, searchProps, totalData, allLeads, refetch } =
     useGetLeads();
 
   return isSkeleton ? (
@@ -70,6 +70,7 @@ const LeadsView = () => {
           )}
           {totalData && !isSkeleton ? (
             <LeadsVirtual
+            isAdminLeadView={isAdminLeadView}
               data={allLeads}
               totalData={totalData}
               refetch={null}

@@ -114,29 +114,29 @@ const Pipeline = () => {
     const [openedMOdal, setOpenedModal] = useState(false);
     const [valueSelect, setvalueSelect] = useState(false);
     const [valueUserPipeline, setValueUserPipeline] = useState(null)
-   
+
     const { classes } = useStyles({ width });
 
+    // all pipeline for admin
+    const { data: dataAllPipeline, isLoading: isLoadingAll, refetch: refecthAll } = useGetAdminPipeline({ agentType });
+
     const getIdForPipeline = () => {
-        if(agentType === USER_ROLES_CRM.ADMIN) {
+        if (agentType === USER_ROLES_CRM.ADMIN) {
             return get(idAgentForAdmin, ["id"], null);
         }
         return databaseId;
     }
 
-    // all pipeline for admin
-    const { data: dataAllPipeline, isLoading: isLoadingAll } = useGetAdminPipeline({ agentType });
-
-    const { data: dataNotContacted, refetch: reFetchNotContacted, isLoading: isLoadingNotContacted } = 
-    useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.NOT_CONTACTED) });
-    const { data: dataContacted, refetch: reFetchContacted, isLoading: isLoadingContacted } = 
-    useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.CONTACTED) });
-    const { data: dataShowing, refetch: reFetchShowing, isLoading: isLoadingShowing } = 
-    useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.SHOWING) });
-    const { data: dataContract, refetch: reFetchContract, isLoading: isLoadingContract } = 
-    useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.CONTRACT) });
-    const { data: dataASk, refetch: reFetchAsk, isLoading: isLoadingAsk } = 
-    useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.ASK_REFERRALS) });
+    const { data: dataNotContacted, refetch: reFetchNotContacted, isLoading: isLoadingNotContacted } =
+        useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.NOT_CONTACTED) });
+    const { data: dataContacted, refetch: reFetchContacted, isLoading: isLoadingContacted } =
+        useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.CONTACTED) });
+    const { data: dataShowing, refetch: reFetchShowing, isLoading: isLoadingShowing } =
+        useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.SHOWING) });
+    const { data: dataContract, refetch: reFetchContract, isLoading: isLoadingContract } =
+        useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.CONTRACT) });
+    const { data: dataASk, refetch: reFetchAsk, isLoading: isLoadingAsk } =
+        useGetPipelineLeads({ agentId: getIdForPipeline(), agentSelected: idAgentForAdmin, statusId: getInfoState(PIPELINE_STATUS.ASK_REFERRALS) });
 
     const refechPipeline = (prevState, newState) => {
         if (getInfoState(PIPELINE_STATUS.NOT_CONTACTED) === prevState || getInfoState(PIPELINE_STATUS.NOT_CONTACTED) === newState)
@@ -182,10 +182,10 @@ const Pipeline = () => {
 
                 {
                     (agentType === USER_ROLES_CRM.ADMIN)
-                    && <PaperFilterAgent idAgent={idAgentForAdmin} setIdAgent={setIdAgentForAdmin} />
+                    && <PaperFilterAgent idAgent={idAgentForAdmin} refecthAll={refecthAll} setIdAgent={setIdAgentForAdmin} />
                 }
 
-            
+
                 <Text className={classes.titlePipeline} component='h3'>
                     Pipeline
                 </Text>

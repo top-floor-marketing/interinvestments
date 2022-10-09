@@ -5,6 +5,7 @@ import {
   createStyles,
   Text,
   Paper,
+  ScrollArea,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 
@@ -33,9 +34,9 @@ const useStyles = createStyles((theme, _params) => {
   // badge status reserved 180px
   let paddingReserved = isShortLead ? 24 : 32;
   let totalRows = 2;
-  let avatarReserved = isShortLead ? 40 : 60;
+  let avatarReserved = isShortLead ? 30 : 40;
   let iconsReserved = isShortLead ? 0 : 60;
-  let badgeReserved = isShortLead ? 100 :180;
+  let badgeReserved = isShortLead ? 100 : 250;
 
   let gapReserved = (totalRows + 2) * 16;
 
@@ -73,7 +74,7 @@ const useStyles = createStyles((theme, _params) => {
     text: {
       fontWeight: isShortLead ? "300 !important" : "600 !important",
       margin: "0px !important",
-      fontSize: isShortLead ? "12px": "14px",
+      fontSize: isShortLead ? "12px" : "14px",
       [`${theme.fn.smallerThan(700)}`]: {
         fontSize: "12px",
       }
@@ -89,16 +90,40 @@ const useStyles = createStyles((theme, _params) => {
       }
     },
     containerIcons: {
+      marginLeft: "auto",
       gap: theme.other.spacing.p2,
       display: "flex",
       flexDirection: "row",
+    },
+    adminLeadViewStatus: {
+      padding: theme.other.spacing.p2,
+      width: `${badgeReserved}px`,
+      height: "100%",
+      maxHeight: "120px",
+      overflowY: "auto",
+      overflowX: "hidden",
+    },
+    contentAllStatus: {
+      height: "100%",
+      justifyContent: "center",
+      display: "flex",
+      flexDirection: "column",
+      gap: theme.other.spacing.p2,
+    },
+    itemStatus: {
+      width: "100%",
+      paddingRight: "5px",
+      display: "flex",
+      flexDirection: "row",
+      gap: theme.other.spacing.p2,
+      alignItems: "center"
     }
   };
 });
 
 const ItemListingVirtual = (props) => {
 
-  const { width: widthParent, isShortLead } = props;
+  const { width: widthParent, isShortLead, isAdminLeadView } = props;
 
   const { actions: { setRoute } } = useClientGlobalStore();
 
@@ -136,10 +161,37 @@ const ItemListingVirtual = (props) => {
     setRoute(ROUTES_NAMES.LEADS_DETAILS);
   }
 
+  const ContainerBadgeStatus = () => {
+    return (
+      (isAdminLeadView)
+        ?
+        <Box component={ScrollArea} className={classes.adminLeadViewStatus}>
+          <Box className={classes.contentAllStatus}>
+            {
+              get(props, ["allAgentsStatus"], []).map((val, index) => (
+                <Box key={index} className={classes.itemStatus}>
+                  <ChipStatusLead isShort={false} status={val?.currentStatus} onClick={null} />
+                  <AvatarText
+                    size={"30px"}
+                    firstName={get(val, ["firstName"], null)}
+                    lastName={get(val, ["lastName"], null)}
+                    src={get(val, ["avatarProfile"], null)}
+                    tooltipLabel={`Agent: ${get(val, ["firstName"], "")} ${get(val, ["lastName"], "")}`}
+                  />
+                </Box>
+              ))
+            }
+          </Box>
+        </Box>
+        :
+        <ChipStatusLead isShort={isShortLead} status={props?.currentStatus} onClick={isShortLead ? null : setLeadDetail} />
+    )
+  }
+
   return (
     <Paper className={classes.containerItemListing}>
       <AvatarText onClick={() => setLeadDetail()}
-        size={isShortLead ? "40px" : "60px"}
+        size={isShortLead ? "30px" : "40px"}
         firstName={getFirstNameUserLead()}
         lastName={getLastNameUserLead()}
         className={classes.avatarText}
@@ -162,7 +214,7 @@ const ItemListingVirtual = (props) => {
             >
               {getEmailUserLead()}
             </Text>
-            <ChipStatusLead isShort={isShortLead} status={props?.currentStatus} onClick={setLeadDetail} />
+            <ContainerBadgeStatus />
           </Box>
           :
           <>
@@ -191,24 +243,24 @@ const ItemListingVirtual = (props) => {
                 {getEmailUserLead()}
               </Text>
             </Box>
-            <ChipStatusLead isShort={isShortLead} status={props?.currentStatus} onClick={setLeadDetail} />
+            <ContainerBadgeStatus />
           </>
       }
 
       {
         (!isShortLead)
-        && 
+        &&
         <Box className={classes.containerIcons}>
-        <IconOpenWhatsApp size={24} 
-          labelTooltip="Send Whatsapp message"
-          phoneNumber={getPhone()}
-          otherPhoneNumber={getOtherPhone()} />
-        <CustomIconTooltip size={24} labelTooltip="View lead details" onClick={setLeadDetail}>
-          <ArrowForwardUp />
-        </CustomIconTooltip>
-      </Box>
+          <IconOpenWhatsApp size={24}
+            labelTooltip="Send Whatsapp message"
+            phoneNumber={getPhone()}
+            otherPhoneNumber={getOtherPhone()} />
+          <CustomIconTooltip size={24} labelTooltip="View lead details" onClick={setLeadDetail}>
+            <ArrowForwardUp />
+          </CustomIconTooltip>
+        </Box>
       }
-      
+
 
     </Paper>
   );

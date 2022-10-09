@@ -3,6 +3,8 @@ import { INPUT_BORDER_BOTTOM } from "../../MatineProvider/stylesProvider";
 
 import SelectAgent from "../../Component/DrawerAddLeads/Steps/SelectAgent";
 
+import get from 'lodash/get';
+
 const useStyles = createStyles((theme, _params, getRef) => ({
     container: {
         width: "100%",
@@ -50,15 +52,23 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     },
 }));
 
-const PaperFilterAgent = ({ idAgent, setIdAgent }) => {
+const PaperFilterAgent = ({ idAgent, setIdAgent, refecthAll }) => {
 
     const { classes } = useStyles();
+
+    const verifyRefetchAllPipeline = (val) => {
+        const idAgent = get(val, ["id"], null);
+        if(!idAgent) {
+            refecthAll();
+        }
+        setIdAgent(val)
+    }
 
     return (
         <Paper className={classes.container}>
             <Text className={classes.textFilter}>Filter by agent:</Text>
             <SelectAgent cssClass={classes.selectNei} useLabel={false}
-                localOnChange={setIdAgent}
+                localOnChange={verifyRefetchAllPipeline}
                 localValue={idAgent}
             />
         </Paper>
