@@ -83,7 +83,7 @@ const useGetAdminPipeline = ({ agentType }) => {
     });
 
     return {
-        isLoading,
+        isLoading:(agentType === USER_ROLES_CRM.ADMIN) ? isLoading : false,
         isError,
         data: dataPipeline,
         refetch,

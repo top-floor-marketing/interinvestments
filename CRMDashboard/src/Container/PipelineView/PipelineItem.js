@@ -21,22 +21,26 @@ const useStyles = createStyles((theme, _params, getRef) => {
             alignItems: 'center',
             paddingTop: theme.other.spacing.p2,
             paddingBottom: theme.other.spacing.p2,
-            cursor: _params?.enabled ? "pointer": "initial",
+            cursor: _params?.enabled ? "pointer" : "initial",
             '&:hover': {
-                [`.${getRef("nameUserLead")}`]: { 
+                [`.${getRef("nameUserLead")}`]: {
                     fontWeight: "600"
                 },
-                [`.${getRef("customIconTooltip")}`]: { 
+                [`.${getRef("customIconTooltip")}`]: {
                     backgroundColor: 'transparent',
                     color: theme.colors.dark[9],
                     transform: "scale(1.15)"
-                }, 
+                },
             }
         },
         nameUserLead: {
             ref: getRef("nameUserLead"),
             wordBreak: "break-word",
             margin: '0px',
+            fontSize: "14px",
+            [`${theme.fn.smallerThan(1400)}`]: {
+                fontSize: "12px",
+            },
             textAlign: 'left'
         },
         modalBody: {
@@ -82,8 +86,8 @@ const PipelineItem = (props) => {
                 src={null}
             />
             <Text className={classes.nameUserLead}
-             component='span' 
-             lineClamp={2} title={`Lead: ${firstName} ${lastName}`}>
+                component='span'
+                lineClamp={2} title={`Lead: ${firstName} ${lastName}`}>
                 {firstName}&nbsp;{lastName}
             </Text>
             {

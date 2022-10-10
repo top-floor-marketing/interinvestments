@@ -70,7 +70,7 @@ const LeadsView = () => {
           )}
           {totalData && !isSkeleton ? (
             <LeadsVirtual
-            isAdminLeadView={isAdminLeadView}
+              isAdminLeadView={isAdminLeadView}
               data={allLeads}
               totalData={totalData}
               refetch={null}

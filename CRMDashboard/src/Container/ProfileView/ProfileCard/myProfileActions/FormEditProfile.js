@@ -34,6 +34,7 @@ const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
             phone: get(dataAgent, ["phone"], ""),
             tiktok: get(dataAgent, ["tiktok"], ""),
             youtube: get(dataAgent, ["youtube"], ""),
+            rumble: get(dataAgent, ["rumble"], ""),
         },
     });
 
@@ -90,7 +91,6 @@ const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
                         <FileInput
                             accept="image/png,image/jpeg,image/jpg"
                             className={`${classes.gridColumnFull} ${classes.inputAvatar}`}
-                            // className={`${classes.gridColumnFull}`}
                             disabled={isLoading}
                             label={null}
                             ref={refInputAvatar}
@@ -183,6 +183,13 @@ const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
                             label="TikTok"
                             placeholder="TikTok profile"
                             {...form.getInputProps('tiktok')}
+                        />
+
+                        <TextInput
+                            disabled={isLoading}
+                            label="Rumble"
+                            placeholder="Rumble profile"
+                            {...form.getInputProps('rumble')}
                         />
 
                     </Box>

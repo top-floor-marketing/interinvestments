@@ -25,7 +25,7 @@ import capitalize from "lodash/capitalize";
 
 const useStyles = createStyles((theme, _params) => {
 
-  const { width, isShortLead } = _params;
+  const { width, isShortLead, isAdminLeadView } = _params;
 
   // avatar reserved 60px,
   // gap reservered 16px
@@ -35,7 +35,7 @@ const useStyles = createStyles((theme, _params) => {
   let paddingReserved = isShortLead ? 24 : 32;
   let totalRows = 2;
   let avatarReserved = isShortLead ? 30 : 40;
-  let iconsReserved = isShortLead ? 0 : 60;
+  let iconsReserved = isShortLead ? 0 : isAdminLeadView ? 100 : 60;
   let badgeReserved = isShortLead ? 100 : 250;
 
   let gapReserved = (totalRows + 2) * 16;
@@ -74,9 +74,9 @@ const useStyles = createStyles((theme, _params) => {
     text: {
       fontWeight: isShortLead ? "300 !important" : "600 !important",
       margin: "0px !important",
-      fontSize: isShortLead ? "12px" : "14px",
-      [`${theme.fn.smallerThan(700)}`]: {
-        fontSize: "12px",
+      fontSize: "12px",
+      [`${theme.fn.largerThan(1600)}`]: {
+        fontSize: "14px",
       }
     },
     avatarText: {
@@ -127,7 +127,7 @@ const ItemListingVirtual = (props) => {
 
   const { actions: { setRoute } } = useClientGlobalStore();
 
-  const { classes } = useStyles({ width: widthParent, isShortLead });
+  const { classes } = useStyles({ width: widthParent, isShortLead, isAdminLeadView });
   const matches = useMediaQuery('(max-width: 700px)');
 
   const getFirstNameUserLead = useCallback(() => {

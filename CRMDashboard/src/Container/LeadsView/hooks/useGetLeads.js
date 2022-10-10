@@ -23,6 +23,8 @@ const useGetLeads = () => {
     },
   } = useClientGlobalStore();
 
+  const isAdminLeadView = (agentType === USER_ROLES_CRM.ADMIN);
+
   const [allLeads, setAllLeads] = useState([]);
   const [leadsFiltered, setLeadsFiltered] = useState([]);
   const [isOverlay, setIsOverlay] = useState(true);
@@ -34,7 +36,7 @@ const useGetLeads = () => {
   const onChangeSearchText = (e) => {
     setIsOverlay(true);
     setSearchText(e.currentTarget.value);
-    const dataOtherFilter = (filterState) ? filterByState(filterState, allLeads, statusUserLead) : allLeads;
+    const dataOtherFilter = (filterState) ? filterByState(filterState, allLeads, statusUserLead, isAdminLeadView) : allLeads;
     setLeadsFiltered(filterByText(e.currentTarget.value, dataOtherFilter));
     setIsOverlay(false);
   };
@@ -43,7 +45,7 @@ const useGetLeads = () => {
     setIsOverlay(true);
     setFilterState(e);
     const dataOtherFilter = (searchText) ? filterByText(searchText, allLeads) : allLeads;
-    setLeadsFiltered(filterByState(e, dataOtherFilter, statusUserLead));
+    setLeadsFiltered(filterByState(e, dataOtherFilter, statusUserLead, isAdminLeadView));
     setTimeout(() => {
       setIsOverlay(false);
     }, 300)
@@ -86,7 +88,7 @@ const useGetLeads = () => {
     allLeads: (searchText || filterState) ? leadsFiltered : allLeads,
     totalData: (searchText || filterState) ? leadsFiltered.length : allLeads.length,
     refetch,
-    isAdminLeadView: (agentType === USER_ROLES_CRM.ADMIN)
+    isAdminLeadView
   };
 
 };

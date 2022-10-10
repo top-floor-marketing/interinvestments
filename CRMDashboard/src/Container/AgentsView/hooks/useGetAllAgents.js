@@ -4,7 +4,7 @@ import {
 } from "../../../GraphqlClient/useRequest";
 import { ADMIN_GET_ALL_AGENTS } from "../../../GraphqlClient/agentProfile.gql";
 
-import { orderAgentByName } from "./utils.service";
+import { orderAgentByName, filterByText } from "./utils.service";
 import get from 'lodash/get';
 
 const useGetAllAgents = () => {
@@ -19,7 +19,7 @@ const useGetAllAgents = () => {
    const onChangeSearchText = (e) => {
      setIsOverlay(true);
      setSearchText(e.currentTarget.value);
-    // setLeadsFiltered(filterByText(e.currentTarget.value, dataOtherFilter));
+     setAgentsFiltered(filterByText(e.currentTarget.value, allAgents));
      setIsOverlay(false);
    };
 
@@ -29,7 +29,9 @@ const useGetAllAgents = () => {
     config: {
       onSuccess: (response) => {
         setAllAgents(orderAgentByName(get(response, ["dataAgent"], [])));
-        setIsOverlay(false);
+        setTimeout(() => {
+          setIsOverlay(false);
+        }, 1500);
       },
       onerror: () => {
         setAllAgents([]);

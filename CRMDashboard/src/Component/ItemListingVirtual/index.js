@@ -26,7 +26,7 @@ const useStyles = createStyles((theme, _params) => {
   let totalRows = 4;
   let checkBoxReserved = (usingCheck) ? 32 : 0;
   let avatarReserved = (!usingViewsAndLiving) ? 30 : 60;
-  let iconsReserved = (usingCheck) ? 38 : 128;
+  let iconsReserved = (usingCheck) ? 60 : 128;
 
   if (!usingViewsAndLiving || usingCheck)
     totalRows = 2;
@@ -125,7 +125,7 @@ const useStyles = createStyles((theme, _params) => {
 const ItemListingVirtual = (props) => {
 
   const { usingAddAndRemove, isCheck: usingCheck, width, idAgent, uri, isFeatured, onConfirmAdd, onConfirmRemove, databaseId } = props;
-
+  
   const { state: { addLeads: { listingData } }, actions: { setListingData } } = useClientGlobalStore();
 
   const getIsCheckedListing = useCallback(() => {
@@ -215,12 +215,6 @@ const ItemListingVirtual = (props) => {
       setListingData(removeId);
     }
   }
-
-  /* useEffect(() => {
-    return () => {
-      console.log("listing ")
-    }
-  },[]) */
 
   return (
     <Box className={classes.container}>

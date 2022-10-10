@@ -45,11 +45,11 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   }
 }));
 
-const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
+const ListingView = ({ usingAddAndRemove, isCheck }) => {
 
   const { classes } = useStyles();
 
-  const { isLoading, isOverlay, isSkeleton, allListings, categoryProps, neiProps, searchProps, totalData, refetchData, onConfirmAdd,
+  const { isLoading, isAdminView,  isOverlay, isSkeleton, allListings, categoryProps, neiProps, searchProps, totalData, refetchData, onConfirmAdd,
     onConfirmRemove } = useGetListings();
 
   return isSkeleton ? (
@@ -85,7 +85,7 @@ const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
           )}
           {totalData ? (
             <ListingVirtual
-              usingAddAndRemove={usingAddAndRemove}
+              usingAddAndRemove={usingAddAndRemove && !isAdminView}
               isCheck={isCheck}
               data={allListings}
               totalData={totalData}
@@ -106,14 +106,14 @@ const ListingFinder = ({ usingAddAndRemove, isCheck }) => {
   );
 }
 
-ListingFinder.defaultProps = {
+ListingView.defaultProps = {
   isCheck: false,
   usingAddAndRemove: true
 }
 
-ListingFinder.propTypes = {
+ListingView.propTypes = {
   isCheck: PropTypes.bool,
   usingAddAndRemove: PropTypes.bool
 };
 
-export default ListingFinder;
+export default ListingView;

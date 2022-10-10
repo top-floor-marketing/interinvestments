@@ -18,6 +18,7 @@ export const GET_AGENT_PROFILE_INFO = gql`
       linkedin
       tiktok
       youtube
+      rumble
       avatarProfile
     }
   }
@@ -159,6 +160,9 @@ mutation agentEditProfile(
   $phone: String,
   $position: String,
   $twitter: String,
+  $tiktok: String,
+  $rumble: String,
+  $youtube: String,
   $avatarProfile: Upload
 ) {
   agentEditProfile(
@@ -174,6 +178,9 @@ mutation agentEditProfile(
       phone: $phone, 
       position: $position, 
       twitter: $twitter,
+      youtube: $youtube,
+      tiktok: $tiktok,
+      rumble: $rumble,
       avatarProfile: $avatarProfile
     }
   ) {

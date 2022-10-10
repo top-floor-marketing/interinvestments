@@ -67,6 +67,9 @@ export default createStyles((theme, _params, getRef) => ({
     width: "100%",
     gap: theme.other.spacing.p2,
     padding: theme.other.spacing.p4,
+    [theme.fn.smallerThan("xl_2")]: {
+      padding: theme.other.spacing.p2,
+    },
     alignItems: "center",
     transition: "all",
     transitionDuration: 700,
@@ -83,9 +86,9 @@ export default createStyles((theme, _params, getRef) => ({
     },
   },
   chevron: {
-    maxWidth: "40px",
+    maxWidth: "60px",
     backgroundColor: "transparent",
-    padding: "10px",
+    padding: "5px",
     marginLeft: "auto",
     "&:hover": {
       backgroundColor: theme.colors.primary[6],
@@ -106,8 +109,12 @@ export default createStyles((theme, _params, getRef) => ({
   },
   avatarFilter: {
     ref: getRef("avatarFilter"),
-    width: "56px",
-    height: "56px",
+    width: "60px",
+    height: "60px",
+    [theme.fn.smallerThan("xl_2")]: {
+      width: "25px",
+      height: "25px",
+    },
     borderRadius: "30px",
     position: "absolute",
     top: 0,
@@ -116,7 +123,7 @@ export default createStyles((theme, _params, getRef) => ({
   logoItemContainer: {
     borderBottom: `1px solid ${theme.colors.gray[2]}`,
     'img': {
-      maxWidth: "250px !important",
+      maxWidth: "300px !important",
       marginLeft: "auto !important",
       marginRight: "auto !important"
     }

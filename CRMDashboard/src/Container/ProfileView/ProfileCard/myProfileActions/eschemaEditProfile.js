@@ -70,6 +70,14 @@ const schemaEditAgent = Joi.object({
   }).messages({
     "string.uri": "Invalid url",
     "string.uriCustomScheme": "Invalid url",
+  }),
+  rumble: Joi.string().allow('').uri({
+    scheme: [
+      'https',
+    ]
+  }).messages({
+    "string.uri": "Invalid url",
+    "string.uriCustomScheme": "Invalid url",
   })
 });
 

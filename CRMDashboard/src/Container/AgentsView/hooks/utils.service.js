@@ -1,4 +1,7 @@
 import orderBy from 'lodash/orderBy';
+import filter from 'lodash/filter';
+import includes from 'lodash/includes';
+import toLower from 'lodash/toLower';
 
 const URL_QUERY_ID_NAME = "agent-id";
 
@@ -13,11 +16,25 @@ const orderAgentByName = (data) => {
 }
 
 const urlShareAgent = (id) => {
-    // `${DOMAIN_URL}/agent?${URL_QUERY_ID_NAME}=${props.id}&shared=true`
     return `${DOMAIN_URL}/agent?${URL_QUERY_ID_NAME}=${id}&shared=true`;
 }
 
+const filterByText = (value, data) => {
+    if (!value) return data;
+    const getData = filter(data, (val) =>
+      includes(toLower(val?.firstName), toLower(value))
+      ||
+      includes(toLower(val?.lastName), toLower(value))
+      ||
+      includes(toLower(val?.phone), toLower(value))
+      ||
+      includes(toLower(val?.email), toLower(value))
+    )
+    return getData;
+  }
+
 export {
     orderAgentByName,
-    urlShareAgent
+    urlShareAgent,
+    filterByText
 }

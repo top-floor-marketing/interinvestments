@@ -99,7 +99,7 @@ const BodyModal = ({ valueSelect, setvalueSelect, valueUserPipeline, onClose, re
             <SimpleGrid cols={1}>
                 <Group >
                     <ChipStatusLead
-                      className={classes.badgeStatus}
+                        className={classes.badgeStatus}
                         status={valueUserPipeline?.currentStatus?.name} />
                 </Group>
 
@@ -125,7 +125,7 @@ const BodyModal = ({ valueSelect, setvalueSelect, valueUserPipeline, onClose, re
                         disabledList={[get(valueUserPipeline, ["currentStatus", "statusId"], null)]}
                         disabled={isLoading}
                         placeholder='Select new lead state'
-                        value={valueSelect}
+                        value={!valueSelect ? null : valueSelect}
                         onChange={(idState) => setvalueSelect(idState)}
                     />
                 </Box>
@@ -137,7 +137,7 @@ const BodyModal = ({ valueSelect, setvalueSelect, valueUserPipeline, onClose, re
                     minRows={4}
                     maxRows={8}
                     value={commentValue}
-                     onChange={(event) => setCommentValue(event.currentTarget.value)}
+                    onChange={(event) => setCommentValue(event.currentTarget.value)}
                 />
             </SimpleGrid>
 

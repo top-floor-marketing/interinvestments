@@ -145,6 +145,7 @@ const InfoAgent = ({ dataAgent }) => {
         linkedin: get(dataAgent, ["linkedin"], ""),
         tiktok: get(dataAgent, ["tiktok"], ""),
         youtube: get(dataAgent, ["youtube"], ""),
+        rumble: get(dataAgent, ["rumble"], ""),
     }
 
     return (

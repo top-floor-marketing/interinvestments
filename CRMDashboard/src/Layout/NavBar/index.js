@@ -7,6 +7,7 @@ import {
   Image,
   MediaQuery,
 } from "@mantine/core";
+import { useMediaQuery } from '@mantine/hooks';
 
 import { ChevronRight } from "tabler-icons-react";
 
@@ -40,6 +41,8 @@ const NavBarDashboard = ({ opened }) => {
 
   const { classes, cx } = useStyles();
 
+  const is2XlScreen = useMediaQuery('(min-width: 1500px)');
+
   const routeActive = getRouteActive(routeInStore);
 
   const LOGO_ITEM = "_logo_";
@@ -66,7 +69,7 @@ const NavBarDashboard = ({ opened }) => {
     navbar: {
       hidden: !opened,
       hiddenBreakpoint: "lg",
-      width: { lg: 280 },
+      width: { lg: 200, xl_2: 260 },
       className: classes.navBarContainer,
     },
     boxContainer: {
@@ -102,11 +105,10 @@ const NavBarDashboard = ({ opened }) => {
     },
     avatar: (avatarUrl) => {
       return {
+        size: is2XlScreen ? "60px": "25px",
         radius: "_40px",
-        size: "lg",
         src: avatarUrl,
         alt: "Profile Image",
-        className: classes.avatar,
       };
     },
     avatarContainer: {

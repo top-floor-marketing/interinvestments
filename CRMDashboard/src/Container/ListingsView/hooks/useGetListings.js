@@ -10,12 +10,14 @@ import { getAllListings, getListingCategory, getListingNei, getArrayIdListings }
 
 import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
+import { USER_ROLES_CRM } from "../../../GlobalStore/utils";
+import { ROUTES_NAMES } from "../../../Route/routes";
 
 const PER_PAGE = 8;
 
 const useGetListings = () => {
 
-  const { state: { user: { infoUser: { databaseId, agentType }, listingFeaturedAgent }}, actions: { setListingCategories, setListingNei, setListingFeaturedAgent } } = useClientGlobalStore();
+  const { state: { global: { route }, user: { infoUser: { databaseId, agentType }, listingFeaturedAgent }}, actions: { setListingCategories, setListingNei, setListingFeaturedAgent } } = useClientGlobalStore();
 
   const [allListings, setAllListings] = useState([]);
 
@@ -238,7 +240,8 @@ const useGetListings = () => {
     totalData: allListings.length,
     refetchData: reFetchDataListing,
     onConfirmAdd,
-    onConfirmRemove
+    onConfirmRemove,
+    isAdminView: agentType === USER_ROLES_CRM.ADMIN && route === ROUTES_NAMES.LISTINGS
   }
 
 }

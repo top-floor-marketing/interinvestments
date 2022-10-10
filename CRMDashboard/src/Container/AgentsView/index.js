@@ -4,6 +4,7 @@ import SpringDiv from "../../Component/SpringDiv";
 import { DatabaseOff } from "tabler-icons-react";
 import SkeletonAgents from './skeletonAgents';
 import GridAgents from './gridAgents';
+import PaperFilterAgents from './paperFilterAgents';
 
 import useGetAllAgents from './hooks/useGetAllAgents';
 
@@ -16,6 +17,7 @@ const useStyles = createStyles((theme, _params) => ({
     gap: theme.other.spacing.p4,
   },
   containerListings: {
+    gap: theme.other.spacing.p4,
     width: "100%",
     height: "100%",
     display: "flex",
@@ -41,13 +43,14 @@ const useStyles = createStyles((theme, _params) => ({
 const AgentsView = () => {
   const { classes } = useStyles();
 
-  const { isLoading, isSkeleton, allAgents, totalData } = useGetAllAgents();
+  const { isLoading, isSkeleton, allAgents, totalData, searchProps } = useGetAllAgents();
 
   return isSkeleton ? (
     <SkeletonAgents />
   ) : (
     <Box className={classes.container}>
-      <SpringDiv delay={100} duration={300}>
+      <SpringDiv delay={300} duration={300}>
+        <PaperFilterAgents searchProps={searchProps} isLoading={isLoading} />
       </SpringDiv>
       <SpringDiv delay={300} duration={300} fullHeight>
         <Box className={classes.containerListings}>
@@ -61,9 +64,11 @@ const AgentsView = () => {
             />
           )}
           {totalData && !isSkeleton ? (
-            <GridAgents
-              data={allAgents}
-            />
+            <>
+              <GridAgents
+                data={allAgents}
+              />
+            </>
           ) : (
             <Paper className={classes.noData}>
               <Text component="h4">No data found</Text>

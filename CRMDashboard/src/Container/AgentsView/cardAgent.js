@@ -123,7 +123,7 @@ const CardAgent = (props) => {
                     <CustomIconTooltip size={22} color="primary" labelTooltip={idAgentLink}>
                         <Link />
                     </CustomIconTooltip>
-                    <Text component='a' href='' target="_blank" className={cx(classes.textInfo, classes.link)} lineClamp={1}>
+                    <Text component='a' href={idAgentLink} target="_blank" className={cx(classes.textInfo, classes.link)} lineClamp={1}>
                         Share profile
                     </Text>
                 </Box>

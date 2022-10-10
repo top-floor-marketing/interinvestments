@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, memo, useEffect } from "react";
+import React, { forwardRef, useState, memo } from "react";
 import PropTypes from "prop-types";
 
 import { FixedSizeGrid as Grid } from "react-window";
@@ -14,6 +14,7 @@ import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 import random from "lodash/random";
 
 import "./styles_infinite.css";
+import { USER_ROLES_CRM } from "../../GlobalStore/utils";
 
 // 1.25rem === p5
 const GUTTER_SIZE = 16;
@@ -46,10 +47,11 @@ const ListingVirtual = (props) => {
     width: widthParent,
     height: heightParent,
   } = useElementSize();
+
   const {
     state: {
       user: {
-        infoUser: { databaseId },
+        infoUser: { databaseId, agentType },
       },
     },
   } = useClientGlobalStore();
@@ -100,7 +102,7 @@ const ListingVirtual = (props) => {
                 {...data[rowIndex]}
                 width={style.width}
                 height={style.height - GUTTER_SIZE}
-                idAgent={databaseId}
+                idAgent={agentType === USER_ROLES_CRM.ADMIN ? 0 : databaseId}
                 usingAddAndRemove={usingAddAndRemove}
                 isCheck={isCheck}
                 onConfirmRemove={onConfirmRemove}

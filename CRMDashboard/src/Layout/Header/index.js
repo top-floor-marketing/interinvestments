@@ -53,7 +53,13 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     alignItems: "center",
     justifyContent: "start",
     height: "100%",
-    width: "280px",
+    width: "250px",
+    [theme.fn.smallerThan("xl_2")]:{
+      width: "200px",
+    },
+    [theme.fn.largerThan("xl_2")]:{
+      width: "260px",
+    },
     borderRight:
       theme.colorScheme === COLOR_SCHEME_DARK
         ? `1px solid ${theme.colors.dark[9]}`
