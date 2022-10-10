@@ -6,19 +6,23 @@ import {
   Text,
   Paper,
   ScrollArea,
+  Button,
+  Tooltip,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { openConfirmModal } from '@mantine/modals';
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 import { ROUTES_NAMES } from "../../Route/routes";
 import { LOCAL_STORAGE } from "../../Utils/globalConstants";
 
-import { ArrowForwardUp, User, Mail } from "tabler-icons-react";
+import { ArrowForwardUp, User, Mail, ArrowsDiff } from "tabler-icons-react";
 
 import AvatarText from "../AvatarText";
 import { CustomIconTooltip, IconOpenWhatsApp } from '../ActionButtons';
 
 import ChipStatusLead from "./chipStatusLead";
+import BadgeContainer from "./badgeContainer";
 
 import get from "lodash/get";
 import capitalize from "lodash/capitalize";
@@ -93,6 +97,8 @@ const useStyles = createStyles((theme, _params) => {
       marginLeft: "auto",
       gap: theme.other.spacing.p2,
       display: "flex",
+      justifyItems: "center",
+      alignItems: "center",
       flexDirection: "row",
     },
     adminLeadViewStatus: {
@@ -117,6 +123,15 @@ const useStyles = createStyles((theme, _params) => {
       flexDirection: "row",
       gap: theme.other.spacing.p2,
       alignItems: "center"
+    },
+    buttonManageAgents: {
+      width: "50px",
+      padding: 0,
+      '&:hover': {
+        '.icon-tabler-arrows-diff': {
+          color: theme.colors.secondary[0]
+        }
+      }
     }
   };
 });
@@ -157,35 +172,27 @@ const ItemListingVirtual = (props) => {
   const setLeadDetail = () => {
     const idLead = getIdLead();
     const idAgent = get(props, ["agentId"], null);
-    localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, JSON.stringify({ idLead, idAgent }));
+    const allAgents = get(props, ["allAgentsStatus"], []).map((val) => (get(val, ["databaseId"], null)));
+    localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, JSON.stringify({ idLead, idAgent, allAgents }));
     setRoute(ROUTES_NAMES.LEADS_DETAILS);
   }
 
-  const ContainerBadgeStatus = () => {
-    return (
-      (isAdminLeadView)
-        ?
-        <Box component={ScrollArea} className={classes.adminLeadViewStatus}>
-          <Box className={classes.contentAllStatus}>
-            {
-              get(props, ["allAgentsStatus"], []).map((val, index) => (
-                <Box key={index} className={classes.itemStatus}>
-                  <ChipStatusLead isShort={false} status={val?.currentStatus} onClick={null} />
-                  <AvatarText
-                    size={"30px"}
-                    firstName={get(val, ["firstName"], null)}
-                    lastName={get(val, ["lastName"], null)}
-                    src={get(val, ["avatarProfile"], null)}
-                    tooltipLabel={`Agent: ${get(val, ["firstName"], "")} ${get(val, ["lastName"], "")}`}
-                  />
-                </Box>
-              ))
-            }
-          </Box>
-        </Box>
-        :
-        <ChipStatusLead isShort={isShortLead} status={props?.currentStatus} onClick={isShortLead ? null : setLeadDetail} />
-    )
+  const openModalTransfer = () => {
+    openConfirmModal({
+      title: 'Please confirm your action',
+      children: (
+        <Text size="sm">
+          This action is so important that you are required to confirm it with a modal. Please click
+          one of these buttons to proceed.
+        </Text>
+      ),
+      closeOnClickOutside: false,
+      closeOnConfirm: true,
+      closeOnEscape: true,
+      labels: { confirm: 'Confirm', cancel: 'Cancel' },
+      onCancel: () => console.log('Cancel'),
+      onConfirm: () => console.log('Confirmed'),
+    });
   }
 
   return (
@@ -214,7 +221,14 @@ const ItemListingVirtual = (props) => {
             >
               {getEmailUserLead()}
             </Text>
-            <ContainerBadgeStatus />
+            <BadgeContainer
+              isAdminLeadView={isAdminLeadView}
+              isShortLead={isShortLead}
+              setLeadDetail={setLeadDetail}
+              classes={classes}
+              currentStatus={props?.currentStatus}
+              allAgentsStatus={get(props, ["allAgentsStatus"], [])}
+            />
           </Box>
           :
           <>
@@ -243,7 +257,14 @@ const ItemListingVirtual = (props) => {
                 {getEmailUserLead()}
               </Text>
             </Box>
-            <ContainerBadgeStatus />
+            <BadgeContainer
+              isAdminLeadView={isAdminLeadView}
+              isShortLead={isShortLead}
+              setLeadDetail={setLeadDetail}
+              classes={classes}
+              currentStatus={props?.currentStatus}
+              allAgentsStatus={get(props, ["allAgentsStatus"], [])}
+            />
           </>
       }
 
@@ -255,13 +276,19 @@ const ItemListingVirtual = (props) => {
             labelTooltip="Send Whatsapp message"
             phoneNumber={getPhone()}
             otherPhoneNumber={getOtherPhone()} />
-          <CustomIconTooltip size={24} labelTooltip="View lead details" onClick={setLeadDetail}>
+          <CustomIconTooltip
+            size={24}
+            labelTooltip="View lead details"
+            onClick={setLeadDetail}>
             <ArrowForwardUp />
           </CustomIconTooltip>
+          <Tooltip label="Manage lead agent" color="secondary">
+            <Button onClick={() => openModalTransfer()} className={classes.buttonManageAgents} color="primary" >
+              <ArrowsDiff />
+            </Button>
+          </Tooltip>
         </Box>
       }
-
-
     </Paper>
   );
 };

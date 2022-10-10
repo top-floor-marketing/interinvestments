@@ -11,7 +11,8 @@ const CustomIconTooltip = (props) => {
     const onClickAction = () => {
         if (props.onClick)
             props.onClick()
-        clipboardCopy()
+        else
+            clipboardCopy()
     }
 
     const clipboardCopy = () => {
