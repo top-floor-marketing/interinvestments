@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, memo, useEffect } from "react";
+import React, { forwardRef, useState, memo } from "react";
 import PropTypes from "prop-types";
 
 import { FixedSizeGrid as Grid } from "react-window";

@@ -9,6 +9,16 @@ const useStyles = createStyles((theme, _params) => {
       gap: "24px",
       flexDirection: "column",
     },
+    contendStepper: {
+      width: '100%',
+      height: '80%',
+      [`@media (min-width: ${theme.breakpoints.lg}px)`]: {
+        height: "75%",
+      },
+      [`@media (min-width: ${theme.breakpoints.xl_2}px)`]: {
+        height: "80%",
+      },
+    },
     StepperContainer: {
       height: "100%",
       width: "100%",
@@ -23,7 +33,7 @@ const useStyles = createStyles((theme, _params) => {
     },
 
     viewportScrollArea: {
-      '&:first-child' : {
+      '&:first-child': {
         height: "100%",
       },
     },

@@ -15,8 +15,6 @@ import { MUTATION_LEADS_ADD } from '../../../GraphqlClient/leads.gql';
 // utis
 import { USER_ROLES_CRM } from '../../../GlobalStore/utils'
 
-import isEmpty from 'lodash/isEmpty'
-
 const GroupFooter = (_) => {
     const { classes } = useStyles({ color: 'secondary' });
     const { refForm, nextStep, onClose, onSuccessAddLeads } = _

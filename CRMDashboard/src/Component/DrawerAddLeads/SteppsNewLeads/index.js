@@ -85,11 +85,11 @@ const SteppsNewLeads = (_) => {
 
   return (
     <Box className={classes.containerDrawer}>
-      <Box style={{ height: "80%" }}>
+      <Box className={classes.contendStepper}>
         <ScrollArea
           styles={{
             root: classes.ScrollAreaStepper,
-            viewport: classes.viewportScrollArea,
+            // viewport: classes.viewportScrollArea,
           }}
         >
           <Stepper {...props.Stepper}>
