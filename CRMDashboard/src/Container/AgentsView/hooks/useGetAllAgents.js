@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDebouncedState } from '@mantine/hooks';
 import {
   useQueryHelper,
 } from "../../../GraphqlClient/useRequest";
@@ -14,7 +15,7 @@ const useGetAllAgents = () => {
   const [isOverlay, setIsOverlay] = useState(true);
 
   // filters values
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useDebouncedState('', 700);
 
    const onChangeSearchText = (e) => {
      setIsOverlay(true);
