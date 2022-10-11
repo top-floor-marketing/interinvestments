@@ -48,8 +48,6 @@ const useStyles = createStyles((theme, _params) => ({
 const PersonalInfoLead = ({ isSkeleton, dataLead }) => {
   const { classes } = useStyles();
 
-  console.log("dataLead", dataLead);
-
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Paper className={classes.cardContainer}>
@@ -131,7 +129,11 @@ const PersonalInfoLead = ({ isSkeleton, dataLead }) => {
           </Box>
         )}
 
-        <ModalNoteInterested tite="View Notes" />
+        <ModalNoteInterested
+          commentListing={get(dataLead, ["commentListing"], null)}
+          commentService={get(dataLead, ["commentService"], null)}
+          tite="View Notes"
+        />
       </Paper>
     </Skeleton>
   );
