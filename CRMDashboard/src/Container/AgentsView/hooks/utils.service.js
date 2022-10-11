@@ -31,7 +31,7 @@ const filterByText = (value, data) => {
       includes(toLower(val?.email), toLower(value))
     )
     return getData;
-  }
+}
 
 export {
     orderAgentByName,

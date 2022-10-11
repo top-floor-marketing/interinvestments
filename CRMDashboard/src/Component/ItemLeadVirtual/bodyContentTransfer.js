@@ -4,6 +4,8 @@ import { useQueryHelper } from "../../GraphqlClient/useRequest";
 import { ADMIN_GET_ALL_AGENTS } from "../../GraphqlClient/agentProfile.gql";
 import AvatarText from "../AvatarText";
 
+import TransferAgent from "./TransferAgent";
+
 import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
 
@@ -20,17 +22,16 @@ const useStyles = createStyles((theme, _params) => {
     };
 });
 
-const BodyContentTransfer = ({ allAgentsStatus, isOfficeLead }) => {
+const BodyContentTransfer = ({ allAgentsStatus, isOfficeLead, defaultAgentsSelected }) => {
 
     const { classes } = useStyles();
 
-    const [allAgentTransferData, setAllAgentsTransferData] = useState([[], []]);
+    const [dataAllAgents, setAllAgents] = useState([]);
+
+    const [transferList, setTransferList] = useState([]);
+    const [selectedList, setSelectedList] = useState([]);
 
     // console.log("allAgentsStatus ", allAgentsStatus)
-
-    const onChangeTransfer = (e) => {
-        console.log('e ', e)
-    }
 
     const { isLoading, isSuccess } = useQueryHelper({
         name: "admin-get-all-agents",
@@ -46,11 +47,12 @@ const BodyContentTransfer = ({ allAgentsStatus, isOfficeLead }) => {
                     isCheck: findIndex(allAgentsStatus, (e) => e?.databaseId === val?.databaseId) > -1,
                 }
                 ));
-                setAllAgentsTransferData([dataFormat, []]);
+                setAllAgents(dataFormat);
             },
         },
     });
 
+    /*
     const ItemComponent = ({
         data,
         selected,
@@ -67,15 +69,16 @@ const BodyContentTransfer = ({ allAgentsStatus, isOfficeLead }) => {
             </Box>
             <Checkbox checked={selected} onChange={() => {}} tabIndex={-1} sx={{ pointerEvents: 'none' }} />
         </Group>
-    );
+    ); */
 
     return (
         <Skeleton visible={isLoading || !isSuccess}>
             <Box className={classes.container}>
                 {
-                    get(allAgentTransferData, ["0"], []).length
+                    dataAllAgents.length
                     &&
-                    <TransferList
+                    <TransferAgent data={dataAllAgents} />
+                    /* <TransferList
                         value={allAgentTransferData}
                         onChange={setAllAgentsTransferData}
                         searchPlaceholder="Search agents..."
@@ -90,9 +93,8 @@ const BodyContentTransfer = ({ allAgentsStatus, isOfficeLead }) => {
                             item.label.toLowerCase().includes(query.toLowerCase().trim()) ||
                             item.email.toLowerCase().includes(query.toLowerCase().trim())
                         }
-                    />
-                } 
-
+                    /> */
+                }
             </Box>
         </Skeleton>
     )
