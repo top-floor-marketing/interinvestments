@@ -1,5 +1,5 @@
 .gridQuickSearch {
-  @apply grid gap-8 grid-cols-12;
+  @apply grid grid-cols-1 gap-8 md:grid-cols-12;
 }
 
 .labelQuickSearch {
@@ -11,13 +11,14 @@
 }
 
 .containerQuickSearch {
-  @apply flex items-center justify-center w-full h-full col-span-12 md:col-span-5 px-5;
+  @apply flex items-center justify-center w-full h-full col-span-5 px-5;
 }
 
 .cardQuickSearch {
-  @apply p-0 md:p-8 bg-base-100 z-10 max-w-[1200px] mx-auto relative shadow-cards;
+  @apply py-8 bg-base-100 z-10 max-w-[1200px] mx-auto relative shadow-cards;
 }
 
 .menuQuickSearch {
-  @apply col-span-12 px-5 md:px-0 md:col-span-7 pr-5;
+  @apply col-span-7 mr-0 lg:mr-5;
 }
+
