@@ -4,6 +4,7 @@ import { Paper, Box } from '@mantine/core';
 // componest
 import TabsQuickSearch from '../TabsQuickSearch'
 // css
+
 import styles from './styles.qs.module.scss'
 
 const QuickSearch = () => {
