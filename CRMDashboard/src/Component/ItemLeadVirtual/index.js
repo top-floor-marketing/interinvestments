@@ -5,12 +5,11 @@ import {
   createStyles,
   Text,
   Paper,
-  ScrollArea,
   Button,
   Tooltip,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { openConfirmModal } from '@mantine/modals';
+import { openConfirmModal, closeAllModals } from '@mantine/modals';
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 import { ROUTES_NAMES } from "../../Route/routes";
@@ -21,15 +20,15 @@ import { ArrowForwardUp, User, Mail, ArrowsDiff } from "tabler-icons-react";
 import AvatarText from "../AvatarText";
 import { CustomIconTooltip, IconOpenWhatsApp } from '../ActionButtons';
 
-import ChipStatusLead from "./chipStatusLead";
 import BadgeContainer from "./badgeContainer";
+import BodyContentTransfer from "./bodyContentTransfer";
 
 import get from "lodash/get";
 import capitalize from "lodash/capitalize";
 
 const useStyles = createStyles((theme, _params) => {
 
-  const { width, isShortLead, isAdminLeadView } = _params;
+  const { width, isShortLead, isAdminLeadView, isOfficeLead } = _params;
 
   // avatar reserved 60px,
   // gap reservered 16px
@@ -49,6 +48,7 @@ const useStyles = createStyles((theme, _params) => {
 
   return {
     containerItemListing: {
+      border: isOfficeLead ? `1px solid ${theme.colors.secondary[9]}` : '0',
       width: "100%",
       boxShadow: theme.shadows.lg,
       height: "100%",
@@ -138,11 +138,11 @@ const useStyles = createStyles((theme, _params) => {
 
 const ItemListingVirtual = (props) => {
 
-  const { width: widthParent, isShortLead, isAdminLeadView } = props;
+  const { width: widthParent, isShortLead, isAdminLeadView, isOfficeLead } = props;
 
   const { actions: { setRoute } } = useClientGlobalStore();
 
-  const { classes } = useStyles({ width: widthParent, isShortLead, isAdminLeadView });
+  const { classes } = useStyles({ width: widthParent, isShortLead, isAdminLeadView, isOfficeLead });
   const matches = useMediaQuery('(max-width: 700px)');
 
   const getFirstNameUserLead = useCallback(() => {
@@ -178,14 +178,22 @@ const ItemListingVirtual = (props) => {
   }
 
   const openModalTransfer = () => {
+    closeAllModals();
     openConfirmModal({
-      title: 'Please confirm your action',
+      title: '',
       children: (
-        <Text size="sm">
-          This action is so important that you are required to confirm it with a modal. Please click
-          one of these buttons to proceed.
-        </Text>
+        <BodyContentTransfer
+          isOfficeLead={isOfficeLead}
+          allAgentsStatus={get(props, ["allAgentsStatus"], [])}
+          leadInfo={{
+            email: getEmailUserLead(),
+            firstName: getFirstNameUserLead(),
+            lastName: getLastNameUserLead(),
+            id: getIdLead()
+          }}
+        />
       ),
+      size: "xl",
       closeOnClickOutside: false,
       closeOnConfirm: true,
       closeOnEscape: true,

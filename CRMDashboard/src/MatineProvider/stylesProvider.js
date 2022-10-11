@@ -239,11 +239,6 @@ const stylesProvider = () => {
                             opacity: "1 !important"
                         },
                     },
-                    /* viewport: {
-                        '&:first-child': {
-                            height: "100% !important",
-                        }
-                    } */
                 }
             }
         },
@@ -403,6 +398,36 @@ const stylesProvider = () => {
                     input: {
                         backgroundColor: `${theme.colors[_color][0]} !important`,
                         border: `1px solid ${theme.colors[_color][9]} !important`,
+                    }
+                }
+            }
+        },
+        TransferList: {
+            styles: (theme, params) => {
+                return {
+                    transferListBody: {
+                        backgroundColor:  theme.fn.rgba(theme.colors.gray[0], 0.5),
+                        border: 0
+                    },
+                    transferListSearch: {
+                        ...INPUT_BORDER_BOTTOM.input
+                    },
+                    transferListControl: {
+                        backgroundColor:  theme.fn.rgba(theme.colors.gray[0], 0.5),
+                        '&:disabled': {
+                            backgroundColor: theme.colors.gray[6],
+                            color: 'white'
+                        }
+                    },
+                    transferListItem: {
+                        padding: theme.other.spacing.p2,
+                        marginTop: theme.other.spacing.p2,
+                    },
+                    transferListItemHovered: {
+                        backgroundColor:  theme.fn.rgba(theme.colors.primary[0], 1),
+                        '.mantine-Text-root': {
+                            color: 'white'
+                        }        
                     }
                 }
             }

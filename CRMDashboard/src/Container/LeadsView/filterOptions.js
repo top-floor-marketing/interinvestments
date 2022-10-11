@@ -68,7 +68,7 @@ const FilterOptions = ({
         className={classes.inputSearch}
         rightSection={<Search size={14} />}
         placeholder="Search"
-        value={searchProps.value}
+        defaultValue={searchProps.value}
         onChange={searchProps.onChange}
       />
       <Box className={classes.filterState}>

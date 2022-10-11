@@ -58,7 +58,7 @@ const PaperFilterAgents = ({ isLoading, searchProps }) => {
                 className={classes.inputSearch}
                 rightSection={<Search size={14} />}
                 placeholder="Search"
-                value={searchProps.value}
+                defaultValue={searchProps.value}
                 onChange={searchProps.onChange}
             />
         </Paper>

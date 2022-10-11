@@ -6,6 +6,7 @@ import toLower from "lodash/toLower";
 import includes from 'lodash/includes';
 import forEach from 'lodash/forEach';
 import findIndex from 'lodash/findIndex';
+import orderBy from 'lodash/orderBy';
 
 const formatReponseSingleAgentLeads = (response) => {
   if (!response || isEmpty(response)) return [];
@@ -21,7 +22,7 @@ const formatReponseSingleAgentLeads = (response) => {
   return fullData;
 }
 
-const formatResponseFullAgents = (response) => {
+const formatResponseFullAgents = (response, adminId) => {
   if (!response || isEmpty(response)) return [];
   const leadsList = get(response, ["dataAgent"], []);
   if (isEmpty(leadsList)) return [];
@@ -34,6 +35,8 @@ const formatResponseFullAgents = (response) => {
       allAgentsStatus: []
     }
 
+    let isOfficeLead = false;
+
     forEach(get(valUserLead, ["statuses"], []), (valStatusLead) => {
 
       newLead.allAgentsStatus.push({
@@ -42,12 +45,14 @@ const formatResponseFullAgents = (response) => {
         ...get(valStatusLead, ["agent"], {}),
       });
 
+      isOfficeLead = get(valStatusLead, ["agent", "databaseId"], 0) === adminId
+
     });
 
-    fullData.push(newLead);
-  })
+    fullData.push({ ...newLead, isOfficeLead});
+  });
 
-  return fullData;
+  return orderBy(fullData, ['isOfficeLead'], ['desc']);
 }
 
 const filterByState = (value, data, statusUserLead, isAdminLeadView) => {

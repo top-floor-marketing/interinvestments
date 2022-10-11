@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDebouncedState } from '@mantine/hooks';
 import {
   useQueryHelper,
 } from "../../../GraphqlClient/useRequest";
@@ -12,6 +13,7 @@ import { formatReponseSingleAgentLeads, formatResponseFullAgents, filterByState,
 import { USER_ROLES_CRM } from "../../../GlobalStore/utils";
 
 const useGetLeads = () => {
+
   const {
     state: {
       user: {
@@ -30,7 +32,7 @@ const useGetLeads = () => {
   const [isOverlay, setIsOverlay] = useState(true);
 
   // filters values
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useDebouncedState('', 700);
   const [filterState, setFilterState] = useState(null);
 
   const onChangeSearchText = (e) => {
@@ -57,7 +59,7 @@ const useGetLeads = () => {
     config: {
       onSuccess: (response) => {
         if (agentType === USER_ROLES_CRM.ADMIN)
-          setAllLeads(formatResponseFullAgents(response));
+          setAllLeads(formatResponseFullAgents(response, databaseId));
         else
           setAllLeads(formatReponseSingleAgentLeads(response));
 
