@@ -18,7 +18,7 @@ const useStyles = createStyles((theme, _params) => {
             display: "flex",
             flexDirection: "column",
             gap: theme.other.spacing.p4,
-            height: "400px",
+            height: "500px",
             paddingBottom: theme.other.spacing.p4,
         },
         transfers: {
