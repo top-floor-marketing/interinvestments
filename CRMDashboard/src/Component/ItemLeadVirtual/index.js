@@ -193,7 +193,6 @@ const ItemListingVirtual = (props) => {
       title: '',
       children: (
         <BodyContentTransfer
-          isOfficeLead={isOfficeLead}
           allAgentsStatus={getAllAgentLeadsForTransfer()}
           leadInfo={{
             email: getEmailUserLead(),

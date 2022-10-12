@@ -1,4 +1,4 @@
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, useRef, useImperativeHandle } from "react";
 import { useDebouncedState } from '@mantine/hooks';
 import { Box, createStyles, Text, Checkbox, TextInput } from "@mantine/core";
 import AvatarText from "../../AvatarText";
@@ -22,13 +22,19 @@ const ROW_HEIGHT = 60;
 const useStyles = createStyles((theme, _params) => {
     return {
         container: {
-            backgroundColor: theme.colors.white[1],
             width: "100%",
             height: "100%",
             display: "flex",
             flexDirection: "column",
             gap: theme.other.spacing.p4,
             minHeight: "300px",
+        },
+        textTitle: {
+            fontSize: "16px",
+            fontWeight: 500
+        },
+        virtualContainer: {
+            backgroundColor: theme.colors.gray[0],
         },
         inputSearch: {
             width: "100%",
@@ -73,9 +79,9 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 ));
 
 
-const TransferAgent = ({ data, checkList, checkAgent }) => {
+const TransferAgent = forwardRef(({ textTitle, data, checkList, checkAgent }, ref) => {
 
-    const { classes } = useStyles();
+    const { cx, classes } = useStyles();
 
     const {
         ref: refParentBox,
@@ -88,6 +94,18 @@ const TransferAgent = ({ data, checkList, checkAgent }) => {
     // filters values
     const [searchText, setSearchText] = useDebouncedState('', 700);
     const [dataFiltered, setDataFiltered] = useState([]);
+
+    const refInputSearch = useRef(null);
+
+    useImperativeHandle(ref, () => ({
+        clearSearchText() {
+            setSearchText('');
+            setDataFiltered([]);
+            if(refInputSearch.current) {
+                refInputSearch.current.value = '';
+            }
+        },
+    }));
 
     const filterData = (e) => {
         const val = e.currentTarget.value;
@@ -108,7 +126,9 @@ const TransferAgent = ({ data, checkList, checkAgent }) => {
 
     return (
         <Box className={classes.container}>
-            <TextInput
+            <Text className={classes.textTitle}>{textTitle}</Text>
+            <TextInput 
+                ref={refInputSearch}
                 className={classes.inputSearch}
                 rightSection={<Search size={14} />}
                 placeholder="Search ..."
@@ -117,7 +137,7 @@ const TransferAgent = ({ data, checkList, checkAgent }) => {
                     filterData(event)
                 }
             />
-            <Box ref={refParentBox} className="parentContainerInfinite">
+            <Box ref={refParentBox} className={cx("parentContainerInfinite", classes.virtualContainer)}>
                 <Grid
                     itemData={dataForVirtualList}
                     className={`containerInfinite ${idGrid}`}
@@ -147,7 +167,7 @@ const TransferAgent = ({ data, checkList, checkAgent }) => {
                                         <Text component="span">{dataForVirtualList[rowIndex]?.label}</Text>
                                         <Text component="span">{dataForVirtualList[rowIndex]?.email}</Text>
                                     </Box>
-                                    <Checkbox defaultChecked={findIndex(checkList, (e) => e === dataForVirtualList[rowIndex]?.value) > -1}/>
+                                    <Checkbox defaultChecked={findIndex(checkList, (e) => e === dataForVirtualList[rowIndex]?.value) > -1} />
                                 </Box>
                             </div>
                         );
@@ -157,6 +177,6 @@ const TransferAgent = ({ data, checkList, checkAgent }) => {
         </Box>
     )
 
-}
+})
 
 export default TransferAgent;
