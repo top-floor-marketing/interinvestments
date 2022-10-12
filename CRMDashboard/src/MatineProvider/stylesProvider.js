@@ -391,6 +391,27 @@ const stylesProvider = () => {
                 }
             }
         },
+        Tabs: {
+            styles: (theme, params) => {
+                return {
+                    tab: {
+                        color: theme.colors.black[0],
+                        "&:hover": {
+                          backgroundColor: theme.colors.gray[1],
+                          color: `${theme.colors.blue[6]} !important`,
+                          borderColor: `${theme.colors.blue[6]} !important`,
+                        },
+                        "&[data-active]": {
+                          color: theme.colors.secondary[6],
+                          borderColor: theme.colors.secondary[6],
+                        },
+                    },
+                    tabsList: {
+                        borderColor: theme.colors.gray[1],
+                    }
+                }
+            }
+        },
         Checkbox: {
             styles: (theme, params) => {
                 const _color = params?.color || 'secondary';
