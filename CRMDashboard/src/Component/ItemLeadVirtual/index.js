@@ -169,6 +169,16 @@ const ItemListingVirtual = (props) => {
     return get(props.userLead, ["otherPhones", "0"], null);
   }, [props.userLead]);
 
+  const getAllAgentLeadsForTransfer = useCallback(() => {
+    return props?.allAgentsStatus?.map((val) => ({
+      value: get(val, ["databaseId"], 0),
+      image: get(val, ["avatarProfile"], null),
+      label: get(val, ["firstName"], "").concat(` ${get(val, ["lastName"], "")}`),
+      email: get(val, ["email"], []),
+    }
+    ));
+  }, [props.allAgentsStatus]);
+
   const setLeadDetail = () => {
     const idLead = getIdLead();
     const idAgent = get(props, ["agentId"], null);
@@ -184,7 +194,7 @@ const ItemListingVirtual = (props) => {
       children: (
         <BodyContentTransfer
           isOfficeLead={isOfficeLead}
-          allAgentsStatus={get(props, ["allAgentsStatus"], [])}
+          allAgentsStatus={getAllAgentLeadsForTransfer()}
           leadInfo={{
             email: getEmailUserLead(),
             firstName: getFirstNameUserLead(),

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Group, Box, createStyles, Text, Checkbox, Skeleton, TransferList } from "@mantine/core";
+import { Box, createStyles, Skeleton, Button } from "@mantine/core";
 import { useQueryHelper } from "../../GraphqlClient/useRequest";
 import { ADMIN_GET_ALL_AGENTS } from "../../GraphqlClient/agentProfile.gql";
-import AvatarText from "../AvatarText";
 
 import TransferAgent from "./TransferAgent";
+
+import { ArrowRight, ArrowLeft } from "tabler-icons-react";
 
 import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
@@ -13,28 +14,78 @@ const useStyles = createStyles((theme, _params) => {
     return {
         container: {
             width: "100%",
-            height: "100%",
             display: "flex",
             flexDirection: "column",
             gap: theme.other.spacing.p4,
-            minHeight: "300px"
+            height: "400px",
+            paddingBottom: theme.other.spacing.p4,
         },
+        transfers: {
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "row",
+            gap: theme.other.spacing.p4,
+        },
+        buttonsContainer: {
+            width: "120px",
+            height: "120px",
+            display: "flex",
+            flexDirection: "column",
+            gap: theme.other.spacing.p4,
+            padding: theme.other.spacing.p2,
+            alignSelf: "center",
+            '.icon-tabler': {
+                color: "white",
+                width: "20px"
+            }
+        }
     };
 });
 
-const BodyContentTransfer = ({ allAgentsStatus, isOfficeLead, defaultAgentsSelected }) => {
+const BodyContentTransfer = ({ allAgentsStatus }) => {
 
     const { classes } = useStyles();
 
-    const [dataAllAgents, setAllAgents] = useState([]);
+    const [isSkeleton, setIsSkeleton] = useState(true);
 
-    const [transferList, setTransferList] = useState([]);
-    const [selectedList, setSelectedList] = useState([]);
+    const [dataAllAgents, setDataAllAgents] = useState([]);
+    const [dataAgentSelected, setDataAgentSelected] = useState(allAgentsStatus);
+    const [checkTransferList, setCheckTransferList] = useState([]);
+    const [checkSelectedList, setCheckSelectedList] = useState([]);
 
-    // console.log("allAgentsStatus ", allAgentsStatus)
+    const onCheckTransferAgent = (val) => {
+        if (val === checkTransferList[0])
+            setCheckTransferList([]);
+        else
+            setCheckTransferList([val]);
+    }
 
-    const { isLoading, isSuccess } = useQueryHelper({
-        name: "admin-get-all-agents",
+    const onCheckSelectedAgent = (val) => {
+        if (val === checkSelectedList[0])
+            setCheckSelectedList([]);
+        else
+            setCheckSelectedList([val]);
+    }
+
+    const onChangeTransferAgent = () => {
+        const find = findIndex(dataAllAgents, (e) => e.value === checkTransferList[0])
+        setDataAgentSelected([...dataAgentSelected].concat(dataAllAgents[find]))
+        setDataAllAgents([...dataAllAgents].filter((e) => e.value !== checkTransferList[0]));
+        setCheckTransferList([]);
+        setCheckSelectedList([]);
+    }
+
+    const onChangeSelectedAgent = () => {
+        const find = findIndex(dataAgentSelected, (e) => e.value === checkSelectedList[0])
+        setDataAllAgents([...dataAllAgents].concat(dataAgentSelected[find]))
+        setDataAgentSelected([...dataAgentSelected].filter((e) => e.value !== checkSelectedList[0]));
+        setCheckTransferList([]);
+        setCheckSelectedList([]);
+    }
+
+    useQueryHelper({
+        name: "admin-get-all-agents-transfer",
         gql: ADMIN_GET_ALL_AGENTS,
         config: {
             cacheTime: 5 * 60 * 10000, // 10 minutes
@@ -44,57 +95,29 @@ const BodyContentTransfer = ({ allAgentsStatus, isOfficeLead, defaultAgentsSelec
                     image: get(val, ["avatarProfile"], null),
                     label: get(val, ["firstName"], "").concat(` ${get(val, ["lastName"], "")}`),
                     email: get(val, ["email"], []),
-                    isCheck: findIndex(allAgentsStatus, (e) => e?.databaseId === val?.databaseId) > -1,
                 }
                 ));
-                setAllAgents(dataFormat);
+                setDataAllAgents(dataFormat);
+                setIsSkeleton(false);
             },
         },
     });
 
-    /*
-    const ItemComponent = ({
-        data,
-        selected,
-    }) => (
-        <Group noWrap spacing="lg" style={{ justifyItems: "center", alignItems: "center"}}>
-            <AvatarText firstName={data.label} src={data.image} />
-            <Box style={{ flex: 1 }}>
-                <Text size="sm" weight={500}>
-                    {data.label}
-                </Text>
-                <Text size="xs" color="dimmed" weight={400}>
-                    {data.email}
-                </Text>
-            </Box>
-            <Checkbox checked={selected} onChange={() => {}} tabIndex={-1} sx={{ pointerEvents: 'none' }} />
-        </Group>
-    ); */
-
     return (
-        <Skeleton visible={isLoading || !isSuccess}>
+        <Skeleton visible={isSkeleton}>
             <Box className={classes.container}>
-                {
-                    dataAllAgents.length
-                    &&
-                    <TransferAgent data={dataAllAgents} />
-                    /* <TransferList
-                        value={allAgentTransferData}
-                        onChange={setAllAgentsTransferData}
-                        searchPlaceholder="Search agents..."
-                        nothingFound=""
-                        titles={['Agents to transfer', 'Agents assigned']}
-                        listHeight={400}
-                        breakpoint="sm"
-                        itemComponent={ItemComponent}
-                        radius={0}
-                        showTransferAll={false}
-                        filter={(query, item) =>
-                            item.label.toLowerCase().includes(query.toLowerCase().trim()) ||
-                            item.email.toLowerCase().includes(query.toLowerCase().trim())
-                        }
-                    /> */
-                }
+                <Box className={classes.transfers}>
+                    <TransferAgent data={dataAllAgents} checkList={checkTransferList} checkAgent={onCheckTransferAgent} />
+                    <Box className={classes.buttonsContainer}>
+                        <Button onClick={() => onChangeTransferAgent()} variant="outline" color="primary" disabled={!checkTransferList.length}>
+                            <ArrowRight />
+                        </Button>
+                        <Button onClick={() => onChangeSelectedAgent()} variant="outline" color="primary" disabled={!checkSelectedList.length}>
+                            <ArrowLeft />
+                        </Button>
+                    </Box>
+                    <TransferAgent data={dataAgentSelected} checkList={checkSelectedList} checkAgent={onCheckSelectedAgent} />
+                </Box>
             </Box>
         </Skeleton>
     )

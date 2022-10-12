@@ -1,43 +1,89 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { useDebouncedState } from '@mantine/hooks';
-import { Group, Box, createStyles, Text, Checkbox, Skeleton, TransferList, TextInput } from "@mantine/core";
-import { useQueryHelper } from "../../../GraphqlClient/useRequest";
-import { ADMIN_GET_ALL_AGENTS } from "../../../GraphqlClient/agentProfile.gql";
+import { Box, createStyles, Text, Checkbox, TextInput } from "@mantine/core";
 import AvatarText from "../../AvatarText";
+import { FixedSizeGrid as Grid } from "react-window";
+
+import { useId, useElementSize } from "@mantine/hooks";
 
 import findIndex from 'lodash/findIndex';
-import get from 'lodash/get';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
 import toLower from 'lodash/toLower';
+import random from 'lodash/random';
 
 import { Search } from "tabler-icons-react";
 
 import { INPUT_BORDER_BOTTOM } from "../../../MatineProvider/stylesProvider";
 
+const GUTTER_SIZE = 8;
+const ROW_HEIGHT = 60;
+
 const useStyles = createStyles((theme, _params) => {
     return {
         container: {
+            backgroundColor: theme.colors.white[1],
             width: "100%",
             height: "100%",
             display: "flex",
             flexDirection: "column",
             gap: theme.other.spacing.p4,
-            minHeight: "300px"
+            minHeight: "300px",
         },
         inputSearch: {
-            width: "250px !important",
+            width: "100%",
+            maxWidth: "600px !important",
             ...INPUT_BORDER_BOTTOM,
-            [`${theme.fn.smallerThan(600)}`]: {
-                width: "70% !important",
-            },
         },
+        containerAgent: {
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "row",
+            borderBottom: `1px solid ${theme.colors.gray[5]}`,
+            padding: theme.other.spacing.p2,
+            alignItems: "center",
+            gap: theme.other.spacing.p4,
+            '&:hover': {
+                cursor: "pointer",
+                backgroundColor: theme.colors.primary[0],
+                'span': {
+                    color: theme.colors.white[0]
+                }
+            }
+        },
+        infoAgent: {
+            display: "flex",
+            flexDirection: "column",
+            width: "calc(100% - 72px)",
+            fontSize: "12px"
+        }
     };
 });
 
-const TransferAgent = ({ data }) => {
+const innerElementType = forwardRef(({ style, ...rest }, ref) => (
+    <div
+        ref={ref}
+        style={{
+            ...style,
+            maxWidth: "100%",
+        }}
+        {...rest}
+    />
+));
+
+
+const TransferAgent = ({ data, checkList, checkAgent }) => {
 
     const { classes } = useStyles();
+
+    const {
+        ref: refParentBox,
+        width: widthParent,
+        height: heightParent,
+    } = useElementSize();
+
+    const [idGrid] = useState(`${useId()}_${random(100, 10000)}`);
 
     // filters values
     const [searchText, setSearchText] = useDebouncedState('', 700);
@@ -51,9 +97,14 @@ const TransferAgent = ({ data }) => {
             includes(toLower(item?.label), toLower(val))
             ||
             includes(toLower(item?.email), toLower(val))
+            ||
+            findIndex(checkList, (e) => e === item?.value) > -1
         )
         setDataFiltered(getData);
     }
+
+    const totalData = (searchText.length > 2) ? dataFiltered.length : data.length;
+    const dataForVirtualList = (searchText.length > 2) ? dataFiltered : data;
 
     return (
         <Box className={classes.container}>
@@ -66,10 +117,42 @@ const TransferAgent = ({ data }) => {
                     filterData(event)
                 }
             />
-            <Box>
-                {/* {
-                    (searchText.length) ? `${dataFiltered.length}` : `${data.length}`
-                } */}
+            <Box ref={refParentBox} className="parentContainerInfinite">
+                <Grid
+                    itemData={dataForVirtualList}
+                    className={`containerInfinite ${idGrid}`}
+                    columnCount={1}
+                    columnWidth={widthParent}
+                    height={heightParent}
+                    innerElementType={innerElementType}
+                    rowCount={totalData}
+                    rowHeight={ROW_HEIGHT + GUTTER_SIZE}
+                    width={widthParent}
+                >
+                    {({ rowIndex, style }) => {
+                        return (
+                            <div
+                                key={rowIndex}
+                                style={{
+                                    ...style,
+                                    width: style.width,
+                                    maxWidth: "100%",
+                                    top: style.top,
+                                    height: style.height - GUTTER_SIZE,
+                                }}
+                            >
+                                <Box onClick={() => checkAgent(dataForVirtualList[rowIndex]?.value)} className={classes.containerAgent}>
+                                    <AvatarText src={dataForVirtualList[rowIndex]?.image} />
+                                    <Box className={classes.infoAgent}>
+                                        <Text component="span">{dataForVirtualList[rowIndex]?.label}</Text>
+                                        <Text component="span">{dataForVirtualList[rowIndex]?.email}</Text>
+                                    </Box>
+                                    <Checkbox defaultChecked={findIndex(checkList, (e) => e === dataForVirtualList[rowIndex]?.value) > -1}/>
+                                </Box>
+                            </div>
+                        );
+                    }}
+                </Grid>
             </Box>
         </Box>
     )
