@@ -12,6 +12,8 @@ import linkedinIcon from "../../assets/linkedinIcon.svg";
 import tiktokIcon from "../../assets/tiktokIcon.svg";
 import youtubeIcon from "../../assets/youtubeIcon.svg";
 import rumbleIcon from "../../assets/rumbleIcon.svg";
+// utils
+import startsWith from "lodash/startsWith";
 
 const InfoCard = (props) => {
   const { dataAgent } = props;
@@ -19,7 +21,7 @@ const InfoCard = (props) => {
     __html: DOMPurify.sanitize(dataAgent?.content),
   });
 
-  console.log("dataAgent", dataAgent);
+  // console.log("dataAgent", dataAgent);
 
   return (
     <>
@@ -77,7 +79,7 @@ const InfoCard = (props) => {
         )}
       </Box>
       <Box className={styles.containerSocialMedia}>
-        {dataAgent?.facebook && (
+        {startsWith(dataAgent.facebook, "https") && (
           <Image
             data-aos-once="true"
             data-aos-duration="900"
@@ -91,7 +93,7 @@ const InfoCard = (props) => {
             alt="facebookIcon"
           />
         )}
-        {dataAgent?.twitter && (
+        {startsWith(dataAgent.twitter, "https") && (
           <Image
             data-aos-once="true"
             data-aos-duration="900"
@@ -106,7 +108,7 @@ const InfoCard = (props) => {
           />
         )}
 
-        {dataAgent?.instagram && (
+        {startsWith(dataAgent?.instagram, "https") && (
           <Image
             data-aos-once="true"
             data-aos-duration="900"
@@ -120,7 +122,7 @@ const InfoCard = (props) => {
             alt="instagramIcon"
           />
         )}
-        {dataAgent?.linkedin && (
+        {startsWith(dataAgent?.linkedin, "https") && (
           <Image
             data-aos-once="true"
             data-aos-duration="900"
@@ -135,7 +137,7 @@ const InfoCard = (props) => {
           />
         )}
 
-        {dataAgent?.tiktok && (
+        {startsWith(dataAgent?.tiktok, "https") && (
           <Image
             data-aos-once="true"
             data-aos-duration="900"
@@ -150,7 +152,7 @@ const InfoCard = (props) => {
           />
         )}
 
-        {dataAgent?.youtube && (
+        {startsWith(dataAgent?.youtube, "https") && (
           <Image
             data-aos-once="true"
             data-aos-duration="900"
@@ -165,7 +167,7 @@ const InfoCard = (props) => {
           />
         )}
 
-        {dataAgent?.rumble && (
+        {startsWith(dataAgent?.rumble, "https") && (
           <Image
             data-aos-once="true"
             data-aos-duration="900"
