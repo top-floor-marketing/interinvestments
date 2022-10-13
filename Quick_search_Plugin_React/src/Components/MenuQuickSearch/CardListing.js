@@ -9,11 +9,41 @@ import get from "lodash/get";
 import styles from "./styles.mqs.module.scss";
 
 const CardListing = (props) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const AgentId = urlParams.get("agent-id");
+  const sharedCrm = urlParams.get("shared");
   const { data } = props;
 
   if (!data.length) {
     return <NoDataCard />;
   }
+
+  const urlCardListing = (uriListing) => {
+    if (AgentId || sharedCrm) {
+      const LISTING_URI = `${uriListing}`;
+      let vars = [];
+      let finalVars = "";
+
+      if (AgentId) {
+        vars.push(`agent-id=${AgentId}`);
+      }
+
+      if (sharedCrm) {
+        vars.push(`shared=${sharedCrm}`);
+      }
+
+      if (vars.length) {
+        finalVars = vars.reduce((acc, val) => {
+          return acc === "" ? val : "".concat(acc).concat("&").concat(val);
+        }, "");
+        finalVars = LISTING_URI.concat("?").concat(finalVars);
+      }
+
+      return finalVars;
+    } else {
+      return uriListing;
+    }
+  };
 
   return (
     <Box className={data.length >= 3 ? styles.containerMenu : "h-full"}>
@@ -22,7 +52,7 @@ const CardListing = (props) => {
         return (
           <Box
             component="a"
-            href={val.uri}
+            href={urlCardListing(val.uri)}
             className={styles.cardListing}
             key={index}
           >
