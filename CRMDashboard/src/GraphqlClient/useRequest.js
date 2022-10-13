@@ -66,8 +66,6 @@ const useQueryHelper = (props) => {
       } catch (error) {
         console.log(`query = ${name}`, error);
         const errorParse = JSON.parse(JSON.stringify(error, undefined, 2));
-        console.log("error ", error)
-        console.log("errorParse ", errorParse)
         isErrorResponse = get(errorParse, ["response", "errors", "0", "debugMessage"], null);
       }
       if(isEmpty(isErrorResponse)) {

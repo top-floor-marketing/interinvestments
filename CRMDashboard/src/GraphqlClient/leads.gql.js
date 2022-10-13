@@ -170,3 +170,12 @@ export const GET_LEAD_INTERESTED = gql`
     }
   }
 `;
+
+export const MUTATION_LEADS_ASSIGNMENT = gql`
+  mutation leadReassignment($input: LeadReassignmentInput!) {
+    leadReassignment(input: $input) {
+      clientMutationId
+      leadId
+    }
+  }
+`

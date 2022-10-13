@@ -73,7 +73,7 @@ const LeadsView = () => {
               isAdminLeadView={isAdminLeadView}
               data={allLeads}
               totalData={totalData}
-              refetch={null}
+              refetch={refetch}
               isLoading={isLoading}
             />
           ) : (

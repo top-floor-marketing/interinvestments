@@ -45,7 +45,7 @@ const LeadsVirtual = (props) => {
   const [idGrid] = useState(`${useId()}_${random(100, 10000)}`);
 
   const onScroll = (e) => {
-    const { scrollTop } = e;
+    /* const { scrollTop } = e;
     const gridContainer =
       document.getElementsByClassName(idGrid)[0]?.firstChild?.clientHeight ||
       null;
@@ -53,7 +53,7 @@ const LeadsVirtual = (props) => {
       if (heightParent + scrollTop === gridContainer) {
         refetch();
       }
-    }
+    } */
   };
 
   // containerInfinite class for css-scrollbar styles
@@ -90,6 +90,7 @@ const LeadsVirtual = (props) => {
                 height={style.height - GUTTER_SIZE}
                 isShortLead={isShortLead}
                 isAdminLeadView={isAdminLeadView}
+                refetch={refetch}
               />
             </div>
           );

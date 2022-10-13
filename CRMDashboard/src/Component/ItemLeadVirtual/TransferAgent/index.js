@@ -79,7 +79,7 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 ));
 
 
-const TransferAgent = forwardRef(({ textTitle, data, checkList, checkAgent }, ref) => {
+const TransferAgent = forwardRef(({ textTitle, data, checkList, checkAgent }, _ref) => {
 
     const { cx, classes } = useStyles();
 
@@ -97,7 +97,7 @@ const TransferAgent = forwardRef(({ textTitle, data, checkList, checkAgent }, re
 
     const refInputSearch = useRef(null);
 
-    useImperativeHandle(ref, () => ({
+    useImperativeHandle(_ref, () => ({
         clearSearchText() {
             setSearchText('');
             setDataFiltered([]);

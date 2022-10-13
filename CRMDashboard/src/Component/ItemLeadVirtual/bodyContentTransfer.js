@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import { Box, createStyles, Skeleton, Button, Paper, Text } from "@mantine/core";
 import { useQueryHelper } from "../../GraphqlClient/useRequest";
 import { ADMIN_GET_ALL_AGENTS } from "../../GraphqlClient/agentProfile.gql";
@@ -83,7 +83,7 @@ const useStyles = createStyles((theme, _params) => {
     };
 });
 
-const BodyContentTransfer = ({ allAgentsStatus, leadInfo }) => {
+const BodyContentTransfer = forwardRef(({ allAgentsStatus, leadInfo }, _ref) => {
 
     const { classes } = useStyles();
 
@@ -95,6 +95,12 @@ const BodyContentTransfer = ({ allAgentsStatus, leadInfo }) => {
     const [dataAgentSelected, setDataAgentSelected] = useState(allAgentsStatus);
     const [checkTransferList, setCheckTransferList] = useState([]);
     const [checkSelectedList, setCheckSelectedList] = useState([]);
+
+    useImperativeHandle(_ref, () => ({
+        getCheckSelectedList: () => {
+            return dataAgentSelected.map(e => e.value);
+        }
+    }));
 
     const onCheckTransferAgent = (val) => {
         if (val === checkTransferList[0])
@@ -210,6 +216,6 @@ const BodyContentTransfer = ({ allAgentsStatus, leadInfo }) => {
         </Skeleton>
     )
 
-}
+});
 
 export default BodyContentTransfer;

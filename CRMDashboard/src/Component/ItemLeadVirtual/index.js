@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 
 import {
   Box,
@@ -10,6 +10,10 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { openConfirmModal, closeAllModals } from '@mantine/modals';
+
+import { notificationError, notificationSuccess } from "../Notifications";
+import { useMutationHelper } from "../../GraphqlClient/useRequest";
+import { MUTATION_LEADS_ASSIGNMENT } from "../../GraphqlClient/leads.gql";
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 import { ROUTES_NAMES } from "../../Route/routes";
@@ -138,12 +142,14 @@ const useStyles = createStyles((theme, _params) => {
 
 const ItemListingVirtual = (props) => {
 
-  const { width: widthParent, isShortLead, isAdminLeadView, isOfficeLead } = props;
+  const { width: widthParent, isShortLead, isAdminLeadView, isOfficeLead, refetch } = props;
 
-  const { actions: { setRoute } } = useClientGlobalStore();
+  const { actions: { setRoute }, state: { user: { infoUser: { databaseId } } } } = useClientGlobalStore();
 
   const { classes } = useStyles({ width: widthParent, isShortLead, isAdminLeadView, isOfficeLead });
   const matches = useMediaQuery('(max-width: 700px)');
+
+  const refBodyTransferModal = useRef(null);
 
   const getFirstNameUserLead = useCallback(() => {
     return get(props.userLead, ["firstName"], "");
@@ -187,12 +193,39 @@ const ItemListingVirtual = (props) => {
     setRoute(ROUTES_NAMES.LEADS_DETAILS);
   }
 
+  // MUTATIONS
+  const { mutate: fetchTransferAgent } = useMutationHelper({
+    name: "transfer-agents-leads",
+    gql: MUTATION_LEADS_ASSIGNMENT,
+    config: {
+      onSuccess: async () => {
+        // parent leads view refetch data
+        refetch()
+        notificationSuccess({
+          id: "transfer-agents-leads",
+          title: "Assigned agents success",
+          color: "success",
+        });
+      },
+      onError: async () => {
+        // parent leads view refetch data
+        refetch()
+        notificationError({
+          id: "transfer-agents-leads",
+          title: "Server error",
+          color: "error",
+        });
+      },
+    },
+  });
+
   const openModalTransfer = () => {
     closeAllModals();
     openConfirmModal({
       title: '',
       children: (
         <BodyContentTransfer
+          ref={refBodyTransferModal}
           allAgentsStatus={getAllAgentLeadsForTransfer()}
           leadInfo={{
             email: getEmailUserLead(),
@@ -207,8 +240,41 @@ const ItemListingVirtual = (props) => {
       closeOnConfirm: true,
       closeOnEscape: true,
       labels: { confirm: 'Confirm', cancel: 'Cancel' },
-      onCancel: () => console.log('Cancel'),
-      onConfirm: () => console.log('Confirmed'),
+      onCancel: () => { },
+      onConfirm: () => {
+        if (refBodyTransferModal.current) {
+
+          const newTransfer = refBodyTransferModal.current.getCheckSelectedList();
+          const oldTransfer = getAllAgentLeadsForTransfer();
+          const idOld = oldTransfer.map((e) => e.value);
+
+          if (newTransfer.length === 0) {
+
+
+            fetchTransferAgent({
+              variables: {
+                input: {
+                  lastAgentId: get(idOld, ["0"], null),
+                  newAgentId: databaseId,
+                  userLead: getIdLead()
+                }
+              }
+            })
+
+          }
+          else {
+            fetchTransferAgent({
+              variables: {
+                input: {
+                  lastAgentId: get(idOld, ["0"], null),
+                  newAgentId: get(newTransfer, ["0"], null),
+                  userLead: getIdLead()
+                }
+              }
+            })
+          }
+        }
+      },
     });
   }
 
