@@ -16,6 +16,9 @@ const DATA_AGENT = gql`
       instagram
       linkedin
       twitter
+      youtube
+      tiktok
+      rumble
     }
   }
 `;
