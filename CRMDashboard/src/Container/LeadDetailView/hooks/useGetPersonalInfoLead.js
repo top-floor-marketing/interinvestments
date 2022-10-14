@@ -6,10 +6,9 @@ import { GET_INFO_LEAD_BY_AGENT } from "../../../GraphqlClient/leads.gql";
 
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
 
-import { LOCAL_STORAGE } from "../../../Utils/globalConstants";
 import { get, omit, filter, findLast, isNull } from "lodash";
 
-const useGetPersonalInfoLead = () => {
+const useGetPersonalInfoLead = ({ idAgent, idLead }) => {
   const {
     state: {
       global: {
@@ -17,8 +16,6 @@ const useGetPersonalInfoLead = () => {
       }
     },
   } = useClientGlobalStore();
-
-  const infoInLocalStorage = JSON.parse(localStorage.getItem(LOCAL_STORAGE.LEAD_DETAIL_ID));
 
   const [dataLead, setDataLead] = useState(null);
   const [allComments, setAllComments] = useState([]);
@@ -33,7 +30,7 @@ const useGetPersonalInfoLead = () => {
   }
 
   const { isLoading, isSuccess, refetch, isFetched } = useQueryHelper({
-    name: "get-info_lead_by_agent",
+    name: `get-info_lead_by_agent_${idAgent}`,
     gql: GET_INFO_LEAD_BY_AGENT,
     config: {
       onSuccess: (response) => {
@@ -59,8 +56,8 @@ const useGetPersonalInfoLead = () => {
       }
     },
     variables: {
-        agentId: get(infoInLocalStorage, ["idAgent"], -1),
-        userLeadId: get(infoInLocalStorage, ["idLead"], -1),
+        agentId: idAgent,
+        userLeadId: idLead,
     },
   });
 

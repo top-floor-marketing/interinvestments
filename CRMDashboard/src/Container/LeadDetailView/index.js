@@ -1,96 +1,67 @@
-import { Box, createStyles, Breadcrumbs, Text } from "@mantine/core";
-import SpringDiv from "../../Component/SpringDiv";
-import { ROUTES_NAMES } from "../../Route/routes";
+
+import { useEffect, useState } from "react";
+import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
+import DetailLeadByAgent from "./detailLeadByAgent";
+import { USER_ROLES_CRM } from "../../GlobalStore/utils";
 import { LOCAL_STORAGE } from "../../Utils/globalConstants";
 
-import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
+import { UserCircle } from 'tabler-icons-react';
 
-import useGetPersonalInfoLead from "./hooks/useGetPersonalInfoLead";
+import { Tabs } from '@mantine/core';
 
-import PersonalInfoLead from "./personalInfoLead";
-import CommentsTimeline from './commentsTimeline';
-import LeadInterested from './leadInterested';
+const LeadDetailView = () => {
 
-const useStyles = createStyles((theme, _params) => ({
-    container: {
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        gap: theme.other.spacing.p4,
-        height: "100%"
-    },
-    rowInfoAndTimeLine: {
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        gap: theme.other.spacing.p4,
-        height: "450px",
-        [`${theme.fn.smallerThan(700)}`]: {
-            flexDirection: "column",
-        },
-    },
-    textBreadCrum: {
-        fontSize: "16px !important",
-        fontWeight: "600 !important"
-    },
-    currentBreadCrum: {
-        color: theme.colors.primary[6],
-        '&:hover': {
-            cursor: 'pointer !important',
-            color: theme.colors.primary[8],
-        }
+    const { state: { user: { infoUser: { agentType } } },
+    } = useClientGlobalStore();
+
+    const [verifyLocalStorage, setVerifyLocalStorage] = useState(null);
+
+    useEffect(() => {
+        const infoInLocalStorage = JSON.parse(localStorage.getItem(LOCAL_STORAGE.LEAD_DETAIL_ID));
+        // if admin use key allAgents for N array of agents for lead
+        // if agent use key idAgent for single agent in lead
+        setVerifyLocalStorage(infoInLocalStorage);
+    }, [agentType]);
+
+    if (!verifyLocalStorage) {
+        return null;
     }
-}));
 
+    if (agentType === USER_ROLES_CRM.ADMIN && verifyLocalStorage) {
 
+        return (
+            <Tabs defaultValue={`${verifyLocalStorage?.allAgents[0].id}`}>
 
-const LeadsDetailView = () => {
-    const { cx, classes } = useStyles();
+                <Tabs.List>
+                    {
+                        (verifyLocalStorage?.allAgents).map((e, index) => (
+                            <Tabs.Tab
+                                key={index}
+                                value={`${e.id}`}
+                                icon={<UserCircle size={14} />}>
+                                {e.fullName}
+                            </Tabs.Tab>
+                        ))
+                    }
+                </Tabs.List>
 
-    const { actions: { setRoute } } = useClientGlobalStore();
+                {
+                    (verifyLocalStorage?.allAgents).map((e, index) => (
+                        <Tabs.Panel style={{ paddingTop: "1rem" }} key={index} value={`${e.id}`} pt="xs">
+                            <DetailLeadByAgent isAdmin={agentType === USER_ROLES_CRM.ADMIN} idAgent={e.id} idLead={verifyLocalStorage?.idLead} />
+                        </Tabs.Panel>
+                    ))
+                }
 
-    const { dataLead, isLoading, isSkeleton, allComments, refetch } =
-      useGetPersonalInfoLead();
-
-    const routeBreadCrumbs = () => {
-        localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, null);
-        setRoute(ROUTES_NAMES.LEADS);
+            </Tabs>
+        )
+    } else {
+        return (
+            <DetailLeadByAgent idAgent={verifyLocalStorage?.idAgent} idLead={verifyLocalStorage?.idLead} />
+        )
     }
-    const items = [
-        { title: 'Leads', route: ROUTES_NAMES.LEADS },
-        { title: 'Lead info', route: null },
-    ].map((item, index) => (
-        <Text 
-        variant={item.title === 'Leads' ? 'link' : 'text'} 
-        key={index}
-         onClick={() => routeBreadCrumbs()} 
-         className={cx(classes.textBreadCrum, { [classes.currentBreadCrum]: item.title === 'Leads' })}>
-            {item.title}
-        </Text>
-    ));
 
-    return (
-      <SpringDiv delay={100} duration={200} fullHeight>
-        <Box className={classes.container}>
-          <Breadcrumbs>{items}</Breadcrumbs>
-          <SpringDiv delay={300} duration={300}>
-            <Box className={classes.rowInfoAndTimeLine}>
-              <PersonalInfoLead dataLead={dataLead} isSkeleton={isSkeleton} />
-              <CommentsTimeline
-                dataLead={dataLead}
-                allComments={allComments}
-                isLoading={isLoading}
-                isSkeleton={isSkeleton}
-                refetch={refetch}
-              />
-            </Box>
-          </SpringDiv>
-          <SpringDiv delay={400} duration={300} fullHeight>
-            <LeadInterested />
-          </SpringDiv>
-        </Box>
-      </SpringDiv>
-    );
-};
 
-export default LeadsDetailView;
+}
+
+export default LeadDetailView;

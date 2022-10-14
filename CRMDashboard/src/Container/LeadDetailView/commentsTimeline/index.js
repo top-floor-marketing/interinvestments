@@ -75,7 +75,7 @@ const useStyles = createStyles((theme, _params) => ({
   },
 }));
 
-const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetch: refetchDataListing }) => {
+const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetch: refetchDataListing, isAdmin }) => {
   const { classes } = useStyles();
 
   const [valueComment, setValueComment] = useState("");
@@ -107,7 +107,7 @@ const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetc
         statusId: get(dataLead, ["currentStatus", "statusId"], 0),
         userLeadId: get(dataLead, ["id"], 0),
       };
-      fetchAddNewComment({ variables: { input: inputMutate }});
+      fetchAddNewComment({ variables: { input: inputMutate } });
     }
   };
 
@@ -186,17 +186,23 @@ const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetc
             </Timeline>
           ) : null}
         </Box>
-        <Textarea
-          placeholder="Add comment"
-          minRows={1}
-          disabled={isSkeleton || isLoading || isLoadingAddNewComment}
-          maxRows={3}
-          className={classes.iconSend}
-          rightSection={<Send size={24} onClick={() => saveComment()} />}
-          value={valueComment}
-          onChange={(event) => setValueComment(event.target.value)}
-          onKeyDown={getHotkeyHandler([["Enter", saveComment]])}
-        />
+        
+        {
+          (!isAdmin)
+          &&
+          <Textarea
+            placeholder="Add comment"
+            minRows={1}
+            disabled={isSkeleton || isLoading || isLoadingAddNewComment}
+            maxRows={3}
+            className={classes.iconSend}
+            rightSection={<Send size={24} onClick={() => saveComment()} />}
+            value={valueComment}
+            onChange={(event) => setValueComment(event.target.value)}
+            onKeyDown={getHotkeyHandler([["Enter", saveComment]])}
+          />
+        }
+
       </Paper>
     </Skeleton>
   );

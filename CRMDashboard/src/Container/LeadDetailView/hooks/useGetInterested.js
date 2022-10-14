@@ -2,14 +2,9 @@ import { useState } from "react";
 import { useQueryHelper } from "../../../GraphqlClient/useRequest";
 import { GET_LEAD_INTERESTED } from "../../../GraphqlClient/leads.gql";
 
-import { LOCAL_STORAGE } from "../../../Utils/globalConstants";
 import { get, forEach } from "lodash";
 
-const useGetInterested = () => {
-
-  const infoInLocalStorage = JSON.parse(
-    localStorage.getItem(LOCAL_STORAGE.LEAD_DETAIL_ID)
-  );
+const useGetInterested = ({ idAgent, idLead }) => {
 
   const [dataInterested, setDataInterested] = useState(null);
 
@@ -35,15 +30,13 @@ const useGetInterested = () => {
           serviceList,
           listingList,
         });
-        console.log("serviceList ", serviceList);
-        console.log("listingList ", listingList);
       },
       onerror: () => {
       },
     },
     variables: {
-      agentId: get(infoInLocalStorage, ["idLead"], -1),
-      leadByAgentId: get(infoInLocalStorage, ["idAgent"], -1),
+      agentId: idLead,
+      leadByAgentId: idAgent,
     },
   });
 
@@ -52,7 +45,6 @@ const useGetInterested = () => {
     refetch,
     isSkeleton: isLoading && !isFetched,
     dataInterested,
-    agentId: get(infoInLocalStorage, ["idAgent"], -1),
   };
 };
 

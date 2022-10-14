@@ -37,6 +37,7 @@ const useStyles = createStyles((theme, _params) => ({
     width: "100%",
     gap: theme.other.spacing.p4,
     height: "100%",
+    overflow: 'auto'
   },
   interestedContent: {
     width: "100%",
@@ -62,10 +63,10 @@ const useStyles = createStyles((theme, _params) => ({
   },
 }));
 
-const LeadInterested = () => {
+const LeadInterested = ({ idAgent, idLead }) => {
   const { classes } = useStyles();
 
-  const { isSkeleton, dataInterested, agentId } = useGetInterested();
+  const { isSkeleton, dataInterested } = useGetInterested({ idAgent, idLead });
 
    const {
      ref: refParentBox,
@@ -91,7 +92,7 @@ const LeadInterested = () => {
                 >
                   <ItemListingVirtual
                     {...val}
-                    idAgent={agentId}
+                    idAgent={idAgent}
                     width={widthParent - 16 / 1.5}
                   />
                 </Box>

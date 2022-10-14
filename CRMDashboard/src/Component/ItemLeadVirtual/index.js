@@ -188,7 +188,15 @@ const ItemListingVirtual = (props) => {
   const setLeadDetail = () => {
     const idLead = getIdLead();
     const idAgent = get(props, ["agentId"], null);
-    const allAgents = get(props, ["allAgentsStatus"], []).map((val) => (get(val, ["databaseId"], null)));
+
+    // AllAgents for admin version of ``leadDetailView`` for tabs 
+    const allAgents = get(props, ["allAgentsStatus"], []).map((val) => (
+      {
+        id: get(val, ["databaseId"], null),
+        fullName: get(val, ["firstName"], "").concat(` ${get(val, ["lastName"], "")}`)
+      }
+    ));
+    
     localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, JSON.stringify({ idLead, idAgent, allAgents }));
     setRoute(ROUTES_NAMES.LEADS_DETAILS);
   }
@@ -365,11 +373,17 @@ const ItemListingVirtual = (props) => {
             onClick={setLeadDetail}>
             <ArrowForwardUp />
           </CustomIconTooltip>
-          <Tooltip label="Manage lead agent" color="secondary">
-            <Button onClick={() => openModalTransfer()} className={classes.buttonManageAgents} color="primary" >
-              <ArrowsDiff />
-            </Button>
-          </Tooltip>
+
+          {
+            (isAdminLeadView)
+            &&
+            <Tooltip label="Manage lead agent" color="secondary">
+              <Button onClick={() => openModalTransfer()} className={classes.buttonManageAgents} color="primary" >
+                <ArrowsDiff />
+              </Button>
+            </Tooltip>
+          }
+
         </Box>
       }
     </Paper>
