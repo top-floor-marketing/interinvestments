@@ -92,7 +92,7 @@ const PageFive = ({ listing, agent }) => {
         }
     });
 
-    const photosList = get(listing, ["floorplans", "allFloorplans"], []).slice(0, 21);
+    const photosList = get(listing, ["floorplans", "allFloorplans"], []).slice(0, 42);
     const arrayPages = new Array(Math.ceil(photosList.length / 7)).fill(0);
 
     const paginationInfo = arrayPages.map((val, index) => {
