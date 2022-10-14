@@ -92,7 +92,7 @@ const TransferAgent = forwardRef(({ textTitle, data, checkList, checkAgent }, _r
     const [idGrid] = useState(`${useId()}_${random(100, 10000)}`);
 
     // filters values
-    const [searchText, setSearchText] = useDebouncedState('', 700);
+    const [searchText, setSearchText] = useDebouncedState('', 400);
     const [dataFiltered, setDataFiltered] = useState([]);
 
     const refInputSearch = useRef(null);

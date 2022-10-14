@@ -29,6 +29,8 @@ import BodyContentTransfer from "./bodyContentTransfer";
 
 import get from "lodash/get";
 import capitalize from "lodash/capitalize";
+import difference from 'lodash/difference';
+import forEach from 'lodash/forEach';
 
 const useStyles = createStyles((theme, _params) => {
 
@@ -196,13 +198,13 @@ const ItemListingVirtual = (props) => {
         fullName: get(val, ["firstName"], "").concat(` ${get(val, ["lastName"], "")}`)
       }
     ));
-    
+
     localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, JSON.stringify({ idLead, idAgent, allAgents }));
     setRoute(ROUTES_NAMES.LEADS_DETAILS);
   }
 
   // MUTATIONS
-  const { mutate: fetchTransferAgent } = useMutationHelper({
+  const { mutateAsync: fetchTransferAgent } = useMutationHelper({
     name: "transfer-agents-leads",
     gql: MUTATION_LEADS_ASSIGNMENT,
     config: {
@@ -245,42 +247,73 @@ const ItemListingVirtual = (props) => {
       ),
       size: "xl",
       closeOnClickOutside: false,
-      closeOnConfirm: true,
+      // closeOnConfirm: true,
       closeOnEscape: true,
       labels: { confirm: 'Confirm', cancel: 'Cancel' },
       onCancel: () => { },
-      onConfirm: () => {
+      onConfirm: async () => {
         if (refBodyTransferModal.current) {
 
           const newTransfer = refBodyTransferModal.current.getCheckSelectedList();
           const oldTransfer = getAllAgentLeadsForTransfer();
           const idOld = oldTransfer.map((e) => e.value);
 
-          if (newTransfer.length === 0) {
+          const removeAgents = difference(idOld, newTransfer);
+          const newAgents = difference(newTransfer, idOld);
 
+          if (!removeAgents && !newAgents) {
+            return null;
+          } else if (newTransfer.length === 0) {
+            // set office/admin default agent
 
-            fetchTransferAgent({
-              variables: {
-                input: {
-                  lastAgentId: get(idOld, ["0"], null),
-                  newAgentId: databaseId,
-                  userLead: getIdLead()
+            forEach(oldTransfer, async (e) => {
+              await fetchTransferAgent({
+                variables: {
+                  input: {
+                    lastAgentId: e,
+                    newAgentId: databaseId,
+                    userLead: getIdLead()
+                  }
                 }
-              }
+              })
             })
 
+
           }
-          else {
-            fetchTransferAgent({
-              variables: {
-                input: {
-                  lastAgentId: get(idOld, ["0"], null),
-                  newAgentId: get(newTransfer, ["0"], null),
-                  userLead: getIdLead()
-                }
-              }
-            })
-          }
+          else
+
+            // add new agent to lead
+            if (!removeAgents.length && newAgents.length > 0) {
+
+              forEach(newAgents, async (e) => {
+                await fetchTransferAgent({
+                  variables: {
+                    input: {
+                      newAgentId: e,
+                      userLead: getIdLead()
+                    }
+                  }
+                })
+              })
+
+            }
+            // same length for remove and new agents 
+            else if (removeAgents.length && newAgents.length && removeAgents.length === newAgents.length) {
+
+              forEach(newAgents, async (e, index) => {
+                await fetchTransferAgent({
+                  variables: {
+                    input: {
+                      lastAgentId: removeAgents[index],
+                      newAgentId: e,
+                      userLead: getIdLead()
+                    }
+                  }
+                })
+              })
+
+            }
+
         }
       },
     });
