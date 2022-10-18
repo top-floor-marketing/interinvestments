@@ -40,18 +40,20 @@ const ListingWrapper = (props) => {
     const { classes } = useStyles({ isLoading: true });
     const { setValueListing, children, setOptionTheme } = props
 
-
     const id = "wp-loading-full-single-listing";
     const uri = window.location.pathname
-    const slugLIsting = uri.split('/')[uri.split('/').length - 2]
+    const slugLIsting = uri.split('/')[2]
+
+    console.log('slugLIsting', slugLIsting)
 
     const { isLoading, error, data } = useQueryHelper({
         name: 'LISTINGS_BY_SLOG',
         gql: LISTINGS_BY_SLOG,
         variables: {
-            "title": slugLIsting.replace(/-/g, ' ')
+            "title": slugLIsting ? slugLIsting.replace(/-/g, ' ') : '_null_'
         },
         config: {
+            enabled: !!(slugLIsting),
             onSuccess: (req) => {
                 setValueListing(...req.listings.nodes)
             }

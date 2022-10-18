@@ -41,6 +41,8 @@ export const LISTINGS_BY_SLOG = gql`
                   altText
                   mediaItemUrl
                   title
+                  mediaType
+                  mimeType
                 }
                 photos {
                   fileSize

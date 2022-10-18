@@ -33,7 +33,7 @@ const HeroParalax = (props) => {
                     >
                         {data.title}
                         {
-                            data.neighborhoods.length ? (
+                            data?.neighborhoods?.length ? (
                                 <>
                                     <br />
                                     <Text component='span'>

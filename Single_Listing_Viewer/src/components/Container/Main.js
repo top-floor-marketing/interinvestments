@@ -17,22 +17,20 @@ const Main = () => {
     const [valueListing, setValueListing] = useState(null)
     const [optionTheme, setOptionTheme] = useState(null)
 
-    // console.log('valueListing', valueListing)
-
     return (
         <ListingWrapper
             valueListing={valueListing}
             setValueListing={setValueListing}
             setOptionTheme={setOptionTheme}
         >
-            <HeroParalax
+          <HeroParalax
                 data={{
                     ...valueListing?.listingData.newDevelopment,
                     featuredImage: valueListing?.featuredImage,
                     title: valueListing?.title,
-                    neighborhoods: valueListing?.neighborhoods.nodes
+                    neighborhoods: valueListing?.neighborhoods?.nodes
                 }}
-            />
+            /> 
             <DescriptionListing
                 data={{
                     ...valueListing?.listingData.newDevelopment,
