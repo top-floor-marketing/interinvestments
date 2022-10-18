@@ -15,6 +15,8 @@ const VideoListing = (props) => {
         <Box className={styles.containerVideoListing}>
             <div className={styles.itemVideo}>
             <ReactPlayer
+                controls
+                light
                 width={"100%"}
                 heigth={"100%"}
                 url={data.video.mediaItemUrl}
