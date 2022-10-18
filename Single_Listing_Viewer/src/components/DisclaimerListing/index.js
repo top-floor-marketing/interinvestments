@@ -1,8 +1,7 @@
 import React from 'react'
 import DOMPurify from 'dompurify'
 // mantine
-import { Box, Text, Spoiler, Group } from '@mantine/core'
-import { AlertTriangle } from 'tabler-icons-react';
+import { Box, Text, Group } from '@mantine/core'
 // styles
 import styles from './styles.DL.module.scss'
 // utils
@@ -23,39 +22,19 @@ const DisclaimerListing = (props) => {
                     data-aos-duration='2000'
                     data-aos="fade-up"
                     className={styles.titleDisclaimer}
-                    component='span'
-                >
-                    <AlertTriangle
-                        size={48}
-                        strokeWidth={2}
-                        color={'black'}
-                    />
-                </Text>
-                <Text
-                    data-aos-once="true"
-                    data-aos-duration='2000'
-                    data-aos="fade-up"
-                    className={styles.titleDisclaimer}
                     component='h3'
                 >
-                    Properties Disclaimer
+                    *Disclaimer
                 </Text>
             </Group>
-            <Spoiler
-                maxHeight={520}
-                showLabel="Show more"
-                hideLabel="Hide"
-            >
-                <Box
+            <Box
                     id='disclaimer_Listing'
                     dangerouslySetInnerHTML={disclainerHTMLDangerous()}
                     data-aos-once="true"
                     data-aos-duration='2000'
                     data-aos="fade-up"
-                    className={styles.textDescription}
+                    className={styles.textDisclaimer}
                 />
-
-            </Spoiler>
         </Box>
     )
 }

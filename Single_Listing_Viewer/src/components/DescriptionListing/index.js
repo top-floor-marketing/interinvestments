@@ -26,7 +26,7 @@ const DescriptionListing = (props) => {
           className={styles.title}
           component='span'
         >
-          {data.status}
+          Description
         </Text>
         <Spoiler
           initialState={show_more || false}

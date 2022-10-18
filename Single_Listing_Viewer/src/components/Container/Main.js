@@ -58,15 +58,17 @@ const Main = () => {
                     team: valueListing?.team.team,
                 }}
             />
+
+            <DisclaimerListing
+                data={optionTheme}
+            />
+
             <VideoListing
                 data={{
                     ...valueListing?.listingData.newDevelopment,
                 }}
             />
 
-            <DisclaimerListing
-                data={optionTheme}
-            />
 
             {
                 //    <MapListing
