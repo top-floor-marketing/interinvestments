@@ -4,14 +4,14 @@ import LogoInter from '../../Assets/img/logo-inter.png';
 
 import get from 'lodash/get';
 
-import { FONT_FAMILY, INTERINVESTMENT } from './utils';
+import { FONT_FAMILY, INTERINVESTMENT, numFormatter } from './utils';
 
 const PageOne = ({ listing, agent }) => {
 
     const getFeaturedImage = () => {
-        // return 'https://i.postimg.cc/Wzhqpy9b/Cipriani-Residences-Miami-Restaurant.jpg';
+        //return 'https://i.postimg.cc/Wzhqpy9b/Cipriani-Residences-Miami-Restaurant.jpg';
         let url = get(listing, ["featuredImage", "node", "sourceUrl"], null);
-        if(!url) url = get(listing, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], null);
+        if (!url) url = get(listing, ["listingData", "newDevelopment", "photos", "0", "sourceUrl"], null);
         return url;
     }
 
@@ -38,6 +38,7 @@ const PageOne = ({ listing, agent }) => {
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             height: '100%',
+            width: '100%'
         },
         filterImage: {
             backgroundColor: "#141313",
@@ -116,14 +117,20 @@ const PageOne = ({ listing, agent }) => {
                         <Text style={(get(listing, ["neighborhoods", "nodes", "0", "name"], 'Neighborhood').length > 30) ? { ...styles.textSubtitle, ...styles.textNei } : { ...styles.textSubtitle }}>
                             {get(listing, ["neighborhoods", "nodes", "0", "name"], 'Neighborhood')}
                         </Text>
-                       {/*  <Text style={styles.pointDivider}>.</Text>
-                        <Text style={styles.textSubtitle}>
-                            {numFormatter(get(listing, ["listingData", "newDevelopment", "priceMin"], 0))}
-                        </Text>
-                        <Text style={styles.pointDivider}>.</Text>
-                        <Text style={styles.textSubtitle}>
-                            {numFormatter(get(listing, ["listingData", "newDevelopment", "priceMax"], 0))}
-                        </Text> */}
+                        {
+                            (get(listing, ["listingData", "newDevelopment", "priceMin"], 0))
+                            &&
+                            <>
+                                <Text style={styles.pointDivider}>.</Text>
+                                <Text style={styles.textSubtitle}>
+                                    {numFormatter(get(listing, ["listingData", "newDevelopment", "priceMin"], 0))}
+                                </Text>
+                                <Text style={styles.pointDivider}>.</Text>
+                                <Text style={styles.textSubtitle}>
+                                    {numFormatter(get(listing, ["listingData", "newDevelopment", "priceMax"], 0))}
+                                </Text>
+                            </>
+                        }
                     </View>
                 </View>
             </View>

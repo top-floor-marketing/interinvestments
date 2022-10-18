@@ -17,7 +17,7 @@ dayjs.extend(customParseFormat);
 const PageTwo = ({ listing, agent }) => {
 
     const description = removeTags(get(listing, ["listingData", "newDevelopment", "description"], ""));
-    const status = removeTags(get(listing, ["listingData", "newDevelopment", "status"], ""));
+    // const status = removeTags(get(listing, ["listingData", "newDevelopment", "status"], ""));
 
     const styles = StyleSheet.create({
         page: {
@@ -29,17 +29,17 @@ const PageTwo = ({ listing, agent }) => {
         },
         containerPageTwo: {
             ...PADDING_FOR_PAGES,
-            height: (description.length > 600) ? "62%" : "50%",
+            height: (description.length > 550) ? "62%" : "50%",
         },
         viewDescription: {
             fontWeight: 400,
             paddingTop: "16px",
             paddingBottom: "16px",
             alignSelf: "center",
-            width: (description.length > 600) ? '90%' : "76%",
+            width: (description.length > 550) ? '90%' : "76%",
             height: "100%",
             fontFamily: FONT_FAMILY,
-            fontSize: (description.length > 600) ? "16px" : "22px",
+            fontSize: (description.length > 550) ? "16px" : "22px",
             display: "flex",
             flexDirection: "column",
             alignContent: "space-between",
@@ -61,7 +61,7 @@ const PageTwo = ({ listing, agent }) => {
         viewPrice: {
             position: "relative",
             width: "100%",
-            height: (description.length > 600) ? "38%" : "50%",
+            height: (description.length > 550) ? "38%" : "50%",
         },
         imageRectangle: {
             objectFit: 'cover',
@@ -109,16 +109,18 @@ const PageTwo = ({ listing, agent }) => {
         }
     });
     const urlListing = get(listing, ["uri"], null);
-    const isMaxExceed = (get(listing, ["listingData", "newDevelopment", "description"], "").length > 800)
+    const isMaxExceed = (get(listing, ["listingData", "newDevelopment", "description"], "").length > 650)
     const estDate = dayjs(get(listing, ["listingData", "newDevelopment", "estimatedDateOfCompletion"], ""), ["DD-MM-YY"]).format("MM.YYYY");
 
     return (
         <Page size="A4" style={styles.page} orientation={"landscape"}>
             <View style={styles.containerPageTwo}>
                 <View style={styles.viewDescription} >
-                    <Text style={styles.status}>{status}</Text>
+                    <Text style={styles.status}>Description</Text>
                     <Text>
-                        {description}
+                        {
+                        ''.concat(description).concat(isMaxExceed ? ' ...' : '')
+                        }
                     </Text>
                     {
                         isMaxExceed

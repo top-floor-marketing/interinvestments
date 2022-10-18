@@ -22,7 +22,6 @@ function App() {
   useEffect(() => {
 
     const queryParams = new URLSearchParams(window.location.search);
-    // const pathArray = window.location.pathname.split("/");
 
     const currentUtc = dayjs().utc().format();
     const isShared = (toLower(queryParams.get(URL_SHARED_FLAG)) === 'true');
@@ -45,8 +44,8 @@ function App() {
               if(!isAgentsUrl) {
                 x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
               } else {
-                // x.href = `/agent/?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
-                x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
+                x.href = `/agent/?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
+                // x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
                 x["innerText"] = (isAgentUser) ? 'My Bio' : x["innerText"];
               }
             });
@@ -59,8 +58,8 @@ function App() {
               if(!isAgentsUrl) { 
                 x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
               } else {
-                // x.href = `/agent/?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
-                x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
+                x.href = `/agent/?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
+                // x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
                 x["innerText"] = (isAgentUser) ? 'My Bio' : x["innerText"];
               }
             });

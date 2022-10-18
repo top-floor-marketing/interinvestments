@@ -26,7 +26,12 @@ const FooterDinamic = ({ agent }) => {
             justifyContent: "space-between",
             alignItems: "center",
         },
-        linkDomain: LINK_DOMAIN
+        linkDomain: LINK_DOMAIN,
+        linkDisclaimer: {
+            ...LINK_DOMAIN,
+            fontSize: "6px",
+            fontWeight: 200,
+        }
     });
 
     return (
@@ -34,6 +39,7 @@ const FooterDinamic = ({ agent }) => {
             <Link style={styles.linkDomain} src={addParamsToUrl(DOMAIN_PROD, agent)}>
                 <Text>{removeHttp(DOMAIN_PROD)}</Text>
             </Link>
+            <Text style={styles.linkDisclaimer}>Prices, Terms and Availability are subject to changes without notice. Square footage is believed to be accurate, but may be revised.</Text>
         </View>
     ) 
 }
