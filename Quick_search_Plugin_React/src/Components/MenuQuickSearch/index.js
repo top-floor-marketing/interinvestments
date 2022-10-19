@@ -91,7 +91,6 @@ const MenuQuickSearch = () => {
                     }
                     <Box className='flex flex-row w-full bg-[#f5f5f5] py-5 mt-5'>
 
-
                         <Button
                             component='a'
                             href={urlVaribles()}

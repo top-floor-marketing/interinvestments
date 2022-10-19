@@ -76,8 +76,8 @@ const CardListing = (props) => {
                   component='a'
                   href={urlCardListing(val.uri)}
                   variant='outline'
-                  leftIcon={ <Building color="#ffb839" size={16} />}
-                  >
+                  leftIcon={<Building color="#ffb839" size={16} />}
+                >
                   View property
                   <ChevronRight />
                 </Button>
@@ -87,7 +87,7 @@ const CardListing = (props) => {
                 <Text component="h4" className={styles.titleListing}>
                   {val.title}
                 </Text>
-                <div className="mt-auto flex flex-col gap-4">
+                <div className="mt-auto flex flex-col gap-4 mb-0 md:mb-[65px] ">
                   <Text
                     component="h3"
                     className={`font-medium ${styles.decriptionListing}`}
@@ -104,6 +104,7 @@ const CardListing = (props) => {
                 </div>
               </Box>
             </Box>
+
             {index === data.length - 1 ? (
               <Box className="mt-5" />
             ) : (

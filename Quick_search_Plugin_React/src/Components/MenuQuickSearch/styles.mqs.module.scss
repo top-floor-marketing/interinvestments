@@ -34,7 +34,7 @@
 }
 
 .imageListing {
-    @apply min-w-[187px] h-[200px] sm:h-[120px];
+    @apply max-h-[250px] min-w-[200px] min-h-[200px] sm:h-[150px] md:h-[200px] lg:h-[200px];
 }
 
 .dataListing {
