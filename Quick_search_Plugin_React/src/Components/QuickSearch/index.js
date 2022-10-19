@@ -16,9 +16,7 @@ const QuickSearch = () => {
       <Box className={styles.gridQuickSearch}>
         <Box className={styles.containerQuickSearch}>
           <h3 className={styles.labelQuickSearch}>
-            Search for new
-            <br className={styles.brlabelQuickSearch} />
-            properties:
+            Search for new properties:            
           </h3>
         </Box>
         <Box className={styles.menuQuickSearch}>

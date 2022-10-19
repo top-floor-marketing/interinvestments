@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Card, Button } from '@mantine/core';
+import { Card, Button, Box } from '@mantine/core';
 import { ChevronRight } from 'tabler-icons-react';
 // componet 
 import LoadingMenu from './LoadingMenu'
@@ -89,15 +89,21 @@ const MenuQuickSearch = () => {
                                 )
                             )
                     }
-                    <Button
-                        component='a'
-                        href={urlVaribles()}
-                        variant='outline'
-                        className="mx-auto mt-3 btn-wp-primary-icon"
-                    >
-                        view all result
-                        <ChevronRight />
-                    </Button>
+                    <Box className='flex flex-row w-full bg-[#f5f5f5] py-5 mt-5'>
+
+
+                        <Button
+                            component='a'
+                            href={urlVaribles()}
+                            variant='outline'
+                            className="mx-auto btn-wp-primary-icon"
+                        >
+                            View all results
+                            <ChevronRight />
+                        </Button>
+
+                    </Box>
+
                 </Card>
             </div>
         )

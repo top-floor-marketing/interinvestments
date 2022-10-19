@@ -1,16 +1,17 @@
 import React from "react";
 //mantine
-import { Divider, Box, Text } from "@mantine/core";
-import { DatabaseOff } from "tabler-icons-react";
+import { Divider, Box, Text, Button } from "@mantine/core";
+import { DatabaseOff, Building, ChevronRight } from "tabler-icons-react";
 // utils
 import FormaterNumber from "../../utils/FormaterNumber";
 import get from "lodash/get";
+
 //css
 import styles from "./styles.mqs.module.scss";
 
 const CardListing = (props) => {
   const urlParams = new URLSearchParams(window.location.search);
-  const AgentId = urlParams.get("agent-id");
+  const AgentId = parseInt(urlParams.get("agent-id"));
   const sharedCrm = urlParams.get("shared");
   const { data } = props;
 
@@ -19,7 +20,7 @@ const CardListing = (props) => {
   }
 
   const urlCardListing = (uriListing) => {
-    if (AgentId || sharedCrm) {
+    if (AgentId && Boolean(sharedCrm)) {
       const LISTING_URI = `${uriListing}`;
       let vars = [];
       let finalVars = "";
@@ -49,28 +50,44 @@ const CardListing = (props) => {
     <Box className={data.length >= 3 ? styles.containerMenu : "h-full"}>
       {data.map((val, index) => {
         const { newDevelopment } = val.listingData;
+        const { featuredImage } = val;
         return (
           <Box
-            component="a"
-            href={urlCardListing(val.uri)}
+            component="div"
+            onClick={() => {
+              window.location.href = urlCardListing(val.uri)
+            }}
             className={styles.cardListing}
             key={index}
           >
             <Box className={styles.contendCardListing}>
-              {get(newDevelopment, ["photos", "0", "sourceUrl"], null) ? (
-                <img
-                  className={`${styles.imagenMenu} ${styles.imageListing}`}
-                  src={get(newDevelopment, ["photos", "0", "sourceUrl"], null)}
-                  alt={`ImageListing_${index}`}
-                />
-              ) : (
-                <NoImagen />
-              )}
+              <Box className="flex flex-col gap-4 mb-4">
+                {get(newDevelopment, ["photos", "0", "sourceUrl"], null) || get(featuredImage, ["node", "sourceUrl"], null) ? (
+                  <img
+                    className={`${styles.imagenMenu} ${styles.imageListing}`}
+                    src={get(newDevelopment, ["photos", "0", "sourceUrl"], null) || get(featuredImage, ["node", "sourceUrl"], null)}
+                    alt={`ImageListing_${index}`}
+                  />
+                ) : (
+                  <NoImagen />
+                )}
+                <Button
+                  className="mx-auto btn-wp-primary-icon mb-0"
+                  component='a'
+                  href={urlCardListing(val.uri)}
+                  variant='outline'
+                  leftIcon={ <Building color="#ffb839" size={16} />}
+                  >
+                  View property
+                  <ChevronRight />
+                </Button>
+              </Box>
+
               <Box style={{ height: "inherit" }} className={styles.dataListing}>
                 <Text component="h4" className={styles.titleListing}>
                   {val.title}
                 </Text>
-                <div className="mt-auto">
+                <div className="mt-auto flex flex-col gap-4">
                   <Text
                     component="h3"
                     className={`font-medium ${styles.decriptionListing}`}
@@ -78,13 +95,11 @@ const CardListing = (props) => {
                     {newDevelopment.nameOfDevelopment}
                   </Text>
                   <span className={`font-light ${styles.decriptionListing}`}>
-                    {`Price $ ${
-                      FormaterNumber(newDevelopment.priceMin).number
-                    }${FormaterNumber(newDevelopment.priceMin).tag}`}{" "}
+                    {`Price $ ${FormaterNumber(newDevelopment.priceMin).number
+                      }${FormaterNumber(newDevelopment.priceMin).tag}`}{" "}
                     -{" "}
-                    {`$ ${FormaterNumber(newDevelopment.priceMax).number}${
-                      FormaterNumber(newDevelopment.priceMax).tag
-                    }`}
+                    {`$ ${FormaterNumber(newDevelopment.priceMax).number}${FormaterNumber(newDevelopment.priceMax).tag
+                      }`}
                   </span>
                 </div>
               </Box>
