@@ -91,7 +91,7 @@ const PipelineItem = (props) => {
                 {firstName}&nbsp;{lastName}
             </Text>
             {
-                (!enabled && agentAvatar && agentFullName)
+                (!enabled && (agentAvatar || agentFullName))
                 &&
                 <>
                     <Box className={classes.boxDivider} />

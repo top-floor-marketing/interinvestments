@@ -254,10 +254,16 @@ const ItemListingVirtual = (props) => {
       onConfirm: async () => {
         if (refBodyTransferModal.current) {
 
+          // list of Ids transfer list with "assigned agents" new selecteds
           const newTransfer = refBodyTransferModal.current.getCheckSelectedList();
+
+          // original transfer list with "assigned agents"
           const oldTransfer = getAllAgentLeadsForTransfer();
+
+          // array of original transfer list
           const idOld = oldTransfer.map((e) => e.value);
 
+          // get removeAgents or newAgents
           const removeAgents = difference(idOld, newTransfer);
           const newAgents = difference(newTransfer, idOld);
 
@@ -265,9 +271,9 @@ const ItemListingVirtual = (props) => {
             return null;
           } else if (newTransfer.length === 0) {
             // set office/admin default agent
-
-            forEach(oldTransfer, async (e) => {
-              await fetchTransferAgent({
+            const allMutations = [];
+            forEach(oldTransfer, (e) => {
+              allMutations.push(fetchTransferAgent({
                 variables: {
                   input: {
                     lastAgentId: e,
@@ -275,33 +281,32 @@ const ItemListingVirtual = (props) => {
                     userLead: getIdLead()
                   }
                 }
-              })
+              }))
             })
-
-
+            await Promise.all(allMutations);
           }
           else
-
             // add new agent to lead
             if (!removeAgents.length && newAgents.length > 0) {
-
-              forEach(newAgents, async (e) => {
-                await fetchTransferAgent({
+              const allMutations = [];
+              forEach(newAgents, (e) => {
+                allMutations.push(fetchTransferAgent({
                   variables: {
                     input: {
                       newAgentId: e,
                       userLead: getIdLead()
                     }
                   }
-                })
+                }))
               })
-
+              await Promise.all(allMutations);
             }
             // same length for remove and new agents 
             else if (removeAgents.length && newAgents.length && removeAgents.length === newAgents.length) {
 
-              forEach(newAgents, async (e, index) => {
-                await fetchTransferAgent({
+              const allMutations = []
+              forEach(newAgents, (e, index) => {
+                allMutations.push(fetchTransferAgent({
                   variables: {
                     input: {
                       lastAgentId: removeAgents[index],
@@ -309,8 +314,10 @@ const ItemListingVirtual = (props) => {
                       userLead: getIdLead()
                     }
                   }
-                })
+                }))
               })
+
+              await Promise.all(allMutations);
 
             }
 
