@@ -5,6 +5,8 @@ import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
 
+import get from 'lodash/get';
+
 import styles from "./styles_gd_ALV.module.scss";
 
 const URL_QUERY_ID_NAME = "agent-id";
@@ -12,7 +14,7 @@ const ID_LOCALSTORAGE_NAME = "lead-agent";
 
 const GridQuickView = ({
   data,
-  openModalQuickView = (id) => { console.log('ModalId', id) },
+  openModalQuickView = (id) => { },
   showOverlay = false,
   isMobileScreen = false,
 }) => {
@@ -68,10 +70,10 @@ const GridQuickView = ({
       {...allProps.paperItem}
     >
       {isMobileScreen ? (
-        <CarouselMobile photos={data.photos} />
+        <CarouselMobile photos={get(data, ["photos"], [])} />
       ) : (
         <img
-          src={data.photos[0] ? data.photos[0].sourceUrl : ""}
+          src={get(data, ["photos", "0", "sourceUrl"],"")}
           alt="Interinvestments img"
           {...allProps.imgCover}
         />
