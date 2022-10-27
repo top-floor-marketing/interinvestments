@@ -5,14 +5,13 @@ import { ChevronRight } from "tabler-icons-react";
 
 import CarouselMobile from "../CarouselMobile";
 
-import styles from "./styles_gd_ALV.module.scss";
+import get from 'lodash/get';
 
-const URL_QUERY_ID_NAME = "agent-id";
-const ID_LOCALSTORAGE_NAME = "lead-agent";
+import styles from "./styles_gd_ALV.module.scss";
 
 const GridQuickView = ({
   data,
-  openModalQuickView = (id) => { console.log('ModalId', id) },
+  openModalQuickView = (id) => { },
   showOverlay = false,
   isMobileScreen = false,
 }) => {
@@ -51,13 +50,11 @@ const GridQuickView = ({
       };
     },
     buttonRedirect: (uri) => {
-      const idInLocalStorage = parseInt(localStorage.getItem(ID_LOCALSTORAGE_NAME));
-      const finalUri = (idInLocalStorage) ? `${uri}?${URL_QUERY_ID_NAME}=${idInLocalStorage}&shared=true` : uri
       return {
         disabled: showOverlay,
         variant: "white",
         component: "a",
-        href: finalUri,
+        href: uri,
         className: styles.buttonRedirect,
       };
     },
@@ -68,10 +65,10 @@ const GridQuickView = ({
       {...allProps.paperItem}
     >
       {isMobileScreen ? (
-        <CarouselMobile photos={data.photos} />
+        <CarouselMobile photos={get(data, ["photos"], [])} />
       ) : (
         <img
-          src={data.photos[0] ? data.photos[0].sourceUrl : ""}
+          src={get(data, ["photos", "0", "sourceUrl"],"")}
           alt="Interinvestments img"
           {...allProps.imgCover}
         />

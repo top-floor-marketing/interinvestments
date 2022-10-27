@@ -79,7 +79,7 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 ));
 
 
-const TransferAgent = forwardRef(({ textTitle, data, checkList, checkAgent }, _ref) => {
+const TransferAgent = forwardRef(({ textTitle, data, checkList, checkAgent, omit }, _ref) => {
 
     const { cx, classes } = useStyles();
 

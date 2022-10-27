@@ -145,6 +145,7 @@ const BodyContentTransfer = forwardRef(({ allAgentsStatus, leadInfo }, _ref) => 
         config: {
             cacheTime: 5 * 60 * 10000, // 10 minutes
             onSuccess: (response) => {
+
                 const dataFormat = get(response, ["dataAgent"], []).map((val) => ({
                     value: get(val, ["databaseId"], 0),
                     image: get(val, ["avatarProfile"], null),
@@ -152,7 +153,12 @@ const BodyContentTransfer = forwardRef(({ allAgentsStatus, leadInfo }, _ref) => 
                     email: get(val, ["email"], []),
                 }
                 ));
-                setDataAllAgents(dataFormat);
+
+                const filterRemoveSelected = dataFormat.filter((e) => {
+                    return allAgentsStatus.findIndex((j) => j.value === e.value) === -1
+                });
+
+                setDataAllAgents(filterRemoveSelected);
                 setIsSkeleton(false);
             },
         },
@@ -201,7 +207,12 @@ const BodyContentTransfer = forwardRef(({ allAgentsStatus, leadInfo }, _ref) => 
                     </Box>
                 </Paper>
                 <Box className={classes.transfers}>
-                    <TransferAgent textTitle="Agents available: " ref={transferAllAgentRef} data={dataAllAgents} checkList={checkTransferList} checkAgent={onCheckTransferAgent} />
+                    <TransferAgent
+                        textTitle="Agents available: "
+                        ref={transferAllAgentRef}
+                        data={dataAllAgents}
+                        checkList={checkTransferList}
+                        checkAgent={onCheckTransferAgent} />
                     <Box className={classes.buttonsContainer}>
                         <Button onClick={() => onChangeTransferAgent()} variant="outline" color="primary" disabled={!checkTransferList.length}>
                             <ArrowRight />
@@ -210,7 +221,12 @@ const BodyContentTransfer = forwardRef(({ allAgentsStatus, leadInfo }, _ref) => 
                             <ArrowLeft />
                         </Button>
                     </Box>
-                    <TransferAgent textTitle="Assigned agents: " ref={transferSelectedAgentRef} data={dataAgentSelected} checkList={checkSelectedList} checkAgent={onCheckSelectedAgent} />
+                    <TransferAgent
+                        textTitle="Assigned agents: "
+                        ref={transferSelectedAgentRef}
+                        data={dataAgentSelected}
+                        checkList={checkSelectedList}
+                        checkAgent={onCheckSelectedAgent} />
                 </Box>
             </Box>
         </Skeleton>
