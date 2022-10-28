@@ -1,5 +1,5 @@
 .gridQuickSearch {
-  @apply grid grid-cols-1 gap-8 md:grid-cols-12 w-full;
+  @apply flex flex-col sm:grid sm:grid-cols-1 gap-8 md:grid-cols-12 w-full;
 }
 
 .labelQuickSearch {
@@ -15,7 +15,7 @@
 }
 
 .cardQuickSearch {
-  @apply py-8 bg-base-100 z-10 max-w-[1200px] mx-auto relative shadow-cards;
+  @apply py-8 bg-base-100 z-10 w-full max-w-[1200px] mx-auto relative shadow-cards;
 }
 
 .menuQuickSearch {

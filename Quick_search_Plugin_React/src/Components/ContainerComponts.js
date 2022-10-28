@@ -36,7 +36,7 @@ const ContainerComponts = (props) => {
     ]);
 
     return (
-        <Box id="boxContainerSearch" ref={containerRef}>
+        <Box style={{ width: "100%"}} id="boxContainerSearch" ref={containerRef}>
             <QuickSearch />
             <MenuQuickSearch />
         </Box>
