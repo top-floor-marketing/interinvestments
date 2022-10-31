@@ -17,67 +17,80 @@ const Main = () => {
     const [valueListing, setValueListing] = useState(null)
     const [optionTheme, setOptionTheme] = useState(null)
 
+    const getSlugFromUri = () => {
+        const uri = window.location.pathname
+        return uri.split('/')[2];
+    }
+
     return (
         <ListingWrapper
             valueListing={valueListing}
             setValueListing={setValueListing}
             setOptionTheme={setOptionTheme}
+            slugLIsting={getSlugFromUri()}
         >
-          <HeroParalax
-                data={{
-                    ...valueListing?.listingData.newDevelopment,
-                    featuredImage: valueListing?.featuredImage,
-                    title: valueListing?.title,
-                    neighborhoods: valueListing?.neighborhoods?.nodes
-                }}
-            /> 
-            <DescriptionListing
-                data={{
-                    ...valueListing?.listingData.newDevelopment,
-                }}
-            />
-            <DataLIsting
-                data={{
-                    ...valueListing?.listingData.newDevelopment,
-                }}
-            />
-            <CarucelListing
-                data={{
-                    ...valueListing?.listingData.newDevelopment,
-                }}
-            />
-            <CollapseListing
-                idListing={get(valueListing, ["databaseId"], null)}
-                data={{
-                    specs: valueListing?.listingData?.newDevelopment.specs,
-                    finishes: valueListing?.listingData?.newDevelopment.finishes,
-                    // address: valueListing?.address.address,
-                    floorplans: valueListing?.floorplans?.allFloorplans,
-                    team: valueListing?.team.team,
-                }}
-            />
-
-            <DisclaimerListing
-                data={optionTheme}
-            />
-
-            <VideoListing
-                data={{
-                    ...valueListing?.listingData.newDevelopment,
-                }}
-            />
-
-
             {
-                //    <MapListing
-                //     data={{
-                //         ...valueListing?.listingData.newDevelopment,
-                //         uri: valueListing?.uri,
-                //         title: valueListing?.title,
-                //         neighborhoods: valueListing?.neighborhoods.nodes
-                //     }}
-                //     optionTheme={optionTheme}
-                // />
+                valueListing
+                    ?
+                    <>
+                        <HeroParalax
+                            data={{
+                                ...valueListing?.listingData.newDevelopment,
+                                featuredImage: valueListing?.featuredImage,
+                                title: valueListing?.title,
+                                neighborhoods: valueListing?.neighborhoods?.nodes
+                            }}
+                        />
+                        <DescriptionListing
+                            data={{
+                                ...valueListing?.listingData.newDevelopment,
+                            }}
+                        />
+                        <DataLIsting
+                            data={{
+                                ...valueListing?.listingData.newDevelopment,
+                            }}
+                        />
+                        <CarucelListing
+                            data={{
+                                ...valueListing?.listingData.newDevelopment,
+                            }}
+                        />
+                        <CollapseListing
+                            idListing={get(valueListing, ["databaseId"], null)}
+                            data={{
+                                specs: valueListing?.listingData?.newDevelopment.specs,
+                                finishes: valueListing?.listingData?.newDevelopment.finishes,
+                                // address: valueListing?.address.address,
+                                floorplans: valueListing?.floorplans?.allFloorplans,
+                                team: valueListing?.team.team,
+                            }}
+                        />
+
+                        <DisclaimerListing
+                            data={optionTheme}
+                        />
+
+                        <VideoListing
+                            data={{
+                                ...valueListing?.listingData.newDevelopment,
+                            }}
+                        />
+
+
+                        {
+                            //    <MapListing
+                            //     data={{
+                            //         ...valueListing?.listingData.newDevelopment,
+                            //         uri: valueListing?.uri,
+                            //         title: valueListing?.title,
+                            //         neighborhoods: valueListing?.neighborhoods.nodes
+                            //     }}
+                            //     optionTheme={optionTheme}
+                            // />
+                        }
+                    </>
+                    : null
             }
         </ListingWrapper>
     )

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 // components
 import AlertError from '../AlertError'
 
@@ -38,34 +38,35 @@ const useStyles = createStyles((theme, _params) => ({
 
 const ListingWrapper = (props) => {
     const { classes } = useStyles({ isLoading: true });
-    const { setValueListing, children, setOptionTheme } = props
+    const { setValueListing, children, setOptionTheme, slugLIsting } = props;
 
+    const [listing404, setListing404] = useState(false);
+
+    // react lottie id
     const id = "wp-loading-full-single-listing";
-    const uri = window.location.pathname
-    const slugLIsting = uri.split('/')[2]
 
-    console.log('slugLIsting', slugLIsting)
-
-    const { isLoading, error, data } = useQueryHelper({
+    const { isLoading, error } = useQueryHelper({
         name: 'LISTINGS_BY_SLOG',
         gql: LISTINGS_BY_SLOG,
         variables: {
             "title": slugLIsting ? slugLIsting.replace(/-/g, ' ') : '_null_'
         },
         config: {
-            enabled: !!(slugLIsting),
+            enabled: Boolean(slugLIsting.length),
             onSuccess: (req) => {
-                setValueListing(...req.listings.nodes)
+                if (req?.listingBy?.uri)
+                    setValueListing(req.listingBy)
+                else
+                    setListing404(true)
             }
         }
     });
 
-    const { isLoading: isLoadingTheme, error: errorTheme, data: dataTheme } = useQueryHelper({
+    const { isLoading: isLoadingTheme, error: errorTheme } = useQueryHelper({
         name: 'ACF_OPTIONS_GlOBAL_OPTIONS',
         gql: ACF_OPTIONS_GlOBAL_OPTIONS,
         config: {
             onSuccess: (req) => {
-                //console.log('ThemeData', { ...req.acfOptionsGlobalOptions })
                 setOptionTheme({ ...req.acfOptionsGlobalOptions.optionPage })
             }
         }
@@ -103,7 +104,7 @@ const ListingWrapper = (props) => {
         );
     }
 
-    if ((error || errorTheme) || (data.listings.nodes.length === 0 || dataTheme.acfOptionsGlobalOptions.optionPage.mapApiKey === null)) {
+    if (error || errorTheme || listing404) {
         return (
             <Box className='flex items-center justify-center w-full h-screen'>
                 <Box className='max-w-screen-md'>
