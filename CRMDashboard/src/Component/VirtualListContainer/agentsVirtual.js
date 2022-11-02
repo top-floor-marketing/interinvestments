@@ -69,8 +69,6 @@ const AgentsVirtual = (props) => {
     } */
   };
 
-
-  // const dataItem = data[(rowIndex * 2) + columnIndex];
   // containerInfinite class for css-scrollbar styles
   // idGrid class for get clientHeight in scroll function
   return (
@@ -97,8 +95,6 @@ const AgentsVirtual = (props) => {
               style={{
                 ...style,
                 maxWidth: "100%",
-                /* left: style.left - GUTTER_SIZE,
-                top: style.top - GUTTER_SIZE, */
                 width: style.width - GUTTER_SIZE,
                 height: style.height - GUTTER_SIZE,
               }}

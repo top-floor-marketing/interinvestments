@@ -28,7 +28,7 @@ const useGetAdminPipeline = ({ agentType }) => {
             "agentId": get(data, ["agent", "databaseId"], null),
             "agentAvatar": get(data, ["agent", "avatarProfile"], null),
             "agentEmail": get(data, ["agent", "email"], null),
-            "agentFullName": get(data, ["agent", "firstName"], "").concat(" ").concat(get(data, ["agent", "lastName"], "")),
+            "agentFullName":`${get(data, ["agent", "firstName"], "")} ${get(data, ["agent", "lastName"], "")}`,
         }
     }
 
