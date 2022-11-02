@@ -6,15 +6,11 @@ const schemaEditAgent = Joi.object({
     "string.empty": "Required",
     "any.required": "Required",
   }),
-  lastName: Joi.string().required().min(3).messages({
+  lastName: Joi.string().allow("").min(3).messages({
     "string.min": "First Name should have at least 3 letters",
-    "string.empty": "Required",
-    "any.required": "Required",
   }),
-  position: Joi.string().required().min(3).messages({
+  position: Joi.string().allow("").min(3).messages({
     "string.min": "First Name should have at least 3 letters",
-    "string.empty": "Required",
-    "any.required": "Required",
   }),
   content: Joi.string().allow(''),
   phone: Joi.string().allow(''),

@@ -2,6 +2,8 @@ import { memo,useState, useCallback } from 'react';
 import { Box, createStyles, Modal } from "@mantine/core";
 import { useViewportSize } from '@mantine/hooks';
 
+import { AgentsVirtual } from '../../Component/VirtualListContainer';
+
 import CardAgent from './cardAgent';
 import ProfileView from '../ProfileView';
 
@@ -9,7 +11,10 @@ const useStyles = createStyles((theme, _params) => ({
   container: {
     width: "100%",
     height: "100%",
-    display: "grid",
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "740px",
+    /* display: "grid",
     gap: theme.other.spacing.p4,
     gridTemplateColumns: "repeat(1, 1fr)",
     [theme.fn.smallerThan(1100) && theme.fn.largerThan(600)]: {
@@ -24,8 +29,7 @@ const useStyles = createStyles((theme, _params) => ({
     [theme.fn.largerThan(2200)]: {
       gridTemplateColumns: "repeat(5, 1fr)",
     },
-    gridAutoRows: "minmax(300px, 350px)",
-    //maxHeight: "380px"
+    gridAutoRows: "minmax(300px, 350px)", */
   },
   modal: {
     display: "flex",
@@ -77,11 +81,9 @@ const GridAgents = ({ data }) => {
         >
           <ProfileView idAgent={openModal.idAgent} />
         </Modal>
-        {
-          data.map((val, index) => (
-            <CardAgent key={index} {...val} openModal={setOpenModal} />
-          ))
-        }
+        <AgentsVirtual openModal={setOpenModal} data={data} totalData={data.length} >
+          <CardAgent />
+        </AgentsVirtual>
       </>
     </Box>
   )

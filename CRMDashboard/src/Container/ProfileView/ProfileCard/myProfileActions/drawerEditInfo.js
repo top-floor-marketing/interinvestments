@@ -53,7 +53,7 @@ const DrawerEditInfo = ({ isOpen, dataAgent, onClose, isLoading, onSubmit }) => 
             title: (
                 <Box className={classes.boxTitle}>
                     <Edit size={20} />
-                    <Text component="h1" className={classes.titleModal}>Edit agent info</Text>
+                    <Text component="h1" className={classes.titleModal}>Edit my public info</Text>
                 </Box>
             ),
             padding: "xl",

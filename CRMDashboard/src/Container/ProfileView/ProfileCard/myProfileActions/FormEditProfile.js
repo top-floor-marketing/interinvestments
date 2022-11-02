@@ -13,11 +13,15 @@ import schemaEditAgent from './eschemaEditProfile'
 // styles 
 import useStyles from './stylesProfileAction'
 
+//import { USER_ROLES_CRM } from '../../../../GlobalStore/utils';
+//import useClientGlobalStore from '../../../../GlobalStore/useClientGlobalStore';
+
 const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
     const { classes } = useStyles();
     const refInputAvatar = useRef(null);
     const [tempAvatar64, setTempAvatar64] = useState(null);
-    const [newAvatarFile, setnewAvatarFile] = useState(null)
+    const [newAvatarFile, setnewAvatarFile] = useState(null);
+    // const { state: { user: { infoUser: { agentType } } } } = useClientGlobalStore();
 
     const form = useForm({
         validate: joiResolver(schemaEditAgent),
