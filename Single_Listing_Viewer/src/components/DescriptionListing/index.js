@@ -1,30 +1,30 @@
-import React from 'react'
-import DOMPurify from 'dompurify'
+import React from "react";
+import DOMPurify from "dompurify";
 // css
-import styles from './styles.dl.module.scss'
+import styles from "./styles.dl.module.scss";
 // mantine
-import { Box, Text, Spoiler } from '@mantine/core';
+import { Box, Text, Spoiler } from "@mantine/core";
 // utils
-import get from 'lodash/get'
+import get from "lodash/get";
 
 const DescriptionListing = (props) => {
   const urlParams = new URLSearchParams(window.location.search);
-  const show_more = urlParams.get('showmore')
-  const { data } = props
+  const show_more = urlParams.get("showmore");
+  const { data, targetRef } = props;
 
   const descriptionHTMLDangerous = () => {
-    return { __html: DOMPurify.sanitize(get(data, ['description'], '<p />')) }
-  }
+    return { __html: DOMPurify.sanitize(get(data, ["description"], "<p />")) };
+  };
 
   return (
     <Box className={styles.container}>
       <Box className={styles.containerDescription}>
         <Text
           data-aos-once="true"
-          data-aos-duration='2000'
+          data-aos-duration="2000"
           data-aos="fade-up"
           className={styles.title}
-          component='span'
+          component="span"
         >
           Description
         </Text>
@@ -35,17 +35,18 @@ const DescriptionListing = (props) => {
           hideLabel="Hide"
         >
           <Box
-            id='status_show_more'
+            ref={targetRef}
+            id="status_show_more"
             dangerouslySetInnerHTML={descriptionHTMLDangerous()}
             data-aos-once="true"
-            data-aos-duration='2000'
+            data-aos-duration="2000"
             data-aos="fade-up"
             className={styles.textDescription}
           />
         </Spoiler>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default DescriptionListing
+export default DescriptionListing;
