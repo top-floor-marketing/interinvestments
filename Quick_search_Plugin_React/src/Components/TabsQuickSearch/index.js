@@ -23,7 +23,7 @@ import useStore from '../../Store/useStore';
 import styles from './styles.tqs.module.scss'
 
 const TapsQuickSearch = () => {
-    const matches = useMediaQuery('(min-width: 1024px)');
+    const matches = useMediaQuery('(min-width: 1280px)');
     const {
         state: {
             listCategories,
