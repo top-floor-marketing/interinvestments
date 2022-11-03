@@ -77,19 +77,15 @@ const CollapseListing = (props) => {
                     value: value.arquitect
                 },
                 {
-                    title: 'Group Name',
-                    value: value.fieldGroupName
-                },
-                {
-                    title: 'interior Designer',
+                    title: 'Interior Designer',
                     value: value.interiorDesigner
                 },
                 {
-                    title: 'landscape Architect',
+                    title: 'Landscape Architect',
                     value: value.landscapeArchitect
                 },
                 {
-                    title: 'payment Structure',
+                    title: 'Payment Structure',
                     value: value.paymentStructure
                 }
             )
