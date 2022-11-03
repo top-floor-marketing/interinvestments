@@ -9,10 +9,14 @@
 }
 
 .titleCard {
-    @apply flex justify-center w-full lg:w-1/4 h-full mb-5;
+    @apply flex justify-center w-full lg:w-1/4 h-full mb-5 ;
     h4 {
         font-weight: 400;
         letter-spacing: 0.2em;
-        @apply font-outfit text-[16px] leading-[20px] uppercase;
+        @apply font-outfit text-[24px] leading-[20px] uppercase font-bold;
     }
+}
+
+.titleOffice {
+    color: #ffb839;
 }

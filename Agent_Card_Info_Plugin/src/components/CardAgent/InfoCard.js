@@ -1,6 +1,7 @@
 import React from "react";
 // mantine
 import { Text, Box, Image } from "@mantine/core";
+import { Mail, Phone } from 'tabler-icons-react';
 import DOMPurify from "dompurify";
 // styles
 import styles from "./styles.ca.module.scss";
@@ -54,29 +55,38 @@ const InfoCard = (props) => {
         className={styles.contentCArdAgent}
       ></Box>
       <Box className={styles.contactAgent}>
-        <Text
-          data-aos-once="true"
-          data-aos-duration="900"
-          data-aos-delay="1300"
-          data-aos="fade-left"
-          component="a"
-          href="mailto: emilio@interinvestments.us"
-        >
-          {dataAgent?.email}
-        </Text>
-        <br />
-        {dataAgent?.phone && (
+        <Box className="flex flex-row gap-2 mb-4 items-center">
+          <Mail />
           <Text
             data-aos-once="true"
             data-aos-duration="900"
-            data-aos-delay="1500"
+            data-aos-delay="1300"
             data-aos="fade-left"
             component="a"
-            href="tel:305-456-6839"
+            href="mailto: emilio@interinvestments.us"
           >
-            {dataAgent?.phone}
+            {dataAgent?.email}
           </Text>
-        )}
+        </Box>
+
+        <Box className="flex flex-row gap-2 items-center">
+          {dataAgent?.phone && (
+            <>
+              <Phone />
+              <Text
+                data-aos-once="true"
+                data-aos-duration="900"
+                data-aos-delay="1500"
+                data-aos="fade-left"
+                component="a"
+                href="tel:305-456-6839"
+              >
+                {dataAgent?.phone}
+              </Text>
+            </>
+          )}
+        </Box>
+
       </Box>
       <Box className={styles.containerSocialMedia}>
         {startsWith(dataAgent.facebook, "https") && (
