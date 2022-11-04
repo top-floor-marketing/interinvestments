@@ -1,23 +1,27 @@
 @tailwind utilities;
 
 .containerDescription {
-    @apply flex flex-col items-start justify-center w-full h-full;
+  @apply flex flex-col items-start justify-center w-full h-full;
 }
 
 .container {
-    @apply px-12 xl:px-0 my-20 md:my-28 max-w-screen-lg w-full mx-auto h-full;
+  @apply px-12 xl:px-0 my-20 md:my-28 max-w-screen-lg xl:max-w-[985px] w-full mx-auto h-full;
 }
 
 .title {
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    @apply mb-2 md:mb-7 font-[400] leading-[20px] font-outfit text-[12px] md:text-[16px];
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  @apply mb-2 md:mb-7 font-[400] leading-[20px] font-outfit text-[12px] md:text-[16px];
 }
 
 .textDescription {
-    font-weight: 400;
-    @apply mt-4 font-outfit text-[26px] md:text-[36px] leading-[40px] md:leading-[45px] overflow-auto;
-    p {
-        @apply my-4;
-    }
+  font-weight: 400;
+  @apply flex flex-col gap-6 mt-4 font-outfit text-[26px] md:text-[36px] leading-[40px] md:leading-[45px] overflow-auto;
+
+  h3 {
+    font-weight: 300;
+    @apply ml-auto w-[60%] text-[14px] leading-[22px] md:text-[20px] md:leading-[26px];
+  }
 }
+
+// #{!important}

@@ -4,6 +4,7 @@ import ImageCarucel from "./ImageCarucel";
 // mantine
 import { Box, Button } from "@mantine/core";
 import { ChevronLeft, ChevronRight } from "tabler-icons-react";
+import { useMediaQuery } from "@mantine/hooks";
 // Import Swiper React components
 import { Swiper } from "swiper/react";
 import SwiperCore, {
@@ -23,7 +24,9 @@ import styles from "./styles.cl.module.scss";
 import "./stylesPagination.css";
 
 const CarucelListing = (props) => {
+  const matches = useMediaQuery("(min-width: 1919px)");
   SwiperCore.use([Autoplay]);
+
   const paginationCustom = {
     clickable: true,
     renderBullet: function (_, className) {
@@ -86,7 +89,7 @@ const CarucelListing = (props) => {
             slidesPerView={"auto"}
             coverflowEffect={{
               rotate: 0,
-              stretch: 80,
+              stretch: matches ? 380 : 80,
               depth: 550,
               modifier: 1,
               slideShadows: false,
