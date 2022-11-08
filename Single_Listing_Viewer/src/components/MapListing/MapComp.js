@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // componet
-// import Marker from "./Marker";
+import Marker from "./Marker";
 //mantine
 import { Box } from "@mantine/core";
 // map
@@ -10,7 +10,7 @@ import stylesmaps from "./stylesmaps";
 import styles from "./styles.ml.module.scss";
 
 const MapComp = (props) => {
-  // const [openedMarker, setOpenedMarker] = useState(false);
+  const [openedMarker, setOpenedMarker] = useState(false);
   const { dataListing, optionTheme } = props;
   const { latitude, longitude } = dataListing;
 
@@ -21,11 +21,13 @@ const MapComp = (props) => {
     },
   };
 
+  // console.log("optionTheme", optionTheme);
+
   return (
     <Box
       className={styles.BoxMap}
-      // onMouseOver={() => setOpenedMarker(true)}
-      // onMouseOut={() => setOpenedMarker(false)}
+      onMouseOver={() => setOpenedMarker(true)}
+      onMouseOut={() => setOpenedMarker(false)}
     >
       <GoogleMapReact
         options={{
@@ -39,19 +41,17 @@ const MapComp = (props) => {
         defaultCenter={defaultProps.center}
         defaultZoom={15}
       >
-        {
-          // <Marker
-          //     opened={openedMarker}
-          //     uri={dataListing.uri}
-          //     title={dataListing.title}
-          //     subTitle={dataListing.neighborhoods[0]?.name}
-          //     priceMin={dataListing.priceMin}
-          //     priceMax={dataListing.priceMax}
-          //     lat={parseFloat(latitude)}
-          //     lng={parseFloat(longitude)}
-          //     urlImagen={dataListing.photos[0]?.sourceUrl}
-          // />
-        }
+        <Marker
+          opened={openedMarker}
+          uri={dataListing.uri}
+          title={dataListing.title}
+          subTitle={dataListing.neighborhoods[0]?.name}
+          priceMin={dataListing.priceMin}
+          priceMax={dataListing.priceMax}
+          lat={parseFloat(latitude)}
+          lng={parseFloat(longitude)}
+          urlImagen={dataListing.photos[0]?.sourceUrl}
+        />
       </GoogleMapReact>
     </Box>
   );

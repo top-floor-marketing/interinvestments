@@ -1,13 +1,13 @@
 import React from "react";
 // components
-// import MapComp from "./MapComp";
+import MapComp from "./MapComp";
 //mantine
 import { Box, Text } from "@mantine/core";
 // css
 import styles from "./styles.ml.module.scss";
 
 const MapListing = (props) => {
-  const { data } = props;
+  const { data, optionTheme } = props;
 
   if (data.latitude !== null || data.longitude !== null) {
     return (
@@ -35,18 +35,16 @@ const MapListing = (props) => {
             </Box>
           ) : null}
         </Box>
-        {
-          // data.latitude !== null || data.longitude !== null ? (
-          //   <Box
-          //     data-aos-once="true"
-          //     data-aos="zoom-in"
-          //     data-aos-delay="1200"
-          //     className={styles.containerMapCanvas}
-          //   >
-          //     <MapComp dataListing={{ ...data }} optionTheme={optionTheme} />
-          //   </Box>
-          // ) : null
-        }
+        {data.latitude !== null || data.longitude !== null ? (
+          <Box
+            data-aos-once="true"
+            data-aos="zoom-in"
+            data-aos-delay="1200"
+            className={styles.containerMapCanvas}
+          >
+            <MapComp dataListing={{ ...data }} optionTheme={optionTheme} />
+          </Box>
+        ) : null}
       </>
     );
   } else {
