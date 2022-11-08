@@ -16,7 +16,7 @@ import get from "lodash/get";
 
 const Main = () => {
   const [valueListing, setValueListing] = useState(null);
-  const [optionTheme, setOptionTheme] = useState(null);
+  // const [optionTheme, setOptionTheme] = useState(null);
   const { scrollIntoView, targetRef } = useScrollIntoView({ offset: 60 });
 
   const getSlugFromUri = () => {
@@ -28,7 +28,7 @@ const Main = () => {
     <ListingWrapper
       valueListing={valueListing}
       setValueListing={setValueListing}
-      setOptionTheme={setOptionTheme}
+      // setOptionTheme={setOptionTheme}
       slugLIsting={getSlugFromUri()}
     >
       {valueListing ? (
