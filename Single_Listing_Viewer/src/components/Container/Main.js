@@ -5,8 +5,8 @@ import DescriptionListing from "../DescriptionListing";
 import DataLIsting from "../DataLIsting";
 import CarucelListing from "../CarucelListing";
 import CollapseListing from "../CollapseListing";
-import DisclaimerListing from "../DisclaimerListing";
-// import MapListing from '../MapListing'
+// import DisclaimerListing from "../DisclaimerListing";
+import MapListing from "../MapListing";
 import VideoListing from "../VideoListing";
 // Hoc
 import ListingWrapper from "../Hoc/ListingWrapper";
@@ -69,7 +69,9 @@ const Main = () => {
             }}
           />
 
-          <DisclaimerListing data={optionTheme} />
+          {
+            // <DisclaimerListing data={optionTheme} />
+          }
 
           <VideoListing
             data={{
@@ -77,17 +79,17 @@ const Main = () => {
             }}
           />
 
-          {
-            //    <MapListing
-            //     data={{
-            //         ...valueListing?.listingData.newDevelopment,
-            //         uri: valueListing?.uri,
-            //         title: valueListing?.title,
-            //         neighborhoods: valueListing?.neighborhoods.nodes
-            //     }}
-            //     optionTheme={optionTheme}
-            // />
-          }
+          {valueListing ? (
+            <MapListing
+              data={{
+                ...valueListing?.listingData.newDevelopment,
+                uri: valueListing?.uri,
+                title: valueListing?.title,
+                neighborhoods: valueListing?.neighborhoods.nodes,
+              }}
+              optionTheme={optionTheme}
+            />
+          ) : null}
         </>
       ) : null}
     </ListingWrapper>
