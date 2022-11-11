@@ -119,6 +119,13 @@ const useStyles = createStyles((theme, _params) => {
       margin: "0px !important",
       fontSize: "16px",
     },
+    checkbox: {
+      display: "flex",
+      '.mantine-Checkbox-body': {
+        marginTop: "auto",
+        marginBottom: "auto"
+      }
+    }
   };
 })
 
@@ -219,7 +226,7 @@ const ItemListingVirtual = (props) => {
   return (
     <Box className={classes.container}>
       {usingCheck && (
-        <Checkbox onChange={onChangeCheckBox} checked={_isCheckListing} />
+        <Checkbox className={classes.checkbox} onChange={onChangeCheckBox} checked={_isCheckListing} />
       )}
       <Paper
         className={classes.containerItemListing}
@@ -311,19 +318,6 @@ const ItemListingVirtual = (props) => {
             radius="_40px"
             size={24}
           />
-
-          {/* {
-            (!usingCheck)
-            &&
-            <ShareListing
-              variant="filled"
-              color="primary"
-              id={idAgent}
-              uri={uri}
-              radius="_40px"
-              size={24}
-            />
-          } */}
           
         </Box>
       </Paper>
