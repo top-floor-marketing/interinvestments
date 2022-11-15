@@ -21,13 +21,30 @@ const MapListing = (props) => {
 
   useEffect(() => {
     if (dataListing.length) {
-      const { latitude, longitude } = dataListing[0].listingData.newDevelopment;
-      setDefaultProps({
-        lat: parseFloat(latitude),
-        lng: parseFloat(longitude),
-      });
+      const finalCordenadas = dataListing.find(
+        (listing) =>
+          listing.listingData.newDevelopment?.latitude &&
+          listing.listingData.newDevelopment?.longitude
+      );
+
+      const { latitude, longitude } =
+        finalCordenadas.listingData.newDevelopment;
+
+      if (latitude && longitude) {
+        setDefaultProps({
+          lat: parseFloat(latitude),
+          lng: parseFloat(longitude),
+        });
+      } else {
+        setDefaultProps({
+          lat: 25.813919,
+          lng: -80.249178,
+        });
+      }
     }
   }, [dataListing]);
+
+  console.log("asfsafa", dataListing[0].listingData.newDevelopment);
 
   return (
     <Box className="relative w-full h-full">
