@@ -34,7 +34,7 @@ const CollapseContainer = (props) => {
                 <Text component='span' className={styles.textIndex}>{index}</Text>
                 <Text
                     onClick={() => setOpen(!opened)}
-                    component='p'
+                    component='h2'
                     className={styles.titleCollapse}
                 >
                     {title}
