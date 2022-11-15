@@ -3,9 +3,9 @@ import { useEffect, useState, useCallback } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import ContainerMain from "./Containers/main";
-
+/* 
 import findLast from "lodash/findLast";
-import toLower from "lodash/toLower";
+import toLower from "lodash/toLower"; */
 
 import AOS from "aos";
 
@@ -15,7 +15,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 const queryClient = new QueryClient();
 
 const URL_QUERY_ID_NAME = "agent-id";
-const ID_LOCALSTORAGE_NAME = "lead-agent";
+// const ID_LOCALSTORAGE_NAME = "lead-agent";
 
 function App() {
 
@@ -25,16 +25,18 @@ function App() {
   const getUrlIdAgent = useCallback(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const idParams = parseInt(urlParams.get(URL_QUERY_ID_NAME));
-    const pathArray = window.location.pathname.split("/");
+    /*const pathArray = window.location.pathname.split("/");
     const findAgentsUrl = !!findLast(
       pathArray,
       (val) => toLower(val) === "agent" || toLower(val) === "agents"
-    );
-    if(findAgentsUrl) {
+    ); */
+    /* if(findAgentsUrl) {
       setUrlIdAgent(idParams);
-    }
+    } */
+    if (idParams && !isNaN(idParams))
+      setUrlIdAgent(idParams);
     setVerifyUrl(true);
-  },[setUrlIdAgent, setVerifyUrl])
+  }, [setVerifyUrl])
 
   useEffect(() => {
     AOS.init({
