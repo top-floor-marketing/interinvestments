@@ -29,7 +29,7 @@ const HeroParalax = (props) => {
             data-aos-once="true"
             data-aos-duration="2000"
             data-aos="zoom-out-up"
-            component="h2"
+            component="h1"
           >
             {data.title}
             {data?.neighborhoods?.length ? (

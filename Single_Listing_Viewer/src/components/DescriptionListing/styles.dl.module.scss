@@ -15,10 +15,19 @@
 }
 
 .textDescription {
-  font-weight: 400;
-  @apply flex flex-col gap-6 mt-4 font-outfit text-[26px] md:text-[36px] leading-[40px] md:leading-[45px] overflow-auto;
+  @apply flex flex-col gap-6 mt-4 overflow-auto;
 
-  h3 {
+  &:first-child {
+    font-weight: 400;
+    @apply flex flex-col gap-6 mt-4 font-outfit text-[26px] md:text-[36px] leading-[40px] md:leading-[45px] overflow-auto;
+  }
+
+  p:nth-child(2) {
+    font-weight: 300;
+    @apply ml-auto w-[60%] text-[14px] leading-[22px] md:text-[20px] md:leading-[26px];
+  }
+
+  p:last-child {
     font-weight: 300;
     @apply ml-auto w-[60%] text-[14px] leading-[22px] md:text-[20px] md:leading-[26px];
   }

@@ -11,7 +11,7 @@
 .containerParalax {
   @apply flex flex-col h-screen;
   &:first-child {
-    h2 {
+    h1 {
       @apply font-outfit my-auto font-normal 
             text-center text-[65px] md:text-[80px] lg:text-[100px] 
             leading-[60px] 

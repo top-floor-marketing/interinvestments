@@ -25,7 +25,7 @@ const MapListing = (props) => {
               </Text>
               <Text
                 className={styles.NameNeighborhood}
-                component="p"
+                component="h2"
                 data-aos-once="true"
                 data-aos="fade-down"
                 data-aos-delay="1200"
