@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 // mantine
 import { Text, Box, Image } from "@mantine/core";
 import { Mail, Phone } from 'tabler-icons-react';
@@ -18,11 +18,20 @@ import startsWith from "lodash/startsWith";
 
 const InfoCard = (props) => {
   const { dataAgent } = props;
+
+  const refEmail = useRef(null);
+  const refPhone = useRef(null);
   const sanitizedContentData = () => ({
     __html: DOMPurify.sanitize(dataAgent?.content),
   });
 
-  // console.log("dataAgent", dataAgent);
+  const openExternalApp = (type) => {
+    if(type === 'email' && refEmail?.current) {
+      refEmail.current.click();
+    } else if(refPhone?.current) {
+      refPhone.current.click();
+    }
+  }
 
   return (
     <>
@@ -31,7 +40,7 @@ const InfoCard = (props) => {
         data-aos-duration="900"
         data-aos-delay="700"
         data-aos="fade-left"
-        component="h3"
+        component="h1"
         className={styles.titleNameAgent}
       >
         {`${dataAgent?.firstName} ${dataAgent?.lastName}`}
@@ -55,31 +64,33 @@ const InfoCard = (props) => {
         className={styles.contentCArdAgent}
       ></Box>
       <Box className={styles.contactAgent}>
-        <Box className="flex flex-row gap-2 mb-4 items-center">
+        <Box className="flex flex-row gap-2 mb-4 items-center cursor-pointer" onClick={() => openExternalApp('email')} >
           <Mail />
           <Text
+            ref={refEmail}
             data-aos-once="true"
             data-aos-duration="900"
             data-aos-delay="1300"
             data-aos="fade-left"
             component="a"
-            href="mailto: emilio@interinvestments.us"
+            href={`mailto:${dataAgent?.email}`}
           >
             {dataAgent?.email}
           </Text>
         </Box>
 
-        <Box className="flex flex-row gap-2 items-center">
+        <Box className="flex flex-row gap-2 items-center cursor-pointer" onClick={() => openExternalApp('phone')}>
           {dataAgent?.phone && (
             <>
               <Phone />
               <Text
+                ref={refPhone}
                 data-aos-once="true"
                 data-aos-duration="900"
                 data-aos-delay="1500"
                 data-aos="fade-left"
                 component="a"
-                href="tel:305-456-6839"
+                href={`tel:${dataAgent?.phone}`}
               >
                 {dataAgent?.phone}
               </Text>
