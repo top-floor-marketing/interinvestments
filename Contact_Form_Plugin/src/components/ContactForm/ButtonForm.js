@@ -3,7 +3,7 @@ import React from 'react'
 // mantine 
 import { Button } from '@mantine/core';
 // styles
-import styles from './styles.cf.module.scss'
+import styles from './styles_CF.module.scss'
 
 const ButtonForm = (props) => {
     const { isLoading, isDisabled } = props

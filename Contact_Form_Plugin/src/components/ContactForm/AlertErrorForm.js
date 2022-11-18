@@ -2,7 +2,7 @@ import React from 'react'
 // mantine
 import { Text, Box, List } from '@mantine/core';
 // styles
-import styles from './styles.cf.module.scss'
+import styles from './styles_CF.module.scss'
 
 const AlertErrorForm = (props) => {
     const { errorForm = {} } = props

@@ -1,0 +1,46 @@
+.containerForm {
+  @apply w-full max-w-md lg:max-w-[320.67px] relative;
+}
+
+.PaperForm {
+  z-index: 1 !important;
+  position: inherit;
+  @apply text-white h-full min-h-[485px] p-[21.609px] rounded-none bg-transparent;
+}
+
+.PaperFondo {
+  z-index: 0 !important;
+  @apply bg-black opacity-75 absolute w-full h-full top-0;
+}
+
+.BoxListError {
+  @apply my-4;
+  p {
+    @apply font-outfit font-bold text-red-600;
+  }
+  ul {
+    @apply text-red-600;
+  }
+}
+
+.containerBoxInput {
+  @apply py-3 flex flex-col gap-4;
+}
+
+.titlePaper {
+  font-weight: 400;
+  @apply font-outfit text-[35.2px] 2xl:text-[36px] leading-[45px] z-50;
+}
+
+.descriptionForm {
+  font-weight: 300;
+  @apply my-3 mt-5 font-outfit text-[16px] leading-[26px];
+}
+
+.containerbutton {
+  @apply mt-2 flex justify-center items-center w-full h-full;
+}
+
+.buttonSubmit {
+  @apply bg-transparent hover:bg-white font-outfit transition-all duration-700 ease-in-out text-[16px] leading-[26px] border-white hover:border-black text-white hover:text-black border px-[16px] py-[4.8px] rounded-none;
+}
