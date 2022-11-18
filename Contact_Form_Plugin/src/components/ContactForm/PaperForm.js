@@ -9,7 +9,7 @@ import { useForm, joiResolver } from '@mantine/form';
 // schema joi
 import FormSchema from './Formschema'
 // styles
-import styles from './styles.cf.module.scss'
+import styles from './styles_CF.module.scss'
 // react-query
 import { useMutationHelper } from '../../GraphqlClient/useRequest';
 import { LEAD_LISTING_MUTATION } from '../../GraphqlClient/GQL';
@@ -78,7 +78,7 @@ const PaperForm = (props) => {
             {
                 (onSuccessAlert) ? (
                     <>
-                        <Text component='h4' className={styles.titlePaper}>Let’s get in touch:</Text>
+                        <Text component='h3' className={styles.titlePaper}>Let’s get in touch:</Text>
                         <Box className='flex justify-center w-full h-full mt-12'>
                             <Text component='p' className={styles.descriptionForm}>
                                 Thank you for submitting a request for information
@@ -88,7 +88,7 @@ const PaperForm = (props) => {
                     </>
                 ) : (
                     <>
-                        <Text component='h4' className={styles.titlePaper}>Let’s get in touch:</Text>
+                        <Text component='h3' className={styles.titlePaper}>Let’s get in touch:</Text>
                         {
                             (listingData)
                                 ?

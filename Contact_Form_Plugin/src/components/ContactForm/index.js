@@ -4,7 +4,7 @@ import PaperForm from './PaperForm'
 // mantine
 import { Box, Text } from '@mantine/core';
 // styles
-import styles from './styles.cf.module.scss'
+import styles from './styles_CF.module.scss'
 // react-query
 import { useQueryHelper } from '../../GraphqlClient/useRequest';
 import { LISTINGS_BY_SLOG_FORM, GET_STATUS_USER_LEADS } from '../../GraphqlClient/GQL';
@@ -61,7 +61,7 @@ const ContactForm = () => {
                 <Box className={styles.PaperFondo} />
                 <Box className='w-full h-[485px] flex flex-col justify-center items-center'>
                     <Text
-                        component='h4'
+                        component='h3'
                         className={`${styles.titlePaper} text-white`}
                     >
                         Error
