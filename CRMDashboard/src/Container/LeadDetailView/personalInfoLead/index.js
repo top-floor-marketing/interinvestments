@@ -24,6 +24,9 @@ const useStyles = createStyles((theme, _params) => ({
     ".mantine-Paper-root": {
       width: "100% !important",
     },
+    span: {
+      wordBreak: "break-all"
+    }
   },
   badgeStatus: {
     width: "auto",

@@ -42,7 +42,7 @@ const PageThree = ({ listing, agent }) => {
         }
     });
 
-    const photosList = get(listing, ["listingData", "newDevelopment", "photos"], []).slice(0,40);
+    const photosList = get(listing, ["listingData", "newDevelopment", "photos"], []).slice(0,60);
     const arrayPages = new Array(Math.ceil(photosList.length / 4)).fill(0);
 
     const paginationInfo = arrayPages.map((val, index) => {

@@ -195,7 +195,7 @@ const ItemListingVirtual = (props) => {
     const allAgents = get(props, ["allAgentsStatus"], []).map((val) => (
       {
         id: get(val, ["databaseId"], null),
-        fullName: get(val, ["firstName"], "").concat(` ${get(val, ["lastName"], "")}`)
+        fullName: `${get(val, ["firstName"], "")} ${get(val, ["lastName"], "")}`
       }
     ));
 

@@ -97,8 +97,6 @@ const PageAgentProfile = ({ listing, agent }) => {
         }
     });
 
-    console.log("agent ", agent);
-
     return (
         <Page size="A4" style={styles.page} orientation={"landscape"}>
             <View style={styles.containerProfileAgent}>

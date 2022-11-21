@@ -30,26 +30,31 @@ const formatResponseFullAgents = (response, adminId) => {
 
   forEach(leadsList, (valUserLead) => {
 
-    let newLead = {
-      userLead: get(valUserLead, ["statuses", "0", "userLead"], {}),
-      allAgentsStatus: []
-    }
+    if (!isEmpty(get(valUserLead, ["statuses"], []))) {
 
-    let isOfficeLead = false;
+      let newLead = {
+        userLead: get(valUserLead, ["statuses", "0", "userLead"], {}),
+        allAgentsStatus: []
+      }
 
-    forEach(get(valUserLead, ["statuses"], []), (valStatusLead) => {
+      let isOfficeLead = false;
 
-      newLead.allAgentsStatus.push({
-        currentStatus: get(valStatusLead, ["currentStatus"], {}),
-        agentId: get(valStatusLead, ["agent", "databaseId"], null),
-        ...get(valStatusLead, ["agent"], {}),
+      forEach(get(valUserLead, ["statuses"], []), (valStatusLead) => {
+
+        newLead.allAgentsStatus.push({
+          currentStatus: get(valStatusLead, ["currentStatus"], {}),
+          agentId: get(valStatusLead, ["agent", "databaseId"], null),
+          ...get(valStatusLead, ["agent"], {}),
+        });
+
+        isOfficeLead = get(valStatusLead, ["agent", "databaseId"], 0) === adminId
+
       });
 
-      isOfficeLead = get(valStatusLead, ["agent", "databaseId"], 0) === adminId
+      fullData.push({ ...newLead, isOfficeLead });
 
-    });
+    }
 
-    fullData.push({ ...newLead, isOfficeLead});
   });
 
   return orderBy(fullData, ['isOfficeLead'], ['desc']);
@@ -60,10 +65,10 @@ const filterByState = (value, data, statusUserLead, isAdminLeadView) => {
   const getState = get(filter(statusUserLead, (val) => val?.value === value), ["0"], null);
   console.log(data)
   if (isAdminLeadView)
-    return filter(data, (val) => 
-    findIndex(val?.allAgentsStatus, (valAgents) => { 
-      return toLower(valAgents?.currentStatus) === toLower(getState?.label); 
-    }) > -1 );
+    return filter(data, (val) =>
+      findIndex(val?.allAgentsStatus, (valAgents) => {
+        return toLower(valAgents?.currentStatus) === toLower(getState?.label);
+      }) > -1);
   else
     return filter(data, (val) => toLower(val?.currentStatus) === toLower(getState?.label));
 }

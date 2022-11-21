@@ -69,8 +69,8 @@ const PageFour = ({ listing, agent }) => {
     });
 
     const specs = {
-        bath: parseInt(get(listing, ["listingData", "newDevelopment", "specs", "bath"], null)),
-        bedrooms: parseInt(get(listing, ["listingData", "newDevelopment", "specs", "bedrooms"], null)),
+        bath: get(listing, ["listingData", "newDevelopment", "specs", "bath"], null),
+        bedrooms: get(listing, ["listingData", "newDevelopment", "specs", "bedrooms"], null),
         sqft: get(listing, ["listingData", "newDevelopment", "specs", "sqft"], null)
     }
 
@@ -89,7 +89,7 @@ const PageFour = ({ listing, agent }) => {
                             &&
                             <View style={styles.rowData}>
                                 <Text style={styles.textRowDataTitle}>
-                                    Bath
+                                    Bathrooms
                                 </Text>
                                 <Text style={styles.textRowDataInfo}>
                                     {specs.bath}
@@ -113,7 +113,7 @@ const PageFour = ({ listing, agent }) => {
                             &&
                             <View style={styles.rowData}>
                                 <Text  style={styles.textRowDataTitle}>
-                                    Sqft
+                                    Living SqFt
                                 </Text>
                                 <Text style={styles.textRowDataInfo}>
                                     {specs.sqft}
