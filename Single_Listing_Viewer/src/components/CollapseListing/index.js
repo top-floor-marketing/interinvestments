@@ -20,12 +20,12 @@ const CollapseListing = (props) => {
         Array({ ...data.specs }).map((value) => (
             newArray.push(
                 {
-                    title: 'Bathrooms',
-                    value: value.bath
-                },
-                {
                     title: 'Bedrooms',
                     value: value.bedrooms
+                },
+                {
+                    title: 'Bathrooms',
+                    value: value.bath
                 },
                 {
                     title: 'Living SqFt',

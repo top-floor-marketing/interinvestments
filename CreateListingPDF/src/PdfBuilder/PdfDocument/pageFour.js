@@ -85,6 +85,18 @@ const PageFour = ({ listing, agent }) => {
                     <View style={styles.dataContainer}>
                         <Text style={styles.textTitle}>Specs</Text>
                         {
+                            (specs.bedrooms)
+                            &&
+                            <View style={styles.rowData}>
+                                <Text style={styles.textRowDataTitle}>
+                                    Bedrooms
+                                </Text>
+                                <Text style={styles.textRowDataInfo}>
+                                    {specs.bedrooms}
+                                </Text>
+                            </View>
+                        }
+                        {
                             (specs.bath)
                             &&
                             <View style={styles.rowData}>
@@ -97,22 +109,10 @@ const PageFour = ({ listing, agent }) => {
                             </View>
                         }
                         {
-                            (specs.bedrooms)
-                            &&
-                            <View style={styles.rowData}>
-                                <Text  style={styles.textRowDataTitle}>
-                                    Bedrooms
-                                </Text>
-                                <Text style={styles.textRowDataInfo}>
-                                    {specs.bedrooms}
-                                </Text>
-                            </View>
-                        }
-                        {
                             (specs.sqft)
                             &&
                             <View style={styles.rowData}>
-                                <Text  style={styles.textRowDataTitle}>
+                                <Text style={styles.textRowDataTitle}>
                                     Living SqFt
                                 </Text>
                                 <Text style={styles.textRowDataInfo}>
