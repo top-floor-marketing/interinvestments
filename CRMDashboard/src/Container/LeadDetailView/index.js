@@ -48,7 +48,9 @@ const LeadDetailView = () => {
                 {
                     (verifyLocalStorage?.allAgents).map((e, index) => (
                         <Tabs.Panel style={{ paddingTop: "1rem" }} key={index} value={`${e.id}`} pt="xs">
-                            <DetailLeadByAgent isAdmin={agentType === USER_ROLES_CRM.ADMIN} idAgent={e.id} idLead={verifyLocalStorage?.idLead} />
+                            <DetailLeadByAgent 
+                            isAdmin={agentType === USER_ROLES_CRM.ADMIN} 
+                            idAgent={e.id} idLead={verifyLocalStorage?.idLead} />
                         </Tabs.Panel>
                     ))
                 }

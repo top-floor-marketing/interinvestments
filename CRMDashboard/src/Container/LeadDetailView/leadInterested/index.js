@@ -66,6 +66,13 @@ const useStyles = createStyles((theme, _params) => ({
 const LeadInterested = ({ idAgent, idLead }) => {
   const { classes } = useStyles();
 
+  console.log("*-----------------*");
+
+  console.log("idAgent ", idAgent);
+  console.log("idLead ", idLead);
+  
+  console.log("*-----------------*");
+
   const { isSkeleton, dataInterested } = useGetInterested({ idAgent, idLead });
 
    const {

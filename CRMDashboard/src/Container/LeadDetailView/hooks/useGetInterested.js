@@ -9,7 +9,7 @@ const useGetInterested = ({ idAgent, idLead }) => {
   const [dataInterested, setDataInterested] = useState(null);
 
   const { isLoading, refetch, isFetched } = useQueryHelper({
-    name: "get-interested-lead",
+    name: `get-interested-lead_${idAgent}_${idLead}`,
     gql: GET_LEAD_INTERESTED,
     config: {
       onSuccess: (response) => {
