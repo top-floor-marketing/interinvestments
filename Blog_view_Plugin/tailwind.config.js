@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        outfit: ["Outfit, Helvetica, Arial, Lucida, sans-serif"],
+        outfit: ["'Outfit-Regular',Helvetica,Arial,Lucida,sans-serif"],
       },
     }
   },
