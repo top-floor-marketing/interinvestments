@@ -24,12 +24,11 @@ const CustomIndicator = ({
     <div className={styles.container}>
       <Button
         variant="white"
-        size={25}
         onClick={() => prevBlog()}
         classNames={{
-          root: "bg-transparent flex flex-row",
+          root: "bg-transparent flex flex-row p-0",
           label: "mr-0 text-black",
-        }}
+        }} 
       >
         <ChevronUp size={25} className="mr-auto" />
       </Button>
@@ -42,17 +41,16 @@ const CustomIndicator = ({
           />
         );
       })}
-      <Button
+     <Button
         variant="white"
-        size={25}
         onClick={() => nextBlog()}
         classNames={{
-          root: "bg-transparent flex flex-row",
+          root: "bg-transparent flex flex-row p-0",
           label: "mr-0 text-black",
-        }}
+        }} 
       >
         <ChevronDown size={25} />
-      </Button>
+      </Button> 
     </div>
   );
 };

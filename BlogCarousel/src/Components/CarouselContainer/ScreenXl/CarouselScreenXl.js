@@ -8,7 +8,7 @@ import styles from "./styles_bc.module.scss";
 
 const ENVIROMENT_BC = process.env.REACT_APP_NODE_ENV;
 const DOMAIN_URL_BC =
-ENVIROMENT_BC === "production"
+  ENVIROMENT_BC === "production"
     ? process.env.REACT_APP_DOMAIN_PROD
     : process.env.REACT_APP_DOMAIN_DEV;
 
@@ -19,24 +19,21 @@ const CarouselScreenXl = (props) => {
     description,
     uri,
     title,
-    imageAnimation,
-    contentAnimation
+    agentId
   } = props;
 
   const swiperSlide = useSwiperSlide();
 
-  const getRandomIndex = () => {
-    return Math.floor(Math.random() * (1 - 0 + 1) + 0)
-  }
-
   const classesAnimation = {
     content: classNames(styles.content, {
-      [contentAnimation[getRandomIndex()]]: swiperSlide.isActive
+      "animate__animated animate__delay-0.5s animate__slow animate__fadeInUp": swiperSlide.isActive
     }),
     image: classNames(styles.containerImage, {
-      [imageAnimation[getRandomIndex()]]: swiperSlide.isActive
+      "animate__animated animate__slow animate__slideInDown": swiperSlide.isActive
     }),
   }
+
+  const urlBlog = (uri && agentId) ? `${DOMAIN_URL_BC}${uri}/?agent-id=${agentId}&shared=true`: `${DOMAIN_URL_BC}${uri}`;
 
   return (
     <div className={styles.container}>
@@ -46,7 +43,7 @@ const CarouselScreenXl = (props) => {
         <label className={styles.description}>{description}</label>
         <Button
           component="a"
-          href={uri ? DOMAIN_URL_BC.concat(uri) : "#"}
+          href={urlBlog}
           variant="white"
           className="btn-wp-primary-icon font-bold"
         >

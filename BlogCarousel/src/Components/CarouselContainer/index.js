@@ -6,7 +6,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import CustomIndicator from "../CustomIndicator";
 
+import toInteger from 'lodash/toInteger';
+
+const URL_QUERY_ID_NAME = 'agent-id';
+
 const CarouselContainer = (props) => {
+
+  const queryParams = new URLSearchParams(window.location.search);
+  const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
+
   const { listBlogs } = props;
 
   // Swiper instance
@@ -87,7 +95,7 @@ const CarouselContainer = (props) => {
         {listBlogs.map((val, index) => {
           return (
             <SwiperSlide key={index}>
-              <CarouselScreenXl {...val} {...allProps.carouselScreenXl} />
+              <CarouselScreenXl agentId={idInUrl} {...val} {...allProps.carouselScreenXl} />
             </SwiperSlide>
           );
         })}
