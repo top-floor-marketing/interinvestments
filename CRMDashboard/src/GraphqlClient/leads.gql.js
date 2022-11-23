@@ -162,6 +162,7 @@ export const GET_LEAD_INTERESTED = gql`
               ... on IRService {
                 title
                 date
+                databaseId
               }
             }
           }

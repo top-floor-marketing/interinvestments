@@ -10,3 +10,53 @@ export const GET_LEADS_SERVICES = gql`
     }
   }
 `
+
+export const GET_SERVICES_FORM = gql`
+query iRServiceBy($iRServiceId: Int!) {
+  iRServiceBy(iRServiceId: $iRServiceId) {
+    databaseId
+    buyers {
+      areYouRelocatingToMiami
+      areYouInterestedInNewConstructionOrResale
+      areYouWorkingWithARealtor
+      budget
+      desiredLocations
+      doYouHaveAPreferenceInViews
+      expectedMoveIn
+      fieldGroupName
+      howDidYouHearAboutUs
+      ifYouAreApplyingForAMortgageHaveYouBeenPreApproved
+      specialRequirementsnotes
+      styleOfArchitecture
+    }
+    commercial {
+      aproximateSize
+      areYouWorkingWithARealtor
+      desiredLocations
+      fieldGroupName
+      lookingToBuyOrLease
+      typesOfCommercialProperties
+      specialRequirementsnotes
+    }
+    invest {
+      areYouInterestedInPropertyManagementServices
+      areYouLookingForAShortTermRentalairbnbFriendlyProperty
+      budget
+      fieldGroupName
+      message
+    }
+    renters {
+      areYouWorkingWithARealtor
+      desiredLocation
+      creditHistory
+      doYouHavePets
+      fieldGroupName
+      howLongOfALeaseAreYouLookingFor
+      howManyBedroomsAreYouLookingFor
+      moveInDate
+      specialRequirementscomments
+      whatIsYourBudget
+    }
+  }
+}
+`

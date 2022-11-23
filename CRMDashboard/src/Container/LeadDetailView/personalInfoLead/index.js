@@ -48,7 +48,7 @@ const useStyles = createStyles((theme, _params) => ({
   },
 }));
 
-const PersonalInfoLead = ({ isSkeleton, dataLead }) => {
+const PersonalInfoLead = ({ isSkeleton, dataLead, serviceList }) => {
   const { classes } = useStyles();
 
   return (
@@ -133,10 +133,12 @@ const PersonalInfoLead = ({ isSkeleton, dataLead }) => {
         )}
 
         <ModalNoteInterested
+          serviceList={serviceList}
           commentListing={get(dataLead, ["commentListing"], null)}
           commentService={get(dataLead, ["commentService"], null)}
-          tite="View Notes"
+          tite="Properties and Services notes"
         />
+        
       </Paper>
     </Skeleton>
   );

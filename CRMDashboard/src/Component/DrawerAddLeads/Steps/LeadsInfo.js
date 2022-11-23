@@ -63,14 +63,14 @@ const LeadsInfo = ({ form, onSubmitForm, refForm }) => {
                 style={{ marginTop: '1rem', marginBottom: '1rem' }}
                 className={classes.containerMain}
             >
-                <SelectUserLead
+                {/* <SelectUserLead
                     labelSelect="Select a existing lead"
                     placeholder='lead Name...'
                     isLoading={isLoading}
                     isError={isError}
                     data={dataSelectUserLeads}
                     onChange={(val) => onchangeSelectUserLeads(val)}
-                />
+                /> */}
                 {
                     agentType === USER_ROLES_CRM.ADMIN ? (
                         <SelectAgent  />

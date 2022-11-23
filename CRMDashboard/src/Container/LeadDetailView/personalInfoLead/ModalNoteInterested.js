@@ -2,21 +2,41 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import DOMPurify from "dompurify";
 // mantine dev
-import { Button, createStyles, Modal, Tabs } from "@mantine/core";
+import { Button, createStyles, Modal, Tabs, Text, Box, Group } from "@mantine/core";
 import { RichTextEditor } from "@mantine/rte";
-import { IconPhoto, IconMessageCircle } from "@tabler/icons";
+import { IconMapPin, IconListDetails } from "@tabler/icons";
 import { Notes } from "tabler-icons-react";
-// utils
+import { map } from "lodash";
+
+import TabsServiceForms from "./tabsServiceForms";
 
 const useStyles = createStyles((theme, _params) => ({
-  Button: {
+  button: {
+    fontSize: '12px',
+    marginTop: 'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     width: "min-content",
   },
+  bodyModal: {
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.other.spacing.p4,
+    paddingTop: theme.other.spacing.p4,
+    svg: {
+      color: theme.colors.secondary[8]
+    }
+  }
 }));
 
-const ModalNoteInterested = ({ tite, commentListing, commentService }) => {
+const ModalNoteInterested = ({ tite, commentListing, commentService, serviceList }) => {
+
   const [opened, setOpened] = useState(false);
   const { classes } = useStyles();
+
+  const arrayServicePost = map(serviceList, (val) => {
+    return val?.databaseId || 0
+  });
 
   return (
     <>
@@ -24,47 +44,61 @@ const ModalNoteInterested = ({ tite, commentListing, commentService }) => {
         size={700}
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Notes"
       >
-        <Tabs defaultValue="properties">
-          <Tabs.List>
-            <Tabs.Tab value="properties" icon={<IconPhoto size={14} />}>
-              Properties Note
-            </Tabs.Tab>
-            <Tabs.Tab value="services" icon={<IconMessageCircle size={14} />}>
-              Services Note
-            </Tabs.Tab>
-          </Tabs.List>
 
-          <Tabs.Panel value="properties" pt="xs">
-            <RichTextEditor
-              style={{ width: "100%" }}
-              value={
-                commentListing
-                  ? DOMPurify.sanitize(commentListing)
-                  : "<p>no notes available</p>"
-              }
-              readOnly
-            />
-          </Tabs.Panel>
+        <Box className={classes.bodyModal}>
 
-          <Tabs.Panel value="services" pt="xs">
-            <RichTextEditor
-              style={{ width: "100%" }}
-              value={
-                commentService
-                  ? DOMPurify.sanitize(commentService)
-                  : "<p>no notes available</p>"
-              }
-              readOnly
-            />
-          </Tabs.Panel>
-        </Tabs>
+          {
+            (commentListing)
+            &&
+            <>
+              <Group spacing="xs">
+                <IconMapPin size={20} /> <Text color="secondary">Properties notes:</Text>
+              </Group>
+
+
+              <RichTextEditor
+                style={{ width: "100%" }}
+                value={
+                  DOMPurify.sanitize(commentListing)
+                }
+                readOnly
+              />
+            </>
+          }
+
+
+          {
+
+            (commentService)
+            &&
+            <>
+              <Group spacing="xs">
+                <IconListDetails size={20} /> <Text color="secondary">Services notes:</Text>
+              </Group>
+              <RichTextEditor
+                style={{ width: "100%" }}
+                value={
+                  DOMPurify.sanitize(commentService)
+                }
+                readOnly
+              />
+            </>
+          }
+
+          {
+            (arrayServicePost)
+            &&
+            <TabsServiceForms arrayServicePost={arrayServicePost} />
+          }
+
+        </Box>
+
       </Modal>
       <Button
         onClick={() => setOpened(true)}
         leftIcon={<Notes />}
-        className={classes.Button}
+        className={classes.button}
       >
         {tite}
       </Button>

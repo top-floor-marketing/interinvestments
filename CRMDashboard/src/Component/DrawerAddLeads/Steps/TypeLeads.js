@@ -37,7 +37,7 @@ const TypeLeads = () => {
               label: (
                 <Center>
                   <MapPin size={16} />
-                  <Box ml={10}>Propertys</Box>
+                  <Box ml={10}>Properties</Box>
                 </Center>
               ),
               value: 'LISTING'

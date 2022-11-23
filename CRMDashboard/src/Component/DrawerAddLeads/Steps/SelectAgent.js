@@ -38,8 +38,8 @@ const SelectAgent = ({ cssClass = null, useLabel = true, localOnChange = null, l
     return (
         <SelectUserLead
             value={get(localValue, ['id'], null) || get(selectedAgent, ['id'], null)}
-            labelSelect={useLabel ? "Select an Agent" : null}
-            placeholder='Agent Name'
+            labelSelect={useLabel ? "Assign an agent" : null}
+            placeholder='Search agent'
             typeDropdow='Avatar'
             isLoading={isLoading}
             isError={isError}

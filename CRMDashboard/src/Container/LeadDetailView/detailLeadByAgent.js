@@ -6,10 +6,13 @@ import { LOCAL_STORAGE } from "../../Utils/globalConstants";
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
 import useGetPersonalInfoLead from "./hooks/useGetPersonalInfoLead";
+import useGetInterested from './hooks/useGetInterested';
 
 import PersonalInfoLead from "./personalInfoLead";
 import CommentsTimeline from './commentsTimeline';
 import LeadInterested from './leadInterested';
+
+import get from 'lodash/get';
 
 const useStyles = createStyles((theme, _params) => ({
   container: {
@@ -50,6 +53,8 @@ const DetailLeadByAgent = ({ idAgent, idLead, isAdmin }) => {
   const { dataLead, isLoading, isSkeleton, allComments, refetch } =
     useGetPersonalInfoLead({ idAgent, idLead });
 
+    const { isSkeleton: skeletonInterested, dataInterested } = useGetInterested({ idAgent, idLead });  
+
   const routeBreadCrumbs = () => {
     localStorage.setItem(LOCAL_STORAGE.LEAD_DETAIL_ID, null);
     setRoute(ROUTES_NAMES.LEADS);
@@ -73,7 +78,7 @@ const DetailLeadByAgent = ({ idAgent, idLead, isAdmin }) => {
         <Breadcrumbs>{items}</Breadcrumbs>
         <SpringDiv delay={300} duration={300}>
           <Box className={classes.rowInfoAndTimeLine}>
-            <PersonalInfoLead dataLead={dataLead} isSkeleton={isSkeleton} />
+            <PersonalInfoLead dataLead={dataLead} serviceList={get(dataInterested, ["serviceList"], [])}  isSkeleton={isSkeleton} />
             <CommentsTimeline
               dataLead={dataLead}
               allComments={allComments}
@@ -87,7 +92,7 @@ const DetailLeadByAgent = ({ idAgent, idLead, isAdmin }) => {
           </Box>
         </SpringDiv>
         <SpringDiv delay={400} duration={300} fullHeight>
-          <LeadInterested idAgent={idAgent} idLead={idLead} />
+          <LeadInterested idAgent={idAgent} dataInterested={dataInterested} isSkeleton={skeletonInterested} />
         </SpringDiv>
       </Box>
     </SpringDiv>
