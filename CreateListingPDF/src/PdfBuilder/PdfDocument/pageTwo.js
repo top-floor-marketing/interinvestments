@@ -17,7 +17,6 @@ dayjs.extend(customParseFormat);
 const PageTwo = ({ listing, agent }) => {
 
     const description = removeTags(get(listing, ["listingData", "newDevelopment", "description"], ""));
-    // const status = removeTags(get(listing, ["listingData", "newDevelopment", "status"], ""));
 
     const styles = StyleSheet.create({
         page: {
@@ -29,7 +28,7 @@ const PageTwo = ({ listing, agent }) => {
         },
         containerPageTwo: {
             ...PADDING_FOR_PAGES,
-            height: (description.length > 550) ? "62%" : "50%",
+            height: (description.length > 550) ? (description.length > 900 ? "75%" : "62%") : "50%",
         },
         viewDescription: {
             fontWeight: 400,
@@ -39,7 +38,7 @@ const PageTwo = ({ listing, agent }) => {
             width: (description.length > 550) ? '90%' : "76%",
             height: "100%",
             fontFamily: FONT_FAMILY,
-            fontSize: (description.length > 550) ? "16px" : "22px",
+            fontSize: (description.length > 550) ? ((description.length > 700) ? "14px" : "16px") : "22px",
             display: "flex",
             flexDirection: "column",
             alignContent: "space-between",
@@ -61,7 +60,7 @@ const PageTwo = ({ listing, agent }) => {
         viewPrice: {
             position: "relative",
             width: "100%",
-            height: (description.length > 550) ? "38%" : "50%",
+            height: (description.length > 550) ? (description.length > 900 ? "25%" : "38%") : "50%",
         },
         imageRectangle: {
             objectFit: 'cover',
@@ -71,6 +70,7 @@ const PageTwo = ({ listing, agent }) => {
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             height: '100%',
+            width: '100%'
         },
         contentPrice: {
             width: "76%",
@@ -109,9 +109,9 @@ const PageTwo = ({ listing, agent }) => {
         }
     });
     const urlListing = get(listing, ["uri"], null);
-    const isMaxExceed = (get(listing, ["listingData", "newDevelopment", "description"], "").length > 650)
+    const isMaxExceed = (description.length > 1100);
     const estDate = dayjs(get(listing, ["listingData", "newDevelopment", "estimatedDateOfCompletion"], ""), ["DD-MM-YY"]).format("MM.YYYY");
-
+    
     return (
         <Page size="A4" style={styles.page} orientation={"landscape"}>
             <View style={styles.containerPageTwo}>

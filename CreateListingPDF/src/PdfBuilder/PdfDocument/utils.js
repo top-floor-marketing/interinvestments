@@ -44,16 +44,22 @@ const addParamsToUrl = (domainSite, agent, urlListing = '') => {
 }
 
 const removeTags = (str) => {
+
     if ((str === null) || (str === ''))
         return '';
-    else
-        str = str.toString().slice(0, 700);
+  
+    let stringEmpty = ''+str.trim();
+
+    stringEmpty = stringEmpty.slice(0, 3000);
 
     // Regular expression to identify HTML tags in 
     // the input string. Replacing the identified 
     // HTML tag with a null string.
-    const addLineBreak = decode(str.replace(/<\/p>/g, "\r\n"));
-    return decode(addLineBreak.replace(/(<([^>]+)>)/ig, ''));
+    const addLineBreak = stringEmpty.replace(/<\/p>/g, "\r\n");
+    const decodedString = decode(addLineBreak.replace(/(<([^>]+)>)/ig, '')).trim();
+
+    return decodedString.slice(0, 1200);
+
 }
 
 const PADDING_FOR_PAGES = {

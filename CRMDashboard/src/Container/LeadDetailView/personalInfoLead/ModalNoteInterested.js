@@ -41,7 +41,7 @@ const ModalNoteInterested = ({ tite, commentListing, commentService, serviceList
   return (
     <>
       <Modal
-        size={700}
+        size={"xl"}
         opened={opened}
         onClose={() => setOpened(false)}
       >
