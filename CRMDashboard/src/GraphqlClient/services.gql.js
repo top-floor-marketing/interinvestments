@@ -15,6 +15,7 @@ export const GET_SERVICES_FORM = gql`
 query iRServiceBy($iRServiceId: Int!) {
   iRServiceBy(iRServiceId: $iRServiceId) {
     databaseId
+    title
     buyers {
       areYouRelocatingToMiami
       areYouInterestedInNewConstructionOrResale
@@ -56,6 +57,14 @@ query iRServiceBy($iRServiceId: Int!) {
       moveInDate
       specialRequirementscomments
       whatIsYourBudget
+    }
+    List {
+      areYouLookingToSellOrRentYourProperty
+      fieldGroupName
+      ifRentingAreYouInterestedInManagementServices
+      message
+      propertyAddressOptional
+      whenWouldYouLikeToListYourProperty
     }
   }
 }

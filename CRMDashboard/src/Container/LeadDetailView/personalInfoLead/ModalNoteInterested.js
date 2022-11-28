@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import DOMPurify from "dompurify";
 // mantine dev
-import { Button, createStyles, Modal, Tabs, Text, Box, Group } from "@mantine/core";
+import { Button, createStyles, Modal, Text, Box, Group } from "@mantine/core";
 import { RichTextEditor } from "@mantine/rte";
 import { IconMapPin, IconListDetails } from "@tabler/icons";
 import { Notes } from "tabler-icons-react";
@@ -21,6 +21,7 @@ const useStyles = createStyles((theme, _params) => ({
   bodyModal: {
     display: "flex",
     flexDirection: "column",
+    minHeight: "200px",
     gap: theme.other.spacing.p4,
     paddingTop: theme.other.spacing.p4,
     svg: {
@@ -89,19 +90,30 @@ const ModalNoteInterested = ({ tite, commentListing, commentService, serviceList
           {
             (arrayServicePost)
             &&
-            <TabsServiceForms arrayServicePost={arrayServicePost} />
+            <>
+              <Group spacing="xs">
+                <IconListDetails size={20} /> <Text color="secondary">Services forms:</Text>
+              </Group>
+              <TabsServiceForms arrayServicePost={arrayServicePost} />
+            </>
           }
 
         </Box>
 
       </Modal>
-      <Button
-        onClick={() => setOpened(true)}
-        leftIcon={<Notes />}
-        className={classes.button}
-      >
-        {tite}
-      </Button>
+
+      {
+        (arrayServicePost || commentService || commentListing)
+        &&
+        <Button
+          onClick={() => setOpened(true)}
+          leftIcon={<Notes />}
+          className={classes.button}
+        >
+          {tite}
+        </Button>
+      }
+
     </>
   );
 };

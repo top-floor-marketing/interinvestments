@@ -26,7 +26,7 @@ const useStyles = createStyles((theme, _params) => ({
         flexDirection: "column",
         gap: theme.other.spacing.p4,
         marginBottom: theme.other.spacing.p4,
-        p : {
+        p: {
             margin: 0,
             fontSize: "16px",
             fontWeight: 700
@@ -203,14 +203,42 @@ const QUEMADO_DEFINICIONES_FORM_SERVICIOS = {
                 key: 'message',
                 type: 'text'
             },
-        ]
+        ],
+    "List": [
+        {
+            title: 'Are you looking to sell or rent your property?',
+            key: 'areYouLookingToSellOrRentYourProperty',
+            type: 'select'
+        },
+        {
+            title: 'If renting, are you interested in Management Services?',
+            key: 'ifRentingAreYouInterestedInManagementServices',
+            type: 'select'
+        },
+        {
+            title: 'When would you like to list your property?',
+            key: 'whenWouldYouLikeToListYourProperty',
+            type: 'text'
+        },
+        {
+            title: 'Property address (optional)',
+            key: 'propertyAddressOptional',
+            type: 'text'
+        },
+        {
+            title: 'Message',
+            key: 'message',
+            type: 'text'
+        },
+    ]
 }
 
 const TYPE_SERVICE = {
     BUYERS: "buyers",
     RENTERS: 'renters',
     COMMERCIAL: "commercial",
-    INVEST: "invest" // INCOME PROPERTIES
+    INVEST: "invest", // INCOME PROPERTIES,
+    LIST: "List"
 }
 
 const TabsServiceFormsBody = ({ idService, tabKey }) => {
@@ -232,10 +260,26 @@ const TabsServiceFormsBody = ({ idService, tabKey }) => {
 
                 if (get(getResponse, ["databaseId"], null)) {
 
+
+                    /*
+                    let splitTitle = getResponse?.title || '';
+                    let serviceName = '';
+
+                    try {
+                        splitTitle = splitTitle.split("–")
+
+                        if(splitTitle?.length > 1) {
+                            serviceName = splitTitle[splitTitle.length-1].trim();
+                        }
+                    } catch(e) {
+
+                    } */
+
                     const buyers = get(getResponse, ["buyers"], null);
                     const commercial = get(getResponse, ["commercial"], null);
                     const invest = get(getResponse, ["invest"], null);
                     const renters = get(getResponse, ["renters"], null);
+                    const list = get(getResponse, ["List"], null);
 
                     const tabDoom = document.getElementById(tabKey);
 
@@ -255,7 +299,7 @@ const TabsServiceFormsBody = ({ idService, tabKey }) => {
                         tabDoom.innerText = "COMMERCIAL";
                         return;
                     }
-                    if (invest?.areYouInterestedInPropertyManagementServices || invest?.areYouLookingForAShortTermRentalairbnbFriendlyProperty || invest?.message) {
+                    if (invest?.areYouInterestedInPropertyManagementServices || invest?.areYouLookingForAShortTermRentalairbnbFriendlyProperty) {
                         setTypeService({
                             name: TYPE_SERVICE.INVEST,
                             data: invest
@@ -269,6 +313,14 @@ const TabsServiceFormsBody = ({ idService, tabKey }) => {
                             data: renters
                         });
                         tabDoom.innerText = "RENTERS";
+                        return;
+                    }
+                    if (list?.areYouLookingToSellOrRentYourProperty || list?.ifRentingAreYouInterestedInManagementServices || list?.propertyAddressOptional || list?.whenWouldYouLikeToListYourProperty) {
+                        setTypeService({
+                            name: TYPE_SERVICE.LIST,
+                            data: list
+                        });
+                        tabDoom.innerText = "LIST";
                         return;
                     }
 
@@ -291,9 +343,9 @@ const TabsServiceFormsBody = ({ idService, tabKey }) => {
                     QUEMADO_DEFINICIONES_FORM_SERVICIOS[typeService.name].map((value, index) => {
                         return <div key={index} className={classes.itemService}>
                             <p>{value.title}</p>
-                            <span style={{marginLeft: "10px"}}>
+                            <span style={{ marginLeft: "10px" }}>
                                 {
-                                typeService.data[value.key] || "N/A"
+                                    typeService.data[value.key] || "N/A"
                                 }</span>
                         </div>
                     })
