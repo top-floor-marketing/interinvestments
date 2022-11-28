@@ -33,8 +33,6 @@ function App() {
     const isAgentUser = (tokenCrm && userCrm);
     const isValidUrl = (isShared && idInUrl);
 
-    // btn-service
-
     try {
       if (isValidUrl) {
         setTimeout(() => {
@@ -47,7 +45,6 @@ function App() {
                 x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
               } else {
                 x.href = `/agent/?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
-                // x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
                 x["innerText"] = (isAgentUser) ? 'My Bio' : x["innerText"];
               }
             });
@@ -75,7 +72,7 @@ function App() {
               x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
             });
           }
-        }, 3000)
+        }, 1500);
 
       }
 
