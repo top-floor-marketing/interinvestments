@@ -33,6 +33,8 @@ function App() {
     const isAgentUser = (tokenCrm && userCrm);
     const isValidUrl = (isShared && idInUrl);
 
+    // btn-service
+
     try {
       if (isValidUrl) {
         setTimeout(() => {
@@ -65,7 +67,16 @@ function App() {
             });
           }
         }, 1000)
+
+        setTimeout(() => {
+          const arrayMenu = document.querySelectorAll(".btn-service");
+          
+          console.log("arrayMenu ", arrayMenu);
+        }, 3000)
+
       }
+
+      
     } catch(e) {
       console.log('shared = '+e);
     }
