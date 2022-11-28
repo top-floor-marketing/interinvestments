@@ -69,9 +69,12 @@ function App() {
         }, 1000)
 
         setTimeout(() => {
-          const arrayMenu = document.querySelectorAll(".btn-service");
-          
-          console.log("arrayMenu ", arrayMenu);
+          const arrayService = document.querySelectorAll(".btn-service");
+          if(!isEmpty(arrayService)) {
+            arrayService.forEach((x) => {
+              x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
+            });
+          }
         }, 3000)
 
       }
