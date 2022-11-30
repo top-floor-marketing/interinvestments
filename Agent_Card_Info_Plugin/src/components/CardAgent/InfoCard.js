@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 // mantine
 import { Text, Box, Image } from "@mantine/core";
-import { Mail, Phone } from 'tabler-icons-react';
+import { Mail, Phone } from "tabler-icons-react";
 import DOMPurify from "dompurify";
 // styles
 import styles from "./styles.ca.module.scss";
@@ -26,12 +26,12 @@ const InfoCard = (props) => {
   });
 
   const openExternalApp = (type) => {
-    if(type === 'email' && refEmail?.current) {
+    if (type === "email" && refEmail?.current) {
       refEmail.current.click();
-    } else if(refPhone?.current) {
+    } else if (refPhone?.current) {
       refPhone.current.click();
     }
-  }
+  };
 
   return (
     <>
@@ -64,14 +64,18 @@ const InfoCard = (props) => {
         className={styles.contentCArdAgent}
       ></Box>
       <Box className={styles.contactAgent}>
-        <Box className="flex flex-row gap-2 mb-4 items-center cursor-pointer" onClick={() => openExternalApp('email')} >
+        <Box
+          data-aos-once="true"
+          data-aos-duration="900"
+          data-aos-delay="1300"
+          data-aos="fade-left"
+          className="flex flex-row gap-2 mb-4 items-center cursor-pointer"
+          onClick={() => openExternalApp("email")}
+        >
           <Mail />
           <Text
+            className="!lowercase"
             ref={refEmail}
-            data-aos-once="true"
-            data-aos-duration="900"
-            data-aos-delay="1300"
-            data-aos="fade-left"
             component="a"
             href={`mailto:${dataAgent?.email}`}
           >
@@ -79,16 +83,20 @@ const InfoCard = (props) => {
           </Text>
         </Box>
 
-        <Box className="flex flex-row gap-2 items-center cursor-pointer" onClick={() => openExternalApp('phone')}>
+        <Box
+          data-aos-once="true"
+          data-aos-duration="900"
+          data-aos-delay="1500"
+          data-aos="fade-left"
+          className="flex flex-row gap-2 items-center cursor-pointer"
+          onClick={() => openExternalApp("phone")}
+        >
           {dataAgent?.phone && (
             <>
               <Phone />
               <Text
+                className="!lowercase"
                 ref={refPhone}
-                data-aos-once="true"
-                data-aos-duration="900"
-                data-aos-delay="1500"
-                data-aos="fade-left"
                 component="a"
                 href={`tel:${dataAgent?.phone}`}
               >
@@ -97,7 +105,6 @@ const InfoCard = (props) => {
             </>
           )}
         </Box>
-
       </Box>
       <Box className={styles.containerSocialMedia}>
         {startsWith(dataAgent.facebook, "https") && (
