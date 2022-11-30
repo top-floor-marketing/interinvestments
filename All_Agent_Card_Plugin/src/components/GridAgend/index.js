@@ -1,44 +1,63 @@
-import React from 'react'
+import React from "react";
 // components
-import CardAgent from './CardAgent'
-import CardSkeleton from './CardSkeleton'
+import CardSkeleton from "./CardSkeleton";
+import GridVirtualizerVariable from "../../components/VirtualContain";
 // mantine
-import { Box } from '@mantine/core';
+import { Box } from "@mantine/core";
+import { useElementSize } from "@mantine/hooks";
 // styles
-import styles from './styles.GA.module.scss'
+import styles from "./styles.GA.module.scss";
 
 const GridAgend = ({ listAgent, isLoading }) => {
+  const { ref: refParentBox, width: widthParent } = useElementSize();
 
-    //console.log('listAgent', listAgent)
-
-    if (isLoading) {
-        return (
-            <Box className={styles.ContainerGridAllAGent}>
-                <CardSkeleton />
-                <CardSkeleton />
-                <CardSkeleton />
-                <CardSkeleton />
-            </Box>
-        )
+  const columnsVirtual = (widthContainer) => {
+    if (widthContainer >= 640 && widthContainer <= 770) {
+      return 2;
     }
 
-    if (listAgent.length === 0) {
-        return (
-            <Box className={styles.ContainerGridAllAGent}>
-                <p className='col-span-4 text-center'>no data</p>
-            </Box>
-        )
+    if (widthContainer >= 771 && widthContainer < 1265) {
+      return 3;
     }
 
-    return (
-        <Box className={styles.ContainerGridAllAGent}>
-            {
-                listAgent.map((value, index) => (
-                    <CardAgent index={index} data={{ ...value }} key={index} />
-                ))
-            }
+    if (widthContainer >= 1265) {
+      return 4;
+    }
+
+    return 1;
+  };
+
+  const columns = columnsVirtual(widthParent);
+
+  return (
+    <Box
+      ref={refParentBox}
+      className={
+        isLoading ? styles.ContainerGridSkeleton : styles.ContainerGridAllAGent
+      }
+    >
+      {isLoading ? (
+        <>
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+        </>
+      ) : listAgent.length === 0 ? (
+        <Box className={styles.ContainerGridSkeleton}>
+          <p className="col-span-4 text-center">no data</p>
         </Box>
-    )
-}
+      ) : (
+        <GridVirtualizerVariable
+          widthParent={widthParent}
+          data={listAgent}
+          parentRef={refParentBox}
+          rows={Math.round(listAgent.length / columns)}
+          columns={columns}
+        />
+      )}
+    </Box>
+  );
+};
 
-export default GridAgend
+export default GridAgend;
