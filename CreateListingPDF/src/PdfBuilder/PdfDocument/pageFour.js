@@ -63,6 +63,7 @@ const PageFour = ({ listing, agent }) => {
             paddingRight: "8px"
         },
         textRowDataInfo: {
+            flex: 1,
             fontWeight: 'normal',
             fontSize: "16px",
         }

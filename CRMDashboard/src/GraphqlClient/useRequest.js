@@ -64,14 +64,15 @@ const useQueryHelper = (props) => {
       try {
         return await client.request({ document: gql, variables, requestHeaders, signal });
       } catch (error) {
-        console.log(`query = ${name}`, error);
         const errorParse = JSON.parse(JSON.stringify(error, undefined, 2));
-        isErrorResponse = get(errorParse, ["response", "errors", "0", "debugMessage"], null);
+        console.log("error ------ > ", errorParse);
+        isErrorResponse = get(errorParse, ["response", "errors", "0", "debugMessage"], null) || get(errorParse, ["response", "errors", "0", "message"], null);
       }
+      
       if(isEmpty(isErrorResponse)) {
         throw new Error("error => ");
       }
-      if (isErrorResponse?.includes('invalid-jwt')) {
+      if (isErrorResponse?.includes('invalid-jwt') || isErrorResponse?.includes('invalid-secret-key') || isErrorResponse?.includes('token')) {
         try {
           const refreshResponse = await requestNewToken();
           if (refreshResponse) {

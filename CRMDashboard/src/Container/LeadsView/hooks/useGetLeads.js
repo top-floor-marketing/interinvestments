@@ -58,6 +58,7 @@ const useGetLeads = () => {
     gql: agentType === USER_ROLES_CRM.ADMIN ? ALL_LEADS_PIPELINE : GET_LEADS_LIST_FOR_AGENT,
     config: {
       onSuccess: (response) => {
+        
         if (agentType === USER_ROLES_CRM.ADMIN)
           setAllLeads(formatResponseFullAgents(response, databaseId));
         else

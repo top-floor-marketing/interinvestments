@@ -260,8 +260,6 @@ const TabsServiceFormsBody = ({ idService, tabKey }) => {
 
                 if (get(getResponse, ["databaseId"], null)) {
 
-
-                    /*
                     let splitTitle = getResponse?.title || '';
                     let serviceName = '';
 
@@ -269,11 +267,11 @@ const TabsServiceFormsBody = ({ idService, tabKey }) => {
                         splitTitle = splitTitle.split("–")
 
                         if(splitTitle?.length > 1) {
-                            serviceName = splitTitle[splitTitle.length-1].trim();
+                            serviceName = splitTitle[splitTitle.length-1].trim().toLowerCase();
                         }
                     } catch(e) {
 
-                    } */
+                    }
 
                     const buyers = get(getResponse, ["buyers"], null);
                     const commercial = get(getResponse, ["commercial"], null);
@@ -283,7 +281,7 @@ const TabsServiceFormsBody = ({ idService, tabKey }) => {
 
                     const tabDoom = document.getElementById(tabKey);
 
-                    if (buyers?.areYouRelocatingToMiami || buyers?.styleOfArchitecture || buyers?.desiredLocations || buyers?.doYouHaveAPreferenceInViews) {
+                    if (serviceName.includes("buyers")) {
                         setTypeService({
                             name: TYPE_SERVICE.BUYERS,
                             data: buyers
@@ -291,7 +289,7 @@ const TabsServiceFormsBody = ({ idService, tabKey }) => {
                         tabDoom.innerText = "BUYERS";
                         return;
                     }
-                    if (commercial?.lookingToBuyOrLease || commercial?.specialRequirementsnotes || commercial?.typesOfCommercialProperties || commercial?.aproximateSize) {
+                    if (serviceName.includes("commercials")) {
                         setTypeService({
                             name: TYPE_SERVICE.COMMERCIAL,
                             data: commercial
@@ -299,7 +297,7 @@ const TabsServiceFormsBody = ({ idService, tabKey }) => {
                         tabDoom.innerText = "COMMERCIAL";
                         return;
                     }
-                    if (invest?.areYouInterestedInPropertyManagementServices || invest?.areYouLookingForAShortTermRentalairbnbFriendlyProperty) {
+                    if (serviceName.includes("income properties") || serviceName.includes("invest")) {
                         setTypeService({
                             name: TYPE_SERVICE.INVEST,
                             data: invest
@@ -307,7 +305,7 @@ const TabsServiceFormsBody = ({ idService, tabKey }) => {
                         tabDoom.innerText = "INCOME PROPERTIES";
                         return;
                     }
-                    if (renters?.creditHistory || renters?.desiredLocation || renters?.howLongOfALeaseAreYouLookingFor || renters?.howManyBedroomsAreYouLookingFor || renters?.whatIsYourBudget) {
+                    if (serviceName.includes("renters")) {
                         setTypeService({
                             name: TYPE_SERVICE.RENTERS,
                             data: renters
@@ -315,7 +313,7 @@ const TabsServiceFormsBody = ({ idService, tabKey }) => {
                         tabDoom.innerText = "RENTERS";
                         return;
                     }
-                    if (list?.areYouLookingToSellOrRentYourProperty || list?.ifRentingAreYouInterestedInManagementServices || list?.propertyAddressOptional || list?.whenWouldYouLikeToListYourProperty) {
+                    if (serviceName.includes("list")) {
                         setTypeService({
                             name: TYPE_SERVICE.LIST,
                             data: list

@@ -8,7 +8,7 @@ const URL_QUERY_ID_NAME = "agent-id";
 
 const ViewLandingListing = (props) => {
 
-  const fullUrl = `${props.uri}?${URL_QUERY_ID_NAME}=${props.idAgent}&shared=true`;
+  const fullUrl = (props.idAgent) ? `${props.uri}?${URL_QUERY_ID_NAME}=${props.idAgent}&shared=true` : props.uri;
 
   return (
     <Tooltip multiline

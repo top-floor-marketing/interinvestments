@@ -9,6 +9,7 @@ import { CustomIconTooltip } from "../../../Component/ActionButtons";
 
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
+import isArray from "lodash/isArray";
 
 const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
@@ -51,6 +52,8 @@ const useStyles = createStyles((theme, _params) => ({
 const PersonalInfoLead = ({ isSkeleton, dataLead, serviceList }) => {
   const { classes } = useStyles();
 
+  const mainPhone = isArray(get(dataLead, ["phone"], "")) ? get(dataLead, ["phone", "0"], "") : get(dataLead, ["phone"], "");
+
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Paper className={classes.cardContainer}>
@@ -91,21 +94,21 @@ const PersonalInfoLead = ({ isSkeleton, dataLead, serviceList }) => {
             {get(dataLead, ["email"], "")}
           </Text>
         </Box>
-        {!isEmpty(get(dataLead, ["phone"], "")) && (
+        {!isEmpty(mainPhone) && (
           <Box className={classes.infoItem}>
             <CustomIconTooltip
               size={24}
               color="secondary"
-              labelTooltip={get(dataLead, ["phone"], "")}
+              labelTooltip={mainPhone}
             >
               <Phone />
             </CustomIconTooltip>
             <Text transform="capitalize" size="14px" component="span">
-              {get(dataLead, ["phone"], "")}
+              {mainPhone}
             </Text>
             <IconOpenWhatsApp
-              phoneNumber={get(dataLead, ["phone", "0"], "")}
-              labelTooltip={`Send message to: ${get(dataLead, ["phone"], "")}`}
+              phoneNumber={mainPhone}
+              labelTooltip={`Send message to: ${mainPhone}`}
             />
           </Box>
         )}

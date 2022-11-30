@@ -208,6 +208,7 @@ const ItemListingVirtual = (props) => {
     name: "transfer-agents-leads",
     gql: MUTATION_LEADS_ASSIGNMENT,
     config: {
+      cacheTime: 0,
       onSuccess: async () => {
         // parent leads view refetch data
         refetch()
@@ -284,45 +285,64 @@ const ItemListingVirtual = (props) => {
               }))
             })
             await Promise.all(allMutations);
+            return null;
           }
-          else
-            // add new agent to lead
-            if (!removeAgents.length && newAgents.length > 0) {
-              const allMutations = [];
-              forEach(newAgents, (e) => {
-                allMutations.push(fetchTransferAgent({
-                  variables: {
-                    input: {
-                      newAgentId: e,
-                      userLead: getIdLead()
-                    }
+
+          // only new agents for lead
+          if(newAgents.length && removeAgents.length !== newAgents.length) {
+            const allMutations = []
+            forEach(newAgents, (e, index) => {
+              allMutations.push(fetchTransferAgent({
+                variables: {
+                  input: {
+                    lastAgentId: null,
+                    newAgentId: e,
+                    userLead: getIdLead()
                   }
-                }))
-              })
-              await Promise.all(allMutations);
-            }
-            // same length for remove and new agents 
-            else if (removeAgents.length && newAgents.length && removeAgents.length === newAgents.length) {
+                }
+              }))
+            })
+            await Promise.all(allMutations);
+            return null;
+          }
 
-              const allMutations = []
-              forEach(newAgents, (e, index) => {
-                allMutations.push(fetchTransferAgent({
-                  variables: {
-                    input: {
-                      lastAgentId: removeAgents[index],
-                      newAgentId: e,
-                      userLead: getIdLead()
-                    }
+          // only removeAgents for lead and assign office
+          if(removeAgents.length && removeAgents.length !== newAgents.length) {
+            const allMutations = []
+            forEach(removeAgents, (e, index) => {
+              allMutations.push(fetchTransferAgent({
+                variables: {
+                  input: {
+                    lastAgentId: e,
+                    newAgentId: databaseId,
+                    userLead: getIdLead()
                   }
-                }))
-              })
+                }
+              }))
+            })
+            await Promise.all(allMutations);
+            return null;
+          }
 
-              await Promise.all(allMutations);
-
-            }
+          // same length removeAgents and newAgents
+          if (removeAgents.length && newAgents.length && removeAgents.length === newAgents.length) {
+            const allMutations = []
+            forEach(newAgents, (e, index) => {
+              allMutations.push(fetchTransferAgent({
+                variables: {
+                  input: {
+                    lastAgentId: removeAgents[index],
+                    newAgentId: e,
+                    userLead: getIdLead()
+                  }
+                }
+              }))
+            })
+            await Promise.all(allMutations);
+          }
 
         }
-      },
+      }
     });
   }
 

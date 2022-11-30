@@ -23,11 +23,17 @@ const IconOpenWhatsApp = (props) => {
   const { classes, cx } = useStyles();
 
   const onOpenWhatsAppWeb = () => {
+    console.log("props.phoneNumber ", props.phoneNumber);
+    console.log("test ", props.phoneNumber.replace(/\D/g, ""));
     if (props.phoneNumber)
       window.open(`https://wa.me/${props.phoneNumber.replace(/\D/g, "")}`, '_blank').focus();
     else if (props.otherPhoneNumber)
       window.open(`https://wa.me/${props.otherPhoneNumber.replace(/\D/g, "")}`, '_blank').focus();
+
   }
+
+  if (!props.phoneNumber && !props.otherPhoneNumber)
+    return null
 
   return (
     <Tooltip multiline gutter={10} label={props.labelTooltip} className={props.className} color="success">

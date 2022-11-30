@@ -63,16 +63,18 @@ const PageSix = ({ listing, agent }) => {
             paddingRight: "8px"
         },
         textRowDataInfo: {
+            flex: 1,
+            wordBreak: "normal",
             fontWeight: 'normal',
             fontSize: "16px",
         }
     });
 
     const specs = {
-        bath: parseInt(get(listing, ["listingData", "newDevelopment", "finishes", "bathrooms"], null)),
+        bath: get(listing, ["listingData", "newDevelopment", "finishes", "bathrooms"], null),
         appliances: get(listing, ["listingData", "newDevelopment", "finishes", "appliances"], null),
         kitchenCabinets: get(listing, ["listingData", "newDevelopment", "finishes", "kitchenCabinets"], null),
-        flooring: parseInt(get(listing, ["listingData", "newDevelopment", "finishes", "flooring"], null)),
+        flooring: get(listing, ["listingData", "newDevelopment", "finishes", "flooring"], null),
     }
 
     return (
@@ -117,7 +119,7 @@ const PageSix = ({ listing, agent }) => {
                                 Kitchen Cabinets
                                 </Text>
                                 <Text style={styles.textRowDataInfo}>
-                                    {specs.kitchenCabinets}
+                                    {specs.kitchenCabinets} asd asd asd asdasd
                                 </Text>
                             </View>
                         }
