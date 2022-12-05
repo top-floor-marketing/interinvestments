@@ -53,7 +53,7 @@ const CollapseListing = (props) => {
                     value: value.flooring
                 },
                 {
-                    title: 'kitchenCabinets',
+                    title: 'Kitchen Cabinets',
                     value: value.kitchenCabinets
                 },
             )

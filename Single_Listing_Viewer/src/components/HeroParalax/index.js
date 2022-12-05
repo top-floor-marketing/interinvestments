@@ -24,7 +24,7 @@ const HeroParalax = (props) => {
         style={{ backgroundImage: `url(${getBackgroundImage()})` }}
         className={styles.BoxImagenParalax}
       >
-        <div style={{ zIndex: 1 }} className={styles.containerParalax}>
+        <Box style={{ zIndex: 1 }} className={styles.containerParalax}>
           <Text
             data-aos-once="true"
             data-aos-duration="2000"
@@ -63,7 +63,7 @@ const HeroParalax = (props) => {
               />
             </Button>
           </Text>
-        </div>
+        </Box>
       </Box>
     </Box>
   );
