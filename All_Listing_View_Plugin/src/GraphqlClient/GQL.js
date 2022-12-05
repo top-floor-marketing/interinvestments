@@ -13,12 +13,12 @@ export const LISTINGS_CATEGORY = gql`
 
 export const ALL_NEIGHBORHOODS = gql`
   query neighborhoods {
-    neighborhoods {
+    neighborhoods(first: 100) {
       nodes{
         name
         databaseId
+      }
     }
-  }
   }
 `
 export const ACF_OPTIONS_GlOBAL_OPTIONS = gql`
