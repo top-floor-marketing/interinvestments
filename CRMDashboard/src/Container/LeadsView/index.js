@@ -45,8 +45,6 @@ const LeadsView = () => {
   const { isSkeleton, isAdminLeadView,  isLoading, selectStateProps, searchProps, totalData, allLeads, refetch } =
     useGetLeads();
 
-    console.log("allLeads ", allLeads);
-
   return isSkeleton ? (
     <SkeletonLeads />
   ) : (

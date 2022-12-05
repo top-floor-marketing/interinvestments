@@ -47,6 +47,11 @@ const QUEMADO_DEFINICIONES_FORM_SERVICIOS = {
             type: 'text'
         },
         {
+            title: 'Type of financing',
+            key: 'typeOfFinancing',
+            type: 'text'
+        },
+        {
             title: 'Desired Locations?',
             key: 'desiredLocations',
             type: 'text'
@@ -96,6 +101,7 @@ const QUEMADO_DEFINICIONES_FORM_SERVICIOS = {
             key: 'specialRequirementsnotes',
             type: 'text'
         },
+        
     ],
     'renters': [
         {

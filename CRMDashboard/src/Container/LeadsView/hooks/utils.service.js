@@ -63,7 +63,6 @@ const formatResponseFullAgents = (response, adminId) => {
 const filterByState = (value, data, statusUserLead, isAdminLeadView) => {
   if (!value) return data;
   const getState = get(filter(statusUserLead, (val) => val?.value === value), ["0"], null);
-  console.log(data)
   if (isAdminLeadView)
     return filter(data, (val) =>
       findIndex(val?.allAgentsStatus, (valAgents) => {
