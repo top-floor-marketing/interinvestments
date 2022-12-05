@@ -44,8 +44,6 @@ const MapListing = (props) => {
     }
   }, [dataListing]);
 
-  console.log("asfsafa", dataListing[0].listingData.newDevelopment);
-
   return (
     <Box className="relative w-full h-full">
       <LoadingOverlay
