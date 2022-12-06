@@ -42,14 +42,8 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         paddingRight: "5px !important",
         width: "100%",
         display: "grid",
-        //height: '100%',
-        maxHeight: "75vh",
-        [theme.fn.smallerThan(750)]: {
-            maxHeight: "70vh",
-        },
-        [theme.fn.largerThan(1400)]: {
-            maxHeight: "85vh",
-        },
+        maxHeight: "1500px",
+        height: "calc(90vh - 100px)",
         gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
         gap: theme.other.spacing.p4,
         marginBottom: theme.other.spacing.p4,
@@ -59,6 +53,10 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         ".mantine-RichTextEditor-toolbar": {
             display: "none !important"
         }
+    },
+    buttonSubmit: {
+        marginTop: "auto !important",
+        marginLeft: "auto !important"
     },
     avatarHover: {
         ref: getRef('avatarHover'),

@@ -100,8 +100,7 @@ const QUEMADO_DEFINICIONES_FORM_SERVICIOS = {
             title: 'Special requirements/notes',
             key: 'specialRequirementsnotes',
             type: 'text'
-        },
-        
+        },  
     ],
     'renters': [
         {

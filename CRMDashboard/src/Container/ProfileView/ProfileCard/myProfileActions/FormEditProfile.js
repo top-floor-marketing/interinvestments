@@ -3,9 +3,10 @@ import React, { useRef, useState } from 'react'
 import AvatarInput from './AvatarInput'
 import { notificationError } from "../../../../Component/Notifications";
 // mantine
-import { Box, Text, Group, Button, ScrollArea, TextInput, FileInput } from "@mantine/core";
+import { Box, Text, Divider, Button, ScrollArea, TextInput, FileInput } from "@mantine/core";
 import { useForm, joiResolver } from '@mantine/form';
 import { RichTextEditor } from '@mantine/rte';
+import {Edit} from "tabler-icons-react";
 // utils
 import { get } from "lodash";
 // echema
@@ -13,15 +14,11 @@ import schemaEditAgent from './eschemaEditProfile'
 // styles 
 import useStyles from './stylesProfileAction'
 
-//import { USER_ROLES_CRM } from '../../../../GlobalStore/utils';
-//import useClientGlobalStore from '../../../../GlobalStore/useClientGlobalStore';
-
 const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
     const { classes } = useStyles();
     const refInputAvatar = useRef(null);
     const [tempAvatar64, setTempAvatar64] = useState(null);
     const [newAvatarFile, setnewAvatarFile] = useState(null);
-    // const { state: { user: { infoUser: { agentType } } } } = useClientGlobalStore();
 
     const form = useForm({
         validate: joiResolver(schemaEditAgent),
@@ -83,7 +80,8 @@ const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
 
     return (
         <>
-            <form onSubmit={form.onSubmit((values) => validationSumitForm(values))}>
+            <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={form.onSubmit((values) => validationSumitForm(values))}>
+
                 <ScrollArea offsetScrollbars scrollbarSize={6}>
                     <Box className={classes.containerForm}>
                         <AvatarInput
@@ -199,9 +197,18 @@ const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
                     </Box>
                 </ScrollArea>
 
-                <Group position="right" mt="16px" pr="11px">
-                    <Button color="secondary" disabled={isLoading} loading={isLoading} type="submit">Save</Button>
-                </Group>
+                <Divider style={{marginTop: '16px', marginBottom: '16px'}} />
+
+                <Button
+                    className={classes.buttonSubmit}
+                    color="secondary"
+                    disabled={isLoading}
+                    loading={isLoading}
+                    leftIcon={<Edit size={14} />}
+                    type="submit">
+                    Save
+                </Button>
+
             </form>
         </>
     )

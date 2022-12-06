@@ -9,7 +9,7 @@ import { Edit } from 'tabler-icons-react';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
     containerDrawer: {
-        backgroundColor: theme.colors.white[0]
+        backgroundColor: theme.colors.white[0],
     },
     boxTitle: {
         display: "flex",
