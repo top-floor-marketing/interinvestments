@@ -1,23 +1,23 @@
-.containerInfinite > *  {
-    scrollbar-width: thin !important;
-    scrollbar-color: #a4a4a0 #eaeae9 !important;
+.containerInfinite > * {
+  scrollbar-width: thin !important;
+  scrollbar-color: #a4a4a0 #eaeae9 !important;
 }
 
 /* Works on Chrome, Edge, and Safari */
 .containerInfinite::-webkit-scrollbar {
-    width: 12px !important;
+  width: 12px !important;
 }
-  
-  .containerInfinite::-webkit-scrollbar-track {
-    background: #eaeae9 !important;
-  }
-  
-  .containerInfinite::-webkit-scrollbar-thumb {
-    background-color: #a4a4a0 !important;
-    border-radius: 20px !important;
-    border: 3px solid #a4a4a0 !important;
-    -webkit-border-radius: 20px !important;
-    -moz-border-radius: 20px !important;
-    -ms-border-radius: 20px !important;
-    -o-border-radius: 20px !important;
+
+.containerInfinite::-webkit-scrollbar-track {
+  background: #eaeae9 !important;
+}
+
+.containerInfinite::-webkit-scrollbar-thumb {
+  background-color: #a4a4a0 !important;
+  border-radius: 20px !important;
+  border: 3px solid #a4a4a0 !important;
+  -webkit-border-radius: 20px !important;
+  -moz-border-radius: 20px !important;
+  -ms-border-radius: 20px !important;
+  -o-border-radius: 20px !important;
 }
