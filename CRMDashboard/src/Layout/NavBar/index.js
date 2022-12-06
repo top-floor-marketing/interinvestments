@@ -29,7 +29,7 @@ const DOMAIN_URL =
     ? process.env.REACT_APP_DOMAIN_PROD
     : process.env.REACT_APP_DOMAIN_DEV;
 
-const NavBarDashboard = ({ opened }) => {
+const NavBarDashboard = ({ opened, setOpened }) => {
 
   const {
     actions: { setRoute },
@@ -82,6 +82,7 @@ const NavBarDashboard = ({ opened }) => {
     perfilContainer: {
       className: classes.perfilContainer,
       onClick: () => {
+        setOpened(false);
         setRoute(ROUTES_NAMES.PROFILE);
       },
     },
@@ -93,6 +94,7 @@ const NavBarDashboard = ({ opened }) => {
       return {
         className: getClassItemNav(name),
         onClick: () => {
+          setOpened(false);
           if (uriForLogo !== '') window.open(uriForLogo, '_blank');
           else setRoute(name);
         },

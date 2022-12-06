@@ -23,7 +23,7 @@ const DashboardLayout = (props) => {
     <AppShell
       fixed
       padding="0"
-      navbar={<Navbar opened={opened} />}
+      navbar={<Navbar opened={opened}  setOpened={setOpened} />}
       header={<Header opened={opened} setOpened={setOpened} />}
     >
       <Box className={classes.boxContainer}>
