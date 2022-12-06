@@ -43,12 +43,16 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         width: "100%",
         display: "grid",
         maxHeight: "1500px",
-        height: "calc(88vh - 100px)",
+        height: "calc(85vh - 100px)",
+        [`${theme.fn.largerThan(1600)}`]: {
+            height: "calc(90vh - 100px)",
+        },
         gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
         gap: theme.other.spacing.p4,
         marginBottom: theme.other.spacing.p4,
         [`${theme.fn.smallerThan(750)}`]: {
             gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
+            height: "calc(80vh - 100px)",
         },
         ".mantine-RichTextEditor-toolbar": {
             display: "none !important"

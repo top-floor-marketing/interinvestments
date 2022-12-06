@@ -39,6 +39,8 @@ const NavBarDashboard = ({ opened, setOpened }) => {
     },
   } = useClientGlobalStore();
 
+  const matches = useMediaQuery('(max-width: 600px)');
+
   const { classes, cx } = useStyles();
 
   const is2XlScreen = useMediaQuery('(min-width: 1500px)');
@@ -158,7 +160,7 @@ const NavBarDashboard = ({ opened, setOpened }) => {
               );
           })}
         </Navbar.Section>
-        <Navbar.Section>
+        <Navbar.Section style={{ marginBottom: (matches) ? "100px" : "0px" }}>
           <Box {..._allProps.perfilContainer}>
             {routeActive === ROUTES_NAMES.PROFILE && (
               <div className={classes.activeRoute} />

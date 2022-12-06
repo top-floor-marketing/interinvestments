@@ -77,6 +77,9 @@ export default createStyles((theme, _params, getRef) => ({
     marginTop: "auto",
     alignSelf: "flex-end",
     borderTop: `1px solid ${theme.colors.gray[2]}`,
+    [theme.fn.smallerThan("600px")]: {
+      borderBottom: `1px solid ${theme.colors.gray[2]}`,
+    },
     "&:hover": {
       cursor: "pointer",
       [`&:hover .${getRef("avatarFilter")}`]: {

@@ -9,6 +9,8 @@ import {
   createStyles,
 } from "@mantine/core";
 
+import { useMediaQuery } from '@mantine/hooks';
+
 import LogoInter from "../../Assets/logo-inter.svg";
 
 import { LogoutIcon } from "../../Component/ActionButtons";
@@ -92,6 +94,8 @@ const HeaderDashboard = ({ opened, setOpened }) => {
 
   const { state: { user: { infoUser: { databaseId } } } } = useClientGlobalStore();
 
+  const matches = useMediaQuery('(max-width: 600px)');
+
   const theme = useMantineTheme();
   const { classes } = useStyles();
 
@@ -104,7 +108,8 @@ const HeaderDashboard = ({ opened, setOpened }) => {
   }
 
   return (
-    <Header className={classes.headerContainer} height={80}>
+    <Header className={classes.headerContainer} height={matches ? 50 : 80 }>
+
       <Box className={classes.boxContainer}>
         <MediaQuery largerThan="lg" styles={{ display: "none" }}>
           <Burger
