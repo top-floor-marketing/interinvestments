@@ -12,11 +12,22 @@ export const LISTINGS_CATEGORY = gql`
 }`
 
 export const ALL_NEIGHBORHOODS = gql`
-  query neighborhoods {
+  query neightborhoodslistings {
     neighborhoods(first: 100) {
-      nodes{
+      nodes {
+        id
         name
-        databaseId
+        contentNodes {
+          nodes {
+            ... on Listing {
+              listingCategories {
+                nodes {
+                  name
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
