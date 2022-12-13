@@ -15,7 +15,7 @@ export const ALL_NEIGHBORHOODS = gql`
   query neightborhoodslistings {
     neighborhoods(first: 100) {
       nodes {
-        id
+        databaseId
         name
         contentNodes {
           nodes {

@@ -26,6 +26,7 @@ const FiltersListings = () => {
   }
 
   // console.log("dataNei", dataNei);
+  // console.log("neighborhood", neighborhood);
 
   return (
     <Box className={styles.ContainerFilters}>
