@@ -1,6 +1,5 @@
 import { gql } from "graphql-request";
 
-
 export const LISTINGS_CATEGORY = gql`
   query listingsCategory($first: Int) {
     listingCategories(first: $first) {
@@ -9,29 +8,17 @@ export const LISTINGS_CATEGORY = gql`
         databaseId
       }
     }
-}`
+  }
+`;
 
 export const ALL_NEIGHBORHOODS = gql`
-  query neightborhoodslistings {
-    neighborhoods(first: 100) {
-      nodes {
-        databaseId
-        name
-        contentNodes {
-          nodes {
-            ... on Listing {
-              listingCategories {
-                nodes {
-                  name
-                }
-              }
-            }
-          }
-        }
-      }
+  query neightborhoodslistings($categorie: Categoriebeighborhood) {
+    neighborhoodByCategorie(categorie: $categorie) {
+      databaseId: id
+      name
     }
   }
-`
+`;
 export const ACF_OPTIONS_GlOBAL_OPTIONS = gql`
   query acfOptionsGlobalOptions {
     acfOptionsGlobalOptions {
@@ -40,13 +27,16 @@ export const ACF_OPTIONS_GlOBAL_OPTIONS = gql`
       }
     }
   }
-`
+`;
 
-export const ALL_LISTINGS_DEVELOPMENTS = (Category = null, neighborhood = null) => {
-  return (gql`
+export const ALL_LISTINGS_DEVELOPMENTS = (
+  Category = null,
+  neighborhood = null
+) => {
+  return gql`
       query listings(
-        ${(neighborhood) ? '$NEIGHBORHOOD: [String],' : ''} 
-        ${(Category) ? '$LISTINGCATEGORY: [String],' : ''}
+        ${neighborhood ? "$NEIGHBORHOOD: [String]," : ""} 
+        ${Category ? "$LISTINGCATEGORY: [String]," : ""}
         $search: String,
         $perPage: Int,
         $after: String
@@ -55,8 +45,16 @@ export const ALL_LISTINGS_DEVELOPMENTS = (Category = null, neighborhood = null) 
           where: {
             taxQuery: {
               taxArray: [
-                ${(neighborhood) ? ' {operator: IN, terms: $NEIGHBORHOOD, taxonomy: NEIGHBORHOOD},' : ''} 
-                ${(Category) ? '{operator: IN, terms: $LISTINGCATEGORY, taxonomy: LISTINGCATEGORY}' : ''}
+                ${
+                  neighborhood
+                    ? " {operator: IN, terms: $NEIGHBORHOOD, taxonomy: NEIGHBORHOOD},"
+                    : ""
+                } 
+                ${
+                  Category
+                    ? "{operator: IN, terms: $LISTINGCATEGORY, taxonomy: LISTINGCATEGORY}"
+                    : ""
+                }
               ]},
             search: $search,
           }
@@ -113,9 +111,8 @@ export const ALL_LISTINGS_DEVELOPMENTS = (Category = null, neighborhood = null) 
           }
         }
       }
-    `
-  )
-}
+    `;
+};
 
 export const GET_SINGLE_LISTING_GQL = gql`
   query listings($id: Int!) {

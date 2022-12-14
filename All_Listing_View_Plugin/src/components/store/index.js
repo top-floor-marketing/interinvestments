@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 // slices
-import filterSlice, { setSearch, setneighborhood, setcategoy } from './filterSlice'
+import filterSlice, { setSearch, setneighborhood, setCategory } from './filterSlice'
 import statusQuerySlice, {
     setIsLoading,
     setcISError,
@@ -25,7 +25,7 @@ const actionslices = {
     setDataCategory,
     setDataNeighborhood,
     setneighborhood,
-    setcategoy,
+    setCategory,
     setDataMapApiKey,
     setDataListing,
     setEmptyData
