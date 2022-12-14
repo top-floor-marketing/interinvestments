@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 // components
 import SegmentedTypeListing from "./SegmentedTypeListing";
 import SkeletonFilters from "./SkeletonFilters";
+import IconSelect from "./IconSelect";
 // mantine dev
 import { TextInput, Box, Select } from "@mantine/core";
 import { Search } from "tabler-icons-react";
@@ -11,15 +12,17 @@ import { actionslices } from "../store";
 // styles
 import styles from "./styles_FL_.module.scss";
 
-const FiltersListings = () => {
+const FiltersListings = ({ isFetchingNeightborhoods }) => {
   const dispatch = useDispatch();
-  const { search, neighborhood, categoy } = useSelector(
+  const refSelectNei = useRef(null);
+  const { search, neighborhood, category } = useSelector(
     (state) => state.filter
   );
   const { dataCategory, dataNei, isLoading } = useSelector(
     (state) => state.statusQuery
   );
-  const { setSearch, setneighborhood, setcategoy, setEmptyData } = actionslices;
+  const { setSearch, setneighborhood, setCategory, setEmptyData } =
+    actionslices;
 
   if (isLoading) {
     return <SkeletonFilters />;
@@ -50,7 +53,9 @@ const FiltersListings = () => {
         size="md"
       />
       <Select
+        disabled={isFetchingNeightborhoods}
         value={neighborhood}
+        ref={refSelectNei}
         onChange={(value) => {
           // set value input
           dispatch(setneighborhood(value));
@@ -61,6 +66,12 @@ const FiltersListings = () => {
         placeholder="Select Neighborhood"
         radius="xl"
         clearable
+        rightSection={
+          <IconSelect
+            isLoading={isFetchingNeightborhoods}
+            refProps={refSelectNei}
+          />
+        }
         size="md"
         data={dataNei.map((value) => ({
           value: `${value.databaseId}`,
@@ -68,10 +79,10 @@ const FiltersListings = () => {
         }))}
       />
       <SegmentedTypeListing
-        value={categoy}
+        value={category}
         onChange={(value) => {
           // set value input
-          dispatch(setcategoy(value));
+          dispatch(setCategory(value));
           // reset vaues listing
           dispatch(setEmptyData());
         }}

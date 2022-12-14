@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     search: '',
     neighborhood: '',
-    categoy: ''
+    category: ''
 }
 
 export const filterSlice = createSlice({
@@ -16,13 +16,13 @@ export const filterSlice = createSlice({
         setneighborhood: (state, action) => {
             state.neighborhood = action.payload
         },
-        setcategoy: (state, action) => {
-            state.categoy = action.payload
+        setCategory: (state, action) => {
+            state.category = action.payload
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setSearch, setneighborhood, setcategoy } = filterSlice.actions
+export const { setSearch, setneighborhood, setCategory } = filterSlice.actions
 
 export default filterSlice.reducer

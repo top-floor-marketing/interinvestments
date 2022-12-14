@@ -7,14 +7,14 @@ import {
   ACF_OPTIONS_GlOBAL_OPTIONS,
   ALL_LISTINGS_DEVELOPMENTS,
 } from "../GraphqlClient/GQL";
-
+// utils
+import { ENUM_NEIGHBORHOODS } from "../utils";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { actionslices } from "../components/store";
-
+// lodash
 import toInteger from "lodash/toInteger";
 import toLower from "lodash/toLower";
-
 import isEmpty from "lodash/isEmpty";
 import get from "lodash/get";
 
@@ -33,9 +33,9 @@ const useGetFeaturedDev = () => {
     setDataListing,
     setSearch,
     setneighborhood,
-    setcategoy,
+    setCategory,
   } = actionslices;
-  const { search, neighborhood, categoy } = useSelector(
+  const { search, neighborhood, category } = useSelector(
     (state) => state.filter
   );
   const {
@@ -83,9 +83,9 @@ const useGetFeaturedDev = () => {
 
         // defaut caregory
         if (value_category_URL) {
-          dispatch(setcategoy(value_category_URL));
+          dispatch(setCategory(value_category_URL));
         } else {
-          dispatch(setcategoy(`${req.listingCategories.nodes[0].databaseId}`));
+          dispatch(setCategory(`${req.listingCategories.nodes[0].databaseId}`));
         }
       },
       onError: () => {
@@ -98,14 +98,20 @@ const useGetFeaturedDev = () => {
   });
 
   // 2
-  useQueryHelper({
+  const {
+    refetch: refetchNeightborhoods,
+    isFetching: isFetchingNeightborhoods,
+  } = useQueryHelper({
     name: "ALL_NEIGHBORHOODS_By_AllListingView",
     gql: ALL_NEIGHBORHOODS,
+    variables: {
+      categorie: ENUM_NEIGHBORHOODS(category),
+    },
     config: {
-      enabled: dataCategory.length > 0,
+      enabled: dataCategory.length > 0 && category ? true : false,
       onSuccess: (req) => {
         // set data nei
-        dispatch(setDataNeighborhood(req.neighborhoods.nodes));
+        dispatch(setDataNeighborhood(req.neighborhoodByCategorie));
         // set default vaue
         if (value_Neighborhood_URL) {
           dispatch(setneighborhood(value_Neighborhood_URL));
@@ -158,10 +164,10 @@ const useGetFeaturedDev = () => {
         NEIGHBORHOOD: neighborhood,
       };
     }
-    if (categoy) {
+    if (category) {
       variables = {
         ...variables,
-        LISTINGCATEGORY: [categoy],
+        LISTINGCATEGORY: [category],
       };
     }
     return variables;
@@ -177,7 +183,7 @@ const useGetFeaturedDev = () => {
   } = useQueryHelper({
     name: "ALL_LISTINGS_DEVELOPMENTS_By_AllListingView",
     gql: ALL_LISTINGS_DEVELOPMENTS(
-      categoy ? categoy : null,
+      category ? category : null,
       neighborhood ? neighborhood : null
     ),
     config: {
@@ -217,16 +223,23 @@ const useGetFeaturedDev = () => {
   });
 
   useEffect(() => {
+    if (category) {
+      refetchNeightborhoods();
+    }
+  }, [category, refetchNeightborhoods]);
+
+  useEffect(() => {
     if (!isEmpty(mapApiKey)) {
       refetchListing();
     }
-  }, [search, neighborhood, categoy, refetchListing, mapApiKey]);
+  }, [search, neighborhood, category, refetchListing, mapApiKey]);
 
   return {
+    isFetchingNeightborhoods,
     isError,
     isSkeleton: !isFetched && !isSuccess,
     refetchListing,
-    dataListing: dataListing,
+    dataListing,
     totalData: dataListing.length,
     loadingListing: isFetchingListing || isLoadingListing,
   };

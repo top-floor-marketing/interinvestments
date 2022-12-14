@@ -18,6 +18,7 @@ const Main = () => {
   // usar hook, validar error o skeleton
   const {
     isSkeleton,
+    isFetchingNeightborhoods,
     isError,
     refetchListing,
     dataListing,
@@ -64,7 +65,9 @@ const Main = () => {
               root: "!sticky",
             }}
           >
-            <FiltersListings />
+            <FiltersListings
+              isFetchingNeightborhoods={isFetchingNeightborhoods}
+            />
           </Header>
         }
       >
