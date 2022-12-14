@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 // components
 import SegmentedTypeListing from "./SegmentedTypeListing";
 import SkeletonFilters from "./SkeletonFilters";
-import IconSelect from "./IconSelect";
 // mantine dev
 import { TextInput, Box, Select } from "@mantine/core";
 import { Search } from "tabler-icons-react";
@@ -66,12 +65,6 @@ const FiltersListings = ({ isFetchingNeightborhoods }) => {
         placeholder="Select Neighborhood"
         radius="xl"
         clearable
-        rightSection={
-          <IconSelect
-            isLoading={isFetchingNeightborhoods}
-            refProps={refSelectNei}
-          />
-        }
         size="md"
         data={dataNei.map((value) => ({
           value: `${value.databaseId}`,
