@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request';
+import { gql } from "graphql-request";
 
 export const LISTINGS_CATEGORY = gql`
   query listingsCategory($first: Int) {
@@ -8,32 +8,31 @@ export const LISTINGS_CATEGORY = gql`
         databaseId
       }
     }
-}
-`
+  }
+`;
 export const ALL_NEIGHBORHOODS = gql`
-  query neighborhoods {
-    neighborhoods {
-      nodes{
-        name
-        databaseId
+  query neightborhoodslistings($categorie: Categoriebeighborhood) {
+    neighborhoodByCategorie(categorie: $categorie) {
+      databaseId: id
+      name
     }
   }
-  }
-`
+`;
 
 export const ALL_LISTING = gql`
   query listings(
-    $NEIGHBORHOOD: [String], 
-    $LISTINGCATEGORY: [String] ,
-    $search: String,
+    $NEIGHBORHOOD: [String]
+    $LISTINGCATEGORY: [String]
+    $search: String
   ) {
     listings(
       where: {
         taxQuery: {
           taxArray: [
-            {operator: IN, terms: $NEIGHBORHOOD, taxonomy: NEIGHBORHOOD}, 
-            {operator: IN, terms: $LISTINGCATEGORY, taxonomy: LISTINGCATEGORY}
-          ]},
+            { operator: IN, terms: $NEIGHBORHOOD, taxonomy: NEIGHBORHOOD }
+            { operator: IN, terms: $LISTINGCATEGORY, taxonomy: LISTINGCATEGORY }
+          ]
+        }
         search: $search
       }
       first: 5
@@ -77,4 +76,4 @@ export const ALL_LISTING = gql`
       }
     }
   }
-`
+`;
