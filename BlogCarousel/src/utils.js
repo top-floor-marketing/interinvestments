@@ -1,6 +1,9 @@
+import DOMPurify from 'dompurify';
+
 export const removeHtmlInString = (htmlString = "") => {
+  let clean = DOMPurify.sanitize(htmlString);
   const regex = /(<([^>]+)>)/gi;
-  return htmlString.replace(regex, "");
+  return clean.replace(regex, "");
 };
 
 export const maxString = (text = "", max = 100) => {

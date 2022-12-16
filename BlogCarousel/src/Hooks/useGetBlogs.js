@@ -35,8 +35,8 @@ const UseGetBlogs = () => {
       return {
         id: val.databaseId,
         urlImage: val.featuredImage?.node?.sourceUrl || null,
-        title: maxString(val.title, 150),
-        description: maxString(removeHtmlInString(val.excerpt), 250),
+        title: maxString(val.title, 250),
+        description: maxString(removeHtmlInString(val.excerpt), 400),
         imageAnimation: ANIMATIONS[index]?.image || [],
         contentAnimation: ANIMATIONS[index]?.content || [],
         slug: val?.slug || null,

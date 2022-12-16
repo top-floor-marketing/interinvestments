@@ -40,7 +40,7 @@ const CarouselScreenXl = (props) => {
       <div className={classesAnimation.content}>
         <label className={styles.labelFrom}>FROM OUR BLOG</label>
         <label className={styles.labelTitle}>{title}</label>
-        <label className={styles.description}>{description}</label>
+        <label className={styles.description} dangerouslySetInnerHTML={{__html: description}} />
         <Button
           component="a"
           href={urlBlog}
