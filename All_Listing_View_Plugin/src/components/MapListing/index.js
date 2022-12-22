@@ -45,8 +45,9 @@ const MapListing = (props) => {
   }, [dataListing]);
 
   return (
-    <Box className="relative w-full h-full">
+    <Box className={style.mapContainer}>
       <LoadingOverlay
+        id="LoadingOverlayMap"
         loaderProps={{ size: "sm", color: "#FFB839", variant: "bars" }}
         visible={isLoading}
         className={style.overlayMapListing}

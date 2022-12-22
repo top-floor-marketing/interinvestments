@@ -1,36 +1,43 @@
 .overlayMapListing {
-    @apply h-auto w-full;
+  @apply h-auto w-full;
 }
 
 .containerMarker {
-    @apply w-[28px] h-[35px] cursor-pointer;
+  @apply w-[28px] h-[35px] cursor-pointer;
 }
 
 .imagenPin {
-    @apply transition duration-[450ms] opacity-60;
+  @apply transition duration-[450ms] opacity-60;
 }
 
 .titleListingMap {
-    font-style: normal;
-    font-weight: 600 !important;
-    @apply cursor-pointer font-outfit text-[20px] leading-[26px] hover:text-[#FFB839] transition duration-[450ms];
+  font-style: normal;
+  font-weight: 600 !important;
+  @apply cursor-pointer font-outfit text-[20px] leading-[26px] hover:text-[#FFB839] transition duration-[450ms];
 }
 
 .avatarListing {
-    @apply cursor-pointer w-full h-[128px] lg:w-[116px] lg:h-[76px];
+  @apply cursor-pointer w-full h-[128px] lg:w-[116px] lg:h-[76px];
 }
 
 .containerInfoListing {
-    span:first-child {
-        font-style: normal;
-        font-weight: 600 !important;
-        @apply font-outfit text-[14px] leading-[18px];
-    }
+  span:first-child {
+    font-style: normal;
+    font-weight: 600 !important;
+    @apply font-outfit text-[14px] leading-[18px];
+  }
 
-    span:last-child {
-        font-style: normal;
-        font-weight: 300 !important;
-        @apply font-outfit text-[14px] leading-[18px];
-    }
-    @apply flex flex-col;
+  span:last-child {
+    font-style: normal;
+    font-weight: 300 !important;
+    @apply font-outfit text-[14px] leading-[18px];
+  }
+  @apply flex flex-col;
+}
+
+.mapContainer {
+  @apply relative w-full h-full;
+  > div:first-child {
+    @apply min-h-[750px];
+  }
 }
