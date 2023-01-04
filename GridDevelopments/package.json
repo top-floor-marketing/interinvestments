@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@mantine/core": "5.7.2",
-    "@mantine/dates": "5.7.2",
-    "@mantine/form": "5.7.2",
-    "@mantine/hooks": "5.7.2",
-    "@mantine/modals": "5.7.2",
-    "@mantine/notifications": "5.7.2",
-    "@tanstack/react-query": "4.16.1",
+    "@mantine/core": "5.10.0",
+    "@mantine/dates": "5.10.0",
+    "@mantine/form": "5.10.0",
+    "@mantine/hooks": "5.10.0",
+    "@mantine/modals": "5.10.0",
+    "@mantine/notifications": "5.10.0",
+    "@tanstack/react-query": "4.20.4",
     "aos": "3.0.0-beta.6",
     "dayjs": "1.11.5",
     "graphql": "16.6.0",
@@ -35,10 +35,10 @@
   },
   "devDependencies": {
     "autoprefixer": "10.4.2",
-    "node-sass": "7.0.1",
+    "node-sass": "8.0.0",
     "postcss": "8.4.6",
     "sass": "1.51.0",
-    "tailwindcss": "3.0.18"
+    "tailwindcss": "3.2.4"
   },
   "browserslist": {
     "production": [
