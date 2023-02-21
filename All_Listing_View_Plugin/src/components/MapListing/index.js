@@ -3,11 +3,15 @@ import React, { useState, useEffect } from "react";
 import { Box, LoadingOverlay } from "@mantine/core";
 // components
 import Marker from "./Marker";
-// map
-import GoogleMapReact from "google-map-react";
+import ErrorMaps from "./ErrorMaps";
+//  map
 import stylesmaps from "./stylesmaps";
+import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 // redux
 import { useSelector } from "react-redux";
+// stils
+import { numFormatter } from "../../utils";
+
 // styles
 import style from "./styles.ML.module.scss";
 
@@ -16,8 +20,11 @@ const MapListing = (props) => {
     lat: 25.761681,
     lng: -80.191788,
   });
-  const { isLoading } = props;
   const { mapApiKey, dataListing } = useSelector((state) => state.statusQuery);
+  const { isLoaded, loadError } = useLoadScript({
+    id: "google-map-script",
+    googleMapsApiKey: mapApiKey,
+  });
 
   useEffect(() => {
     if (dataListing.length) {
@@ -42,14 +49,22 @@ const MapListing = (props) => {
         });
       }
     }
-  }, [dataListing]);
+  }, [dataListing, setDefaultProps]);
+
+  if (loadError) {
+    return (
+      <Box className={style.mapContainer}>
+        <ErrorMaps />
+      </Box>
+    );
+  }
 
   return (
     <Box className={style.mapContainer}>
       <LoadingOverlay
         id="LoadingOverlayMap"
         loaderProps={{ size: "sm", color: "#FFB839", variant: "bars" }}
-        visible={isLoading}
+        visible={isLoaded && props.isLoading}
         className={style.overlayMapListing}
         zIndex={100}
         overlayOpacity={0.2}
@@ -57,38 +72,63 @@ const MapListing = (props) => {
         transitionDuration={500}
         overlayBlur={0.5}
       />
-      <GoogleMapReact
-        options={{
-          styles: stylesmaps,
-        }}
-        bootstrapURLKeys={{ key: mapApiKey }}
-        defaultCenter={defaultPropsMap}
-        defaultZoom={11}
-      >
-        {dataListing.map((value, index) => {
-          const {
-            latitude,
-            longitude,
-            priceMin = 0,
-            priceMax = 0,
-            photos,
-          } = value.listingData.newDevelopment;
-          return (
-            <Marker
-              uri={value.uri}
-              title={value.title}
-              subTitle={value.neighborhoods.nodes[0]?.name}
-              price={`$${priceMin} - $${priceMax}`}
-              key={index}
-              lat={latitude}
-              lng={longitude}
-              urlImagen={photos[0]?.sourceUrl}
-            />
-          );
-        })}
-      </GoogleMapReact>
+
+      {isLoaded ? (
+        <GoogleMap
+          options={{
+            styles: stylesmaps,
+            streetViewControl: false,
+          }}
+          mapContainerStyle={{
+            width: "100%",
+            height: "100%",
+          }}
+          zoom={11}
+          center={defaultPropsMap}
+        >
+          {dataListing.map((value, index) => {
+            const {
+              latitude,
+              longitude,
+              priceMin = 0,
+              priceMax = 0,
+              photos,
+            } = value.listingData.newDevelopment;
+
+            const priceMinFormater = numFormatter(priceMin);
+            const priceMaxFormater = numFormatter(priceMax);
+            const priceRange = `$${priceMinFormater.number}${priceMinFormater.tag} - $${priceMaxFormater.number}${priceMaxFormater.tag}`;
+
+            return (
+              <Marker
+                idListing={value.databaseId}
+                uri={value.uri}
+                title={value.title}
+                subTitle={value.neighborhoods.nodes[0]?.name}
+                price={priceRange}
+                key={index}
+                latitude={latitude}
+                longitude={longitude}
+                urlImagen={photos[0]?.sourceUrl}
+              />
+            );
+          })}
+        </GoogleMap>
+      ) : (
+        <LoadingOverlay
+          visible
+          id="LoadingMountMaps"
+          loaderProps={{ size: "sm", color: "#FFB839", variant: "bars" }}
+          className={style.overlayMapListing}
+          zIndex={100}
+          overlayOpacity={0.2}
+          overlayColor="#f5f6fa"
+          transitionDuration={500}
+          overlayBlur={0.5}
+        />
+      )}
     </Box>
   );
 };
 
-export default MapListing;
+export default React.memo(MapListing);

@@ -45,16 +45,6 @@ const GridListing = ({
   } = useElementSize();
 
   const onScroll = (e) => {
-    /*  const { scrollTop } = e;
-     const gridContainer = document.getElementsByClassName(idGrid)[0]?.firstChild?.clientHeight || null;
-     const parentHeight = get(refParentBox, ["current", "clientHeight"], null);
-     if (refetch !== undefined && !isLoading) {
-       if (parentHeight + scrollTop === gridContainer) {
-         setTimeout(() => {
-           refetch();
-         }, 700);
-       }
-     } */
     const { scrollTop } = e;
     const gridContainer =
       document.getElementsByClassName(idGrid)[0]?.firstChild?.clientHeight ||
@@ -91,9 +81,9 @@ const GridListing = ({
       ? Math.ceil(totalData / 2)
       : 1;
 
-  console.log("responsiveRowCount", responsiveRowCount);
-  console.log("totalData", totalData);
-  console.log("heightParent", heightParent);
+  // console.log("responsiveRowCount", responsiveRowCount);
+  // console.log("totalData", totalData);
+  // console.log("heightParent", heightParent);
 
   return (
     <Box ref={refParentBox} className={parentClassname}>
