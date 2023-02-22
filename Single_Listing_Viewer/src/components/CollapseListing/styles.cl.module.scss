@@ -1,5 +1,5 @@
 .containerCollapse {
-    @apply px-12 xl:px-0 my-20 md:my-28 max-w-screen-lg xl:max-w-[985px] w-full mx-auto h-full;
+    @apply px-12 xl:px-0 my-20 md:my-28 max-w-screen-lg xl:max-w-[1200px] w-full mx-auto h-full;
 }
 
 .textIndex {
@@ -9,7 +9,7 @@
 
 .titleCollapse {
     font-weight: 300;
-    @apply transition duration-[350ms] hover:text-[#FFB839] cursor-pointer font-outfit text-center my-auto text-[32px] md:text-[72px] leading-[91px] p-[10px];
+    @apply transition duration-[350ms] hover:text-[#FFB839] cursor-pointer font-outfit text-center my-auto text-[32px] md:text-[72px] leading-[91px];
 }
 
 .ArrowRight {
@@ -33,7 +33,7 @@
 }
 
 .gridContendCollapse {
-    @apply grid grid-cols-2 gap-4 pl-2 lg:pl-[25%];
+    @apply grid grid-cols-2 gap-4 pl-2 lg:pl-[10vw] ml-[22.5px];
 }
 
 .containerConted {

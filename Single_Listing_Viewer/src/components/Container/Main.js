@@ -64,7 +64,6 @@ const Main = () => {
             data={{
               specs: valueListing?.listingData?.newDevelopment.specs,
               finishes: valueListing?.listingData?.newDevelopment.finishes,
-              // address: valueListing?.address.address,
               floorplans: valueListing?.floorplans?.allFloorplans,
               team: valueListing?.team.team,
             }}
