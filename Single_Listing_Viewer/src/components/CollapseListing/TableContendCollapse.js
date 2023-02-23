@@ -37,7 +37,7 @@ const TableContendCollapse = ({ data, columns }) => {
       <Box />
       <Box className={styles.containerConted}>
         <Box className={styles.containerTable}>
-          <Table>
+          <Table className={styles.tableFloorplans}>
             <thead>
               <tr>
                 {columns.map((thItem, index) => (
