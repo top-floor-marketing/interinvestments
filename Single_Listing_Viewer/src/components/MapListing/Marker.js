@@ -1,102 +1,88 @@
-import React, { useRef } from 'react'
+import React from "react";
 //mantine
-import { Box, Image, HoverCard, Text, Avatar } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { Box, Text, Avatar } from "@mantine/core";
+// maps
+import { Marker, InfoWindow } from "@react-google-maps/api";
 // assets
-import imagePin from '../../assets/PinMap.svg'
-// styles 
-import style from './styles.ml.module.scss'
+import imagePin from "../../assets/PinMap.svg";
+// styles
+import style from "./styles.ml.module.scss";
 // utils
-import { numFormatter } from '../../utils'
+import { numFormatter } from "../../utils";
 
-const Marker = (props) => {
-    const { lat, lng, title, subTitle, price, priceMin, priceMax, urlImagen, uri, opened = true } = props
-    const refImagen = useRef(null);
-    const matches = useMediaQuery('(min-width: 1024px)');
+const MarkerMap = (props) => {
+  const {
+    lat,
+    lng,
+    title,
+    subTitle,
+    priceMin,
+    priceMax,
+    urlImagen,
+    opened = true,
+  } = props;
 
-    const priceListing = {
-        priceMin: numFormatter(priceMin),
-        priceMax: numFormatter(priceMax)
-    }
+  const priceMinFormater = numFormatter(priceMin);
+  const priceMaxFormater = numFormatter(priceMax);
+  const priceRange = `$${priceMinFormater.number}${priceMinFormater.tag} - $${priceMaxFormater.number}${priceMaxFormater.tag}`;
 
-    if (lat && lng) {
-        return (
-            <Box
-                lat={lat}
-                lng={lng}
-                className={style.containerMarker}
-            >
-                <HoverCard
-                    width={!matches ? 217 : 340}
-                    shadow="md"
-                    position={matches ? 'right' : 'bottom'}
-                    radius='lg'
-                    opened={opened}
-                >
-                    <HoverCard.Target>
-                        <Image
-                            className={style.imagenPin}
-                            ref={refImagen}
-                            width={28}
-                            height={35}
-                            radius={null}
-                            src={imagePin}
-                            alt={`PinMap_${title}`}
-                        />
-                    </HoverCard.Target>
-                    <HoverCard.Dropdown
-                        className='!cursor-grab px-3'
-                    >
-                        <Box className={style.contendInfoListing}>
-                            <Avatar
-                                className={style.avatarListing}
-                                radius="xs"
-                                alt={`ImagenListing_${title}`}
-                                src={urlImagen}
-                            />
-                            <Box id='infoListing'>
-                                {
-                                    title && (
-                                        <Text
-                                            title={title}
-                                            className={style.titleListingMap}
-                                            lineClamp={1}
-                                            component='a'
-                                            href={uri}
-                                        >
-                                            {title}
-                                        </Text>
-                                    )
-                                }
-                                <Box className={style.containerInfoListing}>
-                                    {
-                                        subTitle && (
-                                            <Text
-                                                title={subTitle}
-                                                component='span'
-                                                lineClamp={1}
-                                            >
-                                                {subTitle}
-                                            </Text>
-                                        )
-                                    }
-                                    {
-                                        price && (
-                                            <Text title={`Price $${priceListing.priceMin.number}${priceListing.priceMin.tag} - $${priceListing.priceMax.number}${priceListing.priceMax.tag}`} component='span' lineClamp={1}>
-                                                Price {`$${priceListing.priceMin.number}${priceListing.priceMin.tag} - $${priceListing.priceMax.number}${priceListing.priceMax.tag}`}
-                                            </Text>
-                                        )
-                                    }
-                                </Box>
-                            </Box>
-                        </Box>
-                    </HoverCard.Dropdown>
-                </HoverCard>
+  if (lat && lng) {
+    return (
+      <Marker
+        opacity={opened ? 1 : 0.6}
+        position={{
+          lat: parseFloat(lat),
+          lng: parseFloat(lng),
+        }}
+        icon={{
+          scaledSize: new window.google.maps.Size(28, 35),
+          url: imagePin,
+        }}
+      >
+        {opened && (
+          <InfoWindow>
+            <Box className="flex flex-col gap-5 lg:flex-row min-w-full max-w-[317px]">
+              <Avatar
+                className={style.avatarListing}
+                radius="xs"
+                alt={`ImagenListing_${title}`}
+                src={urlImagen}
+              />
+              <Box className="flex flex-col justify-between">
+                {title && (
+                  <Text
+                    title={title}
+                    className={style.titleListingMap}
+                    lineClamp={1}
+                    component="span"
+                  >
+                    {title}
+                  </Text>
+                )}
+                <Box className={style.containerInfoListing}>
+                  {subTitle && (
+                    <Text title={subTitle} component="span" lineClamp={1}>
+                      {subTitle}
+                    </Text>
+                  )}
+
+                  <Text
+                    title={`Price ${priceRange}`}
+                    component="span"
+                    lineClamp={1}
+                  >
+                    Price: {priceRange}
+                  </Text>
+                </Box>
+              </Box>
             </Box>
-        )
-    } else {
-        return null
-    }
-}
+          </InfoWindow>
+        )}
+      </Marker>
+    );
+  } else {
+    return null;
+  }
+};
 
-export default Marker
+export default MarkerMap;
