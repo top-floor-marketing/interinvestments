@@ -1,97 +1,104 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from "react";
+import { Marker, InfoWindow } from "@react-google-maps/api";
 //mantine
-import { Box, Image, HoverCard, Text, Avatar } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { Box, Text, Avatar } from "@mantine/core";
+// redux
+import { useSelector } from "react-redux";
 // assets
-import imagePin from './asset/Pin.svg'
-// styles 
-import style from './styles.ML.module.scss'
+import imagePin from "./asset/Pin.svg";
+// styles
+import style from "./styles.ML.module.scss";
 
-const Marker = (props) => {
-    const { lat, lng, title, subTitle, price, urlImagen, uri } = props
-    const [opened, setOpened] = useState(false);
-    const refImagen = useRef(null);
-    const matches = useMediaQuery('(min-width: 1024px)');
+const MarkerMap = (props) => {
+  const { latitude, longitude, title, subTitle, price, urlImagen, uri } = props;
+  const [selectedMarker, setSelectedMarker] = useState(null);
+  const [onOpenMarker, setOnOpenMarker] = useState(false);
+  const [opacityMarker, setOpacityMarker] = useState(0.6);
+  const { selectedListing } = useSelector((state) => state.listing_data);
 
-    if (lat && lng) {
-        return (
-            <Box
-                lat={lat}
-                lng={lng}
-                className={`${style.containerMarker} group`}
-            >
-                <HoverCard
-                    width={!matches ? 217 : 340}
-                    shadow="md"
-                    position={matches ? 'right' : 'bottom'}
-                    radius='lg'
-                    opened={opened}
-                >
-                    <HoverCard.Target>
-                        <Image
-                            className={`${style.imagenPin} group-hover:opacity-100 ${opened ? '!opacity-100' : ''}`}
-                            ref={refImagen}
-                            onClick={() => setOpened(!opened)}
-                            width={28}
-                            height={35}
-                            radius={null}
-                            src={imagePin}
-                            alt={`PinMap_${title}`}
-                        />
-                    </HoverCard.Target>
-                    <HoverCard.Dropdown
-                        className='!cursor-grab px-3'
+  const handleMarkerClick = () => {
+    setOpacityMarker(1);
+    setOnOpenMarker(!onOpenMarker);
+  };
+
+  const handleMarkerMouseOver = (marker) => {
+    setSelectedMarker(marker);
+    setOpacityMarker(1);
+  };
+
+  const handleMarkerMouseOut = () => {
+    setSelectedMarker(null);
+    setOpacityMarker(0.6);
+  };
+
+  if (latitude && longitude) {
+    return (
+      <Marker
+        opacity={props.idListing === selectedListing ? 1 : opacityMarker}
+        onClick={() => handleMarkerClick()}
+        onMouseOver={handleMarkerMouseOver}
+        onMouseOut={handleMarkerMouseOut}
+        position={{
+          lat: parseFloat(latitude),
+          lng: parseFloat(longitude),
+        }}
+        icon={{
+          scaledSize: new window.google.maps.Size(28, 35),
+          url: imagePin,
+        }}
+      >
+        {(selectedMarker ||
+          onOpenMarker ||
+          props.idListing === selectedListing) && (
+          <InfoWindow
+            onCloseClick={() => {
+              setOpacityMarker(0.6);
+              setSelectedMarker(null);
+              setOnOpenMarker(!onOpenMarker);
+            }}
+          >
+            <Box className="flex flex-col gap-5 lg:flex-row w-full max-w-[317px]">
+              <Avatar
+                className={style.avatarListing}
+                radius="xs"
+                alt={`ImagenListing_${title}`}
+                src={urlImagen}
+              />
+              <Box className="flex flex-col justify-between">
+                {title && (
+                  <Text
+                    title={title}
+                    className={style.titleListingMap}
+                    lineClamp={1}
+                    component="a"
+                    href={uri}
+                  >
+                    {title}
+                  </Text>
+                )}
+                <Box className={style.containerInfoListing}>
+                  {subTitle && (
+                    <Text title={subTitle} component="span" lineClamp={1}>
+                      {subTitle}
+                    </Text>
+                  )}
+                  {price && (
+                    <Text
+                      title={`Price ${price}`}
+                      component="span"
+                      lineClamp={1}
                     >
-                        <Box className='flex flex-col gap-5 lg:flex-row'>
-                            <Avatar
-                                className={style.avatarListing}
-                                radius="xs"
-                                alt={`ImagenListing_${title}`}
-                                src={urlImagen}
-                            />
-                            <Box className='flex flex-col justify-between'>
-                                {
-                                    title && (
-                                        <Text
-                                            title={title}
-                                            className={style.titleListingMap}
-                                            lineClamp={1}
-                                            component='a'
-                                            href={uri}
-                                        >
-                                            {title}
-                                        </Text>
-                                    )
-                                }
-                                <Box className={style.containerInfoListing}>
-                                    {
-                                        subTitle && (
-                                            <Text
-                                                title={subTitle}
-                                                component='span'
-                                                lineClamp={1}
-                                            >
-                                                {subTitle}
-                                            </Text>
-                                        )
-                                    }
-                                    {
-                                        price && (
-                                            <Text title={`Price ${price}`} component='span' lineClamp={1}>
-                                                Price {price}
-                                            </Text>
-                                        )
-                                    }
-                                </Box>
-                            </Box>
-                        </Box>
-                    </HoverCard.Dropdown>
-                </HoverCard>
+                      Price: {price}
+                    </Text>
+                  )}
+                </Box>
+              </Box>
             </Box>
-        )
-    } else {
-        return null
-    }
-}
+          </InfoWindow>
+        )}
+      </Marker>
+    );
+  }
+};
 
-export default Marker
+export default MarkerMap;
