@@ -1,22 +1,18 @@
-import React from 'react'
+import React from "react";
 // mantine
-import { Paper, Box } from '@mantine/core';
+import { Paper, Box } from "@mantine/core";
 // componest
-import TabsQuickSearch from '../TabsQuickSearch'
+import TabsQuickSearch from "../TabsQuickSearch";
 // css
-
-import styles from './styles.qs.module.scss'
+import styles from "./styles.qs.module.scss";
 
 const QuickSearch = () => {
   return (
-    <Paper
-      radius={10}
-      className={styles.cardQuickSearch}
-    >
+    <Paper radius={10} className={styles.cardQuickSearch}>
       <Box className={styles.gridQuickSearch}>
         <Box className={styles.containerQuickSearch}>
           <h3 className={styles.labelQuickSearch}>
-            Search for new properties:            
+            Search for new properties:
           </h3>
         </Box>
         <Box className={styles.menuQuickSearch}>
@@ -24,7 +20,7 @@ const QuickSearch = () => {
         </Box>
       </Box>
     </Paper>
-  )
-}
+  );
+};
 
-export default QuickSearch
+export default QuickSearch;

@@ -30,22 +30,24 @@
 }
 
 .contendCardListing {
-    @apply flex flex-col gap-4 md:flex-row;
+    @apply flex flex-col gap-4 md:gap-[43px] md:flex-row py-[20px];
 }
 
 .imageListing {
-    @apply max-h-[250px] min-w-[200px] min-h-[200px] sm:h-[150px] md:h-[200px] lg:h-[200px];
+    @apply w-full h-[150px] md:h-[120px] md:w-[187px];
 }
 
 .dataListing {
-    @apply flex flex-col w-full gap-4;
+    @apply flex flex-col justify-between h-full w-full gap-6 md:gap-[11px];
 }
 
 .titleListing {
-    @apply font-outfit text-[30px] font-normal leading-[26px];
+    font-weight: 400;
+    @apply font-outfit text-[30px] leading-[26px];
 }
 
 .decriptionListing {
+    font-weight: 500;
     @apply font-outfit text-[20px] leading-[26px];
 }
 

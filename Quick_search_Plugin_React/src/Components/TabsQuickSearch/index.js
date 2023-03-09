@@ -139,7 +139,6 @@ const TapsQuickSearch = () => {
           className={`${styles.SelectTabsNeighborhoods}`}
         />
         <InputTabs
-          // onFocusChange={(value) => setFocusCard(value)}
           onChange={(value) => {
             setSearchListing(value);
             setFocusMenu(true);
