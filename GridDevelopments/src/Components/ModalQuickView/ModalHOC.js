@@ -1,30 +1,50 @@
 import PropTypes from "prop-types";
-import { Modal, Button } from "@mantine/core";
+import { Modal, Box, Button, ScrollArea } from "@mantine/core";
+import { useViewportSize } from "@mantine/hooks";
 
 import styles from "./styles_gd.module.scss";
 
 const ModalHOC = (props) => {
   const { onClose, config, opened } = props;
+  const { width } = useViewportSize();
+
+  const sizeModal =
+    width > 2300
+      ? "calc(70%)"
+      : width > 1700
+      ? "calc(80%)"
+      : width > 1300
+      ? "calc(83%)"
+      : "calc(96%)";
   const propsModal = {
     opened,
-    overlayColor: "#000",
-    overlayOpacity: 0.4,
-    overlayBlur: 8,
-    onClose,
-    withCloseButton: false,
-    classNames: {
-      modal: styles.modal,
+    overlayProps: {
+      overlayColor: "#000",
+      overlayOpacity: 0.4,
+      overlayBlur: 8,
     },
+    onClose,
+    padding: "xs",
+    size: sizeModal,
+    withCloseButton: false,
     centered: true,
+    xOffset: "1vh",
+    yOffset: "1vh",
+    transitionProps: {
+      transition: "fade",
+      duration: 800,
+      timingFunction: "linear",
+    },
     ...config,
   };
   const allProps = {
     modal: propsModal,
     fullContent: {
-      className: styles.modalFullContent,
+      className: `${styles.modalFullContent}`,
     },
     headerClose: {
-      className: "flex flex-row mb-3",
+      className: "flex flex-row mb-3 bg-transparent",
+      onClick: () => onClose(),
     },
     buttonClose: {
       onClick: () => onClose(),
@@ -35,14 +55,17 @@ const ModalHOC = (props) => {
       className: styles.childrenModal,
     },
   };
+
   return (
     <Modal {...allProps.modal}>
-      <div {...allProps.fullContent} data-aos="fade-up" data-aos-duration="700">
-        <div {...allProps.headerClose}>
+      <Box className={`${styles.bodyModal} ${styles.scaleInCenter}`}>
+        <Box {...allProps.headerClose}>
           <Button {...allProps.buttonClose}>X</Button>
-        </div>
-        <div {...allProps.childrenModal}>{props.children}</div>
-      </div>
+        </Box>
+        <Box component={ScrollArea} className={styles.contentModal}>
+          {props.children}
+        </Box>
+      </Box>
     </Modal>
   );
 };

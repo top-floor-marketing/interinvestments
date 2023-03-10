@@ -24,6 +24,6 @@
     object-fit: cover;
 }
 
-.mantine-Modal-inner {
-    top: -5% !important;
+.mantine-Paper-root.mantine-Modal-content {
+    background-color: transparent !important;
 }

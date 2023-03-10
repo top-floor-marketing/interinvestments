@@ -17,37 +17,49 @@ const ModalQuickView = ({ data, onClose }) => {
     modalHoc: {
       onClose,
       opened: true,
+      closeOnEscape: true,
     },
     buttonView: {
       variant: "white",
       component: "a",
       href: content?.uri || "",
-      className: "btn-wp-primary " + styles.buttonView,
+      className: "btn-wp-primary-simple " + styles.buttonView,
     },
     buttonChangeCarousel: {
       variant: "white",
       className: "group " + styles.buttonChangeCarousel,
-    }
+    },
   };
 
   const prevSlider = () => {
     if (childRef.current) {
       childRef.current.prev();
     }
-  }
+  };
 
   const nextSlider = () => {
     if (childRef.current) {
       childRef.current.next();
     }
-  }
+  };
+
+  const priceMin = content.listingData?.newDevelopment?.priceMin || "";
+  const priceMax = content.listingData?.newDevelopment?.priceMax || "";
 
   const contentData = {
-    priceMin: content.listingData?.newDevelopment?.priceMin || null,
-    priceMax: content.listingData?.newDevelopment?.priceMax || null,
+    priceMin: priceMin.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }),
+    priceMax: priceMax.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }),
     views: content.listingData?.newDevelopment?.views || null,
-    livingArea: content.listingData?.newDevelopment?.livingArea || null
-  }
+    livingArea: content.listingData?.newDevelopment?.livingArea || null,
+  };
 
   return (
     <ModalHOC {...allProps.modalHoc}>
@@ -56,33 +68,40 @@ const ModalQuickView = ({ data, onClose }) => {
           <CarouselQuickView ref={childRef} photos={content.photos} />
         </div>
         <div className={styles.contentDivContainer}>
-          {
-            (contentData.priceMin) &&
+          {contentData.priceMin && (
             <>
               <Divider size="xs" color="dark" className="my-5" />
               <label className={styles.labelContentTittle}>Price Ranges:</label>
-              <label className={styles.labelContentValue}>${contentData.priceMin} - ${contentData.priceMax}</label>
+              <label className={styles.labelContentValue}>
+                {contentData.priceMin} - {contentData.priceMax}
+              </label>
             </>
-          }
-          {
-            (contentData.livingArea) &&
+          )}
+          {contentData.livingArea && (
             <>
               <Divider size="xs" color="dark" className="my-5" />
               <label className={styles.labelContentTittle}>Living Area:</label>
-              <label className={styles.labelContentValue}>{contentData.livingArea}</label>
+              <label className={styles.labelContentValue}>
+                {contentData.livingArea}
+              </label>
             </>
-          }
-          {
-            (contentData.views) &&
+          )}
+          {contentData.views && (
             <>
               <Divider size="xs" color="dark" className="my-5" />
               <label className={styles.labelContentTittle}>Views:</label>
-              <label className={styles.labelContentValue}>{contentData.views}</label>
+              <label className={styles.labelContentValue}>
+                {contentData.views}
+              </label>
             </>
-          }
+          )}
           <Box className={styles.disclaimer}>
             <Divider size="0px" color="dark" className="my-5" />
-            <label>Prices, Terms and Availability are subject to changes without notice. Square footage is believed to be accurate, but may be revised.</label>
+            <label>
+              Prices, Terms and Availability are subject to changes without
+              notice. Square footage is believed to be accurate, but may be
+              revised.
+            </label>
           </Box>
         </div>
       </div>
@@ -91,17 +110,31 @@ const ModalQuickView = ({ data, onClose }) => {
           <div className={styles.nameRowDevelopment}>
             <label className={styles.labelTitle}>{content.title}</label>
             <label className={styles.labelNameOfDevelopment}>
-              {
-                content.neighborhoods?.nodes.length ? content.neighborhoods?.nodes[0]?.name || '' : ''
-              }
+              {content.neighborhoods?.nodes.length
+                ? content.neighborhoods?.nodes[0]?.name || ""
+                : ""}
             </label>
           </div>
           <div className={styles.externalButtonsDevelopment}>
-            <Button {...allProps.buttonChangeCarousel} onClick={() => prevSlider()}>
-              <ChevronLeft size={24} color="#000" className={"group-hover:stroke-[#FFB839]"} />
+            <Button
+              {...allProps.buttonChangeCarousel}
+              onClick={() => prevSlider()}
+            >
+              <ChevronLeft
+                size={24}
+                color="#000"
+                className={"group-hover:stroke-[#FFB839]"}
+              />
             </Button>
-            <Button {...allProps.buttonChangeCarousel} onClick={() => nextSlider()}>
-              <ChevronRight className={"group-hover:stroke-[#FFB839]"} size={24} color="#000" />
+            <Button
+              {...allProps.buttonChangeCarousel}
+              onClick={() => nextSlider()}
+            >
+              <ChevronRight
+                className={"group-hover:stroke-[#FFB839]"}
+                size={24}
+                color="#000"
+              />
             </Button>
           </div>
         </div>
