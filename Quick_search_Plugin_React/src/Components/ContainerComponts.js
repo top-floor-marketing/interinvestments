@@ -6,18 +6,26 @@ import QuickSearch from "../Components/QuickSearch";
 import MenuQuickSearch from "../Components/MenuQuickSearch";
 // store
 import useStore from "../Store/useStore";
+import useGetData from "../hook/useGetData";
 // utils
 import { useWindowScroll, useHotkeys } from "@mantine/hooks";
 
 const PLUGIN_ID_NAME = "#quickSearchParent";
 
-const ContainerComponts = (props) => {
+const ContainerComponts = () => {
+  const {
+    isError,
+    isSkeleton,
+    dataNeighborhoods,
+    dataCategory,
+    isFetchedCategory,
+    isFetchingNeighborhoods,
+    isFetchingListing,
+  } = useGetData();
   const containerRef = useRef(null);
   const [{ y }] = useWindowScroll();
-  const {
-    state: { focusMenu },
-    setFocusMenu,
-  } = useStore();
+  const { state, setFocusMenu } = useStore();
+  const { focusMenu } = state;
 
   // et_pb_section_1 home
   // id sectionsearch
@@ -45,10 +53,22 @@ const ContainerComponts = (props) => {
     ],
   ]);
 
+  const propsHookGetData = {
+    isError,
+    isSkeleton,
+    dataNeighborhoods,
+    dataCategory,
+    isFetchedCategory,
+    isFetchingNeighborhoods,
+    isFetchingListing,
+  };
+
+  // console.log("stateStore", state);
+
   return (
     <Box style={{ width: "100%" }} id="boxContainerSearch" ref={containerRef}>
-      <QuickSearch />
-      <MenuQuickSearch />
+      <QuickSearch {...propsHookGetData} />
+      <MenuQuickSearch {...propsHookGetData} />
     </Box>
   );
 };

@@ -1,45 +1,23 @@
-import React, { useEffect } from "react";
 import { Card, Button, Box } from "@mantine/core";
 import { ChevronRight } from "tabler-icons-react";
 // componet
 import LoadingMenu from "./LoadingMenu";
-import AlertError from "../AlertError";
 import CardListing from "./CardListing";
 // store
 import useStore from "../../Store/useStore";
-// react-query
-import { useQueryHelper } from "../../GraphqlClient/useRequest";
-import { ALL_LISTING } from "../../GraphqlClient/GQL";
-
 //css
 import styles from "./styles.mqs.module.scss";
 
-const MenuQuickSearch = () => {
+const MenuQuickSearch = ({ isFetchingListing }) => {
   const {
-    state: { searchListing, activeCategory, activeNeighborhoods, focusMenu },
-  } = useStore();
-
-  const {
-    isLoading,
-    isError,
-    data,
-    refetch: refetchListing,
-    isFetching,
-  } = useQueryHelper({
-    name: "ALL_LISTING",
-    gql: ALL_LISTING,
-    variables: {
-      LISTINGCATEGORY: activeCategory,
-      search: searchListing,
-      NEIGHBORHOOD: activeNeighborhoods,
+    state: {
+      searchListing,
+      activeCategory,
+      activeNeighborhoods,
+      focusMenu,
+      listListing,
     },
-    config: { enabled: false },
-  });
-  useEffect(() => {
-    if (activeCategory && activeNeighborhoods) {
-      refetchListing();
-    }
-  }, [searchListing, refetchListing, activeCategory, activeNeighborhoods]);
+  } = useStore();
 
   const urlVaribles = () => {
     const URL_ALL_LISTING = "/all-listings/";
@@ -68,21 +46,10 @@ const MenuQuickSearch = () => {
     return (
       <div className={`z-1 ${styles.MenuQuickSearch}`}>
         <Card radius={10} className={styles.CardInputMenuMenuQuickSearch}>
-          {isError && (
-            <AlertError
-              label="Error!"
-              description="Please wait a few minutes before you try again"
-            />
-          )}
-          {isLoading && isFetching ? (
+          {isFetchingListing ? (
             <LoadingMenu />
           ) : (
-            data && (
-              <CardListing
-                isLoading={isLoading && isFetching}
-                data={data.listings.nodes}
-              />
-            )
+            listListing && <CardListing data={listListing} />
           )}
           <Box className="flex flex-row w-full bg-[#ffff] py-2 mt-2">
             <Button

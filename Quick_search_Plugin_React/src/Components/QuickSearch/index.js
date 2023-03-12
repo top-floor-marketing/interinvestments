@@ -6,7 +6,7 @@ import TabsQuickSearch from "../TabsQuickSearch";
 // css
 import styles from "./styles.qs.module.scss";
 
-const QuickSearch = () => {
+const QuickSearch = (props) => {
   return (
     <Paper radius={10} className={styles.cardQuickSearch}>
       <Box className={styles.gridQuickSearch}>
@@ -16,7 +16,7 @@ const QuickSearch = () => {
           </h3>
         </Box>
         <Box className={styles.menuQuickSearch}>
-          <TabsQuickSearch />
+          <TabsQuickSearch {...props} />
         </Box>
       </Box>
     </Paper>
