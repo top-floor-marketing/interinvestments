@@ -3,7 +3,7 @@
 .containerContend {
   position: inherit;
   z-index: 0 !important;
-  @apply w-full h-full xl:h-screen flex flex-col lg:flex-row gap-5 xl:gap-0 xl:pl-[20px];
+  @apply w-full h-full xl:h-screen flex flex-col lg:flex-row gap-5 xl:gap-1 xl:pl-[20px];
 }
 
 .containerMain {
@@ -11,15 +11,17 @@
 }
 
 .containerGridCard {
-  @apply w-full lg:w-2/5 pt-5 lg:pr-5;
+  @apply w-full lg:w-2/5 pt-5 lg:pr-5 3xl:max-w-[1300px];
 }
 
 .containerMap {
   @apply w-full h-full min-h-[650px] pb-[45px] lg:p-0 xl:h-inherit lg:h-full lg:w-[45%] 2xl:w-[60%];
+  @apply 3xl:w-full;
 }
 
 .containerGridInfinite {
   @apply w-full h-full min-h-[700px] max-h-[1500px];
+  @apply 4k:max-h-[2000px];
 }
 
 .sectionGridListing {

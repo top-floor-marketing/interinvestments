@@ -12,7 +12,6 @@ import get from "lodash/get";
 
 import "./styles_all_listing.css";
 
-// 1.25rem === p5
 const GUTTER_SIZE = 20;
 const ROW_HEIGHT = 300;
 
@@ -81,10 +80,6 @@ const GridListing = ({
       ? Math.ceil(totalData / 2)
       : 1;
 
-  // console.log("responsiveRowCount", responsiveRowCount);
-  // console.log("totalData", totalData);
-  // console.log("heightParent", heightParent);
-
   return (
     <Box ref={refParentBox} className={parentClassname}>
       {data.length ? (
@@ -93,7 +88,15 @@ const GridListing = ({
           className={`containerInfinite ${idGrid}`}
           onScroll={onScroll}
           columnCount={responsiveColumn}
-          columnWidth={responsiveColumn === 1 ? widthParent : widthParent / 2}
+          columnWidth={
+            responsiveColumn === 1
+              ? widthParent > 400
+                ? widthParent / 1.9
+                : widthParent
+              : widthParent > 1200
+              ? 550
+              : widthParent / 2
+          }
           height={heightParent}
           innerElementType={innerElementType}
           rowCount={responsiveRowCount}
@@ -124,6 +127,8 @@ const GridListing = ({
                       columnIndex,
                       responsiveColumn === 1
                     )}
+                    rowIndex={rowIndex}
+                    columnIndex={columnIndex}
                     openModalQuickView={(id) => openModalQuickView(id)}
                   />
                 </div>

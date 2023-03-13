@@ -5,7 +5,7 @@ import introJson from "../../Lottie/Intro.json";
 
 import styles from "./styles_gd_ALV.module.scss";
 
-const ID_OVERLAY_GRID = 'id-overlay-grid';
+const ID_OVERLAY_GRID = "id-overlay-grid";
 
 const OverlayLoading = () => {
   useEffect(() => {
@@ -16,9 +16,7 @@ const OverlayLoading = () => {
       autoplay: true,
       name: ID_OVERLAY_GRID,
     });
-    document.getElementsByTagName("body")[0].style.overflow = "hidden";
     return () => {
-      document.getElementsByTagName("body")[0].style.overflow = "auto";
       lottie.destroy(ID_OVERLAY_GRID);
     };
   }, []);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 // redux
 import { useDispatch } from "react-redux";
@@ -14,6 +14,7 @@ import get from "lodash/get";
 import styles from "./styles_gd_ALV.module.scss";
 
 const GridQuickView = (props) => {
+  const { rowIndex, columnIndex } = props;
   const dispatch = useDispatch();
   const { setSelectedListing } = actionslices;
   const {
@@ -26,7 +27,7 @@ const GridQuickView = (props) => {
   // @apply should not be used with the 'group' utility
   const allProps = {
     paperItem: {
-      className: " group " + styles.paperItem,
+      className: " group  " + styles.paperItem,
     },
     imgCover: {
       className: styles.imgCover,
@@ -85,6 +86,10 @@ const GridQuickView = (props) => {
       onMouseOver={handleMarkerMouseOver}
       onMouseOut={handleMarkerMouseOut}
       {...allProps.paperItem}
+      style={{
+        animationDuration: "0.7s",
+        animationDelay: `${rowIndex * 0.15 + columnIndex * 0.15}s`,
+      }}
     >
       {isMobileScreen ? (
         <CarouselMobile photos={get(data, ["photos"], [])} />
@@ -137,4 +142,4 @@ GridQuickView.propTypes = {
   index: PropTypes.number,
 };
 
-export default GridQuickView;
+export default memo(GridQuickView);
