@@ -29,7 +29,7 @@
 
   p:nth-child(n + 2) {
     font-weight: 300;
-    @apply ml-auto w-[60%] text-[14px] leading-[22px] md:text-[20px] md:leading-[26px];
+    @apply font-outfit ml-auto w-[60%] text-[14px] leading-[22px] md:text-[20px] md:leading-[26px];
   }
 }
 

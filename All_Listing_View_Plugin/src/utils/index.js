@@ -1,4 +1,6 @@
-export const ENUM_NEIGHBORHOODS = (idCategory) => {
+import numFormatter from "./FormaterNumber";
+
+const ENUM_NEIGHBORHOODS = (idCategory) => {
   switch (idCategory) {
     case "21":
       return "NEW_CONDOS";
@@ -10,3 +12,5 @@ export const ENUM_NEIGHBORHOODS = (idCategory) => {
       return "NEW_CONDOS";
   }
 };
+
+export { numFormatter, ENUM_NEIGHBORHOODS };

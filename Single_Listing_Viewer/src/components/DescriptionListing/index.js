@@ -3,13 +3,13 @@ import DOMPurify from "dompurify";
 // css
 import styles from "./styles.dl.module.scss";
 // mantine
-import { Box, Text, Spoiler } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 // utils
 import get from "lodash/get";
 
 const DescriptionListing = (props) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const show_more = urlParams.get("showmore");
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const show_more = urlParams.get("showmore");
   const { data, targetRef } = props;
 
   const descriptionHTMLDangerous = () => {
@@ -28,22 +28,26 @@ const DescriptionListing = (props) => {
         >
           Description
         </Text>
-        <Spoiler
-          initialState={show_more || false}
-          maxHeight={520}
-          showLabel="Show more"
-          hideLabel="Hide"
-        >
-          <Box
-            ref={targetRef}
-            id="status_show_more"
-            dangerouslySetInnerHTML={descriptionHTMLDangerous()}
-            data-aos-once="true"
-            data-aos-duration="2000"
-            data-aos="fade-up"
-            className={styles.textDescription}
-          />
-        </Spoiler>
+        {
+          //  <Spoiler
+          //     initialState={show_more || false}
+          //     maxHeight={520}
+          //     showLabel="Show more"
+          //     hideLabel="Hide"
+          //   >
+        }
+        <Box
+          ref={targetRef}
+          id="status_show_more"
+          dangerouslySetInnerHTML={descriptionHTMLDangerous()}
+          data-aos-once="true"
+          data-aos-duration="2000"
+          data-aos="fade-up"
+          className={styles.textDescription}
+        />
+        {
+          // </Spoiler>
+        }
       </Box>
     </Box>
   );

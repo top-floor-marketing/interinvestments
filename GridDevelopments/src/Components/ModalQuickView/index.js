@@ -63,83 +63,89 @@ const ModalQuickView = ({ data, onClose }) => {
 
   return (
     <ModalHOC {...allProps.modalHoc}>
-      <div className={styles.containerTopRow}>
-        <div className={styles.carouselDivContainer}>
-          <CarouselQuickView ref={childRef} photos={content.photos} />
-        </div>
-        <div className={styles.contentDivContainer}>
-          {contentData.priceMin && (
-            <>
-              <Divider size="xs" color="dark" className="my-5" />
-              <label className={styles.labelContentTittle}>Price Ranges:</label>
-              <label className={styles.labelContentValue}>
-                {contentData.priceMin} - {contentData.priceMax}
-              </label>
-            </>
-          )}
-          {contentData.livingArea && (
-            <>
-              <Divider size="xs" color="dark" className="my-5" />
-              <label className={styles.labelContentTittle}>Living Area:</label>
-              <label className={styles.labelContentValue}>
-                {contentData.livingArea}
-              </label>
-            </>
-          )}
-          {contentData.views && (
-            <>
-              <Divider size="xs" color="dark" className="my-5" />
-              <label className={styles.labelContentTittle}>Views:</label>
-              <label className={styles.labelContentValue}>
-                {contentData.views}
-              </label>
-            </>
-          )}
-          <Box className={styles.disclaimer}>
-            <Divider size="0px" color="dark" className="my-5" />
-            <label>
-              Prices, Terms and Availability are subject to changes without
-              notice. Square footage is believed to be accurate, but may be
-              revised.
-            </label>
-          </Box>
-        </div>
-      </div>
-      <div className={styles.containerBottomRow}>
-        <div className={styles.nameOfDevelopmentContainer}>
-          <div className={styles.nameRowDevelopment}>
-            <label className={styles.labelTitle}>{content.title}</label>
-            <label className={styles.labelNameOfDevelopment}>
-              {content.neighborhoods?.nodes.length
-                ? content.neighborhoods?.nodes[0]?.name || ""
-                : ""}
-            </label>
+      <div className={styles.containerContentModal}>
+        <div className={styles.containerTopRow}>
+          <div className={styles.carouselDivContainer}>
+            <CarouselQuickView ref={childRef} photos={content.photos} />
           </div>
-          <div className={styles.externalButtonsDevelopment}>
-            <Button
-              {...allProps.buttonChangeCarousel}
-              onClick={() => prevSlider()}
-            >
-              <ChevronLeft
-                size={24}
-                color="#000"
-                className={"group-hover:stroke-[#FFB839]"}
-              />
-            </Button>
-            <Button
-              {...allProps.buttonChangeCarousel}
-              onClick={() => nextSlider()}
-            >
-              <ChevronRight
-                className={"group-hover:stroke-[#FFB839]"}
-                size={24}
-                color="#000"
-              />
-            </Button>
+          <div className={styles.contentDivContainer}>
+            {contentData.priceMin && (
+              <>
+                <Divider size="xs" color="dark" className="my-5" />
+                <label className={styles.labelContentTittle}>
+                  Price Ranges:
+                </label>
+                <label className={styles.labelContentValue}>
+                  {contentData.priceMin} - {contentData.priceMax}
+                </label>
+              </>
+            )}
+            {contentData.livingArea && (
+              <>
+                <Divider size="xs" color="dark" className="my-5" />
+                <label className={styles.labelContentTittle}>
+                  Living Area:
+                </label>
+                <label className={styles.labelContentValue}>
+                  {contentData.livingArea}
+                </label>
+              </>
+            )}
+            {contentData.views && (
+              <>
+                <Divider size="xs" color="dark" className="my-5" />
+                <label className={styles.labelContentTittle}>Views:</label>
+                <label className={styles.labelContentValue}>
+                  {contentData.views}
+                </label>
+              </>
+            )}
+            <Box className={styles.disclaimer}>
+              <Divider size="0px" color="dark" className="my-5" />
+              <label>
+                Prices, Terms and Availability are subject to changes without
+                notice. Square footage is believed to be accurate, but may be
+                revised.
+              </label>
+            </Box>
           </div>
         </div>
-        <div className={styles.containerButtonView}>
-          <Button {...allProps.buttonView}>View Project</Button>
+        <div className={styles.containerBottomRow}>
+          <div className={styles.nameOfDevelopmentContainer}>
+            <div className={styles.nameRowDevelopment}>
+              <label className={styles.labelTitle}>{content.title}</label>
+              <label className={styles.labelNameOfDevelopment}>
+                {content.neighborhoods?.nodes.length
+                  ? content.neighborhoods?.nodes[0]?.name || ""
+                  : ""}
+              </label>
+            </div>
+            <div className={styles.externalButtonsDevelopment}>
+              <Button
+                {...allProps.buttonChangeCarousel}
+                onClick={() => prevSlider()}
+              >
+                <ChevronLeft
+                  size={24}
+                  color="#000"
+                  className={"group-hover:stroke-[#FFB839]"}
+                />
+              </Button>
+              <Button
+                {...allProps.buttonChangeCarousel}
+                onClick={() => nextSlider()}
+              >
+                <ChevronRight
+                  className={"group-hover:stroke-[#FFB839]"}
+                  size={24}
+                  color="#000"
+                />
+              </Button>
+            </div>
+          </div>
+          <div className={styles.containerButtonView}>
+            <Button {...allProps.buttonView}>View Project</Button>
+          </div>
         </div>
       </div>
     </ModalHOC>
