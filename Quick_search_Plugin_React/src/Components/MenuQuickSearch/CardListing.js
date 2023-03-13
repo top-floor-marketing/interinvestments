@@ -1,5 +1,5 @@
 //mantine
-import { Box } from "@mantine/core";
+import { ScrollArea } from "@mantine/core";
 import { DatabaseOff } from "tabler-icons-react";
 // components
 import ItemCardListing from "./ItemCardListing";
@@ -9,7 +9,10 @@ import styles from "./styles.mqs.module.scss";
 const CardListing = ({ data }) => {
   if (data.length) {
     return (
-      <Box className={data.length >= 3 ? styles.containerMenu : "h-full"}>
+      <ScrollArea
+        className={data.length >= 3 ? styles.containerMenu : "h-full"}
+        offsetScrollbars
+      >
         {data.map((val, index) => {
           const { newDevelopment } = val.listingData;
           const { featuredImage, uri, title } = val;
@@ -24,7 +27,7 @@ const CardListing = ({ data }) => {
             />
           );
         })}
-      </Box>
+      </ScrollArea>
     );
   }
 
