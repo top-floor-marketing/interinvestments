@@ -1,5 +1,5 @@
 .containerForm {
-  @apply w-full max-w-md lg:max-w-[320.67px] relative;
+  @apply w-full max-w-md lg:max-w-[350px] relative;
 }
 
 .PaperForm {
@@ -43,4 +43,5 @@
 
 .buttonSubmit {
   @apply bg-transparent hover:bg-white font-outfit transition-all duration-700 ease-in-out text-[16px] leading-[26px] border-white hover:border-black text-white hover:text-black border px-[16px] py-[4.8px] rounded-none;
+  @apply mr-auto;
 }

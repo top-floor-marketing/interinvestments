@@ -1,0 +1,10 @@
+@tailwind utilities;
+
+body {
+  .containerMain {
+    background-image: url("./assets/fondoForm.jpg") !important;
+    @apply w-full flex flex-col items-center justify-center mx-auto py-8 lg:py-0 min-h-[700px] h-full;
+    @apply 2xl:h-[100vh] max-h-[1500px] bg-center bg-cover bg-no-repeat overflow-auto;
+    @apply lg:items-end lg:pr-[135px] px-2;
+  }
+}
