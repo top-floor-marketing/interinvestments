@@ -39,8 +39,14 @@ const useGetFeaturedDev = () => {
   const { search, neighborhood, category } = useSelector(
     (state) => state.filter
   );
-  const { dataCategory, dataListing, pageInfoListing, isError, mapApiKey } =
-    useSelector((state) => state.statusQuery);
+  const {
+    dataCategory,
+    dataListing,
+    pageInfoListing,
+    isLoading: isGlobalLoading,
+    isError,
+    mapApiKey,
+  } = useSelector((state) => state.statusQuery);
 
   const [idSingleListing, setIdSingleListing] = useState(null);
   const [singleListing, setSingleListing] = useState(null);
@@ -66,7 +72,7 @@ const useGetFeaturedDev = () => {
     dataCategory?.length > 0 && parseInt(category) > 0;
 
   // 1
-  useQueryHelper({
+  const { isLoading: isLoadingCategory } = useQueryHelper({
     name: ["LISTINGS_CATEGORY_By_AllListingView"],
     gql: LISTINGS_CATEGORY,
     variables: {
@@ -86,7 +92,15 @@ const useGetFeaturedDev = () => {
         if (value_category_URL) {
           dispatch(setCategory(value_category_URL));
         } else {
-          dispatch(setCategory(`${req.listingCategories.nodes[0].databaseId}`));
+          dispatch(
+            setCategory(
+              get(
+                req,
+                ["listingCategories", "nodes", "0", "databaseId"],
+                ""
+              ).toString()
+            )
+          );
         }
       },
       onError: () => {
@@ -106,13 +120,25 @@ const useGetFeaturedDev = () => {
       categorie: ENUM_NEIGHBORHOODS(category),
     },
     config: {
+      cacheTime: 100000,
       enabled: BASIC_ENABLED_QUERY,
       onSuccess: (req) => {
         // set data nei
         dispatch(setDataNeighborhood(req.neighborhoodByCategorie));
+
         // set default vaue
-        if (value_Neighborhood_URL) {
+        if (value_Neighborhood_URL && isGlobalLoading) {
           dispatch(setneighborhood(value_Neighborhood_URL));
+        } else {
+          dispatch(
+            setneighborhood(
+              get(
+                req,
+                ["neighborhoodByCategorie", "0", "databaseId"],
+                ""
+              ).toString()
+            )
+          );
         }
       },
       onError: () => {
@@ -172,61 +198,60 @@ const useGetFeaturedDev = () => {
   };
 
   // 4
-  const {
-    isLoading: isLoadingListing,
-    isFetching: isFetchingListing,
-    refetch: refetchListing,
-    isFetched,
-    isSuccess,
-  } = useQueryHelper({
-    name: [
-      "ALL_LISTINGS_DEVELOPMENTS_By_AllListingView",
-      category,
-      neighborhood,
-      search,
-    ],
-    gql: ALL_LISTINGS_DEVELOPMENTS(
-      category ? category : null,
-      neighborhood ? neighborhood : null
-    ),
-    config: {
-      enabled: BASIC_ENABLED_QUERY && !isEmpty(mapApiKey),
-      onSuccess: (req) => {
-        // set data acf opcion
-        const newListingNodes = {
-          ...req?.listings,
-          nodes:
-            req?.listings?.nodes?.map((val) => {
-              return {
-                ...val,
-                uri: getUriWithAgentId(val.uri),
-              };
-            }) || [],
-        };
-        dispatch(
-          setDataListing({
-            data: {
-              ...newListingNodes,
-            },
-          })
-        );
-        // dispatch loading global false
-        dispatch(setIsLoading(false));
+  const { isFetching: isFetchingListing, refetch: refetchListing } =
+    useQueryHelper({
+      name: [
+        "ALL_LISTINGS_DEVELOPMENTS_By_AllListingView",
+        category,
+        neighborhood,
+        search,
+      ],
+      gql: ALL_LISTINGS_DEVELOPMENTS(
+        category ? category : null,
+        neighborhood ? neighborhood : null
+      ),
+      config: {
+        cacheTime: 1000000,
+        enabled: BASIC_ENABLED_QUERY && !isEmpty(mapApiKey),
+        notifyOnChangeProps: "all",
+        onSuccess: (req) => {
+          // set data acf opcion
+          const newListingNodes = {
+            ...req?.listings,
+            nodes:
+              req?.listings?.nodes?.map((val) => {
+                return {
+                  ...val,
+                  uri: getUriWithAgentId(val.uri),
+                };
+              }) || [],
+          };
+          dispatch(
+            setDataListing({
+              data: {
+                ...newListingNodes,
+              },
+            })
+          );
+          // dispatch loading global false
+          dispatch(setIsLoading(false));
+          // set error
+          dispatch(setcISError(false));
+        },
+        onError: () => {
+          // dispatch loading global false
+          dispatch(setIsLoading(true));
+          // set error
+          dispatch(setcISError(true));
+        },
       },
-      onError: () => {
-        // dispatch loading global false
-        dispatch(setIsLoading(true));
-        // set error
-        dispatch(setcISError(true));
+      variables: {
+        ...variablesListint(),
       },
-    },
-    variables: {
-      ...variablesListint(),
-    },
-  });
+    });
 
   // Get Specific Listing
-  const { isLoading: isLoadingSingle } = useQueryHelper({
+  const { isFetching: isFetchingSingle } = useQueryHelper({
     name: ["GET_SINGLE_LISTING_GQL_", idSingleListing],
     gql: GET_SINGLE_LISTING_GQL,
     config: {
@@ -234,7 +259,8 @@ const useGetFeaturedDev = () => {
       notifyOnChangeProps: "all",
       enabled:
         BASIC_ENABLED_QUERY &&
-        !isLoadingListing &&
+        !isFetchingListing &&
+        !isGlobalLoading &&
         parseInt(idSingleListing) > 0,
       onSuccess: (response) => {
         const { listings } = response;
@@ -264,25 +290,35 @@ const useGetFeaturedDev = () => {
     setIdSingleListing(id);
   };
 
+  console.log("isLoadingListing", isFetchingListing);
+  console.log("isFetchingNeightborhoods", isFetchingNeightborhoods);
   return {
+    isError,
+    isSkeletonListing:
+      isLoadingCategory || isGlobalLoading || isEmpty(mapApiKey),
+    isFetchingNeightborhoods: isFetchingNeightborhoods,
+    showOverlay: isFetchingSingle,
+    singleListing,
+    onChangeSingleListing,
+    loadingListing: isFetchingListing || isFetchingNeightborhoods,
+    refetchListing,
+    dataListing,
+    totalData: dataListing?.length || 0,
+  };
+
+  /* return {
     isFetchingNeightborhoods,
     isError,
-    isSkeleton:
-      (!isFetched && !isSuccess) ||
-      isFetchingListing ||
-      isFetchingNeightborhoods,
+    isSkeleton: !isFetchedListing && !dataListing?.length,
     refetchListing,
     dataListing,
     totalData: dataListing.length,
     loadingListing:
-      isFetchingListing ||
-      isLoadingListing ||
-      isFetchingNeightborhoods ||
-      isFetchingListing,
+      isLoadingListing || isFetchingNeightborhoods || isFetchingListing,
     onChangeSingleListing,
     singleListing,
     showOverlay: isLoadingSingle && idSingleListing && !singleListing,
-  };
+  }; */
 };
 
 export default useGetFeaturedDev;

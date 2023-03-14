@@ -27,9 +27,6 @@ const FiltersListings = ({ isFetchingNeightborhoods }) => {
     return <SkeletonFilters />;
   }
 
-  // console.log("dataNei", dataNei);
-  // console.log("neighborhood", neighborhood);
-
   return (
     <Box className={styles.ContainerFilters}>
       <TextInput

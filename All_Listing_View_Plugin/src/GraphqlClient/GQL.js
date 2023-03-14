@@ -138,11 +138,7 @@ export const GET_SINGLE_LISTING_GQL = gql`
               sourceUrl
               title
             }
-            contentLivingArea {
-              livingArea
-              priceMax
-              priceMin
-            }
+            livingArea
             views
             priceMin
             priceMax

@@ -71,18 +71,20 @@ const GridListing = ({
 
   // containerInfinite class for css-scrollbar styles
   // idGrid class for get clientHeight in scroll function
-
-  const responsiveColumn = widthParent < 600 ? 1 : totalData > 1 ? 2 : 1;
+  const responsiveColumn = widthParent < 550 ? 1 : totalData > 1 ? 2 : 1;
   const responsiveRowCount =
     responsiveColumn === 1
       ? totalData
       : totalData > 2
       ? Math.ceil(totalData / 2)
       : 1;
-
   return (
     <Box ref={refParentBox} className={parentClassname}>
-      {data.length ? (
+      {!totalData && !isLoading ? (
+        <Box className="flex items-center justify-center w-full h-full">
+          <Text>No Data</Text>
+        </Box>
+      ) : (
         <Grid
           itemData={data}
           className={`containerInfinite ${idGrid}`}
@@ -137,10 +139,6 @@ const GridListing = ({
             return null;
           }}
         </Grid>
-      ) : (
-        <Box className="flex items-center justify-center w-full h-full">
-          <Text>No Data</Text>
-        </Box>
       )}
     </Box>
   );
