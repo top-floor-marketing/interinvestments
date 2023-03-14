@@ -8,7 +8,7 @@
 }
 
 .containerMain {
-  @apply flex flex-col gap-5 lg:gap-[20px];
+  @apply flex flex-col gap-5 lg:gap-[20px] h-full;
 }
 
 .containerMap {

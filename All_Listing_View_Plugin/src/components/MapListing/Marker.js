@@ -31,7 +31,7 @@ const MarkerMap = (props) => {
     setOpacityMarker(0.6);
   };
 
-  if (latitude && longitude) {
+  if (latitude && longitude && props?.idListing) {
     return (
       <Marker
         opacity={props.idListing === selectedListing ? 1 : opacityMarker}
@@ -98,7 +98,7 @@ const MarkerMap = (props) => {
         )}
       </Marker>
     );
-  }
+  } else return null;
 };
 
 export default MarkerMap;
