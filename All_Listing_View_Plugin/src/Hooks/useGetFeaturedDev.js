@@ -130,15 +130,7 @@ const useGetFeaturedDev = () => {
         if (value_Neighborhood_URL && isGlobalLoading) {
           dispatch(setneighborhood(value_Neighborhood_URL));
         } else {
-          dispatch(
-            setneighborhood(
-              get(
-                req,
-                ["neighborhoodByCategorie", "0", "databaseId"],
-                ""
-              ).toString()
-            )
-          );
+          dispatch(setneighborhood(null));
         }
       },
       onError: () => {
@@ -290,8 +282,6 @@ const useGetFeaturedDev = () => {
     setIdSingleListing(id);
   };
 
-  console.log("isLoadingListing", isFetchingListing);
-  console.log("isFetchingNeightborhoods", isFetchingNeightborhoods);
   return {
     isError,
     isSkeletonListing:
@@ -305,20 +295,6 @@ const useGetFeaturedDev = () => {
     dataListing,
     totalData: dataListing?.length || 0,
   };
-
-  /* return {
-    isFetchingNeightborhoods,
-    isError,
-    isSkeleton: !isFetchedListing && !dataListing?.length,
-    refetchListing,
-    dataListing,
-    totalData: dataListing.length,
-    loadingListing:
-      isLoadingListing || isFetchingNeightborhoods || isFetchingListing,
-    onChangeSingleListing,
-    singleListing,
-    showOverlay: isLoadingSingle && idSingleListing && !singleListing,
-  }; */
 };
 
 export default useGetFeaturedDev;

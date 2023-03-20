@@ -21,6 +21,7 @@ const MapListing = (props) => {
     lng: -80.191788,
   });
   const { mapApiKey, dataListing } = useSelector((state) => state.statusQuery);
+  const { selectedListing } = useSelector((state) => state.listing_data);
   const { isLoaded, loadError } = useLoadScript({
     id: "google-map-script",
     googleMapsApiKey: mapApiKey,
@@ -59,6 +60,16 @@ const MapListing = (props) => {
     );
   }
 
+  const renderCenterMap = () => {
+    if (selectedListing) {
+      return {
+        lat: parseFloat(selectedListing.lat),
+        lng: parseFloat(selectedListing.lng),
+      };
+    }
+    return defaultPropsMap;
+  };
+
   return (
     <Box className={style.mapContainer}>
       <LoadingOverlay
@@ -84,7 +95,7 @@ const MapListing = (props) => {
             height: "100%",
           }}
           zoom={11}
-          center={defaultPropsMap}
+          center={renderCenterMap()}
         >
           {dataListing.map((value, index) => {
             const {
