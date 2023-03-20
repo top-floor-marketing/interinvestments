@@ -23,6 +23,9 @@ const InputForm = (props) => {
         disabled: {
           backgroundColor: "#5c5e62c4 !important",
         },
+        input: {
+          color: "#fff !important",
+        },
       }}
       {...propsForm}
       classNames={{ ...classNamesInput }}
