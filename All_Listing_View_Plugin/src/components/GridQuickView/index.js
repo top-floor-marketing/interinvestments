@@ -73,7 +73,13 @@ const GridQuickView = (props) => {
 
   const handleMarkerMouseOver = () => {
     if (data.id) {
-      dispatch(setSelectedListing(data.id));
+      dispatch(
+        setSelectedListing({
+          id: data.id,
+          lat: data.latitude,
+          lng: data.longitude,
+        })
+      );
     }
   };
 

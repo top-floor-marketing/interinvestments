@@ -34,7 +34,7 @@ const MarkerMap = (props) => {
   if (latitude && longitude && props?.idListing) {
     return (
       <Marker
-        opacity={props.idListing === selectedListing ? 1 : opacityMarker}
+        opacity={props.idListing === selectedListing?.id ? 1 : opacityMarker}
         onClick={() => handleMarkerClick()}
         onMouseOver={handleMarkerMouseOver}
         onMouseOut={handleMarkerMouseOut}
@@ -49,7 +49,7 @@ const MarkerMap = (props) => {
       >
         {(selectedMarker ||
           onOpenMarker ||
-          props.idListing === selectedListing) && (
+          props.idListing === selectedListing?.id) && (
           <InfoWindow
             onCloseClick={() => {
               setOpacityMarker(0.6);
