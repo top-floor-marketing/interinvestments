@@ -30,9 +30,9 @@ const useGetListingInfo = ({ idListing = null, idAgent = null }) => {
     const { isLoading: isLoadingListing, error: isErrorListing } = useQueryHelper(
         {
             gql: GET_LISTING_FOR_PDF,
-            name: "GET_LISTING_FOR_PDF",
+            name: ["GET_LISTING_FOR_PDF", idListing],
             config: {
-                cacheTime: 120000,
+                cacheTime: 5000,
                 onSuccess: (response) => {
                     setInfoForPdf({
                         ...infoForPdf,

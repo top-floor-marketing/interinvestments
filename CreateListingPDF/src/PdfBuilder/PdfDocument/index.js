@@ -8,7 +8,7 @@ import words from 'lodash/words';
 // pages
 import PageOne from './pageOne';
 import PageTwo from './pageTwo';
-import PageThree from './pageThree';
+import PageThree from './pagethree';
 import PageFour from './pageFour';
 import PageFive from './pageFive';
 import PageSix from './pageSix';

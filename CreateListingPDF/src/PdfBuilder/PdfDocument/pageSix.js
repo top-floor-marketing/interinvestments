@@ -119,7 +119,7 @@ const PageSix = ({ listing, agent }) => {
                                 Kitchen Cabinets
                                 </Text>
                                 <Text style={styles.textRowDataInfo}>
-                                    {specs.kitchenCabinets} asd asd asd asdasd
+                                    {specs.kitchenCabinets}
                                 </Text>
                             </View>
                         }

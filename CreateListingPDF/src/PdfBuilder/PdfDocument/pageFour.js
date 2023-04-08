@@ -5,7 +5,7 @@ import get from 'lodash/get';
 import FooterDinamic from './footerDinamic';
 import HeaderDinamic from './headerDinamic';
 
-import { FONT_FAMILY, INTERINVESTMENT, PADDING_FOR_PAGES } from './utils';
+import { FONT_FAMILY, PADDING_FOR_PAGES } from './utils';
 
 const PageFour = ({ listing, agent }) => {
 

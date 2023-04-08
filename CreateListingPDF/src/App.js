@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 
 import { addListener, removeListener } from './eventListener';
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { MantineProvider } from '@mantine/core';
 import { NavigationProgress, stopNavigationProgress } from '@mantine/nprogress';
@@ -45,31 +45,31 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider>
-        <NavigationProgress size='10px' zIndex={9999} color={"#ffb839"} />
+        <NavigationProgress size='10px' zIndex={9999} color={'#ffb839'} />
         <>
-       {/*  <div
+          <div
             style={{
-              width: "100%",
-              height: "50px",
-              padding: "2rem",
-              backgroundColor: "#8BA6A9",
+              width: '100%',
+              height: '50px',
+              padding: '2rem',
+              backgroundColor: '#8BA6A9',
             }}
           >
             <button
-              id="btnTest"
+              id='btnTest'
               onClick={() =>
                 renderBuilder({
                   detail: {
-                    idListing: 295,
+                    idListing: 5934,
                     idAgent: 30,
-                    idElement: "btnTest"
+                    idElement: 'btnTest',
                   },
                 })
               }
             >
               Create PDF
             </button>
-          </div> */}
+          </div>
           {isRenderBuilder && (
             <PdfBuilder {...dataForPdf} onClose={closeRenderBuilder} />
           )}
@@ -77,7 +77,6 @@ function App() {
       </MantineProvider>
     </QueryClientProvider>
   );
-
 }
 
 export default App;
