@@ -6,6 +6,10 @@
     @apply max-w-[1200px] w-[90%] mx-auto border-0 pt-[3rem] shadow-cards;
 }
 
+.containerInfoListing {
+    @apply flex w-full h-auto lg:h-[120px] flex-col lg:flex-row gap-3 justify-between items-end;
+}
+
 .NoImageBox {
     @apply flex justify-center;
     p {
@@ -38,7 +42,7 @@
 }
 
 .dataListing {
-    @apply flex flex-col justify-between h-full w-full gap-6 md:gap-[11px];
+    @apply flex flex-col justify-between h-full w-full gap-3 md:gap-[11px];
 }
 
 .titleListing {

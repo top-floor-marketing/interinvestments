@@ -45,7 +45,6 @@ const ItemCardListing = (props) => {
 
   return (
     <Box
-      component="div"
       onClick={() => {
         window.location.href = urlCardListing(uri);
       }}
@@ -70,7 +69,7 @@ const ItemCardListing = (props) => {
           <NoImagen />
         )}
 
-        <Box className="flex w-full h-[120px] flex-row justify-between items-end">
+        <Box className={styles.containerInfoListing}>
           <Box style={{ height: "inherit" }} className={styles.dataListing}>
             <Text component="h4" className={styles.titleListing}>
               {title}
@@ -95,7 +94,7 @@ const ItemCardListing = (props) => {
             </Box>
           </Box>
           <Button
-            className="btn-wp-primary-icon mr-6"
+            className="btn-wp-primary-icon lg:mr-6 mx-auto md:mx-0"
             component="a"
             href={urlCardListing(uri)}
             variant="outline"
