@@ -12,7 +12,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { openConfirmModal, closeAllModals } from '@mantine/modals';
 
 import { notificationError, notificationSuccess } from "../Notifications";
-import { useMutationHelper } from "../../GraphqlClient/useRequest";
+import { useMutationHelper } from "../../GraphqlClient/hooks/useRequest";
 import { MUTATION_LEADS_ASSIGNMENT } from "../../GraphqlClient/leads.gql";
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";

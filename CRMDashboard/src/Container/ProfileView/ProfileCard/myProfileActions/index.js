@@ -8,7 +8,7 @@ import { notificationError, notificationSuccess } from "../../../../Component/No
 import DrawerEditInfo from './drawerEditInfo'
 // import ModalEditInfo from "../modalEditInfo";
 // React query
-import { useMutationHelper } from "../../../../GraphqlClient/useRequest";
+import { useMutationHelper } from "../../../../GraphqlClient/hooks/useRequest";
 import { MUTATION_EDIT_AGENT_PROFILE } from "../../../../GraphqlClient/agentProfile.gql";
 // utilities
 import isEqual from 'lodash/isEqual';

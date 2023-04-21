@@ -1,6 +1,6 @@
 import { useState } from 'react'
 // react-query
-import { useQueryHelper } from '../../../GraphqlClient/useRequest'
+import { useQueryHelper } from '../../../GraphqlClient/hooks/useRequest'
 import { PIPELINE } from '../../../GraphqlClient/pipeline.gql';
 
 import get from 'lodash/get';

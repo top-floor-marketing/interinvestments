@@ -16,7 +16,7 @@ import schema from "./schema";
 import useStyles from "../stylesLogin";
 // react-query
 import { LOGIN_WITH_JWT } from "../../../../GraphqlClient/user.gql";
-import { useMutationHelper } from "../../../../GraphqlClient/useRequest";
+import { useMutationHelper } from "../../../../GraphqlClient/hooks/useRequest";
 
 const FormLogin = (props) => {
   const { classes } = useStyles();

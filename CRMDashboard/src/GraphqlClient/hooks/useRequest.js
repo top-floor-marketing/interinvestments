@@ -1,10 +1,10 @@
 import { useQuery, useMutation } from '@tanstack/react-query'
 
 import { GraphQLClient } from "graphql-request";
-import { GET_NEW_TOKEN } from './user.gql';
-import { ROUTES_NAMES } from '../Route/routes';
+import { GET_NEW_TOKEN } from '../user.gql';
+import { ROUTES_NAMES } from '../../Route/routes';
 
-import { LOCAL_STORAGE } from "../Utils/globalConstants";
+import { LOCAL_STORAGE } from "../../Utils/globalConstants";
 
 import isNull from "lodash/isNull";
 import get from 'lodash/get';
@@ -50,14 +50,14 @@ const requestNewToken = async () => {
 }
 
 const useQueryHelper = (props) => {
-  const { name, gql, variables, config = {} } = props;
+  const { name = [], gql, variables, config = {} } = props;
   let token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
   let requestHeaders = {
     authorization: !isNull(token) ? `Bearer ${token}` : "",
   };
   const client = new GraphQLClient(API_URL);
   return useQuery(
-    [name],
+    name,
     async ({ signal }) => {
       let isErrorResponse = false;
       let tryRequest = false;
@@ -103,14 +103,14 @@ const useQueryHelper = (props) => {
 };
 
 const useMutationHelper = (props) => {
-  const { name, gql, config = {} } = props;
+  const { name = [], gql, config = {} } = props;
   let token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
   let requestHeaders = {
     authorization: !isNull(token) ? `Bearer ${token}` : "",
   };
   const client = new GraphQLClient(API_URL);
   return useMutation(
-    [name],
+    name,
     async ({ signal, variables }) => {
       let isErrorResponse = false;
       let tryRequest = false;

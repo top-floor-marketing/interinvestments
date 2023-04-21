@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import { getAgentTypeByRole } from "../../GlobalStore/useActionsUser"; 
 import { USER_ROLES_CRM } from "../../GlobalStore/utils";
-import { useQueryHelper } from "../../GraphqlClient/useRequest";
+import { useQueryHelper } from "../../GraphqlClient/hooks/useRequest";
 import { GET_AGENT_PROFILE_INFO } from "../../GraphqlClient/agentProfile.gql";
 
 import Login from "./Login";

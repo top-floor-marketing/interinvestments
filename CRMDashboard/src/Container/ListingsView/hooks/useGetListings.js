@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQueryHelper, useMutationHelper } from "../../../GraphqlClient/useRequest";
+import { useQueryHelper, useMutationHelper } from "../../../GraphqlClient/hooks/useRequest";
 import { GET_LISTINGS_CATEGORY, GET_ALL_NEIGHBORHOODS, GET_ALL_LISTINGS } from "../../../GraphqlClient/listings.gql";
 import { GET_AGENT_FEATURED_LISTING, MUTATION_ADD_AGENT_LISTING, MUTATION_DETELE_AGENT_LISTING } from "../../../GraphqlClient/agentProfile.gql";
 

@@ -10,7 +10,7 @@ import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
 // styles 
 import useStyles from './styles'
 // react-query
-import { useMutationHelper } from '../../../GraphqlClient/useRequest';
+import { useMutationHelper } from '../../../GraphqlClient/hooks/useRequest';
 import { MUTATION_LEADS_ADD } from '../../../GraphqlClient/leads.gql';
 // utis
 import { USER_ROLES_CRM } from '../../../GlobalStore/utils'

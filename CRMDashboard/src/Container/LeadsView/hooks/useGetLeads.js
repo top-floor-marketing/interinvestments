@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDebouncedState } from '@mantine/hooks';
 import {
   useQueryHelper,
-} from "../../../GraphqlClient/useRequest";
+} from "../../../GraphqlClient/hooks/useRequest";
 import { GET_LEADS_LIST_FOR_AGENT } from "../../../GraphqlClient/leads.gql";
 import { ALL_LEADS_PIPELINE } from "../../../GraphqlClient/pipeline.gql";
 

@@ -1,6 +1,6 @@
 import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import { Box, createStyles, Skeleton, Button, Paper, Text } from "@mantine/core";
-import { useQueryHelper } from "../../GraphqlClient/useRequest";
+import { useQueryHelper } from "../../GraphqlClient/hooks/useRequest";
 import { ADMIN_GET_ALL_AGENTS } from "../../GraphqlClient/agentProfile.gql";
 
 import TransferAgent from "./TransferAgent";

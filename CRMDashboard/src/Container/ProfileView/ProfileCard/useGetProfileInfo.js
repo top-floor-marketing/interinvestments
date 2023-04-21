@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQueryHelper } from "../../../GraphqlClient/useRequest";
+import { useQueryHelper } from "../../../GraphqlClient/hooks/useRequest";
 import { GET_AGENT_PROFILE_INFO } from "../../../GraphqlClient/agentProfile.gql";
 
 // global Store

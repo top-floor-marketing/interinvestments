@@ -1,6 +1,6 @@
 import { useState } from 'react'
 // react-query
-import { useQueryHelper } from '../../../GraphqlClient/useRequest'
+import { useQueryHelper } from '../../../GraphqlClient/hooks/useRequest'
 import { ALL_LEADS_PIPELINE } from '../../../GraphqlClient/pipeline.gql';
 
 import { USER_ROLES_CRM, PIPELINE_STATUS } from '../../../GlobalStore/utils';

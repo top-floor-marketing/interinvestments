@@ -9,7 +9,7 @@ import { User, Mail, Phone } from 'tabler-icons-react';
 // styles
 import useStyles from './styles'
 // react query
-import { useQueryHelper } from "../../../GraphqlClient/useRequest";
+import { useQueryHelper } from "../../../GraphqlClient/hooks/useRequest";
 import { GET_USER_LEADS_FOR_WIZARD } from "../../../GraphqlClient/leads.gql";
 //  utils
 import get from 'lodash/get'

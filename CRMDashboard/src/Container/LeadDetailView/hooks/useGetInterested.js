@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQueryHelper } from "../../../GraphqlClient/useRequest";
+import { useQueryHelper } from "../../../GraphqlClient/hooks/useRequest";
 import { GET_LEAD_INTERESTED } from "../../../GraphqlClient/leads.gql";
 
 import { get, forEach } from "lodash";

@@ -1,5 +1,5 @@
 import { Box, createStyles, Text, ScrollArea, Skeleton } from "@mantine/core";
-import { useQueryHelper } from "../../../../GraphqlClient/useRequest";
+import { useQueryHelper } from "../../../../GraphqlClient/hooks/useRequest";
 import { GET_LEADS_LIST_FOR_AGENT } from "../../../../GraphqlClient/leads.gql";
 import get from 'lodash/get';
 import { USER_ROLES_CRM } from "../../../../GlobalStore/utils";

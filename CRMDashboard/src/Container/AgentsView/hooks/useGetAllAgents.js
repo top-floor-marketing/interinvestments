@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDebouncedState } from '@mantine/hooks';
 import {
   useQueryHelper,
-} from "../../../GraphqlClient/useRequest";
+} from "../../../GraphqlClient/hooks/useRequest";
 import { ADMIN_GET_ALL_AGENTS } from "../../../GraphqlClient/agentProfile.gql";
 
 import { orderAgentByName, filterByText } from "./utils.service";

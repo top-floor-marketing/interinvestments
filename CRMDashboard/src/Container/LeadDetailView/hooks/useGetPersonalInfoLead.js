@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   useQueryHelper,
-} from "../../../GraphqlClient/useRequest";
+} from "../../../GraphqlClient/hooks/useRequest";
 import { GET_INFO_LEAD_BY_AGENT } from "../../../GraphqlClient/leads.gql";
 
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";

@@ -5,7 +5,7 @@ import AlertError from '../../AlertError'
 // mantine
 import { Box, createStyles } from '@mantine/core';
 // react-query
-import { useQueryHelper } from '../../../GraphqlClient/useRequest';
+import { useQueryHelper } from '../../../GraphqlClient/hooks/useRequest';
 import { GET_LEADS_SERVICES } from '../../../GraphqlClient/services.gql';
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'

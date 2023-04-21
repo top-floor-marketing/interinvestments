@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQueryHelper } from "../../../GraphqlClient/useRequest";
+import { useQueryHelper } from "../../../GraphqlClient/hooks/useRequest";
 import { GET_AGENT_FEATURED_LISTING, GET_LISTING_FEATURED_DEVELOPMENTS_OFFICE, GET_TAG_FEATURED_DEVELOPMENTS } from "../../../GraphqlClient/agentProfile.gql";
 
 // global Store

@@ -15,7 +15,7 @@ import { getHotkeyHandler } from "@mantine/hooks";
 import { AdjustmentsAlt, MessageDots, Send } from "tabler-icons-react";
 
 // react-query
-import { useMutationHelper } from "../../../GraphqlClient/useRequest";
+import { useMutationHelper } from "../../../GraphqlClient/hooks/useRequest";
 import { SET_NEW_COMMENT_LEAD } from "../../../GraphqlClient/leads.gql";
 
 import {

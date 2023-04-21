@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 // components
 import SelectUserLead from '../../../Component/SelectUserLead'
 // react query
-import { useQueryHelper } from "../../../GraphqlClient/useRequest";
+import { useQueryHelper } from "../../../GraphqlClient/hooks/useRequest";
 import { ADMIN_GET_ALL_AGENTS } from "../../../GraphqlClient/agentProfile.gql";
 //  utils
 import get from 'lodash/get'

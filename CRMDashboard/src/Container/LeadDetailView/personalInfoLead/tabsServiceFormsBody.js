@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // mantine dev
 import { createStyles, Box, Loader } from "@mantine/core";
 
-import { useQueryHelper } from "../../../GraphqlClient/useRequest";
+import { useQueryHelper } from "../../../GraphqlClient/hooks/useRequest";
 import { GET_SERVICES_FORM } from "../../../GraphqlClient/services.gql";
 
 import get from 'lodash/get';
