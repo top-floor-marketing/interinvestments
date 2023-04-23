@@ -42,6 +42,18 @@ export const CRM_ROUTES = [
     icon: null,
     roles: []
   },
+  {
+    name: ROUTES_NAMES.PIPELINE,
+    label: "Pipeline",
+    layout: LAYOUT_NAMES.DASHBOARD,
+    component: () => (
+      <p>PIPELINE</p>
+    ),
+    useInNavbar: true,
+    loginRequired: true,
+    icon: () => <Home2 size={25} strokeWidth={2} color={"white"} />,
+    roles: []
+  },
   /* {
     name: ROUTES_NAMES.LEADS_DETAILS,
     label: "Leads",

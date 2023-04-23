@@ -2,7 +2,7 @@ import rosePetals from './assets/images/rosePetals.svg';
 // mantine
 import { createStyles } from '@mantine/core';
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   containerLogin: {
     display: 'flex',
     flexDirection: 'row',
@@ -10,6 +10,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     backgroundColor: theme.colors.gray[3],
     [`@media (max-width: 768px)`]: {
       flexDirection: 'column',
+      backgroundImage: `url(${rosePetals})`,
     },
   },
   loginBackground: {
@@ -41,13 +42,60 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         maxWidth: "100%",
     },
   },
+  formCard: {
+    padding: theme.other.spacing.p8,
+    gap: theme.other.spacing.p4,
+    height: "auto",
+    display: 'flex',
+    flexDirection: 'column',
+    width: "100%",
+    maxWidth: "400px",
+    'h3': {
+      margin: 0,
+      marginTop: theme.other.spacing.p8,
+      fontSize: "2rem",
+      color: theme.colors.dark[9],
+    }
+  },
+  formTag: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    width: "100%",
+    gap: theme.other.spacing.p4,
+  },
   logo: {
+    alignSelf: 'center',
     minWidth: "200px",
     maxWidth: "300px",
     cursor: 'pointer',
      "&:hover": {
       transform: "scale(1.005)"
     }
+  },
+  buttonLogin: {
+    width: "100%",
+    fontSize: "20px",
+    lineHeight: "1.7em",
+    borderWidth: "1px",
+    padding: "0.3em 1em",
+  },
+  groupBackHome: {
+    marginTop: theme.other.spacing.p8,
+    cursor: 'pointer',
+    alignSelf: "flex-start",
+    justifyItems: "center",
+    'span': {
+       "&:hover": {
+        color: theme.colors.primary[6]
+      }
+    }
+  },
+  buttonForgot: {
+    color: "black",
+    [`&:hover`]: {
+      color: theme.colors.primary[6],
+    },
   },
 }));
 

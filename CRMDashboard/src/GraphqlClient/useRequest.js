@@ -1,25 +1,25 @@
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query';
 
-import { GraphQLClient } from "graphql-request";
+import { GraphQLClient } from 'graphql-request';
 import { GET_NEW_TOKEN } from './user.gql';
 import { ROUTES_NAMES } from '../Route/routes';
 
-import { LOCAL_STORAGE } from "../Utils/globalConstants";
+import { LOCAL_STORAGE } from '../Utils/globalConstants';
 
-import isNull from "lodash/isNull";
+import isNull from 'lodash/isNull';
 import get from 'lodash/get';
 import { isEmpty } from 'lodash';
 
 const ENVIROMENT = process.env.REACT_APP_NODE_ENV;
 const API_URL =
-  ENVIROMENT === "production"
+  ENVIROMENT === 'production'
     ? process.env.REACT_APP_API_URL_PROD
     : process.env.REACT_APP_API_URL_DEV;
 
 const globalConfig = {
   refetchOnWindowFocus: false,
   retry: false,
-  retryOnMount: false
+  retryOnMount: false,
 };
 
 const emptyLocalStorage = () => {
@@ -29,91 +29,96 @@ const emptyLocalStorage = () => {
   localStorage.setItem(LOCAL_STORAGE.ROUTE, ROUTES_NAMES.AUTH);
   localStorage.setItem(LOCAL_STORAGE.USER, null);
   window.location.reload();
-}
+};
 
 const requestNewToken = async () => {
   const client = new GraphQLClient(API_URL);
   const refreshToken = JSON.parse(localStorage.getItem(LOCAL_STORAGE.REFRESH));
   const variables = {
     input: {
-      jwtRefreshToken: refreshToken
-    }
-  }
+      jwtRefreshToken: refreshToken,
+    },
+  };
   const response = await client.request({ document: GET_NEW_TOKEN, variables });
-  const newToken = get(response, ["refreshJwtAuthToken", "authToken"], null);
+  const newToken = get(response, ['refreshJwtAuthToken', 'authToken'], null);
   if (newToken) {
     localStorage.setItem(LOCAL_STORAGE.TOKEN, `"${newToken}"`);
   } else {
     emptyLocalStorage();
   }
   return newToken;
-}
+};
 
 const useQueryHelper = (props) => {
   const { name, gql, variables, config = {} } = props;
   let token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
   let requestHeaders = {
-    authorization: !isNull(token) ? `Bearer ${token}` : "",
+    authorization: !isNull(token) ? `Bearer ${token}` : '',
   };
   const client = new GraphQLClient(API_URL);
-  return useQuery(
-    [name],
-    async ({ signal }) => {
+  return useQuery({
+    queryKey: [name],
+    queryFn: async ({ signal }) => {
       let isErrorResponse = false;
-      let tryRequest = false;
       try {
-        return await client.request({ document: gql, variables, requestHeaders, signal });
+        return await client.request({
+          document: gql,
+          variables,
+          requestHeaders,
+          signal,
+        });
       } catch (error) {
         const errorParse = JSON.parse(JSON.stringify(error, undefined, 2));
-        console.log("error ------ > ", errorParse);
-        isErrorResponse = get(errorParse, ["response", "errors", "0", "debugMessage"], null) || get(errorParse, ["response", "errors", "0", "message"], null);
+        isErrorResponse =
+          get(errorParse, ['response', 'errors', '0', 'debugMessage'], null) ||
+          get(errorParse, ['response', 'errors', '0', 'message'], null);
       }
-      
-      if(isEmpty(isErrorResponse)) {
-        throw new Error("error => ");
+
+      if (isEmpty(isErrorResponse)) {
+        throw new Error('error => ');
       }
-      if (isErrorResponse?.includes('invalid-jwt') || isErrorResponse?.includes('invalid-secret-key') || isErrorResponse?.includes('token')) {
+      if (
+        isErrorResponse?.includes('invalid-jwt') ||
+        isErrorResponse?.includes('invalid-secret-key') ||
+        isErrorResponse?.includes('token')
+      ) {
         try {
           const refreshResponse = await requestNewToken();
           if (refreshResponse) {
-            tryRequest = true;
+            token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
+            requestHeaders = {
+              authorization: !isNull(token) ? `Bearer ${token}` : '',
+            };
+            return await client.request({
+              document: gql,
+              variables,
+              requestHeaders,
+              signal,
+            });
           }
         } catch (e) {
           console.log('e refresh = ', e);
+          emptyLocalStorage();
         }
       }
-      if (tryRequest) {
-        try {
-          token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
-          requestHeaders = {
-            authorization: !isNull(token) ? `Bearer ${token}` : "",
-          };
-          return await client.request({ document: gql, variables, requestHeaders, signal });
-        } catch(e) {
-          emptyLocalStorage()
-        }
-      }
-      throw new Error("not response");
+      throw new Error('not response');
     },
-    {
-      ...globalConfig,
-      ...config,
-    }
-  );
+    ...globalConfig,
+    ...config,
+  });
 };
 
 const useMutationHelper = (props) => {
   const { name, gql, config = {} } = props;
   let token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
   let requestHeaders = {
-    authorization: !isNull(token) ? `Bearer ${token}` : "",
+    authorization: !isNull(token) ? `Bearer ${token}` : '',
   };
   const client = new GraphQLClient(API_URL);
-  return useMutation(
-    [name],
-    async ({ signal, variables }) => {
+  return useMutation({
+    mutationKey: name,
+    mutationFn: async ({ signal, variables }) => {
       let isErrorResponse = false;
-      let tryRequest = false;
       try {
         return await client.request({
           document: gql,
@@ -124,40 +129,41 @@ const useMutationHelper = (props) => {
       } catch (error) {
         console.log('e mutation = ', error);
         const errorParse = JSON.parse(JSON.stringify(error, undefined, 2));
-        isErrorResponse = get(errorParse, ["response", "errors", "0", "debugMessage"], null);
+        isErrorResponse = get(
+          errorParse,
+          ['response', 'errors', '0', 'debugMessage'],
+          null
+        );
       }
-      if (isErrorResponse.includes('invalid-jwt')) {
+      if (
+        isErrorResponse?.includes('invalid-jwt') ||
+        isErrorResponse?.includes('invalid-secret-key') ||
+        isErrorResponse?.includes('token')
+      ) {
         try {
           const refreshResponse = await requestNewToken();
           if (refreshResponse) {
-            tryRequest = true;
+            token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
+            requestHeaders = {
+              authorization: !isNull(token) ? `Bearer ${token}` : '',
+            };
+            return await client.request({
+              document: gql,
+              variables,
+              requestHeaders,
+              signal,
+            });
           }
         } catch (e) {
           console.log('e refresh mutation = ', e);
+          emptyLocalStorage();
         }
       }
-      if (tryRequest) {
-        try {
-          token = JSON.parse(localStorage.getItem(LOCAL_STORAGE.TOKEN));
-          requestHeaders = {
-            authorization: !isNull(token) ? `Bearer ${token}` : "",
-          };
-          return await client.request({
-            document: gql,
-            variables,
-            requestHeaders,
-            signal,
-          });
-        } catch(e) {
-          emptyLocalStorage()
-        }
-      }
+      throw new Error('not response');
     },
-    {
-      ...globalConfig,
-      ...config,
-    }
-  );
+    ...globalConfig,
+    ...config,
+  });
 };
 
 export { useQueryHelper, useMutationHelper };

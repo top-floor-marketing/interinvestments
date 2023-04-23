@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mantine/carousel": "^6.0.8",
     "@mantine/core": "6.0.8",
     "@mantine/dates": "6.0.8",
     "@mantine/form": "6.0.8",
@@ -15,6 +16,9 @@
     "dayjs": "1.11.7",
     "dompurify": "3.0.2",
     "dotenv": "16.0.3",
+    "embla-carousel-auto-height": "^7.1.0",
+    "embla-carousel-autoplay": "^7.1.0",
+    "embla-carousel-react": "^7.1.0",
     "graphql": "16.6.0",
     "graphql-request": "6.0.0",
     "joi": "17.9.1",

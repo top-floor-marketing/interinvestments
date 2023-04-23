@@ -26,6 +26,23 @@ const AuthView = () => {
       return (userRol === "administrator") ? USER_ROLES_CRM.ADMIN : USER_ROLES_CRM.AGENT;
     }
 
+    const [, setIdLocalStorage] = useLocalStorage({
+      key: LOCAL_STORAGE.USER,
+      defaultValue: null,
+    });
+    const [, setRouteInLocalStorage] = useLocalStorage({
+      key: LOCAL_STORAGE.ROUTE,
+      defaultValue: DEFAULT_ROUTE,
+    });
+    const [, setTokenLocal] = useLocalStorage({
+      key: LOCAL_STORAGE.TOKEN,
+      defaultValue: null,
+    });
+    const [, setRefreshTokenLocal] = useLocalStorage({
+      key: LOCAL_STORAGE.REFRESH,
+      defaultValue: null,
+    });
+
     const agentId = get(infoUserLogin, ["databaseId"]);
     const agentType = getAgentTypeByRole();
 
@@ -37,6 +54,7 @@ const AuthView = () => {
         enabled: !!(infoUserLogin),
         onSuccess: (response) => {
           const infoAgent = get(response, ["dataAgent", "0"], null);
+          // si
           if (infoAgent && (routeInStore === ROUTES_NAMES.AUTH || !routeInStore)) {
             setInfoUser(infoAgent);
             setRouteInLocalStorage(DEFAULT_ROUTE);
@@ -53,23 +71,6 @@ const AuthView = () => {
         agentId,
         agentType
       },
-    });
-  
-    const [, setIdLocalStorage] = useLocalStorage({
-      key: LOCAL_STORAGE.USER,
-      defaultValue: null,
-    });
-    const [, setRouteInLocalStorage] = useLocalStorage({
-      key: LOCAL_STORAGE.ROUTE,
-      defaultValue: DEFAULT_ROUTE,
-    });
-    const [, setTokenLocal] = useLocalStorage({
-      key: LOCAL_STORAGE.TOKEN,
-      defaultValue: null,
-    });
-    const [, setRefreshTokenLocal] = useLocalStorage({
-      key: LOCAL_STORAGE.REFRESH,
-      defaultValue: null,
     });
   
     const isLoginResponse = (data) => {
