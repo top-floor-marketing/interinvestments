@@ -3,12 +3,12 @@ import React from "react";
 import { LayoutGrid, Home2, Users, Briefcase } from "tabler-icons-react";
 
 import AuthComponent from '../Container/AuthView';
-import ProfileComponent from '../Container/ProfileView';
+/* import ProfileComponent from '../Container/ProfileView';
 import Listings from '../Container/ListingsView';
 import LeadsView from '../Container/LeadsView';
 import LeadsDetailView from "../Container/LeadDetailView";
 import Pipeline from '../Container/PipelineView';
-import AgentsView from "../Container/AgentsView";
+import AgentsView from "../Container/AgentsView"; */
 
 import { USER_ROLES_CRM } from "../GlobalStore/utils";
 
@@ -42,7 +42,7 @@ export const CRM_ROUTES = [
     icon: null,
     roles: []
   },
-  {
+  /* {
     name: ROUTES_NAMES.LEADS_DETAILS,
     label: "Leads",
     layout: LAYOUT_NAMES.DASHBOARD,
@@ -113,5 +113,5 @@ export const CRM_ROUTES = [
     loginRequired: true,
     icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
     roles: []
-  },
+  }, */
 ];

@@ -3,31 +3,30 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@mantine/core": "5.7.1",
-    "@mantine/dates": "5.7.1",
-    "@mantine/form": "5.7.1",
-    "@mantine/hooks": "5.7.1",
-    "@mantine/modals": "5.7.1",
-    "@mantine/notifications": "5.7.1",
-    "@mantine/rte": "5.7.1",
-    "dayjs": "1.11.6",
-    "dompurify": "2.4.0",
-    "joi": "17.6.0",
-    "lodash": "4.17.21",
-    "lottie-web": "5.9.6",
+    "@mantine/core": "6.0.8",
+    "@mantine/dates": "6.0.8",
+    "@mantine/form": "6.0.8",
+    "@mantine/hooks": "6.0.8",
+    "@mantine/modals": "6.0.8",
+    "@mantine/notifications": "6.0.8",
+    "@react-spring/web": "^9.7.2",
+    "@tanstack/react-query": "4.29.3",
+    "@tanstack/react-virtual": "^3.0.0-beta.54",
+    "dayjs": "1.11.7",
+    "dompurify": "3.0.2",
     "dotenv": "16.0.3",
-    "@tanstack/react-query": "4.14.5",
     "graphql": "16.6.0",
-    "graphql-request": "5.0.0",
+    "graphql-request": "6.0.0",
+    "joi": "17.9.1",
+    "lodash": "4.17.21",
+    "lottie-web": "5.11.0",
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-scripts": "5.0.1",
-    "tabler-icons-react": "1.55.0",
     "react-responsive-carousel": "3.2.23",
-    "react-spring": "9.5.5",
-    "react-window": "1.8.7",
-    "rewire": "6.0.0"
+    "react-scripts": "5.0.1",
+    "rewire": "6.0.0",
+    "tabler-icons-react": "1.56.0"
   },
   "scripts": {
     "dev": "react-scripts start",
@@ -40,9 +39,9 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "10.4.2",
-    "postcss": "8.4.6",
-    "sass": "1.51.0"
+    "autoprefixer": "10.4.14",
+    "postcss": "8.4.23",
+    "sass": "1.62.0"
   },
   "browserslist": {
     "production": [
