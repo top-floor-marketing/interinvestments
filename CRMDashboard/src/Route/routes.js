@@ -3,6 +3,7 @@ import React from "react";
 import { LayoutGrid, Home2, Users, Briefcase } from "tabler-icons-react";
 
 import AuthComponent from '../Container/AuthView';
+import Pipeline from '../Container/PipelineView';
 /* import ProfileComponent from '../Container/ProfileView';
 import Listings from '../Container/ListingsView';
 import LeadsView from '../Container/LeadsView';
@@ -47,7 +48,7 @@ export const CRM_ROUTES = [
     label: "Pipeline",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <p>PIPELINE</p>
+      <Pipeline />
     ),
     useInNavbar: true,
     loginRequired: true,

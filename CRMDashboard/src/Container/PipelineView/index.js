@@ -68,7 +68,7 @@ const useStyles = createStyles((theme, _params) => {
             flexDirection: "column",
             height: '700px',
             overflow: 'auto',
-            [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+            [`@media (min-width: ${theme.breakpoints.md})`]: {
                 flexDirection: 'row',
             },
         },
@@ -169,7 +169,7 @@ const Pipeline = () => {
                 overlayColor="#eaeae9"
                 loaderProps={{ size: 'sm', color: '#ffb839', variant: 'bars' }}
             />
-            <ModalChangePipeline
+           <ModalChangePipeline
                 refechPipeline={refechPipeline}
                 valueUserPipeline={valueUserPipeline}
                 setValueUserPipeline={setValueUserPipeline}
@@ -184,7 +184,6 @@ const Pipeline = () => {
                     (agentType === USER_ROLES_CRM.ADMIN)
                     && <PaperFilterAgent idAgent={idAgentForAdmin} refecthAll={refecthAll} setIdAgent={setIdAgentForAdmin} />
                 }
-
 
                 <Text className={classes.titlePipeline} component='h3'>
                     Pipeline
@@ -268,6 +267,7 @@ const Pipeline = () => {
 
                 </Box>
             </Box>
+
         </div>
     )
 }

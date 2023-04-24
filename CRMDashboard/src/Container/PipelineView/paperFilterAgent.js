@@ -1,11 +1,11 @@
-import { createStyles, Paper, Text } from "@mantine/core";
+import { createStyles, Paper, Text, getStylesRef } from "@mantine/core";
 import { INPUT_BORDER_BOTTOM } from "../../MatineProvider/stylesProvider";
 
 import SelectAgent from "../../Component/DrawerAddLeads/Steps/SelectAgent";
 
 import get from 'lodash/get';
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
     container: {
         width: "100%",
         display: "flex",
@@ -23,18 +23,18 @@ const useStyles = createStyles((theme, _params, getRef) => ({
             gap: theme.other.spacing.p2,
         },
         [`${theme.fn.largerThan(1800)}`]: {
-            [`.${getRef("selectNei")}`]: {
+            [`.${getStylesRef("selectNei")}`]: {
                 minWidth: "250px",
                 maxWidth: "250px",
             },
-            [`.${getRef("inputSearch")}`]: {
+            [`.${getStylesRef("inputSearch")}`]: {
                 minWidth: "250px",
                 maxWidth: "250px",
             },
         },
     },
     textFilter: {
-        ref: getRef("textFilter"),
+        ref: getStylesRef("textFilter"),
         fontWeight: 700,
         fontSize: "18px",
         minWidth: "50px",

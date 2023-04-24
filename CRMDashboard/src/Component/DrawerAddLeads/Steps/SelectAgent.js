@@ -15,7 +15,7 @@ const SelectAgent = ({ cssClass = null, useLabel = true, localOnChange = null, l
     const { state: { addLeads: { selectedAgent } }, actions: { setSelectedAgent } } = useClientGlobalStore();
 
     const { isLoading, isError } = useQueryHelper({
-        name: "admin-get-all-agents-for-wizard",
+        name: ["admin-get-all-agents-for-wizard"],
         gql: ADMIN_GET_ALL_AGENTS,
         config: {
             onSuccess: (response) => {

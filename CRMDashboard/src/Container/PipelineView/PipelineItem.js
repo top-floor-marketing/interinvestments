@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from "prop-types";
 // mantine
-import { Text, Paper, createStyles, Box } from '@mantine/core';
+import { Text, Paper, createStyles, Box, getStylesRef } from '@mantine/core';
 import { CustomIconTooltip } from '../../Component/ActionButtons';
-import { IconAdjustments } from '@tabler/icons';
+import { Settings } from 'tabler-icons-react'
 // components
 import AvatarText from '../../Component/AvatarText';
 // utils
 import omit from 'lodash/omit';
 
-const useStyles = createStyles((theme, _params, getRef) => {
+const useStyles = createStyles((theme, _params) => {
     return {
         PaperPipeline: {
             width: "100%",
@@ -23,10 +23,10 @@ const useStyles = createStyles((theme, _params, getRef) => {
             paddingBottom: theme.other.spacing.p2,
             cursor: _params?.enabled ? "pointer" : "initial",
             '&:hover': {
-                [`.${getRef("nameUserLead")}`]: {
+                [`.${getStylesRef("nameUserLead")}`]: {
                     fontWeight: "600"
                 },
-                [`.${getRef("customIconTooltip")}`]: {
+                [`.${getStylesRef("customIconTooltip")}`]: {
                     backgroundColor: 'transparent',
                     color: theme.colors.dark[9],
                     transform: "scale(1.15)"
@@ -34,7 +34,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
             }
         },
         nameUserLead: {
-            ref: getRef("nameUserLead"),
+            ref: getStylesRef("nameUserLead"),
             wordBreak: "break-word",
             margin: '0px',
             fontSize: "14px",
@@ -56,7 +56,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
             height: "100%"
         },
         customIconTooltip: {
-            ref: getRef("customIconTooltip"),
+            ref: getStylesRef("customIconTooltip"),
             marginLeft: "auto"
         }
     }
@@ -108,7 +108,7 @@ const PipelineItem = (props) => {
                 (enabled)
                 &&
                 <CustomIconTooltip className={classes.customIconTooltip} size={24} color="dark" labelTooltip="Edit Lead Status">
-                    <IconAdjustments />
+                    <Settings />
                 </CustomIconTooltip>
             }
         </Paper>

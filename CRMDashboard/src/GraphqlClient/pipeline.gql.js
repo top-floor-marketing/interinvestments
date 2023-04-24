@@ -42,6 +42,9 @@ query allLeadsPipeline {
         otherPhones
         phone
       }
+      status {
+        date
+      }
     }
   }
 }

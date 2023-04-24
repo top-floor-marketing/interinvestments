@@ -29,14 +29,15 @@ const useGetAdminPipeline = ({ agentType }) => {
             "agentAvatar": get(data, ["agent", "avatarProfile"], null),
             "agentEmail": get(data, ["agent", "email"], null),
             "agentFullName":`${get(data, ["agent", "firstName"], "")} ${get(data, ["agent", "lastName"], "")}`,
+            "date": get(data, ["status", "0", "date"], null),
         }
     }
 
     const { isLoading, isError, refetch } = useQueryHelper({
-        name: `ALL_LEADS_PIPELINE`,
+        name: [`ALL_LEADS_PIPELINE`],
         gql: ALL_LEADS_PIPELINE,
         config: {
-            cacheTime: 5 * 60 * 2000, // 2 minutes
+            cacheTime: 5 * 60 * 1000, // 1 minute
             enabled: (agentType === USER_ROLES_CRM.ADMIN),
             onSuccess: (response) => {
 
@@ -51,6 +52,13 @@ const useGetAdminPipeline = ({ agentType }) => {
                 forEach(get(response, ["dataAgent"], []), (val) => {
 
                     forEach(get(val, ["statuses"], []), (valStatuses) => {
+
+                        if(!valStatuses?.currentStatus || !valStatuses?.userLead) return;
+
+                        if (!get(valStatuses, ["userLead", "firstName"], null) && !get(valStatuses, ["userLead", "lastName"], null)) return;
+
+                        if(toLower(get(valStatuses, ["userLead", "firstName"], null)) === 'firstname' ||
+                        toLower(get(valStatuses, ["userLead", "lastName"], null)) === 'lastname' )  return;
 
                         switch (toLower(valStatuses?.currentStatus)) {
 
