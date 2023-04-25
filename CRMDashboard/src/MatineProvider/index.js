@@ -1,31 +1,30 @@
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider } from '@mantine/core';
 
 // global store
-import useClientGlobalStore from "../GlobalStore/useClientGlobalStore";
+import useClientGlobalStore from '../GlobalStore/useClientGlobalStore';
 
-import stylesProvider from "./stylesProvider";
-import { ModalsProvider } from '@mantine/modals';
+import stylesProvider from './stylesProvider';
 
 import './overrideMantine.css';
 
 const ThemeGlobalProvider = (props) => {
-  const { state: { theme: themeStore } } = useClientGlobalStore();
+  const {
+    state: { theme: themeStore },
+  } = useClientGlobalStore();
   return (
     <MantineProvider
       inherit
       theme={{
         ...themeStore,
         components: {
-          ...stylesProvider()
-        }
+          ...stylesProvider(),
+        },
       }}
-      emotionOptions={{ key: "wp" }}
+      emotionOptions={{ key: 'wp' }}
       withGlobalStyles
       withNormalizeCSS
     >
-      <ModalsProvider>
-          {props.children}
-      </ModalsProvider>
+      {props.children}
     </MantineProvider>
   );
 };
