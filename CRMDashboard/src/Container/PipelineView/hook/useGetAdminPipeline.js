@@ -2,6 +2,7 @@ import { useState } from 'react'
 // react-query
 import { useQueryHelper } from '../../../GraphqlClient/useRequest'
 import { ALL_LEADS_PIPELINE } from '../../../GraphqlClient/pipeline.gql';
+import dayjs from 'dayjs';
 
 import { USER_ROLES_CRM, PIPELINE_STATUS } from '../../../GlobalStore/utils';
 
@@ -29,7 +30,8 @@ const useGetAdminPipeline = ({ agentType }) => {
             "agentAvatar": get(data, ["agent", "avatarProfile"], null),
             "agentEmail": get(data, ["agent", "email"], null),
             "agentFullName":`${get(data, ["agent", "firstName"], "")} ${get(data, ["agent", "lastName"], "")}`,
-            "date": get(data, ["status", "0", "date"], null),
+            "date": dayjs(get(data, ["status", "0", "date"], null)),
+            "date222": get(data, ["status", "0", "date"], null),
         }
     }
 

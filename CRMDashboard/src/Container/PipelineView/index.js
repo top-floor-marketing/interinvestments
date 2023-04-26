@@ -263,7 +263,7 @@ const Pipeline = () => {
                                 enabled={agentType !== USER_ROLES_CRM.ADMIN}
                             />
                         </PipelineColumnVirtual>
-                    </Box>
+                    </Box> 
 
                 </Box>
             </Box>

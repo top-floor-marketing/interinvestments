@@ -1,4 +1,10 @@
-import React, { useState, forwardRef, cloneElement, memo } from 'react';
+import React, {
+  useState,
+  forwardRef,
+  cloneElement,
+  memo,
+  useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
 
 import { FixedSizeGrid as Grid } from 'react-window';
@@ -11,16 +17,22 @@ import {
   Paper,
   createStyles,
   Text,
-  Tooltip,
   ActionIcon,
+  Center,
+  HoverCard,
   SegmentedControl,
-  Center
 } from '@mantine/core';
-import { Filter, FilterOff, User, Calendar } from 'tabler-icons-react';
+import {
+  Filter,
+  ArrowMoveUp,
+  ArrowMoveDown,
+  User,
+  Calendar,
+} from 'tabler-icons-react';
 
 import random from 'lodash/random';
 
-import { capitalize } from 'lodash';
+import { toLower } from 'lodash';
 
 import './styles_infinite.css';
 
@@ -62,7 +74,7 @@ const useStyles = createStyles((theme, _params) => ({
   boxDialog: {
     borderTop: `10px ${theme.colors[_params['color']][6]} solid`,
     borderRadius: '10px',
-    marginBottom: theme.other.spacing.p8,
+    padding: theme.other.spacing.p4,
     width: '100%',
     height: 'auto',
     display: 'flex',
@@ -89,56 +101,17 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
   />
 ));
 
+const DEFAULT_SORT = {
+  value: 'date',
+  order: 'asc',
+};
+
 const PipelineColumnVirtual = (props) => {
   const { refetch, totalData, data, children, title, color } = props;
 
   const { classes } = useStyles({ color });
 
-  const [filterBy, setFilterBy] = useState({
-    value: 'date',
-    order: 'desc',
-  });
-
-  console.log("PipelineColumnVirtual -> filterBy", filterBy)
-
-  const openSortModal = () =>
-    openConfirmModal({
-      title: null,
-      header: 'Add Property',
-      centered: true,
-      withCloseButton: false,
-      children: (
-        <Box className={classes.boxDialog}>
-          <Text component='h3'>{title}</Text>
-          <Text>Sort by: {capitalize(filterBy?.value) +' - '+ capitalize(filterBy?.order)}</Text>
-          <SegmentedControl
-            value={filterBy?.value}
-            onChange={(value) => setFilterBy({ ...filterBy, value })}
-            data={[
-              { label: (
-                <Center>
-                  <User size="1rem" />
-                  <Box ml={10}>Name</Box>
-                </Center>
-              ),
-               value: 'name' 
-              },
-              { label: (
-                <Center>
-                  <Calendar size="1rem" />
-                  <Box ml={10}>Date</Box>
-                </Center>
-              ), value: 'date' },
-            ]}
-          />
-        </Box>
-      ),
-      labels: { confirm: 'Apply', cancel: 'close' },
-      confirmProps: { color: 'primary' },
-      onCancel: () => console.log('Cancel'),
-      onConfirm: () => console.log('Cancel'),
-      zIndex: 9999,
-    });
+  const [filterBy, setFilterBy] = useState(DEFAULT_SORT);
 
   const {
     ref: refParentBox,
@@ -160,21 +133,128 @@ const PipelineColumnVirtual = (props) => {
     }
   };
 
+  const dataSort = useCallback(() => {
+    if (filterBy) {
+      const { value, order } = filterBy;
+      if (value === 'firstName') {
+        if (order === 'asc') {
+          // Orden ascendente (ASC) [value] === 'firstName'
+          return [...data].sort((a, b) => {
+            if (toLower(a[value]) < toLower(b[value])) return -1;
+            if (toLower(a[value]) > toLower(b[value])) return 1;
+            return 0;
+          });
+        }
+
+        // Orden descendente (DESC)
+        return [...data].sort((a, b) => {
+          if (toLower(a[value]) > toLower(b[value])) return -1;
+          if (toLower(a[value]) < toLower(b[value])) return 1;
+          return 0;
+        });
+      }
+
+      // date order
+      if (order === 'asc') {
+        // Orden ascendente (ASC)
+        return [...data].sort((a, b) => {
+          if (a.date.isBefore(b.date)) return -1;
+          if (a.date.isAfter(b.date)) return 1;
+          return 0;
+        });
+      }
+
+      // Orden descendente (DESC)
+      return [...data].sort((a, b) => {
+        if (a.date.isAfter(b.date)) return -1;
+        if (a.date.isBefore(b.date)) return 1;
+        return 0;
+      });
+
+    } else {
+      return data;
+    }
+  }, [data, filterBy]);
+
   // containerInfinite class for css-scrollbar styles
   // idGrid class for get clientHeight in scroll function
   return (
     <Box className={classes.container}>
       <Paper className={classes.paperStatus}>
         <Text>{title}</Text>
-        <Tooltip multiline color={'dark'} label={`Sort by ${title}`}>
-          <ActionIcon onClick={() => openSortModal()}>
-            <Filter size={20} color='#5398ff' />
-          </ActionIcon>
-        </Tooltip>
+        <HoverCard
+          width={250}
+          shadow='md'
+          withArrow
+          openDelay={200}
+          closeDelay={400}
+        >
+          <HoverCard.Target>
+            <ActionIcon>
+              <Filter size={20} color='#5398ff' />
+            </ActionIcon>
+          </HoverCard.Target>
+          <HoverCard.Dropdown>
+            <Box className={classes.boxDialog}>
+              <Text>
+                Sort by:
+              </Text>
+              <SegmentedControl
+                value={filterBy?.value}
+                onChange={(value) => setFilterBy({ ...filterBy, value })}
+                data={[
+                  {
+                    label: (
+                      <Center>
+                        <Calendar size='1rem' />
+                        <Box ml={10}>Date</Box>
+                      </Center>
+                    ),
+                    value: 'date',
+                  },
+                  {
+                    label: (
+                      <Center>
+                        <User size='1rem' />
+                        <Box ml={10}>Name</Box>
+                      </Center>
+                    ),
+                    value: 'firstName',
+                  },
+                ]}
+              />
+              <SegmentedControl
+                value={filterBy?.order}
+                onChange={(order) => setFilterBy({ ...filterBy, order })}
+                data={[
+                  {
+                    label: (
+                      <Center>
+                        <ArrowMoveUp size='1rem' />
+                        <Box ml={10}>Asc</Box>
+                      </Center>
+                    ),
+                    value: 'asc',
+                  },
+                  {
+                    label: (
+                      <Center>
+                        <ArrowMoveDown size='1rem' />
+                        <Box ml={10}>Desc</Box>
+                      </Center>
+                    ),
+                    value: 'desc',
+                  }
+                  
+                ]}
+              />
+            </Box>
+          </HoverCard.Dropdown>
+        </HoverCard>
       </Paper>
       <Box ref={refParentBox} className='parentContainerInfinite'>
         <Grid
-          itemData={data}
+          itemData={dataSort()}
           className={`containerInfinite ${idGrid}`}
           onScroll={onScroll}
           columnCount={1}
@@ -197,7 +277,7 @@ const PipelineColumnVirtual = (props) => {
                   height: style.height - GUTTER_SIZE,
                 }}
               >
-                {cloneElement(children, { ...data[rowIndex] }, null)}
+                {cloneElement(children, { ...dataSort()[rowIndex] }, null)}
               </div>
             );
           }}

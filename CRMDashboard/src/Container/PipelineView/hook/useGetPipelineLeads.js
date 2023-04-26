@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useQueryHelper } from '../../../GraphqlClient/useRequest';
 import { PIPELINE } from '../../../GraphqlClient/pipeline.gql';
 
+import dayjs from 'dayjs';
+
 import get from 'lodash/get';
 import reduce from 'lodash/reduce';
 import { toLower } from 'lodash';
@@ -35,6 +37,8 @@ const useGetPipelineLeads = ({ agentId, statusId, agentSelected }) => {
               ...acc,
               {
                 ...val,
+                date: dayjs(val?.date),
+                "date222":val?.date,
                 agentId,
                 agentAvatar: get(agentSelected, ['avatarProfile'], null),
                 agentEmail: get(agentSelected, ['email'], null),

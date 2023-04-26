@@ -6,6 +6,7 @@ import { CustomIconTooltip } from '../../Component/ActionButtons';
 import { Settings } from 'tabler-icons-react'
 // components
 import AvatarText from '../../Component/AvatarText';
+import dayjs from 'dayjs';
 // utils
 import omit from 'lodash/omit';
 
@@ -64,7 +65,7 @@ const useStyles = createStyles((theme, _params) => {
 
 const PipelineItem = (props) => {
 
-    const { enabled, firstName, lastName, agentAvatar, agentFullName, onClick: onClickPaper, setValueUserPipeline } = props
+    const { enabled, date, firstName, lastName, agentAvatar, agentFullName, onClick: onClickPaper, setValueUserPipeline } = props
 
     const { classes } = useStyles({ enabled })
 
@@ -77,6 +78,7 @@ const PipelineItem = (props) => {
                 }
             }}
             className={classes.PaperPipeline}
+            title={`Date: ${dayjs(date).format('MMM/DD/YYYY HH:mm')}`}
         >
             <AvatarText
                 className={classes.avatarText}

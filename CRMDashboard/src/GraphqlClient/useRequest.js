@@ -75,7 +75,7 @@ const useQueryHelper = (props) => {
       }
 
       if (isEmpty(isErrorResponse)) {
-        throw new Error('error => ');
+        return Promise.reject(new Error('Oh no!'))
       }
       if (
         isErrorResponse?.includes('invalid-jwt') ||
@@ -97,11 +97,11 @@ const useQueryHelper = (props) => {
             });
           }
         } catch (e) {
-          console.log('e refresh = ', e);
           emptyLocalStorage();
         }
       }
-      throw new Error('not response');
+      emptyLocalStorage();
+      return Promise.reject(new Error('not response'))
     },
     ...globalConfig,
     ...config,
@@ -127,7 +127,6 @@ const useMutationHelper = (props) => {
           signal,
         });
       } catch (error) {
-        console.log('e mutation = ', error);
         const errorParse = JSON.parse(JSON.stringify(error, undefined, 2));
         isErrorResponse = get(
           errorParse,
@@ -155,10 +154,10 @@ const useMutationHelper = (props) => {
             });
           }
         } catch (e) {
-          console.log('e refresh mutation = ', e);
           emptyLocalStorage();
         }
       }
+      emptyLocalStorage();
       throw new Error('not response');
     },
     ...globalConfig,

@@ -295,10 +295,29 @@ const stylesProvider = () => {
                 }
             }
         },
+        HoverCard: {
+            styles: (theme, params) => {
+                return {
+                    dropdown: {
+                        borderColor: 'transparent',
+                        border: '0px !important',
+                        backgroundColor: theme.colors.white[0],
+                        borderRadius: theme.radius.sm,
+                        boxShadow: theme.shadows.md,
+                        padding: 0,
+                    },
+                    arrow: {
+                        border: '1px !important',
+                        borderColor: theme.colors.dark[2],
+                    }
+                }
+            }
+        },
         Paper: {
             styles: (theme, params) => {
                 return {
                     root: {
+                        
                         backgroundColor: theme.colors.white[0],
                         borderRadius: theme.radius.sm,
                         boxShadow: theme.shadows.md,
