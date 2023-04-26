@@ -20,6 +20,7 @@ const globalConfig = {
   refetchOnWindowFocus: false,
   retry: false,
   retryOnMount: false,
+  refetchOnReconnect: false
 };
 
 const emptyLocalStorage = () => {
@@ -100,7 +101,7 @@ const useQueryHelper = (props) => {
           emptyLocalStorage();
         }
       }
-      emptyLocalStorage();
+      // emptyLocalStorage();
       return Promise.reject(new Error('not response'))
     },
     ...globalConfig,

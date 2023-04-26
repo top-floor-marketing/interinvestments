@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQueryHelper, useMutationHelper } from "../../../GraphqlClient/useRequest";
-import { GET_LISTINGS_CATEGORY, GET_ALL_NEIGHBORHOODS, GET_ALL_LISTINGS } from "../../../GraphqlClient/listings.gql";
+import { GET_LISTINGS_CATEGORY, GET_ALL_NEIGHBORHOODS, GET_ALL_NEIGHBORHOODS_BY_CATEGORY, GET_ALL_LISTINGS } from "../../../GraphqlClient/listings.gql";
 import { GET_AGENT_FEATURED_LISTING, MUTATION_ADD_AGENT_LISTING, MUTATION_DETELE_AGENT_LISTING } from "../../../GraphqlClient/agentProfile.gql";
 
 import { notificationSuccess, notificationError } from "../../../Component/Notifications";
@@ -13,7 +13,20 @@ import get from 'lodash/get';
 import { USER_ROLES_CRM } from "../../../GlobalStore/utils";
 import { ROUTES_NAMES } from "../../../Route/routes";
 
-const PER_PAGE = 8;
+const ENUM_NEIGHBORHOODS = (idCategory) => {
+  switch (idCategory) {
+    case "21":
+      return "NEW_CONDOS";
+    case "23":
+      return "NEW_HOMES";
+    case "22":
+      return "RENTAL_COMMUNITIES";
+    default:
+      return "NEW_CONDOS";
+  }
+};
+
+const PER_PAGE = 15;
 
 const useGetListings = () => {
 
@@ -33,7 +46,7 @@ const useGetListings = () => {
   const [neiSelect, setNeiSelect] = useState(null);
 
   const { isError: isErrorCategory } = useQueryHelper({
-    name: "get-category-listing-crm",
+    name: ["get-category-listing-crm"],
     gql: GET_LISTINGS_CATEGORY,
     config: {
       cacheTime: 10000,
@@ -46,21 +59,24 @@ const useGetListings = () => {
     variables: {first: 3},
   });
 
-  const { isError: isErrorNei } = useQueryHelper({
-    name: "get-neiborhood-listing-crm",
-    gql: GET_ALL_NEIGHBORHOODS,
+  const { isError: isErrorNei, isSuccess: isSuccessNei } = useQueryHelper({
+    name: ["get-neiborhood-listing-crm", categorySelect],
+    gql: GET_ALL_NEIGHBORHOODS_BY_CATEGORY,
     config: {
       cacheTime: 10000,
+      enabled:  !!(categorySelect),
       onSuccess: (response) => {
         const nei = getListingNei(response);
         setListingNei(nei);
-        setNeiSelect(get(nei, ["0", "value"], null));
       },
-    }
+    },
+    variables: {
+      categorie: ENUM_NEIGHBORHOODS(categorySelect) 
+    },
   });
 
   const { isSuccess: isSuccesFeatured, isError: isErrorFeatured, refetch: refetchAllFeatured } = useQueryHelper({
-    name: "get-agent-featured-listing-crm",
+    name: ["get-agent-featured-listing-crm", databaseId, agentType],
     gql: GET_AGENT_FEATURED_LISTING,
     config: {
       onSuccess: (response) => { 
@@ -74,10 +90,11 @@ const useGetListings = () => {
   });
 
   const { isError: isErrorAllListings, refetch } = useQueryHelper({
-    name: "get-all-listings-crm",
+    name: ["get-all-listings-crm", searchText, neiSelect, categorySelect],
     gql: GET_ALL_LISTINGS(categorySelect, neiSelect),
     config: {
-      enabled: !!(categorySelect && neiSelect && isSuccesFeatured),
+      enabled:  !!(categorySelect && isSuccessNei && isSuccesFeatured),
+      cacheTime: 5000,
       onSuccess: (response) => {
         const oldData = isEmpty(cursorPaginator) ? [] : allListings;
         const newData = getAllListings(response, oldData, listingFeaturedAgent);
@@ -102,9 +119,9 @@ const useGetListings = () => {
     variables: {
       perPage: PER_PAGE,
       after: cursorPaginator,
-      search: searchText,
+      LISTINGCATEGORY: !isEmpty(categorySelect) ? [categorySelect] : null,
       NEIGHBORHOOD: !isEmpty(neiSelect) ? [neiSelect] : null,
-      LISTINGCATEGORY: !isEmpty(categorySelect) ? [categorySelect] : null
+      search: searchText,
     },
   });
 
@@ -220,7 +237,7 @@ const useGetListings = () => {
   }
 
   return {
-    isSkeleton: isLoadingListing && (!categorySelect || !neiSelect || !isSuccesFeatured),
+    isSkeleton: isLoadingListing && (!categorySelect || !isSuccesFeatured),
     isError: isErrorNei || isErrorCategory || isErrorFeatured || isErrorAllListings,
     categoryProps: {
       onChange: onChangeCategory,

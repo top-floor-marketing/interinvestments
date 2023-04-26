@@ -15,10 +15,10 @@ export const getListingCategory = (response) => {
 }
 
 export const getListingNei = (response) => {
-    const tempNei = get(response, ["neighborhoods", "nodes"], []);
+    const tempNei = get(response, ["neighborhoodByCategorie"], []);
     const neiSelect = map(tempNei, (val) => {
         return {
-            value: "" + val.databaseId,
+            value: `${val.id}`,
             label: val.name
         }
     });
@@ -27,7 +27,7 @@ export const getListingNei = (response) => {
 
 export const getAllListings = (newResponse, oldResponse, arrayIdListings) => {
     const listingsResponse = get(newResponse, ["listings", "nodes"], []);
-    const tempFullData = [...listingsResponse, ...oldResponse, ...listingsResponse];
+    const tempFullData = [...oldResponse, ...listingsResponse];
     const filterUniques = uniqBy(tempFullData, 'databaseId');
     return map(filterUniques, (val) => {
       return {

@@ -65,13 +65,15 @@ const FilterOptions = ({ categoryProps, neiProps, isLoading }) => {
       disabled={isLoading}
         value={categoryProps.value}
         onChange={categoryProps.onChange}
-        data={listingCategories} fullWidth transitionDuration={0} />
+        data={listingCategories} fullWidth
+         transitionProps={{ transition: 'pop-top-left', duration: 0, timingFunction: 'ease' }}
+         />
       <Select value={neiProps.value}
         onChange={neiProps.onChange}
         data={listingNei}
         disabled={isLoading}
         transition="pop-top-left"
-        transitionDuration={80}
+        transitionProps={{ transition: 'pop-top-left', duration: 80, timingFunction: 'ease' }}
         transitionTimingFunction="ease"
         placeholder="Neighborhood"
         icon={<BuildingCommunity size={14} />}

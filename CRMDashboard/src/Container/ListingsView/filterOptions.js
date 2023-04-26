@@ -1,4 +1,4 @@
-import { Text, createStyles, Paper, Select, SegmentedControl, TextInput } from "@mantine/core";
+import { Text, createStyles, Paper, Select, SegmentedControl, TextInput, getStylesRef } from "@mantine/core";
 import { useElementSize } from '@mantine/hooks';
 
 import { BuildingCommunity, Search } from 'tabler-icons-react';
@@ -6,7 +6,7 @@ import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
 import { INPUT_BORDER_BOTTOM } from "../../MatineProvider/stylesProvider";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   container: {
     width: "100%",
     display: "flex",
@@ -24,25 +24,25 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       gap: theme.other.spacing.p2,
     },
     [`${theme.fn.largerThan(1800)}`]: {
-      [`.${getRef("selectNei")}`]: {
+      [`.${getStylesRef("selectNei")}`]: {
         minWidth: "250px",
         maxWidth: "250px",
       },
-      [`.${getRef("inputSearch")}`]: {
+      [`.${getStylesRef("inputSearch")}`]: {
         minWidth: "250px",
         maxWidth: "250px",
       },
     },
   },
   textFilter: {
-    ref: getRef("textFilter"),
+    ref: getStylesRef("textFilter"),
     fontWeight: 700,
     fontSize: "18px",
     minWidth: "50px",
     height: "fit-content",
   },
   selectNei: {
-    ref: getRef("selectNei"),
+    ref: getStylesRef("selectNei"),
     width: _params?.usingCheck ? "150px" : "200px",
     ...INPUT_BORDER_BOTTOM,
     [`${theme.fn.largerThan(2100)}`]: {
@@ -53,7 +53,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     },
   },
   inputSearch: {
-    ref: getRef("inputSearch"),
+    ref: getStylesRef("inputSearch"),
     width: _params?.usingCheck ? "150px" : "200px",
     ...INPUT_BORDER_BOTTOM,
     [`${theme.fn.largerThan(2100)}`]: {
@@ -87,7 +87,7 @@ const FilterOptions = ({ categoryProps, searchProps, neiProps, isLoading, isChec
         onChange={categoryProps.onChange}
         data={listingCategories}
         fullWidth
-        transitionDuration={0}
+        transitionProps={{ transition: 'pop-top-left', duration: 0, timingFunction: 'ease' }}
         orientation={width > 600 ? "horizontal" : "vertical"}
         className={classes.segmentedControl}
       />
@@ -97,11 +97,12 @@ const FilterOptions = ({ categoryProps, searchProps, neiProps, isLoading, isChec
         data={listingNei}
         disabled={isLoading}
         transition="pop-top-left"
-        transitionDuration={80}
+        transitionProps={{ transition: 'pop-top-left', duration: 80, timingFunction: 'ease' }}
         transitionTimingFunction="ease"
         placeholder="Neighborhood"
         icon={<BuildingCommunity size={14} />}
         className={classes.selectNei}
+        clearable 
       />
       <TextInput
         disabled={isLoading}

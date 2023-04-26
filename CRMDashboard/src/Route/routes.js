@@ -4,6 +4,7 @@ import { LayoutGrid, Home2, Users, Briefcase } from "tabler-icons-react";
 
 import AuthComponent from '../Container/AuthView';
 import Pipeline from '../Container/PipelineView';
+import Listings from '../Container/ListingsView';
 /* import ProfileComponent from '../Container/ProfileView';
 import Listings from '../Container/ListingsView';
 import LeadsView from '../Container/LeadsView';
@@ -53,6 +54,18 @@ export const CRM_ROUTES = [
     useInNavbar: true,
     loginRequired: true,
     icon: () => <Home2 size={25} strokeWidth={2} color={"white"} />,
+    roles: []
+  },
+  {
+    name: ROUTES_NAMES.LISTINGS,
+    label: "Properties",
+    layout: LAYOUT_NAMES.DASHBOARD,
+    component: () => (
+      <Listings />
+    ),
+    useInNavbar: true,
+    loginRequired: true,
+    icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
     roles: []
   },
   /* {

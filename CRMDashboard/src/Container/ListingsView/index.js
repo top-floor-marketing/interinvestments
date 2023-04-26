@@ -1,56 +1,67 @@
-import { Box, createStyles, Paper, Text, LoadingOverlay } from "@mantine/core";
+import { Box, createStyles, Paper, Text, LoadingOverlay } from '@mantine/core';
 import { DatabaseOff } from 'tabler-icons-react';
-import SpringDiv from "../../Component/SpringDiv";
+import SpringDiv from '../../Component/SpringDiv';
 
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import useGetListings from './hooks/useGetListings';
 import SkeletonListing from './skeletonListing';
 import FilterOptions from './filterOptions';
 
-import { ListingVirtual } from "../../Component/VirtualListContainer";
+import { ListingVirtual } from '../../Component/VirtualListContainer';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
     gap: theme.other.spacing.p4,
-    position: "relative",
+    position: 'relative',
     '.mantine-Overlay-root': {
-      borderRadius: "10px !important"
-    }
+      borderRadius: '10px !important',
+    },
   },
   containerListings: {
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    position: "relative"
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'relative',
   },
   virtualAllListings: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
   },
   noData: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-    alignItems: "center",
-    padding: theme.other.spacing.p8
-  }
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    alignItems: 'center',
+    padding: theme.other.spacing.p8,
+  },
 }));
 
 const ListingView = ({ usingAddAndRemove, isCheck }) => {
-
   const { classes } = useStyles();
 
-  const { isLoading, isAdminView,  isOverlay, isSkeleton, allListings, categoryProps, neiProps, searchProps, totalData, refetchData, onConfirmAdd,
-    onConfirmRemove } = useGetListings();
+  const {
+    isLoading,
+    isAdminView,
+    isOverlay,
+    isSkeleton,
+    allListings,
+    categoryProps,
+    neiProps,
+    searchProps,
+    totalData,
+    refetchData,
+    onConfirmAdd,
+    onConfirmRemove,
+  } = useGetListings();
 
   return isSkeleton ? (
     <SkeletonListing />
@@ -60,7 +71,7 @@ const ListingView = ({ usingAddAndRemove, isCheck }) => {
         overlayOpacity={0.05}
         visible={isOverlay}
         overlayBlur={0.05}
-        overlayColor="#eaeae9"
+        overlayColor='#eaeae9'
         loaderProps={{ size: 'sm', color: '#ffb839', variant: 'bars' }}
       />
       <SpringDiv delay={100} duration={300}>
@@ -79,7 +90,7 @@ const ListingView = ({ usingAddAndRemove, isCheck }) => {
               overlayOpacity={0.05}
               visible={isLoading}
               overlayBlur={0.05}
-              overlayColor="#eaeae9"
+              overlayColor='#eaeae9'
               loaderProps={{ size: 'sm', color: '#ffb839', variant: 'bars' }}
             />
           )}
@@ -94,9 +105,9 @@ const ListingView = ({ usingAddAndRemove, isCheck }) => {
               onConfirmAdd={onConfirmAdd}
               onConfirmRemove={onConfirmRemove}
             />
-          ) : (
+          ) : isLoading ? null : (
             <div className={classes.noData}>
-              <Text component="h4">No data found</Text>
+              <Text component='h4'>No data found</Text>
               <DatabaseOff size={36} />
             </div>
           )}
@@ -104,16 +115,16 @@ const ListingView = ({ usingAddAndRemove, isCheck }) => {
       </SpringDiv>
     </Box>
   );
-}
+};
 
 ListingView.defaultProps = {
   isCheck: false,
-  usingAddAndRemove: true
-}
+  usingAddAndRemove: true,
+};
 
 ListingView.propTypes = {
   isCheck: PropTypes.bool,
-  usingAddAndRemove: PropTypes.bool
+  usingAddAndRemove: PropTypes.bool,
 };
 
 export default ListingView;

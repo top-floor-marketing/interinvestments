@@ -173,6 +173,14 @@ const stylesProvider = () => {
                     modal: {
                         backgroundColor: theme.colors.white[0],
                         padding: "16px !important",
+                        '.mantine-Modal-header': {
+                            backgroundColor: 'transparent !important',
+                        }
+                    },
+                    root: {
+                        '.mantine-Modal-header': {
+                            backgroundColor: 'transparent !important',
+                        }
                     },
                     close: {
                         color: theme.colors.dark[0],
