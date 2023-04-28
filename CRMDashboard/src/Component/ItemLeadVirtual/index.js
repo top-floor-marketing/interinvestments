@@ -205,7 +205,7 @@ const ItemListingVirtual = (props) => {
 
   // MUTATIONS
   const { mutateAsync: fetchTransferAgent } = useMutationHelper({
-    name: "transfer-agents-leads",
+    name: ["transfer-agents-leads"],
     gql: MUTATION_LEADS_ASSIGNMENT,
     config: {
       cacheTime: 0,
@@ -306,8 +306,11 @@ const ItemListingVirtual = (props) => {
             return null;
           }
 
+          console.log("removeAgents", removeAgents);
+          console.log("newAgents", newAgents);
+          console.log("newTransfer", newTransfer)
           // only removeAgents for lead and assign office
-          if(removeAgents.length && removeAgents.length !== newAgents.length) {
+          if(removeAgents.length && removeAgents.length !== newAgents.length && !newTransfer.length) {
             const allMutations = []
             forEach(removeAgents, (e, index) => {
               allMutations.push(fetchTransferAgent({
@@ -325,7 +328,7 @@ const ItemListingVirtual = (props) => {
           }
 
           // same length removeAgents and newAgents
-          if (removeAgents.length && newAgents.length && removeAgents.length === newAgents.length) {
+          if (removeAgents.length && newAgents.length) {
             const allMutations = []
             forEach(newAgents, (e, index) => {
               allMutations.push(fetchTransferAgent({
@@ -339,6 +342,25 @@ const ItemListingVirtual = (props) => {
               }))
             })
             await Promise.all(allMutations);
+            return null;
+          }
+
+          // only removeAgents for lead
+          if (removeAgents.length) { 
+            const allMutations = []
+            forEach(removeAgents, (e, index) => {
+              allMutations.push(fetchTransferAgent({
+                variables: {
+                  input: {
+                    lastAgentId: e,
+                    newAgentId: null,
+                    userLead: getIdLead()
+                  }
+                }
+              }))
+            })
+            await Promise.all(allMutations);
+            return null;
           }
 
         }

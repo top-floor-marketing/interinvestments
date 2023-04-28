@@ -55,7 +55,7 @@ const useStyles = createStyles((theme, _params) => {
       marginRight: "auto",
       width: "100%",
       height: "100%",
-      [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+      [`@media (min-width: ${theme.breakpoints.md})`]: {
         width: "80%",
       },
     },

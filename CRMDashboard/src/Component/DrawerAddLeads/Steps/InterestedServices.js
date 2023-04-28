@@ -21,7 +21,7 @@ const useStyles = createStyles((theme, _params) => {
             justifyContent: 'center',
             alignItems: 'center',
             gap: '14px',
-            [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+            [`@media (min-width: ${theme.breakpoints.md})`]: {
                 flexDirection: 'row',
             }
         }

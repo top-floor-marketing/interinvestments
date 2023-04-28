@@ -64,7 +64,7 @@ const CommentLeads = () => {
         autosize
         minRows={4}
         value={noteLeads}
-        onChange={(note) => setNoteLeads(note)}
+        onChange={(note) => setNoteLeads(note.target.value)}
       />
     </Box>
   );

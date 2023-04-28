@@ -29,7 +29,7 @@ const useStyles = createStyles((theme, _params) => ({
   contentLogin: {
     display: "grid",
     gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
-    [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+    [`@media (min-width: ${theme.breakpoints.md})`]: {
       gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
     },
   },

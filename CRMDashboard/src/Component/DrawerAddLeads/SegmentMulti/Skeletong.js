@@ -11,7 +11,7 @@ const useStyles = createStyles((theme, _params) => {
             flexDirection: 'column',
             justifyContent: 'center',
             gap: '14px',
-            [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+            [`@media (min-width: ${theme.breakpoints.md})`]: {
                 flexDirection: 'row',
             }
         }
