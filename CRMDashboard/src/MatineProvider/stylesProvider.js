@@ -321,6 +321,15 @@ const stylesProvider = () => {
                 }
             }
         },
+        Drawer: {
+            styles: (theme, params) => { 
+                return {
+                    header: {
+                        backgroundColor: 'transparent !important',
+                    }
+                }
+            }
+        },
         Paper: {
             styles: (theme, params) => {
                 return {

@@ -4,7 +4,7 @@ import { useSpring, animated } from "react-spring";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
     width: "100%",
     minHeight: "400px",

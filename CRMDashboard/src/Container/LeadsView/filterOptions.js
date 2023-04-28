@@ -1,4 +1,4 @@
-import { createStyles, Paper, TextInput, Box, Button, Text } from "@mantine/core";
+import { createStyles, Paper, TextInput, Box, Button, Text, getStylesRef } from "@mantine/core";
 
 import SelectStateLeads from "../../Component/SelectStateLeads";
 
@@ -8,7 +8,7 @@ import { INPUT_BORDER_BOTTOM } from "../../MatineProvider/stylesProvider";
 
 import { HoccDraewerAL } from "../../Component/DrawerAddLeads";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   container: {
     width: "100%",
     display: "flex",
@@ -43,7 +43,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     },
   },
   textFilter: {
-    ref: getRef("textFilter"),
+    ref: getStylesRef("textFilter"),
     fontWeight: 700,
     fontSize: "18px",
     minWidth: "50px",

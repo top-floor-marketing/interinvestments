@@ -19,7 +19,7 @@ import { ExternalLink, Download, View360, Plus } from "tabler-icons-react";
 
 import get from "lodash/get";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   cardContainer: {
     width: "100%",
     height: "600px",

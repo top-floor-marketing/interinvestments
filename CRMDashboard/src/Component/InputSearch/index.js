@@ -3,7 +3,7 @@ import React from 'react'
 import { TextInput, createStyles } from '@mantine/core';
 import { Search } from 'tabler-icons-react';
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
     containerInputSeach: {
         width: "100%",
     },

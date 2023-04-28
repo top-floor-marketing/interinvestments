@@ -3,7 +3,7 @@ import fondoLogin from "./assets/images/fondoLogin.jpg";
 // mantine
 import { createStyles } from "@mantine/core";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   containerLogin: {
     margin: "auto",
     height: "auto",

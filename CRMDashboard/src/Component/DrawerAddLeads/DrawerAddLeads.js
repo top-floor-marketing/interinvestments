@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 //  icons
 import { AddressBook } from 'tabler-icons-react';
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
     root: {
         '.mantine-Paper-root.mantine-Drawer-drawer': {
             padding: 0,

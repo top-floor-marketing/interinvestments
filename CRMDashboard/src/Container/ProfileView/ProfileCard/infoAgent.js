@@ -9,7 +9,7 @@ import get from 'lodash/get';
 import startsWith from 'lodash/startsWith';
 import concat from 'lodash/concat';
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
     container: {
         display: "flex",
         flexDirection: "row",

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQueryHelper, useMutationHelper } from "../../../GraphqlClient/useRequest";
-import { GET_LISTINGS_CATEGORY, GET_ALL_NEIGHBORHOODS, GET_ALL_NEIGHBORHOODS_BY_CATEGORY, GET_ALL_LISTINGS } from "../../../GraphqlClient/listings.gql";
+import { GET_LISTINGS_CATEGORY, GET_ALL_NEIGHBORHOODS_BY_CATEGORY, GET_ALL_LISTINGS } from "../../../GraphqlClient/listings.gql";
 import { GET_AGENT_FEATURED_LISTING, MUTATION_ADD_AGENT_LISTING, MUTATION_DETELE_AGENT_LISTING } from "../../../GraphqlClient/agentProfile.gql";
 
 import { notificationSuccess, notificationError } from "../../../Component/Notifications";
@@ -28,7 +28,7 @@ const ENUM_NEIGHBORHOODS = (idCategory) => {
 
 const PER_PAGE = 15;
 
-const useGetListings = () => {
+const useGetListings = ({ refetchParentData }) => {
 
   const { state: { global: { route }, user: { infoUser: { databaseId, agentType }, listingFeaturedAgent }}, actions: { setListingCategories, setListingNei, setListingFeaturedAgent } } = useClientGlobalStore();
 
@@ -139,7 +139,7 @@ const useGetListings = () => {
 
   // MUTATIONS
   const { mutate: fetchAddNewListing } = useMutationHelper({
-    name: "add-agent-listing",
+    name: ["add-agent-listing"],
     gql: MUTATION_ADD_AGENT_LISTING,
     config: {
       onSuccess: async () => {
@@ -150,6 +150,9 @@ const useGetListings = () => {
           title: "Featured property added",
           color: 'success'
         });
+        if(refetchParentData) {
+          refetchParentData();
+        }
       },
       onError: async () => {
         await refetch();
@@ -162,7 +165,7 @@ const useGetListings = () => {
     },
   });
   const { mutate: fetchRemoveListing } = useMutationHelper({
-    name: "remove-agent-listing",
+    name: ["remove-agent-listing"],
     gql: MUTATION_DETELE_AGENT_LISTING,
     config: {
       onSuccess: async () => {
@@ -173,6 +176,9 @@ const useGetListings = () => {
           title: "Featured property removed",
           color: 'success'
         });
+        if(refetchParentData) {
+          refetchParentData();
+        }
       },
       onError: async () => {
         await refetch();

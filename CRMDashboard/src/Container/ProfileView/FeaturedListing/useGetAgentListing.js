@@ -49,7 +49,7 @@ const useGetAgentListing = ({ idAgent = null }) => {
 
   // first query
   const {
-    data: dataTagFeatured
+    data: dataTagFeatured, refetch: refetchFeaturedOffice
   } = useQueryHelper({
     name: ["get-tag-featured-dev-gd-office"],
     gql: GET_TAG_FEATURED_DEVELOPMENTS,
@@ -58,7 +58,7 @@ const useGetAgentListing = ({ idAgent = null }) => {
     },
   });
 
-  const { isLoading: isLoadingQuery, isFetching: isFetchingQuery, isError } = useQueryHelper({
+  const { isLoading: isLoadingQuery, isFetching: isFetchingQuery, isError, refetch: refetchFeaturedAgent } = useQueryHelper({
     name: ["get-agent-featured-listing-crm", get(dataTagFeatured, ["tags", "nodes", "0", "databaseId"], 0)],
     gql: useOfficeFeatured ? GET_LISTING_FEATURED_DEVELOPMENTS_OFFICE : GET_AGENT_FEATURED_LISTING,
     config: {
@@ -100,7 +100,7 @@ const useGetAgentListing = ({ idAgent = null }) => {
     isLoading: isSkeleton || isLoadingQuery || isFetchingQuery,
     listingAgent,
     totalData: listingAgent ? listingAgent.length : 0,
-    refetchData: null
+    refetchData: agentType === USER_ROLES_CRM.ADMIN ? refetchFeaturedOffice : refetchFeaturedAgent
   }
 }
 

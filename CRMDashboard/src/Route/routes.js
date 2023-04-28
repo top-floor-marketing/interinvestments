@@ -6,12 +6,9 @@ import AuthComponent from '../Container/AuthView';
 import Pipeline from '../Container/PipelineView';
 import Listings from '../Container/ListingsView';
 import AgentsView from "../Container/AgentsView";
-/* import ProfileComponent from '../Container/ProfileView';
-import Listings from '../Container/ListingsView';
+import ProfileComponent from '../Container/ProfileView';
 import LeadsView from '../Container/LeadsView';
 import LeadsDetailView from "../Container/LeadDetailView";
-import Pipeline from '../Container/PipelineView';
-import AgentsView from "../Container/AgentsView"; */
 
 import { USER_ROLES_CRM } from "../GlobalStore/utils";
 
@@ -81,30 +78,6 @@ export const CRM_ROUTES = [
     icon: () => <Briefcase size={25} strokeWidth={2} color={"white"} />,
     roles: [USER_ROLES_CRM.ADMIN]
   },
-  /* {
-    name: ROUTES_NAMES.LEADS_DETAILS,
-    label: "Leads",
-    layout: LAYOUT_NAMES.DASHBOARD,
-    component: () => (
-      <LeadsDetailView />
-    ),
-    useInNavbar: false,
-    loginRequired: true,
-    icon: null,
-    roles: []
-  },
-  {
-    name: ROUTES_NAMES.AGENTS,
-    label: "Agents",
-    layout: LAYOUT_NAMES.DASHBOARD,
-    component: () => (
-      <AgentsView />
-    ),
-    useInNavbar: true,
-    loginRequired: true,
-    icon: () => <Briefcase size={25} strokeWidth={2} color={"white"} />,
-    roles: [USER_ROLES_CRM.ADMIN]
-  },
   {
     name: ROUTES_NAMES.PROFILE,
     label: null,
@@ -115,18 +88,6 @@ export const CRM_ROUTES = [
     useInNavbar: false,
     loginRequired: true,
     icon: null,
-    roles: []
-  },
-  {
-    name: ROUTES_NAMES.PIPELINE,
-    label: "Pipeline",
-    layout: LAYOUT_NAMES.DASHBOARD,
-    component: () => (
-      <Pipeline />
-    ),
-    useInNavbar: true,
-    loginRequired: true,
-    icon: () => <Home2 size={25} strokeWidth={2} color={"white"} />,
     roles: []
   },
   {
@@ -142,15 +103,15 @@ export const CRM_ROUTES = [
     roles: []
   },
   {
-    name: ROUTES_NAMES.LISTINGS,
-    label: "Properties",
+    name: ROUTES_NAMES.LEADS_DETAILS,
+    label: "Leads",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <Listings />
+      <LeadsDetailView />
     ),
-    useInNavbar: true,
+    useInNavbar: false,
     loginRequired: true,
-    icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
+    icon: null,
     roles: []
-  }, */
+  },
 ];

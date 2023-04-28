@@ -54,7 +54,7 @@ const useGetLeads = () => {
   }
 
   const { isLoading: isLoadingLeads, isError: isErrorLeads, isSuccess: isSuccessLeads, refetch } = useQueryHelper({
-    name: "get_leads_list_agent",
+    name: ["get_leads_list_agent", databaseId, agentType],
     gql: agentType === USER_ROLES_CRM.ADMIN ? ALL_LEADS_PIPELINE : GET_LEADS_LIST_FOR_AGENT,
     config: {
       onSuccess: (response) => {

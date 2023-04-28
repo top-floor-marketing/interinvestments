@@ -112,7 +112,7 @@ const FeaturedListing = ({ idAgent = null }) => {
                   body: classes.bodyModal,
                 }}
               >
-                <ListingView />
+                <ListingView refetchParentData={refetchData} />
               </Modal>
             </>
           }

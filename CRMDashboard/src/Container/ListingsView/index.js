@@ -45,7 +45,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
 }));
 
-const ListingView = ({ usingAddAndRemove, isCheck }) => {
+const ListingView = ({ usingAddAndRemove, isCheck, refetchParentData }) => {
   const { classes } = useStyles();
 
   const {
@@ -61,7 +61,7 @@ const ListingView = ({ usingAddAndRemove, isCheck }) => {
     refetchData,
     onConfirmAdd,
     onConfirmRemove,
-  } = useGetListings();
+  } = useGetListings({ refetchParentData });
 
   return isSkeleton ? (
     <SkeletonListing />
