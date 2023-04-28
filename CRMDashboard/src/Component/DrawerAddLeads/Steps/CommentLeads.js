@@ -1,6 +1,6 @@
 import React from 'react'
 // mantine dev
-import { RichTextEditor } from '@mantine/rte';
+// import { RichTextEditor } from '@mantine/rte';
 import { Box, Text, createStyles } from '@mantine/core'
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'

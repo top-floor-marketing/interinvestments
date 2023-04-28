@@ -5,14 +5,16 @@ import { notificationError } from "../../../../Component/Notifications";
 // mantine
 import { Box, Text, Divider, Button, ScrollArea, TextInput, FileInput } from "@mantine/core";
 import { useForm, joiResolver } from '@mantine/form';
-import { RichTextEditor } from '@mantine/rte';
+// import { RichTextEditor } from '@mantine/rte';
+import { RichTextEditor } from '@mantine/tiptap';
+import { useEditor } from '@tiptap/react';
 import {Edit} from "tabler-icons-react";
 // utils
 import { get } from "lodash";
 // echema
-import schemaEditAgent from './eschemaEditProfile'
+import schemaEditAgent from './eschemaEditProfile';
 // styles 
-import useStyles from './stylesProfileAction'
+import useStyles from './stylesProfileAction';
 
 const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
     const { classes } = useStyles();
@@ -37,6 +39,11 @@ const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
             youtube: get(dataAgent, ["youtube"], ""),
             rumble: get(dataAgent, ["rumble"], ""),
         },
+    });
+
+    const editor = useEditor({
+        extensions: [],
+        ...form.getInputProps('content')
     });
 
     const toBase64 = file => new Promise((resolve, reject) => {
@@ -137,12 +144,15 @@ const FormEditProfile = ({ isLoading, dataAgent, onSubmit }) => {
 
                         <Box className={classes.gridColumnFull}>
                             <Text component="label" htmlFor="content" className={classes.labelAboutMe}>About me</Text>
-                            <RichTextEditor
+                            {/* <RichTextEditor
                                 controls={[]}
                                 readOnly={isLoading}
                                 placeholder="About me"
                                 {...form.getInputProps('content')}
-                            />
+                            /> */}
+                             <RichTextEditor editor={editor}>
+                                <RichTextEditor.Content />
+                             </RichTextEditor>
                         </Box>
 
                         <TextInput

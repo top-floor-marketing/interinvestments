@@ -6,7 +6,7 @@ import omit from 'lodash/omit';
 
 const IconRemove = (props) => {
   return (
-    <Tooltip multiline
+    <Tooltip 
       color={"dark"}
       position={props.position}
       label={props.labelTooltip}

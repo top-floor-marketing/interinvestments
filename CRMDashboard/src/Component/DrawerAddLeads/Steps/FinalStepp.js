@@ -2,7 +2,7 @@ import React from 'react'
 // mantine
 import { Box, Text, Badge, Divider, Tooltip } from '@mantine/core';
 import { MapPin, ListDetails, AlertCircle } from 'tabler-icons-react';
-import { RichTextEditor } from '@mantine/rte';
+// import { RichTextEditor } from '@mantine/rte';
 // global store
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore'
 // styles 

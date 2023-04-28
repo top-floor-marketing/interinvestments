@@ -51,7 +51,7 @@ const useGetAgentListing = ({ idAgent = null }) => {
   const {
     data: dataTagFeatured
   } = useQueryHelper({
-    name: "get-tag-featured-dev-gd-office",
+    name: ["get-tag-featured-dev-gd-office"],
     gql: GET_TAG_FEATURED_DEVELOPMENTS,
     config: {
       enabled: useOfficeFeatured
@@ -59,7 +59,7 @@ const useGetAgentListing = ({ idAgent = null }) => {
   });
 
   const { isLoading: isLoadingQuery, isFetching: isFetchingQuery, isError } = useQueryHelper({
-    name: "get-agent-featured-listing-crm",
+    name: ["get-agent-featured-listing-crm", get(dataTagFeatured, ["tags", "nodes", "0", "databaseId"], 0)],
     gql: useOfficeFeatured ? GET_LISTING_FEATURED_DEVELOPMENTS_OFFICE : GET_AGENT_FEATURED_LISTING,
     config: {
       enabled: (useOfficeFeatured && !!(dataTagFeatured)) || (!useOfficeFeatured),

@@ -101,7 +101,7 @@ const useQueryHelper = (props) => {
           emptyLocalStorage();
         }
       }
-      // emptyLocalStorage();
+      emptyLocalStorage();
       return Promise.reject(new Error('not response'))
     },
     ...globalConfig,

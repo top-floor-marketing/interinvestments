@@ -11,7 +11,7 @@ const LogoutIcon = (props) => {
   const { actions: { setLogout } } = useClientGlobalStore()
 
   return (
-    <Tooltip multiline gutter={10} label={props.labelTooltip} className={props.className}>
+    <Tooltip  gutter={10} label={props.labelTooltip} className={props.className}>
       <ActionIcon onClick={() => setLogout()}  {...omit(props, ['size', 'labelTooltip'])}><Logout size={props.size} /></ActionIcon>
     </Tooltip>
   );

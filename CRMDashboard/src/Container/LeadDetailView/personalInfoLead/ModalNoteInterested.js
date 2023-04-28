@@ -3,9 +3,8 @@ import React, { useState } from "react";
 import DOMPurify from "dompurify";
 // mantine dev
 import { Button, createStyles, Modal, Text, Box, Group } from "@mantine/core";
-import { RichTextEditor } from "@mantine/rte";
-import { IconMapPin, IconListDetails } from "@tabler/icons";
-import { Notes } from "tabler-icons-react";
+// import { RichTextEditor } from "@mantine/rte";
+import { MapPin, ListDetails, Notes } from 'tabler-icons-react';
 import { map } from "lodash";
 
 import TabsServiceForms from "./tabsServiceForms";
@@ -54,7 +53,7 @@ const ModalNoteInterested = ({ tite, commentListing, commentService, serviceList
             &&
             <>
               <Group spacing="xs">
-                <IconMapPin size={20} /> <Text color="secondary">Properties notes:</Text>
+                <MapPin size={20} /> <Text color="secondary">Properties notes:</Text>
               </Group>
 
 
@@ -75,7 +74,7 @@ const ModalNoteInterested = ({ tite, commentListing, commentService, serviceList
             &&
             <>
               <Group spacing="xs">
-                <IconListDetails size={20} /> <Text color="secondary">Services notes:</Text>
+                <ListDetails size={20} /> <Text color="secondary">Services notes:</Text>
               </Group>
               <RichTextEditor
                 style={{ width: "100%" }}
@@ -92,7 +91,7 @@ const ModalNoteInterested = ({ tite, commentListing, commentService, serviceList
             &&
             <>
               <Group spacing="xs">
-                <IconListDetails size={20} /> <Text color="secondary">Services forms:</Text>
+                <ListDetails size={20} /> <Text color="secondary">Services forms:</Text>
               </Group>
               <TabsServiceForms arrayServicePost={arrayServicePost} />
             </>

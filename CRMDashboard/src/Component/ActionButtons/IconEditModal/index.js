@@ -6,7 +6,7 @@ import omit from 'lodash/omit';
 
 const IconEditModal = (props) => {
   return (
-    <Tooltip multiline label={props.labelTooltip} className={props.className}>
+    <Tooltip  label={props.labelTooltip} className={props.className}>
       <ActionIcon {...omit(props, ['labelTooltip'])}><Edit size={props.size} /></ActionIcon>
     </Tooltip>
   );

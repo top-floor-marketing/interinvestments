@@ -33,7 +33,7 @@ const IconOpenWhatsApp = (props) => {
     return null
 
   return (
-    <Tooltip multiline gutter={10} label={props.labelTooltip} className={props.className} color="success">
+    <Tooltip  gutter={10} label={props.labelTooltip} className={props.className} color="success">
       <ActionIcon
         onClick={() => onOpenWhatsAppWeb()}
         className={cx(props.className, classes.whatsApp)}

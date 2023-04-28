@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { Card, createStyles, Text, Skeleton, Group, Button, Modal, Box } from "@mantine/core";
 import { useViewportSize } from '@mantine/hooks';
-import { IconPlus } from '@tabler/icons';
+import { CirclePlus } from 'tabler-icons-react';
 
 import useGetAgentListing from "./useGetAgentListing";
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
@@ -93,7 +93,7 @@ const FeaturedListing = ({ idAgent = null }) => {
               <Button
                 color="dark"
                 disabled={isLoading || isOpenModalAddListing}
-                leftIcon={<IconPlus size={12} />}
+                leftIcon={<CirclePlus size={12} />}
                 onClick={() => setIsOpenModalAddListing(true)}
               >
                 Add featured property
