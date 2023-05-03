@@ -49,6 +49,8 @@ const SelectStateLeads = ({
         return classes.selectSuccess;
       case PIPELINE_STATUS.ASK_REFERRALS:
         return classes.selectInfo;
+      case PIPELINE_STATUS.DISABLED:
+          return classes.selectGray;
       default:
         return classes.placeholder;
     }
@@ -66,6 +68,8 @@ const SelectStateLeads = ({
         return "success";
       case PIPELINE_STATUS.ASK_REFERRALS:
         return "info";
+      case PIPELINE_STATUS.DISABLED:
+          return "gray";    
       default:
         return "";
     }

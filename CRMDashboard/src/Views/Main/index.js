@@ -1,5 +1,5 @@
 import { Box, createStyles } from "@mantine/core";
-import React from "react";
+import React, { useEffect } from "react";
 
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
@@ -39,6 +39,13 @@ const MainView = () => {
   const routeActive = get(filter(CRM_ROUTES, (o) => {
     return o.name === routeInStore;
   }), ["0"], []);
+
+  useEffect(() => {
+    const element = document.querySelector("#wpadminbar");
+    if(element) {
+      element.style.display = 'none';
+    }
+  },[]);
 
   const agentType = get(user, ["infoUser", "agentType"], null);
   const viewValid = isEmpty(routeActive) ? false : (routeActive?.roles?.length === 0 || routeActive?.roles?.includes(agentType));

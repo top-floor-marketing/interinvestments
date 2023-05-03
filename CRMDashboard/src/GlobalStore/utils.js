@@ -13,7 +13,8 @@ export const PIPELINE_STATUS = {
   CONTACTED: "contacted",
   SHOWING: "showing",
   CONTRACT: "contract",
-  ASK_REFERRALS: "ask referrals"
+  ASK_REFERRALS: "ask referrals",
+  DISABLED: "disabled"
 }
 
 export const getRouteActive = (routeName) => {

@@ -48,6 +48,8 @@ const useUserIsAuth = () => {
         return "success";
       case PIPELINE_STATUS.ASK_REFERRALS:
         return "info";
+      case PIPELINE_STATUS.DISABLED:
+          return "gray";  
       default:
         return "";
     }
@@ -62,7 +64,7 @@ const useUserIsAuth = () => {
       onSuccess: (response) => {
         const listStatus = get(response, ["statuses", "nodes"], []);
         const dataForSelect = listStatus.map((val) => ({ value: val.databaseId, label: val.name }));
-        const arrayState = [PIPELINE_STATUS.NOT_CONTACTED, PIPELINE_STATUS.CONTACTED, PIPELINE_STATUS.SHOWING, PIPELINE_STATUS.CONTRACT, PIPELINE_STATUS.ASK_REFERRALS];
+        const arrayState = [PIPELINE_STATUS.NOT_CONTACTED, PIPELINE_STATUS.CONTACTED, PIPELINE_STATUS.SHOWING, PIPELINE_STATUS.CONTRACT, PIPELINE_STATUS.ASK_REFERRALS, PIPELINE_STATUS.DISABLED];
         const dataOrder = arrayState.map((val) => {
           const findByLabel = findLast(dataForSelect, (i) => (toLower(i.label) === toLower(val)))
           return {

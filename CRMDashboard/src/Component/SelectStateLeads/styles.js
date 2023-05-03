@@ -73,6 +73,16 @@ const useStyles = createStyles((theme, _params) => ({
       backgroundColor: theme.colors.info[8],
     },
   },
+  gray: {
+    "&[data-selected]": {
+      backgroundColor: theme.colors.gray[8],
+      color: theme.colors.white[0],
+    },
+    "&:hover": {
+      color: theme.colors.white[0],
+      backgroundColor: theme.colors.gray[9],
+    },
+  },
   placeholder: {
     textAlign: "center",
     padding: theme.other.spacing.p4,
@@ -121,6 +131,14 @@ const useStyles = createStyles((theme, _params) => ({
     backgroundColor: theme.colors.info[6],
     "&:hover": {
       backgroundColor: theme.colors.info[8],
+    },
+  },
+  selectGray: {
+    border: "0px",
+    color: theme.colors.white[0],
+    backgroundColor: theme.colors.gray[8],
+    "&:hover": {
+      backgroundColor: theme.colors.gray[9],
     },
   },
 }));
