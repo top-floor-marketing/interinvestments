@@ -49,7 +49,7 @@ const ListingWrapper = (props) => {
         name: 'LISTINGS_BY_SLOG',
         gql: LISTINGS_BY_SLOG,
         variables: {
-            "title": slugLIsting ? slugLIsting.replace(/-/g, ' ') : '_null_'
+            "title": slugLIsting //? slugLIsting.replace(/-/g, ' ') : '_null_'
         },
         config: {
             enabled: Boolean(slugLIsting.length),
