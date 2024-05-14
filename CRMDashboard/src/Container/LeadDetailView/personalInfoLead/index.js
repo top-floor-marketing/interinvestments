@@ -54,6 +54,9 @@ const PersonalInfoLead = ({ isSkeleton, dataLead, serviceList }) => {
 
   const mainPhone = isArray(get(dataLead, ["phone"], "")) ? get(dataLead, ["phone", "0"], "") : get(dataLead, ["phone"], "");
 
+  console.log("dataLead", dataLead)
+  console.log("serviceList", serviceList)
+
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Paper className={classes.cardContainer}>

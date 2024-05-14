@@ -153,6 +153,11 @@ const ItemListingVirtual = (props) => {
 
   const refBodyTransferModal = useRef(null);
 
+  const allAgentsStatus = useCallback(() => {
+    const data = get(props, ["allAgentsStatus"], []);
+    return data.filter((e) => e?.agentId > 0);
+  }, [props])
+
   const getFirstNameUserLead = useCallback(() => {
     return get(props.userLead, ["firstName"], "");
   }, [props.userLead]);
@@ -178,21 +183,21 @@ const ItemListingVirtual = (props) => {
   }, [props.userLead]);
 
   const getAllAgentLeadsForTransfer = useCallback(() => {
-    return props?.allAgentsStatus?.map((val) => ({
+    return allAgentsStatus().map((val) => ({
       value: get(val, ["databaseId"], 0),
       image: get(val, ["avatarProfile"], null),
       label: get(val, ["firstName"], "").concat(` ${get(val, ["lastName"], "")}`),
       email: get(val, ["email"], []),
     }
     ));
-  }, [props.allAgentsStatus]);
+  }, [allAgentsStatus]);
 
   const setLeadDetail = () => {
     const idLead = getIdLead();
     const idAgent = get(props, ["agentId"], null);
 
     // AllAgents for admin version of ``leadDetailView`` for tabs 
-    const allAgents = get(props, ["allAgentsStatus"], []).map((val) => (
+    const allAgents = allAgentsStatus().map((val) => (
       {
         id: get(val, ["databaseId"], null),
         fullName: `${get(val, ["firstName"], "")} ${get(val, ["lastName"], "")}`
@@ -306,9 +311,6 @@ const ItemListingVirtual = (props) => {
             return null;
           }
 
-          console.log("removeAgents", removeAgents);
-          console.log("newAgents", newAgents);
-          console.log("newTransfer", newTransfer)
           // only removeAgents for lead and assign office
           if(removeAgents.length && removeAgents.length !== newAgents.length && !newTransfer.length) {
             const allMutations = []
@@ -400,7 +402,7 @@ const ItemListingVirtual = (props) => {
               setLeadDetail={setLeadDetail}
               classes={classes}
               currentStatus={props?.currentStatus}
-              allAgentsStatus={get(props, ["allAgentsStatus"], [])}
+              allAgentsStatus={allAgentsStatus()}
             />
           </Box>
           :
@@ -436,7 +438,7 @@ const ItemListingVirtual = (props) => {
               setLeadDetail={setLeadDetail}
               classes={classes}
               currentStatus={props?.currentStatus}
-              allAgentsStatus={get(props, ["allAgentsStatus"], [])}
+              allAgentsStatus={allAgentsStatus()}
             />
           </>
       }

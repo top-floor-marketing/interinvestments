@@ -6,6 +6,9 @@ import get from 'lodash/get';
 
 const BadgeContainer = ({ isAdminLeadView, isShortLead, setLeadDetail, classes, currentStatus, allAgentsStatus }) => {
 
+    console.log("isAdminLeadView", isAdminLeadView)
+    console.log("allAgentsStatus", allAgentsStatus)
+    //if(!allAgentsStatus || allAgentsStatus.length === 0 || !allAgentsStatus?.agentId) return null
     return (
         (isAdminLeadView)
             ?
