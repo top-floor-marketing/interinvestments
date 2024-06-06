@@ -50,6 +50,7 @@ const GridListing = ({
       null;
     if (gridContainer && refetch && !isLoading && heightParent) {
       if (heightParent + scrollTop === gridContainer) {
+        
         refetch();
       }
     }

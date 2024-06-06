@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 //mantine
 import { Box, LoadingOverlay } from "@mantine/core";
 // components
@@ -15,17 +15,21 @@ import { numFormatter } from "../../utils";
 // styles
 import style from "./styles.ML.module.scss";
 
-const MapListing = (props) => {
-  const [defaultPropsMap, setDefaultProps] = useState({
-    lat: 25.761681,
+const DEFAULT_CENTER = { 
+  lat: 25.761681,
     lng: -80.191788,
-  });
+}
+
+const MapListing = (props) => {
+
   const { mapApiKey, dataListing } = useSelector((state) => state.statusQuery);
   const { selectedListing } = useSelector((state) => state.listing_data);
   const { isLoaded, loadError } = useLoadScript({
     id: "google-map-script",
     googleMapsApiKey: mapApiKey,
   });
+
+  const mapRef = useRef();
 
   useEffect(() => {
     if (dataListing.length) {
@@ -38,19 +42,25 @@ const MapListing = (props) => {
       const { latitude, longitude } =
         finalCordenadas.listingData.newDevelopment;
 
-      if (latitude && longitude) {
-        setDefaultProps({
+      if (latitude && longitude && mapRef?.current) {
+        mapRef.current.panTo({
           lat: parseFloat(latitude),
           lng: parseFloat(longitude),
         });
-      } else {
-        setDefaultProps({
-          lat: 25.813919,
-          lng: -80.249178,
-        });
-      }
+      } else if (mapRef?.current) {
+        mapRef?.current.panTo(DEFAULT_CENTER);
+      } 
     }
-  }, [dataListing, setDefaultProps]);
+  }, [dataListing]);
+
+  useEffect(() => {
+    if (mapRef?.current && selectedListing) {
+      mapRef.current.panTo({
+        lat: parseFloat(selectedListing?.lat),
+        lng: parseFloat(selectedListing?.lng),
+      });
+    }
+  }, [selectedListing]);
 
   if (loadError) {
     return (
@@ -60,7 +70,7 @@ const MapListing = (props) => {
     );
   }
 
-  const renderCenterMap = () => {
+  /* const renderCenterMap = () => {
     if (selectedListing) {
       return {
         lat: parseFloat(selectedListing.lat),
@@ -68,7 +78,7 @@ const MapListing = (props) => {
       };
     }
     return defaultPropsMap;
-  };
+  }; */
 
   return (
     <Box className={style.mapContainer}>
@@ -86,6 +96,28 @@ const MapListing = (props) => {
 
       {isLoaded ? (
         <GoogleMap
+          onLoad={(map) => {
+            mapRef.current = map;
+            if (dataListing.length) {
+              const finalCordenadas = dataListing.find(
+                (listing) =>
+                  listing.listingData.newDevelopment?.latitude &&
+                  listing.listingData.newDevelopment?.longitude
+              );
+        
+              const { latitude, longitude } =
+                finalCordenadas.listingData.newDevelopment;
+        
+              if (latitude && longitude && mapRef?.current) {
+                mapRef.current.panTo({
+                  lat: parseFloat(latitude),
+                  lng: parseFloat(longitude),
+                });
+              } else if (mapRef?.current) {
+                mapRef?.current.panTo(DEFAULT_CENTER);
+              } 
+            }
+          }}
           options={{
             styles: stylesmaps,
             streetViewControl: false,
@@ -94,8 +126,8 @@ const MapListing = (props) => {
             width: "100%",
             height: "100%",
           }}
-          zoom={11}
-          center={renderCenterMap()}
+          zoom={12}
+          //center={renderCenterMap()}
         >
           {dataListing.map((value, index) => {
             const {

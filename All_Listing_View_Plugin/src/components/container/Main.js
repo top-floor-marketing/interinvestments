@@ -105,6 +105,7 @@ const Main = () => {
                     visible={loadingListing}
                     overlayOpacity={0.2}
                     overlayColor="#c5c5c5"
+                    
                     transitionDuration={500}
                     overlayBlur={0.5}
                   />

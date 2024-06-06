@@ -6,29 +6,60 @@ import { Box, Text, Avatar } from "@mantine/core";
 import { useSelector } from "react-redux";
 // assets
 import imagePin from "./asset/Pin.svg";
+// store
+import { useDispatch } from "react-redux";
+import { actionslices } from "../../components/store";
 // styles
 import style from "./styles.ML.module.scss";
 
 const MarkerMap = (props) => {
-  const { latitude, longitude, title, subTitle, price, urlImagen, uri } = props;
-  const [selectedMarker, setSelectedMarker] = useState(null);
-  const [onOpenMarker, setOnOpenMarker] = useState(false);
+  const {
+    latitude,
+    longitude,
+    title,
+    subTitle,
+    price,
+    urlImagen,
+    uri,
+    idListing,
+  } = props;
+
   const [opacityMarker, setOpacityMarker] = useState(0.6);
   const { selectedListing } = useSelector((state) => state.listing_data);
 
+  const dispatch = useDispatch();
+  const { setSelectedListing } = actionslices;
+
   const handleMarkerClick = () => {
+    dispatch(
+      setSelectedListing({
+        id: idListing,
+        lat: latitude,
+        lng: longitude,
+      })
+    );
     setOpacityMarker(1);
-    setOnOpenMarker(!onOpenMarker);
   };
 
   const handleMarkerMouseOver = (marker) => {
-    setSelectedMarker(marker);
     setOpacityMarker(1);
+
+    dispatch(
+      setSelectedListing({
+        id: idListing,
+        lat: latitude,
+        lng: longitude,
+      })
+    );
   };
 
   const handleMarkerMouseOut = () => {
-    setSelectedMarker(null);
     setOpacityMarker(0.6);
+  };
+
+  const handleCloseInfoWindow = () => {
+    setOpacityMarker(0.6);
+    dispatch(setSelectedListing(null));
   };
 
   if (latitude && longitude && props?.idListing) {
@@ -47,16 +78,8 @@ const MarkerMap = (props) => {
           url: imagePin,
         }}
       >
-        {(selectedMarker ||
-          onOpenMarker ||
-          props.idListing === selectedListing?.id) && (
-          <InfoWindow
-            onCloseClick={() => {
-              setOpacityMarker(0.6);
-              setSelectedMarker(null);
-              setOnOpenMarker(!onOpenMarker);
-            }}
-          >
+        {props.idListing === selectedListing?.id ? (
+          <InfoWindow onCloseClick={() => handleCloseInfoWindow()}>
             <Box className="flex flex-col gap-5 lg:flex-row w-full max-w-[317px]">
               <Avatar
                 className={style.avatarListing}
@@ -95,7 +118,7 @@ const MarkerMap = (props) => {
               </Box>
             </Box>
           </InfoWindow>
-        )}
+        ) : null}
       </Marker>
     );
   } else return null;

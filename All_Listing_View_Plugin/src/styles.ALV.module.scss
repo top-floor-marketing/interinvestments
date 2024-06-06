@@ -22,7 +22,9 @@
 }
 
 .sectionGridListing {
-  @apply w-full h-auto mb-5 lg:w-[55%] 2xl:min-w-[40%] 4k:min-w-[20%] 4k:w-1/3 3xl:max-w-[1300px] relative;
+  @apply w-full h-auto mb-5;
+  @apply lg:w-[55%] 2xl:min-w-[32%];
+  @apply 4k:w-1/3 3xl:max-w-[1200px] relative;
 }
 
 .overlayGridListing {

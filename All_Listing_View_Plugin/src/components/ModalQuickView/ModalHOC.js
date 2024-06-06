@@ -19,9 +19,9 @@ const ModalHOC = (props) => {
   const propsModal = {
     opened,
     overlayProps: {
-      overlayColor: "#000",
-      overlayOpacity: 0.4,
-      overlayBlur: 8,
+      color: "#000",
+      opacity: 0.4,
+      blur: 8,
     },
     onClose,
     padding: "xs",

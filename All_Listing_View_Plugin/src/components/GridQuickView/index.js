@@ -84,7 +84,7 @@ const GridQuickView = (props) => {
   };
 
   const handleMarkerMouseOut = () => {
-    dispatch(setSelectedListing(null));
+    //dispatch(setSelectedListing(null));
   };
 
   return (

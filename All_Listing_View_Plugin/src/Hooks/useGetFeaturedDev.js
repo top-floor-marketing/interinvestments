@@ -35,6 +35,7 @@ const useGetFeaturedDev = () => {
     setSearch,
     setneighborhood,
     setCategory,
+    setSelectedListing
   } = actionslices;
   const { search, neighborhood, category } = useSelector(
     (state) => state.filter
@@ -282,6 +283,13 @@ const useGetFeaturedDev = () => {
     setIdSingleListing(id);
   };
 
+  const refetchOnScrollGridListing = () => {
+    dispatch(setSelectedListing(null));
+    setSingleListing(null);
+    setIdSingleListing(null);
+    refetchListing();
+  }
+
   return {
     isError,
     isSkeletonListing:
@@ -291,7 +299,7 @@ const useGetFeaturedDev = () => {
     singleListing,
     onChangeSingleListing,
     loadingListing: isFetchingListing || isFetchingNeightborhoods,
-    refetchListing,
+    refetchListing: refetchOnScrollGridListing,
     dataListing,
     totalData: dataListing?.length || 0,
   };
