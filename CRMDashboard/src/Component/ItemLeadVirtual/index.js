@@ -402,6 +402,7 @@ const ItemListingVirtual = (props) => {
   };
 
   const refetchDataFromDeleteLead = () => {
+    closeAllModals();
     refetch();
     notificationSuccess({
       id: "transfer-agents-leads",
@@ -522,6 +523,7 @@ const ItemListingVirtual = (props) => {
             phone: getPhone(),
             otherPhone: getOtherPhone(),
             agents: allAgentsStatus(),
+            id: getIdLead(),
           }}
         />
       ) : null}

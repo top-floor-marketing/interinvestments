@@ -85,8 +85,6 @@ const SelectStateLeads = ({
     );
   }, [listStatus, disabledList]);
 
-  console.log("getFinalItems ", getFinalItems())
-
   return (
     <Select
       className={classes.select}

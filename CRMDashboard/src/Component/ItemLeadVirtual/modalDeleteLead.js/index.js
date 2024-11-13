@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Box, Text, Button, Tooltip } from "@mantine/core";
 import { openConfirmModal, closeAllModals } from "@mantine/modals";
 
 import { notificationError } from "../../Notifications";
 import { useMutationHelper } from "../../../GraphqlClient/useRequest";
-import { MUTATION_LEADS_ASSIGNMENT } from "../../../GraphqlClient/leads.gql";
+import { COMMENTS_USER_LEAD } from "../../../GraphqlClient/leads.gql";
 import ChipStatusLead from "../chipStatusLead";
 import AvatarText from "../../AvatarText";
 import useClientGlobalStore from "../../../GlobalStore/useClientGlobalStore";
@@ -16,32 +16,43 @@ import get from "lodash/get";
 const ModalDeleteLead = (props) => {
   const { onFinishDeleteLead = null, leadInfo = null } = props;
 
+  const [countFinishDeleted, setCountFinishDeleted] = useState(0);
+  const [blockButton, setBlockButton] = useState(false);
+
   const {
     state: {
       global: { statusUserLead: listStatus },
     },
   } = useClientGlobalStore();
 
-  console.log("listStatus", listStatus);
+  const disabledIdState = listStatus.find(
+    (e) => e?.label.toLowerCase() === "disabled"
+  );
 
   // MUTATIONS
-  const { mutateAsync: fetchTransferAgent } = useMutationHelper({
-    name: ["transfer-agents-leads"],
-    gql: MUTATION_LEADS_ASSIGNMENT,
+  const { mutate: comment_user_lead, isLoading } = useMutationHelper({
+    name: ["delete_user_lead"],
+    gql: COMMENTS_USER_LEAD,
     config: {
       cacheTime: 0,
       onSuccess: async () => {
-        if (onFinishDeleteLead) onFinishDeleteLead();
+        setCountFinishDeleted((count) => count + 1);
       },
       onError: async () => {
         notificationError({
-          id: "transfer-agents-leads",
+          id: "add-leads-error",
           title: "Server error",
           color: "error",
         });
       },
     },
   });
+
+  useEffect(() => {
+    if (countFinishDeleted === leadInfo?.agents.length) {
+      if (onFinishDeleteLead) onFinishDeleteLead();
+    }
+  }, [countFinishDeleted, leadInfo, onFinishDeleteLead]);
 
   const openModalDeleteLead = () => {
     closeAllModals();
@@ -152,12 +163,42 @@ const ModalDeleteLead = (props) => {
         </Box>
       ),
       size: "xl",
-      closeOnClickOutside: false,
-      // closeOnConfirm: true,
-      closeOnEscape: true,
+      closeOnClickOutside: isLoading || blockButton ? false : true,
+      closeOnConfirm: false,
+      closeOnEscape: isLoading || blockButton ? false : true,
       labels: { confirm: "Confirm", cancel: "Cancel" },
+      confirmProps: { disabled: isLoading || blockButton },
+      cancelProps: { disabled: isLoading || blockButton },
       onCancel: () => {},
-      onConfirm: async () => {},
+      onConfirm: async () => {
+        // Selecciona el div con la clase `mantine-Group-root`
+        const groupDiv = document.querySelector(".mantine-Group-root");
+
+        // Encuentra todos los botones dentro de ese div
+        const buttons = groupDiv.querySelectorAll("button");
+
+        // Itera sobre cada botón, eliminando `onClick` y agregando `disabled`
+        buttons.forEach((button) => {
+          button.removeAttribute("onClick"); // Elimina el atributo `onClick`
+          button.setAttribute("disabled", "true"); // Agrega el atributo `disabled`
+        });
+        setBlockButton(true);
+        if (leadInfo?.agents.length) {
+          for (let i = 0; i < leadInfo?.agents.length; i++) {
+            comment_user_lead({
+              variables: {
+                agentId: leadInfo?.agents[i]?.id,
+                userLeadId: leadInfo?.id,
+                statusId: disabledIdState?.value,
+                comments: "Lead deleted",
+              },
+            });
+          }
+          if (onFinishDeleteLead) onFinishDeleteLead();
+        } else {
+          if (onFinishDeleteLead) onFinishDeleteLead();
+        }
+      },
     });
   };
 

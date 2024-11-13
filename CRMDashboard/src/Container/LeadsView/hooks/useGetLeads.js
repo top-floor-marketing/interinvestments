@@ -78,8 +78,6 @@ const useGetLeads = () => {
     },
   });
 
-  console.log("filterState ", filterState)
-
   return {
     isSkeleton: isLoadingLeads && isOverlay && !isSuccessLeads,
     isLoading: isLoadingLeads || isOverlay,
