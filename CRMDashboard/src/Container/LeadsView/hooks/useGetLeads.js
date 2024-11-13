@@ -38,7 +38,9 @@ const useGetLeads = () => {
   const onChangeSearchText = (e) => {
     setIsOverlay(true);
     setSearchText(e.currentTarget.value);
-    const dataOtherFilter = (filterState) ? filterByState(filterState, allLeads, statusUserLead, isAdminLeadView) : allLeads;
+    const dataOtherFilter = (filterState) ? 
+    filterByState(filterState, allLeads, statusUserLead, isAdminLeadView) 
+    : allLeads;
     setLeadsFiltered(filterByText(e.currentTarget.value, dataOtherFilter));
     setIsOverlay(false);
   };
@@ -75,6 +77,8 @@ const useGetLeads = () => {
       agentType: agentType,
     },
   });
+
+  console.log("filterState ", filterState)
 
   return {
     isSkeleton: isLoadingLeads && isOverlay && !isSuccessLeads,

@@ -41,7 +41,7 @@ const useStyles = createStyles((theme, _params) => ({
         height: "fit-content",
     },
     selectNei: {
-        width: "350px",
+        width: "450px",
         ...INPUT_BORDER_BOTTOM,
         [`${theme.fn.largerThan(2100)}`]: {
             width: "400px !important",

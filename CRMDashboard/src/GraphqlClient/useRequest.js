@@ -98,10 +98,10 @@ const useQueryHelper = (props) => {
             });
           }
         } catch (e) {
-          emptyLocalStorage();
+          //emptyLocalStorage();
         }
       }
-      emptyLocalStorage();
+      //emptyLocalStorage();
       return Promise.reject(new Error('not response'))
     },
     ...globalConfig,
