@@ -43,9 +43,6 @@ const ItemCardListing = (props) => {
     }
   };
 
-  console.log("newDevelopment ", newDevelopment)
-
-
   const processPrice = (price) => {
     if (price == null) return 0; // Retorna 0 si es null o undefined
     return Math.trunc(price);    // Remueve decimales sin redondear
