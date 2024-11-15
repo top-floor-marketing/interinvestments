@@ -11,11 +11,11 @@ const numFormatter = (num) => {
             number: parseInt((num / 1000000).toFixed(1)),
             tag: 'M'
         }
-    } else if (num < 900) {
+    } else if (num < 1000) {
         // if value < 1000, nothing to do
         return {
             number: num,
-            tag: null
+            tag: ""
         }
     }
 }

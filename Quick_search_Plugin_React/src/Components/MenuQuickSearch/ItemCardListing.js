@@ -43,6 +43,24 @@ const ItemCardListing = (props) => {
     }
   };
 
+  console.log("newDevelopment ", newDevelopment)
+
+
+  const processPrice = (price) => {
+    if (price == null) return 0; // Retorna 0 si es null o undefined
+    return Math.trunc(price);    // Remueve decimales sin redondear
+  };
+  
+  // Crear las versiones finales de priceMax y priceMin
+  const finalPriceMax = processPrice(newDevelopment.priceMax);
+  const finalPriceMin = processPrice(newDevelopment.priceMin);
+
+/*   console.log("finalPriceMax ", finalPriceMax)
+  console.log("finalPriceMin ", finalPriceMin)
+
+  console.log("FormaterNumber(finalPriceMin) ", FormaterNumber(finalPriceMin))
+  console.log("FormaterNumber(finalPriceMax) ", FormaterNumber(finalPriceMax))
+ */
   return (
     <Box
       onClick={() => {
@@ -83,12 +101,12 @@ const ItemCardListing = (props) => {
               </Text>
 
               <span className={`font-light ${styles.decriptionListing}`}>
-                {`Price $ ${FormaterNumber(newDevelopment.priceMin).number}${
-                  FormaterNumber(newDevelopment.priceMin).tag
+                {`Price $ ${FormaterNumber(finalPriceMin).number}${
+                  FormaterNumber(finalPriceMin).tag
                 }`}{" "}
                 |{" "}
-                {`$ ${FormaterNumber(newDevelopment.priceMax).number}${
-                  FormaterNumber(newDevelopment.priceMax).tag
+                {`$ ${FormaterNumber(finalPriceMax).number}${
+                  FormaterNumber(finalPriceMax).tag
                 }`}
               </span>
             </Box>
