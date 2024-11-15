@@ -7,7 +7,7 @@ export const AGENT_ROLES = {
 
 export const GET_AGENT_PROFILE_INFO = gql`
   query GetAgentInfo($agentId: Int = 10, $agentType: MasterEnum) {
-    dataAgent(agentType: $agentType, agentId: $agentId) {
+    dataAgent(where: { agentType: $agentType, agentId: $agentId }) {
       id
       databaseId
       email
