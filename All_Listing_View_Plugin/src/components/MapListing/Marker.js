@@ -79,7 +79,12 @@ const MarkerMap = (props) => {
         }}
       >
         {props.idListing === selectedListing?.id ? (
-          <InfoWindow onCloseClick={() => handleCloseInfoWindow()}>
+          <InfoWindow onCloseClick={() => handleCloseInfoWindow()}
+          position={{ 
+            lat: parseFloat(latitude),
+            lng: parseFloat(longitude),
+          }}
+          >
             <Box className="flex flex-col gap-5 lg:flex-row w-full max-w-[317px]">
               <Avatar
                 className={style.avatarListing}
