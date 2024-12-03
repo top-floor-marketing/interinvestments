@@ -60,7 +60,7 @@ const PersonalInfoLead = ({ isSkeleton, dataLead, serviceList }) => {
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Paper className={classes.cardContainer}>
-        <Text transform="capitalize" size="16px" className={classes.textTitle}>
+        <Text  size="16px" className={classes.textTitle}>
           Contact info
         </Text>
         <ChipStatusLead
@@ -93,7 +93,7 @@ const PersonalInfoLead = ({ isSkeleton, dataLead, serviceList }) => {
           >
             <Mail />
           </CustomIconTooltip>
-          <Text transform="capitalize" size="14px" component="span">
+          <Text transform="lowercase" size="14px" component="span">
             {get(dataLead, ["email"], "")}
           </Text>
         </Box>
@@ -106,7 +106,7 @@ const PersonalInfoLead = ({ isSkeleton, dataLead, serviceList }) => {
             >
               <Phone />
             </CustomIconTooltip>
-            <Text transform="capitalize" size="14px" component="span">
+            <Text transform="lowercase" size="14px" component="span">
               {mainPhone}
             </Text>
             <IconOpenWhatsApp
@@ -124,7 +124,7 @@ const PersonalInfoLead = ({ isSkeleton, dataLead, serviceList }) => {
             >
               <Phone />
             </CustomIconTooltip>
-            <Text transform="capitalize" size="14px" component="span">
+            <Text transform="lowercase" size="14px" component="span">
               {get(dataLead, ["otherPhones", "0"], "")}
             </Text>
             <IconOpenWhatsApp

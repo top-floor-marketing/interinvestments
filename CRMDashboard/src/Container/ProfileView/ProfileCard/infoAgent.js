@@ -165,25 +165,25 @@ const InfoAgent = ({ dataAgent }) => {
                     </Box>
                 </Box>
                 <Box className={classes.aboutMeContainer}>
-                    <Text transform="capitalize" component="h4">About me</Text>
+                    <Text component="h4">About me</Text>
                     <Spoiler maxHeight={120} showLabel="Show more" hideLabel="Hide">
                         <Box dangerouslySetInnerHTML={sanitizedContentData()} />
                     </Spoiler>
                 </Box>
             </Box>
             <Box className={classes.infoContact}>
-                <Text transform="capitalize" component="h4">Contact info</Text>
+                <Text  component="h4">Contact info</Text>
                 <Box className={classes.infoItem}>
                     <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataAgent, ["email"], "")}>
                         <Mail />
                     </CustomIconTooltip>
-                    <Text transform="capitalize" component="span">{get(dataAgent, ["email"], "")}</Text>
+                    <Text transform="lowercase" component="span">{get(dataAgent, ["email"], "")}</Text>
                 </Box>
                 <Box className={classes.infoItem}>
                     <CustomIconTooltip size={24} color="secondary" labelTooltip={get(dataAgent, ["phone"], "")}>
                         <Phone />
                     </CustomIconTooltip>
-                    <Text transform="capitalize" component="span">{get(dataAgent, ["phone"], "")}</Text>
+                    <Text component="span">{get(dataAgent, ["phone"], "")}</Text>
                 </Box>
                 <Box className={classes.infoSocialMedia}>
 
