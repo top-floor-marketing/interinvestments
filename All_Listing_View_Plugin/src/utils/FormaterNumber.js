@@ -1,21 +1,21 @@
 const numFormatter = (num) => {
-  if (num > 999 && num < 1000000) {
-      // convert to K for number from > 1000 < 1 million 
+    if (num > 999 && num < 1000000) {
+      // Convertir a K para números entre 1000 y 1 millón
       return {
-          number: parseInt((num / 1000).toFixed(1)),
-          tag: 'K'
-      }
-  } else if (num > 999999) {
-      // convert to M for number from > 1 million 
+        number: parseFloat((num / 1000).toFixed(1)), // Asegurar un decimal
+        tag: 'K'
+      };
+    } else if (num >= 1000000) {
+      // Convertir a M para números mayores o iguales a 1 millón
       return {
-          number: parseInt((num / 1000000).toFixed(1)),
-          tag: 'M'
-      }
-  }
-  return {
+        number: parseFloat((num / 1000000).toFixed(1)), // Asegurar un decimal
+        tag: 'M'
+      };
+    }
+    return {
       number: num,
-      tag: ""
-  }
-}
-
-export default numFormatter
+      tag: ''
+    };
+  };
+  
+  export default numFormatter;
