@@ -2,7 +2,7 @@
 /*
 Plugin Name: create_listing_pdf
 Description: Use the [create_listing_pdf] shortcode to display the plugin
-Version: 0.0.1
+Version: 0.0.2
 Author: Topfloormarketing
 Author URI: https://www.topfloormarketing.net/
 */
