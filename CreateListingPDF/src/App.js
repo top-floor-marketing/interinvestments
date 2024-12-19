@@ -42,6 +42,8 @@ function App() {
   // Hydration SSR for plugin in Wordpress
   if (!isMounted) return null;
   // 338 2570 328
+
+  console.log('dataForPdf ', dataForPdf);
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider>
