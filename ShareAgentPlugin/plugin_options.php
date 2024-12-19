@@ -51,7 +51,7 @@ class share_agent_plugin_options
       if (file_exists(dirname(__FILE__) . "/dist/static/js/main.js")) {
         $handle .= 'prod';
         wp_enqueue_script($handle, plugins_url("/dist/static/js/main.js", __FILE__), $dep, '0.1', true);
-        wp_enqueue_style($handle, plugins_url("/dist/static/css/main.css", __FILE__), false, '0.1', 'all');
+        //wp_enqueue_style($handle, plugins_url("/dist/static/css/main.css", __FILE__), false, '0.1', 'all');
       } else {
         $handle .= 'dev';
         wp_enqueue_script($handle, 'http://localhost:3000/static/js/bundle.js', $dep, '0.1', true);
