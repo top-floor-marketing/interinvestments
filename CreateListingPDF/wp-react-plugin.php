@@ -1,13 +1,13 @@
 <?php
 /*
-Plugin Name: create_listing_pdf_2
-Description: Use the [create_listing_pdf_2] shortcode to display the plugin
-Version: 0.0.2
+Plugin Name: create_listing_pdf
+Description: Use the [create_listing_pdf] shortcode to display the plugin
+Version: 0.0.1
 Author: Topfloormarketing
 Author URI: https://www.topfloormarketing.net/
 */
 
-class create_listing_pdf_2
+class create_listing_pdf
 {
 
   protected $plugin_options_page = '';
@@ -40,23 +40,23 @@ class create_listing_pdf_2
   }
 }
 
-$create_listing_pdf_2 = new create_listing_pdf_2();
-$create_listing_pdf_2->init();
+$create_listing_pdf = new create_listing_pdf();
+$create_listing_pdf->init();
 
-function create_listing_pdf_2_shortcode($atts)
+function create_listing_pdf_shortcode($atts)
 {
-  $handle = 'create_listing_pdf_2-wp-react-plugin-';
+  $handle = 'create_listing_pdf-wp-react-plugin-';
 
   // enqueue development or production React code
   if (file_exists(dirname(__FILE__) . "/dist/static/js/main.js")) {
     $handle .= 'prod';
-    wp_enqueue_script($handle, plugins_url("/dist/static/js/main.js", __FILE__), ['wp-element'], (string) time(), true);
-    wp_enqueue_style($handle, plugins_url("/dist/static/css/main.css", __FILE__), false, (string) time(), 'all');
+    wp_enqueue_script($handle, plugins_url("/dist/static/js/main.js", __FILE__), ['wp-element'], '0.1', true);
+    wp_enqueue_style($handle, plugins_url("/dist/static/css/main.css", __FILE__), false, '0.1', 'all');
   } else {
     $handle .= 'dev';
-    wp_enqueue_script($handle, 'http://localhost:3000/static/js/bundle.js', ['wp-element'], (string) time(), true);
+    wp_enqueue_script($handle, 'http://localhost:3000/static/js/bundle.js', ['wp-element'], '0.1', true);
   }
-  return "<div id='create_listing_pdf_2'></div>";
+  return "<div id='create_listing_pdf'></div>";
 }
 
-add_shortcode('create_listing_pdf_2', 'create_listing_pdf_2_shortcode');
+add_shortcode('create_listing_pdf', 'create_listing_pdf_shortcode');
