@@ -39,6 +39,8 @@ function App() {
     };
   }, [isMounted, renderBuilder]);
 
+  console.log('isMounted ', isMounted);
+  
   // Hydration SSR for plugin in Wordpress
   if (!isMounted) return null;
   // 338 2570 328
