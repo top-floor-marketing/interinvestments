@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo } from "react";
 import { Box, createStyles, Paper, Text, LoadingOverlay } from "@mantine/core";
 import { DatabaseOff } from "tabler-icons-react";
 import SpringDiv from "../../Component/SpringDiv";
@@ -21,7 +21,7 @@ const useStyles = createStyles((theme, _params) => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    position: "relative"
+    position: "relative",
   },
   virtualAllListings: {
     width: "100%",
@@ -42,8 +42,16 @@ const useStyles = createStyles((theme, _params) => ({
 const LeadsView = () => {
   const { classes } = useStyles();
 
-  const { isSkeleton, isAdminLeadView,  isLoading, selectStateProps, searchProps, totalData, allLeads, refetch } =
-    useGetLeads();
+  const {
+    isSkeleton,
+    isAdminLeadView,
+    isLoading,
+    selectStateProps,
+    searchProps,
+    totalData,
+    allLeads,
+    refetch,
+  } = useGetLeads();
 
   return isSkeleton ? (
     <SkeletonLeads />
@@ -65,10 +73,10 @@ const LeadsView = () => {
               visible={isLoading}
               overlayBlur={0.05}
               overlayColor="#eaeae9"
-              loaderProps={{ size: 'sm', color: '#ffb839', variant: 'bars' }}
+              loaderProps={{ size: "sm", color: "#ffb839", variant: "bars" }}
             />
           )}
-          {totalData && !isSkeleton ? (
+          {totalData && !isSkeleton && !isLoading ? (
             <LeadsVirtual
               isAdminLeadView={isAdminLeadView}
               data={allLeads}
@@ -88,4 +96,4 @@ const LeadsView = () => {
   );
 };
 
-export default memo(LeadsView);
+export default LeadsView;

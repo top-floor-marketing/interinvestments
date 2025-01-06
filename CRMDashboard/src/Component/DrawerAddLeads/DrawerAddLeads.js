@@ -20,6 +20,9 @@ const useStyles = createStyles((theme, _params) => ({
     containerDrawer: {
         backgroundColor: theme.colors.white[0],
     },
+    header: {
+        backgroundColor: theme.colors.white[0],
+    },
     titleModal: {
         margin: "0px !important",
         padding: "0px !important",
@@ -41,6 +44,7 @@ const useStyles = createStyles((theme, _params) => ({
         }
     },
     iconClose: {
+        backgroundColor: 'white !important',
         padding: '14px',
         '.mantine-UnstyledButton-root': {
             width: '24px',
@@ -65,8 +69,8 @@ const DrawerAddLeads = ({ opened, onClose: onCloseDrawer, title, onSuccessAddLea
     const Props = {
         Drawer: {
             opened: opened,
-            padding: "xl",
-            size: (matches) ? '70%' : 'full',
+            padding: "sm",
+            size: (matches) ? '85%' : 'full',
             title: (
                 <Box className={classes.boxTitle}>
                     <AddressBook size={20} />

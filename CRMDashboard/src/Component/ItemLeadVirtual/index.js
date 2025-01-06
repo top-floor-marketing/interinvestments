@@ -405,7 +405,7 @@ const ItemListingVirtual = (props) => {
     closeAllModals();
     refetch();
     notificationSuccess({
-      id: "transfer-agents-leads",
+      id: "delete-agents-leads",
       title: "Lead deleted successfully",
       color: "success",
     });
@@ -514,7 +514,7 @@ const ItemListingVirtual = (props) => {
         </Box>
       )}
 
-      {isAdminLeadView ? (
+    
         <ModalDeleteLead
           onFinishDeleteLead={refetchDataFromDeleteLead}
           leadInfo={{
@@ -526,7 +526,7 @@ const ItemListingVirtual = (props) => {
             id: getIdLead(),
           }}
         />
-      ) : null}
+    
     </Paper>
   );
 };

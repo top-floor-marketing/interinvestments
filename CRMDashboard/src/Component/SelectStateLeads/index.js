@@ -104,6 +104,10 @@ const SelectStateLeads = ({
       searchable={false}
       clearable
       nothingFound="No options"
+      style={{
+        zIndex: 99999,
+      }}
+      withinPortal
     />
   );
 };

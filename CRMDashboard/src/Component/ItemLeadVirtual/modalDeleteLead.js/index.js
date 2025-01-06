@@ -14,14 +14,16 @@ import { EraserOff } from "tabler-icons-react";
 import get from "lodash/get";
 
 const ModalDeleteLead = (props) => {
+  
   const { onFinishDeleteLead = null, leadInfo = null } = props;
-
-  const [countFinishDeleted, setCountFinishDeleted] = useState(0);
   const [blockButton, setBlockButton] = useState(false);
 
   const {
     state: {
       global: { statusUserLead: listStatus },
+      user: {
+        infoUser: { databaseId },
+      },
     },
   } = useClientGlobalStore();
 
@@ -36,7 +38,8 @@ const ModalDeleteLead = (props) => {
     config: {
       cacheTime: 0,
       onSuccess: async () => {
-        setCountFinishDeleted((count) => count + 1);
+        //setCountFinishDeleted((count) => count + 1);
+        onFinishDeleteLead();
       },
       onError: async () => {
         notificationError({
@@ -48,11 +51,11 @@ const ModalDeleteLead = (props) => {
     },
   });
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (countFinishDeleted === leadInfo?.agents.length) {
       if (onFinishDeleteLead) onFinishDeleteLead();
     }
-  }, [countFinishDeleted, leadInfo, onFinishDeleteLead]);
+  }, [countFinishDeleted, leadInfo, onFinishDeleteLead]); */
 
   const openModalDeleteLead = () => {
     closeAllModals();
@@ -194,9 +197,15 @@ const ModalDeleteLead = (props) => {
               },
             });
           }
-          if (onFinishDeleteLead) onFinishDeleteLead();
         } else {
-          if (onFinishDeleteLead) onFinishDeleteLead();
+          comment_user_lead({
+            variables: {
+              agentId: databaseId,
+              userLeadId: leadInfo?.id,
+              statusId: disabledIdState?.value,
+              comments: "Lead deleted",
+            },
+          });
         }
       },
     });
