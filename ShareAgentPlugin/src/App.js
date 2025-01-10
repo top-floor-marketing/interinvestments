@@ -33,10 +33,15 @@ function App() {
     const isAgentUser = (tokenCrm && userCrm);
     const isValidUrl = (isShared && idInUrl);
 
+    console.log('shared = '+isShared);
+    console.log('idInUrl = '+idInUrl);
+    console.log('idInLocal = '+idInLocal);
+
     try {
       if (isValidUrl) {
         setTimeout(() => {
           const arrayMenu = document.querySelectorAll("#menu-primary-menu>.menu-item>a");
+          console.log('arrayMenu = ',arrayMenu);
           if(!isEmpty(arrayMenu)) {
             arrayMenu.forEach((x) => {
               const text = toLower(x.textContent || x.innerText);
