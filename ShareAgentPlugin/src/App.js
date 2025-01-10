@@ -46,6 +46,9 @@ function App() {
             arrayMenu.forEach((x) => {
               const text = toLower(x.textContent || x.innerText);
               const isAgentsUrl = (text === "agents");
+              console.log('isAgentsUrl = ',isAgentsUrl);
+              console.log('text = ',text);
+              console.log("------------------------------------")
               if(!isAgentsUrl) {
                 x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
               } else {
