@@ -33,10 +33,6 @@ function App() {
     const isAgentUser = (tokenCrm && userCrm);
     const isValidUrl = (isShared && idInUrl);
 
-    console.log('shared = '+isShared);
-    console.log('idInUrl = '+idInUrl);
-    console.log('idInLocal = '+idInLocal);
-
     try {
       if (isValidUrl) {
         setTimeout(() => {
@@ -46,9 +42,6 @@ function App() {
             arrayMenu.forEach((x) => {
               const text = toLower(x.textContent || x.innerText);
               const isAgentsUrl = (text === "agents");
-              console.log('isAgentsUrl = ',isAgentsUrl);
-              console.log('text = ',text);
-              console.log("------------------------------------")
               if(!isAgentsUrl) {
                 x.href = (text !== "login") ? `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : x.href;
               } else {
@@ -71,7 +64,7 @@ function App() {
               }
             });
           }
-        }, 1000)
+        }, 2000)
 
         setTimeout(() => {
           const arrayService = document.querySelectorAll(".btn-service");
@@ -80,7 +73,7 @@ function App() {
               x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
             });
           }
-        }, 1500);
+        }, 2500);
 
       }
 
