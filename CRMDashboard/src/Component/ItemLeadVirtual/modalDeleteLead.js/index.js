@@ -109,7 +109,7 @@ const ModalDeleteLead = (props) => {
               >
                 Email:
               </Text>{" "}
-              {leadInfo?.email}
+              {leadInfo?.email?.toLowerCase() || 'N/A'}
             </Text>
             <Text>
               <Text

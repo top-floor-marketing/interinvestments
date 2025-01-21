@@ -27,7 +27,7 @@ const SelectItem = (props) => {
                     <Box>
                         <Text className={classes.textdropdown} component='h3'>{label}</Text>
                         <Text size="xs">
-                            {email}
+                            {email ?  email.toLowerCase() : 'N/A'}
                         </Text>
                     </Box>
                 </Group>

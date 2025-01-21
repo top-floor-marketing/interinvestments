@@ -153,7 +153,7 @@ const FinalStepp = () => {
             <Text component='span'>
               <strong>Email:</strong>
             </Text>
-            <Text component='span'>{addLeads.dataForm.email}</Text>
+            <Text component='span'>{addLeads?.dataForm?.email.toLowerCase() || 'N/A'}</Text>
           </Box>
 
           <Box className={classes.containerInfo}>
@@ -194,7 +194,7 @@ const FinalStepp = () => {
               <strong>Other Email:</strong>
             </Text>
             <Text component='span'>
-              {addLeads.dataForm.otherEmail || 'N/A'}
+              {addLeads?.dataForm?.otherEmail?.toLowerCase() || 'N/A'}
             </Text>
           </Box>
 

@@ -7,12 +7,13 @@ import BodyModal from "../ModalChangePipeline/BodyModal";
 const useStyles = createStyles((theme, _params) => {
   return {
     modalBody: {
-      padding: "16px !important",
+      padding: "0px !important",
     },
     ContainerModalBody: {
       display: "flex",
       flexDirection: "column",
-      gap: theme.other.spacing.p4,
+      gap: theme.other.spacing.p2,
+      padding: 0,
     },
   };
 });

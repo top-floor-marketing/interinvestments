@@ -19,7 +19,6 @@ import {
   Timeline,
   ScrollArea,
 } from "@mantine/core";
-import { AdjustmentsAlt, MessageDots } from "tabler-icons-react";
 
 import { useMutationHelper } from "../../GraphqlClient/useRequest";
 import { COMMENTS_USER_LEAD } from "../../GraphqlClient/leads.gql";
@@ -39,10 +38,10 @@ const useStyles = createStyles((theme) => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    gap: theme.other.spacing.p4,
+    gap: theme.other.spacing.p2,
   },
   changeGrid: {
-    marginTop: theme.other.spacing.p8,
+    marginTop: theme.other.spacing.p2,
     width: "100%",
     display: "flex",
     flexDirection: "column",
@@ -136,7 +135,6 @@ const BodyModal = ({ valueUserPipeline, onClose, refechPipeline }) => {
     else onClose();
   };
 
-  console.log(valueUserPipeline);
   return (
     <form onSubmit={form.onSubmit((values) => changeStateLead(values))}>
       <Box className={classes.container}>
@@ -163,7 +161,7 @@ const BodyModal = ({ valueUserPipeline, onClose, refechPipeline }) => {
 
             <Group spacing="1rem">
               <Mail size={24} />
-              <Text component="span">{valueUserPipeline?.email}</Text>
+              <Text component="span">{valueUserPipeline?.email?.toLowerCase() || 'N/A'}</Text>
             </Group>
           </Box>
 
