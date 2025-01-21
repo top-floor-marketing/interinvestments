@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useForm } from "@mantine/form";
+import { Loader } from "@mantine/core";
 // componen
 import SelectStateLeads from "../SelectStateLeads";
 import {
@@ -14,7 +16,11 @@ import {
   Text,
   Button,
   createStyles,
+  Timeline,
+  ScrollArea,
 } from "@mantine/core";
+import { AdjustmentsAlt, MessageDots } from "tabler-icons-react";
+
 import { useMutationHelper } from "../../GraphqlClient/useRequest";
 import { COMMENTS_USER_LEAD } from "../../GraphqlClient/leads.gql";
 
@@ -23,6 +29,9 @@ import { Mail, User } from "tabler-icons-react";
 import ChipStatusLead from "../ItemLeadVirtual/chipStatusLead";
 import get from "lodash/get";
 import isEqual from "lodash/isEqual";
+
+import useGetPersonalInfoLead from "../../Container/LeadDetailView/hooks/useGetPersonalInfoLead";
+import TimelineContainer from "../../Container/LeadDetailView/commentsTimeline/timelineContainer";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -53,15 +62,28 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const BodyModal = ({
-  valueSelect,
-  setvalueSelect,
-  valueUserPipeline,
-  onClose,
-  refechPipeline,
-}) => {
+const BodyModal = ({ valueUserPipeline, onClose, refechPipeline }) => {
   const { classes } = useStyles();
-  const [commentValue, setCommentValue] = useState("");
+
+  const { isLoading: isLoadingAllComments, allComments } =
+    useGetPersonalInfoLead({
+      idAgent: valueUserPipeline?.agentId,
+      idLead: valueUserPipeline?.id,
+    });
+
+  const form = useForm({
+    initialValues: {
+      statusId: -1,
+      comments: "",
+    },
+    // functions will be used to validate values at corresponding key
+    validate: {
+      statusId: (value) =>
+        value < 1 ? "Select new lead state are required" : null,
+      comments: (value) =>
+        value.length < 1 ? "Reason for change state are required" : null,
+    },
+  });
 
   const { mutate: comment_user_lead, isLoading } = useMutationHelper({
     name: "comment_user_lead",
@@ -86,17 +108,15 @@ const BodyModal = ({
         });
         refechPipeline(
           get(valueUserPipeline, ["currentStatus", "statusId"], 0),
-          valueSelect
+          form.values.statusId
         );
         onClose();
       },
     },
   });
 
-  const changeStateLead = () => {
+  const changeStateLead = (values) => {
     const { agentId, id } = valueUserPipeline;
-
-    if (!valueSelect) onClose();
 
     const idCurrentState = get(
       valueUserPipeline,
@@ -104,81 +124,105 @@ const BodyModal = ({
       null
     );
 
-    if (!isEqual(idCurrentState, valueSelect))
+    if (!isEqual(idCurrentState, values.statusId))
       comment_user_lead({
         variables: {
           agentId,
-          statusId: valueSelect,
+          statusId: values.statusId,
           userLeadId: id,
-          comments: commentValue || "",
+          comments: values.comments || "",
         },
       });
     else onClose();
   };
 
+  console.log(valueUserPipeline);
   return (
-    <Box className={classes.container}>
-      <SimpleGrid cols={1}>
-        <Group>
-          <ChipStatusLead
-            className={classes.badgeStatus}
-            status={valueUserPipeline?.currentStatus?.name}
-          />
-        </Group>
-
-        <Group spacing="1rem">
-          <User size={24} />
-          <Text component="span">
-            {valueUserPipeline?.firstName} {valueUserPipeline?.lastName}
-          </Text>
-        </Group>
-
-        <Group spacing="1rem">
-          <Mail size={24} />
-          <Text component="span">{valueUserPipeline?.email}</Text>
-        </Group>
-      </SimpleGrid>
-
-      <SimpleGrid spacing="1rem" className={classes.changeGrid}>
-        <Text color="dark" component="h3">
-          Change lead state:
-        </Text>
-        <Box className={classes.selectContainer}>
-          <SelectStateLeads
-            disabledList={[
-              get(valueUserPipeline, ["currentStatus", "statusId"], null),
-            ]}
-            disabled={isLoading}
-            placeholder="Select new lead state"
-            value={!valueSelect ? null : valueSelect}
-            onChange={(idState) => setvalueSelect(idState)}
-          />
-        </Box>
-
-        <Textarea
-          placeholder="Comment"
-          label={null}
-          autosize
-          minRows={4}
-          maxRows={8}
-          value={commentValue}
-          onChange={(event) => setCommentValue(event.currentTarget.value)}
-        />
-      </SimpleGrid>
-
-      <Group position="center">
-        <Button disabled={isLoading} color="error" onClick={() => onClose()}>
-          Cancel
-        </Button>
-        <Button
-          disabled={isLoading}
-          loading={isLoading}
-          onClick={() => changeStateLead()}
+    <form onSubmit={form.onSubmit((values) => changeStateLead(values))}>
+      <Box className={classes.container}>
+        <SimpleGrid
+          cols={2}
+          breakpoints={[{ maxWidth: "36rem", cols: 1, spacing: "sm" }]}
         >
-          Submit
-        </Button>
-      </Group>
-    </Box>
+          <Box style={{ width: "100%", height: "250px", display: "flex", 
+            flexDirection: "column", gap: "1.5rem" }}>
+            <Group>
+              Current status:
+              <ChipStatusLead
+                className={classes.badgeStatus}
+                status={valueUserPipeline?.currentStatus?.name}
+              />
+            </Group>
+
+            <Group spacing="1rem">
+              <User size={24} />
+              <Text component="span">
+                {valueUserPipeline?.firstName} {valueUserPipeline?.lastName}
+              </Text>
+            </Group>
+
+            <Group spacing="1rem">
+              <Mail size={24} />
+              <Text component="span">{valueUserPipeline?.email}</Text>
+            </Group>
+          </Box>
+
+          <SimpleGrid cols={1}>
+            <Text>History of changes:</Text>
+            {isLoadingAllComments ? (
+              <Group
+                spacing="1rem"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Loader color="primary" variant="bars" size="md" />
+              </Group>
+            ) : (
+              <div style={{ width: "100%", height: "250px" }}>
+                <TimelineContainer allComments={allComments} />
+              </div>
+            )}
+          </SimpleGrid>
+        </SimpleGrid>
+
+        <SimpleGrid spacing="1rem" className={classes.changeGrid}>
+          <Text color="dark" component="h3">
+            Change lead state:
+          </Text>
+          <Box className={classes.selectContainer}>
+            <SelectStateLeads
+              disabledList={[
+                get(valueUserPipeline, ["currentStatus", "statusId"], null),
+              ]}
+              disabled={isLoading}
+              placeholder="Select new lead state"
+              {...form.getInputProps("statusId")}
+            />
+          </Box>
+
+          <Textarea
+            placeholder="Reason for change state"
+            label={null}
+            autosize
+            minRows={4}
+            maxRows={8}
+            {...form.getInputProps("comments")}
+          />
+        </SimpleGrid>
+
+        <Group position="center">
+          <Button type="button" disabled={isLoading} onClick={() => onClose()}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={isLoading} loading={isLoading}>
+            Submit
+          </Button>
+        </Group>
+      </Box>
+    </form>
   );
 };
 
