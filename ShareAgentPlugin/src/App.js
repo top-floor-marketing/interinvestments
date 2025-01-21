@@ -64,7 +64,7 @@ function App() {
               }
             });
           }
-        }, 2000)
+        }, 700)
 
         setTimeout(() => {
           const arrayService = document.querySelectorAll(".btn-service");
@@ -73,7 +73,7 @@ function App() {
               x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
             });
           }
-        }, 2500);
+        }, 900);
 
       }
 

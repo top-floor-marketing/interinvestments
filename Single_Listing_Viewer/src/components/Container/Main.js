@@ -23,7 +23,6 @@ const Main = () => {
   const getSlugFromUri = () => {
     const uri = window.location.pathname;
     const finalSlug = uri.split("/")[2];
-  console.log(finalSlug)
     return finalSlug;
   };
 
