@@ -1,6 +1,7 @@
 import React from "react";
 // mantine
-import { Box, Table, Text } from "@mantine/core";
+import { Box, Table, Text, ActionIcon } from "@mantine/core";
+import { Download } from 'tabler-icons-react';
 // css
 import styles from "./styles.cl.module.scss";
 
@@ -9,18 +10,23 @@ import get from "lodash/get";
 const TableContendCollapse = ({ data, columns }) => {
   const rows = data.map((element, index) => (
     <tr key={index}>
-      <td className="w-[110px]">{element.name}</td>
-      <td className="w-[250px]">
+      <td className="md:w-[250px] 2xl:w-[350px]">{element.name}</td>
+      <td className="md:w-[300px] 2xl:w-[400px]">
         {get(element, ["pdf", "mediaItemUrl"], null) && (
-          <Text
-            className={styles.linkFloorPlans}
-            target="_blank"
-            href={get(element, ["pdf", "mediaItemUrl"], null)}
-            download={`${get(element, ["pdf", "title"], null)}`}
-            component="a"
-          >
-            {`${get(element, ["pdf", "title"], null)}.pdf`}
-          </Text>
+          <Box className="flex flex-row gap-1">
+            <Text
+              className={styles.linkFloorPlans}
+              target="_blank"
+              href={get(element, ["pdf", "mediaItemUrl"], null)}
+              download={`${get(element, ["pdf", "title"], null)}`}
+              component="a"
+            >
+              {`${get(element, ["pdf", "title"], null)}.pdf`}
+            </Text>
+            <ActionIcon className="mr-auto flex flex-row" color="primary" onClick={() => window.open(get(element, ["pdf", "mediaItemUrl"], null), '_blank')}>
+              <Download size={16}  className="mb-[10px]" />
+            </ActionIcon>
+          </Box>
         )}
       </td>
       <td>

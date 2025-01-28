@@ -22,7 +22,7 @@ const DataLIsting = (props) => {
                 onScreen && (
                     <Box className={styles.boxdata}>
                         <CardData
-                            number={`${data.estimatedDateOfCompletion.split('/')[1]}.${dayjs(data.estimatedDateOfCompletion.split('/')[2]).format('YY')}`}
+                            number={`${dayjs(data.estimatedDateOfCompletion.split('/')[2]).format('YYYY')}`}
                             type='text'
                             description='Est. Date of Completion'
                         />

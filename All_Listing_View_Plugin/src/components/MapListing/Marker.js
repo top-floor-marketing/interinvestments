@@ -62,6 +62,10 @@ const MarkerMap = (props) => {
     dispatch(setSelectedListing(null));
   };
 
+  const goToListing = () => {
+    window.location.href = uri;
+  };
+
   if (latitude && longitude && props?.idListing) {
     return (
       <Marker
@@ -79,13 +83,15 @@ const MarkerMap = (props) => {
         }}
       >
         {props.idListing === selectedListing?.id ? (
-          <InfoWindow onCloseClick={() => handleCloseInfoWindow()}
-          position={{ 
-            lat: parseFloat(latitude),
-            lng: parseFloat(longitude),
-          }}
+          <InfoWindow
+            onCloseClick={() => handleCloseInfoWindow()}
+            position={{
+              lat: parseFloat(latitude),
+              lng: parseFloat(longitude),
+            }}
+            
           >
-            <Box className="flex flex-col gap-5 lg:flex-row w-full max-w-[317px]">
+            <Box onClick={() => goToListing()} className="hover:cursor-pointer flex flex-col gap-5 lg:flex-row w-full max-w-[317px]">
               <Avatar
                 className={style.avatarListing}
                 radius="xs"
