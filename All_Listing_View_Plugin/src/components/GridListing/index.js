@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect } from "react";
 import { FixedSizeGrid as Grid } from "react-window";
 import PropTypes from "prop-types";
 
@@ -37,11 +37,15 @@ const GridListing = ({
 }) => {
   const idGrid = `${useId()}_${name})`;
 
+  //console.log('totalData', totalData);
+
   const {
     ref: refParentBox,
     width: widthParent,
     height: heightParent,
   } = useElementSize();
+
+  // console.log('heightParent ', heightParent);
 
   const onScroll = (e) => {
     const { scrollTop } = e;
@@ -50,7 +54,6 @@ const GridListing = ({
       null;
     if (gridContainer && refetch && !isLoading && heightParent) {
       if (heightParent + scrollTop === gridContainer) {
-        
         refetch();
       }
     }
@@ -70,6 +73,18 @@ const GridListing = ({
     };
   };
 
+  useEffect(() => {
+    if (!isLoading && data.length > 15) {
+      const element = document.querySelector(`.${name}`);
+  
+      if (element) {  
+        // Hacer scroll suave bajando 300px
+        element.scrollBy({ top: 300, behavior: "smooth" });
+      }
+    }
+  }, [isLoading, data, name]);
+  
+
   // containerInfinite class for css-scrollbar styles
   // idGrid class for get clientHeight in scroll function
   const responsiveColumn = widthParent < 550 ? 1 : totalData > 1 ? 2 : 1;
@@ -88,7 +103,7 @@ const GridListing = ({
       ) : (
         <Grid
           itemData={data}
-          className={`containerInfinite ${idGrid}`}
+          className={`containerInfinite ${idGrid} ${name}`}
           onScroll={onScroll}
           columnCount={responsiveColumn}
           columnWidth={
@@ -115,6 +130,7 @@ const GridListing = ({
             if (dataItem) {
               return (
                 <div
+                  id={`grid_${dataItem.id}`}
                   key={`${rowIndex}_${columnIndex}`}
                   style={{
                     ...style,

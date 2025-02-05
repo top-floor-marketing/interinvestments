@@ -32,10 +32,13 @@ export const filterSlice = createSlice({
     },
     setDataListing: (state, action) => {
       const { data } = action.payload;
-      state.dataListing = [...data.nodes, ...state.dataListing];
+      const oldNodes = [...data.nodes];
+    
+      state.dataListing = [...state.dataListing, ...oldNodes];
       if (data.pageInfo?.endCursor) {
         state.pageInfoListing = data.pageInfo;
       }
+      
     },
     setEmptyData: (state) => {
       state.dataListing = [];

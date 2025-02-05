@@ -204,7 +204,7 @@ const useGetFeaturedDev = () => {
         neighborhood ? neighborhood : null
       ),
       config: {
-        cacheTime: 1000000,
+        cacheTime: 10000,
         enabled: BASIC_ENABLED_QUERY && !isEmpty(mapApiKey),
         notifyOnChangeProps: "all",
         onSuccess: (req) => {

@@ -1,4 +1,5 @@
 const numFormatter = (num) => {
+    console.log(num)
     if (num >= 1000000) {
         // Si el número es mayor o igual a un millón
         const formattedNum = (num / 1000000).toFixed(2); // Mantener dos decimales

@@ -103,11 +103,11 @@ const Main = () => {
                       variant: "bars",
                     }}
                     visible={loadingListing}
-                    overlayOpacity={0.2}
+                    overlayOpacity={0.4}
                     overlayColor="#c5c5c5"
                     
-                    transitionDuration={500}
-                    overlayBlur={0.5}
+                    transitionDuration={300}
+                    overlayBlur={0.6}
                   />
                   <GridListing
                     openModalQuickView={onChangeSingleListing}
@@ -117,6 +117,7 @@ const Main = () => {
                     name="grid"
                     isLoading={loadingListing || showOverlay}
                     parentClassname={style.containerGridInfinite}
+             
                   />
                 </Box>
                 <Box

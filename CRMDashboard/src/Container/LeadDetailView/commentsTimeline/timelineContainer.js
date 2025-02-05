@@ -83,7 +83,7 @@ const CommentsTimeline = ({ allComments }) => {
               title={
                 <Text
                   weight="bold"
-                  size="16px"
+                  size="18px"
                   color={get(val, ["timeline", "color"], "gray")}
                   lineClamp={1}
                   title={get(val, ["comments"], "")}
@@ -94,11 +94,11 @@ const CommentsTimeline = ({ allComments }) => {
             >
               <Box className={classes.boxItem} component={ScrollArea}>
                 {getCommentFormat(val).length > 0 && (
-                  <Group spacing="0.5rem">
+                  <Group spacing="0.4rem">
                     <MessageDots size={16} />
                     <Text
                       lineClamp={5}
-                      size="14px"
+                      size="16px"
                       title={getCommentFormat(val)}
                     >
                       {getCommentFormat(val)}
@@ -106,8 +106,13 @@ const CommentsTimeline = ({ allComments }) => {
                   </Group>
                 )}
                 <Group spacing="0.5rem">
-                  <Text color="dark" size="12px">
-                    {getTimeDiff(get(val, ["date"], ""))}
+                  <Text color="dark" size="13px">
+                    {getTimeDiff(get(val, ["date"], ""))}:
+                  </Text>
+                  <Text color="dark" size="13px">
+                    {
+                      dayjs.utc(get(val, ["date"], "")).local().format("YYYY-MM-DD hh:mm A")
+                    }
                   </Text>
                 </Group>
               </Box>
