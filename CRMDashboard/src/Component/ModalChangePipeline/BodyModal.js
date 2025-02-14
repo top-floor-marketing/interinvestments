@@ -61,7 +61,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const BodyModal = ({ valueUserPipeline, onClose, refechPipeline }) => {
+const BodyModal = ({ valueUserPipeline, onClose, refechPipeline, isAdmin }) => {
   const { classes } = useStyles();
 
   const { isLoading: isLoadingAllComments, allComments } =
@@ -142,8 +142,15 @@ const BodyModal = ({ valueUserPipeline, onClose, refechPipeline }) => {
           cols={2}
           breakpoints={[{ maxWidth: "36rem", cols: 1, spacing: "sm" }]}
         >
-          <Box style={{ width: "100%", height: "250px", display: "flex", 
-            flexDirection: "column", gap: "1.5rem" }}>
+          <Box
+            style={{
+              width: "100%",
+              height: "250px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1.5rem",
+            }}
+          >
             <Group>
               Current status:
               <ChipStatusLead
@@ -161,7 +168,9 @@ const BodyModal = ({ valueUserPipeline, onClose, refechPipeline }) => {
 
             <Group spacing="1rem">
               <Mail size={24} />
-              <Text component="span">{valueUserPipeline?.email?.toLowerCase() || 'N/A'}</Text>
+              <Text component="span">
+                {valueUserPipeline?.email?.toLowerCase() || "N/A"}
+              </Text>
             </Group>
           </Box>
 
@@ -186,39 +195,47 @@ const BodyModal = ({ valueUserPipeline, onClose, refechPipeline }) => {
           </SimpleGrid>
         </SimpleGrid>
 
-        <SimpleGrid spacing="1rem" className={classes.changeGrid}>
-          <Text color="dark" component="h3">
-            Change lead state:
-          </Text>
-          <Box className={classes.selectContainer}>
-            <SelectStateLeads
-              disabledList={[
-                get(valueUserPipeline, ["currentStatus", "statusId"], null),
-              ]}
-              disabled={isLoading}
-              placeholder="Select new lead state"
-              {...form.getInputProps("statusId")}
-            />
-          </Box>
+        {!isAdmin ? (
+          <>
+            <SimpleGrid spacing="1rem" className={classes.changeGrid}>
+              <Text color="dark" component="h3">
+                Change lead state:
+              </Text>
+              <Box className={classes.selectContainer}>
+                <SelectStateLeads
+                  disabledList={[
+                    get(valueUserPipeline, ["currentStatus", "statusId"], null),
+                  ]}
+                  disabled={isLoading}
+                  placeholder="Select new lead state"
+                  {...form.getInputProps("statusId")}
+                />
+              </Box>
 
-          <Textarea
-            placeholder="Reason for change state"
-            label={null}
-            autosize
-            minRows={4}
-            maxRows={8}
-            {...form.getInputProps("comments")}
-          />
-        </SimpleGrid>
+              <Textarea
+                placeholder="Reason for change state"
+                label={null}
+                autosize
+                minRows={4}
+                maxRows={8}
+                {...form.getInputProps("comments")}
+              />
+            </SimpleGrid>
 
-        <Group position="center">
-          <Button type="button" disabled={isLoading} onClick={() => onClose()}>
-            Cancel
-          </Button>
-          <Button type="submit" disabled={isLoading} loading={isLoading}>
-            Submit
-          </Button>
-        </Group>
+            <Group position="center">
+              <Button
+                type="button"
+                disabled={isLoading}
+                onClick={() => onClose()}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" disabled={isLoading} loading={isLoading}>
+                Submit
+              </Button>
+            </Group>
+          </>
+        ) : null}
       </Box>
     </form>
   );

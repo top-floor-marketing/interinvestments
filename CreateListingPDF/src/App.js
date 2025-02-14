@@ -38,8 +38,6 @@ function App() {
       removeListener(renderBuilder);
     };
   }, [isMounted, renderBuilder]);
-
-  console.log('isMounted ', isMounted);
   
   // Hydration SSR for plugin in Wordpress
   if (!isMounted) return null;

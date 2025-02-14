@@ -27,6 +27,7 @@ const ModalChangePipeline = (props) => {
     valueUserPipeline,
     setValueUserPipeline,
     refechPipeline,
+    isAdmin = false
   } = props;
 
   const destroyModal = () => {
@@ -51,6 +52,7 @@ const ModalChangePipeline = (props) => {
           refechPipeline={refechPipeline}
           onClose={() => destroyModal()}
           valueUserPipeline={valueUserPipeline}
+          isAdmin={isAdmin}
         />
       </Box>
     </Modal>

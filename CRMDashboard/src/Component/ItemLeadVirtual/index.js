@@ -24,6 +24,7 @@ import BodyContentTransfer from "./bodyContentTransfer";
 
 import get from "lodash/get";
 import capitalize from "lodash/capitalize";
+import toLower from "lodash/toLower";
 import difference from "lodash/difference";
 import forEach from "lodash/forEach";
 
@@ -64,6 +65,20 @@ const useStyles = createStyles((theme, _params) => {
       alignItems: "center",
       padding: theme.other.spacing.p4,
       gap: theme.other.spacing.p4,
+      cursor: "pointer",
+      "&:hover": {
+        backgroundColor: theme.colors.gray[4],
+        fontWeight: "700 !important",
+        cursor: "pointer !important",
+      },
+    },
+    subContainerItemListing: {
+      display: "flex",
+      flexDirection: "row",
+      gap: theme.other.spacing.p2,
+      alignItems: "center",
+      height: "100%",
+      width: "100%",
     },
     itemsTextContainer: {
       display: "flex",
@@ -183,7 +198,7 @@ const ItemListingVirtual = (props) => {
   }, [props.userLead]);
 
   const getEmailUserLead = useCallback(() => {
-    return get(props.userLead, ["email"], "");
+    return toLower(get(props.userLead, ["email"], ""));
   }, [props.userLead]);
 
   const getIdLead = useCallback(() => {
@@ -193,6 +208,8 @@ const ItemListingVirtual = (props) => {
   const getPhone = useCallback(() => {
     return get(props.userLead, ["phone"], null);
   }, [props.userLead]);
+
+  console.log("props.userLead ", props.userLead);
 
   const getOtherPhone = useCallback(() => {
     return get(props.userLead, ["otherPhones", "0"], null);
@@ -413,45 +430,19 @@ const ItemListingVirtual = (props) => {
 
   return (
     <Paper className={classes.containerItemListing}>
-      <AvatarText
+      <div
+        className={classes.subContainerItemListing}
         onClick={() => setLeadDetail()}
-        size={isShortLead ? "30px" : "40px"}
-        firstName={getFirstNameUserLead()}
-        lastName={getLastNameUserLead()}
-        className={classes.avatarText}
-      />
-      {matches ? (
-        <Box className={classes.itemsTextContainer}>
-          <Text
-            component="span"
-            lineClamp={2}
-            className={classes.text}
-            title={`Lead name:\n${capitalize(
-              `${getFirstNameUserLead()} ${getLastNameUserLead()}`
-            )}`}
-          >
-            {capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}
-          </Text>
-          <Text
-            lineClamp={2}
-            className={classes.text}
-            title={`Lead email:\n${getEmailUserLead()}`}
-          >
-            {getEmailUserLead()}
-          </Text>
-          <BadgeContainer
-            isAdminLeadView={isAdminLeadView}
-            isShortLead={isShortLead}
-            setLeadDetail={setLeadDetail}
-            classes={classes}
-            currentStatus={props?.currentStatus}
-            allAgentsStatus={allAgentsStatus()}
-          />
-        </Box>
-      ) : (
-        <>
+      >
+        <AvatarText
+          onClick={() => setLeadDetail()}
+          size={isShortLead ? "30px" : "40px"}
+          firstName={getFirstNameUserLead()}
+          lastName={getLastNameUserLead()}
+          className={classes.avatarText}
+        />
+        {matches ? (
           <Box className={classes.itemsTextContainer}>
-            <User size={24} />
             <Text
               component="span"
               lineClamp={2}
@@ -462,9 +453,6 @@ const ItemListingVirtual = (props) => {
             >
               {capitalize(`${getFirstNameUserLead()} ${getLastNameUserLead()}`)}
             </Text>
-          </Box>
-          <Box className={classes.itemsTextContainer}>
-            <Mail size={24} />
             <Text
               lineClamp={2}
               className={classes.text}
@@ -472,18 +460,53 @@ const ItemListingVirtual = (props) => {
             >
               {getEmailUserLead()}
             </Text>
+            <BadgeContainer
+              isAdminLeadView={isAdminLeadView}
+              isShortLead={isShortLead}
+              setLeadDetail={setLeadDetail}
+              classes={classes}
+              currentStatus={props?.currentStatus}
+              allAgentsStatus={allAgentsStatus()}
+            />
           </Box>
-          <BadgeContainer
-            isAdminLeadView={isAdminLeadView}
-            isShortLead={isShortLead}
-            setLeadDetail={setLeadDetail}
-            classes={classes}
-            currentStatus={props?.currentStatus}
-            allAgentsStatus={allAgentsStatus()}
-          />
-        </>
-      )}
-
+        ) : (
+          <>
+            <Box className={classes.itemsTextContainer}>
+              <User size={24} />
+              <Text
+                component="span"
+                lineClamp={2}
+                className={classes.text}
+                title={`Lead name:\n${capitalize(
+                  `${getFirstNameUserLead()} ${getLastNameUserLead()}`
+                )}`}
+              >
+                {capitalize(
+                  `${getFirstNameUserLead()} ${getLastNameUserLead()}`
+                )}
+              </Text>
+            </Box>
+            <Box className={classes.itemsTextContainer}>
+              <Mail size={24} />
+              <Text
+                lineClamp={2}
+                className={classes.text}
+                title={`Lead email:\n${getEmailUserLead()}`}
+              >
+                {getEmailUserLead()}
+              </Text>
+            </Box>
+            <BadgeContainer
+              isAdminLeadView={isAdminLeadView}
+              isShortLead={isShortLead}
+              setLeadDetail={setLeadDetail}
+              classes={classes}
+              currentStatus={props?.currentStatus}
+              allAgentsStatus={allAgentsStatus()}
+            />
+          </>
+        )}
+      </div>
       {!isShortLead && (
         <Box className={classes.containerIcons}>
           <IconOpenWhatsApp
@@ -492,13 +515,17 @@ const ItemListingVirtual = (props) => {
             phoneNumber={getPhone()}
             otherPhoneNumber={getOtherPhone()}
           />
-          <CustomIconTooltip
-            size={24}
-            labelTooltip="View lead details"
-            onClick={setLeadDetail}
-          >
-            <ArrowForwardUp />
-          </CustomIconTooltip>
+          <ModalDeleteLead
+            onFinishDeleteLead={refetchDataFromDeleteLead}
+            leadInfo={{
+              name: getFirstNameUserLead() + " " + getLastNameUserLead(),
+              email: getEmailUserLead(),
+              phone: getPhone(),
+              otherPhone: getOtherPhone(),
+              agents: allAgentsStatus(),
+              id: getIdLead(),
+            }}
+          />
 
           {isAdminLeadView && (
             <Tooltip label="Manage lead agent" color="secondary">
@@ -513,20 +540,6 @@ const ItemListingVirtual = (props) => {
           )}
         </Box>
       )}
-
-    
-        <ModalDeleteLead
-          onFinishDeleteLead={refetchDataFromDeleteLead}
-          leadInfo={{
-            name: getFirstNameUserLead() + " " + getLastNameUserLead(),
-            email: getEmailUserLead(),
-            phone: getPhone(),
-            otherPhone: getOtherPhone(),
-            agents: allAgentsStatus(),
-            id: getIdLead(),
-          }}
-        />
-    
     </Paper>
   );
 };

@@ -14,7 +14,6 @@ import { EraserOff } from "tabler-icons-react";
 import get from "lodash/get";
 
 const ModalDeleteLead = (props) => {
-  
   const { onFinishDeleteLead = null, leadInfo = null } = props;
   const [blockButton, setBlockButton] = useState(false);
 
@@ -51,7 +50,7 @@ const ModalDeleteLead = (props) => {
     },
   });
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     if (countFinishDeleted === leadInfo?.agents.length) {
       if (onFinishDeleteLead) onFinishDeleteLead();
     }
@@ -109,7 +108,7 @@ const ModalDeleteLead = (props) => {
               >
                 Email:
               </Text>{" "}
-              {leadInfo?.email?.toLowerCase() || 'N/A'}
+              {leadInfo?.email?.toLowerCase() || "N/A"}
             </Text>
             <Text>
               <Text
@@ -212,28 +211,18 @@ const ModalDeleteLead = (props) => {
   };
 
   return (
-    <Box
-      style={{
-        position: "absolute",
-        top: "0.5rem",
-        right: "1.75rem",
-        width: "25px",
-        height: "25px",
-      }}
-    >
-      <Tooltip label="Delete lead" color="error">
-        <Button
-          onClick={() => openModalDeleteLead()}
-          color="error"
-          size="xs"
-          style={{
-            padding: "0.25rem",
-          }}
-        >
-          <EraserOff />
-        </Button>
-      </Tooltip>
-    </Box>
+    <Tooltip label="Delete lead" color="error">
+      <Button
+        onClick={() => openModalDeleteLead()}
+        color="error"
+        size="xs"
+        style={{
+          padding: "0.25rem",
+        }}
+      >
+        <EraserOff />
+      </Button>
+    </Tooltip>
   );
 };
 

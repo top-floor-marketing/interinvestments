@@ -235,6 +235,7 @@ const Pipeline = () => {
         setOpenedModal={setOpenedModal}
         valueSelect={valueSelect}
         setvalueSelect={setvalueSelect}
+        isAdmin={agentType === USER_ROLES_CRM.ADMIN}
       />
       <Box className={classes.container}>
         {agentType === USER_ROLES_CRM.ADMIN && (
