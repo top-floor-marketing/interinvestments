@@ -13,7 +13,7 @@ import findLast from 'lodash/findLast';
 import toLower from 'lodash/toLower';
 import get from 'lodash/get';
 
-const ASK_REFERRALS = 'Ask Referrals';
+const NOT_CONTACTED = 'Not Contacted';
 
 const ContactForm = () => {
     const [listingData, setListingData] = useState(null);
@@ -29,7 +29,7 @@ const ContactForm = () => {
         config: {
             onSuccess: (response) => {
                 const findAsk = findLast(get(response, ["statuses", "nodes"], []), (val) => {
-                    return toLower(val?.name) === toLower(ASK_REFERRALS)
+                    return toLower(val?.name) === toLower(NOT_CONTACTED)
                 });
                 setIdAskLeadStatus(get(findAsk, ["databaseId"]))
             }
@@ -77,6 +77,7 @@ const ContactForm = () => {
         )
     }
 
+    console.log("NOT_CONTACTED ", idAskLeadStatus)
 
     return (
         <Box className={styles.containerForm}>
