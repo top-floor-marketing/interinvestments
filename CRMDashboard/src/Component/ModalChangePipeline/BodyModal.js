@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "@mantine/form";
 import { Loader } from "@mantine/core";
 // componen
@@ -16,14 +16,12 @@ import {
   Text,
   Button,
   createStyles,
-  Timeline,
-  ScrollArea,
 } from "@mantine/core";
 
 import { useMutationHelper } from "../../GraphqlClient/useRequest";
 import { COMMENTS_USER_LEAD } from "../../GraphqlClient/leads.gql";
 
-import { Mail, User } from "tabler-icons-react";
+import { Mail, User, Phone } from "tabler-icons-react";
 
 import ChipStatusLead from "../ItemLeadVirtual/chipStatusLead";
 import get from "lodash/get";
@@ -135,6 +133,8 @@ const BodyModal = ({ valueUserPipeline, onClose, refechPipeline, isAdmin }) => {
     else onClose();
   };
 
+  console.log(" valueUserPipeline", valueUserPipeline);
+
   return (
     <form onSubmit={form.onSubmit((values) => changeStateLead(values))}>
       <Box className={classes.container}>
@@ -155,7 +155,7 @@ const BodyModal = ({ valueUserPipeline, onClose, refechPipeline, isAdmin }) => {
               Current status:
               <ChipStatusLead
                 className={classes.badgeStatus}
-                status={valueUserPipeline?.currentStatus?.name}
+                status={valueUserPipeline?.currentStatus?.name || valueUserPipeline?.currentStatus}
               />
             </Group>
 
@@ -170,6 +170,13 @@ const BodyModal = ({ valueUserPipeline, onClose, refechPipeline, isAdmin }) => {
               <Mail size={24} />
               <Text component="span">
                 {valueUserPipeline?.email?.toLowerCase() || "N/A"}
+              </Text>
+            </Group>
+
+            <Group spacing="1rem">
+              <Phone size={24} />
+              <Text component="span">
+                {valueUserPipeline?.phone?.toLowerCase() || "N/A"}
               </Text>
             </Group>
           </Box>

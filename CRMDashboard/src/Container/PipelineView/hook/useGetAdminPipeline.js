@@ -32,6 +32,8 @@ const useGetAdminPipeline = ({ agentType }) => {
             "agentFullName":`${get(data, ["agent", "firstName"], "")} ${get(data, ["agent", "lastName"], "")}`,
             "date": dayjs(get(data, ["status", "0", "date"], null)),
             "date222": get(data, ["status", "0", "date"], null),
+            "currentStatus": get(data, ["currentStatus"], null),
+            "phone": get(data, ["userLead", "phone"], null),
         }
     }
 
@@ -42,6 +44,8 @@ const useGetAdminPipeline = ({ agentType }) => {
             cacheTime: 5 * 60 * 1000, // 1 minute
             enabled: (agentType === USER_ROLES_CRM.ADMIN),
             onSuccess: (response) => {
+
+                console.log('response ', response);
 
                 let allData = {
                     dataNotContacted: [],

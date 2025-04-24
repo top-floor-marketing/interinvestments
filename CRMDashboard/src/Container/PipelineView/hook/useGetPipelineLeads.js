@@ -23,6 +23,7 @@ const useGetPipelineLeads = ({ agentId, statusId, agentSelected }) => {
       enabled: agentId > 0,
       onSuccess: (response) => {
         const getData = get(response, ['pipeline'], []);
+
         const addAgentId = reduce(
           getData,
           (acc, val) => {
@@ -45,6 +46,7 @@ const useGetPipelineLeads = ({ agentId, statusId, agentSelected }) => {
                 agentFullName: get(agentSelected, ['firstName'], '')
                   .concat(' ')
                   .concat(get(agentSelected, ['lastName'], '')),
+
               },
             ];
           },
