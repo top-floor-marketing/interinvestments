@@ -2,7 +2,7 @@
 /*
 Plugin Name: Grid_Developments
 Description: Use the [Grid_Developments] shortcode to display the plugin
-Version: 0.0.1
+Version: 0.0.3
 Author: Topfloormarketing
 Author URI: https://www.topfloormarketing.net/
 */
