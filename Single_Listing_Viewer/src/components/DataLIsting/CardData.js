@@ -19,13 +19,11 @@ const CardData = (props) => {
   const newNumber = type === "text" ? number : numFormatter(number);
 
   const propsSpring = useSpring({
-    delay: 300,
+    delay: 600,
     val: type === "number" ? newNumber.number : 0,
     from: { val: 0 },
-    config: { duration: 800 },
+    config: { duration: 1200 },
   });
-
-  console.log(newNumber);
 
   if (number) {
     return (
@@ -44,7 +42,7 @@ const CardData = (props) => {
             <Text component="h2" className={styles.titleCard}>
               $
               <animated.span>
-                {propsSpring.val.interpolate((val) => Number(val.toFixed(1)))}
+                {propsSpring.val.interpolate((val) => Math.floor(val))}
               </animated.span>
               {newNumber.tag ? newNumber.tag : null}
             </Text>

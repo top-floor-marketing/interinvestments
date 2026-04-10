@@ -3,7 +3,6 @@
 }
 
 .tableFloorplans {
-    @apply overflow-auto;
     thead tr th {
         @apply text-black;
     }
@@ -28,20 +27,7 @@
 }
 
 .collapseListing {
-    @apply p-0 md:py-12 md:px-12 overflow-auto;
-    span {
-        @apply text-[10px] md:text-[16px];
-    }
-    @media (min-width: 768px) {
-        td {
-            font-size: 14px !important
-        }
-    }
-    @media (max-width: 767px) {
-        td {
-            font-size: 10px !important;
-        }
-    }
+    @apply py-4 md:py-12;
 }
 
 .dividerListing {
@@ -53,8 +39,7 @@
 }
 
 .gridContendCollapse {
-    @apply grid grid-cols-2 gap-4 justify-items-center;
-    @apply overflow-auto; 
+    @apply grid grid-cols-2 gap-4 pl-2 lg:pl-[10vw] ml-[22.5px];
 }
 
 .containerConted {
@@ -76,7 +61,7 @@
 }
 
 .containerTable {
-    @apply w-full max-w-2xl lg:max-w-full;
+    @apply w-full max-w-lg lg:max-w-full overflow-auto;
 }
 
 .textTable {

@@ -4,7 +4,7 @@ import { Box, Text, Avatar } from "@mantine/core";
 // maps
 import { Marker, InfoWindow } from "@react-google-maps/api";
 // assets
-import imagePin from "../../assets/PinMap.svg";
+import imagePin from "../../assets/pinMap.svg";
 // styles
 import style from "./styles.ml.module.scss";
 // utils

@@ -1,21 +1,18 @@
 const numFormatter = (num) => {
-    console.log(num)
-    if (num >= 1000000) {
-        // Si el número es mayor o igual a un millón
-        const formattedNum = (num / 1000000).toFixed(2); // Mantener dos decimales
+    if (num > 999 && num < 1000000) {
+        // convert to K for number from > 1000 < 1 million 
         return {
-            number: parseFloat(formattedNum), // Convertir a número flotante para omitir ceros finales
-            tag: 'M'
-        }
-    } else if (num >= 1000 && num < 1000000) {
-        // Si el número está entre 1,000 y 1 millón
-        const formattedNum = (num / 1000).toFixed(2); // Mantener dos decimales
-        return {
-            number: parseFloat(formattedNum), // Convertir a número flotante para omitir ceros finales
+            number: parseInt((num / 1000).toFixed(1)),
             tag: 'K'
         }
-    } else {
-        // Si el número es menor a 1,000
+    } else if (num > 1000000) {
+        // convert to M for number from > 1 million 
+        return {
+            number: parseInt((num / 1000000).toFixed(1)),
+            tag: 'M'
+        }
+    } else if (num < 1000) {
+        // if value < 1000, nothing to do
         return {
             number: num,
             tag: ""
