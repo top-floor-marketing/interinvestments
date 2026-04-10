@@ -29,8 +29,11 @@ const useGetProfileInfo = ({ idAgent }) => {
       return null;
     }
 
+    const _idAgent = idAgent || databaseId;
+    const _agentType = idAgent ? USER_ROLES_CRM.AGENT : agentType;
+
     const { isLoading: isLoadingQuery, isFetching: isFetchingQuery, isError, refetch } = useQueryHelper({
-        name: "get-agent-info-crm",
+        name: ["get-agent-info-crm", _idAgent, _agentType],
         gql: GET_AGENT_PROFILE_INFO,
         config: {
           onSuccess: (response) => {
@@ -46,8 +49,8 @@ const useGetProfileInfo = ({ idAgent }) => {
           },
         },
         variables: {
-            agentId: idAgent || databaseId,
-            agentType: idAgent ? USER_ROLES_CRM.AGENT : agentType
+            agentId: _idAgent,
+            agentType: _agentType
         },
     });
 

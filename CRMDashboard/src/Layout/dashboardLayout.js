@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Navbar from "./NavBar";
 import Header from "./Header";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   boxContainer: {
     backgroundColor: "transparent",
     height: "100%",
@@ -19,10 +19,10 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const DashboardLayout = (props) => {
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
+
   return (
     <AppShell
-      fixed
-      padding="0"
+      padding={0}
       navbar={<Navbar opened={opened}  setOpened={setOpened} />}
       header={<Header opened={opened} setOpened={setOpened} />}
     >

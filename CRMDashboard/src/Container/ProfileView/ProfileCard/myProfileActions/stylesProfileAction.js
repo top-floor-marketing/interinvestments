@@ -1,6 +1,6 @@
-import { createStyles } from "@mantine/core";
+import { createStyles, getStylesRef } from "@mantine/core";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
     container: {
         display: "flex",
         flexDirection: "row",
@@ -67,7 +67,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         marginLeft: "auto !important"
     },
     avatarHover: {
-        ref: getRef('avatarHover'),
+        ref: getStylesRef('avatarHover'),
         display: 'none',
         position: 'absolute',
         zIndex: 1,
@@ -81,10 +81,10 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         '&:hover': {
             cursor: 'pointer'
         },
-        [`&:hover .${getRef('avatarHover')}`]: {
+        [`&:hover .${getStylesRef('avatarHover')}`]: {
             display: 'block'
         },
-        [`&:hover .${getRef('overlayLabel')}`]: {
+        [`&:hover .${getStylesRef('overlayLabel')}`]: {
             display: 'block'
         }
     },
@@ -92,7 +92,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
         display: 'none',
     },
     overlayLabel: {
-        ref: getRef('overlayLabel'),
+        ref: getStylesRef('overlayLabel'),
         color: theme.colors.white,
         fontSize: '17px',
         width: 'min-content',

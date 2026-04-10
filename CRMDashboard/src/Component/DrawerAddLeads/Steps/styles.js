@@ -5,7 +5,7 @@ const useStyles = createStyles((theme, _params) => ({
     containerMain: {
         display: "grid",
         gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
-        [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+        [`@media (min-width: ${theme.breakpoints.md})`]: {
             gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
         },
         gap: theme.other.spacing.p4
@@ -66,7 +66,7 @@ const useStyles = createStyles((theme, _params) => ({
         padding: '14px',
         flexDirection: 'column',
         gap: '12px',
-        [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+        [`@media (min-width: ${theme.breakpoints.md})`]: {
             flexDirection: 'row',
         },
     },
@@ -77,7 +77,7 @@ const useStyles = createStyles((theme, _params) => ({
     },
     contendInfo: {
         width: '100%',
-        [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+        [`@media (min-width: ${theme.breakpoints.md})`]: {
             width: '40%'
         }
     },

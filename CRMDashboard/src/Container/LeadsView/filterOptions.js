@@ -1,4 +1,12 @@
-import { createStyles, Paper, TextInput, Box, Button, Text } from "@mantine/core";
+import {
+  createStyles,
+  Paper,
+  TextInput,
+  Box,
+  Button,
+  Text,
+  getStylesRef,
+} from "@mantine/core";
 
 import SelectStateLeads from "../../Component/SelectStateLeads";
 
@@ -8,7 +16,7 @@ import { INPUT_BORDER_BOTTOM } from "../../MatineProvider/stylesProvider";
 
 import { HoccDraewerAL } from "../../Component/DrawerAddLeads";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   container: {
     width: "100%",
     display: "flex",
@@ -43,7 +51,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     },
   },
   textFilter: {
-    ref: getRef("textFilter"),
+    ref: getStylesRef("textFilter"),
     fontWeight: 700,
     fontSize: "18px",
     minWidth: "50px",
@@ -55,14 +63,13 @@ const FilterOptions = ({
   searchProps,
   selectStateProps,
   isLoading,
-  refetch
+  refetch,
 }) => {
-
   const { classes } = useStyles();
 
   return (
     <Paper className={classes.container}>
-       <Text className={classes.textFilter}>Filter:</Text>
+      <Text className={classes.textFilter}>Filter:</Text>
       <TextInput
         disabled={isLoading}
         className={classes.inputSearch}
@@ -79,19 +86,15 @@ const FilterOptions = ({
           isFilter
         />
       </Box>
-      <HoccDraewerAL
-       title='Add New Leads'
-       onSuccessAddLeads={() => refetch()}
-     >
-      <Button
-           className={classes.buttonAdd}
-            color="dark"
-            leftIcon={<Plus size={12} />}
-          >
-            Add Lead
-          </Button>
-     </HoccDraewerAL>
-
+      <HoccDraewerAL title="Add New Leads" onSuccessAddLeads={() => refetch()}>
+        <Button
+          className={classes.buttonAdd}
+          color="dark"
+          leftIcon={<Plus size={12} />}
+        >
+          Add Lead
+        </Button>
+      </HoccDraewerAL>
     </Paper>
   );
 };

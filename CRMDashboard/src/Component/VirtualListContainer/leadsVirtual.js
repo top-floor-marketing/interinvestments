@@ -27,20 +27,16 @@ const innerElementType = forwardRef(({ style, ...rest }, ref) => (
 ));
 
 const LeadsVirtual = (props) => {
-  const {
-    data,
-    isLoading,
-    refetch,
-    totalData,
-    isShortLead,
-    isAdminLeadView
-  } = props;
+  const { data, isLoading, refetch, totalData, isShortLead, isAdminLeadView } =
+    props;
 
   const {
     ref: refParentBox,
     width: widthParent,
     height: heightParent,
   } = useElementSize();
+
+  console.log("totalData", totalData);
 
   const [idGrid] = useState(`${useId()}_${random(100, 10000)}`);
 
@@ -106,7 +102,7 @@ LeadsVirtual.defaultProps = {
   refetch: null,
   totalData: 0,
   isShortLead: false,
-  isAdminLeadView: false
+  isAdminLeadView: false,
 };
 
 LeadsVirtual.propTypes = {
@@ -115,7 +111,7 @@ LeadsVirtual.propTypes = {
   refetch: PropTypes.func,
   totalData: PropTypes.number,
   isShortLead: PropTypes.bool,
-  isAdminLeadView: PropTypes.bool
+  isAdminLeadView: PropTypes.bool,
 };
 
 export default memo(LeadsVirtual);

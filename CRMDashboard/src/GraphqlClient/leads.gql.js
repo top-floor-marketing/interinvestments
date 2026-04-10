@@ -2,7 +2,7 @@ import { gql } from "graphql-request";
 
 export const GET_LEADS_LIST_FOR_AGENT = gql`
   query dataAgentLeads($agentId: Int = 10, $agentType: MasterEnum) {
-    dataAgent(agentId: $agentId, agentType: $agentType) {
+    dataAgent(where: { agentType: $agentType, agentId: $agentId }) {
       firstName
       lastName
       email
@@ -30,7 +30,7 @@ export const GET_LEADS_LIST_FOR_AGENT = gql`
 
 export const GET_USER_LEADS_FOR_WIZARD = gql`
   query dataAgentLeadsForWizard($agentId: Int!, $agentType: MasterEnum!) {
-    dataAgent(agentId: $agentId, agentType: $agentType) {
+    dataAgent(where: { agentType: $agentType, agentId: $agentId }) {
       statuses {
         userLead {
           email
@@ -44,7 +44,7 @@ export const GET_USER_LEADS_FOR_WIZARD = gql`
       }
     }
   }
-`
+`;
 
 export const COMMENTS_USER_LEAD = gql`
   mutation commentsUserLead(
@@ -64,7 +64,7 @@ export const COMMENTS_USER_LEAD = gql`
       leadId
     }
   }
-`
+`;
 
 export const MUTATION_LEADS_ADD = gql`
   mutation leadListingMutation($input: LeadListingMutationInput!) {
@@ -73,32 +73,32 @@ export const MUTATION_LEADS_ADD = gql`
       leadId
     }
   }
-`
+`;
 
 export const GET_INFO_LEAD_BY_AGENT = gql`
-query historyCommentLead($agentId: Int = 10, $userLeadId: Int = 10) {
-  historyCommentLead(agentId: $agentId, userLeadId: $userLeadId) {
-    id
-    firstName
-    phone
-    otherPhones
-    lastName
-    email
-    otherEmail
-    commentService
-    commentListing
-    currentStatus {
-      name
-      statusId
-    }
-    statuses {
-      comments
-      date
-      status
+  query historyCommentLead($agentId: Int = 10, $userLeadId: Int = 10) {
+    historyCommentLead(agentId: $agentId, userLeadId: $userLeadId) {
+      id
+      firstName
+      phone
+      otherPhones
+      lastName
+      email
+      otherEmail
+      commentService
+      commentListing
+      currentStatus {
+        name
+        statusId
+      }
+      statuses {
+        comments
+        date
+        status
+      }
     }
   }
-}
-`
+`;
 
 export const SET_NEW_COMMENT_LEAD = gql`
   mutation commentsUserLead($input: CommentsUserLeadInput!) {
@@ -111,9 +111,11 @@ export const SET_NEW_COMMENT_LEAD = gql`
 export const GET_LEAD_INTERESTED = gql`
   query LeadsforLead($agentId: Int = 10, $leadByAgentId: Int = 10) {
     dataAgent(
-      agentType: LEAD
-      agentId: $agentId
-      leadByAgentId: $leadByAgentId
+      where: {
+        agentType: LEAD
+        agentId: $agentId
+        leadByAgentId: $leadByAgentId
+      }
     ) {
       leads {
         nodes {
@@ -179,4 +181,4 @@ export const MUTATION_LEADS_ASSIGNMENT = gql`
       leadId
     }
   }
-`
+`;

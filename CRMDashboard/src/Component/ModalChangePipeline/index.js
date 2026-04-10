@@ -1,63 +1,62 @@
-import React from 'react'
-// mantine 
-import { Box, createStyles, Modal } from '@mantine/core';
+import React from "react";
+// mantine
+import { Box, createStyles, Modal } from "@mantine/core";
 // components
-import BodyModal from '../ModalChangePipeline/BodyModal'
+import BodyModal from "../ModalChangePipeline/BodyModal";
 
 const useStyles = createStyles((theme, _params) => {
-    return {
-        modalBody: {
-            padding: '16px !important'
-        },
-        ContainerModalBody: {
-            display: "flex",
-            flexDirection: 'column',
-            gap: theme.other.spacing.p4,
-        }
-    }
+  return {
+    modalBody: {
+      padding: "0px !important",
+    },
+    ContainerModalBody: {
+      display: "flex",
+      flexDirection: "column",
+      gap: theme.other.spacing.p2,
+      padding: 0,
+    },
+  };
 });
 
-
 const ModalChangePipeline = (props) => {
-    const { classes } = useStyles();
-    const {
-        openedMOdal,
-        setOpenedModal,
-        valueSelect,
-        setvalueSelect,
-        valueUserPipeline,
-        setValueUserPipeline,
-        refechPipeline
-    } = props
+  const { classes } = useStyles();
+  const {
+    openedMOdal,
+    setOpenedModal,
+    setvalueSelect,
+    valueUserPipeline,
+    setValueUserPipeline,
+    refechPipeline,
+    isAdmin = false
+  } = props;
 
-    const destroyModal = () => {
-        setvalueSelect(null)
-        setValueUserPipeline(null)
-        setOpenedModal(false)
-    }
+  const destroyModal = () => {
+    setvalueSelect(null);
+    setValueUserPipeline(null);
+    setOpenedModal(false);
+  };
 
-    return (
-        <Modal
-            withCloseButton={true}
-            size='xl'
-            opened={openedMOdal}
-            onClose={() => destroyModal()}
-            title={null}
-            classNames={{
-                body: classes.modalBody
-            }}
-        >
-            <Box className={classes.ContainerModalBody}>
-                <BodyModal
-                    refechPipeline={refechPipeline}
-                    onClose={() => destroyModal()}
-                    valueUserPipeline={valueUserPipeline}
-                    valueSelect={valueSelect}
-                    setvalueSelect={setvalueSelect}
-                />
-            </Box>
-        </Modal>
-    )
-}
+  return (
+    <Modal
+      withCloseButton={true}
+      size="xl"
+      opened={openedMOdal}
+      onClose={() => destroyModal()}
+      title={null}
+      classNames={{
+        body: classes.modalBody,
+      }}
+    >
+      <Box className={classes.ContainerModalBody}>
+        <BodyModal
+          refechPipeline={refechPipeline}
+          onClose={() => destroyModal()}
+          valueUserPipeline={valueUserPipeline}
+          isAdmin={isAdmin}
+        />
+      </Box>
+    </Modal>
+  );
+};
 
-export default ModalChangePipeline
+export default ModalChangePipeline;

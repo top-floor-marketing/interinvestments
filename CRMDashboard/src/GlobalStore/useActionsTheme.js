@@ -10,12 +10,12 @@ export const DEFAUL_STORE_THEME = {
     white: "#fff",
     black: "#000",
     breakpoints: {
-      xs: 250,
-      sm: 640,
-      md: 768,
-      lg: 1024,
-      xl: 1280,
-      xl_2: 1536,
+      xs: "15.625em",
+      sm: "40em",
+      md: "48em",
+      lg: "64em", //1024px,
+      xl: "80em",
+      xl_2: "96em" //1536px,
     },
     radius: {
       xs: "5px",

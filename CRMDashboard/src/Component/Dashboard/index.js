@@ -8,7 +8,7 @@ import ChartOne from "./ChartOne";
 
 import SpringDiv from "../SpringDiv";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   boxContainer: {
     display: "grid",
     width: "100%",

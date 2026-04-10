@@ -15,14 +15,14 @@ import useStyles from "./styles";
 import findLast from "lodash/findLast";
 import toLower from "lodash/toLower";
 import get from "lodash/get";
-import filter from 'lodash/filter';
+import filter from "lodash/filter";
 
 const SelectStateLeads = ({
   value,
   onChange,
   disabled,
   placeholder,
-  disabledList
+  disabledList,
 }) => {
   const { cx, classes } = useStyles({ value });
 
@@ -49,6 +49,8 @@ const SelectStateLeads = ({
         return classes.selectSuccess;
       case PIPELINE_STATUS.ASK_REFERRALS:
         return classes.selectInfo;
+      case PIPELINE_STATUS.DISABLED:
+        return classes.selectGray;
       default:
         return classes.placeholder;
     }
@@ -66,15 +68,22 @@ const SelectStateLeads = ({
         return "success";
       case PIPELINE_STATUS.ASK_REFERRALS:
         return "info";
+      case PIPELINE_STATUS.DISABLED:
+        return "gray";
       default:
         return "";
     }
   }, []);
 
   const getFinalItems = useCallback(() => {
-    if(!disabledList.length) return listStatus;
-    return filter(listStatus, (val) => val.value !== disabledList[0]);
-  },[listStatus, disabledList]);
+    if (!disabledList.length) return listStatus.filter((val) => val?.label?.toLowerCase() !== "disabled");;
+    return filter(
+      listStatus,
+      (val) =>
+        val.value !== disabledList[0] &&
+        val?.label?.toLowerCase() !== "disabled"
+    );
+  }, [listStatus, disabledList]);
 
   return (
     <Select
@@ -93,8 +102,12 @@ const SelectStateLeads = ({
       maxDropdownHeight={600}
       disabled={disabled}
       searchable={false}
-      clearable 
+      clearable
       nothingFound="No options"
+      style={{
+        zIndex: 99999,
+      }}
+      withinPortal
     />
   );
 };
@@ -106,7 +119,7 @@ SelectStateLeads.defaultProps = {
   disabled: false,
   placeholder: "Lead State",
   isFilter: false,
-  disabledList: []
+  disabledList: [],
 };
 
 SelectStateLeads.propTypes = {
@@ -115,7 +128,7 @@ SelectStateLeads.propTypes = {
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
   isFilter: PropTypes.bool,
-  disabledList: PropTypes.array
+  disabledList: PropTypes.array,
 };
 
 export default SelectStateLeads;

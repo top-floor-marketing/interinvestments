@@ -24,11 +24,11 @@
 }
 
 .ButtonTabs {
-  @apply col-span-2 font-outfit text-left pl-[12px] transition duration-500 rounded-none;
+  @apply font-[400] hover:bg-[#ffff] col-span-2 font-outfit text-left pl-[12px] transition duration-500 rounded-none #{!important};
 }
 
 .ButtonTabsActive {
-  @apply font-bold text-neutral border-neutral border-t-0 border-l-0 border-r-0;
+  @apply text-neutral border-neutral hover:border-warning border-t-0 border-l-0 border-r-0;
 }
 
 .ButtonTabsDiable {
@@ -36,7 +36,7 @@
 }
 
 .ButtonTabslabel {
-  @apply hover:text-warning w-full text-base font-outfit;
+  @apply transition duration-500 hover:text-warning w-full text-base font-outfit;
 }
 
 .InputTabsMantine {
@@ -50,6 +50,8 @@
   color: rgb(24 26 42 / var(--tw-text-opacity)) !important;
   font-family: Outfit, Helvetica, Arial, Lucida, sans-serif !important;
   font-size: 16px !important;
+  font-weight: 300 !important;
+  padding-left: 12px !important;
 }
 
 .InputTabsMantine:focus {

@@ -1,8 +1,8 @@
-import { createStyles } from "@mantine/core";
+import { createStyles, getStylesRef } from "@mantine/core";
 import { COLOR_SCHEME_DARK } from "../../GlobalStore/useActionsTheme";
 
 // Navbar createStyles
-export default createStyles((theme, _params, getRef) => ({
+export default createStyles((theme, _params) => ({
   navBarContainer: {
     backgroundColor:
       theme.colorScheme === COLOR_SCHEME_DARK
@@ -19,7 +19,7 @@ export default createStyles((theme, _params, getRef) => ({
   },
   iconContainer: {
     // assign reference to selector
-    ref: getRef("iconContainer"),
+    ref: getStylesRef("iconContainer"),
     height: "auto",
     display: "flex",
     alignItems: "center",
@@ -43,7 +43,7 @@ export default createStyles((theme, _params, getRef) => ({
     "&:hover": {
       cursor: "pointer",
     },
-    [`&:hover .${getRef("iconContainer")}`]: {
+    [`&:hover .${getStylesRef("iconContainer")}`]: {
       backgroundColor: theme.colors.primary[6],
     },
   },
@@ -82,7 +82,7 @@ export default createStyles((theme, _params, getRef) => ({
     },
     "&:hover": {
       cursor: "pointer",
-      [`&:hover .${getRef("avatarFilter")}`]: {
+      [`&:hover .${getStylesRef("avatarFilter")}`]: {
         backgroundColor: theme.fn.rgba(theme.colors.white[1], 0.1),
         display: "block",
       },
@@ -104,14 +104,14 @@ export default createStyles((theme, _params, getRef) => ({
     position: "relative",
     "&:hover": {
       cursor: "pointer",
-      [`&:hover .${getRef("avatarFilter")}`]: {
+      [`&:hover .${getStylesRef("avatarFilter")}`]: {
         backgroundColor: theme.fn.rgba(theme.colors.gray[6], 0.3),
         display: "block",
       },
     },
   },
   avatarFilter: {
-    ref: getRef("avatarFilter"),
+    ref: getStylesRef("avatarFilter"),
     width: "60px",
     height: "60px",
     [theme.fn.smallerThan("xl_2")]: {

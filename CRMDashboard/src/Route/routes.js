@@ -3,12 +3,12 @@ import React from "react";
 import { LayoutGrid, Home2, Users, Briefcase } from "tabler-icons-react";
 
 import AuthComponent from '../Container/AuthView';
-import ProfileComponent from '../Container/ProfileView';
+import Pipeline from '../Container/PipelineView';
 import Listings from '../Container/ListingsView';
+import AgentsView from "../Container/AgentsView";
+import ProfileComponent from '../Container/ProfileView';
 import LeadsView from '../Container/LeadsView';
 import LeadsDetailView from "../Container/LeadDetailView";
-import Pipeline from '../Container/PipelineView';
-import AgentsView from "../Container/AgentsView";
 
 import { USER_ROLES_CRM } from "../GlobalStore/utils";
 
@@ -43,15 +43,27 @@ export const CRM_ROUTES = [
     roles: []
   },
   {
-    name: ROUTES_NAMES.LEADS_DETAILS,
-    label: "Leads",
+    name: ROUTES_NAMES.PIPELINE,
+    label: "Pipeline",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <LeadsDetailView />
+      <Pipeline />
     ),
-    useInNavbar: false,
+    useInNavbar: true,
     loginRequired: true,
-    icon: null,
+    icon: () => <Home2 size={25} strokeWidth={2} color={"white"} />,
+    roles: []
+  },
+  {
+    name: ROUTES_NAMES.LISTINGS,
+    label: "Properties",
+    layout: LAYOUT_NAMES.DASHBOARD,
+    component: () => (
+      <Listings />
+    ),
+    useInNavbar: true,
+    loginRequired: true,
+    icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
     roles: []
   },
   {
@@ -79,18 +91,6 @@ export const CRM_ROUTES = [
     roles: []
   },
   {
-    name: ROUTES_NAMES.PIPELINE,
-    label: "Pipeline",
-    layout: LAYOUT_NAMES.DASHBOARD,
-    component: () => (
-      <Pipeline />
-    ),
-    useInNavbar: true,
-    loginRequired: true,
-    icon: () => <Home2 size={25} strokeWidth={2} color={"white"} />,
-    roles: []
-  },
-  {
     name: ROUTES_NAMES.LEADS,
     label: "Leads",
     layout: LAYOUT_NAMES.DASHBOARD,
@@ -103,15 +103,15 @@ export const CRM_ROUTES = [
     roles: []
   },
   {
-    name: ROUTES_NAMES.LISTINGS,
-    label: "Properties",
+    name: ROUTES_NAMES.LEADS_DETAILS,
+    label: "Leads",
     layout: LAYOUT_NAMES.DASHBOARD,
     component: () => (
-      <Listings />
+      <LeadsDetailView />
     ),
-    useInNavbar: true,
+    useInNavbar: false,
     loginRequired: true,
-    icon: () => <LayoutGrid size={25} strokeWidth={2} color={"white"} />,
+    icon: null,
     roles: []
   },
 ];

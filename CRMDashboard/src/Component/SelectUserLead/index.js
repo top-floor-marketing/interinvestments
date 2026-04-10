@@ -54,7 +54,7 @@ const SelectUserLead = (props) => {
       data={formatData()}
       rightSection={isLoading ? <Loader size={14} /> : null}
       searchable
-      maxDropdownHeight={280}
+      maxDropdownHeight={300}
       nothingFound="Nobody here"
       filter={(value, item) =>
         item.label.toLowerCase().includes(value.toLowerCase().trim()) ||

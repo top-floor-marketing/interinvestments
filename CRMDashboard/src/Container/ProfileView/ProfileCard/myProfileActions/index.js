@@ -6,7 +6,6 @@ import { Box, Text } from "@mantine/core";
 import { ShareAgent, IconEditModal } from "../../../../Component/ActionButtons";
 import { notificationError, notificationSuccess } from "../../../../Component/Notifications";
 import DrawerEditInfo from './drawerEditInfo'
-// import ModalEditInfo from "../modalEditInfo";
 // React query
 import { useMutationHelper } from "../../../../GraphqlClient/useRequest";
 import { MUTATION_EDIT_AGENT_PROFILE } from "../../../../GraphqlClient/agentProfile.gql";

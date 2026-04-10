@@ -2,7 +2,9 @@ import { gql } from "graphql-request";
 
 export const GET_AGENT_PROFILE_INFO = gql`
   query GetAgentInfo($agentId: Int = 10, $agentType: MasterEnum) {
-    dataAgent(agentType: $agentType, agentId: $agentId) {
+    dataAgent(
+      where: {agentType: $agentType, agentId: $agentId}
+      ) {
       id
       databaseId
       email
@@ -27,7 +29,7 @@ export const GET_AGENT_PROFILE_INFO = gql`
 export const GET_AGENT_FEATURED_LISTING = gql`
 query GetAgentInfo($agentId: Int = 10, $agentType: MasterEnum) {
     dataAgent(
-      agentType: $agentType, agentId: $agentId
+      where: {agentType: $agentType, agentId: $agentId}
       ) {
         listings {
           nodes {
@@ -133,7 +135,9 @@ query getListings($tagId: String) {
 // Admin Query 
 export const ADMIN_GET_ALL_AGENTS = gql`
 query GetAgentInfo {
-    dataAgent(agentId: null, agentType: AGENT) {
+    dataAgent(
+      where: {agentType: AGENT, agentId: null}
+      ) {
       id
       databaseId
       email

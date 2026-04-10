@@ -18,13 +18,14 @@ const SelectTabs = (props) => {
 
   const refSelect = useRef(null);
 
-  const IconSelct = ({ refProps }) => {
+  const IconSelct = () => {
     return (
-      <Box
-        className={styles.ContainerIconSelect}
-        onClick={() => refProps.current.click()}
-      >
-        {isLoading ? <Loader color="gray" size={14} /> : <ChevronDown size={14} />}
+      <Box className={styles.ContainerIconSelect}>
+        {isLoading ? (
+          <Loader color="gray" size={14} />
+        ) : (
+          <ChevronDown size={14} />
+        )}
       </Box>
     );
   };
@@ -48,7 +49,8 @@ const SelectTabs = (props) => {
       dropdownPosition="bottom"
       zIndex={100}
       ref={refSelect}
-      rightSection={<IconSelct refProps={refSelect} />}
+      rightSection={<IconSelct />}
+      styles={{ rightSection: { pointerEvents: "none" } }}
       placeholder={placeholder}
       data={data}
     />

@@ -26,7 +26,7 @@ const DOMAIN_URL =
     ? process.env.REACT_APP_DOMAIN_PROD
     : process.env.REACT_APP_DOMAIN_DEV;
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   headerContainer: {
     backgroundColor: theme.colors.white[0],
     color:
@@ -37,7 +37,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     paddingRight: theme.other.spacing.p4,
     boxShadow: theme.shadows.md,
     borderBottom: `1px solid ${theme.colors.gray[2]}`,
-    [`@media (min-width: ${theme.breakpoints.lg}px)`]: {
+    [`@media (min-width: ${theme.breakpoints.lg})`]: {
       padding: 0,
     },
   },
@@ -111,7 +111,9 @@ const HeaderDashboard = ({ opened, setOpened }) => {
     <Header className={classes.headerContainer} height={matches ? 50 : 80 }>
 
       <Box className={classes.boxContainer}>
-        <MediaQuery largerThan="lg" styles={{ display: "none" }}>
+        <MediaQuery
+         largerThan="lg" styles={{ display: "none" }}
+         >
           <Burger
             opened={opened}
             onClick={() => setOpened((o) => !o)}

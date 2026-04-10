@@ -42,6 +42,7 @@ const ListingVirtual = (props) => {
     refetch,
     totalData,
   } = props;
+
   const {
     ref: refParentBox,
     width: widthParent,

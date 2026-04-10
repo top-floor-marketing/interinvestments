@@ -37,6 +37,7 @@ function App() {
       if (isValidUrl) {
         setTimeout(() => {
           const arrayMenu = document.querySelectorAll("#menu-primary-menu>.menu-item>a");
+          console.log('arrayMenu = ',arrayMenu);
           if(!isEmpty(arrayMenu)) {
             arrayMenu.forEach((x) => {
               const text = toLower(x.textContent || x.innerText);
@@ -63,7 +64,7 @@ function App() {
               }
             });
           }
-        }, 1000)
+        }, 700)
 
         setTimeout(() => {
           const arrayService = document.querySelectorAll(".btn-service");
@@ -72,7 +73,7 @@ function App() {
               x.href = `${x.href}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true`;
             });
           }
-        }, 1500);
+        }, 900);
 
       }
 

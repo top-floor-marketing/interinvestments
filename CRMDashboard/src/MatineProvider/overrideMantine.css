@@ -1,13 +1,13 @@
 .mantine-Skeleton-root::before {
-    background-color: #d6d6d4 !important;
+  background-color: #d6d6d4 !important;
 }
 
 .mantine-Skeleton-root::after {
-    background-color: #c2c2bf !important;
+  background-color: #c2c2bf !important;
 }
 
 .mantine-ScrollArea-viewport > div {
-    height: 100% !important;
+  height: 100% !important;
 }
 
 /*
@@ -16,38 +16,41 @@ gray[6] = #c2c2bf
 dark[0] = #1b1b1b
 */
 
-.mantine-Modal-body > .mantine-Group-root > .mantine-UnstyledButton-root:first-child {
-    background-color: #eaeae9 !important;
-    border: 1px solid #eaeae9 !important;
-    color: #1b1b1b !important;
+.mantine-Modal-body
+  > .mantine-Group-root
+  > .mantine-UnstyledButton-root:first-child {
+  background-color: #eaeae9 !important;
+  border: 1px solid #eaeae9 !important;
+  color: #1b1b1b !important;
 }
 
-.mantine-Modal-body > .mantine-Group-root > .mantine-UnstyledButton-root:first-child:hover {
-    background-color: #c2c2bf !important;
-    border: 1px solid #c2c2bf !important;
+.mantine-Modal-body
+  > .mantine-Group-root
+  > .mantine-UnstyledButton-root:first-child:hover {
+  background-color: #c2c2bf !important;
+  border: 1px solid #c2c2bf !important;
 }
 
 .mantine-Modal-body {
-    scrollbar-width: thin !important;
-    scrollbar-color: #a4a4a0 #eaeae9 !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: #a4a4a0 #eaeae9 !important;
 }
-
 
 /* Works on Chrome, Edge, and Safari */
 .mantine-Modal-body::-webkit-scrollbar {
-    width: 8px !important;
+  width: 8px !important;
 }
-  
+
 .mantine-Modal-body::-webkit-scrollbar-track {
-    background: #eaeae9 !important;
-  }
-  
-  .mantine-Modal-body::-webkit-scrollbar-thumb {
-    background-color: #a4a4a0 !important;
-    border-radius: 20px !important;
-    border: 2px solid #a4a4a0 !important;
-    -webkit-border-radius: 20px !important;
-    -moz-border-radius: 20px !important;
-    -ms-border-radius: 20px !important;
-    -o-border-radius: 20px !important;
+  background: #eaeae9 !important;
+}
+
+.mantine-Modal-body::-webkit-scrollbar-thumb {
+  background-color: #a4a4a0 !important;
+  border-radius: 20px !important;
+  border: 2px solid #a4a4a0 !important;
+  -webkit-border-radius: 20px !important;
+  -moz-border-radius: 20px !important;
+  -ms-border-radius: 20px !important;
+  -o-border-radius: 20px !important;
 }

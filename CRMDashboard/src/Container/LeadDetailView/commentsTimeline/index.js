@@ -75,7 +75,14 @@ const useStyles = createStyles((theme, _params) => ({
   },
 }));
 
-const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetch: refetchDataListing, isAdmin }) => {
+const CommentsTimeline = ({
+  isSkeleton,
+  dataLead,
+  isLoading,
+  allComments,
+  refetch: refetchDataListing,
+  isAdmin,
+}) => {
   const { classes } = useStyles();
 
   const [valueComment, setValueComment] = useState("");
@@ -112,37 +119,35 @@ const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetc
   };
 
   // MUTATIONS
-  const { mutate: fetchAddNewComment, isLoading: isLoadingAddNewComment } = useMutationHelper({
-    name: "add-comment-lead",
-    gql: SET_NEW_COMMENT_LEAD,
-    config: {
-      onSuccess: async () => {
-        setValueComment("");
-        refetchDataListing();
-        notificationSuccess({
-          id: "add-comment-lead",
-          title: "Comment added",
-          color: "success",
-        });
+  const { mutate: fetchAddNewComment, isLoading: isLoadingAddNewComment } =
+    useMutationHelper({
+      name: "add-comment-lead",
+      gql: SET_NEW_COMMENT_LEAD,
+      config: {
+        onSuccess: async () => {
+          setValueComment("");
+          refetchDataListing();
+          notificationSuccess({
+            id: "add-comment-lead",
+            title: "Comment added",
+            color: "success",
+          });
+        },
+        onError: async () => {
+          refetchDataListing();
+          notificationError({
+            id: "add-comment-lead",
+            title: "Server error",
+            color: "error",
+          });
+        },
       },
-      onError: async () => {
-        refetchDataListing();
-        notificationError({
-          id: "add-comment-lead",
-          title: "Server error",
-          color: "error",
-        });
-      },
-    },
-  });
+    });
 
   return (
     <Skeleton visible={isSkeleton} className={classes.cardContainer}>
       <Paper className={classes.cardContainer}>
-        <Box
-          className={classes.timeLine}
-          component={ScrollArea}
-        >
+        <Box className={classes.timeLine} component={ScrollArea}>
           {allComments.length ? (
             <Timeline active={allComments.length} bulletSize={24} lineWidth={3}>
               {allComments.map((val, index) => (
@@ -153,7 +158,7 @@ const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetc
                   title={
                     <Text
                       weight="bold"
-                      size="16px"
+                      size="18px"
                       color={get(val, ["timeline", "color"], "gray")}
                       lineClamp={1}
                       title={get(val, ["comments"], "")}
@@ -168,7 +173,7 @@ const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetc
                         <MessageDots size={16} />
                         <Text
                           lineClamp={5}
-                          size="14px"
+                          size="16px"
                           title={getCommentFormat(val)}
                         >
                           {getCommentFormat(val)}
@@ -176,8 +181,14 @@ const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetc
                       </Group>
                     )}
                     <Group spacing="0.5rem">
-                      <Text color="dark" size="12px">
-                        {getTimeDiff(get(val, ["date"], ""))}
+                      <Text color="dark" size="13px">
+                        {getTimeDiff(get(val, ["date"], ""))}:
+                      </Text>
+                      <Text color="dark" size="13px">
+                        {dayjs
+                          .utc(get(val, ["date"], ""))
+                          .local()
+                          .format("YYYY-MM-DD hh:mm A")}
                       </Text>
                     </Group>
                   </Box>
@@ -186,10 +197,8 @@ const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetc
             </Timeline>
           ) : null}
         </Box>
-        
-        {
-          (!isAdmin)
-          &&
+
+        {!isAdmin && (
           <Textarea
             placeholder="Add comment"
             minRows={1}
@@ -201,8 +210,7 @@ const CommentsTimeline = ({ isSkeleton, dataLead, isLoading, allComments, refetc
             onChange={(event) => setValueComment(event.target.value)}
             onKeyDown={getHotkeyHandler([["Enter", saveComment]])}
           />
-        }
-
+        )}
       </Paper>
     </Skeleton>
   );

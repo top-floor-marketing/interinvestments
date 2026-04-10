@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect } from "react";
 import { FixedSizeGrid as Grid } from "react-window";
 import PropTypes from "prop-types";
 
@@ -12,7 +12,6 @@ import get from "lodash/get";
 
 import "./styles_all_listing.css";
 
-// 1.25rem === p5
 const GUTTER_SIZE = 20;
 const ROW_HEIGHT = 300;
 
@@ -38,23 +37,17 @@ const GridListing = ({
 }) => {
   const idGrid = `${useId()}_${name})`;
 
+  //console.log('totalData', totalData);
+
   const {
     ref: refParentBox,
     width: widthParent,
     height: heightParent,
   } = useElementSize();
 
+  // console.log('heightParent ', heightParent);
+
   const onScroll = (e) => {
-    /*  const { scrollTop } = e;
-     const gridContainer = document.getElementsByClassName(idGrid)[0]?.firstChild?.clientHeight || null;
-     const parentHeight = get(refParentBox, ["current", "clientHeight"], null);
-     if (refetch !== undefined && !isLoading) {
-       if (parentHeight + scrollTop === gridContainer) {
-         setTimeout(() => {
-           refetch();
-         }, 700);
-       }
-     } */
     const { scrollTop } = e;
     const gridContainer =
       document.getElementsByClassName(idGrid)[0]?.firstChild?.clientHeight ||
@@ -80,30 +73,48 @@ const GridListing = ({
     };
   };
 
+  useEffect(() => {
+    if (!isLoading && data.length > 15) {
+      const element = document.querySelector(`.${name}`);
+  
+      if (element) {  
+        // Hacer scroll suave bajando 300px
+        element.scrollBy({ top: 300, behavior: "smooth" });
+      }
+    }
+  }, [isLoading, data, name]);
+  
+
   // containerInfinite class for css-scrollbar styles
   // idGrid class for get clientHeight in scroll function
-
-  const responsiveColumn = widthParent < 600 ? 1 : totalData > 1 ? 2 : 1;
+  const responsiveColumn = widthParent < 550 ? 1 : totalData > 1 ? 2 : 1;
   const responsiveRowCount =
     responsiveColumn === 1
       ? totalData
       : totalData > 2
       ? Math.ceil(totalData / 2)
       : 1;
-
-  console.log("responsiveRowCount", responsiveRowCount);
-  console.log("totalData", totalData);
-  console.log("heightParent", heightParent);
-
   return (
     <Box ref={refParentBox} className={parentClassname}>
-      {data.length ? (
+      {!totalData && !isLoading ? (
+        <Box className="flex items-center justify-center w-full h-full">
+          <Text>No Data</Text>
+        </Box>
+      ) : (
         <Grid
           itemData={data}
-          className={`containerInfinite ${idGrid}`}
+          className={`containerInfinite ${idGrid} ${name}`}
           onScroll={onScroll}
           columnCount={responsiveColumn}
-          columnWidth={responsiveColumn === 1 ? widthParent : widthParent / 2}
+          columnWidth={
+            responsiveColumn === 1
+              ? widthParent > 400
+                ? widthParent / 1.9
+                : widthParent
+              : widthParent > 1200
+              ? 550
+              : widthParent / 2
+          }
           height={heightParent}
           innerElementType={innerElementType}
           rowCount={responsiveRowCount}
@@ -119,6 +130,7 @@ const GridListing = ({
             if (dataItem) {
               return (
                 <div
+                  id={`grid_${dataItem.id}`}
                   key={`${rowIndex}_${columnIndex}`}
                   style={{
                     ...style,
@@ -134,6 +146,8 @@ const GridListing = ({
                       columnIndex,
                       responsiveColumn === 1
                     )}
+                    rowIndex={rowIndex}
+                    columnIndex={columnIndex}
                     openModalQuickView={(id) => openModalQuickView(id)}
                   />
                 </div>
@@ -142,10 +156,6 @@ const GridListing = ({
             return null;
           }}
         </Grid>
-      ) : (
-        <Box className="flex items-center justify-center w-full h-full">
-          <Text>No Data</Text>
-        </Box>
       )}
     </Box>
   );

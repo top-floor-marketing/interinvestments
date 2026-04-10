@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // react-query
 import { useQueryHelper } from "../GraphqlClient/useRequest";
 import {
@@ -6,6 +6,7 @@ import {
   ALL_NEIGHBORHOODS,
   ACF_OPTIONS_GlOBAL_OPTIONS,
   ALL_LISTINGS_DEVELOPMENTS,
+  GET_SINGLE_LISTING_GQL,
 } from "../GraphqlClient/GQL";
 // utils
 import { ENUM_NEIGHBORHOODS } from "../utils";
@@ -34,6 +35,7 @@ const useGetFeaturedDev = () => {
     setSearch,
     setneighborhood,
     setCategory,
+    setSelectedListing
   } = actionslices;
   const { search, neighborhood, category } = useSelector(
     (state) => state.filter
@@ -42,10 +44,13 @@ const useGetFeaturedDev = () => {
     dataCategory,
     dataListing,
     pageInfoListing,
+    isLoading: isGlobalLoading,
     isError,
-    dataNei,
     mapApiKey,
   } = useSelector((state) => state.statusQuery);
+
+  const [idSingleListing, setIdSingleListing] = useState(null);
+  const [singleListing, setSingleListing] = useState(null);
 
   const [perPage] = useState(15);
 
@@ -64,9 +69,12 @@ const useGetFeaturedDev = () => {
   const value_category_URL = urlParams.get("cat");
   const value_search_URL = urlParams.get("search");
 
+  const BASIC_ENABLED_QUERY =
+    dataCategory?.length > 0 && parseInt(category) > 0;
+
   // 1
-  useQueryHelper({
-    name: "LISTINGS_CATEGORY_By_AllListingView",
+  const { isLoading: isLoadingCategory } = useQueryHelper({
+    name: ["LISTINGS_CATEGORY_By_AllListingView"],
     gql: LISTINGS_CATEGORY,
     variables: {
       first: 3,
@@ -85,7 +93,15 @@ const useGetFeaturedDev = () => {
         if (value_category_URL) {
           dispatch(setCategory(value_category_URL));
         } else {
-          dispatch(setCategory(`${req.listingCategories.nodes[0].databaseId}`));
+          dispatch(
+            setCategory(
+              get(
+                req,
+                ["listingCategories", "nodes", "0", "databaseId"],
+                ""
+              ).toString()
+            )
+          );
         }
       },
       onError: () => {
@@ -98,23 +114,24 @@ const useGetFeaturedDev = () => {
   });
 
   // 2
-  const {
-    refetch: refetchNeightborhoods,
-    isFetching: isFetchingNeightborhoods,
-  } = useQueryHelper({
-    name: "ALL_NEIGHBORHOODS_By_AllListingView",
+  const { isFetching: isFetchingNeightborhoods } = useQueryHelper({
+    name: ["ALL_NEIGHBORHOODS_By_AllListingView", category],
     gql: ALL_NEIGHBORHOODS,
     variables: {
       categorie: ENUM_NEIGHBORHOODS(category),
     },
     config: {
-      enabled: dataCategory.length > 0 && category ? true : false,
+      cacheTime: 100000,
+      enabled: BASIC_ENABLED_QUERY,
       onSuccess: (req) => {
         // set data nei
         dispatch(setDataNeighborhood(req.neighborhoodByCategorie));
+
         // set default vaue
-        if (value_Neighborhood_URL) {
+        if (value_Neighborhood_URL && isGlobalLoading) {
           dispatch(setneighborhood(value_Neighborhood_URL));
+        } else {
+          dispatch(setneighborhood(null));
         }
       },
       onError: () => {
@@ -128,10 +145,10 @@ const useGetFeaturedDev = () => {
 
   // 3
   useQueryHelper({
-    name: "ACF_OPTIONS_GlOBAL_OPTIONS_By_AllListingView",
+    name: ["ACF_OPTIONS_GlOBAL_OPTIONS_By_AllListingView"],
     gql: ACF_OPTIONS_GlOBAL_OPTIONS,
     config: {
-      enabled: dataCategory.length > 0 && dataNei.length > 0,
+      enabled: BASIC_ENABLED_QUERY,
       onSuccess: (req) => {
         // set data acf opcion
         dispatch(
@@ -174,74 +191,117 @@ const useGetFeaturedDev = () => {
   };
 
   // 4
-  const {
-    isLoading: isLoadingListing,
-    isFetching: isFetchingListing,
-    refetch: refetchListing,
-    isFetched,
-    isSuccess,
-  } = useQueryHelper({
-    name: "ALL_LISTINGS_DEVELOPMENTS_By_AllListingView",
-    gql: ALL_LISTINGS_DEVELOPMENTS(
-      category ? category : null,
-      neighborhood ? neighborhood : null
-    ),
+  const { isFetching: isFetchingListing, refetch: refetchListing } =
+    useQueryHelper({
+      name: [
+        "ALL_LISTINGS_DEVELOPMENTS_By_AllListingView",
+        category,
+        neighborhood,
+        search,
+      ],
+      gql: ALL_LISTINGS_DEVELOPMENTS(
+        category ? category : null,
+        neighborhood ? neighborhood : null
+      ),
+      config: {
+        cacheTime: 10000,
+        enabled: BASIC_ENABLED_QUERY && !isEmpty(mapApiKey),
+        notifyOnChangeProps: "all",
+        onSuccess: (req) => {
+          // set data acf opcion
+          const newListingNodes = {
+            ...req?.listings,
+            nodes:
+              req?.listings?.nodes?.map((val) => {
+                return {
+                  ...val,
+                  uri: getUriWithAgentId(val.uri),
+                };
+              }) || [],
+          };
+          dispatch(
+            setDataListing({
+              data: {
+                ...newListingNodes,
+              },
+            })
+          );
+          // dispatch loading global false
+          dispatch(setIsLoading(false));
+          // set error
+          dispatch(setcISError(false));
+        },
+        onError: () => {
+          // dispatch loading global false
+          dispatch(setIsLoading(true));
+          // set error
+          dispatch(setcISError(true));
+        },
+      },
+      variables: {
+        ...variablesListint(),
+      },
+    });
+
+  // Get Specific Listing
+  const { isFetching: isFetchingSingle } = useQueryHelper({
+    name: ["GET_SINGLE_LISTING_GQL_", idSingleListing],
+    gql: GET_SINGLE_LISTING_GQL,
     config: {
-      enabled: !isEmpty(mapApiKey),
-      onSuccess: (req) => {
-        // set data acf opcion
-        const newListingNodes = {
-          ...req?.listings,
-          nodes:
-            req?.listings?.nodes?.map((val) => {
-              return {
-                ...val,
-                uri: getUriWithAgentId(val.uri),
-              };
-            }) || [],
-        };
-        dispatch(
-          setDataListing({
-            data: {
-              ...newListingNodes,
-            },
-          })
-        );
-        // dispatch loading global false
-        dispatch(setIsLoading(false));
+      cacheTime: 1000000,
+      notifyOnChangeProps: "all",
+      enabled:
+        BASIC_ENABLED_QUERY &&
+        !isFetchingListing &&
+        !isGlobalLoading &&
+        parseInt(idSingleListing) > 0,
+      onSuccess: (response) => {
+        const { listings } = response;
+        let content = null;
+        if (listings.nodes.length > 0) {
+          const findListing = listings.nodes[0];
+          content = {
+            photos: findListing.listingData?.newDevelopment?.photos || [],
+            ...findListing,
+            uri: getUriWithAgentId(findListing?.uri),
+          };
+        }
+        setSingleListing({ content });
       },
       onError: () => {
-        // dispatch loading global false
-        dispatch(setIsLoading(true));
-        // set error
-        dispatch(setcISError(true));
+        setIdSingleListing(null);
+        setSingleListing(null);
       },
     },
     variables: {
-      ...variablesListint(),
+      id: idSingleListing,
     },
   });
 
-  useEffect(() => {
-    if (category) {
-      refetchNeightborhoods();
-    }
-  }, [category, refetchNeightborhoods]);
+  const onChangeSingleListing = (id) => {
+    setSingleListing(null);
+    setIdSingleListing(id);
+  };
 
-  useEffect(() => {
-    if (!isEmpty(mapApiKey)) {
-      refetchListing();
-    }
-  }, [search, neighborhood, category, refetchListing, mapApiKey]);
+  const refetchOnScrollGridListing = () => {
+    dispatch(setSelectedListing(null));
+    setSingleListing(null);
+    setIdSingleListing(null);
+    refetchListing();
+  }
 
   return {
-    isFetchingNeightborhoods,
     isError,
-    isSkeleton: !isFetched && !isSuccess,
-    refetchListing,
+    isSkeletonListing:
+      isLoadingCategory || isGlobalLoading || isEmpty(mapApiKey),
+    isFetchingNeightborhoods: isFetchingNeightborhoods,
+    showOverlay: isFetchingSingle,
+    singleListing,
+    onChangeSingleListing,
+    loadingListing: isFetchingListing || isFetchingNeightborhoods,
+    refetchListing: refetchOnScrollGridListing,
     dataListing,
-    totalData: dataListing.length,
-    loadingListing: isFetchingListing || isLoadingListing,
+    totalData: dataListing?.length || 0,
   };
 };
 

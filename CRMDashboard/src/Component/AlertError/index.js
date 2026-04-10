@@ -2,7 +2,7 @@ import React from 'react'
 
 // mantine
 import { Alert } from '@mantine/core';
-import { IconAlertCircle } from '@tabler/icons';
+import { AlertCircle } from 'tabler-icons-react';
 
 const AlertError = (props) => {
 
@@ -12,7 +12,7 @@ const AlertError = (props) => {
     } = props
 
     return (
-        <Alert icon={<IconAlertCircle size={16} />} title={label} color="red" radius="md" variant="filled">
+        <Alert icon={<AlertCircle size={16} />} title={label} color="red" radius="md" variant="filled">
             {description}
         </Alert>
     )

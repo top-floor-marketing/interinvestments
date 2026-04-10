@@ -45,11 +45,13 @@ const ListingWrapper = (props) => {
     // react lottie id
     const id = "wp-loading-full-single-listing";
 
+    // //? slugLIsting.replace(/-/g, ' ') : '_null_'
+
     const { isLoading, error } = useQueryHelper({
         name: 'LISTINGS_BY_SLOG',
         gql: LISTINGS_BY_SLOG,
         variables: {
-            "title": slugLIsting ? slugLIsting.replace(/-/g, ' ') : '_null_'
+            "title": slugLIsting 
         },
         config: {
             enabled: Boolean(slugLIsting.length),

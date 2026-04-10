@@ -24,7 +24,7 @@ const ShareListing = (props) => {
   }
 
  return (
-    <Tooltip multiline
+    <Tooltip 
       position="top"
       color={clipboard.copied ? "success" : "dark"}
       placement={clipboard.copied ? "end" : "center"}

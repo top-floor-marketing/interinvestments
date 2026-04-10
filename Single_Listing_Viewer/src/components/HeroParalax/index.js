@@ -17,6 +17,8 @@ const HeroParalax = (props) => {
     return url;
   };
 
+  console.log("data = ", data);
+
   return (
     <Box className="relative w-full h-full">
       <Box style={{ zIndex: 1 }} className={`${styles.ParallaxCroma}`} />

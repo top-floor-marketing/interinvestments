@@ -11,7 +11,7 @@ const ViewLandingListing = (props) => {
   const fullUrl = (props.idAgent) ? `${props.uri}?${URL_QUERY_ID_NAME}=${props.idAgent}&shared=true` : props.uri;
 
   return (
-    <Tooltip multiline
+    <Tooltip 
       position="top"
       color={"dark"}
       placement={"center"}

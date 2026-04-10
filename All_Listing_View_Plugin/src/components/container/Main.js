@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 // components
 import FiltersListings from "../FiltersListings";
 import { SkeletonGrid, LoaderMaps } from "../LoadingListing";
@@ -6,6 +6,7 @@ import ModalQuickView from "../ModalQuickView";
 import MapListing from "../MapListing";
 import GridListing from "../GridListing";
 import AlertError from "../AlertError";
+import OverlayLoading from "../OverlayLoading";
 // Hooks
 import { useGetFeaturedDev } from "../../Hooks";
 // mantine
@@ -14,16 +15,17 @@ import { Box, Header, AppShell, LoadingOverlay } from "@mantine/core";
 import style from "../../styles.ALV.module.scss";
 
 const Main = () => {
-  const [idSingleListing, setIdSingleListing] = useState(null);
-  // usar hook, validar error o skeleton
   const {
-    isSkeleton,
-    isFetchingNeightborhoods,
     isError,
+    showOverlay,
+    singleListing,
+    onChangeSingleListing,
+    isSkeletonListing,
+    isFetchingNeightborhoods,
+    loadingListing,
     refetchListing,
     dataListing,
     totalData,
-    loadingListing,
   } = useGetFeaturedDev();
 
   if (isError) {
@@ -36,21 +38,13 @@ const Main = () => {
       </Box>
     );
   }
-
-  const onOpenModal = (idListing) => {
-    setIdSingleListing(idListing);
-  };
-
-  const onCloseModal = () => {
-    setIdSingleListing(null);
-  };
-
   return (
     <>
-      {idSingleListing && (
+      {showOverlay && <OverlayLoading />}
+      {!showOverlay && singleListing && (
         <ModalQuickView
-          idSingleListing={idSingleListing}
-          onClose={() => onCloseModal()}
+          data={singleListing}
+          onClose={() => onChangeSingleListing(null)}
         />
       )}
       <AppShell
@@ -73,43 +67,70 @@ const Main = () => {
       >
         <Box className="relative">
           <Box className={style.containerContend}>
-            {isSkeleton ? (
-              <Box className={style.containerGridCard}>
-                <SkeletonGrid />
-              </Box>
-            ) : (
-              <Box className={style.sectionGridListing}>
-                <LoadingOverlay
-                  className={style.overlayGridListing}
-                  loaderProps={{
-                    size: "sm",
-                    color: "#FFB839",
-                    variant: "bars",
+            {isSkeletonListing ? (
+              <>
+                <Box
+                  className={`${style.allListingFadeInFwd} ${style.sectionGridListing}`}
+                  style={{
+                    animationDuration: "0.5s",
                   }}
-                  visible={loadingListing}
-                  overlayOpacity={0.2}
-                  overlayColor="#c5c5c5"
-                  transitionDuration={500}
-                  overlayBlur={0.5}
-                />
-                <GridListing
-                  openModalQuickView={onOpenModal}
-                  refetch={refetchListing}
-                  data={dataListing}
-                  totalData={totalData}
-                  name="grid"
-                  isLoading={loadingListing}
-                  parentClassname={style.containerGridInfinite}
-                />
-              </Box>
+                >
+                  <SkeletonGrid />
+                </Box>
+                <Box
+                  className={`${style.allListingFadeInFwd} ${style.containerMap}`}
+                  style={{
+                    animationDuration: "0.5s",
+                    animationDelay: "0.2s",
+                  }}
+                >
+                  <LoaderMaps />
+                </Box>
+              </>
+            ) : (
+              <>
+                <Box
+                  className={`${style.allListingFadeInFwd} ${style.sectionGridListing}`}
+                  style={{
+                    animationDuration: "0.5s",
+                  }}
+                >
+                  <LoadingOverlay
+                    className={style.overlayGridListing}
+                    loaderProps={{
+                      size: "sm",
+                      color: "#FFB839",
+                      variant: "bars",
+                    }}
+                    visible={loadingListing}
+                    overlayOpacity={0.4}
+                    overlayColor="#c5c5c5"
+                    
+                    transitionDuration={300}
+                    overlayBlur={0.6}
+                  />
+                  <GridListing
+                    openModalQuickView={onChangeSingleListing}
+                    refetch={refetchListing}
+                    data={dataListing}
+                    totalData={totalData}
+                    name="grid"
+                    isLoading={loadingListing || showOverlay}
+                    parentClassname={style.containerGridInfinite}
+             
+                  />
+                </Box>
+                <Box
+                  className={`${style.allListingFadeInFwd} ${style.containerMap}`}
+                  style={{
+                    animationDuration: "0.5s",
+                    animationDelay: "0.2s",
+                  }}
+                >
+                  <MapListing isLoading={loadingListing} />
+                </Box>
+              </>
             )}
-            <Box className={style.containerMap}>
-              {isSkeleton ? (
-                <LoaderMaps />
-              ) : (
-                <MapListing isLoading={loadingListing} />
-              )}
-            </Box>
           </Box>
         </Box>
       </AppShell>

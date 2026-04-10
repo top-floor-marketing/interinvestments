@@ -2,6 +2,8 @@ import { ActionIcon, Tooltip } from "@mantine/core";
 import { FileDownload } from 'tabler-icons-react';
 import PropTypes from 'prop-types';
 
+import { memo } from "react";
+
 import PdfListener from "../../PdfListener";
 
 import useClientGlobalStore from '../../../GlobalStore/useClientGlobalStore';
@@ -18,11 +20,12 @@ const IconDownloadPdf = (props) => {
 
   return (
     <PdfListener idAgent={agentType === USER_ROLES_CRM.ADMIN ? null : props.idAgent} idListing={props.idListing}  idElement={idElement} >
-      <Tooltip multiline
+      <Tooltip 
         position="top"
         color={"dark"}
         placement={"center"}
         label={props.labelTooltip}
+        withArrow
         className={props.className}>
 
         <ActionIcon id={idElement} {...omit(props, ['labelTooltip', 'idListing', 'idAgent'])} >
@@ -55,4 +58,4 @@ IconDownloadPdf.propTypes = {
   idAgent: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
-export default IconDownloadPdf;
+export default memo(IconDownloadPdf);

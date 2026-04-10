@@ -1,34 +1,41 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from "@reduxjs/toolkit";
 // slices
-import filterSlice, { setSearch, setneighborhood, setCategory } from './filterSlice'
+import listingDataSlice, { setSelectedListing } from "./listingDataSlice";
+import filterSlice, {
+  setSearch,
+  setneighborhood,
+  setCategory,
+} from "./filterSlice";
 import statusQuerySlice, {
-    setIsLoading,
-    setcISError,
-    setDataCategory,
-    setDataNeighborhood,
-    setDataMapApiKey,
-    setDataListing,
-    setEmptyData
-} from './statusQuerysSlice'
+  setIsLoading,
+  setcISError,
+  setDataCategory,
+  setDataNeighborhood,
+  setDataMapApiKey,
+  setDataListing,
+  setEmptyData,
+} from "./statusQuerysSlice";
 
 export const store = configureStore({
-    reducer: {
-        filter: filterSlice,
-        statusQuery: statusQuerySlice
-    },
-})
+  reducer: {
+    filter: filterSlice,
+    statusQuery: statusQuerySlice,
+    listing_data: listingDataSlice,
+  },
+});
 
 const actionslices = {
-    setSearch,
-    setIsLoading,
-    setcISError,
-    setDataCategory,
-    setDataNeighborhood,
-    setneighborhood,
-    setCategory,
-    setDataMapApiKey,
-    setDataListing,
-    setEmptyData
-}
+  setSearch,
+  setIsLoading,
+  setcISError,
+  setDataCategory,
+  setDataNeighborhood,
+  setneighborhood,
+  setCategory,
+  setDataMapApiKey,
+  setDataListing,
+  setEmptyData,
+  setSelectedListing,
+};
 
-export { actionslices }
+export { actionslices };

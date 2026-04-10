@@ -173,6 +173,14 @@ const stylesProvider = () => {
                     modal: {
                         backgroundColor: theme.colors.white[0],
                         padding: "16px !important",
+                        '.mantine-Modal-header': {
+                            backgroundColor: 'transparent !important',
+                        }
+                    },
+                    root: {
+                        '.mantine-Modal-header': {
+                            backgroundColor: 'transparent !important',
+                        }
                     },
                     close: {
                         color: theme.colors.dark[0],
@@ -246,7 +254,8 @@ const stylesProvider = () => {
             styles: (theme, params) => {
                 return {
                     root: {
-                        backgroundColor: 'transparent',
+                        backgroundColor: 'transparent !important',
+                        padding: 0,
                         gap: theme.other.spacing.p2,
                         ".__mantine-ref-control": {
                             border: "0 !important"
@@ -254,6 +263,13 @@ const stylesProvider = () => {
                         ".mantine-SegmentedControl-labelActive.mantine-SegmentedControl-disabled": {
                             backgroundColor: `${theme.colors.primary[9]} !important`,
                             color: `${theme.colors.white[0]} !important`,
+                        },
+                        '.mantine-SegmentedControl-indicator': {
+                            backgroundColor: 'transparent !important',
+                        },
+                        '.mantine-SegmentedControl-control': {
+                            backgroundColor: 'transparent',
+                            borderWidth: '0 !important',
                         },
                     },
                     label: {
@@ -263,19 +279,15 @@ const stylesProvider = () => {
                             backgroundColor: `${theme.colors.gray[5]} !important`,
                         },
                     },
-                    labelActive: {
-                        backgroundColor: theme.colors.primary[0],
-                        color: `${theme.colors.white[0]} !important`,
-                        "&:hover": {
-                            backgroundColor: `${theme.colors.primary[5]} !important`,
-                        },
-                    },
-                    control: {
-                        backgroundColor: "transparent !important",
-                    },
                     controlActive: {
-                        backgroundColor: "transparent !important",
-                    },
+                        label: {
+                            backgroundColor: theme.colors.primary[0],
+                            color: `${theme.colors.white[0]} !important`,
+                            "&:hover": {
+                                backgroundColor: `${theme.colors.primary[5]} !important`,
+                            },
+                        }
+                    }
                 }
             }
         },
@@ -291,10 +303,38 @@ const stylesProvider = () => {
                 }
             }
         },
+        HoverCard: {
+            styles: (theme, params) => {
+                return {
+                    dropdown: {
+                        borderColor: 'transparent',
+                        border: '0px !important',
+                        backgroundColor: theme.colors.white[0],
+                        borderRadius: theme.radius.sm,
+                        boxShadow: theme.shadows.md,
+                        padding: 0,
+                    },
+                    arrow: {
+                        border: '1px !important',
+                        borderColor: theme.colors.dark[2],
+                    }
+                }
+            }
+        },
+        Drawer: {
+            styles: (theme, params) => { 
+                return {
+                    header: {
+                        backgroundColor: 'transparent !important',
+                    }
+                }
+            }
+        },
         Paper: {
             styles: (theme, params) => {
                 return {
                     root: {
+                        
                         backgroundColor: theme.colors.white[0],
                         borderRadius: theme.radius.sm,
                         boxShadow: theme.shadows.md,

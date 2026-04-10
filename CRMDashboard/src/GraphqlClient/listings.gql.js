@@ -21,6 +21,16 @@ export const GET_ALL_NEIGHBORHOODS = gql`
   }
   }
 `
+
+export const GET_ALL_NEIGHBORHOODS_BY_CATEGORY = gql`
+  query neighborhoodByCategorie($categorie: Categoriebeighborhood) {
+    neighborhoodByCategorie(categorie: $categorie) {
+      id
+      name
+    }
+  }
+`
+
 export const GET_ACF_OPTIONS_GlOBAL_OPTIONS = gql`
   query acfOptionsGlobalOptions {
     acfOptionsGlobalOptions {
@@ -30,7 +40,6 @@ export const GET_ACF_OPTIONS_GlOBAL_OPTIONS = gql`
     }
   }
 `
-
 export const GET_ALL_LISTINGS = (category = null, neighborhood = null) => {
 
     let taxArray = '';

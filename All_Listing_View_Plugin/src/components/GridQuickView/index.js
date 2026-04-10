@@ -1,30 +1,40 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
+// redux
+import { useDispatch } from "react-redux";
+import { actionslices } from "../../components/store";
+// mantine dev
 import { Button, Text, Box, Paper, Tooltip } from "@mantine/core";
 import { ChevronRight } from "tabler-icons-react";
-
+// components
 import CarouselMobile from "../CarouselMobile";
-
-import get from 'lodash/get';
-
+// utils
+import get from "lodash/get";
+// styles
 import styles from "./styles_gd_ALV.module.scss";
 
-const GridQuickView = ({
-  data,
-  openModalQuickView = (id) => { },
-  showOverlay = false,
-  isMobileScreen = false,
-}) => {
+const GridQuickView = (props) => {
+  const { rowIndex, columnIndex } = props;
+  const dispatch = useDispatch();
+  const { setSelectedListing } = actionslices;
+  const {
+    data,
+    openModalQuickView = (id) => {},
+    showOverlay = false,
+    isMobileScreen = false,
+  } = props;
+
   // @apply should not be used with the 'group' utility
   const allProps = {
     paperItem: {
-      className: " group " + styles.paperItem,
+      className: " group  " + styles.paperItem,
     },
     imgCover: {
       className: styles.imgCover,
     },
     filter: {
-      className: "group-hover:bg-white group-hover:opacity-[0.05] " + styles.filter,
+      className:
+        "group-hover:bg-white group-hover:opacity-[0.05] " + styles.filter,
     },
     infoContainer: {
       className:
@@ -46,7 +56,8 @@ const GridQuickView = ({
         onClick: () => openModalQuickView(id),
         disabled: showOverlay,
         variant: "white",
-        className: "btn-wp-primary btn-wp-primary-rounded " + styles.buttonQuickView,
+        className:
+          "btn-wp-primary btn-wp-primary-rounded " + styles.buttonQuickView,
       };
     },
     buttonRedirect: (uri) => {
@@ -60,15 +71,37 @@ const GridQuickView = ({
     },
   };
 
+  const handleMarkerMouseOver = () => {
+    if (data.id) {
+      dispatch(
+        setSelectedListing({
+          id: data.id,
+          lat: data.latitude,
+          lng: data.longitude,
+        })
+      );
+    }
+  };
+
+  const handleMarkerMouseOut = () => {
+    //dispatch(setSelectedListing(null));
+  };
+
   return (
     <Paper
+      onMouseOver={handleMarkerMouseOver}
+      onMouseOut={handleMarkerMouseOut}
       {...allProps.paperItem}
+      style={{
+        animationDuration: "0.7s",
+        animationDelay: `${rowIndex * 0.15 + columnIndex * 0.15}s`,
+      }}
     >
       {isMobileScreen ? (
         <CarouselMobile photos={get(data, ["photos"], [])} />
       ) : (
         <img
-          src={get(data, ["photos", "0", "sourceUrl"],"")}
+          src={get(data, ["photos", "0", "sourceUrl"], "")}
           alt="Interinvestments img"
           {...allProps.imgCover}
         />
@@ -87,16 +120,13 @@ const GridQuickView = ({
                 <ChevronRight size={18} color="#FFB839" />
               </Button>
             </Tooltip>
-
           </>
         ) : (
           <>
             <Text {...allProps.textTitle}>{data.title}</Text>
             <Text {...allProps.textSubTitle}>{data.subTitle}</Text>
             <Box {...allProps.gridButtons}>
-              <Button {...allProps.buttonQuickView(data.id)}>
-                Quick View
-              </Button>
+              <Button {...allProps.buttonQuickView(data.id)}>Quick View</Button>
               <Tooltip label="View Full Property">
                 <Button {...allProps.buttonRedirect(data.uri)}>
                   <ChevronRight size={24} color="#FFB839" />
@@ -115,7 +145,7 @@ GridQuickView.propTypes = {
   openModalQuickView: PropTypes.func,
   showOverlay: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
-  index: PropTypes.number
+  index: PropTypes.number,
 };
 
-export default GridQuickView;
+export default memo(GridQuickView);

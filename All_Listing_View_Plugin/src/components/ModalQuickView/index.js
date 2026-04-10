@@ -1,185 +1,161 @@
 import PropTypes from "prop-types";
-import { useRef, useState } from "react";
-// mantine
+import { useRef } from "react";
 import { Button, Divider, Box } from "@mantine/core";
 import { ChevronRight, ChevronLeft } from "tabler-icons-react";
-// componets
-import CarouselQuickView from "./CarouselQuickView";
-import OverlayLoading from '../OverlayLoading'
-// hooks
+
 import ModalHOC from "./ModalHOC";
-// react-query
-import { useQueryHelper } from '../../GraphqlClient/useRequest';
-import { GET_SINGLE_LISTING_GQL } from '../../GraphqlClient/GQL'
+import CarouselQuickView from "./CarouselQuickView";
 
-//lodash
-import toInteger from "lodash/toInteger";
-import toLower from "lodash/toLower";
+import styles from "./styles_gd.module.scss";
 
-// styles
-import styles from "./styles_alv.module.scss";
-
-const URL_SHARED_FLAG = 'shared';
-const URL_QUERY_ID_NAME = 'agent-id';
-
-const ModalQuickView = ({ onClose, idSingleListing }) => {
-  const [content, setContent] = useState(null)
+const ModalQuickView = ({ data, onClose }) => {
+  console.log("data", data);
+  const { content } = data;
 
   const childRef = useRef(null);
-
-  const getUriWithAgentId = (uri) => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const isShared = (toLower(queryParams.get(URL_SHARED_FLAG)) === 'true');
-    const idInUrl = toInteger(queryParams.get(URL_QUERY_ID_NAME));
-    return (isShared && idInUrl) ? `${uri}?${URL_QUERY_ID_NAME}=${idInUrl}&${URL_SHARED_FLAG}=true` : uri
-  }
-
-  // Get Specific Listing
-  const { isLoading, isFetching } = useQueryHelper({
-    name: "GET_SINGLE_LISTING_GQL_By_",
-    gql: GET_SINGLE_LISTING_GQL,
-    config: {
-      onSuccess: (response) => {
-        const { listings } = response;
-        let content = null;
-        if (listings.nodes.length > 0) {
-          const findListing = listings.nodes[0];
-          content = {
-            photos: findListing.listingData?.newDevelopment?.photos || [],
-            ...findListing,
-            uri:  getUriWithAgentId(findListing?.uri)
-          };
-        }
-        setContent(content)
-      },
-      onError: () => {
-        onClose()
-      },
-    },
-    variables: {
-      id: idSingleListing,
-    },
-  });
 
   const allProps = {
     modalHoc: {
       onClose,
       opened: true,
+      closeOnEscape: true,
     },
     buttonView: {
       variant: "white",
       component: "a",
-      href: content?.uri,
-      className: "btn-wp-primary " + styles.buttonView,
+      href: content?.uri || "",
+      className: "btn-wp-primary-simple " + styles.buttonView,
     },
     buttonChangeCarousel: {
       variant: "white",
       className: "group " + styles.buttonChangeCarousel,
-    }
+    },
   };
 
   const prevSlider = () => {
     if (childRef.current) {
       childRef.current.prev();
     }
-  }
+  };
 
   const nextSlider = () => {
     if (childRef.current) {
       childRef.current.next();
     }
-  }
+  };
 
+  const priceMin = content.listingData?.newDevelopment?.priceMin || "";
+  const priceMax = content.listingData?.newDevelopment?.priceMax || "";
 
-  if (isFetching || isLoading) {
-    return (
-      <OverlayLoading />
-    )
-  }
+  const contentData = {
+    priceMin: priceMin.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }),
+    priceMax: priceMax.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }),
+    views: content.listingData?.newDevelopment?.views || null,
+    livingArea: content.listingData?.newDevelopment?.livingArea || null,
+  };
 
-  if (content) {
-    const contentData = {
-      priceMin: content.listingData?.newDevelopment?.priceMin || null,
-      priceMax: content.listingData?.newDevelopment?.priceMax || null,
-      views: content.listingData?.newDevelopment?.views || null,
-      livingArea: content.listingData?.newDevelopment?.contentLivingArea?.livingArea || null
-    }
-    return (
-      <ModalHOC {...allProps.modalHoc}>
-        <Box className={styles.containerTopRow}>
-          <Box className={styles.carouselDivContainer}>
+  return (
+    <ModalHOC {...allProps.modalHoc}>
+      <div className={styles.containerContentModal}>
+        <div className={styles.containerTopRow}>
+          <div className={styles.carouselDivContainer}>
             <CarouselQuickView ref={childRef} photos={content.photos} />
-          </Box>
-          <Box className={styles.contentDivContainer}>
-            {
-              (contentData.priceMin) &&
+          </div>
+          <div className={styles.contentDivContainer}>
+            {contentData.priceMin && (
               <>
                 <Divider size="xs" color="dark" className="my-5" />
-                <label className={styles.labelContentTittle}>Price Ranges:</label>
-                <label className={styles.labelContentValue}>${contentData.priceMin} - ${contentData.priceMax}</label>
+                <label className={styles.labelContentTittle}>
+                  Price Ranges:
+                </label>
+                <label className={styles.labelContentValue}>
+                  {contentData.priceMin} - {contentData.priceMax}
+                </label>
               </>
-            }
-            {
-              (contentData.livingArea) &&
+            )}
+            {contentData.livingArea && (
               <>
                 <Divider size="xs" color="dark" className="my-5" />
-                <label className={styles.labelContentTittle}>Living Area:</label>
-                <label className={styles.labelContentValue}>{contentData.livingArea}</label>
+                <label className={styles.labelContentTittle}>
+                  Living Area:
+                </label>
+                <label className={styles.labelContentValue}>
+                  {contentData.livingArea}
+                </label>
               </>
-            }
-            {
-              (contentData.views) &&
+            )}
+            {contentData.views && (
               <>
                 <Divider size="xs" color="dark" className="my-5" />
                 <label className={styles.labelContentTittle}>Views:</label>
-                <label className={styles.labelContentValue}>{contentData.views}</label>
+                <label className={styles.labelContentValue}>
+                  {contentData.views}
+                </label>
               </>
-            }
+            )}
             <Box className={styles.disclaimer}>
               <Divider size="0px" color="dark" className="my-5" />
-              <label>Prices, Terms and Availability are subject to changes without notice. Square footage is believed to be accurate, but may be revised.</label>
-            </Box>
-          </Box>
-        </Box>
-        <Box className={styles.containerBottomRow}>
-          <Box className={styles.nameOfDevelopmentContainer}>
-            <Box className={styles.nameRowDevelopment}>
-              <label className={styles.labelTitle}>{content.title}</label>
-              <label className={styles.labelNameOfDevelopment}>
-                {
-                  content.neighborhoods?.nodes.length ? content.neighborhoods?.nodes[0]?.name || '' : ''
-                }
+              <label>
+                Prices, Terms and Availability are subject to changes without
+                notice. Square footage is believed to be accurate, but may be
+                revised.
               </label>
             </Box>
-            <Box className={styles.externalButtonsDevelopment}>
-              <Button {...allProps.buttonChangeCarousel} onClick={() => prevSlider()}>
-                <ChevronLeft size={24} color="#000" className={"group-hover:stroke-[#FFB839]"} />
+          </div>
+        </div>
+        <div className={styles.containerBottomRow}>
+          <div className={styles.nameOfDevelopmentContainer}>
+            <div className={styles.nameRowDevelopment}>
+              <label className={styles.labelTitle}>{content.title}</label>
+              <label className={styles.labelNameOfDevelopment}>
+                {content.neighborhoods?.nodes.length
+                  ? content.neighborhoods?.nodes[0]?.name || ""
+                  : ""}
+              </label>
+            </div>
+            <div className={styles.externalButtonsDevelopment}>
+              <Button
+                {...allProps.buttonChangeCarousel}
+                onClick={() => prevSlider()}
+              >
+                <ChevronLeft
+                  size={24}
+                  color="#000"
+                  className={"group-hover:stroke-[#FFB839]"}
+                />
               </Button>
-              <Button {...allProps.buttonChangeCarousel} onClick={() => nextSlider()}>
-                <ChevronRight className={"group-hover:stroke-[#FFB839]"} size={24} color="#000" />
+              <Button
+                {...allProps.buttonChangeCarousel}
+                onClick={() => nextSlider()}
+              >
+                <ChevronRight
+                  className={"group-hover:stroke-[#FFB839]"}
+                  size={24}
+                  color="#000"
+                />
               </Button>
-            </Box>
-          </Box>
-          <Box className={styles.containerButtonView}>
+            </div>
+          </div>
+          <div className={styles.containerButtonView}>
             <Button {...allProps.buttonView}>View Project</Button>
-          </Box>
-        </Box>
-      </ModalHOC>
-    );
-  }
-  return null
-}
-
-ModalQuickView.defaultProps = {
-  data: {
-    content: {}
-  },
-  onClose: () => { console.log('onClose') }
-}
+          </div>
+        </div>
+      </div>
+    </ModalHOC>
+  );
+};
 
 ModalQuickView.propTypes = {
   data: PropTypes.object,
   onClose: PropTypes.func,
 };
 
-export default ModalQuickView
+export default ModalQuickView;

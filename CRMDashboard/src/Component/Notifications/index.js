@@ -6,7 +6,6 @@ import uniqueId from 'lodash/uniqueId';
 export const notificationSuccess = ({ id, title, color, icon }) => {
   return showNotification({
     id: id || uniqueId('NotificationSuccess'),
-    disallowClose: true,
     title: title || "Success",
     color: color || 'success',
     styles: (theme) => ({
@@ -28,7 +27,6 @@ export const notificationSuccess = ({ id, title, color, icon }) => {
 export const notificationError = ({ id, title, color, icon, message }) => {
   return showNotification({
     id: id || uniqueId('NotificationError'),
-    disallowClose: true,
     title: title || "Error",
     message: message || null,
     color: color || 'secondary',

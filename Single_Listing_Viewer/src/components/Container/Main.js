@@ -22,7 +22,8 @@ const Main = () => {
 
   const getSlugFromUri = () => {
     const uri = window.location.pathname;
-    return uri.split("/")[2];
+    const finalSlug = uri.split("/")[2];
+    return finalSlug;
   };
 
   return (
@@ -64,7 +65,6 @@ const Main = () => {
             data={{
               specs: valueListing?.listingData?.newDevelopment.specs,
               finishes: valueListing?.listingData?.newDevelopment.finishes,
-              // address: valueListing?.address.address,
               floorplans: valueListing?.floorplans?.allFloorplans,
               team: valueListing?.team.team,
             }}

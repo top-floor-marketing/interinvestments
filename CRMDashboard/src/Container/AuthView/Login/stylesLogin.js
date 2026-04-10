@@ -3,7 +3,7 @@ import fondoLogin from "./assets/images/fondoLogin.jpg";
 // mantine
 import { createStyles } from "@mantine/core";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   containerLogin: {
     margin: "auto",
     height: "auto",
@@ -29,7 +29,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   contentLogin: {
     display: "grid",
     gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
-    [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+    [`@media (min-width: ${theme.breakpoints.md})`]: {
       gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
     },
   },

@@ -1,11 +1,7 @@
-.ImagenSkeleton {
-    @apply col-span-3 md:col-span-1;
+.selectSkeleton {
+    @apply col-span-6 md:col-span-3 xl:col-span-2;
 }
 
-.titleSkeleton {
-    @apply col-span-3 md:col-span-1;
-}
-
-.descriptionSkeleton {
-    @apply col-span-3 md:col-span-2;
+.InputTabsSkeleton {
+    @apply col-span-6 font-outfit md:col-span-6 xl:col-span-4;
 }

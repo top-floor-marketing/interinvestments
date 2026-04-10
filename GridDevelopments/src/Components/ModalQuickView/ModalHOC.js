@@ -10,12 +10,12 @@ const ModalHOC = (props) => {
 
   const sizeModal =
     width > 2300
-      ? "calc(70%)"
+      ? "calc(60%)"
       : width > 1700
-      ? "calc(80%)"
+      ? "calc(75%)"
       : width > 1300
-      ? "calc(83%)"
-      : "calc(96%)";
+      ? "calc(80%)"
+      : "calc(98%)";
   const propsModal = {
     opened,
     overlayProps: {

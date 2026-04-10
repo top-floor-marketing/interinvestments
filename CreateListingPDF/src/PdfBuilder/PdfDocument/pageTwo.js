@@ -110,7 +110,7 @@ const PageTwo = ({ listing, agent }) => {
     });
     const urlListing = get(listing, ["uri"], null);
     const isMaxExceed = (description.length > 1100);
-    const estDate = dayjs(get(listing, ["listingData", "newDevelopment", "estimatedDateOfCompletion"], ""), ["DD-MM-YY"]).format("MM.YYYY");
+    const estDate = dayjs(get(listing, ["listingData", "newDevelopment", "estimatedDateOfCompletion"], ""), ["DD/MM/YYYY"]).format("YYYY");
     
     return (
         <Page size="A4" style={styles.page} orientation={"landscape"}>

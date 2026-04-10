@@ -1,10 +1,10 @@
-import { Text, createStyles, Paper, Select, SegmentedControl, TextInput } from "@mantine/core";
+import { Text, createStyles, Paper, Select, SegmentedControl, TextInput, getStylesRef } from "@mantine/core";
 import { BuildingCommunity, Search } from 'tabler-icons-react';
 import useClientGlobalStore from "../../GlobalStore/useClientGlobalStore";
 
 import { INPUT_BORDER_BOTTOM } from "../../MatineProvider/stylesProvider";
 
-const useStyles = createStyles((theme, _params, getRef) => ({
+const useStyles = createStyles((theme, _params) => ({
   container: {
     width: "100%",
     display: "flex",
@@ -22,31 +22,31 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       gap: theme.other.spacing.p2,
     },
     [`${theme.fn.largerThan(1800)}`]: { 
-      [`.${getRef('selectNei')}`]: {
+      [`.${getStylesRef('selectNei')}`]: {
         minWidth: "250px",
         maxWidth: "250px",
       },
-      [`.${getRef('inputSearch')}`]: {
+      [`.${getStylesRef('inputSearch')}`]: {
         minWidth: "250px",
         maxWidth: "250px",
       }
     }
   },
   textFilter: {
-    ref: getRef('textFilter'),
+    ref: getStylesRef('textFilter'),
     fontWeight: 700,
     fontSize: "18px",
     minWidth: "50px",
     height: "fit-content"
   },
   selectNei: {
-    ref: getRef('selectNei'),
+    ref: getStylesRef('selectNei'),
     minWidth: "200px",
     maxWidth: "200px",
     ...INPUT_BORDER_BOTTOM
   },
   inputSearch: {
-    ref: getRef('inputSearch'),
+    ref: getStylesRef('inputSearch'),
     minWidth: "200px",
     maxWidth: "200px",
     ...INPUT_BORDER_BOTTOM
@@ -65,13 +65,15 @@ const FilterOptions = ({ categoryProps, neiProps, isLoading }) => {
       disabled={isLoading}
         value={categoryProps.value}
         onChange={categoryProps.onChange}
-        data={listingCategories} fullWidth transitionDuration={0} />
+        data={listingCategories} fullWidth
+         transitionProps={{ transition: 'pop-top-left', duration: 0, timingFunction: 'ease' }}
+         />
       <Select value={neiProps.value}
         onChange={neiProps.onChange}
         data={listingNei}
         disabled={isLoading}
         transition="pop-top-left"
-        transitionDuration={80}
+        transitionProps={{ transition: 'pop-top-left', duration: 80, timingFunction: 'ease' }}
         transitionTimingFunction="ease"
         placeholder="Neighborhood"
         icon={<BuildingCommunity size={14} />}

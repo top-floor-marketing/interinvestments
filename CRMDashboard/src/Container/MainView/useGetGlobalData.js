@@ -37,7 +37,7 @@ const useGetGlobalData = () => {
   }, []);
 
   useQueryHelper({
-    name: "get-status-user-leads",
+    name: ["get-status-user-leads"],
     gql: GET_STATUS_USER_LEADS,
     config: {
       onSuccess: (response) => {
@@ -57,7 +57,7 @@ const useGetGlobalData = () => {
         setStatusUserLead(dataOrder);
         setTimeout(() => {
           setFinishSetStatus(true);
-        }, 200);
+        }, 500);
         
       },
     },
