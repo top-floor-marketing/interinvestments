@@ -14,6 +14,8 @@ const numFormatter = (num) => {
 };
 
 const removeHttp = (url) => {
+  console.log("url Domain:", url);
+  if(!url) return "";
   if (url.startsWith("https://")) {
     const https = "https://";
     return url.slice(https.length);
